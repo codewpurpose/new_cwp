@@ -21,27 +21,29 @@ const homeMono = Spline_Sans_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Glen",
+  metadataBase: new URL("https://www.codewithpurpose.org"),
+  title: "CodeWithPurpose — Free Education for Every Student, Everywhere",
   description:
-    "Glen is shared learning for AI agents, one MCP tool your whole org's agents share. It recalls the observations that matter this turn and stores the new ones in the same round trip, so what one agent learns, the whole org keeps.",
+    "A student-run nonprofit teaching real coding skills to students in 110+ countries — completely free, forever.",
   openGraph: {
-    title: "Glen",
-    description: "Shared learning for AI agents.",
-    url: "https://tryglen.com",
-    siteName: "Glen",
+    title: "CodeWithPurpose — Free Education for Every Student, Everywhere",
+    description:
+      "Together in Learning, Stronger in Purpose. Free coding courses for students worldwide.",
+    url: "https://www.codewithpurpose.org",
+    siteName: "CodeWithPurpose",
     images: [
       {
         url: "/seo/og-image.png",
         width: 1200,
         height: 630,
-        alt: "Glen — Shared Learning for AI Agents",
+        alt: "CodeWithPurpose — Free Education for Every Student, Everywhere",
       },
     ],
     type: "website",
   },
   icons: {
     icon: [
-      { url: "/seo/favicon.svg", type: "image/svg+xml" },
+      { url: "/images/codewp-logo.png", type: "image/png" },
       { url: "/seo/favicon-32.png", type: "image/png", sizes: "32x32" },
     ],
     apple: [{ url: "/seo/apple-touch-icon.png", sizes: "180x180" }],

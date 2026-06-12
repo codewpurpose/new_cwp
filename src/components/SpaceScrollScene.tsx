@@ -1,7 +1,7 @@
 "use client";
 
 import { useMemo, useRef } from "react";
-import { Canvas, useFrame, useThree } from "@react-three/fiber";
+import { Canvas, useFrame } from "@react-three/fiber";
 import * as THREE from "three";
 
 const vertexShader = /* glsl */ `
@@ -220,17 +220,21 @@ function ParticleSphere({
   );
 }
 
+function createDustPositions() {
+  const arr = new Float32Array(900);
+  for (let i = 0; i < 300; i++) {
+    arr[3 * i] = (Math.random() - 0.5) * 15;
+    arr[3 * i + 1] = (Math.random() - 0.5) * 10;
+    arr[3 * i + 2] = (Math.random() - 0.5) * 10;
+  }
+  return arr;
+}
+
+const DUST_POSITIONS = createDustPositions();
+
 function DustField() {
   const pointsRef = useRef<THREE.Points>(null);
-  const positions = useMemo(() => {
-    const arr = new Float32Array(900);
-    for (let i = 0; i < 300; i++) {
-      arr[3 * i] = (Math.random() - 0.5) * 15;
-      arr[3 * i + 1] = (Math.random() - 0.5) * 10;
-      arr[3 * i + 2] = (Math.random() - 0.5) * 10;
-    }
-    return arr;
-  }, []);
+  const positions = DUST_POSITIONS;
 
   useFrame((state) => {
     if (pointsRef.current) {
@@ -281,9 +285,7 @@ function CameraRig({
   offsetY: number;
   scale: number;
 }) {
-  const { camera, size } = useThree();
-
-  useFrame(() => {
+  useFrame(({ camera, size }) => {
     const aspect = size.width / size.height;
     const base = aspect < 0.8 ? 7 : aspect < 1.2 ? 6.2 : 5.5;
     const targetZ = base / scale;

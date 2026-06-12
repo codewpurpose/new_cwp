@@ -1,0 +1,87 @@
+import type { Metadata } from "next";
+import Link from "next/link";
+import { PageHero, PageSection } from "@/components/PageHero";
+import { PageShell } from "@/components/PageShell";
+import { images } from "@/lib/images";
+import { CONTACT_HREF, COURSES_HREF } from "@/lib/links";
+
+export const metadata: Metadata = {
+  title: "Join Us — CodeWithPurpose",
+  description:
+    "Volunteer with CodeWithPurpose. Teach, mentor, and help bring free coding education to students worldwide.",
+};
+
+const roles = [
+  {
+    title: "Teach a course",
+    body: "Lead workshops, record lessons, or mentor students through our Python and Vibecoding curricula. No formal teaching experience required — just passion for helping others learn.",
+  },
+  {
+    title: "Run a workshop",
+    body: "Organize hands-on coding sessions in your school, library, or community. We provide curriculum, materials, and support to help you get started.",
+  },
+  {
+    title: "Spread the word",
+    body: "Share CodeWithPurpose with students who need free education. Help us reach more countries, more classrooms, and more curious minds.",
+  },
+  {
+    title: "Build with us",
+    body: "Contribute to our website, curriculum, outreach, or operations. Students with any skill — coding, design, writing, organizing — are welcome.",
+  },
+];
+
+export default function JoinPage() {
+  return (
+    <PageShell>
+      <PageHero
+        eyebrow="Join Us"
+        title="Help us bring free coding education to every student"
+        description="CodeWithPurpose runs on volunteers. Whether you teach one workshop or mentor one student, you help build a more inclusive future where code is a tool for good."
+        image={images.danvilleSanRamon}
+        imageAlt="CodeWithPurpose volunteers at a community event"
+      >
+        <Link href={CONTACT_HREF} className="home-btn home-btn-fill">
+          Get in Touch
+        </Link>
+        <Link href={COURSES_HREF} className="home-btn home-btn-outline">
+          See Our Courses
+        </Link>
+      </PageHero>
+
+      <PageSection>
+        <div className="grid gap-4 md:grid-cols-2">
+          {roles.map((role) => (
+            <div key={role.title} className="home-card home-lift rounded-xl p-6 md:p-8">
+              <h2 className="text-xl">{role.title}</h2>
+              <p className="mt-3 text-[15px] leading-[1.55] text-[#636363]">
+                {role.body}
+              </p>
+            </div>
+          ))}
+        </div>
+      </PageSection>
+
+      <PageSection className="border-t-[0.5px] border-[#e1e1e1] bg-[#1e3c2c] text-[#dbefdb]">
+        <div className="mx-auto max-w-3xl text-center">
+          <h2 className="home-serif text-[1.75rem] text-[#f9f9f9] md:text-[2.25rem]">
+            Ready to volunteer?
+          </h2>
+          <p className="mt-4 text-[#dbefdb]/90">
+            Email us at{" "}
+            <a href="mailto:contact@codewithpurpose.org" className="underline">
+              contact@codewithpurpose.org
+            </a>{" "}
+            and tell us how you&apos;d like to help. We&apos;ll get back to you
+            within a few days.
+          </p>
+          <Link
+            href={CONTACT_HREF}
+            className="home-btn home-btn-fill mt-8 !border-[#dbefdb] !bg-[#dbefdb] !text-[#1e3c2c]"
+          >
+            Contact Us
+          </Link>
+        </div>
+      </PageSection>
+    </PageShell>
+  );
+}
