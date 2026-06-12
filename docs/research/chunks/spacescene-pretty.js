@@ -1,0 +1,214 @@
+"use strict";
+(self.webpackChunk_N_E = self.webpackChunk_N_E || []).push([
+    [9611], {
+        9611: (n, e, o) => {
+            o.r(e), o.d(e, {
+                SpaceScrollScene: () => m,
+                fragmentShader: () => c,
+                vertexShader: () => l
+            });
+            var t = o(5155),
+                i = o(3388),
+                a = o(258),
+                r = o(2115),
+                s = o(5339);
+            let l = "\n  attribute float aAlpha;\n  attribute vec3 aRandomness;\n\n  uniform float uTime;\n  uniform float uSize;\n  uniform float uPixelRatio;\n  uniform float uAmplitude;\n  uniform float uFrequency;\n  uniform float uSpeed;\n  uniform float uDepth;\n\n  varying float vAlpha;\n  varying float vDistance;\n  varying float vNoise;\n  varying vec3 vColor;\n\n  uniform float uRcolor;\n  uniform float uGcolor;\n  uniform float uBcolor;\n  uniform float uRnoise;\n  uniform float uGnoise;\n  uniform float uBnoise;\n  uniform float uDissipation;\n\n  const float PI = 3.1415926535897932384626433832795;\n\n  // Simplex noise helpers\n  vec3 mod289(vec3 x) { return x - floor(x * (1.0 / 289.0)) * 289.0; }\n  vec4 mod289(vec4 x) { return x - floor(x * (1.0 / 289.0)) * 289.0; }\n  vec4 permute(vec4 x) { return mod289(((x * 34.0) + 1.0) * x); }\n  vec4 taylorInvSqrt(vec4 r) { return 1.79284291400159 - 0.85373472095314 * r; }\n\n  float snoise(vec3 v) {\n    const vec2 C = vec2(1.0/6.0, 1.0/3.0);\n    const vec4 D = vec4(0.0, 0.5, 1.0, 2.0);\n    vec3 i = floor(v + dot(v, C.yyy));\n    vec3 x0 = v - i + dot(i, C.xxx);\n    vec3 g = step(x0.yzx, x0.xyz);\n    vec3 l = 1.0 - g;\n    vec3 i1 = min(g.xyz, l.zxy);\n    vec3 i2 = max(g.xyz, l.zxy);\n    vec3 x1 = x0 - i1 + C.xxx;\n    vec3 x2 = x0 - i2 + C.yyy;\n    vec3 x3 = x0 - D.yyy;\n    i = mod289(i);\n    vec4 p = permute(permute(permute(\n      i.z + vec4(0.0, i1.z, i2.z, 1.0))\n      + i.y + vec4(0.0, i1.y, i2.y, 1.0))\n      + i.x + vec4(0.0, i1.x, i2.x, 1.0));\n    float n_ = 0.142857142857;\n    vec3 ns = n_ * D.wyz - D.xzx;\n    vec4 j = p - 49.0 * floor(p * ns.z * ns.z);\n    vec4 x_ = floor(j * ns.z);\n    vec4 y_ = floor(j - 7.0 * x_);\n    vec4 x = x_ * ns.x + ns.yyyy;\n    vec4 y = y_ * ns.x + ns.yyyy;\n    vec4 h = 1.0 - abs(x) - abs(y);\n    vec4 b0 = vec4(x.xy, y.xy);\n    vec4 b1 = vec4(x.zw, y.zw);\n    vec4 s0 = floor(b0) * 2.0 + 1.0;\n    vec4 s1 = floor(b1) * 2.0 + 1.0;\n    vec4 sh = -step(h, vec4(0.0));\n    vec4 a0 = b0.xzyw + s0.xzyw * sh.xxyy;\n    vec4 a1 = b1.xzyw + s1.xzyw * sh.zzww;\n    vec3 p0 = vec3(a0.xy, h.x);\n    vec3 p1 = vec3(a0.zw, h.y);\n    vec3 p2 = vec3(a1.xy, h.z);\n    vec3 p3 = vec3(a1.zw, h.w);\n    vec4 norm = taylorInvSqrt(vec4(dot(p0,p0), dot(p1,p1), dot(p2,p2), dot(p3,p3)));\n    p0 *= norm.x; p1 *= norm.y; p2 *= norm.z; p3 *= norm.w;\n    vec4 m = max(0.6 - vec4(dot(x0,x0), dot(x1,x1), dot(x2,x2), dot(x3,x3)), 0.0);\n    m = m * m;\n    return 42.0 * dot(m*m, vec4(dot(p0,x0), dot(p1,x1), dot(p2,x2), dot(p3,x3)));\n  }\n\n  float fbm(vec3 x) {\n    float v = 0.0;\n    float a = 0.5;\n    vec3 shift = vec3(100);\n    for (int i = 0; i < 4; ++i) {\n      v += a * snoise(x + uTime * uSpeed * 0.15);\n      x = x * 2.0 + shift;\n      a *= 0.5;\n    }\n    return v;\n  }\n\n  void main() {\n    vNoise = fbm(position * uFrequency);\n\n    // Color with noise variation\n    float r = uRcolor / 255.0 + (clamp(vNoise, 0.0, 1.0) * 2.0 * (uRnoise - uRcolor) / 255.0);\n    float g = uGcolor / 255.0 + (clamp(vNoise, 0.0, 1.0) * 2.0 * (uGnoise - uGcolor) / 255.0);\n    float b = uBcolor / 255.0 + (clamp(vNoise, 0.0, 1.0) * 2.0 * (uBnoise - uBcolor) / 255.0);\n    vColor = vec3(r, g, b);\n\n    // Displace with noise\n    vec3 displaced = position * (1.0 + uAmplitude * vNoise);\n    displaced += uDepth * aRandomness * snoise(position + vec3(uTime * uSpeed));\n\n    // Dissipation: push points outward along their normal and along a per-point random direction.\n    vec3 outward = normalize(position);\n    float burst = uDissipation * (8.0 + length(aRandomness) * 60.0);\n    displaced += outward * burst;\n    displaced += aRandomness * uDissipation * 40.0;\n\n    vec4 mvPosition = modelViewMatrix * vec4(displaced, 1.0);\n    gl_Position = projectionMatrix * mvPosition;\n\n    vDistance = -mvPosition.z;\n    gl_PointSize = uSize * uPixelRatio * (80.0 / vDistance);\n    gl_PointSize = clamp(gl_PointSize, 0.5, 6.0);\n\n    vAlpha = aAlpha * (80.0 / vDistance) * (1.0 - uDissipation);\n    vAlpha = clamp(vAlpha, 0.0, 0.9);\n  }\n",
+                c = "\n  varying float vAlpha;\n  varying vec3 vColor;\n\n  void main() {\n    // Hard crisp dot\n    float d = length(gl_PointCoord - vec2(0.5));\n    if (d > 0.4) discard;\n    gl_FragColor = vec4(vColor, vAlpha);\n  }\n";
+
+            function u(n) {
+                let {
+                    dissipation: e,
+                    baseColor: o = [8, 60, 35],
+                    noiseColor: a = [30, 200, 160]
+                } = n, u = (0, r.useRef)(null), v = (0, r.useRef)(null), {
+                    geometry: p,
+                    uniforms: x
+                } = (0, r.useMemo)(() => {
+                    let n = new Float32Array(75e3),
+                        e = new Float32Array(25e3),
+                        t = new Float32Array(75e3),
+                        i = (1 + Math.sqrt(5)) / 2;
+                    for (let o = 0; o < 25e3; o++) {
+                        let a = 2 * Math.PI * o / i,
+                            r = Math.acos(1 - 2 * (o + .5) / 25e3);
+                        n[3 * o] = 2.2 * Math.sin(r) * Math.cos(a), n[3 * o + 1] = 2.2 * Math.sin(r) * Math.sin(a), n[3 * o + 2] = 2.2 * Math.cos(r), e[o] = .5 + .5 * Math.random(), t[3 * o] = (Math.random() - .5) * .08, t[3 * o + 1] = (Math.random() - .5) * .08, t[3 * o + 2] = (Math.random() - .5) * .08
+                    }
+                    let r = new s.LoY;
+                    return r.setAttribute("position", new s.THS(n, 3)), r.setAttribute("aAlpha", new s.THS(e, 1)), r.setAttribute("aRandomness", new s.THS(t, 3)), {
+                        geometry: r,
+                        uniforms: {
+                            uTime: {
+                                value: 0
+                            },
+                            uSize: {
+                                value: 1
+                            },
+                            uPixelRatio: {
+                                value: Math.min(window.devicePixelRatio, 2)
+                            },
+                            uAmplitude: {
+                                value: .12
+                            },
+                            uFrequency: {
+                                value: 1.2
+                            },
+                            uSpeed: {
+                                value: .3
+                            },
+                            uDepth: {
+                                value: .5
+                            },
+                            uRcolor: {
+                                value: o[0]
+                            },
+                            uGcolor: {
+                                value: o[1]
+                            },
+                            uBcolor: {
+                                value: o[2]
+                            },
+                            uRnoise: {
+                                value: a[0]
+                            },
+                            uGnoise: {
+                                value: a[1]
+                            },
+                            uBnoise: {
+                                value: a[2]
+                            },
+                            uDissipation: {
+                                value: 0
+                            }
+                        }
+                    }
+                }, [o[0], o[1], o[2], a[0], a[1], a[2]]);
+                return (0, i.D)(n => {
+                    let o = v.current;
+                    o && (o.uniforms.uTime.value = n.clock.elapsedTime, o.uniforms.uDissipation.value = e), u.current && (u.current.rotation.y = .06 * n.clock.elapsedTime, u.current.rotation.x = .1 * Math.sin(.03 * n.clock.elapsedTime))
+                }), (0, t.jsx)("points", {
+                    ref: u,
+                    geometry: p,
+                    children: (0, t.jsx)("shaderMaterial", {
+                        ref: v,
+                        vertexShader: l,
+                        fragmentShader: c,
+                        uniforms: x,
+                        transparent: !0,
+                        depthWrite: !1,
+                        blending: s.NTi
+                    })
+                })
+            }
+
+            function v() {
+                let n = (0, r.useRef)(null),
+                    e = (0, r.useMemo)(() => {
+                        let n = new Float32Array(900);
+                        for (let e = 0; e < 300; e++) n[3 * e] = (Math.random() - .5) * 15, n[3 * e + 1] = (Math.random() - .5) * 10, n[3 * e + 2] = (Math.random() - .5) * 10;
+                        return n
+                    }, []);
+                return (0, i.D)(e => {
+                    n.current.rotation.y = .008 * e.clock.elapsedTime
+                }), (0, t.jsxs)("points", {
+                    ref: n,
+                    children: [(0, t.jsx)("bufferGeometry", {
+                        children: (0, t.jsx)("bufferAttribute", {
+                            attach: "attributes-position",
+                            args: [e, 3]
+                        })
+                    }), (0, t.jsx)("pointsMaterial", {
+                        size: .015,
+                        color: "#22c55e",
+                        transparent: !0,
+                        opacity: .15,
+                        sizeAttenuation: !0,
+                        blending: s.EZo,
+                        depthWrite: !1
+                    })]
+                })
+            }
+
+            function p(n) {
+                let {
+                    dissipation: e,
+                    transparent: o,
+                    baseColor: i,
+                    noiseColor: a,
+                    dust: r
+                } = n;
+                return (0, t.jsxs)(t.Fragment, {
+                    children: [!o && (0, t.jsx)("color", {
+                        attach: "background",
+                        args: ["#0a0a0b"]
+                    }), (0, t.jsx)("ambientLight", {
+                        intensity: .05
+                    }), (0, t.jsx)(u, {
+                        dissipation: e,
+                        baseColor: i,
+                        noiseColor: a
+                    }), r && (0, t.jsx)(v, {})]
+                })
+            }
+
+            function x(n) {
+                let {
+                    offsetX: e,
+                    offsetY: o,
+                    scale: t
+                } = n, {
+                    camera: a,
+                    size: r
+                } = (0, i.C)();
+                return (0, i.D)(() => {
+                    let n = r.width / r.height,
+                        i = n < .8 ? 7 : n < 1.2 ? 6.2 : 5.5,
+                        s = i / t;
+                    a.position.z += (s - a.position.z) * .05, a.position.x += (-(.8 * i * e) - a.position.x) * .05, a.position.y += (-(.9326 * o) * s - a.position.y) * .05
+                }), null
+            }
+
+            function m(n) {
+                let {
+                    className: e,
+                    offsetX: o = 0,
+                    offsetY: i = 0,
+                    scale: r = 1,
+                    dissipation: s = 0,
+                    transparent: l = !1,
+                    baseColor: c,
+                    noiseColor: u,
+                    dust: v = !0
+                } = n;
+                return (0, t.jsx)("div", {
+                    className: e,
+                    children: (0, t.jsxs)(a.Hl, {
+                        camera: {
+                            position: [0, 0, 7],
+                            fov: 50
+                        },
+                        dpr: [1, 2],
+                        gl: {
+                            antialias: !0,
+                            alpha: l,
+                            powerPreference: "high-performance"
+                        },
+                        style: {
+                            pointerEvents: "none"
+                        },
+                        children: [(0, t.jsx)(p, {
+                            dissipation: s,
+                            transparent: l,
+                            baseColor: c,
+                            noiseColor: u,
+                            dust: v
+                        }), (0, t.jsx)(x, {
+                            offsetX: o,
+                            offsetY: i,
+                            scale: r
+                        })]
+                    })
+                })
+            }
+        }
+    }
+]);

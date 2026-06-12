@@ -128,3 +128,299 @@
     @apply font-sans;
   }
 }
+/* ===== tryglen.com home styles (ported from live site CSS) ===== */
+.home-root {
+  --home-page: #f9f9f9;
+  --home-white: #ffffff;
+  --home-ink: #0a0e19;
+  --home-ink-hover: #1a2030;
+  --home-grey-400: #f2f2f2;
+  --home-grey-450: #ececec;
+  --home-grey-500: #e1e1e1;
+  --home-grey-600: #cecece;
+  --home-grey-700: #818181;
+  --home-grey-800: #636363;
+  --home-grey-900: #1f1f1f;
+  --home-moss: #1e3c2c;
+  --home-moss-hover: #2a5038;
+  --home-pistachio: #dbefdb;
+  --home-link-green: #397554;
+  --home-fern: #3e7f5c;
+  --home-border: 0.5px solid var(--home-grey-500);
+  font-family: var(--font-home-sans), system-ui, sans-serif;
+  background: var(--home-page);
+  color: var(--home-ink);
+  letter-spacing: -0.02em;
+  -webkit-font-smoothing: antialiased;
+}
+.home-serif {
+  font-family: var(--font-home-serif), Georgia, serif;
+  font-weight: 300;
+  letter-spacing: -0.02em;
+}
+.home-mono {
+  font-family: var(--font-home-mono), ui-monospace, monospace;
+}
+.home-card {
+  background: var(--home-white);
+  border: var(--home-border);
+}
+.home-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.5rem 0.625rem;
+  border-radius: 0.375rem;
+  border: 1px solid transparent;
+  font-size: 1rem;
+  line-height: 1;
+  letter-spacing: -0.019em;
+  cursor: pointer;
+  transition: background 0.3s, border 0.3s, color 0.3s, transform 0.1s;
+}
+@media (min-width: 768px) {
+  .home-btn {
+    padding: 0.4375rem 0.625rem;
+    border-radius: 0.5rem;
+  }
+}
+.home-btn:active {
+  transform: scale(0.97);
+}
+.home-btn:focus-visible {
+  outline: 2px solid var(--home-ink);
+  outline-offset: 3px;
+}
+.home-btn-fill {
+  background: var(--home-ink);
+  border-color: var(--home-ink);
+  color: #fff;
+}
+.home-btn-fill:hover {
+  background: var(--home-ink-hover);
+  border-color: var(--home-ink-hover);
+}
+.home-btn-outline {
+  background: transparent;
+  border-color: var(--home-ink);
+  color: var(--home-ink);
+}
+.home-btn-outline:hover {
+  background: var(--home-ink);
+  color: #fff;
+}
+.home-btn-glass {
+  background: linear-gradient(rgba(206, 206, 206, 0.3), rgba(206, 206, 206, 0.3)),
+    rgba(255, 255, 255, 0.85);
+  border-color: rgba(206, 206, 206, 0.22);
+  color: var(--home-ink);
+}
+.home-btn-glass:hover {
+  background: linear-gradient(rgba(206, 206, 206, 0.45), rgba(206, 206, 206, 0.45)),
+    rgba(255, 255, 255, 0.85);
+}
+.home-btn-moss {
+  background: var(--home-moss);
+  border-color: var(--home-moss);
+  color: #fff;
+}
+.home-btn-moss:hover {
+  background: var(--home-moss-hover);
+  border-color: var(--home-moss-hover);
+}
+.home-arrow-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.375rem;
+  color: var(--home-link-green);
+  font-size: 1rem;
+  line-height: 1.1;
+}
+.home-arrow-link .home-arrow {
+  display: inline-block;
+  transition: transform 0.2s ease-out;
+}
+.home-arrow-link:hover .home-arrow {
+  transform: translateX(2px);
+}
+.home-nav-pill:has(a:hover, button:hover) > :not(:hover) {
+  opacity: 0.4;
+}
+.home-nav-pill > * {
+  transition: opacity 0.2s;
+}
+.home-footer-link {
+  position: relative;
+  display: inline-block;
+}
+.home-footer-link::before {
+  content: "";
+  position: absolute;
+  inset: -0.2rem -0.4rem;
+  border-radius: 0.375rem;
+  background: currentColor;
+  opacity: 0;
+  transition: opacity 0.15s;
+}
+.home-footer-link:hover::before {
+  opacity: 0.08;
+}
+.home-lift {
+  transition: transform 0.4s cubic-bezier(0.19, 1, 0.22, 1), background 0.3s,
+    box-shadow 0.3s, border-color 0.3s;
+}
+.home-lift:hover {
+  transform: translateY(-2px);
+  background: var(--home-grey-400);
+}
+.home-tooltip {
+  position: absolute;
+  bottom: calc(100% + 6px);
+  left: 50%;
+  translate: -50% 4px;
+  background: var(--home-ink);
+  color: #fff;
+  font-size: 0.6875rem;
+  line-height: 1;
+  padding: 0.375rem 0.5rem;
+  border-radius: 0.375rem;
+  white-space: nowrap;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.15s, translate 0.15s;
+}
+.home-tooltip-trigger:hover .home-tooltip {
+  opacity: 1;
+  translate: -50% 0;
+}
+.home-row-arrow {
+  opacity: 0;
+  transform: translateX(-4px);
+  transition: opacity 0.2s, transform 0.2s ease-out;
+}
+.home-template-row:hover .home-row-arrow {
+  opacity: 1;
+  transform: translateX(0);
+}
+.home-marquee {
+  overflow: hidden;
+  mask: linear-gradient(90deg, transparent, #000 12% 88%, transparent);
+}
+.home-marquee-track {
+  display: flex;
+  gap: 0.625rem;
+  width: max-content;
+  animation: home-marquee 48s linear infinite;
+}
+.home-marquee-reverse .home-marquee-track {
+  animation-direction: reverse;
+}
+.home-marquee:hover .home-marquee-track {
+  animation-play-state: paused;
+}
+@keyframes home-marquee {
+  0% {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+.home-flow-dash {
+  stroke-dasharray: 3 5;
+  animation: home-flow 1.4s linear infinite;
+}
+@keyframes home-flow {
+  to {
+    stroke-dashoffset: -8;
+  }
+}
+.home-orbit {
+  animation: home-orbit 30s linear infinite;
+  transform-origin: 100px 100px;
+}
+@keyframes home-orbit {
+  to {
+    transform: rotate(1turn);
+  }
+}
+.home-node {
+  animation: home-node-fill 7.2s linear infinite;
+}
+@keyframes home-node-fill {
+  0%,
+  14% {
+    fill: #dbefdb;
+  }
+  22%,
+  to {
+    fill: #ffffff;
+  }
+}
+.home-detail {
+  overflow: hidden;
+  max-height: 0;
+  transition: width 0.55s cubic-bezier(0.22, 1, 0.36, 1),
+    max-height 0.55s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.home-detail-open {
+  max-height: 1400px;
+}
+.home-detail-inner {
+  opacity: 0;
+  transform: translateX(20px);
+  padding-top: 12px;
+  transition: opacity 0.45s cubic-bezier(0.22, 1, 0.36, 1) 0.1s,
+    transform 0.45s cubic-bezier(0.22, 1, 0.36, 1) 0.1s;
+}
+.home-detail-open .home-detail-inner {
+  opacity: 1;
+  transform: translateX(0);
+}
+@media (min-width: 1200px) {
+  .home-detail {
+    max-height: none;
+    width: 0;
+  }
+  .home-detail-open {
+    max-height: none;
+    width: min(392px, 38vw);
+  }
+  .home-detail-inner {
+    width: min(392px, 38vw);
+    height: 100%;
+    padding-top: 0;
+    padding-left: 12px;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .home-flow-dash,
+  .home-marquee-track,
+  .home-node,
+  .home-orbit {
+    animation: none;
+  }
+  .home-detail,
+  .home-detail-inner {
+    transition: none;
+  }
+}
+.home-root ::selection {
+  background: var(--home-pistachio);
+  color: var(--home-moss);
+}
+.waitlist-dialog {
+  color: #0a0e19;
+  letter-spacing: -0.02em;
+  background: #fff;
+  border: 0.5px solid #e1e1e1;
+  border-radius: 0.75rem;
+  width: min(26rem, 100vw - 2.5rem);
+  margin: auto;
+  padding: 0;
+}
+.waitlist-dialog::backdrop {
+  -webkit-backdrop-filter: blur(3px);
+  backdrop-filter: blur(3px);
+  background: #0a0e1959;
+}
