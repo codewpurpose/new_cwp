@@ -20,12 +20,12 @@ const items: ImpactItem[] = [
     label: "Free forever",
     icon: (
       <svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" strokeWidth="1.4" aria-hidden="true">
-        <path d="M10 2.5v15M5 5.5h10M5 14.5h10" strokeLinecap="round" />
+        <path d="M2 10c0-1.6 1.4-2.8 3.2-2.8 3 0 6.6 5.6 9.6 5.6 1.8 0 3.2-1.2 3.2-2.8s-1.4-2.8-3.2-2.8c-3 0-6.6 5.6-9.6 5.6C3.4 12.8 2 11.6 2 10Z" strokeLinejoin="round" />
       </svg>
     ),
     detail: {
       title: "Education that never costs a dime",
-      body: "Every course, workshop, and resource is completely free. No hidden fees, no premium tiers — just quality coding education for every student who wants it.",
+      body: "Every course, workshop, and resource is completely free. No hidden fees, no premium tiers. Just quality coding education for every student who wants it.",
       scenario:
         "A student in rural India joins our Python course on day one. They never see a paywall, a subscription prompt, or a credit card form.",
     },
@@ -34,17 +34,16 @@ const items: ImpactItem[] = [
     label: "Student-run nonprofit",
     icon: (
       <svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" strokeWidth="1.4" aria-hidden="true">
-        <circle cx="7" cy="7" r="3" />
-        <circle cx="13.5" cy="7" r="2.5" />
-        <path d="M2 17c0-2.8 2.2-5 5-5s5 2.2 5 5" />
-        <path d="M13 12c1.8 0 3.5 1 4.5 2.5" strokeLinecap="round" />
+        <path d="M10 3.5 2.5 7 10 10.5 17.5 7 10 3.5Z" strokeLinejoin="round" />
+        <path d="M5.5 9v3c0 1.4 2 2.5 4.5 2.5s4.5-1.1 4.5-2.5V9" />
+        <path d="M17.5 7v4.5" strokeLinecap="round" />
       </svg>
     ),
     detail: {
       title: "Made by students, for students",
       body: "CodeWithPurpose is run by students who believe every young person deserves access to coding skills. We teach, organize, and build because we've seen what happens when education is out of reach.",
       scenario:
-        "Our curriculum is designed by students who recently learned to code themselves — so every lesson speaks to what beginners actually need.",
+        "Our curriculum is written by students who just learned to code themselves, so every lesson speaks to what beginners actually need.",
     },
   },
   {
@@ -58,17 +57,18 @@ const items: ImpactItem[] = [
     ),
     detail: {
       title: "Students on every corner of the Earth",
-      body: "From San Francisco to Lagos, Bangalore to São Paulo — over 110 countries and counting. Every dot on our map is a student who got access to free, real education because of this community.",
+      body: "From San Francisco to Lagos, Bangalore to São Paulo: over 130 countries and counting. Every dot on our map is a student who got access to free, real education because of this community.",
       scenario:
-        "2,000+ students across 110 countries already learning with us — for free, with no strings attached.",
+        "4,000+ students across 130 countries are already learning with us, for free, with no strings attached.",
     },
   },
   {
     label: "Congressional recognition",
     icon: (
       <svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" strokeWidth="1.4" strokeLinejoin="round" aria-hidden="true">
-        <path d="M5 2.5h7l3 3v12H5v-15Z" />
-        <path d="M12 2.5v3h3M7.5 9.5h5M7.5 12.5h5" strokeLinecap="round" />
+        <path d="M10 3 3 7.5h14L10 3Z" />
+        <path d="M5 10v4.5M8.33 10v4.5M11.67 10v4.5M15 10v4.5" strokeLinecap="round" />
+        <path d="M3 17h14" strokeLinecap="round" />
       </svg>
     ),
     detail: {
@@ -81,45 +81,46 @@ const items: ImpactItem[] = [
   {
     label: "Real projects, real skills",
     icon: (
-      <svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" strokeWidth="1.4" strokeLinejoin="round" aria-hidden="true">
-        <rect x="3" y="4" width="14" height="12" rx="2" />
-        <path d="M7 8h6M7 12h4" strokeLinecap="round" />
+      <svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+        <path d="M6.5 6.5 3 10l3.5 3.5" />
+        <path d="M13.5 6.5 17 10l-3.5 3.5" />
+        <path d="M11.5 4.5l-3 11" />
       </svg>
     ),
     detail: {
       title: "From zero to building real projects",
-      body: "Our Python course takes complete beginners to building real projects — loved by 800+ students across 50+ countries. Vibecoding 101 teaches students to build apps with AI tools like Cursor and Copilot.",
+      body: "Our Python course takes complete beginners all the way to building real projects, and 800+ students across 50+ countries love it. Vibecoding 101 teaches students to build apps with AI tools like Cursor and Copilot.",
       scenario:
-        "A student with zero experience finishes our Python bootcamp and ships their first project — not a toy exercise, but something they can show the world.",
+        "A student with zero experience finishes our Python bootcamp and ships their first project. Not a toy exercise, but something they can show the world.",
     },
   },
   {
     label: "Volunteer-powered",
     icon: (
       <svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" strokeWidth="1.4" strokeLinejoin="round" aria-hidden="true">
-        <path d="M10 13.5c4.5-2.5 6.5-6.5 6.5-11-4.5 0-8.5 2-11 6.5l4.5 4.5Z" />
+        <path d="M10 16.5s-6.5-3.8-6.5-8.2C3.5 5.9 5.4 4.5 7.3 4.5c1.1 0 2.1.5 2.7 1.4.6-.9 1.6-1.4 2.7-1.4 1.9 0 3.8 1.4 3.8 3.8 0 4.4-6.5 8.2-6.5 8.2Z" />
       </svg>
     ),
     detail: {
       title: "A community that leans in",
       body: "Volunteers mentor students in classrooms, workshops, and one-on-one sessions. They troubleshoot bugs, celebrate breakthroughs, and make coding feel approachable for everyone.",
       scenario:
-        "A volunteer leans in to help a young student at their laptop — the kind of moment that defines what CodeWithPurpose is all about.",
+        "A volunteer leans in to help a young student at their laptop. That moment is what CodeWithPurpose is all about.",
     },
   },
   {
-    label: "20+ languages taught",
+    label: "30+ languages taught",
     icon: (
-      <svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" strokeWidth="1.4" aria-hidden="true">
-        <path d="M3 4.5h14v11H3v-11Z" />
-        <path d="M3 8h14M7 4.5V15.5" />
+      <svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" strokeWidth="1.4" strokeLinejoin="round" aria-hidden="true">
+        <path d="M3 3.5h9V9H7.5L5 11.5V9H3V3.5Z" />
+        <path d="M17 16.5H8V11h4.5L15 8.5V11h2v5.5Z" />
       </svg>
     ),
     detail: {
       title: "Education that crosses borders",
-      body: "We teach in 20+ languages so students can learn in the language they're most comfortable with. Coding is universal, but learning shouldn't require English fluency.",
+      body: "We teach in 30+ languages so students can learn in the language they're most comfortable with. Coding is universal, but learning shouldn't require English fluency.",
       scenario:
-        "A student learns Python in their native language, then joins a global community of 2,000+ learners who share the same passion for code.",
+        "A student learns Python in their native language, then joins a global community of 4,000+ learners who share the same passion for code.",
     },
   },
 ];

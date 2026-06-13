@@ -15,7 +15,21 @@ export const PYTHON_COURSE_HREF =
   "https://www.udemy.com/course/introduction-to-python-bootcamp/";
 export const VIBECODING_COURSE_HREF =
   "https://www.udemy.com/course/vibecoding-101/";
-export const CONTACT_EMAIL_HREF = "mailto:contact@codewithpurpose.org";
+export const ML_PART_1_COURSE_HREF =
+  "https://www.udemy.com/course/intro-to-machine-learning-part-1/";
+export const ML_PART_2_COURSE_HREF =
+  "https://www.udemy.com/course/intro-to-machine-learning-part-2/";
+export const FINANCIAL_LITERACY_COURSE_HREF =
+  "https://www.udemy.com/course/financial-literacy-the-basics/";
+export const HEALTH_IN_TECH_COURSE_HREF =
+  "https://www.udemy.com/course/health-iin-tech/";
+export const CONTACT_EMAIL = "codewithpurpose2@gmail.com";
+export const CONTACT_EMAIL_HREF = `mailto:${CONTACT_EMAIL}`;
+export const VOLUNTEER_FORM_HREF = "https://forms.gle/qiSULkmBB7vWk9YDA";
+export const HACK_CLUB_HREF = "https://hackclub.com";
+export const HCB_DONATE_EMBED_SRC =
+  "https://hcb.hackclub.com/donations/start/code-with-purpose";
+export const SUBSTACK_EMBED_SRC = "https://codewithpurpose.substack.com/embed";
 
 export const NAV_LINKS = [
   { label: "Courses", href: COURSES_HREF },

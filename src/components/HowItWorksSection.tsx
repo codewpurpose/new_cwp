@@ -30,10 +30,10 @@ export function HowItWorksSection() {
                 See what CodeWithPurpose looks like in action
               </h2>
               <p className="mt-3 max-w-[40rem] text-sm leading-[1.5] text-[#636363]">
-                In the classroom, at workshops, and in booths around the world —
-                students coding, volunteers presenting, and communities gathering
-                around free education. Every photo is a student who got access to
-                real skills because of this movement.
+                In classrooms, at workshops, and in booths around the world,
+                you&apos;ll find students coding, volunteers presenting, and
+                communities gathering around free education. Every photo here is
+                a student who got real skills because of this movement.
               </p>
               <a href={COURSES_HREF} className="home-arrow-link mt-5 self-start">
                 Start Learning Free <span className="home-arrow">→</span>

@@ -1,14 +1,13 @@
 import type { ReactNode } from "react";
+import { Reveal } from "@/components/Reveal";
 
 export function PageHero({
-  eyebrow,
   title,
   description,
   children,
   image,
   imageAlt,
 }: {
-  eyebrow?: string;
   title: ReactNode;
   description?: string;
   children?: ReactNode;
@@ -16,15 +15,11 @@ export function PageHero({
   imageAlt?: string;
 }) {
   return (
-    <section className="border-b-[0.5px] border-[#e1e1e1] bg-[#f9f9f9] pt-10 pb-12 md:pt-16 md:pb-20">
-      <div className="mx-auto grid w-full max-w-[85rem] items-center gap-10 px-5 md:px-10 lg:grid-cols-2">
-        <div>
-          {eyebrow && (
-            <p className="text-[13px] font-medium uppercase tracking-[0.14em] text-[#397554]">
-              {eyebrow}
-            </p>
-          )}
-          <h1 className="home-serif mt-3 text-[2rem] leading-[1.05] tracking-[-0.02em] md:text-[2.75rem] lg:text-[3.25rem]">
+    <section className="relative overflow-hidden border-b-[0.5px] border-[#e1e1e1] bg-[#f9f9f9] pt-12 pb-14 md:pt-20 md:pb-24">
+      <div aria-hidden="true" className="cwp-hero-bg absolute inset-0" />
+      <div className="relative mx-auto grid w-full max-w-[85rem] items-center gap-10 px-5 md:px-10 lg:grid-cols-2">
+        <Reveal>
+          <h1 className="home-serif text-[2rem] leading-[1.05] tracking-[-0.02em] md:text-[2.75rem] lg:text-[3.25rem]">
             {title}
           </h1>
           {description && (
@@ -33,16 +28,24 @@ export function PageHero({
             </p>
           )}
           {children && <div className="mt-8 flex flex-wrap gap-2">{children}</div>}
-        </div>
+        </Reveal>
         {image && (
-          <div className="home-card overflow-hidden rounded-[20px]">
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img
-              src={image}
-              alt={imageAlt ?? ""}
-              className="aspect-[4/3] w-full object-cover"
-            />
-          </div>
+          <Reveal delay={0.15}>
+            <div className="relative">
+              <div
+                aria-hidden="true"
+                className="absolute -inset-2.5 rotate-[1.4deg] rounded-[24px] border-[0.5px] border-[#cde4cd] bg-[#dbefdb]/60"
+              />
+              <div className="home-card relative overflow-hidden rounded-[20px]">
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img
+                  src={image}
+                  alt={imageAlt ?? ""}
+                  className="aspect-[4/3] w-full object-cover"
+                />
+              </div>
+            </div>
+          </Reveal>
         )}
       </div>
     </section>
@@ -90,6 +93,8 @@ export function PhotoGrid({
           <img
             src={photo.src}
             alt={photo.alt}
+            loading="lazy"
+            decoding="async"
             className="aspect-[4/3] w-full object-cover"
           />
         </div>

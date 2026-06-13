@@ -1,27 +1,24 @@
-import { ABOUT_HREF, COURSES_HREF } from "@/lib/links";
+import { ABOUT_HREF } from "@/lib/links";
 import { WaitlistButton } from "@/components/WaitlistButton";
 
 const HERO_STATS = [
-  { value: "2,000+", label: "Students Reached" },
-  { value: "110+", label: "Countries" },
-  { value: "20+", label: "Languages Taught" },
-  { value: "8,000+", label: "Minutes of Teaching" },
+  { value: "4,000+", label: "Students Reached" },
+  { value: "130+", label: "Countries" },
+  { value: "30+", label: "Languages Taught" },
+  { value: "15,000", label: "Minutes of Teaching" },
 ];
 
 export function HeroSection() {
   return (
     <section className="pt-8 md:pt-[3.69rem]">
       <div className="mx-auto w-full max-w-[85rem] px-5 md:px-10">
-        <p className="text-center text-[13px] font-medium uppercase tracking-[0.14em] text-[#397554] md:text-sm">
-          Free Education for Collective Change
-        </p>
-        <h1 className="home-serif mt-4 text-center text-[2rem] leading-[1.05] tracking-[-0.02em] md:text-[2.75rem] lg:text-[3.5rem] xl:text-[4rem]">
-          Together in Learning,
-          <br className="hidden sm:block" /> Stronger in Purpose
+        <h1 className="home-serif text-center text-[2rem] leading-[1.05] tracking-[-0.02em] md:text-[2.75rem] lg:text-[3.5rem] xl:text-[4rem]">
+          Talent Is Everywhere.
+          <br className="hidden sm:block" /> Opportunity Isn&apos;t.
         </h1>
         <p className="mx-auto mt-5 max-w-[44rem] text-center text-lg text-[#636363]">
-          A student-run nonprofit teaching real coding skills to students in
-          110+ countries — completely free, forever.
+          We&apos;re students teaching students real coding skills in 130+
+          countries. Completely free, forever. No catch, no fine print.
         </p>
         <div className="mt-8 flex flex-wrap items-center justify-center gap-2">
           <WaitlistButton

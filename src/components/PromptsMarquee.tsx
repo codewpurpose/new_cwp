@@ -18,16 +18,16 @@ const ROW_TWO: string[] = [
   "South Africa",
 ];
 
-const ROW_THREE: string[] = [
-  "2,000+ students worldwide",
-  "110+ countries",
-  "20+ languages taught",
-  "8,000+ minutes of teaching",
-  "Free forever",
-  "Student-run nonprofit",
+const ROW_THREE: { value: string; label: string }[] = [
+  { value: "4,000+", label: "students worldwide" },
+  { value: "130+", label: "countries" },
+  { value: "30+", label: "languages taught" },
+  { value: "15,000", label: "minutes of teaching" },
+  { value: "Free", label: "forever" },
+  { value: "100%", label: "student-run nonprofit" },
 ];
 
-function MarqueeRow({
+function LocationRow({
   items,
   reverse = false,
 }: {
@@ -40,9 +40,33 @@ function MarqueeRow({
         {[...items, ...items].map((item, index) => (
           <span
             key={index}
-            className="home-card flex shrink-0 items-center rounded-lg px-4 py-2.5 text-[15px] leading-none text-[#1f1f1f]"
+            className="home-card home-chip flex shrink-0 items-center gap-2.5 rounded-lg px-4 py-2.5 text-[15px] leading-none text-[#1f1f1f]"
           >
+            <span
+              className="home-chip-dot"
+              style={{ animationDelay: `${(index % items.length) * 0.4}s` }}
+            />
             {item}
+          </span>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+function StatRow({ items }: { items: { value: string; label: string }[] }) {
+  return (
+    <div className="home-marquee">
+      <div className="home-marquee-track">
+        {[...items, ...items].map((item, index) => (
+          <span
+            key={index}
+            className="home-card home-chip flex shrink-0 items-baseline gap-2 rounded-lg px-4 py-2.5 text-[15px] leading-none"
+          >
+            <span className="home-mono text-[13px] font-medium tracking-[-0.01em] text-[#3e7f5c]">
+              {item.value}
+            </span>
+            <span className="text-[#1f1f1f]">{item.label}</span>
           </span>
         ))}
       </div>
@@ -54,14 +78,15 @@ export function PromptsMarquee() {
   return (
     <section className="pt-16 md:pt-32">
       <div className="mx-auto w-full max-w-[85rem] px-5 md:px-10">
-        <p className="text-center text-[13px] text-[#818181] md:text-sm">
+        <p className="home-mono flex items-center justify-center gap-2.5 text-[11px] uppercase tracking-[0.18em] text-[#818181] md:text-xs">
+          <span className="home-live-dot" />
           Students on every corner of the Earth
         </p>
       </div>
-      <div className="mt-6 flex flex-col gap-2.5">
-        <MarqueeRow items={ROW_ONE} />
-        <MarqueeRow items={ROW_TWO} reverse />
-        <MarqueeRow items={ROW_THREE} />
+      <div className="home-marquee-stack mt-6 flex flex-col gap-2.5">
+        <LocationRow items={ROW_ONE} />
+        <LocationRow items={ROW_TWO} reverse />
+        <StatRow items={ROW_THREE} />
       </div>
     </section>
   );

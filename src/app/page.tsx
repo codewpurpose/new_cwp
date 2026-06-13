@@ -1,3 +1,4 @@
+import { HackClubBanner } from "@/components/HackClubBanner";
 import { SiteHeader } from "@/components/SiteHeader";
 import { HeroSection } from "@/components/HeroSection";
 import { HeroGlobe } from "@/components/HeroGlobe";
@@ -15,6 +16,7 @@ import { SiteFooter } from "@/components/SiteFooter";
 export default function Home() {
   return (
     <>
+      <HackClubBanner />
       <SiteHeader />
       <main id="top">
         <HeroSection />

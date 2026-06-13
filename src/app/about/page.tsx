@@ -11,26 +11,29 @@ import {
 } from "@/lib/links";
 
 export const metadata: Metadata = {
-  title: "About Us — CodeWithPurpose",
+  title: "About Us | CWP",
   description:
     "A student-run nonprofit making tech education free and accessible for everyone, everywhere.",
 };
 
 const team = [
-  { name: "Shreyan", role: "Co-founder", photo: images.team.shreyan },
-  { name: "Samanyu", role: "Co-founder", photo: images.team.samanyu },
-  { name: "Bhim", role: "Team", photo: images.team.bhim },
-  { name: "Naman", role: "Team", photo: images.team.naman },
-  { name: "Prithvi", role: "Team", photo: images.team.prithvi },
+  { name: "Shreyan Mitra", role: "Co-founder", photo: images.team.shreyan },
+  { name: "Bruhatt Rao", role: "Co-founder", photo: images.team.bhim },
+  { name: "Samanyu Goyal", role: "Co-founder", photo: images.team.samanyu },
+  { name: "Naman Jain", role: "Director of Outreach", photo: images.team.naman },
+  {
+    name: "Prithvi Jai Sudharsan",
+    role: "Director of Media",
+    photo: images.team.prithvi,
+  },
 ];
 
 export default function AboutPage() {
   return (
     <PageShell>
       <PageHero
-        eyebrow="About Us"
         title="Our Mission to Bring Knowledge Where It's Needed Most"
-        description="We are a community of students united by one belief — that quality coding education should cost nothing. What began as a frustration with $15,000 bootcamps has grown into a movement of free courses, real skills, and unwavering commitment."
+        description="We're a community of students who share one belief: quality coding education should cost nothing. We got tired of $15,000 bootcamps deciding who gets to learn, so we built a movement of free courses, real skills, and people who show up."
         image={images.volunteerHelp}
         imageAlt="Volunteer helping a student at their laptop"
       >
@@ -51,14 +54,14 @@ export default function AboutPage() {
             <p className="mt-4 text-[15px] leading-[1.6] text-[#636363] md:text-base">
               Representative Mark DeSaulnier recognized CodeWithPurpose for
               tremendous leadership and service to our community. We work every
-              day to reach students in 110+ countries — from rural villages in
+              day to reach students in 130+ countries, from rural villages in
               India to classrooms in Nigeria.
             </p>
             <blockquote className="mt-6 border-l-2 border-[#397554] pl-4 text-lg italic text-[#1f1f1f]">
               &ldquo;Tremendous leadership and service to your community.&rdquo;
             </blockquote>
             <p className="mt-2 text-sm text-[#818181]">
-              — Representative Mark DeSaulnier · March 4, 2026
+              Representative Mark DeSaulnier · March 4, 2026
             </p>
             <a
               href={CONGRESS_LETTER_HREF}
@@ -74,7 +77,9 @@ export default function AboutPage() {
             <img
               src={images.congressLetter}
               alt="Letter from Representative Mark DeSaulnier recognizing CodeWithPurpose"
-              className="w-full object-cover"
+              loading="lazy"
+              decoding="async"
+              className="aspect-[1002/1304] w-full object-cover"
             />
           </div>
         </div>
@@ -93,6 +98,8 @@ export default function AboutPage() {
               <img
                 src={member.photo}
                 alt={member.name}
+                loading="lazy"
+                decoding="async"
                 className="mx-auto aspect-square w-20 rounded-full object-cover md:w-24"
               />
               <p className="mt-3 font-medium">{member.name}</p>
@@ -111,11 +118,14 @@ export default function AboutPage() {
             src={images.promoVideo}
             controls
             playsInline
+            preload="metadata"
             className="aspect-video w-full bg-black"
             poster={images.heroStudent}
           />
         </div>
-        <PhotoGrid photos={images.gallery.slice(0, 6)} columns={3} />
+        <div className="mt-10 md:mt-16">
+          <PhotoGrid photos={images.gallery.slice(0, 6)} columns={3} />
+        </div>
         <div className="mt-10 flex flex-wrap gap-2">
           <Link href={DONATE_HREF} className="home-btn home-btn-moss">
             Support Our Mission

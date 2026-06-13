@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { CwpLogo } from "@/components/icons";
 import {
   ABOUT_HREF,
@@ -5,6 +6,7 @@ import {
   CONTACT_HREF,
   COURSES_HREF,
   DONATE_HREF,
+  HACK_CLUB_HREF,
   HOME_HREF,
   JOIN_HREF,
 } from "@/lib/links";
@@ -87,9 +89,9 @@ export function SiteFooter() {
                       </a>
                     </li>
                     <li>
-                      <a href="/#faq" className="home-footer-link">
+                      <Link href="/#faq" className="home-footer-link">
                         FAQ
-                      </a>
+                      </Link>
                     </li>
                   </ul>
                 </div>
@@ -100,10 +102,24 @@ export function SiteFooter() {
             <div className="text-xs opacity-70">
               <span>© 2026 CodeWithPurpose</span>
               <p className="mt-1">
-                Made by students, for students. A 501(c)(3) nonprofit · Free
-                education for every student, everywhere.
+                Made by students, for students · Free education for every
+                student, everywhere.
               </p>
             </div>
+            <a
+              href={HACK_CLUB_HREF}
+              target="_blank"
+              rel="noreferrer"
+              className="flex items-center gap-2 text-xs opacity-70 transition-opacity hover:opacity-100"
+            >
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
+                src="https://assets.hackclub.com/flag-standalone.svg"
+                alt="Hack Club"
+                className="h-6 w-auto"
+              />
+              <span>A nonprofit fiscally sponsored by Hack Club</span>
+            </a>
           </div>
         </div>
       </div>

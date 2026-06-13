@@ -17,11 +17,11 @@ export function SecuritySection() {
                 Representative Mark DeSaulnier of the U.S. House of
                 Representatives recognized CodeWithPurpose for our work bringing
                 free coding education to students worldwide. We&apos;re proud to
-                serve communities across 110+ countries with the same commitment
+                serve communities across 130+ countries with the same commitment
                 every day.
               </p>
               <p className="mt-3 text-sm text-[#818181]">
-                — Representative Mark DeSaulnier · March 4, 2026
+                Representative Mark DeSaulnier · March 4, 2026
               </p>
               <div className="mt-8">
                 <a

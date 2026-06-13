@@ -12,27 +12,27 @@ const faqs: Faq[] = [
   {
     question: "Is CodeWithPurpose really free?",
     answer:
-      "Yes — completely free, forever. Every course, workshop, and resource costs nothing. We believe quality coding education should never depend on what a family can afford.",
+      "Yes. Really. Every course, workshop, and resource costs nothing, and it always will. We don't think a family's budget should ever decide who gets to learn how to code.",
   },
   {
     question: "Who runs CodeWithPurpose?",
     answer:
-      "CodeWithPurpose is a student-run 501(c)(3) nonprofit. We're students who teach, organize, and build because we believe every young person deserves access to coding skills.",
+      "Students, start to finish. CodeWithPurpose is a student-run nonprofit, fiscally sponsored by Hack Club. We teach, organize, and build because we believe every young person deserves the chance to learn how to code.",
   },
   {
     question: "How do I start learning?",
     answer:
-      "Browse our free courses — Python for Complete Beginners and Vibecoding 101 are great places to start. Sign up with your email and enroll on Udemy at no cost. It takes minutes to begin.",
+      "Pick a course and go. Python for Complete Beginners and Vibecoding 101 are both great starting points. Sign up with your email, enroll on Udemy at no cost, and you'll be writing code today.",
   },
   {
     question: "How can I volunteer or join the team?",
     answer:
-      "Visit our Join Us page to volunteer as a teacher, mentor, or organizer. We welcome students who want to help expand free education to more communities worldwide.",
+      "We'd love to have you. Head to our Join Us page and fill out the volunteer form. Whether you want to teach, mentor, or organize, there's a place for you here.",
   },
   {
     question: "Where do donations go?",
     answer:
-      "Every dollar helps us reach more students — funding workshops, curriculum development, outreach to underserved communities, and keeping every course free for learners everywhere.",
+      "Straight to students. Donations fund workshops, new lessons, and outreach to underserved communities, and they keep every single course free for learners everywhere.",
   },
   {
     question: "How is CodeWithPurpose recognized?",

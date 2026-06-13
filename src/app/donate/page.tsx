@@ -2,11 +2,12 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { PageHero, PageSection } from "@/components/PageHero";
 import { PageShell } from "@/components/PageShell";
+import { Reveal } from "@/components/Reveal";
 import { images } from "@/lib/images";
-import { CONTACT_HREF, COURSES_HREF } from "@/lib/links";
+import { CONTACT_HREF, COURSES_HREF, HCB_DONATE_EMBED_SRC } from "@/lib/links";
 
 export const metadata: Metadata = {
-  title: "Donate — CodeWithPurpose",
+  title: "Donate | CWP",
   description:
     "Support CodeWithPurpose. Every dollar helps a student start their coding journey today.",
 };
@@ -18,11 +19,11 @@ const impactAreas = [
   },
   {
     title: "Workshops & outreach",
-    body: "Fund in-person workshops in underserved communities across 110+ countries.",
+    body: "Fund in-person workshops in underserved communities across 130+ countries.",
   },
   {
     title: "Curriculum development",
-    body: "Build new lessons, translate content into 20+ languages, and improve our platform.",
+    body: "Build new lessons, translate content into 30+ languages, and improve our platform.",
   },
   {
     title: "Student scholarships",
@@ -34,16 +35,12 @@ export default function DonatePage() {
   return (
     <PageShell>
       <PageHero
-        eyebrow="Donate"
         title="Help a student start their journey today"
         description="Every dollar helps us build a more inclusive future where code is a tool for good. Whether it's $5 or $500, you're making free education possible."
         image={images.heroStudent}
         imageAlt="Student learning with CodeWithPurpose"
       >
-        <a
-          href="mailto:contact@codewithpurpose.org?subject=Donation%20Inquiry"
-          className="home-btn home-btn-fill"
-        >
+        <a href="#donate-now" className="home-btn home-btn-fill">
           Donate Now
         </a>
         <Link href={CONTACT_HREF} className="home-btn home-btn-outline">
@@ -51,15 +48,42 @@ export default function DonatePage() {
         </Link>
       </PageHero>
 
-      <PageSection>
+      <PageSection id="donate-now" className="scroll-mt-24">
+        <div className="grid gap-10 lg:grid-cols-2 lg:items-center">
+          <div>
+            <h2 className="home-serif text-[1.75rem] md:text-[2.5rem]">
+              Give securely through Hack Club
+            </h2>
+            <p className="mt-4 max-w-[34rem] text-[15px] leading-[1.6] text-[#636363] md:text-base">
+              CodeWithPurpose is a nonprofit fiscally sponsored by Hack Club,
+              so every donation is tax-deductible and goes straight to keeping
+              coding education free. Pick any amount. Five dollars covers a
+              student&apos;s first lesson.
+            </p>
+          </div>
+          <div className="home-card flex justify-center overflow-hidden rounded-[20px] p-4 md:p-6">
+            <iframe
+              src={HCB_DONATE_EMBED_SRC}
+              name="donateFrame"
+              title="Donate to CodeWithPurpose via Hack Club"
+              allowFullScreen
+              className="h-[512px] w-full max-w-[512px] border-none"
+            />
+          </div>
+        </div>
+      </PageSection>
+
+      <PageSection className="border-t-[0.5px] border-[#e1e1e1]">
         <div className="grid gap-4 md:grid-cols-2">
-          {impactAreas.map((area) => (
-            <div key={area.title} className="home-card home-lift rounded-xl p-6 md:p-8">
-              <h2 className="text-xl">{area.title}</h2>
-              <p className="mt-3 text-[15px] leading-[1.55] text-[#636363]">
-                {area.body}
-              </p>
-            </div>
+          {impactAreas.map((area, index) => (
+            <Reveal key={area.title} delay={(index % 2) * 0.08}>
+              <div className="home-card home-lift h-full rounded-xl p-6 md:p-8">
+                <h2 className="text-xl">{area.title}</h2>
+                <p className="mt-3 text-[15px] leading-[1.55] text-[#636363]">
+                  {area.body}
+                </p>
+              </div>
+            </Reveal>
           ))}
         </div>
       </PageSection>
@@ -87,11 +111,17 @@ export default function DonatePage() {
               alt="Samanyu"
               className="h-14 w-14 rounded-full object-cover"
             />
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              src={images.team.bhim}
+              alt="Bhim"
+              className="h-14 w-14 rounded-full object-cover"
+            />
           </div>
           <p className="mt-4 text-sm opacity-80">Shreyan, Samanyu &amp; Bruhatt</p>
           <p className="mt-6 text-sm opacity-70">
-            CodeWithPurpose is a 501(c)(3) nonprofit. Free education for every
-            student, everywhere.
+            CodeWithPurpose is a nonprofit fiscally sponsored by Hack Club.
+            Free education for every student, everywhere.
           </p>
           <Link
             href={COURSES_HREF}

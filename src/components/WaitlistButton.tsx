@@ -192,7 +192,7 @@ export function WaitlistButton({
               </h2>
               <p className="mt-3 text-[15px] leading-[1.55] text-[#636363]">
                 Enter your email and we&apos;ll send you links to our free
-                courses. No payment required — ever.
+                courses. No payment required. Ever.
               </p>
               <label htmlFor={inputId} className="sr-only">
                 Email address

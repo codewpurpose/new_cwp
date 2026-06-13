@@ -2,11 +2,17 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { PageHero, PageSection } from "@/components/PageHero";
 import { PageShell } from "@/components/PageShell";
+import { Reveal } from "@/components/Reveal";
 import { images } from "@/lib/images";
-import { CONTACT_HREF, COURSES_HREF } from "@/lib/links";
+import {
+  CONTACT_EMAIL,
+  CONTACT_EMAIL_HREF,
+  COURSES_HREF,
+  VOLUNTEER_FORM_HREF,
+} from "@/lib/links";
 
 export const metadata: Metadata = {
-  title: "Join Us — CodeWithPurpose",
+  title: "Join Us | CWP",
   description:
     "Volunteer with CodeWithPurpose. Teach, mentor, and help bring free coding education to students worldwide.",
 };
@@ -14,7 +20,7 @@ export const metadata: Metadata = {
 const roles = [
   {
     title: "Teach a course",
-    body: "Lead workshops, record lessons, or mentor students through our Python and Vibecoding curricula. No formal teaching experience required — just passion for helping others learn.",
+    body: "Lead workshops, record lessons, or mentor students through our Python and Vibecoding curricula. No teaching experience required, just a real desire to help others learn.",
   },
   {
     title: "Run a workshop",
@@ -26,7 +32,7 @@ const roles = [
   },
   {
     title: "Build with us",
-    body: "Contribute to our website, curriculum, outreach, or operations. Students with any skill — coding, design, writing, organizing — are welcome.",
+    body: "Contribute to our website, curriculum, outreach, or operations. Coding, design, writing, organizing: whatever your skill, there's room for you here.",
   },
 ];
 
@@ -34,15 +40,19 @@ export default function JoinPage() {
   return (
     <PageShell>
       <PageHero
-        eyebrow="Join Us"
         title="Help us bring free coding education to every student"
         description="CodeWithPurpose runs on volunteers. Whether you teach one workshop or mentor one student, you help build a more inclusive future where code is a tool for good."
         image={images.danvilleSanRamon}
         imageAlt="CodeWithPurpose volunteers at a community event"
       >
-        <Link href={CONTACT_HREF} className="home-btn home-btn-fill">
-          Get in Touch
-        </Link>
+        <a
+          href={VOLUNTEER_FORM_HREF}
+          target="_blank"
+          rel="noreferrer"
+          className="home-btn home-btn-fill"
+        >
+          Apply to Volunteer
+        </a>
         <Link href={COURSES_HREF} className="home-btn home-btn-outline">
           See Our Courses
         </Link>
@@ -50,13 +60,15 @@ export default function JoinPage() {
 
       <PageSection>
         <div className="grid gap-4 md:grid-cols-2">
-          {roles.map((role) => (
-            <div key={role.title} className="home-card home-lift rounded-xl p-6 md:p-8">
-              <h2 className="text-xl">{role.title}</h2>
-              <p className="mt-3 text-[15px] leading-[1.55] text-[#636363]">
-                {role.body}
-              </p>
-            </div>
+          {roles.map((role, index) => (
+            <Reveal key={role.title} delay={(index % 2) * 0.08}>
+              <div className="home-card home-lift h-full rounded-xl p-6 md:p-8">
+                <h2 className="text-xl">{role.title}</h2>
+                <p className="mt-3 text-[15px] leading-[1.55] text-[#636363]">
+                  {role.body}
+                </p>
+              </div>
+            </Reveal>
           ))}
         </div>
       </PageSection>
@@ -67,19 +79,22 @@ export default function JoinPage() {
             Ready to volunteer?
           </h2>
           <p className="mt-4 text-[#dbefdb]/90">
-            Email us at{" "}
-            <a href="mailto:contact@codewithpurpose.org" className="underline">
-              contact@codewithpurpose.org
-            </a>{" "}
-            and tell us how you&apos;d like to help. We&apos;ll get back to you
-            within a few days.
+            Fill out our volunteer form and tell us how you&apos;d like to
+            help. We read every application and we&apos;ll get back to you
+            within a few days. Prefer email? Write to us at{" "}
+            <a href={CONTACT_EMAIL_HREF} className="underline">
+              {CONTACT_EMAIL}
+            </a>
+            .
           </p>
-          <Link
-            href={CONTACT_HREF}
+          <a
+            href={VOLUNTEER_FORM_HREF}
+            target="_blank"
+            rel="noreferrer"
             className="home-btn home-btn-fill mt-8 !border-[#dbefdb] !bg-[#dbefdb] !text-[#1e3c2c]"
           >
-            Contact Us
-          </Link>
+            Apply to Volunteer
+          </a>
         </div>
       </PageSection>
     </PageShell>

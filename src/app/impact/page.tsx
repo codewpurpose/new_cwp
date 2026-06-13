@@ -2,29 +2,29 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { PageHero, PageSection, PhotoGrid } from "@/components/PageHero";
 import { PageShell } from "@/components/PageShell";
+import { Reveal } from "@/components/Reveal";
 import { images } from "@/lib/images";
 import { CONGRESS_LETTER_HREF, DONATE_HREF } from "@/lib/links";
 
 export const metadata: Metadata = {
-  title: "Impact — CodeWithPurpose",
+  title: "Impact | CWP",
   description:
-    "2,000+ students across 110+ countries. See the impact of free coding education.",
+    "4,000+ students across 130+ countries. See the impact of free coding education.",
 };
 
 const stats = [
-  { value: "2,000+", label: "Students Reached" },
-  { value: "110+", label: "Countries" },
-  { value: "20+", label: "Languages Taught" },
-  { value: "8,000+", label: "Minutes of Teaching" },
+  { value: "4,000+", label: "Students Reached" },
+  { value: "130+", label: "Countries" },
+  { value: "30+", label: "Languages Taught" },
+  { value: "15,000", label: "Minutes of Teaching" },
 ];
 
 export default function ImpactPage() {
   return (
     <PageShell>
       <PageHero
-        eyebrow="Impact"
         title="Students on every corner of the Earth"
-        description="From San Francisco to Lagos, Bangalore to São Paulo — over 110 countries and counting. Every student is someone who got access to free, real education because of this community."
+        description="From San Francisco to Lagos, Bangalore to São Paulo: over 130 countries and counting. Every student is someone who got access to free, real education because of this community."
         image={images.heroStudent}
         imageAlt="Student smiling while learning to code"
       >
@@ -35,13 +35,15 @@ export default function ImpactPage() {
 
       <PageSection>
         <div className="grid grid-cols-2 gap-3 md:grid-cols-4 md:gap-4">
-          {stats.map((stat) => (
-            <div key={stat.label} className="home-card home-lift rounded-xl px-4 py-8 text-center md:px-6">
-              <p className="home-serif text-[2rem] leading-none text-[#3e7f5c] md:text-[2.75rem]">
-                {stat.value}
-              </p>
-              <p className="mt-3 text-sm text-[#636363]">{stat.label}</p>
-            </div>
+          {stats.map((stat, index) => (
+            <Reveal key={stat.label} delay={index * 0.07}>
+              <div className="home-card home-lift h-full rounded-xl px-4 py-8 text-center md:px-6">
+                <p className="home-serif text-[2rem] leading-none text-[#3e7f5c] md:text-[2.75rem]">
+                  {stat.value}
+                </p>
+                <p className="mt-3 text-sm text-[#636363]">{stat.label}</p>
+              </div>
+            </Reveal>
           ))}
         </div>
       </PageSection>
@@ -52,7 +54,7 @@ export default function ImpactPage() {
         </h2>
         <p className="mt-3 max-w-2xl text-[#636363]">
           Hands-on learning, smiling students, crowded workshops, and volunteers
-          presenting — this is what CodeWithPurpose looks like in action.
+          presenting. This is what CodeWithPurpose looks like in action.
         </p>
         <div className="mt-8">
           <PhotoGrid photos={images.gallery} columns={4} />

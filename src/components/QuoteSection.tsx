@@ -23,7 +23,7 @@ export function QuoteSection() {
         <div className="mt-4 grid gap-2.5 md:mt-6 md:grid-cols-3">
           <div className="home-card home-lift rounded-xl px-8 py-12">
             <p className="home-serif text-[2rem] leading-none text-[#3e7f5c] md:text-[3.5rem]">
-              110+
+              130+
             </p>
             <p className="mt-3 text-sm text-[#636363] md:text-base">
               Countries where students are already learning with us.
@@ -31,7 +31,7 @@ export function QuoteSection() {
           </div>
           <div className="home-card home-lift rounded-xl px-8 py-12">
             <p className="home-serif text-[2rem] leading-none text-[#3e7f5c] md:text-[3.5rem]">
-              2,000+
+              4,000+
             </p>
             <p className="mt-3 text-sm text-[#636363] md:text-base">
               Students reached with free, real coding education worldwide.
@@ -42,7 +42,7 @@ export function QuoteSection() {
               Free
             </p>
             <p className="mt-3 text-sm text-[#636363] md:text-base">
-              Always. Every course, every resource — no cost, no strings attached.
+              Always. Every course, every resource. No cost, no strings attached.
             </p>
           </div>
         </div>

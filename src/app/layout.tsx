@@ -22,11 +22,11 @@ const homeMono = Spline_Sans_Mono({
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://www.codewithpurpose.org"),
-  title: "CodeWithPurpose — Free Education for Every Student, Everywhere",
+  title: "CWP",
   description:
-    "A student-run nonprofit teaching real coding skills to students in 110+ countries — completely free, forever.",
+    "We're a student-run nonprofit teaching real coding skills to students in 130+ countries. Completely free, forever.",
   openGraph: {
-    title: "CodeWithPurpose — Free Education for Every Student, Everywhere",
+    title: "Free Education for Every Student, Everywhere | CodeWithPurpose",
     description:
       "Together in Learning, Stronger in Purpose. Free coding courses for students worldwide.",
     url: "https://www.codewithpurpose.org",
@@ -36,17 +36,13 @@ export const metadata: Metadata = {
         url: "/seo/og-image.png",
         width: 1200,
         height: 630,
-        alt: "CodeWithPurpose — Free Education for Every Student, Everywhere",
+        alt: "Free Education for Every Student, Everywhere | CodeWithPurpose",
       },
     ],
     type: "website",
   },
   icons: {
-    icon: [
-      { url: "/images/codewp-logo.png", type: "image/png" },
-      { url: "/seo/favicon-32.png", type: "image/png", sizes: "32x32" },
-    ],
-    apple: [{ url: "/seo/apple-touch-icon.png", sizes: "180x180" }],
+    icon: [{ url: "/icon.svg", type: "image/svg+xml" }],
   },
 };
 
