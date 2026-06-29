@@ -48,7 +48,7 @@ export default function ImpactPage() {
         </div>
       </PageSection>
 
-      <PageSection className="border-t-[0.5px] border-[#e1e1e1]">
+      <PageSection className="border-t-[0.5px] border-[var(--home-grey-500)]">
         <h2 className="home-serif text-[1.75rem] md:text-[2.25rem]">
           In classrooms, workshops, and communities
         </h2>
@@ -61,7 +61,7 @@ export default function ImpactPage() {
         </div>
       </PageSection>
 
-      <PageSection className="bg-[#ececec]">
+      <PageSection className="bg-[var(--home-grey-450)]">
         <div className="grid gap-8 lg:grid-cols-2 lg:items-center">
           <div className="home-card overflow-hidden rounded-[20px]">
             {/* eslint-disable-next-line @next/next/no-img-element */}

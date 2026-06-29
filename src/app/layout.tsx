@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Inter, Newsreader, Spline_Sans_Mono } from "next/font/google";
+import { SiteLoader } from "@/components/SiteLoader";
 import "./globals.css";
 
 const homeSans = Inter({
@@ -56,6 +57,7 @@ export default function RootLayout({
       <body
         className={`home-root ${homeSans.variable} ${homeSerif.variable} ${homeMono.variable} min-h-full`}
       >
+        <SiteLoader />
         {children}
       </body>
     </html>

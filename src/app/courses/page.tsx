@@ -137,7 +137,7 @@ export default function CoursesPage() {
         </div>
       </PageSection>
 
-      <PageSection className="border-t-[0.5px] border-[#e1e1e1] bg-[#ececec]">
+      <PageSection className="border-t-[0.5px] border-[var(--home-grey-500)] bg-[var(--home-grey-450)]">
         <h2 className="home-serif text-[1.75rem] md:text-[2.25rem]">
           See our courses in action
         </h2>

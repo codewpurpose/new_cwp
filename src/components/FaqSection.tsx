@@ -114,7 +114,7 @@ export function FaqSection() {
               <FaqItem key={faq.question} faq={faq} />
             ))}
           </div>
-          <div className="mx-auto mt-8 max-w-[51rem] rounded-xl border-[0.5px] border-[#e1e1e1] bg-[#f9f9f9] px-6 py-8 md:px-10 md:py-10">
+          <div className="mx-auto mt-8 max-w-[51rem] rounded-xl border-[0.5px] border-[var(--home-grey-500)] bg-[var(--home-page)] px-6 py-8 md:px-10 md:py-10">
             <h3 className="text-lg font-medium md:text-xl">A Note From Our Team</h3>
             <blockquote className="mt-4 text-[15px] leading-[1.6] text-[#636363] md:text-base">
               &ldquo;Every dollar helps us build a more inclusive future where code

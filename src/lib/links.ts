@@ -1,6 +1,8 @@
 export const SITE_URL = "https://www.codewithpurpose.org";
 
 export const COURSES_HREF = "/courses";
+export const LEARN_HREF = "/learn";
+export const LEARN_ML_HREF = "/learn/ml";
 export const ABOUT_HREF = "/about";
 export const JOIN_HREF = "/join";
 export const IMPACT_HREF = "/impact";
@@ -33,6 +35,7 @@ export const SUBSTACK_EMBED_SRC = "https://codewithpurpose.substack.com/embed";
 
 export const NAV_LINKS = [
   { label: "Courses", href: COURSES_HREF },
+  { label: "Learn", href: LEARN_HREF },
   { label: "About Us", href: ABOUT_HREF },
   { label: "Join Us", href: JOIN_HREF },
   { label: "Impact", href: IMPACT_HREF },

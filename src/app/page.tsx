@@ -1,7 +1,6 @@
 import { HackClubBanner } from "@/components/HackClubBanner";
 import { SiteHeader } from "@/components/SiteHeader";
 import { HeroSection } from "@/components/HeroSection";
-import { HeroGlobe } from "@/components/HeroGlobe";
 import { PromptsMarquee } from "@/components/PromptsMarquee";
 import { ProductSection } from "@/components/ProductSection";
 import { UseCasesSection } from "@/components/UseCasesSection";
@@ -20,7 +19,6 @@ export default function Home() {
       <SiteHeader />
       <main id="top">
         <HeroSection />
-        <HeroGlobe />
         <PromptsMarquee />
         <div className="h-16 md:h-40" />
         <ProductSection />

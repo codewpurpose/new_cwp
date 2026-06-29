@@ -73,7 +73,7 @@ export default function JoinPage() {
         </div>
       </PageSection>
 
-      <PageSection className="border-t-[0.5px] border-[#e1e1e1] bg-[#1e3c2c] text-[#dbefdb]">
+      <PageSection className="border-t-[0.5px] border-[var(--home-grey-500)] bg-[#1e3c2c] text-[#dbefdb]">
         <div className="mx-auto max-w-3xl text-center">
           <h2 className="home-serif text-[1.75rem] text-[#f9f9f9] md:text-[2.25rem]">
             Ready to volunteer?

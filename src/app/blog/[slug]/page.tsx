@@ -36,7 +36,7 @@ export default async function BlogPostPage({
 
   return (
     <PageShell>
-      <article className="relative overflow-hidden border-b-[0.5px] border-[#e1e1e1] bg-[#f9f9f9] pb-16 pt-10 md:pb-24 md:pt-16">
+      <article className="relative overflow-hidden border-b-[0.5px] border-[var(--home-grey-500)] bg-[var(--home-page)] pb-16 pt-10 md:pb-24 md:pt-16">
         <div aria-hidden="true" className="cwp-hero-bg absolute inset-0" />
         <div className="relative mx-auto w-full max-w-[46rem] px-5 md:px-0">
           <Reveal>
@@ -69,7 +69,7 @@ export default async function BlogPostPage({
                 </p>
               ))}
             </div>
-            <p className="mt-10 border-t-[0.5px] border-[#e1e1e1] pt-6 text-sm text-[#818181]">
+            <p className="mt-10 border-t-[0.5px] border-[var(--home-grey-500)] pt-6 text-sm text-[#818181]">
               Written by the CodeWithPurpose team
             </p>
           </Reveal>
@@ -91,7 +91,7 @@ export default async function BlogPostPage({
                 src={SUBSTACK_EMBED_SRC}
                 title="Subscribe to the CodeWithPurpose Substack"
                 scrolling="no"
-                className="h-[320px] w-full max-w-[480px] rounded-xl border-[0.5px] border-[#e1e1e1] bg-white"
+                className="h-[320px] w-full max-w-[480px] rounded-xl border-[0.5px] border-[var(--home-grey-500)] bg-white"
               />
             </div>
           </div>

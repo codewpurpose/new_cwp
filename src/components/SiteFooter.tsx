@@ -9,6 +9,8 @@ import {
   HACK_CLUB_HREF,
   HOME_HREF,
   JOIN_HREF,
+  LEARN_HREF,
+  LEARN_ML_HREF,
 } from "@/lib/links";
 
 export function SiteFooter() {
@@ -38,6 +40,16 @@ export function SiteFooter() {
                 <div>
                   <h3 className="mb-3 text-xs opacity-60">Learn</h3>
                   <ul className="space-y-2 text-xs xl:text-base">
+                    <li>
+                      <a href={LEARN_ML_HREF} className="home-footer-link">
+                        ML Lessons
+                      </a>
+                    </li>
+                    <li>
+                      <a href={LEARN_HREF} className="home-footer-link">
+                        Learn
+                      </a>
+                    </li>
                     <li>
                       <a href={COURSES_HREF} className="home-footer-link">
                         All Courses

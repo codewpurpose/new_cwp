@@ -1,0 +1,353 @@
+/* CodeWithPurpose branding overrides for interactive ML lessons */
+:root {
+  --cwp-ink: #0a0e19;
+  --cwp-moss: #1e3c2c;
+  --cwp-fern: #3e7f5c;
+  --cwp-link: #397554;
+  --cwp-pistachio: #dbefdb;
+}
+
+#intro-icon,
+header nav .cardSpan {
+  align-items: center !important;
+}
+
+#intro-icon a,
+header nav .cardSpan {
+  color: var(--cwp-moss) !important;
+  text-decoration: none !important;
+  cursor: pointer;
+}
+
+.cwp-lesson-logo,
+header nav .icon object,
+header nav .icon svg,
+#intro-icon svg.cwp-lesson-logo {
+  width: 46px !important;
+  height: auto !important;
+  display: block;
+}
+
+.cwp-brand-name,
+#intro-icon h2.logo,
+header nav .text h2 {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif !important;
+  font-size: 1.05rem !important;
+  font-weight: 600 !important;
+  letter-spacing: -0.02em !important;
+  color: var(--cwp-ink) !important;
+  text-transform: none !important;
+  margin: 0 !important;
+  padding-left: 0.5rem !important;
+}
+
+#ai {
+  color: var(--cwp-fern) !important;
+}
+
+header nav ul#toc a.active,
+header nav ul#toc a:hover,
+header nav ul#toc li.active a {
+  border-bottom-color: var(--cwp-fern) !important;
+  color: var(--cwp-moss) !important;
+}
+
+a:hover,
+a:visited {
+  color: var(--cwp-link) !important;
+}
+
+a {
+  color: var(--cwp-link) !important;
+}
+
+header nav ul#toc li.active a,
+header nav ul#toc a.selected,
+header nav ul#toc li .selected {
+  border-bottom: 3px solid var(--cwp-fern) !important;
+  color: var(--cwp-moss) !important;
+}
+
+header nav .cardSpan .text h2,
+header nav .text h2 {
+  white-space: nowrap;
+}
+
+#intro-icon {
+  gap: 0.5rem !important;
+}
+
+#intro-icon a.cwp-lesson-brand {
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 0.5rem !important;
+}
+
+/* Precision-recall (Svelte bundle) still mounts the legacy robot SVG in JS */
+#intro-icon svg,
+#intro-icon object {
+  display: none !important;
+}
+
+#intro-icon > a,
+#intro-icon a.svelte-2pipsy {
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 0.5rem !important;
+}
+
+#intro-icon > a::before,
+#intro-icon a.svelte-2pipsy::before {
+  content: "";
+  display: block;
+  width: 46px;
+  height: 32px;
+  flex-shrink: 0;
+  background: url("/learn/ml/assets/cwp-logo-mark.svg") center / contain no-repeat;
+}
+
+#intro-icon h2,
+#intro-icon .logo {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif !important;
+  font-size: 1.05rem !important;
+  font-weight: 600 !important;
+  letter-spacing: -0.02em !important;
+  color: var(--cwp-ink) !important;
+  text-transform: none !important;
+}
+
+/* Hide legacy top navigation — content only */
+header,
+#intro-icon {
+  display: none !important;
+}
+
+/* Unified lesson background, full-bleed content */
+body.cwp-lesson-chrome,
+body.cwp-lesson-chrome main,
+body.cwp-lesson-chrome #scrolly,
+body.cwp-lesson-chrome article {
+  background-color: #fcf4e8 !important;
+}
+
+body.cwp-lesson-chrome {
+  margin: 0;
+  padding: 0;
+}
+
+/* Minimal section rail — thin lines only, fades in at left edge */
+#cwp-lesson-rail {
+  position: fixed;
+  left: max(0.75rem, env(safe-area-inset-left));
+  top: 50%;
+  z-index: 1000;
+  transform: translateY(-50%);
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.25s ease;
+}
+
+#cwp-lesson-rail::before {
+  content: "";
+  position: absolute;
+  left: -0.75rem;
+  top: 50%;
+  width: 2.5rem;
+  height: min(70vh, 28rem);
+  transform: translateY(-50%);
+  pointer-events: auto;
+}
+
+#cwp-lesson-rail:hover,
+#cwp-lesson-rail:focus-within {
+  opacity: 1;
+}
+
+.cwp-rail-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.65rem;
+}
+
+.cwp-rail-list li {
+  margin: 0;
+  padding: 0;
+}
+
+.cwp-rail-list a {
+  display: block;
+  padding: 0.2rem 0;
+  pointer-events: auto;
+  text-decoration: none !important;
+  outline: none;
+}
+
+.cwp-rail-line {
+  display: block;
+  height: 2px;
+  width: 18px;
+  border-radius: 1px;
+  background: rgba(30, 60, 44, 0.16);
+  transition: width 0.22s ease, background-color 0.22s ease, opacity 0.22s ease;
+}
+
+.cwp-rail-list a:hover .cwp-rail-line,
+.cwp-rail-list a:focus-visible .cwp-rail-line {
+  width: 28px;
+  background: rgba(30, 60, 44, 0.42);
+}
+
+.cwp-rail-list a.active .cwp-rail-line {
+  width: 36px;
+  background: var(--cwp-moss);
+}
+
+#cwp-lesson-rail:not(:hover):not(:focus-within) .cwp-rail-list a:not(.active) .cwp-rail-line {
+  opacity: 0;
+}
+
+#cwp-lesson-rail:not(:hover):not(:focus-within) .cwp-rail-list a.active .cwp-rail-line {
+  opacity: 0.3;
+  width: 22px;
+}
+
+.cwp-rail-list a:focus-visible {
+  outline: 2px solid rgba(30, 60, 44, 0.35);
+  outline-offset: 4px;
+  border-radius: 2px;
+}
+
+@media (max-width: 768px) {
+  #cwp-lesson-rail {
+    left: auto;
+    right: max(0.65rem, env(safe-area-inset-right));
+    top: auto;
+    bottom: max(1rem, env(safe-area-inset-bottom));
+    transform: none;
+    opacity: 0.45;
+  }
+
+  #cwp-lesson-rail:hover,
+  #cwp-lesson-rail:focus-within {
+    opacity: 0.85;
+  }
+
+  .cwp-rail-list {
+    flex-direction: row;
+    gap: 0.45rem;
+  }
+
+  .cwp-rail-line {
+    width: 14px;
+    height: 2px;
+  }
+
+  .cwp-rail-list a:hover .cwp-rail-line,
+  .cwp-rail-list a:focus-visible .cwp-rail-line {
+    width: 20px;
+  }
+
+  .cwp-rail-list a.active .cwp-rail-line {
+    width: 24px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cwp-rail-line {
+    transition: none;
+  }
+}
+
+/* Hide bibliography / resources sections */
+body.cwp-lesson-chrome #resources,
+body.cwp-lesson-chrome #outro,
+body.cwp-lesson-chrome section#resources,
+body.cwp-lesson-chrome section#outro {
+  display: none !important;
+}
+
+/* Tighter vertical rhythm across lessons */
+body.cwp-lesson-chrome section {
+  min-height: auto !important;
+  height: auto !important;
+  margin-bottom: 6vh !important;
+}
+
+body.cwp-lesson-chrome section h2 {
+  padding-top: 3rem !important;
+}
+
+body.cwp-lesson-chrome #title-section,
+body.cwp-lesson-chrome section#intro-text {
+  padding-bottom: 2rem !important;
+}
+
+body.cwp-lesson-chrome #intro {
+  padding-bottom: 1.5rem !important;
+  margin-bottom: 1.5rem !important;
+}
+
+body.cwp-lesson-chrome #intro__author,
+body.cwp-lesson-chrome #intro__date,
+body.cwp-lesson-chrome #intro-icon {
+  padding-bottom: 0.5rem !important;
+}
+
+body.cwp-lesson-chrome .step,
+body.cwp-lesson-chrome #scrolly .step,
+body.cwp-lesson-chrome #scrolly-side .step-side {
+  margin-bottom: 0.85rem !important;
+}
+
+body.cwp-lesson-chrome #scrolly-rf section,
+body.cwp-lesson-chrome #scrolly-condurcet section,
+body.cwp-lesson-chrome #scrolly > section {
+  min-height: auto !important;
+}
+
+body.cwp-lesson-chrome article p,
+body.cwp-lesson-chrome .step p,
+body.cwp-lesson-chrome #scrolly .step p {
+  padding-top: 0.75rem !important;
+  padding-bottom: 0.75rem !important;
+}
+
+body.cwp-lesson-chrome #informationgain,
+body.cwp-lesson-chrome #pertubations,
+body.cwp-lesson-chrome #splits,
+body.cwp-lesson-chrome #anotherlook,
+body.cwp-lesson-chrome #limitations,
+body.cwp-lesson-chrome #final {
+  padding-top: 2rem !important;
+  padding-bottom: 2rem !important;
+}
+
+body.cwp-lesson-chrome .model-header,
+body.cwp-lesson-chrome .subtitle {
+  padding-top: 1.25rem !important;
+  padding-bottom: 0.5rem !important;
+}
+
+body.cwp-lesson-chrome #gap-container,
+body.cwp-lesson-chrome #conclusion,
+body.cwp-lesson-chrome #section2 {
+  padding-top: 2rem !important;
+  padding-bottom: 2rem !important;
+}
+
+body.cwp-lesson-chrome br {
+  line-height: 0.35 !important;
+}
+
+@media (max-width: 900px) {
+  body.cwp-lesson-chrome section {
+    margin-bottom: 3vh !important;
+  }
+
+  body.cwp-lesson-chrome section h2 {
+    padding-top: 1.5rem !important;
+  }
+}

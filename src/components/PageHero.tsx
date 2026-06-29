@@ -15,7 +15,7 @@ export function PageHero({
   imageAlt?: string;
 }) {
   return (
-    <section className="relative overflow-hidden border-b-[0.5px] border-[#e1e1e1] bg-[#f9f9f9] pt-12 pb-14 md:pt-20 md:pb-24">
+    <section className="relative overflow-hidden border-b-[0.5px] border-[var(--home-grey-500)] bg-[var(--home-page)] pt-12 pb-14 md:pt-20 md:pb-24">
       <div aria-hidden="true" className="cwp-hero-bg absolute inset-0" />
       <div className="relative mx-auto grid w-full max-w-[85rem] items-center gap-10 px-5 md:px-10 lg:grid-cols-2">
         <Reveal>
