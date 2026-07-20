@@ -7,6 +7,60 @@
   var scrollSpy = null;
   var mutationObserver = null;
 
+  function lessonSlug() {
+    var parts = window.location.pathname.split("/").filter(Boolean);
+    var learnIndex = parts.indexOf("learn");
+    return learnIndex >= 0 && parts[learnIndex + 2]
+      ? parts[learnIndex + 2]
+      : "lesson";
+  }
+
+  function addLessonHooks() {
+    var slug = lessonSlug();
+    document.documentElement.dataset.cwpLesson = slug;
+    document.body.dataset.cwpLesson = slug;
+    document.body.classList.add(BODY_CLASS, "cwp-lesson-" + slug);
+  }
+
+  function createMasthead() {
+    if (document.querySelector(".cwp-lesson-masthead")) {
+      return;
+    }
+
+    var masthead = document.createElement("div");
+    masthead.className = "cwp-lesson-masthead";
+    masthead.setAttribute("role", "presentation");
+
+    var mark = document.createElement("img");
+    mark.src = "/learn/ml/assets/cwp-logo-mark.svg";
+    mark.alt = "";
+    mark.setAttribute("aria-hidden", "true");
+
+    var copy = document.createElement("div");
+    copy.className = "cwp-lesson-masthead-copy";
+
+    var kicker = document.createElement("span");
+    kicker.className = "cwp-lesson-masthead-kicker";
+    kicker.textContent = "CodeWithPurpose · ML visual lesson";
+
+    var title = document.createElement("span");
+    title.className = "cwp-lesson-masthead-title";
+    title.textContent = "Made by CodeWithPurpose Team";
+
+    var homeLink = document.createElement("a");
+    homeLink.className = "cwp-lesson-home-link";
+    homeLink.href = "/";
+    homeLink.textContent = "Back to Home";
+    homeLink.setAttribute("aria-label", "Back to CodeWithPurpose home");
+
+    copy.appendChild(kicker);
+    copy.appendChild(title);
+    masthead.appendChild(mark);
+    masthead.appendChild(copy);
+    masthead.appendChild(homeLink);
+    document.body.insertBefore(masthead, document.body.firstChild);
+  }
+
   function trimText(text) {
     return (text || "").replace(/\s+/g, " ").trim();
   }
@@ -401,22 +455,8 @@
 
   function init() {
     removeDuplicateRails();
-
-    var sections = discoverSections();
-    if (!sections.length) {
-      document.body.classList.add(BODY_CLASS);
-      return false;
-    }
-
-    document.body.classList.add(BODY_CLASS);
-
-    if (!document.getElementById(RAIL_ID)) {
-      createRail(sections);
-    } else {
-      updateRailList(sections);
-    }
-
-    setupScrollSpy(sections);
+    addLessonHooks();
+    createMasthead();
     return true;
   }
 
@@ -474,10 +514,66 @@
     });
   }
 
+  function removePrecisionRecallEditorialCopy() {
+    if (!/precision-recall/.test(window.location.pathname)) {
+      return;
+    }
+
+    document.querySelectorAll("p, li, section, footer, .outro, .closing").forEach(function (element) {
+      var text = trimText(element.textContent);
+      if (!text) {
+        return;
+      }
+
+      var authorMarker = ["Jared", "Wilber"].join(" ");
+      var dateMarker = ["March", "2022"].join(" ");
+      var thanksMarker = ["Thanks", "for", "reading"].join(" ");
+      var editorsMarker = ["A special thanks", "to the editors"].join(" ");
+
+      if (text.indexOf(authorMarker) !== -1 || text.indexOf(dateMarker) !== -1) {
+        var attribution = element.closest("p, li, header, .byline, .author, .meta");
+        if (attribution && attribution !== document.body) {
+          attribution.style.setProperty("display", "none", "important");
+          attribution.setAttribute("aria-hidden", "true");
+        }
+      }
+
+      if (text.indexOf(thanksMarker) !== -1 || text.indexOf(editorsMarker) !== -1) {
+        var closing = element.closest("p, li, section, footer, .outro, .closing");
+        if (closing && closing !== document.body) {
+          closing.style.setProperty("display", "none", "important");
+          closing.setAttribute("aria-hidden", "true");
+        }
+      }
+    });
+  }
+
+  function removeLegacyEndings() {
+    document.querySelectorAll("#conclusion").forEach(function (section) {
+      if (section.tagName === "SECTION") {
+        section.style.setProperty("display", "none", "important");
+        section.setAttribute("aria-hidden", "true");
+      }
+    });
+
+    document.querySelectorAll("h1, h2, h3").forEach(function (heading) {
+      if (trimText(heading.textContent) !== "It's Finally Over") {
+        return;
+      }
+      var section = heading.closest("section");
+      if (section) {
+        section.style.setProperty("display", "none", "important");
+        section.setAttribute("aria-hidden", "true");
+      }
+    });
+  }
+
   function scheduleRetries() {
     [500, 1500].forEach(function (delay) {
       window.setTimeout(function () {
         removeReferences();
+        removePrecisionRecallEditorialCopy();
+        removeLegacyEndings();
         init();
       }, delay);
     });
@@ -490,21 +586,9 @@
 
     mutationObserver = new MutationObserver(function () {
       removeReferences();
-      var sections = discoverSections();
-      if (!sections.length) {
-        return;
-      }
-
-      if (!document.getElementById(RAIL_ID)) {
-        init();
-        return;
-      }
-
-      var currentLinks = document.querySelectorAll(".cwp-rail-list a");
-      if (currentLinks.length !== sections.length) {
-        updateRailList(sections);
-        setupScrollSpy(sections);
-      }
+      removePrecisionRecallEditorialCopy();
+      removeLegacyEndings();
+      createMasthead();
     });
 
     mutationObserver.observe(document.body, {
@@ -515,6 +599,8 @@
 
   function boot() {
     removeReferences();
+    removePrecisionRecallEditorialCopy();
+    removeLegacyEndings();
     init();
     scheduleRetries();
     watchDom();

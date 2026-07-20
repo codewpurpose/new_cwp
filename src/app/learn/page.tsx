@@ -4,7 +4,6 @@ import { PageHero, PageSection } from "@/components/PageHero";
 import { PageShell } from "@/components/PageShell";
 import { Reveal } from "@/components/Reveal";
 import { TopicCover, type TopicCoverVariant } from "@/components/TopicCover";
-import { WaitlistButton } from "@/components/WaitlistButton";
 import { images } from "@/lib/images";
 import {
   COURSES_HREF,
@@ -64,9 +63,7 @@ export default function LearnPage() {
         image={images.codingLaptop}
         imageAlt="Student learning to code"
       >
-        <WaitlistButton location="learn_hero" className="home-btn home-btn-fill">
-          Start Learning Free
-        </WaitlistButton>
+        <Link href={LEARN_ML_HREF} className="home-btn home-btn-fill">Explore courses</Link>
         <Link href={COURSES_HREF} className="home-btn home-btn-outline">
           Browse All Courses
         </Link>

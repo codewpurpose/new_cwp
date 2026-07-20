@@ -25,7 +25,7 @@ export const FINANCIAL_LITERACY_COURSE_HREF =
   "https://www.udemy.com/course/financial-literacy-the-basics/";
 export const HEALTH_IN_TECH_COURSE_HREF =
   "https://www.udemy.com/course/health-iin-tech/";
-export const CONTACT_EMAIL = "codewithpurpose2@gmail.com";
+export const CONTACT_EMAIL = "team@codewithpurpose.org";
 export const CONTACT_EMAIL_HREF = `mailto:${CONTACT_EMAIL}`;
 export const VOLUNTEER_FORM_HREF = "https://forms.gle/qiSULkmBB7vWk9YDA";
 export const HACK_CLUB_HREF = "https://hackclub.com";

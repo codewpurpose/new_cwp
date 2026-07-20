@@ -20,12 +20,7 @@ const team = [
   { name: "Shreyan Mitra", role: "Co-founder", photo: images.team.shreyan },
   { name: "Bruhatt Rao", role: "Co-founder", photo: images.team.bhim },
   { name: "Samanyu Goyal", role: "Co-founder", photo: images.team.samanyu },
-  { name: "Naman Jain", role: "Director of Outreach", photo: images.team.naman },
-  {
-    name: "Prithvi Jai Sudharsan",
-    role: "Director of Media",
-    photo: images.team.prithvi,
-  },
+  { name: "Naman Jain", role: "Lead Member", photo: images.team.naman },
 ];
 
 export default function AboutPage() {

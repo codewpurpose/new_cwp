@@ -158,13 +158,35 @@
   font-weight: 300;
   letter-spacing: -0.02em;
 }
+.proof-point-strip {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: .7rem;
+  min-height: 2.35rem;
+  padding: .35rem 1rem;
+  background: #1e3c2c;
+  color: #dbefdb;
+  font-family: "Comic Sans MS", "Bradley Hand", cursive;
+  font-size: .95rem;
+  letter-spacing: .01em;
+}
+.proof-point-text { animation: proof-point-in .45s ease both; }
+@keyframes proof-point-in { from { opacity: 0; transform: translateY(.35rem) rotate(-1deg); } to { opacity: 1; transform: none; } }
+.learn-nav-item { animation: learn-pulse 2.8s ease-in-out infinite; }
+@keyframes learn-pulse { 0%, 100% { color: #c52b2b; font-weight: 700; } 50% { color: inherit; font-weight: 400; } }
+@media (prefers-reduced-motion: reduce) {
+  .proof-point-text, .learn-nav-item { animation: none; }
+}
 .home-mono {
   font-family: var(--font-home-mono), ui-monospace, monospace;
 }
 .home-card {
   background: var(--home-white);
-  border: var(--home-border);
+  border: 1px solid var(--home-fern);
 }
+.home-root a:not(.home-btn):not(.home-arrow-link) { text-decoration-color: var(--home-fern); }
+.home-root section, .home-root footer > div > div { border-color: var(--home-fern); }
 .home-btn {
   display: inline-flex;
   align-items: center;

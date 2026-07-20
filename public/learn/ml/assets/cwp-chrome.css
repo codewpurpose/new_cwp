@@ -1,267 +1,171 @@
-/* CodeWithPurpose branding overrides for interactive ML lessons */
+/* Shared CodeWithPurpose surface for the standalone ML lessons.
+ *
+ * These lessons have independent visualization bundles. This file intentionally
+ * avoids changing their sizing, positioning, transforms, or display rules.
+ */
 :root {
-  --cwp-ink: #0a0e19;
+  --cwp-paper: #fcf4e8;
+  --cwp-paper-raised: #fffaf2;
+  --cwp-ink: #17241d;
   --cwp-moss: #1e3c2c;
   --cwp-fern: #3e7f5c;
-  --cwp-link: #397554;
+  --cwp-fern-dark: #28583f;
   --cwp-pistachio: #dbefdb;
+  --cwp-line: rgba(30, 60, 44, 0.22);
+  --cwp-ui-font: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
 }
 
-#intro-icon,
-header nav .cardSpan {
-  align-items: center !important;
-}
-
-#intro-icon a,
-header nav .cardSpan {
-  color: var(--cwp-moss) !important;
-  text-decoration: none !important;
-  cursor: pointer;
-}
-
-.cwp-lesson-logo,
-header nav .icon object,
-header nav .icon svg,
-#intro-icon svg.cwp-lesson-logo {
-  width: 46px !important;
-  height: auto !important;
-  display: block;
-}
-
-.cwp-brand-name,
-#intro-icon h2.logo,
-header nav .text h2 {
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif !important;
-  font-size: 1.05rem !important;
-  font-weight: 600 !important;
-  letter-spacing: -0.02em !important;
-  color: var(--cwp-ink) !important;
-  text-transform: none !important;
-  margin: 0 !important;
-  padding-left: 0.5rem !important;
-}
-
-#ai {
-  color: var(--cwp-fern) !important;
-}
-
-header nav ul#toc a.active,
-header nav ul#toc a:hover,
-header nav ul#toc li.active a {
-  border-bottom-color: var(--cwp-fern) !important;
-  color: var(--cwp-moss) !important;
-}
-
-a:hover,
-a:visited {
-  color: var(--cwp-link) !important;
-}
-
-a {
-  color: var(--cwp-link) !important;
-}
-
-header nav ul#toc li.active a,
-header nav ul#toc a.selected,
-header nav ul#toc li .selected {
-  border-bottom: 3px solid var(--cwp-fern) !important;
-  color: var(--cwp-moss) !important;
-}
-
-header nav .cardSpan .text h2,
-header nav .text h2 {
-  white-space: nowrap;
-}
-
-#intro-icon {
-  gap: 0.5rem !important;
-}
-
-#intro-icon a.cwp-lesson-brand {
-  display: inline-flex !important;
-  align-items: center !important;
-  gap: 0.5rem !important;
-}
-
-/* Precision-recall (Svelte bundle) still mounts the legacy robot SVG in JS */
-#intro-icon svg,
-#intro-icon object {
-  display: none !important;
-}
-
-#intro-icon > a,
-#intro-icon a.svelte-2pipsy {
-  display: inline-flex !important;
-  align-items: center !important;
-  gap: 0.5rem !important;
-}
-
-#intro-icon > a::before,
-#intro-icon a.svelte-2pipsy::before {
-  content: "";
-  display: block;
-  width: 46px;
-  height: 32px;
-  flex-shrink: 0;
-  background: url("/learn/ml/assets/cwp-logo-mark.svg") center / contain no-repeat;
-}
-
-#intro-icon h2,
-#intro-icon .logo {
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif !important;
-  font-size: 1.05rem !important;
-  font-weight: 600 !important;
-  letter-spacing: -0.02em !important;
-  color: var(--cwp-ink) !important;
-  text-transform: none !important;
-}
-
-/* Hide legacy top navigation — content only */
+/* Source navigation is replaced by a quiet, non-interactive lesson identity. */
 header,
 #intro-icon {
   display: none !important;
 }
 
-/* Unified lesson background, full-bleed content */
-body.cwp-lesson-chrome,
-body.cwp-lesson-chrome main,
-body.cwp-lesson-chrome #scrolly,
-body.cwp-lesson-chrome article {
-  background-color: #fcf4e8 !important;
-}
-
 body.cwp-lesson-chrome {
   margin: 0;
-  padding: 0;
+  border-top: 3px solid var(--cwp-fern);
+  background: var(--cwp-paper) !important;
+  color: var(--cwp-ink);
 }
 
-/* Minimal section rail — thin lines only, fades in at left edge */
-#cwp-lesson-rail {
-  position: fixed;
-  left: max(0.75rem, env(safe-area-inset-left));
-  top: 50%;
-  z-index: 1000;
-  transform: translateY(-50%);
-  pointer-events: none;
-  opacity: 0;
-  transition: opacity 0.25s ease;
-}
-
-#cwp-lesson-rail::before {
-  content: "";
-  position: absolute;
-  left: -0.75rem;
-  top: 50%;
-  width: 2.5rem;
-  height: min(70vh, 28rem);
-  transform: translateY(-50%);
-  pointer-events: auto;
-}
-
-#cwp-lesson-rail:hover,
-#cwp-lesson-rail:focus-within {
-  opacity: 1;
-}
-
-.cwp-rail-list {
-  list-style: none;
-  margin: 0;
-  padding: 0;
+.cwp-lesson-masthead {
   display: flex;
-  flex-direction: column;
-  gap: 0.65rem;
+  align-items: center;
+  gap: 0.875rem;
+  box-sizing: border-box;
+  width: min(100% - 2rem, 76rem);
+  margin: 0 auto;
+  padding: 1rem 0;
+  border-bottom: 1px solid var(--cwp-line);
+  color: var(--cwp-moss);
+  font-family: var(--cwp-ui-font);
 }
 
-.cwp-rail-list li {
-  margin: 0;
-  padding: 0;
-}
-
-.cwp-rail-list a {
-  display: block;
-  padding: 0.2rem 0;
-  pointer-events: auto;
-  text-decoration: none !important;
-  outline: none;
-}
-
-.cwp-rail-line {
-  display: block;
-  height: 2px;
-  width: 18px;
-  border-radius: 1px;
-  background: rgba(30, 60, 44, 0.16);
-  transition: width 0.22s ease, background-color 0.22s ease, opacity 0.22s ease;
-}
-
-.cwp-rail-list a:hover .cwp-rail-line,
-.cwp-rail-list a:focus-visible .cwp-rail-line {
-  width: 28px;
-  background: rgba(30, 60, 44, 0.42);
-}
-
-.cwp-rail-list a.active .cwp-rail-line {
-  width: 36px;
+.cwp-lesson-home-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex: 0 0 auto;
+  margin-left: auto;
+  padding: 0.5rem 0.75rem;
+  border: 1px solid var(--cwp-moss);
+  border-radius: 0.5rem;
   background: var(--cwp-moss);
+  color: var(--cwp-paper-raised) !important;
+  font: 650 0.78rem/1 var(--cwp-ui-font);
+  text-decoration: none !important;
+  transition: background-color 160ms ease, border-color 160ms ease, transform 160ms ease;
 }
 
-#cwp-lesson-rail:not(:hover):not(:focus-within) .cwp-rail-list a:not(.active) .cwp-rail-line {
-  opacity: 0;
+.cwp-lesson-home-link:hover {
+  border-color: var(--cwp-fern-dark);
+  background: var(--cwp-fern-dark);
+  color: var(--cwp-paper-raised) !important;
+  text-decoration: none !important;
 }
 
-#cwp-lesson-rail:not(:hover):not(:focus-within) .cwp-rail-list a.active .cwp-rail-line {
-  opacity: 0.3;
-  width: 22px;
+.cwp-lesson-home-link:active {
+  transform: translateY(1px);
 }
 
-.cwp-rail-list a:focus-visible {
-  outline: 2px solid rgba(30, 60, 44, 0.35);
-  outline-offset: 4px;
-  border-radius: 2px;
+.cwp-lesson-masthead img {
+  display: block;
+  width: 2.25rem;
+  height: 2.25rem;
+  flex: 0 0 auto;
 }
 
-@media (max-width: 768px) {
-  #cwp-lesson-rail {
-    left: auto;
-    right: max(0.65rem, env(safe-area-inset-right));
-    top: auto;
-    bottom: max(1rem, env(safe-area-inset-bottom));
-    transform: none;
-    opacity: 0.45;
-  }
-
-  #cwp-lesson-rail:hover,
-  #cwp-lesson-rail:focus-within {
-    opacity: 0.85;
-  }
-
-  .cwp-rail-list {
-    flex-direction: row;
-    gap: 0.45rem;
-  }
-
-  .cwp-rail-line {
-    width: 14px;
-    height: 2px;
-  }
-
-  .cwp-rail-list a:hover .cwp-rail-line,
-  .cwp-rail-list a:focus-visible .cwp-rail-line {
-    width: 20px;
-  }
-
-  .cwp-rail-list a.active .cwp-rail-line {
-    width: 24px;
-  }
+.cwp-lesson-masthead-copy {
+  display: grid;
+  gap: 0.1rem;
+  min-width: 0;
 }
 
-@media (prefers-reduced-motion: reduce) {
-  .cwp-rail-line {
-    transition: none;
-  }
+.cwp-lesson-masthead-kicker {
+  color: var(--cwp-fern-dark);
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  line-height: 1.2;
+  text-transform: uppercase;
 }
 
-/* Hide bibliography / resources sections */
+.cwp-lesson-masthead-title {
+  color: var(--cwp-moss);
+  font-size: 0.92rem;
+  font-weight: 650;
+  letter-spacing: -0.01em;
+  line-height: 1.25;
+}
+
+/* A shared reading treatment, scoped away from chart and control containers. */
+body.cwp-lesson-chrome h1,
+body.cwp-lesson-chrome h2,
+body.cwp-lesson-chrome h3,
+body.cwp-lesson-chrome .model-header,
+body.cwp-lesson-chrome .subtitle,
+body.cwp-lesson-chrome .sectionheader,
+body.cwp-lesson-chrome .subheader {
+  color: var(--cwp-moss) !important;
+  font-family: var(--cwp-ui-font) !important;
+  font-weight: 700 !important;
+  letter-spacing: -0.025em;
+}
+
+body.cwp-lesson-chrome h1 {
+  font-size: clamp(2rem, 4vw, 3.5rem) !important;
+  line-height: 1.12;
+}
+
+body.cwp-lesson-chrome h2 {
+  font-size: clamp(1.45rem, 2.6vw, 2.25rem) !important;
+  line-height: 1.18;
+}
+
+body.cwp-lesson-chrome h3 {
+  font-size: clamp(1.05rem, 1.7vw, 1.35rem) !important;
+  line-height: 1.25;
+}
+
+body.cwp-lesson-chrome .body-text,
+body.cwp-lesson-chrome .block-text,
+body.cwp-lesson-chrome .list-text,
+body.cwp-lesson-chrome .center-text,
+body.cwp-lesson-chrome .model-text {
+  color: var(--cwp-ink) !important;
+  font-family: var(--cwp-ui-font) !important;
+  line-height: 1.7;
+}
+
+body.cwp-lesson-chrome a:focus-visible,
+body.cwp-lesson-chrome button:focus-visible,
+body.cwp-lesson-chrome input:focus-visible,
+body.cwp-lesson-chrome select:focus-visible {
+  outline: 3px solid rgba(62, 127, 92, 0.45) !important;
+  outline-offset: 3px;
+}
+
+/* Controls retain their source geometry; only their color and focus language changes. */
+body.cwp-lesson-chrome button,
+body.cwp-lesson-chrome input[type="button"],
+body.cwp-lesson-chrome input[type="submit"],
+body.cwp-lesson-chrome select {
+  border-color: var(--cwp-fern) !important;
+  color: var(--cwp-moss) !important;
+}
+
+body.cwp-lesson-chrome input[type="range"] {
+  accent-color: var(--cwp-fern);
+}
+
+body.cwp-lesson-chrome .boxed,
+body.cwp-lesson-chrome .block-text,
+body.cwp-lesson-chrome .callout,
+body.cwp-lesson-chrome .card {
+  border-color: var(--cwp-line) !important;
+}
+
+/* Required cleanup from the source lessons. */
 body.cwp-lesson-chrome #resources,
 body.cwp-lesson-chrome #outro,
 body.cwp-lesson-chrome section#resources,
@@ -269,85 +173,42 @@ body.cwp-lesson-chrome section#outro {
   display: none !important;
 }
 
-/* Tighter vertical rhythm across lessons */
-body.cwp-lesson-chrome section {
-  min-height: auto !important;
-  height: auto !important;
-  margin-bottom: 6vh !important;
-}
-
-body.cwp-lesson-chrome section h2 {
-  padding-top: 3rem !important;
-}
-
-body.cwp-lesson-chrome #title-section,
-body.cwp-lesson-chrome section#intro-text {
-  padding-bottom: 2rem !important;
-}
-
-body.cwp-lesson-chrome #intro {
-  padding-bottom: 1.5rem !important;
-  margin-bottom: 1.5rem !important;
-}
-
-body.cwp-lesson-chrome #intro__author,
 body.cwp-lesson-chrome #intro__date,
-body.cwp-lesson-chrome #intro-icon {
-  padding-bottom: 0.5rem !important;
+body.cwp-lesson-chrome .lesson-attribution[data-legacy-author="true"] {
+  display: none !important;
 }
 
-body.cwp-lesson-chrome .step,
-body.cwp-lesson-chrome #scrolly .step,
-body.cwp-lesson-chrome #scrolly-side .step-side {
-  margin-bottom: 0.85rem !important;
+.cwp-lesson-footer {
+  box-sizing: border-box;
+  width: min(100% - 2rem, 76rem);
+  margin: 3rem auto 0;
+  padding: 1.25rem 0 2rem;
+  border-top: 1px solid var(--cwp-line);
+  color: var(--cwp-moss);
+  font: 650 0.82rem/1.4 var(--cwp-ui-font);
+  letter-spacing: 0.02em;
+  text-align: center;
 }
 
-body.cwp-lesson-chrome #scrolly-rf section,
-body.cwp-lesson-chrome #scrolly-condurcet section,
-body.cwp-lesson-chrome #scrolly > section {
-  min-height: auto !important;
-}
-
-body.cwp-lesson-chrome article p,
-body.cwp-lesson-chrome .step p,
-body.cwp-lesson-chrome #scrolly .step p {
-  padding-top: 0.75rem !important;
-  padding-bottom: 0.75rem !important;
-}
-
-body.cwp-lesson-chrome #informationgain,
-body.cwp-lesson-chrome #pertubations,
-body.cwp-lesson-chrome #splits,
-body.cwp-lesson-chrome #anotherlook,
-body.cwp-lesson-chrome #limitations,
-body.cwp-lesson-chrome #final {
-  padding-top: 2rem !important;
-  padding-bottom: 2rem !important;
-}
-
-body.cwp-lesson-chrome .model-header,
-body.cwp-lesson-chrome .subtitle {
-  padding-top: 1.25rem !important;
-  padding-bottom: 0.5rem !important;
-}
-
-body.cwp-lesson-chrome #gap-container,
-body.cwp-lesson-chrome #conclusion,
-body.cwp-lesson-chrome #section2 {
-  padding-top: 2rem !important;
-  padding-bottom: 2rem !important;
-}
-
-body.cwp-lesson-chrome br {
-  line-height: 0.35 !important;
-}
-
-@media (max-width: 900px) {
-  body.cwp-lesson-chrome section {
-    margin-bottom: 3vh !important;
+@media (max-width: 640px) {
+  .cwp-lesson-masthead {
+    width: min(100% - 1.5rem, 76rem);
+    padding: 0.8rem 0;
   }
 
-  body.cwp-lesson-chrome section h2 {
-    padding-top: 1.5rem !important;
+  .cwp-lesson-footer {
+    width: min(100% - 1.5rem, 76rem);
+    margin-top: 2.5rem;
+  }
+
+  .cwp-lesson-home-link {
+    padding: 0.45rem 0.6rem;
+    font-size: 0.72rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html:focus-within {
+    scroll-behavior: auto;
   }
 }

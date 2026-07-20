@@ -6,7 +6,6 @@ import {
   CONTACT_HREF,
   COURSES_HREF,
   DONATE_HREF,
-  HACK_CLUB_HREF,
   HOME_HREF,
   JOIN_HREF,
   LEARN_HREF,
@@ -118,20 +117,7 @@ export function SiteFooter() {
                 student, everywhere.
               </p>
             </div>
-            <a
-              href={HACK_CLUB_HREF}
-              target="_blank"
-              rel="noreferrer"
-              className="flex items-center gap-2 text-xs opacity-70 transition-opacity hover:opacity-100"
-            >
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img
-                src="https://assets.hackclub.com/flag-standalone.svg"
-                alt="Hack Club"
-                className="h-6 w-auto"
-              />
-              <span>A nonprofit fiscally sponsored by Hack Club</span>
-            </a>
+            <span className="text-xs opacity-70">Student-led free education for everyone</span>
           </div>
         </div>
       </div>

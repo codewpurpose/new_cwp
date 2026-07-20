@@ -1,4 +1,4 @@
-import { HackClubBanner } from "@/components/HackClubBanner";
+import { ProofPointStrip } from "@/components/ProofPointStrip";
 import { SiteHeader } from "@/components/SiteHeader";
 import { HeroSection } from "@/components/HeroSection";
 import { PromptsMarquee } from "@/components/PromptsMarquee";
@@ -15,7 +15,7 @@ import { SiteFooter } from "@/components/SiteFooter";
 export default function Home() {
   return (
     <>
-      <HackClubBanner />
+      <ProofPointStrip />
       <SiteHeader />
       <main id="top">
         <HeroSection />

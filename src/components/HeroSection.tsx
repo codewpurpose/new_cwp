@@ -1,5 +1,5 @@
 import { ABOUT_HREF } from "@/lib/links";
-import { WaitlistButton } from "@/components/WaitlistButton";
+import { LEARN_HREF } from "@/lib/links";
 
 const HERO_STATS = [
   { value: "4,000+", label: "Students Reached" },
@@ -21,13 +21,7 @@ export function HeroSection() {
           countries. Completely free, forever. No catch, no fine print.
         </p>
         <div className="mt-8 flex flex-wrap items-center justify-center gap-2">
-          <WaitlistButton
-            location="hero"
-            autoOpenAtScrollFraction={0.4}
-            className="home-btn home-btn-fill"
-          >
-            Start Learning Free
-          </WaitlistButton>
+          <a href={LEARN_HREF} className="home-btn home-btn-fill">Explore courses</a>
           <a href={ABOUT_HREF} className="home-btn home-btn-outline">
             Our Story
           </a>
