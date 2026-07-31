@@ -58,7 +58,7 @@ export function IntroLesson() {
       </div>
 
       <div className="home-card mt-6 overflow-hidden rounded-[20px] p-6 md:p-8">
-        <div className="flex items-center justify-between text-xs uppercase tracking-[0.08em] text-[#818181]">
+        <div className="flex items-center justify-between text-xs uppercase tracking-[0.08em] text-[#636363]">
           <span>Relative time to ship</span>
           <span>{TIME[mode]}%</span>
         </div>

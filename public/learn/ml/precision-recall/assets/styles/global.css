@@ -123,3 +123,11 @@ body {
     font-size: 30px;
   }
 }
+
+/* The mlu-explain bundle's .step-content rule repeats its scoping
+   class to raise specificity for the dim/inactive state, which
+   accidentally beats the "active" rule that sets color:black,
+   leaving every step's text a near-invisible #ccc on whitesmoke. */
+.step-content {
+  color: #232f3e !important;
+}

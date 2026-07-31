@@ -30,7 +30,7 @@ export function SiteFooter() {
                   A student-run nonprofit making tech education free and
                   accessible for everyone, everywhere.
                 </p>
-                <p className="text-xs text-[#818181]">
+                <p className="text-xs text-[#636363]">
                   Recognized by the U.S. House of Representatives
                 </p>
               </a>

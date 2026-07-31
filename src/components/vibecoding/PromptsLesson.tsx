@@ -56,7 +56,7 @@ export function PromptsLesson() {
             className="home-card block w-full overflow-hidden rounded-[20px] p-6 text-left md:p-8"
           >
             <div className="flex items-center justify-between gap-4">
-              <span className="rounded-full bg-[#f2f2f2] px-2.5 py-1 text-[11px] font-medium uppercase tracking-[0.08em] text-[#818181]">
+              <span className="rounded-full bg-[#f2f2f2] px-2.5 py-1 text-[11px] font-medium uppercase tracking-[0.08em] text-[#636363]">
                 Vague prompt
               </span>
               <span className="text-xs text-[#3e7f5c]">
@@ -83,7 +83,7 @@ export function PromptsLesson() {
                 <p className="mt-3 text-[15px] leading-[1.55] text-[#1e3c2c]">
                   &ldquo;{example.specific}&rdquo;
                 </p>
-                <p className="mt-3 text-[13px] leading-[1.5] text-[#818181]">
+                <p className="mt-3 text-[13px] leading-[1.5] text-[#636363]">
                   Why it works: {example.why}
                 </p>
               </div>

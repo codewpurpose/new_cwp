@@ -87,7 +87,7 @@ export function DebuggingLesson() {
       </div>
 
       <div className="home-card mt-6 overflow-hidden rounded-[20px] p-6 md:p-8">
-        <p className="text-xs uppercase tracking-[0.08em] text-[#818181]">
+        <p className="text-xs uppercase tracking-[0.08em] text-[#636363]">
           {STEPS[step].label}
         </p>
         <AnimatePresence mode="wait">
