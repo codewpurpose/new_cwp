@@ -17,11 +17,11 @@ export const metadata: Metadata = {
 };
 
 const team = [
-  { name: "Sanjay Vellore", role: "Director of Operations", photo: images.team.sanjay },
-  { name: "Naman Jain", role: "Lead Member", photo: images.team.naman },
   { name: "Shreyan Mitra", role: "Co-founder", photo: images.team.shreyan },
   { name: "Bruhatt Rao", role: "Co-founder", photo: images.team.bhim },
   { name: "Samanyu Goyal", role: "Co-founder", photo: images.team.samanyu },
+  { name: "Sanjay Vellore", role: "Director of Operations", photo: images.team.sanjay },
+  { name: "Naman Jain", role: "Lead Member", photo: images.team.naman },
 ];
 
 export default function AboutPage() {
