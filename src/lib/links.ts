@@ -3,6 +3,7 @@ export const SITE_URL = "https://www.codewithpurpose.org";
 export const COURSES_HREF = "/courses";
 export const LEARN_HREF = "/learn";
 export const LEARN_ML_HREF = "/learn/ml";
+export const LEARN_VIBECODING_HREF = "/learn/vibecoding";
 export const ABOUT_HREF = "/about";
 export const JOIN_HREF = "/join";
 export const IMPACT_HREF = "/impact";

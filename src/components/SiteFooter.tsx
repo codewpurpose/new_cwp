@@ -10,6 +10,7 @@ import {
   JOIN_HREF,
   LEARN_HREF,
   LEARN_ML_HREF,
+  LEARN_VIBECODING_HREF,
 } from "@/lib/links";
 
 export function SiteFooter() {
@@ -42,6 +43,11 @@ export function SiteFooter() {
                     <li>
                       <a href={LEARN_ML_HREF} className="home-footer-link">
                         ML Lessons
+                      </a>
+                    </li>
+                    <li>
+                      <a href={LEARN_VIBECODING_HREF} className="home-footer-link">
+                        Vibe Coding Lessons
                       </a>
                     </li>
                     <li>

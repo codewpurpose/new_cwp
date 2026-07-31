@@ -8,6 +8,7 @@ import { images } from "@/lib/images";
 import {
   COURSES_HREF,
   LEARN_ML_HREF,
+  LEARN_VIBECODING_HREF,
   ML_PART_1_COURSE_HREF,
   VIBECODING_COURSE_HREF,
 } from "@/lib/links";
@@ -33,12 +34,15 @@ interface LearnTrack {
 const tracks: LearnTrack[] = [
   {
     title: "Vibe Coding",
-    tags: ["Creative", "AI-Powered"],
+    tags: ["Creative", "AI-Powered", "Interactive"],
     description:
-      "Build real apps using AI tools like Cursor and Copilot. Fast, creative, and full of purpose — this is where coding is headed.",
+      "Build real apps using AI tools like Cursor and Copilot. Explore animated, interactive lessons on prompting, pairing with AI, debugging, and shipping.",
     cover: "vibecoding",
-    primaryHref: VIBECODING_COURSE_HREF,
-    primaryLabel: "Start Vibe Coding",
+    primaryHref: LEARN_VIBECODING_HREF,
+    primaryLabel: "Explore Vibe Coding Lessons",
+    primaryExternal: false,
+    secondaryHref: VIBECODING_COURSE_HREF,
+    secondaryLabel: "Udemy Course",
   },
   {
     title: "ML",
