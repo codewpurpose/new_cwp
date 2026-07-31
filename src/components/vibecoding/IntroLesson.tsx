@@ -97,6 +97,77 @@ export function IntroLesson() {
           </motion.ol>
         </AnimatePresence>
       </div>
+
+      <motion.div
+        initial={{ opacity: 0, y: 16 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, margin: "-60px" }}
+        transition={{ duration: 0.5 }}
+        className="mt-10"
+      >
+        <h3 className="text-lg text-[#1e3c2c]">Where the term comes from</h3>
+        <p className="mt-3 text-[15px] leading-[1.6] text-[#636363]">
+          Former Tesla AI director Andrej Karpathy coined &ldquo;vibe
+          coding&rdquo; in February 2025, describing a style of building
+          software where you &ldquo;fully give in to the vibes&rdquo;: you
+          describe what you want, accept AI suggestions, and iterate by
+          prompting rather than typing every character yourself. The name
+          stuck because it captures something real, the feel of coding
+          changes, even though the underlying engineering discipline still
+          matters just as much.
+        </p>
+      </motion.div>
+
+      <motion.div
+        initial={{ opacity: 0, y: 16 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, margin: "-60px" }}
+        transition={{ duration: 0.5, delay: 0.08 }}
+        className="mt-10 grid gap-4 md:grid-cols-2"
+      >
+        <div className="home-card rounded-[16px] p-5">
+          <h3 className="text-[15px] font-semibold text-[#1e3c2c]">
+            Vibe coding shines for
+          </h3>
+          <ul className="mt-3 space-y-2 text-[14px] leading-[1.5] text-[#636363]">
+            <li>Prototypes and proofs of concept</li>
+            <li>One-off scripts and automations</li>
+            <li>Scaffolding new UI from a description</li>
+            <li>Exploring an unfamiliar library quickly</li>
+          </ul>
+        </div>
+        <div className="home-card rounded-[16px] p-5">
+          <h3 className="text-[15px] font-semibold text-[#1e3c2c]">
+            Be more careful with
+          </h3>
+          <ul className="mt-3 space-y-2 text-[14px] leading-[1.5] text-[#636363]">
+            <li>Security-critical or payment-handling code</li>
+            <li>Code with tight performance budgets</li>
+            <li>Anything you can&apos;t explain line by line</li>
+            <li>Changes you can&apos;t easily test before shipping</li>
+          </ul>
+        </div>
+      </motion.div>
+
+      <motion.div
+        initial={{ opacity: 0, y: 16 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, margin: "-60px" }}
+        transition={{ duration: 0.5, delay: 0.16 }}
+        className="mt-10 rounded-[16px] bg-[#1e3c2c] p-6 text-[#dbefdb] md:p-8"
+      >
+        <h3 className="text-[15px] font-semibold uppercase tracking-[0.08em]">
+          Key takeaways
+        </h3>
+        <ul className="mt-3 space-y-2 text-[14px] leading-[1.6] opacity-90">
+          <li>Vibe coding replaces typing with describing and reviewing.</li>
+          <li>You are still responsible for what ships, the AI is not.</li>
+          <li>
+            It is fastest for prototypes, slowest to trust for critical
+            systems.
+          </li>
+        </ul>
+      </motion.div>
     </div>
   );
 }

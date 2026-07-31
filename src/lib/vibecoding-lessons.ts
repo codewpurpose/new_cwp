@@ -16,6 +16,13 @@ export const VIBECODING_LESSONS: VibecodingLesson[] = [
     tags: ["Foundations", "Interactive"],
   },
   {
+    slug: "tools",
+    title: "Choosing Your AI Tool",
+    description:
+      "Cursor, Copilot, Claude Code, or a chat window? Pick a task and see which kind of tool actually fits it.",
+    tags: ["Tooling", "Interactive"],
+  },
+  {
     slug: "prompts",
     title: "Writing Prompts That Work",
     description:
@@ -35,6 +42,20 @@ export const VIBECODING_LESSONS: VibecodingLesson[] = [
     description:
       "Errors are just information. Step through a live example of handing a stack trace to AI and landing on a real fix.",
     tags: ["Debugging", "Interactive"],
+  },
+  {
+    slug: "review",
+    title: "Reviewing AI-Generated Code",
+    description:
+      "AI output still needs a human pass. Spot the planted issues in a real snippet before they ship.",
+    tags: ["Code Review", "Interactive"],
+  },
+  {
+    slug: "codebase",
+    title: "Vibe Coding in an Existing Codebase",
+    description:
+      "\"Add a login page\" means something different in a fresh repo vs. a 50k-line one. See how naming context changes the result.",
+    tags: ["Real Codebases", "Interactive"],
   },
   {
     slug: "shipping",

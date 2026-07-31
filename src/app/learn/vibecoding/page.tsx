@@ -79,6 +79,38 @@ function DebugIcon() {
   );
 }
 
+function ToolsIcon() {
+  return (
+    <svg viewBox="0 0 64 64" fill="none" aria-hidden="true" className="h-9 w-9">
+      <rect x="14" y="14" width="16" height="16" rx="4" fill="#ffffff" stroke={INK} strokeWidth="1.6" />
+      <rect x="34" y="14" width="16" height="16" rx="4" fill={PISTACHIO} stroke={INK} strokeWidth="1.6" />
+      <rect x="14" y="34" width="16" height="16" rx="4" fill="#ffffff" stroke={INK} strokeWidth="1.6" />
+      <rect x="34" y="34" width="16" height="16" rx="4" fill="#ffffff" stroke={INK} strokeWidth="1.6" />
+      <path d="M39 20.5l2 2 4-4.5" stroke={INK} strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />
+    </svg>
+  );
+}
+
+function ReviewIcon() {
+  return (
+    <svg viewBox="0 0 64 64" fill="none" aria-hidden="true" className="h-9 w-9">
+      <circle cx="27" cy="27" r="14" fill="#ffffff" stroke={INK} strokeWidth="1.8" />
+      <path d="M37 37l14 14" stroke={INK} strokeWidth="2.4" strokeLinecap="round" />
+      <path d="M20 27l5 5 9-10" stroke={FERN} strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" fill="none" />
+    </svg>
+  );
+}
+
+function CodebaseIcon() {
+  return (
+    <svg viewBox="0 0 64 64" fill="none" aria-hidden="true" className="h-9 w-9">
+      <rect x="12" y="20" width="34" height="26" rx="4" fill="#ffffff" stroke={INK} strokeWidth="1.6" />
+      <rect x="18" y="14" width="34" height="26" rx="4" fill={PISTACHIO} stroke={INK} strokeWidth="1.6" />
+      <path d="M25 27h20M25 33h14" stroke={INK} strokeWidth="1.6" strokeLinecap="round" />
+    </svg>
+  );
+}
+
 function ShipIcon() {
   return (
     <svg viewBox="0 0 64 64" fill="none" aria-hidden="true" className="h-9 w-9">
@@ -96,9 +128,12 @@ function ShipIcon() {
 
 const ICONS: Record<string, () => React.ReactElement> = {
   intro: IntroIcon,
+  tools: ToolsIcon,
   prompts: PromptIcon,
   loop: LoopIcon,
   debugging: DebugIcon,
+  review: ReviewIcon,
+  codebase: CodebaseIcon,
   shipping: ShipIcon,
 };
 

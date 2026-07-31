@@ -3,20 +3,26 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { PageHero, PageSection } from "@/components/PageHero";
 import { PageShell } from "@/components/PageShell";
+import { CodebaseLesson } from "@/components/vibecoding/CodebaseLesson";
 import { DebuggingLesson } from "@/components/vibecoding/DebuggingLesson";
 import { IntroLesson } from "@/components/vibecoding/IntroLesson";
 import { LoopLesson } from "@/components/vibecoding/LoopLesson";
 import { PromptsLesson } from "@/components/vibecoding/PromptsLesson";
+import { ReviewLesson } from "@/components/vibecoding/ReviewLesson";
 import { ShippingLesson } from "@/components/vibecoding/ShippingLesson";
+import { ToolsLesson } from "@/components/vibecoding/ToolsLesson";
 import { images } from "@/lib/images";
 import { COURSES_HREF, LEARN_VIBECODING_HREF } from "@/lib/links";
 import { VIBECODING_LESSONS } from "@/lib/vibecoding-lessons";
 
 const LESSON_BODIES: Record<string, () => React.ReactElement> = {
   intro: IntroLesson,
+  tools: ToolsLesson,
   prompts: PromptsLesson,
   loop: LoopLesson,
   debugging: DebuggingLesson,
+  review: ReviewLesson,
+  codebase: CodebaseLesson,
   shipping: ShippingLesson,
 };
 
