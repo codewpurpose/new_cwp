@@ -2,6 +2,21 @@
 @import "tw-animate-css";
 @import "shadcn/tailwind.css";
 
+/* Canonical /learn design tokens. Lives under public/ because the standalone
+ * ML lesson documents <link> the same file — see its header comment. */
+@import "../../public/learn/shared/learn-tokens.css";
+
+/* layer(components) is required: Tailwind emits utilities into @layer utilities,
+ * and unlayered CSS wins over layered CSS regardless of specificity. Without it
+ * these semantic classes would silently beat every utility on the same element. */
+@import "../../public/learn/shared/learn-shell.css" layer(components);
+
+/* The standalone ML lesson bundles are vendored build output, not source.
+ * Without this, Tailwind's content detection walks ~41 MB of minified JS and
+ * source maps on every build and every HMR tick, harvesting arbitrary strings
+ * as candidate class names. */
+@source not "../../public/learn/ml";
+
 @custom-variant dark (&:is(.dark *));
 
 @theme inline {
@@ -46,6 +61,68 @@
   --radius-2xl: calc(var(--radius) * 1.8);
   --radius-3xl: calc(var(--radius) * 2.2);
   --radius-4xl: calc(var(--radius) * 2.6);
+
+  /* /learn tokens exposed as Tailwind utilities. `inline` matters: it makes the
+   * generated utility emit var(--learn-*) rather than baking in the literal, so
+   * the min-width:1200px header-height override and the .home-root font
+   * redeclaration below keep working. */
+  --color-learn-paper: var(--learn-paper);
+  --color-learn-surface: var(--learn-surface);
+  --color-learn-sunken: var(--learn-surface-sunken);
+  --color-learn-sunken-2: var(--learn-surface-sunken-2);
+  --color-learn-inverse: var(--learn-surface-inverse);
+  --color-learn-quiet: var(--learn-surface-quiet);
+  --color-learn-quiet-wash: var(--learn-surface-quiet-wash);
+  --color-learn-line: var(--learn-line);
+  --color-learn-line-strong: var(--learn-line-strong);
+  --color-learn-line-inverse: var(--learn-line-inverse);
+  --color-learn-ink: var(--learn-ink);
+  --color-learn-strong: var(--learn-ink-strong);
+  --color-learn-muted: var(--learn-ink-muted);
+  --color-learn-subtle: var(--learn-ink-subtle);
+  --color-learn-on-inverse: var(--learn-ink-on-inverse);
+  --color-learn-heading-on-inverse: var(--learn-heading-on-inverse);
+  --color-learn-outcome-tp: var(--learn-outcome-tp);
+  --color-learn-outcome-fn: var(--learn-outcome-fn);
+  --color-learn-outcome-fp: var(--learn-outcome-fp);
+  --color-learn-outcome-tn: var(--learn-outcome-tn);
+  --color-learn-series-1: var(--learn-series-1);
+  --color-learn-series-2: var(--learn-series-2);
+  --color-learn-series-3: var(--learn-series-3);
+  --color-learn-series-4: var(--learn-series-4);
+  --color-learn-series-5: var(--learn-series-5);
+  --color-learn-chart-error: var(--learn-chart-error);
+  --color-learn-chart-axis: var(--learn-chart-axis);
+  --color-learn-chart-plot: var(--learn-chart-plot);
+  --color-learn-accent: var(--learn-accent);
+  --color-learn-accent-text: var(--learn-accent-text);
+  --color-learn-link: var(--learn-link);
+  --color-learn-code-bg: var(--learn-code-bg);
+  --color-learn-code-fg: var(--learn-code-fg);
+  --color-learn-code-dim: var(--learn-code-dim);
+  --color-learn-code-err: var(--learn-code-err);
+  --color-learn-code-warn: var(--learn-code-warn);
+  --color-learn-code-ok: var(--learn-code-ok);
+  --color-learn-code-accent: var(--learn-code-accent);
+  --color-learn-info-bg: var(--learn-info-bg);
+  --color-learn-info-fg: var(--learn-info-fg);
+  --color-learn-info-line: var(--learn-info-line);
+  --color-learn-success-bg: var(--learn-success-bg);
+  --color-learn-success-fg: var(--learn-success-fg);
+  --color-learn-success-line: var(--learn-success-line);
+  --color-learn-warning-bg: var(--learn-warning-bg);
+  --color-learn-warning-fg: var(--learn-warning-fg);
+  --color-learn-warning-line: var(--learn-warning-line);
+  --color-learn-danger-bg: var(--learn-danger-bg);
+  --color-learn-danger-fg: var(--learn-danger-fg);
+  --color-learn-danger-line: var(--learn-danger-line);
+  --radius-learn-sm: var(--learn-radius-sm);
+  --radius-learn-md: var(--learn-radius-md);
+  --radius-learn-lg: var(--learn-radius-lg);
+  --radius-learn-xl: var(--learn-radius-xl);
+  --font-learn-sans: var(--learn-font-sans);
+  --font-learn-serif: var(--learn-font-serif);
+  --font-learn-mono: var(--learn-font-mono);
 }
 
 :root {
@@ -128,7 +205,7 @@
     @apply font-sans;
   }
 }
-/* ===== tryglen.com home styles (ported from live site CSS) ===== */
+/* ===== CodeWithPurpose home styles ===== */
 .home-root {
   --home-page: #fcf4e8;
   --home-white: #fffbf5;
@@ -147,6 +224,18 @@
   --home-link-green: #397554;
   --home-fern: #3e7f5c;
   --home-border: 0.5px solid var(--home-grey-500);
+
+  /* Re-declared here, not in learn-tokens.css, because next/font puts
+   * --font-home-* on <body class="home-root"> — below :root — and a custom
+   * property's var() is substituted on the element where it is declared. A
+   * :root rule would silently resolve to the system fallback.
+   * This is also what finally gives --font-home-mono (Spline Sans Mono) a
+   * consumer; lesson code blocks previously used Tailwind's font-mono, which
+   * resolves to a Geist Mono that is never loaded. */
+  --learn-font-sans: var(--font-home-sans), -apple-system, system-ui, sans-serif;
+  --learn-font-serif: var(--font-home-serif), Georgia, serif;
+  --learn-font-mono: var(--font-home-mono), ui-monospace, Menlo, monospace;
+
   font-family: var(--font-home-sans), system-ui, sans-serif;
   background: var(--home-page);
   color: var(--home-ink);
@@ -547,22 +636,6 @@
   background: var(--home-pistachio);
   color: var(--home-moss);
 }
-.waitlist-dialog {
-  color: #0a0e19;
-  letter-spacing: -0.02em;
-  background: #fff;
-  border: 0.5px solid #e1e1e1;
-  border-radius: 0.75rem;
-  width: min(26rem, 100vw - 2.5rem);
-  margin: auto;
-  padding: 0;
-}
-.waitlist-dialog::backdrop {
-  -webkit-backdrop-filter: blur(3px);
-  backdrop-filter: blur(3px);
-  background: #0a0e1959;
-}
-
 html.cwp-loader-active {
   overflow: hidden;
 }

@@ -1,0 +1,383 @@
+/* learn-shell.css — documentation shell chrome for the /learn section.
+ *
+ * Consumed by BOTH the React shell and (later) the standalone ML lesson
+ * documents, which live outside the React tree entirely. That is why this is
+ * semantic class names in plain CSS rather than Tailwind utilities: anything
+ * expressed as a utility cannot be reused by the static side, and the two
+ * implementations drift apart again.
+ *
+ * Imported into globals.css with layer(components). That matters — Tailwind v4
+ * emits utilities into @layer utilities, and UNLAYERED css beats layered css
+ * regardless of specificity, so without the layer these rules would silently
+ * override every utility applied to the same elements.
+ */
+
+/* --------------------------------------------------------------------------
+ * Anchor landing
+ *
+ * scroll-padding-top on the scroller rather than scroll-margin-top on each
+ * heading: one declaration covers TOC clicks, scrollIntoView, an initial #hash
+ * load, and browser back/forward scroll restoration.
+ * ---------------------------------------------------------------------- */
+html:has(.learn-shell) {
+  scroll-padding-top: calc(var(--learn-header-h) + var(--learn-scroll-pad));
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  html:has(.learn-shell) {
+    scroll-behavior: smooth;
+  }
+}
+
+/* --------------------------------------------------------------------------
+ * Grid
+ *
+ * Breakpoints are 1200/1440, not 1024/1280, because SiteHeader switches between
+ * its desktop nav and its hamburger at min-width:1200px. Going two-column at
+ * 1024 would put a desktop docs grid under a mobile header — two navigation
+ * paradigms on screen at once.
+ * ---------------------------------------------------------------------- */
+.learn-shell {
+  box-sizing: border-box;
+  width: 100%;
+  max-width: var(--learn-shell-max);
+  margin: 0 auto;
+  padding: 0 1.25rem;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: var(--learn-gutter);
+}
+
+@media (min-width: 768px) {
+  .learn-shell {
+    padding: 0 2.5rem;
+  }
+}
+
+@media (min-width: 1200px) {
+  .learn-shell {
+    grid-template-columns: var(--learn-sidebar-w) minmax(0, 1fr);
+  }
+}
+
+@media (min-width: 1440px) {
+  .learn-shell {
+    grid-template-columns: var(--learn-sidebar-w) minmax(0, 1fr) var(--learn-toc-w);
+  }
+}
+
+.learn-main {
+  min-width: 0;
+  padding: 2rem 0 4rem;
+}
+
+.learn-measure {
+  max-width: var(--learn-measure);
+}
+
+/* Takes over from each lesson body's own `mx-auto max-w-3xl`. Same width
+ * (48rem == max-w-3xl), so removing those wrappers changes nothing visually
+ * while letting the grid own the column. */
+.learn-prose {
+  max-width: var(--learn-measure);
+}
+
+/* globals.css sets `.home-root section { border-color: var(--home-fern) }`,
+ * which would green-tint any bordered section in a chapter body. Overridden
+ * once here rather than fought per component. */
+.home-root .learn-prose section {
+  border-color: var(--learn-line);
+}
+
+/* The docs surface. Deliberately NOT .home-card, which borders in fern green —
+ * a chapter mixing the two shows green-outlined and warm-outlined cards side by
+ * side on the same page. */
+.learn-card {
+  background: var(--learn-surface);
+  border: 0.5px solid var(--learn-line);
+  border-radius: var(--learn-radius-lg);
+}
+
+/* --------------------------------------------------------------------------
+ * Header scrim
+ *
+ * SiteHeader is sticky and fully transparent — only its inner nav pill is
+ * glass — so dense prose scrolls visibly behind it. This lays a paper-coloured
+ * fade underneath it. z-index 9 keeps it below the header's z-10, and
+ * pointer-events:none keeps the header's own controls clickable.
+ * ---------------------------------------------------------------------- */
+.learn-header-scrim {
+  position: fixed;
+  inset: 0 0 auto 0;
+  height: calc(var(--learn-header-h) + 1rem);
+  z-index: 9;
+  pointer-events: none;
+  background: linear-gradient(
+    to bottom,
+    var(--learn-paper) 0%,
+    var(--learn-paper) 62%,
+    rgba(252, 244, 232, 0) 100%
+  );
+}
+
+/* --------------------------------------------------------------------------
+ * Sticky rails
+ * ---------------------------------------------------------------------- */
+.learn-sidebar,
+.learn-toc {
+  display: none;
+}
+
+@media (min-width: 1200px) {
+  .learn-sidebar {
+    display: block;
+    position: sticky;
+    top: calc(var(--learn-header-h) + 1.5rem);
+    /* dvh, not vh — mobile browser chrome changes the viewport height. */
+    max-height: calc(100dvh - var(--learn-header-h) - 3rem);
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    padding: 2rem 0 2rem;
+  }
+}
+
+@media (min-width: 1440px) {
+  .learn-toc {
+    display: block;
+    position: sticky;
+    top: calc(var(--learn-header-h) + 1.5rem);
+    max-height: calc(100dvh - var(--learn-header-h) - 3rem);
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    padding: 2rem 0 2rem;
+  }
+}
+
+/* --------------------------------------------------------------------------
+ * Sidebar
+ * ---------------------------------------------------------------------- */
+.learn-nav-heading {
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--learn-ink-subtle);
+  margin: 0 0 0.5rem;
+}
+
+.learn-nav-part {
+  margin-bottom: 1.5rem;
+}
+
+.learn-nav-part-title {
+  display: flex;
+  align-items: baseline;
+  gap: 0.4rem;
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--learn-ink-strong);
+  margin: 0 0 0.5rem;
+}
+
+.learn-nav-part-number {
+  color: var(--learn-accent);
+}
+
+.learn-nav-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  border-left: 1px solid var(--learn-line);
+}
+
+.learn-nav-link {
+  display: block;
+  padding: 0.35rem 0 0.35rem 0.85rem;
+  margin-left: -1px;
+  border-left: 2px solid transparent;
+  font-size: 0.875rem;
+  line-height: 1.45;
+  color: var(--learn-ink-muted);
+  text-decoration: none;
+  transition: color var(--learn-dur-fast) ease, border-color var(--learn-dur-fast) ease;
+}
+
+.learn-nav-link:hover {
+  color: var(--learn-ink-strong);
+}
+
+.learn-nav-link[aria-current="page"] {
+  color: var(--learn-ink-strong);
+  font-weight: 600;
+  border-left-color: var(--learn-accent);
+}
+
+/* --------------------------------------------------------------------------
+ * Table of contents
+ * ---------------------------------------------------------------------- */
+.learn-toc-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  border-left: 1px solid var(--learn-line);
+}
+
+.learn-toc-link {
+  display: block;
+  padding: 0.3rem 0 0.3rem 0.85rem;
+  margin-left: -1px;
+  border-left: 2px solid transparent;
+  font-size: 0.82rem;
+  line-height: 1.45;
+  color: var(--learn-ink-muted);
+  text-decoration: none;
+  transition: color var(--learn-dur-fast) ease, border-color var(--learn-dur-fast) ease;
+}
+
+.learn-toc-link:hover {
+  color: var(--learn-ink-strong);
+}
+
+.learn-toc-link[data-level="3"] {
+  padding-left: 1.6rem;
+  font-size: 0.78rem;
+}
+
+.learn-toc-link[aria-current="location"] {
+  color: var(--learn-ink-strong);
+  font-weight: 600;
+  border-left-color: var(--learn-accent);
+}
+
+/* --------------------------------------------------------------------------
+ * Mobile chapter bar
+ *
+ * Below 1200px this doubles as the scrim, so it is opaque.
+ * ---------------------------------------------------------------------- */
+.learn-mobile-bar {
+  position: sticky;
+  top: var(--learn-header-h);
+  z-index: 9;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 0.7rem 0;
+  background: var(--learn-paper);
+  border-bottom: 1px solid var(--learn-line);
+}
+
+@media (min-width: 1200px) {
+  .learn-mobile-bar {
+    display: none;
+  }
+}
+
+.learn-mobile-bar-label {
+  font-size: 0.78rem;
+  color: var(--learn-ink-muted);
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* --------------------------------------------------------------------------
+ * Chapter header + pager
+ * ---------------------------------------------------------------------- */
+.learn-eyebrow {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.75rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--learn-ink-subtle);
+}
+
+.learn-pager {
+  display: grid;
+  gap: 0.75rem;
+  margin-top: 4rem;
+  padding-top: 2rem;
+  border-top: 1px solid var(--learn-line);
+}
+
+@media (min-width: 640px) {
+  .learn-pager {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+.learn-pager-link {
+  display: block;
+  padding: 1rem 1.15rem;
+  border: 1px solid var(--learn-line);
+  border-radius: var(--learn-radius-md);
+  background: var(--learn-surface);
+  text-decoration: none;
+  transition: border-color var(--learn-dur-fast) ease, transform var(--learn-dur-fast) ease;
+}
+
+.learn-pager-link:hover {
+  border-color: var(--learn-accent);
+  transform: translateY(-1px);
+}
+
+.learn-pager-link[data-direction="next"] {
+  text-align: right;
+  grid-column: 2;
+}
+
+.learn-pager-direction {
+  display: block;
+  font-size: 0.72rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--learn-ink-subtle);
+}
+
+.learn-pager-title {
+  display: block;
+  margin-top: 0.2rem;
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--learn-ink-strong);
+}
+
+/* --------------------------------------------------------------------------
+ * Focus
+ *
+ * One class rather than ad-hoc focus: utilities, so every interactive element
+ * in the shell rings identically. Matches .home-btn:focus-visible so buttons
+ * and non-buttons agree.
+ * ---------------------------------------------------------------------- */
+.learn-focusable:focus-visible,
+.learn-nav-link:focus-visible,
+.learn-toc-link:focus-visible,
+.learn-pager-link:focus-visible {
+  outline: var(--learn-focus-ring-width) solid var(--learn-focus-ring);
+  outline-offset: var(--learn-focus-ring-offset);
+  border-radius: var(--learn-radius-sm);
+}
+
+.learn-on-inverse .learn-focusable:focus-visible {
+  outline-color: var(--learn-focus-ring-inverse);
+}
+
+/* --------------------------------------------------------------------------
+ * Reduced motion
+ *
+ * Scoped to the shell — this is not a retrofit of the wider site.
+ * ---------------------------------------------------------------------- */
+@media (prefers-reduced-motion: reduce) {
+  .learn-shell *,
+  .learn-prose * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
