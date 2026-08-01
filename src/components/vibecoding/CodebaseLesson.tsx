@@ -2,6 +2,8 @@
 
 import { useState } from "react";
 import { motion } from "motion/react";
+import { TakeawayCard } from "@/components/learn/primitives/Cards";
+import { Reveal } from "@/components/Reveal";
 
 interface Example {
   generic: string;
@@ -47,8 +49,8 @@ export function CodebaseLesson() {
   };
 
   return (
-    <div className="mx-auto max-w-3xl">
-      <p className="text-[15px] leading-[1.6] text-[#636363]">
+    <div>
+      <p className="text-[15px] leading-[1.6] text-learn-muted">
         &ldquo;Add a login page&rdquo; means something very different in a
         fresh repo versus a 50,000-line one. In an existing codebase, the AI
         can only match your patterns if you tell it what they are. Click
@@ -61,17 +63,17 @@ export function CodebaseLesson() {
             key={example.generic}
             type="button"
             onClick={() => toggle(i)}
-            className="home-card block w-full overflow-hidden rounded-[20px] p-6 text-left md:p-8"
+            className="learn-focusable learn-card block w-full overflow-hidden rounded-learn-xl p-6 text-left md:p-8"
           >
             <div className="flex items-center justify-between gap-4">
-              <span className="rounded-full bg-[#f2f2f2] px-2.5 py-1 text-[11px] font-medium uppercase tracking-[0.08em] text-[#636363]">
+              <span className="rounded-full bg-learn-sunken px-2.5 py-1 text-[11px] font-medium uppercase tracking-[0.08em] text-learn-muted">
                 Generic prompt
               </span>
-              <span className="text-xs text-[#3e7f5c]">
+              <span className="text-xs text-learn-accent-text">
                 {revealed[i] ? "Hide the fix ↑" : "See the fix ↓"}
               </span>
             </div>
-            <p className="mt-3 text-[15px] leading-[1.5] text-[#1e3c2c]">
+            <p className="mt-3 text-[15px] leading-[1.5] text-learn-strong">
               &ldquo;{example.generic}&rdquo;
             </p>
 
@@ -84,14 +86,14 @@ export function CodebaseLesson() {
               transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
               className="overflow-hidden"
             >
-              <div className="mt-5 border-t-[0.5px] border-[#e1e1e1] pt-5">
-                <span className="rounded-full bg-[#dbefdb] px-2.5 py-1 text-[11px] font-medium uppercase tracking-[0.08em] text-[#1e3c2c]">
+              <div className="mt-5 border-t-[0.5px] border-learn-line pt-5">
+                <span className="rounded-full bg-learn-quiet px-2.5 py-1 text-[11px] font-medium uppercase tracking-[0.08em] text-learn-strong">
                   Context-aware prompt
                 </span>
-                <p className="mt-3 text-[15px] leading-[1.55] text-[#1e3c2c]">
+                <p className="mt-3 text-[15px] leading-[1.55] text-learn-strong">
                   &ldquo;{example.aware}&rdquo;
                 </p>
-                <p className="mt-3 text-[13px] leading-[1.5] text-[#636363]">
+                <p className="mt-3 text-[13px] leading-[1.5] text-learn-muted">
                   Why it works: {example.why}
                 </p>
               </div>
@@ -100,28 +102,31 @@ export function CodebaseLesson() {
         ))}
       </div>
 
-      <motion.div
-        initial={{ opacity: 0, y: 16 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true, margin: "-60px" }}
-        transition={{ duration: 0.5 }}
-        className="home-card mt-10 rounded-[16px] p-6 md:p-8"
-      >
-        <h3 className="text-lg text-[#1e3c2c]">
+      <Reveal className="learn-card mt-10 rounded-learn-lg p-6 md:p-8">
+        <h3 id="before-you-prompt-gather-context" className="text-lg text-learn-strong">
           Before you prompt, gather context
         </h3>
         <ul className="mt-4 space-y-2">
           {CONTEXT_CHECKLIST.map((item) => (
             <li
               key={item}
-              className="flex items-start gap-3 text-[14px] leading-[1.5] text-[#1e3c2c]"
+              className="flex items-start gap-3 text-[14px] leading-[1.5] text-learn-strong"
             >
-              <span className="mt-0.5 text-[#3e7f5c]">→</span>
+              <span className="mt-0.5 text-learn-accent-text">→</span>
               {item}
             </li>
           ))}
         </ul>
-      </motion.div>
+      </Reveal>
+
+      <TakeawayCard
+        items={[
+          "In a real repo, context is the whole game. The same prompt gets a different answer depending on what you attached.",
+          "Point at the actual files. Do not make the model search for what you already know.",
+          "Match the conventions that already exist rather than letting the AI invent new ones.",
+          "Small, scoped changes are reviewable. Large ones are not.",
+        ]}
+      />
     </div>
   );
 }

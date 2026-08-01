@@ -2,6 +2,9 @@
 
 import { useState } from "react";
 import { motion } from "motion/react";
+import { TOOL_MARKS } from "@/components/vibecoding/ToolMarks";
+import { TakeawayCard } from "@/components/learn/primitives/Cards";
+import { Reveal } from "@/components/Reveal";
 
 interface Tool {
   key: string;
@@ -75,8 +78,8 @@ export function ToolsLesson() {
   const task = TASKS.find((t) => t.key === taskKey) ?? null;
 
   return (
-    <div className="mx-auto max-w-3xl">
-      <p className="text-[15px] leading-[1.6] text-[#636363]">
+    <div>
+      <p className="text-[15px] leading-[1.6] text-learn-muted">
         There is no single best AI coding tool, only the one that fits what
         you&apos;re doing right now. Pick a task below to see what fits.
       </p>
@@ -87,10 +90,10 @@ export function ToolsLesson() {
             key={t.key}
             type="button"
             onClick={() => setTaskKey(t.key)}
-            className={`rounded-full border-[0.5px] px-4 py-2 text-sm font-medium transition-colors ${
+            className={`learn-focusable rounded-full border-[0.5px] px-4 py-2 text-sm font-medium transition-colors ${
               taskKey === t.key
-                ? "border-[#1e3c2c] bg-[#1e3c2c] text-[#dbefdb]"
-                : "border-[#e1e1e1] bg-white text-[#636363] hover:text-[#1e3c2c]"
+                ? "border-learn-inverse bg-learn-inverse text-learn-on-inverse"
+                : "border-learn-line bg-white text-learn-muted hover:text-learn-strong"
             }`}
           >
             {t.label}
@@ -101,33 +104,38 @@ export function ToolsLesson() {
       <div className="mt-6 grid gap-4 md:grid-cols-2">
         {TOOLS.map((tool) => {
           const isRecommended = task?.recommended.includes(tool.key) ?? false;
+          // Colour transitions run in CSS rather than through motion, which
+          // interpolates computed values and so cannot animate a var(). This
+          // also brings them under prefers-reduced-motion for free.
           return (
-            <motion.div
+            <div
               key={tool.key}
-              animate={{
-                borderColor: isRecommended ? "#3e7f5c" : "#e1e1e1",
-                backgroundColor: isRecommended ? "#f2f8f2" : "#fffbf5",
-              }}
-              transition={{ duration: 0.3 }}
-              className="rounded-[16px] border-[1.5px] p-5"
+              data-recommended={isRecommended || undefined}
+              className="rounded-learn-lg border-[1.5px] border-learn-line bg-learn-surface p-5 transition-colors duration-300 data-[recommended]:border-learn-accent data-[recommended]:bg-learn-quiet-wash motion-reduce:transition-none"
             >
               <div className="flex items-center justify-between gap-2">
-                <h3 className="text-[15px] font-semibold text-[#1e3c2c]">
+                <h3 className="flex items-center gap-2.5 text-[15px] font-semibold text-learn-strong">
+                  <span className="text-learn-accent-text">
+                    {(() => {
+                      const Mark = TOOL_MARKS[tool.key];
+                      return Mark ? <Mark /> : null;
+                    })()}
+                  </span>
                   {tool.name}
                 </h3>
                 {isRecommended && (
-                  <span className="rounded-full bg-[#dbefdb] px-2.5 py-1 text-[11px] font-medium uppercase tracking-[0.06em] text-[#1e3c2c]">
+                  <span className="rounded-full bg-learn-quiet px-2.5 py-1 text-[11px] font-medium uppercase tracking-[0.06em] text-learn-strong">
                     Good fit
                   </span>
                 )}
               </div>
-              <p className="mt-2 text-[13px] text-[#3e7f5c]">
+              <p className="mt-2 text-[13px] text-learn-accent-text">
                 {tool.worksIn} · {tool.sees}
               </p>
-              <p className="mt-3 text-[14px] leading-[1.5] text-[#636363]">
+              <p className="mt-3 text-[14px] leading-[1.5] text-learn-muted">
                 {tool.blurb}
               </p>
-            </motion.div>
+            </div>
           );
         })}
       </div>
@@ -138,29 +146,32 @@ export function ToolsLesson() {
           initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.3 }}
-          className="home-card mt-6 rounded-[16px] p-5"
+          className="learn-card mt-6 rounded-learn-lg p-5"
         >
-          <p className="text-[14px] leading-[1.5] text-[#1e3c2c]">
+          <p className="text-[14px] leading-[1.5] text-learn-strong">
             <strong>Why:</strong> {task.why}
           </p>
         </motion.div>
       )}
 
-      <motion.div
-        initial={{ opacity: 0, y: 16 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true, margin: "-60px" }}
-        transition={{ duration: 0.5 }}
-        className="mt-10"
-      >
-        <h3 className="text-lg text-[#1e3c2c]">You don&apos;t have to pick one</h3>
-        <p className="mt-3 text-[15px] leading-[1.6] text-[#636363]">
+      <Reveal className="mt-10">
+        <h3 id="you-dont-have-to-pick-one" className="text-lg text-learn-strong">You don&apos;t have to pick one</h3>
+        <p className="mt-3 text-[15px] leading-[1.6] text-learn-muted">
           Most vibe coders end up using more than one of these: a repo-aware
           editor or agent for the actual building, and a chat window on the
           side for quick questions that don&apos;t need any codebase context at
           all.
         </p>
-      </motion.div>
+      </Reveal>
+
+      <TakeawayCard
+        items={[
+          "Tools differ mainly in what they can see: one file, the whole repo, or nothing but what you paste.",
+          "Repo-aware tools are worth it the moment the answer depends on code you did not write.",
+          "A chat window is not a lesser tool, it is the right tool for questions with no codebase context.",
+          "Most people end up running two: one that edits, one that answers.",
+        ]}
+      />
     </div>
   );
 }

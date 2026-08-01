@@ -2,6 +2,8 @@
 
 import { useState } from "react";
 import { motion } from "motion/react";
+import { TakeawayCard } from "@/components/learn/primitives/Cards";
+import { Reveal } from "@/components/Reveal";
 
 interface PromptExample {
   vague: string;
@@ -80,8 +82,8 @@ export function PromptsLesson() {
   };
 
   return (
-    <div className="mx-auto max-w-3xl">
-      <p className="text-[15px] leading-[1.6] text-[#636363]">
+    <div>
+      <p className="text-[15px] leading-[1.6] text-learn-muted">
         A vague prompt gets a vague answer. Click each card to see how adding
         specifics, the element, the trigger, the expected outcome, changes
         the result.
@@ -93,17 +95,17 @@ export function PromptsLesson() {
             key={example.vague}
             type="button"
             onClick={() => toggle(i)}
-            className="home-card block w-full overflow-hidden rounded-[20px] p-6 text-left md:p-8"
+            className="learn-focusable learn-card block w-full overflow-hidden rounded-learn-xl p-6 text-left md:p-8"
           >
             <div className="flex items-center justify-between gap-4">
-              <span className="rounded-full bg-[#f2f2f2] px-2.5 py-1 text-[11px] font-medium uppercase tracking-[0.08em] text-[#636363]">
+              <span className="rounded-full bg-learn-sunken px-2.5 py-1 text-[11px] font-medium uppercase tracking-[0.08em] text-learn-muted">
                 Vague prompt
               </span>
-              <span className="text-xs text-[#3e7f5c]">
+              <span className="text-xs text-learn-accent-text">
                 {revealed[i] ? "Hide the fix ↑" : "See the fix ↓"}
               </span>
             </div>
-            <p className="mt-3 text-[15px] leading-[1.5] text-[#1e3c2c]">
+            <p className="mt-3 text-[15px] leading-[1.5] text-learn-strong">
               &ldquo;{example.vague}&rdquo;
             </p>
 
@@ -116,14 +118,14 @@ export function PromptsLesson() {
               transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
               className="overflow-hidden"
             >
-              <div className="mt-5 border-t-[0.5px] border-[#e1e1e1] pt-5">
-                <span className="rounded-full bg-[#dbefdb] px-2.5 py-1 text-[11px] font-medium uppercase tracking-[0.08em] text-[#1e3c2c]">
+              <div className="mt-5 border-t-[0.5px] border-learn-line pt-5">
+                <span className="rounded-full bg-learn-quiet px-2.5 py-1 text-[11px] font-medium uppercase tracking-[0.08em] text-learn-strong">
                   Specific prompt
                 </span>
-                <p className="mt-3 text-[15px] leading-[1.55] text-[#1e3c2c]">
+                <p className="mt-3 text-[15px] leading-[1.55] text-learn-strong">
                   &ldquo;{example.specific}&rdquo;
                 </p>
-                <p className="mt-3 text-[13px] leading-[1.5] text-[#636363]">
+                <p className="mt-3 text-[13px] leading-[1.5] text-learn-muted">
                   Why it works: {example.why}
                 </p>
               </div>
@@ -132,42 +134,30 @@ export function PromptsLesson() {
         ))}
       </div>
 
-      <motion.div
-        initial={{ opacity: 0, y: 16 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true, margin: "-60px" }}
-        transition={{ duration: 0.5 }}
-        className="mt-10"
-      >
-        <h3 className="text-lg text-[#1e3c2c]">Anatomy of a good prompt</h3>
-        <p className="mt-3 text-[15px] leading-[1.5] text-[#636363]">
+      <Reveal className="mt-10">
+        <h3 id="anatomy-of-a-good-prompt" className="text-lg text-learn-strong">Anatomy of a good prompt</h3>
+        <p className="mt-3 text-[15px] leading-[1.5] text-learn-muted">
           Most working prompts break down into the same four parts. You don&apos;t
           need all four every time, but the more of them you&apos;re missing, the
           more the AI is guessing.
         </p>
-        <div className="home-card mt-5 space-y-4 rounded-[16px] p-5 md:p-6">
+        <div className="learn-card mt-5 space-y-4 rounded-learn-lg p-5 md:p-6">
           {ANATOMY.map((part) => (
             <div key={part.label} className="flex gap-4">
-              <span className="mt-0.5 w-24 shrink-0 rounded-full bg-[#dbefdb] px-2.5 py-1 text-center text-[11px] font-medium uppercase tracking-[0.06em] text-[#1e3c2c]">
+              <span className="mt-0.5 w-24 shrink-0 rounded-full bg-learn-quiet px-2.5 py-1 text-center text-[11px] font-medium uppercase tracking-[0.06em] text-learn-strong">
                 {part.label}
               </span>
-              <p className="text-[14px] leading-[1.5] text-[#1e3c2c]">
+              <p className="text-[14px] leading-[1.5] text-learn-strong">
                 {part.text}
               </p>
             </div>
           ))}
         </div>
-      </motion.div>
+      </Reveal>
 
-      <motion.div
-        initial={{ opacity: 0, y: 16 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true, margin: "-60px" }}
-        transition={{ duration: 0.5, delay: 0.08 }}
-        className="mt-10"
-      >
-        <h3 className="text-lg text-[#1e3c2c]">Try it yourself</h3>
-        <p className="mt-3 text-[15px] leading-[1.5] text-[#636363]">
+      <Reveal delay={0.08} className="mt-10">
+        <h3 id="try-it-yourself" className="text-lg text-learn-strong">Try it yourself</h3>
+        <p className="mt-3 text-[15px] leading-[1.5] text-learn-muted">
           Draft a prompt for something you actually want to build or fix,
           then check it against the list below.
         </p>
@@ -176,7 +166,7 @@ export function PromptsLesson() {
           onChange={(e) => setDraft(e.target.value)}
           placeholder="Describe what you want to build or fix..."
           rows={4}
-          className="mt-4 w-full rounded-[16px] border-[0.5px] border-[#e1e1e1] bg-white p-4 text-[14px] leading-[1.5] text-[#1e3c2c] placeholder:text-[#818181] focus:border-[#3e7f5c] focus:outline-none"
+          className="mt-4 w-full rounded-learn-lg border-[0.5px] border-learn-line bg-white p-4 text-[14px] leading-[1.5] text-learn-strong placeholder:text-learn-subtle learn-focusable focus:border-learn-accent"
         />
         <ul className="mt-4 space-y-2">
           {CHECKLIST.map((item, i) => (
@@ -184,21 +174,17 @@ export function PromptsLesson() {
               <button
                 type="button"
                 onClick={() => toggleCheck(i)}
-                className="flex w-full items-start gap-3 text-left"
+                className="learn-focusable flex w-full items-start gap-3 text-left"
               >
-                <motion.span
-                  animate={{
-                    backgroundColor: checked[i] ? "#3e7f5c" : "#ffffff",
-                    borderColor: checked[i] ? "#3e7f5c" : "#e1e1e1",
-                  }}
-                  transition={{ duration: 0.2 }}
-                  className="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full border-[1.5px] text-[11px] text-white"
+                <span
+                  data-checked={checked[i] || undefined}
+                  className="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full border-[1.5px] border-learn-line bg-white text-[11px] text-white transition-colors duration-200 data-[checked]:border-learn-accent data-[checked]:bg-learn-accent motion-reduce:transition-none"
                 >
                   {checked[i] ? "✓" : ""}
-                </motion.span>
+                </span>
                 <span
                   className={`text-[14px] leading-[1.5] ${
-                    checked[i] ? "text-[#636363] line-through" : "text-[#1e3c2c]"
+                    checked[i] ? "text-learn-muted line-through" : "text-learn-strong"
                   }`}
                 >
                   {item}
@@ -207,7 +193,16 @@ export function PromptsLesson() {
             </li>
           ))}
         </ul>
-      </motion.div>
+      </Reveal>
+
+      <TakeawayCard
+        items={[
+          "Name the file, the current behaviour, and the expected behaviour. Missing any of the three means the AI guesses.",
+          "Saying what must NOT change is as useful as saying what should.",
+          "A prompt that would not brief a human will not brief a model either.",
+          "If the reply is wrong twice in a row, the prompt is the problem, not the model.",
+        ]}
+      />
     </div>
   );
 }

@@ -2,6 +2,8 @@
 
 import { useState } from "react";
 import { motion } from "motion/react";
+import { TakeawayCard } from "@/components/learn/primitives/Cards";
+import { Reveal } from "@/components/Reveal";
 
 interface LoopStep {
   label: string;
@@ -71,8 +73,8 @@ export function LoopLesson() {
   const [active, setActive] = useState(0);
 
   return (
-    <div className="mx-auto max-w-3xl">
-      <p className="text-[15px] leading-[1.6] text-[#636363]">
+    <div>
+      <p className="text-[15px] leading-[1.6] text-learn-muted">
         Vibe coding is not one prompt and done, it is a loop. Click each stop
         to see what happens there.
       </p>
@@ -100,19 +102,16 @@ export function LoopLesson() {
                 left: `${(step.x / 320) * 100}%`,
                 top: `${(step.y / 320) * 100}%`,
               }}
-              className="absolute -translate-x-1/2 -translate-y-1/2"
+              className="learn-focusable absolute -translate-x-1/2 -translate-y-1/2"
             >
-              <motion.span
-                animate={{
-                  scale: active === index ? 1.15 : 1,
-                  backgroundColor: active === index ? "#1e3c2c" : "#ffffff",
-                  color: active === index ? "#dbefdb" : "#1e3c2c",
-                }}
-                transition={{ duration: 0.25 }}
-                className="flex h-20 w-20 items-center justify-center rounded-full border-[1.5px] border-[#1e3c2c] text-center text-sm font-semibold shadow-sm"
+              {/* CSS rather than motion: the library interpolates computed
+                  colours and cannot animate a var(). */}
+              <span
+                data-active={active === index || undefined}
+                className="flex h-20 w-20 scale-100 items-center justify-center rounded-full border-[1.5px] border-learn-inverse bg-white text-center text-sm font-semibold text-learn-strong shadow-sm transition-[transform,background-color,color] duration-[250ms] data-[active]:scale-115 data-[active]:bg-learn-inverse data-[active]:text-learn-on-inverse motion-reduce:transition-none"
               >
                 {step.label}
-              </motion.span>
+              </span>
             </button>
           ))}
         </div>
@@ -122,37 +121,31 @@ export function LoopLesson() {
           initial={{ opacity: 0, y: 8 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.3 }}
-          className="home-card w-full rounded-[20px] p-6 md:p-8"
+          className="learn-card w-full rounded-learn-xl p-6 md:p-8"
         >
-          <span className="rounded-full bg-[#dbefdb] px-2.5 py-1 text-[11px] font-medium uppercase tracking-[0.08em] text-[#1e3c2c]">
+          <span className="rounded-full bg-learn-quiet px-2.5 py-1 text-[11px] font-medium uppercase tracking-[0.08em] text-learn-strong">
             Step {active + 1} of {STEPS.length}
           </span>
           <h3 className="mt-4 text-xl">{STEPS[active].label}</h3>
-          <p className="mt-3 text-[15px] leading-[1.55] text-[#636363]">
+          <p className="mt-3 text-[15px] leading-[1.55] text-learn-muted">
             {STEPS[active].description}
           </p>
-          <p className="mt-3 text-[13px] leading-[1.5] text-[#3e7f5c]">
+          <p className="mt-3 text-[13px] leading-[1.5] text-learn-accent-text">
             {STEPS[active].pitfall}
           </p>
           <button
             type="button"
             onClick={() => setActive((active + 1) % STEPS.length)}
-            className="home-arrow-link mt-5"
+            className="learn-focusable home-arrow-link mt-5"
           >
-            Next step <span className="home-row-arrow text-[#397554]">→</span>
+            Next step <span className="home-row-arrow text-learn-link">→</span>
           </button>
         </motion.div>
       </div>
 
-      <motion.div
-        initial={{ opacity: 0, y: 16 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true, margin: "-60px" }}
-        transition={{ duration: 0.5 }}
-        className="mt-12"
-      >
-        <h3 className="text-lg text-[#1e3c2c]">Applied to a real example</h3>
-        <p className="mt-3 text-[15px] leading-[1.5] text-[#636363]">
+      <Reveal className="mt-12">
+        <h3 id="applied-to-a-real-example" className="text-lg text-learn-strong">Applied to a real example</h3>
+        <p className="mt-3 text-[15px] leading-[1.5] text-learn-muted">
           Here is the same loop, start to finish, for one small feature.
         </p>
         <div className="mt-5 space-y-3">
@@ -163,18 +156,27 @@ export function LoopLesson() {
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true, margin: "-40px" }}
               transition={{ duration: 0.35, delay: index * 0.06 }}
-              className="home-card flex items-start gap-4 rounded-[14px] p-4"
+              className="learn-card flex items-start gap-4 rounded-learn-md p-4"
             >
-              <span className="mt-0.5 shrink-0 rounded-full bg-[#dbefdb] px-2.5 py-1 text-[11px] font-medium uppercase tracking-[0.06em] text-[#1e3c2c]">
+              <span className="mt-0.5 shrink-0 rounded-full bg-learn-quiet px-2.5 py-1 text-[11px] font-medium uppercase tracking-[0.06em] text-learn-strong">
                 {item.step}
               </span>
-              <p className="text-[14px] leading-[1.5] text-[#1e3c2c]">
+              <p className="text-[14px] leading-[1.5] text-learn-strong">
                 {item.note}
               </p>
             </motion.div>
           ))}
         </div>
-      </motion.div>
+      </Reveal>
+
+      <TakeawayCard
+        items={[
+          "Vibe coding is a loop, not a single prompt. The review step is where the quality comes from.",
+          "Read the diff before you accept it. Skimming is how bugs get committed.",
+          "Refine with a targeted follow-up rather than restarting with a whole new prompt.",
+          "Run it yourself before you call it done.",
+        ]}
+      />
     </div>
   );
 }

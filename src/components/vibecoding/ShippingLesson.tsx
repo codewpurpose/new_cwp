@@ -1,6 +1,8 @@
 "use client";
 
 import { motion } from "motion/react";
+import { TakeawayCard } from "@/components/learn/primitives/Cards";
+import { Reveal } from "@/components/Reveal";
 
 interface Stage {
   label: string;
@@ -51,14 +53,14 @@ const PROJECT_IDEAS = [
 
 export function ShippingLesson() {
   return (
-    <div className="mx-auto max-w-3xl">
-      <p className="text-[15px] leading-[1.6] text-[#636363]">
+    <div>
+      <p className="text-[15px] leading-[1.6] text-learn-muted">
         A single idea can go from nothing to a live, shareable app in one
         sitting. Scroll through each stage of the trip.
       </p>
 
       <div className="relative mt-10">
-        <div className="absolute left-[15px] top-2 bottom-2 w-px bg-[#e1e1e1]" />
+        <div className="absolute left-[15px] top-2 bottom-2 w-px bg-learn-line" />
 
         <div className="space-y-6">
           {STAGES.map((stage, index) => (
@@ -75,16 +77,16 @@ export function ShippingLesson() {
                 whileInView={{ scale: 1 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.4, delay: 0.1 }}
-                className="z-10 flex h-8 w-8 shrink-0 items-center justify-center rounded-full border-[1.5px] border-[#1e3c2c] bg-[#dbefdb] text-xs font-semibold text-[#1e3c2c]"
+                className="z-10 flex h-8 w-8 shrink-0 items-center justify-center rounded-full border-[1.5px] border-learn-inverse bg-learn-quiet text-xs font-semibold text-learn-strong"
               >
                 {index + 1}
               </motion.span>
-              <div className="home-card flex-1 rounded-[16px] p-5">
+              <div className="learn-card flex-1 rounded-learn-lg p-5">
                 <h3 className="text-lg">{stage.label}</h3>
-                <p className="mt-2 text-[14px] leading-[1.5] text-[#636363]">
+                <p className="mt-2 text-[14px] leading-[1.5] text-learn-muted">
                   {stage.description}
                 </p>
-                <p className="mt-2 text-[13px] leading-[1.5] text-[#3e7f5c]">
+                <p className="mt-2 text-[13px] leading-[1.5] text-learn-accent-text">
                   {stage.tip}
                 </p>
               </div>
@@ -93,15 +95,9 @@ export function ShippingLesson() {
         </div>
       </div>
 
-      <motion.div
-        initial={{ opacity: 0, y: 16 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true, margin: "-60px" }}
-        transition={{ duration: 0.5 }}
-        className="mt-12"
-      >
-        <h3 className="text-lg text-[#1e3c2c]">Ideas to try this week</h3>
-        <p className="mt-3 text-[15px] leading-[1.5] text-[#636363]">
+      <Reveal className="mt-12">
+        <h3 id="ideas-to-try-this-week" className="text-lg text-learn-strong">Ideas to try this week</h3>
+        <p className="mt-3 text-[15px] leading-[1.5] text-learn-muted">
           Pick one, run it through the loop above, and see how far you get in
           an afternoon.
         </p>
@@ -109,13 +105,22 @@ export function ShippingLesson() {
           {PROJECT_IDEAS.map((idea) => (
             <span
               key={idea}
-              className="rounded-full bg-[#dbefdb] px-3 py-1.5 text-[13px] leading-[1.4] text-[#1e3c2c]"
+              className="rounded-full bg-learn-quiet px-3 py-1.5 text-[13px] leading-[1.4] text-learn-strong"
             >
               {idea}
             </span>
           ))}
         </div>
-      </motion.div>
+      </Reveal>
+
+      <TakeawayCard
+        items={[
+          "Deploying is a skill you can practise, not a final exam you take once.",
+          "Get something live early and ugly, then improve it — a local-only project teaches you less.",
+          "Secrets go in environment variables, never in the code you are about to push.",
+          "The first real bug report is worth more than another day of polishing.",
+        ]}
+      />
     </div>
   );
 }

@@ -2,6 +2,8 @@
 
 import { useState } from "react";
 import { AnimatePresence, motion } from "motion/react";
+import { TakeawayCard } from "@/components/learn/primitives/Cards";
+import { Reveal } from "@/components/Reveal";
 
 interface Issue {
   id: string;
@@ -51,10 +53,10 @@ function IssueToken({
     <button
       type="button"
       onClick={() => onReveal(id)}
-      className={`rounded px-1 font-mono transition-colors ${
+      className={`learn-focusable rounded px-1 font-mono transition-colors ${
         isFound
-          ? "bg-[#ff8a8a] text-[#1e1e1e]"
-          : "bg-[#ff8a8a]/25 text-[#ff8a8a] underline decoration-dotted"
+          ? "bg-learn-code-err text-learn-code-bg"
+          : "bg-learn-code-err/25 text-learn-code-err underline decoration-dotted"
       }`}
     >
       {issue.token}
@@ -70,24 +72,24 @@ export function ReviewLesson() {
   };
 
   return (
-    <div className="mx-auto max-w-3xl">
-      <p className="text-[15px] leading-[1.6] text-[#636363]">
+    <div>
+      <p className="text-[15px] leading-[1.6] text-learn-muted">
         AI-generated code runs, and running is not the same as correct. This
         snippet has 3 planted issues. Click on anything that looks
         suspicious to find them.
       </p>
 
-      <div className="home-card mt-6 overflow-hidden rounded-[20px] p-6 md:p-8">
+      <div className="learn-card mt-6 overflow-hidden rounded-learn-xl p-6 md:p-8">
         <div className="flex items-center justify-between">
-          <span className="text-xs uppercase tracking-[0.08em] text-[#636363]">
+          <span className="text-xs uppercase tracking-[0.08em] text-learn-muted">
             average.js
           </span>
-          <span className="text-xs text-[#3e7f5c]">
+          <span className="text-xs text-learn-accent-text">
             {found.size} of {Object.keys(ISSUES).length} issues found
           </span>
         </div>
 
-        <div className="mt-4 space-y-1 rounded-xl bg-[#1e1e1e] p-4 font-mono text-[13px] leading-[1.7] text-[#e8e8e8]">
+        <div className="mt-4 space-y-1 rounded-xl bg-learn-code-bg p-4 font-mono text-[13px] leading-[1.7] text-learn-code-fg">
           <p>function calculateAverage(scores) {"{"}</p>
           <p>
             {"  "}const apiKey ={" "}
@@ -119,7 +121,7 @@ export function ReviewLesson() {
                 transition={{ duration: 0.3 }}
                 className="overflow-hidden"
               >
-                <div className="rounded-[12px] bg-[#dbefdb] p-4 text-[14px] leading-[1.5] text-[#1e3c2c]">
+                <div className="rounded-learn-md bg-learn-quiet p-4 text-[14px] leading-[1.5] text-learn-strong">
                   {ISSUES[id].explanation}
                 </div>
               </motion.div>
@@ -128,26 +130,29 @@ export function ReviewLesson() {
         </div>
       </div>
 
-      <motion.div
-        initial={{ opacity: 0, y: 16 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true, margin: "-60px" }}
-        transition={{ duration: 0.5 }}
-        className="home-card mt-10 rounded-[16px] p-6 md:p-8"
-      >
-        <h3 className="text-lg text-[#1e3c2c]">Before you merge, check</h3>
+      <Reveal className="learn-card mt-10 rounded-learn-lg p-6 md:p-8">
+        <h3 id="before-you-merge-check" className="text-lg text-learn-strong">Before you merge, check</h3>
         <ul className="mt-4 space-y-2">
           {CHECKLIST.map((item) => (
             <li
               key={item}
-              className="flex items-start gap-3 text-[14px] leading-[1.5] text-[#1e3c2c]"
+              className="flex items-start gap-3 text-[14px] leading-[1.5] text-learn-strong"
             >
-              <span className="mt-0.5 text-[#3e7f5c]">→</span>
+              <span className="mt-0.5 text-learn-accent-text">→</span>
               {item}
             </li>
           ))}
         </ul>
-      </motion.div>
+      </Reveal>
+
+      <TakeawayCard
+        items={[
+          "AI-generated code is a draft from a confident stranger. Review it that way.",
+          "Look hardest at the edges: empty inputs, missing values, and anything touching auth or money.",
+          "Anything you cannot explain line by line is not ready to ship.",
+          "The review is not a formality — it is the step that makes the speed safe.",
+        ]}
+      />
     </div>
   );
 }
