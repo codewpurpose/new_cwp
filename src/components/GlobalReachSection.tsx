@@ -144,7 +144,7 @@ function DetailContent({ detail }: { detail: ImpactDetail }) {
   );
 }
 
-export function WhyGlenSection() {
+export function GlobalReachSection() {
   const [open, setOpen] = useState<number | null>(null);
   const [lastIndex, setLastIndex] = useState(0);
   const activeDetail = items[lastIndex].detail;

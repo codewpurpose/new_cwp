@@ -15,10 +15,15 @@ export function SiteLoader() {
   useEffect(() => {
     const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     if (reducedMotion || sessionStorage.getItem(LOADER_SEEN_KEY)) {
-      setPhase("done");
+      // `enabled` stays false, so the render guard below already returns null.
       return;
     }
 
+    // Client-only render gate. Whether the loader shows at all depends on
+    // matchMedia and sessionStorage, neither of which exists during SSR, so
+    // the decision cannot be made before hydration. The transition happens
+    // once on mount and never again.
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setEnabled(true);
     document.documentElement.classList.add("cwp-loader-active");
 

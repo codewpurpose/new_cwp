@@ -87,14 +87,14 @@ export default function LearnPage() {
                     {track.tags.map((tag) => (
                       <span
                         key={tag}
-                        className="rounded-full bg-[#dbefdb] px-2.5 py-1 text-[11px] font-medium uppercase tracking-[0.08em] text-[#1e3c2c]"
+                        className="rounded-full bg-learn-quiet px-2.5 py-1 text-[11px] font-medium uppercase tracking-[0.08em] text-learn-strong"
                       >
                         {tag}
                       </span>
                     ))}
                   </div>
                   <h2 className="mt-4 text-xl md:text-2xl">{track.title}</h2>
-                  <p className="mt-3 flex-1 text-[15px] leading-[1.55] text-[#636363]">
+                  <p className="mt-3 flex-1 text-[15px] leading-[1.55] text-learn-muted">
                     {track.description}
                   </p>
                   <div className="mt-6 flex flex-wrap gap-2">

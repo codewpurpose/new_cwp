@@ -47,9 +47,3 @@ next-env.d.ts
 
 # Local temp files
 temp/
-
-# InsForge credentials (CLI reads .insforge/project.json locally)
-.insforge
-
-# InsForge agent skills (installed locally via CLI)
-.agents

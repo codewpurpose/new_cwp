@@ -33,15 +33,3 @@ export function CwpLogo({
     </span>
   );
 }
-
-/** @deprecated Use CwpLogo */
-export function GlenLogo({
-  size = 24,
-  className,
-}: {
-  size?: number;
-  color?: string;
-  className?: string;
-}) {
-  return <CwpLogo height={size} className={className} />;
-}

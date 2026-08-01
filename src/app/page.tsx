@@ -4,7 +4,7 @@ import { HeroSection } from "@/components/HeroSection";
 import { PromptsMarquee } from "@/components/PromptsMarquee";
 import { ProductSection } from "@/components/ProductSection";
 import { UseCasesSection } from "@/components/UseCasesSection";
-import { WhyGlenSection } from "@/components/WhyGlenSection";
+import { GlobalReachSection } from "@/components/GlobalReachSection";
 import { SecuritySection } from "@/components/SecuritySection";
 import { QuoteSection } from "@/components/QuoteSection";
 import { HowItWorksSection } from "@/components/HowItWorksSection";
@@ -24,7 +24,7 @@ export default function Home() {
         <ProductSection />
         <div className="h-16 md:h-40" />
         <UseCasesSection />
-        <WhyGlenSection />
+        <GlobalReachSection />
         <div className="h-12 md:h-20" />
         <SecuritySection />
         <div className="h-16 md:h-40" />
