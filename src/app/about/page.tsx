@@ -20,12 +20,8 @@ const team = [
   { name: "Shreyan Mitra", role: "Co-founder", photo: images.team.shreyan },
   { name: "Bruhatt Rao", role: "Co-founder", photo: images.team.bhim },
   { name: "Samanyu Goyal", role: "Co-founder", photo: images.team.samanyu },
-  { name: "Naman Jain", role: "Director of Outreach", photo: images.team.naman },
-  {
-    name: "Prithvi Jai Sudharsan",
-    role: "Director of Media",
-    photo: images.team.prithvi,
-  },
+  { name: "Naman Jain", role: "Lead Member", photo: images.team.naman },
+  { name: "Sanjay Vellore", role: "Director of Operations", photo: images.team.sanjay },
 ];
 
 export default function AboutPage() {
@@ -85,7 +81,7 @@ export default function AboutPage() {
         </div>
       </PageSection>
 
-      <PageSection className="border-t-[0.5px] border-[#e1e1e1]">
+      <PageSection className="border-t-[0.5px] border-[var(--home-grey-500)]">
         <h2 className="home-serif text-[1.75rem] md:text-[2.25rem]">Our Team</h2>
         <p className="mt-3 max-w-2xl text-[#636363]">
           Made by students, for students. Shreyan, Samanyu, Bruhatt, and
@@ -109,7 +105,7 @@ export default function AboutPage() {
         </div>
       </PageSection>
 
-      <PageSection className="bg-[#ececec]">
+      <PageSection className="bg-[var(--home-grey-450)]">
         <h2 className="home-serif text-[1.75rem] md:text-[2.25rem]">
           Watch our story
         </h2>

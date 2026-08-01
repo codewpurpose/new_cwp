@@ -1,5 +1,4 @@
-import { DONATE_HREF } from "@/lib/links";
-import { WaitlistButton } from "@/components/WaitlistButton";
+import { DONATE_HREF, LEARN_HREF } from "@/lib/links";
 
 export function FinalCtaSection() {
   return (
@@ -13,9 +12,7 @@ export function FinalCtaSection() {
           coding education to every student, everywhere.
         </p>
         <div className="mt-8 flex flex-wrap items-center justify-center gap-2">
-          <WaitlistButton location="footer_cta" className="home-btn home-btn-fill">
-            Start Learning Free
-          </WaitlistButton>
+          <a href={LEARN_HREF} className="home-btn home-btn-fill">Explore courses</a>
           <a href={DONATE_HREF} className="home-btn home-btn-outline">
             Support Our Mission
           </a>

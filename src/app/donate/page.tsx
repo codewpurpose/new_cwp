@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { PageHero, PageSection } from "@/components/PageHero";
+import { PageSection } from "@/components/PageHero";
 import { PageShell } from "@/components/PageShell";
 import { Reveal } from "@/components/Reveal";
 import { images } from "@/lib/images";
@@ -34,46 +34,44 @@ const impactAreas = [
 export default function DonatePage() {
   return (
     <PageShell>
-      <PageHero
-        title="Help a student start their journey today"
-        description="Every dollar helps us build a more inclusive future where code is a tool for good. Whether it's $5 or $500, you're making free education possible."
-        image={images.heroStudent}
-        imageAlt="Student learning with CodeWithPurpose"
-      >
-        <a href="#donate-now" className="home-btn home-btn-fill">
-          Donate Now
-        </a>
-        <Link href={CONTACT_HREF} className="home-btn home-btn-outline">
-          Contact Us
-        </Link>
-      </PageHero>
-
-      <PageSection id="donate-now" className="scroll-mt-24">
-        <div className="grid gap-10 lg:grid-cols-2 lg:items-center">
-          <div>
-            <h2 className="home-serif text-[1.75rem] md:text-[2.5rem]">
-              Give securely through Hack Club
-            </h2>
-            <p className="mt-4 max-w-[34rem] text-[15px] leading-[1.6] text-[#636363] md:text-base">
-              CodeWithPurpose is a nonprofit fiscally sponsored by Hack Club,
-              so every donation is tax-deductible and goes straight to keeping
-              coding education free. Pick any amount. Five dollars covers a
-              student&apos;s first lesson.
+      <section className="relative overflow-hidden border-b-[0.5px] border-[var(--home-grey-500)] bg-[var(--home-page)] pt-12 pb-14 md:pt-20 md:pb-24">
+        <div aria-hidden="true" className="cwp-hero-bg absolute inset-0" />
+        <div className="relative mx-auto grid w-full max-w-[85rem] items-start gap-10 px-5 md:px-10 lg:grid-cols-2">
+          <Reveal>
+            <h1 className="home-serif text-[2rem] leading-[1.05] tracking-[-0.02em] md:text-[2.75rem] lg:text-[3.25rem]">
+              Help a student start their journey today
+            </h1>
+            <p className="mt-5 max-w-xl text-lg leading-[1.5] text-[#636363]">
+              Every dollar helps us build a more inclusive future where code is a
+              tool for good. CodeWithPurpose is fiscally sponsored by Hack Club,
+              so donations are tax-deductible and go straight to keeping coding
+              education free.
             </p>
-          </div>
-          <div className="home-card flex justify-center overflow-hidden rounded-[20px] p-4 md:p-6">
-            <iframe
-              src={HCB_DONATE_EMBED_SRC}
-              name="donateFrame"
-              title="Donate to CodeWithPurpose via Hack Club"
-              allowFullScreen
-              className="h-[512px] w-full max-w-[512px] border-none"
-            />
-          </div>
-        </div>
-      </PageSection>
+            <p className="mt-4 max-w-xl text-[15px] leading-[1.6] text-[#636363]">
+              Pick any amount. Five dollars covers a student&apos;s first lesson.
+            </p>
+            <div className="mt-8">
+              <Link href={CONTACT_HREF} className="home-btn home-btn-outline">
+                Contact Us
+              </Link>
+            </div>
+          </Reveal>
 
-      <PageSection className="border-t-[0.5px] border-[#e1e1e1]">
+          <Reveal delay={0.15}>
+            <div className="home-card rounded-[20px] p-4 md:p-6">
+              <iframe
+                src={HCB_DONATE_EMBED_SRC}
+                name="donateFrame"
+                title="Donate to CodeWithPurpose via Hack Club"
+                allowFullScreen
+                className="h-[1080px] w-full border-none"
+              />
+            </div>
+          </Reveal>
+        </div>
+      </section>
+
+      <PageSection className="border-t-[0.5px] border-[var(--home-grey-500)]">
         <div className="grid gap-4 md:grid-cols-2">
           {impactAreas.map((area, index) => (
             <Reveal key={area.title} delay={(index % 2) * 0.08}>
@@ -88,7 +86,7 @@ export default function DonatePage() {
         </div>
       </PageSection>
 
-      <PageSection className="border-t-[0.5px] border-[#e1e1e1] bg-[#1e3c2c]">
+      <PageSection className="border-t-[0.5px] border-[var(--home-grey-500)] bg-[#1e3c2c]">
         <div className="mx-auto max-w-3xl text-center text-[#dbefdb]">
           <h2 className="home-serif text-[1.75rem] text-[#f9f9f9] md:text-[2.5rem]">
             A Note From Our Team

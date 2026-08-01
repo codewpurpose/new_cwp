@@ -32,7 +32,7 @@ export function SiteHeader() {
           style={GLASS_STYLE}
         >
           {NAV_LINKS.map((link) => (
-            <a key={link.href} href={link.href} className="px-3 py-2">
+            <a key={link.href} href={link.href} className={`px-3 py-2 ${link.label === "Learn" ? "learn-nav-item" : ""}`}>
               {link.label}
             </a>
           ))}
@@ -86,7 +86,7 @@ export function SiteHeader() {
               key={link.href}
               href={link.href}
               onClick={() => setMenuOpen(false)}
-              className="rounded-lg px-3 py-2.5 text-[1rem]"
+              className={`rounded-lg px-3 py-2.5 text-[1rem] ${link.label === "Learn" ? "learn-nav-item" : ""}`}
             >
               {link.label}
             </a>

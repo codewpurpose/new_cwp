@@ -48,7 +48,7 @@ export default function BlogPage() {
         </div>
       </PageSection>
 
-      <PageSection className="border-t-[0.5px] border-[#e1e1e1] bg-[#ececec]">
+      <PageSection className="border-t-[0.5px] border-[var(--home-grey-500)] bg-[var(--home-grey-450)]">
         <div className="mx-auto max-w-3xl text-center">
           <h2 className="home-serif text-[1.75rem] md:text-[2.25rem]">
             Get our stories in your inbox
@@ -62,7 +62,7 @@ export default function BlogPage() {
               src={SUBSTACK_EMBED_SRC}
               title="Subscribe to the CodeWithPurpose Substack"
               scrolling="no"
-              className="h-[320px] w-full max-w-[480px] rounded-xl border-[0.5px] border-[#e1e1e1] bg-white"
+              className="h-[320px] w-full max-w-[480px] rounded-xl border-[0.5px] border-[var(--home-grey-500)] bg-white"
             />
           </div>
         </div>

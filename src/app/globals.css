@@ -2,6 +2,21 @@
 @import "tw-animate-css";
 @import "shadcn/tailwind.css";
 
+/* Canonical /learn design tokens. Lives under public/ because the standalone
+ * ML lesson documents <link> the same file — see its header comment. */
+@import "../../public/learn/shared/learn-tokens.css";
+
+/* layer(components) is required: Tailwind emits utilities into @layer utilities,
+ * and unlayered CSS wins over layered CSS regardless of specificity. Without it
+ * these semantic classes would silently beat every utility on the same element. */
+@import "../../public/learn/shared/learn-shell.css" layer(components);
+
+/* The standalone ML lesson bundles are vendored build output, not source.
+ * Without this, Tailwind's content detection walks ~41 MB of minified JS and
+ * source maps on every build and every HMR tick, harvesting arbitrary strings
+ * as candidate class names. */
+@source not "../../public/learn/ml";
+
 @custom-variant dark (&:is(.dark *));
 
 @theme inline {
@@ -46,22 +61,84 @@
   --radius-2xl: calc(var(--radius) * 1.8);
   --radius-3xl: calc(var(--radius) * 2.2);
   --radius-4xl: calc(var(--radius) * 2.6);
+
+  /* /learn tokens exposed as Tailwind utilities. `inline` matters: it makes the
+   * generated utility emit var(--learn-*) rather than baking in the literal, so
+   * the min-width:1200px header-height override and the .home-root font
+   * redeclaration below keep working. */
+  --color-learn-paper: var(--learn-paper);
+  --color-learn-surface: var(--learn-surface);
+  --color-learn-sunken: var(--learn-surface-sunken);
+  --color-learn-sunken-2: var(--learn-surface-sunken-2);
+  --color-learn-inverse: var(--learn-surface-inverse);
+  --color-learn-quiet: var(--learn-surface-quiet);
+  --color-learn-quiet-wash: var(--learn-surface-quiet-wash);
+  --color-learn-line: var(--learn-line);
+  --color-learn-line-strong: var(--learn-line-strong);
+  --color-learn-line-inverse: var(--learn-line-inverse);
+  --color-learn-ink: var(--learn-ink);
+  --color-learn-strong: var(--learn-ink-strong);
+  --color-learn-muted: var(--learn-ink-muted);
+  --color-learn-subtle: var(--learn-ink-subtle);
+  --color-learn-on-inverse: var(--learn-ink-on-inverse);
+  --color-learn-heading-on-inverse: var(--learn-heading-on-inverse);
+  --color-learn-outcome-tp: var(--learn-outcome-tp);
+  --color-learn-outcome-fn: var(--learn-outcome-fn);
+  --color-learn-outcome-fp: var(--learn-outcome-fp);
+  --color-learn-outcome-tn: var(--learn-outcome-tn);
+  --color-learn-series-1: var(--learn-series-1);
+  --color-learn-series-2: var(--learn-series-2);
+  --color-learn-series-3: var(--learn-series-3);
+  --color-learn-series-4: var(--learn-series-4);
+  --color-learn-series-5: var(--learn-series-5);
+  --color-learn-chart-error: var(--learn-chart-error);
+  --color-learn-chart-axis: var(--learn-chart-axis);
+  --color-learn-chart-plot: var(--learn-chart-plot);
+  --color-learn-accent: var(--learn-accent);
+  --color-learn-accent-text: var(--learn-accent-text);
+  --color-learn-link: var(--learn-link);
+  --color-learn-code-bg: var(--learn-code-bg);
+  --color-learn-code-fg: var(--learn-code-fg);
+  --color-learn-code-dim: var(--learn-code-dim);
+  --color-learn-code-err: var(--learn-code-err);
+  --color-learn-code-warn: var(--learn-code-warn);
+  --color-learn-code-ok: var(--learn-code-ok);
+  --color-learn-code-accent: var(--learn-code-accent);
+  --color-learn-info-bg: var(--learn-info-bg);
+  --color-learn-info-fg: var(--learn-info-fg);
+  --color-learn-info-line: var(--learn-info-line);
+  --color-learn-success-bg: var(--learn-success-bg);
+  --color-learn-success-fg: var(--learn-success-fg);
+  --color-learn-success-line: var(--learn-success-line);
+  --color-learn-warning-bg: var(--learn-warning-bg);
+  --color-learn-warning-fg: var(--learn-warning-fg);
+  --color-learn-warning-line: var(--learn-warning-line);
+  --color-learn-danger-bg: var(--learn-danger-bg);
+  --color-learn-danger-fg: var(--learn-danger-fg);
+  --color-learn-danger-line: var(--learn-danger-line);
+  --radius-learn-sm: var(--learn-radius-sm);
+  --radius-learn-md: var(--learn-radius-md);
+  --radius-learn-lg: var(--learn-radius-lg);
+  --radius-learn-xl: var(--learn-radius-xl);
+  --font-learn-sans: var(--learn-font-sans);
+  --font-learn-serif: var(--learn-font-serif);
+  --font-learn-mono: var(--learn-font-mono);
 }
 
 :root {
-  --background: oklch(1 0 0);
+  --background: oklch(0.968 0.014 79);
   --foreground: oklch(0.145 0 0);
-  --card: oklch(1 0 0);
+  --card: oklch(0.99 0.008 79);
   --card-foreground: oklch(0.145 0 0);
-  --popover: oklch(1 0 0);
+  --popover: oklch(0.99 0.008 79);
   --popover-foreground: oklch(0.145 0 0);
   --primary: oklch(0.205 0 0);
   --primary-foreground: oklch(0.985 0 0);
-  --secondary: oklch(0.97 0 0);
+  --secondary: oklch(0.94 0.02 79);
   --secondary-foreground: oklch(0.205 0 0);
-  --muted: oklch(0.97 0 0);
+  --muted: oklch(0.94 0.02 79);
   --muted-foreground: oklch(0.556 0 0);
-  --accent: oklch(0.97 0 0);
+  --accent: oklch(0.91 0.025 79);
   --accent-foreground: oklch(0.205 0 0);
   --destructive: oklch(0.577 0.245 27.325);
   --border: oklch(0.922 0 0);
@@ -128,15 +205,15 @@
     @apply font-sans;
   }
 }
-/* ===== tryglen.com home styles (ported from live site CSS) ===== */
+/* ===== CodeWithPurpose home styles ===== */
 .home-root {
-  --home-page: #f9f9f9;
-  --home-white: #ffffff;
+  --home-page: #fcf4e8;
+  --home-white: #fffbf5;
   --home-ink: #0a0e19;
   --home-ink-hover: #1a2030;
-  --home-grey-400: #f2f2f2;
-  --home-grey-450: #ececec;
-  --home-grey-500: #e1e1e1;
+  --home-grey-400: #f5ebdb;
+  --home-grey-450: #efe3d2;
+  --home-grey-500: #e0d4c4;
   --home-grey-600: #cecece;
   --home-grey-700: #818181;
   --home-grey-800: #636363;
@@ -147,6 +224,18 @@
   --home-link-green: #397554;
   --home-fern: #3e7f5c;
   --home-border: 0.5px solid var(--home-grey-500);
+
+  /* Re-declared here, not in learn-tokens.css, because next/font puts
+   * --font-home-* on <body class="home-root"> — below :root — and a custom
+   * property's var() is substituted on the element where it is declared. A
+   * :root rule would silently resolve to the system fallback.
+   * This is also what finally gives --font-home-mono (Spline Sans Mono) a
+   * consumer; lesson code blocks previously used Tailwind's font-mono, which
+   * resolves to a Geist Mono that is never loaded. */
+  --learn-font-sans: var(--font-home-sans), -apple-system, system-ui, sans-serif;
+  --learn-font-serif: var(--font-home-serif), Georgia, serif;
+  --learn-font-mono: var(--font-home-mono), ui-monospace, Menlo, monospace;
+
   font-family: var(--font-home-sans), system-ui, sans-serif;
   background: var(--home-page);
   color: var(--home-ink);
@@ -158,13 +247,35 @@
   font-weight: 300;
   letter-spacing: -0.02em;
 }
+.proof-point-strip {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: .7rem;
+  min-height: 2.35rem;
+  padding: .35rem 1rem;
+  background: #1e3c2c;
+  color: #dbefdb;
+  font-family: "Comic Sans MS", "Bradley Hand", cursive;
+  font-size: .95rem;
+  letter-spacing: .01em;
+}
+.proof-point-text { animation: proof-point-in .45s ease both; }
+@keyframes proof-point-in { from { opacity: 0; transform: translateY(.35rem) rotate(-1deg); } to { opacity: 1; transform: none; } }
+.learn-nav-item { animation: learn-pulse 2.8s ease-in-out infinite; }
+@keyframes learn-pulse { 0%, 100% { color: #c52b2b; font-weight: 700; } 50% { color: inherit; font-weight: 400; } }
+@media (prefers-reduced-motion: reduce) {
+  .proof-point-text, .learn-nav-item { animation: none; }
+}
 .home-mono {
   font-family: var(--font-home-mono), ui-monospace, monospace;
 }
 .home-card {
   background: var(--home-white);
-  border: var(--home-border);
+  border: 1px solid var(--home-fern);
 }
+.home-root a:not(.home-btn):not(.home-arrow-link) { text-decoration-color: var(--home-fern); }
+.home-root section, .home-root footer > div > div { border-color: var(--home-fern); }
 .home-btn {
   display: inline-flex;
   align-items: center;
@@ -210,14 +321,14 @@
   color: #fff;
 }
 .home-btn-glass {
-  background: linear-gradient(rgba(206, 206, 206, 0.3), rgba(206, 206, 206, 0.3)),
-    rgba(255, 255, 255, 0.85);
-  border-color: rgba(206, 206, 206, 0.22);
+  background: linear-gradient(rgba(224, 212, 196, 0.35), rgba(224, 212, 196, 0.35)),
+    rgba(255, 251, 245, 0.85);
+  border-color: rgba(224, 212, 196, 0.35);
   color: var(--home-ink);
 }
 .home-btn-glass:hover {
-  background: linear-gradient(rgba(206, 206, 206, 0.45), rgba(206, 206, 206, 0.45)),
-    rgba(255, 255, 255, 0.85);
+  background: linear-gradient(rgba(224, 212, 196, 0.5), rgba(224, 212, 196, 0.5)),
+    rgba(255, 251, 245, 0.85);
 }
 .home-btn-moss {
   background: var(--home-moss);
@@ -415,7 +526,7 @@
 .cwp-hero-bg {
   background-image: radial-gradient(40rem 22rem at 88% -10%, rgba(219, 239, 219, 0.6), transparent 70%),
     radial-gradient(32rem 18rem at -5% 110%, rgba(219, 239, 219, 0.45), transparent 70%),
-    radial-gradient(#e3e3e3 1px, transparent 1px);
+    radial-gradient(#ddd0be 1px, transparent 1px);
   background-size: auto, auto, 22px 22px;
   mask: linear-gradient(180deg, #000 60%, transparent);
   pointer-events: none;
@@ -500,7 +611,16 @@
   .home-live-dot,
   .home-marquee-track,
   .home-node,
-  .home-orbit {
+  .home-orbit,
+  .cwp-loader,
+  .cwp-loader__backdrop,
+  .cwp-loader__grid,
+  .cwp-loader__mark,
+  .cwp-loader__bracket,
+  .cwp-loader__heart,
+  .cwp-loader__glow,
+  .cwp-loader__wordmark,
+  .cwp-loader__tagline {
     animation: none;
   }
   .cwp-cycle {
@@ -516,18 +636,234 @@
   background: var(--home-pistachio);
   color: var(--home-moss);
 }
-.waitlist-dialog {
-  color: #0a0e19;
-  letter-spacing: -0.02em;
-  background: #fff;
-  border: 0.5px solid #e1e1e1;
-  border-radius: 0.75rem;
-  width: min(26rem, 100vw - 2.5rem);
-  margin: auto;
-  padding: 0;
+html.cwp-loader-active {
+  overflow: hidden;
 }
-.waitlist-dialog::backdrop {
-  -webkit-backdrop-filter: blur(3px);
-  backdrop-filter: blur(3px);
-  background: #0a0e1959;
+
+.cwp-loader {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  display: grid;
+  place-items: center;
+  color: var(--home-ink);
+  animation: cwp-loader-enter 0.55s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.cwp-loader--exit {
+  animation: cwp-loader-exit 0.65s cubic-bezier(0.55, 0, 1, 0.45) forwards;
+  pointer-events: none;
+}
+
+.cwp-loader__backdrop {
+  position: absolute;
+  inset: 0;
+  background: var(--home-page);
+  animation: cwp-loader-backdrop 1.8s ease-out both;
+}
+
+.cwp-loader__grid {
+  position: absolute;
+  inset: 0;
+  background-image: radial-gradient(#ddd0be 1px, transparent 1px);
+  background-size: 22px 22px;
+  opacity: 0.45;
+  mask: radial-gradient(circle at center, #000 0%, transparent 72%);
+  animation: cwp-loader-grid 2.2s ease-out both;
+}
+
+.cwp-loader__content {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.85rem;
+  padding: 1.5rem;
+  text-align: center;
+}
+
+.cwp-loader__mark {
+  position: relative;
+  display: grid;
+  place-items: center;
+  width: min(72vw, 18rem);
+  aspect-ratio: 46 / 32;
+  animation: cwp-loader-mark 1.1s cubic-bezier(0.22, 1, 0.36, 1) 0.08s both;
+}
+
+.cwp-loader__svg {
+  width: 100%;
+  height: auto;
+  overflow: visible;
+}
+
+.cwp-loader__bracket {
+  transform-box: fill-box;
+  transform-origin: center;
+}
+
+.cwp-loader__bracket--left {
+  animation: cwp-loader-bracket-left 0.9s cubic-bezier(0.22, 1, 0.36, 1) 0.12s both;
+}
+
+.cwp-loader__bracket--right {
+  animation: cwp-loader-bracket-right 0.9s cubic-bezier(0.22, 1, 0.36, 1) 0.12s both;
+}
+
+.cwp-loader__heart {
+  transform-box: fill-box;
+  transform-origin: center;
+  fill: rgba(219, 239, 219, 0.35);
+  stroke: var(--home-fern);
+  animation: cwp-loader-heart 1.35s cubic-bezier(0.22, 1, 0.36, 1) 0.28s both,
+    cwp-loader-heart-pulse 2.4s ease-in-out 1.1s infinite;
+}
+
+.cwp-loader__glow {
+  position: absolute;
+  inset: 18% 24%;
+  border-radius: 9999px;
+  background: radial-gradient(circle, rgba(219, 239, 219, 0.95), transparent 70%);
+  filter: blur(18px);
+  opacity: 0;
+  animation: cwp-loader-glow 1.6s ease-out 0.45s both;
+}
+
+.cwp-loader__wordmark {
+  margin: 0;
+  font-size: clamp(1.65rem, 4.8vw, 2.35rem);
+  line-height: 1;
+  letter-spacing: -0.03em;
+  color: var(--home-ink);
+  animation: cwp-loader-text 0.95s cubic-bezier(0.22, 1, 0.36, 1) 0.55s both;
+}
+
+.cwp-loader__tagline {
+  margin: 0;
+  max-width: 18rem;
+  font-size: 0.82rem;
+  line-height: 1.45;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--home-grey-800);
+  animation: cwp-loader-text 0.95s cubic-bezier(0.22, 1, 0.36, 1) 0.72s both;
+}
+
+@keyframes cwp-loader-enter {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes cwp-loader-exit {
+  to {
+    opacity: 0;
+    transform: scale(1.03);
+    filter: blur(10px);
+  }
+}
+
+@keyframes cwp-loader-backdrop {
+  from {
+    background: #ffffff;
+  }
+  to {
+    background: var(--home-page);
+  }
+}
+
+@keyframes cwp-loader-grid {
+  from {
+    opacity: 0;
+    transform: scale(1.08);
+  }
+  to {
+    opacity: 0.45;
+    transform: scale(1);
+  }
+}
+
+@keyframes cwp-loader-mark {
+  from {
+    opacity: 0;
+    transform: scale(0.88);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes cwp-loader-bracket-left {
+  from {
+    opacity: 0;
+    transform: translateX(-18px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes cwp-loader-bracket-right {
+  from {
+    opacity: 0;
+    transform: translateX(18px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes cwp-loader-heart {
+  0% {
+    opacity: 0;
+    transform: scale(0.35);
+  }
+  70% {
+    transform: scale(1.08);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes cwp-loader-heart-pulse {
+  0%,
+  100% {
+    filter: drop-shadow(0 0 0 rgba(62, 127, 92, 0));
+  }
+  50% {
+    filter: drop-shadow(0 0 14px rgba(62, 127, 92, 0.35));
+  }
+}
+
+@keyframes cwp-loader-glow {
+  from {
+    opacity: 0;
+    transform: scale(0.7);
+  }
+  to {
+    opacity: 0.85;
+    transform: scale(1);
+  }
+}
+
+@keyframes cwp-loader-text {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+    filter: blur(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+    filter: blur(0);
+  }
 }

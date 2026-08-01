@@ -1,5 +1,5 @@
 import { images } from "@/lib/images";
-import { COURSES_HREF } from "@/lib/links";
+import { LEARN_HREF } from "@/lib/links";
 
 const GALLERY_IMAGES = images.gallery.slice(0, 4);
 
@@ -7,10 +7,10 @@ export function HowItWorksSection() {
   return (
     <section id="how" className="scroll-mt-24">
       <div className="mx-auto w-full max-w-[85rem] px-5 md:px-10">
-        <div className="overflow-hidden rounded-xl bg-[#ececec]">
+        <div className="overflow-hidden rounded-xl bg-[var(--home-grey-450)]">
           <figure className="grid md:grid-cols-[2fr_3fr]">
             <div className="p-6 md:p-8">
-              <div className="grid grid-cols-2 gap-2 overflow-hidden rounded-lg border-[0.5px] border-[#e1e1e1]">
+              <div className="grid grid-cols-2 gap-2 overflow-hidden rounded-lg border-[0.5px] border-[var(--home-grey-500)]">
                 {GALLERY_IMAGES.map((image) => (
                   // eslint-disable-next-line @next/next/no-img-element
                   <img
@@ -35,8 +35,8 @@ export function HowItWorksSection() {
                 communities gathering around free education. Every photo here is
                 a student who got real skills because of this movement.
               </p>
-              <a href={COURSES_HREF} className="home-arrow-link mt-5 self-start">
-                Start Learning Free <span className="home-arrow">→</span>
+              <a href={LEARN_HREF} className="home-arrow-link mt-5 self-start">
+                Explore courses <span className="home-arrow">→</span>
               </a>
             </figcaption>
           </figure>

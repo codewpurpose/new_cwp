@@ -6,9 +6,11 @@ import {
   CONTACT_HREF,
   COURSES_HREF,
   DONATE_HREF,
-  HACK_CLUB_HREF,
   HOME_HREF,
   JOIN_HREF,
+  LEARN_HREF,
+  LEARN_ML_HREF,
+  LEARN_VIBECODING_HREF,
 } from "@/lib/links";
 
 export function SiteFooter() {
@@ -28,7 +30,7 @@ export function SiteFooter() {
                   A student-run nonprofit making tech education free and
                   accessible for everyone, everywhere.
                 </p>
-                <p className="text-xs text-[#818181]">
+                <p className="text-xs text-[#636363]">
                   Recognized by the U.S. House of Representatives
                 </p>
               </a>
@@ -38,6 +40,21 @@ export function SiteFooter() {
                 <div>
                   <h3 className="mb-3 text-xs opacity-60">Learn</h3>
                   <ul className="space-y-2 text-xs xl:text-base">
+                    <li>
+                      <a href={LEARN_ML_HREF} className="home-footer-link">
+                        ML Lessons
+                      </a>
+                    </li>
+                    <li>
+                      <a href={LEARN_VIBECODING_HREF} className="home-footer-link">
+                        Vibe Coding Lessons
+                      </a>
+                    </li>
+                    <li>
+                      <a href={LEARN_HREF} className="home-footer-link">
+                        Learn
+                      </a>
+                    </li>
                     <li>
                       <a href={COURSES_HREF} className="home-footer-link">
                         All Courses
@@ -106,20 +123,7 @@ export function SiteFooter() {
                 student, everywhere.
               </p>
             </div>
-            <a
-              href={HACK_CLUB_HREF}
-              target="_blank"
-              rel="noreferrer"
-              className="flex items-center gap-2 text-xs opacity-70 transition-opacity hover:opacity-100"
-            >
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img
-                src="https://assets.hackclub.com/flag-standalone.svg"
-                alt="Hack Club"
-                className="h-6 w-auto"
-              />
-              <span>A nonprofit fiscally sponsored by Hack Club</span>
-            </a>
+            <span className="text-xs opacity-70">Student-led free education for everyone</span>
           </div>
         </div>
       </div>

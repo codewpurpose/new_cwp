@@ -1,6 +1,9 @@
 export const SITE_URL = "https://www.codewithpurpose.org";
 
 export const COURSES_HREF = "/courses";
+export const LEARN_HREF = "/learn";
+export const LEARN_ML_HREF = "/learn/ml";
+export const LEARN_VIBECODING_HREF = "/learn/vibecoding";
 export const ABOUT_HREF = "/about";
 export const JOIN_HREF = "/join";
 export const IMPACT_HREF = "/impact";
@@ -23,7 +26,7 @@ export const FINANCIAL_LITERACY_COURSE_HREF =
   "https://www.udemy.com/course/financial-literacy-the-basics/";
 export const HEALTH_IN_TECH_COURSE_HREF =
   "https://www.udemy.com/course/health-iin-tech/";
-export const CONTACT_EMAIL = "codewithpurpose2@gmail.com";
+export const CONTACT_EMAIL = "team@codewithpurpose.org";
 export const CONTACT_EMAIL_HREF = `mailto:${CONTACT_EMAIL}`;
 export const VOLUNTEER_FORM_HREF = "https://forms.gle/qiSULkmBB7vWk9YDA";
 export const HACK_CLUB_HREF = "https://hackclub.com";
@@ -33,6 +36,7 @@ export const SUBSTACK_EMBED_SRC = "https://codewithpurpose.substack.com/embed";
 
 export const NAV_LINKS = [
   { label: "Courses", href: COURSES_HREF },
+  { label: "Learn", href: LEARN_HREF },
   { label: "About Us", href: ABOUT_HREF },
   { label: "Join Us", href: JOIN_HREF },
   { label: "Impact", href: IMPACT_HREF },

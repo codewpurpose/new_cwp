@@ -1,0 +1,166 @@
+/* learn-tokens.css — canonical design tokens for the /learn section.
+ *
+ * This file is the single source of truth, consumed by BOTH:
+ *   - the React app, via @import in src/app/globals.css
+ *   - the standalone ML lesson documents, via <link> in their index.html
+ *
+ * It therefore contains plain CSS only: no Tailwind syntax, no @apply, no
+ * nesting. Anything that cannot be expressed here will drift between the two
+ * consumers, which is exactly how three parallel token sets came to exist.
+ *
+ * Font families are declared here as system fallbacks and re-declared on
+ * .home-root in globals.css. They cannot be defined once with var()
+ * indirection: next/font declares --font-home-* on <body>, below :root, and a
+ * custom property's var() is substituted on the element where it is declared —
+ * so a :root rule would resolve the fallback and never see Inter.
+ */
+
+:root {
+  /* --- surfaces ------------------------------------------------------- */
+  --learn-paper: #fcf4e8; /* page background (cream) */
+  --learn-surface: #fffbf5; /* raised card */
+  --learn-surface-sunken: #f5ebdb; /* recessed wells, code chrome */
+  --learn-surface-sunken-2: #efe3d2;
+  --learn-surface-inverse: #1e3c2c; /* moss */
+  --learn-surface-quiet: #dbefdb; /* pistachio */
+  --learn-surface-quiet-wash: #f2f8f2; /* faintest green — selected card fill */
+
+  /* --- lines ---------------------------------------------------------- */
+  --learn-line: #e8ddcd; /* hairline borders */
+  --learn-line-strong: #e0d4c4; /* section dividers */
+  --learn-line-inverse: rgba(219, 239, 219, 0.18);
+
+  /* --- text ----------------------------------------------------------- */
+  --learn-ink: #0a0e19;
+  --learn-ink-strong: #1e3c2c; /* moss — headings, emphasis */
+  --learn-ink-muted: #636363; /* body copy */
+  --learn-ink-subtle: #6f6f6f; /* captions — darkened to clear WCAG AA on cream */
+  --learn-ink-on-inverse: #dbefdb;
+  --learn-heading-on-inverse: #f9f9f9; /* headings on moss run brighter */
+  --learn-accent: #3e7f5c; /* fern — brand fill and borders */
+  /* Fern at 4.38:1 on cream sits just under AA, so text uses a darker
+   * variant while fills and borders keep the brand colour. */
+  --learn-accent-text: #2f6647;
+  --learn-link: #397554;
+
+  /* --- code / terminal ------------------------------------------------ */
+  --learn-code-bg: #17241d;
+  --learn-code-fg: #e7efe7;
+  --learn-code-dim: #9bb0a4;
+  --learn-code-err: #ff9b9b;
+  --learn-code-warn: #ffd28a;
+  --learn-code-ok: #a7e0b4;
+  --learn-code-accent: #8fd0ff;
+  --learn-code-line: rgba(219, 239, 219, 0.14);
+
+  /* --- semantic ------------------------------------------------------- */
+  --learn-info-bg: #e7f0f7;
+  --learn-info-fg: #1d3d55;
+  --learn-info-line: #bcd6e8;
+  --learn-success-bg: #dbefdb;
+  --learn-success-fg: #1e3c2c;
+  --learn-success-line: #b9dcc0;
+  --learn-warning-bg: #fdf0d5;
+  --learn-warning-fg: #6b4a10;
+  --learn-warning-line: #ecd3a0;
+  --learn-danger-bg: #fbe4e0;
+  --learn-danger-fg: #7a2a1e;
+  --learn-danger-line: #f0c3ba;
+
+  /* --- outcome colours (shared by charts, legends, matrices) ---------- */
+  --learn-outcome-tp: #2f7a55;
+  --learn-outcome-fn: #b5502f;
+  --learn-outcome-fp: #d9a441; /* 1.9:1 — FILL ONLY, never text */
+  --learn-outcome-tn: #cdbfa8;
+
+  /* --- chart structure ------------------------------------------------
+   * The three decorative values below are deliberately under 3:1. They may
+   * never be the only thing distinguishing two states — pair them with a
+   * shape, a fill state, or a label. */
+  --learn-chart-plot: #fdf8ef; /* plot well, a hair under card surface */
+  --learn-chart-axis: #4a5a50; /* 6.7:1 — the frame */
+  --learn-chart-grid: #e3d7c5; /* decorative */
+  --learn-chart-grid-strong: #d8c9b3; /* decorative — zero line */
+  --learn-chart-muted-mark: #b9ab97; /* decorative — de-emphasised points */
+
+  /* --- categorical series (all >= 4.5:1 on cream, safe as label text) ---
+   * Two-class scatters use fern + indigo, never fern + rust: red and green both
+   * shift toward the same yellow-brown under deuteranopia, while blue survives.
+   *
+   * But measured against each other, fern and indigo sit at 1.05:1 — they are
+   * near-identical in LIGHTNESS and differ only in hue. So varying the mark is
+   * not a nicety here, it is the load-bearing part: filled circle vs hollow
+   * circle. Colour alone must never carry a two-class distinction.
+   *
+   * Rust is reserved for error/miss semantics, matching --learn-outcome-fn. */
+  --learn-series-1: #2f6647; /* fern   6.1:1 */
+  --learn-series-2: #a8422a; /* rust   5.5:1 */
+  --learn-series-3: #2f5d8f; /* indigo 6.3:1 */
+  --learn-series-4: #8a6410; /* ochre  4.9:1 — the text-safe sibling of outcome-fp */
+  --learn-series-5: #6c3f74; /* plum   7.3:1 */
+
+  /* --- semantic chart roles (aliases, no new hues) --------------------- */
+  --learn-chart-train: var(--learn-series-1);
+  --learn-chart-test: var(--learn-series-3);
+  --learn-chart-model: var(--learn-ink-strong); /* the protagonist: darkest line */
+  --learn-chart-truth: #726757; /* 5.1:1 — the hidden real pattern, dashed */
+  --learn-chart-error: var(--learn-outcome-fn); /* residuals, misses */
+
+  /* --- translucent fills ---------------------------------------------- */
+  --learn-chart-band: rgba(47, 93, 143, 0.14); /* uncertainty envelope */
+  --learn-chart-highlight: rgba(62, 127, 92, 0.12); /* selected region */
+
+  /* --- focus ---------------------------------------------------------- */
+  /* Matches the existing .home-btn:focus-visible convention so buttons and
+   * non-button interactives ring identically. */
+  --learn-focus-ring: #0a0e19;
+  --learn-focus-ring-inverse: #dbefdb;
+  --learn-focus-ring-width: 2px;
+  --learn-focus-ring-offset: 3px;
+
+  /* --- radii ---------------------------------------------------------- */
+  --learn-radius-sm: 8px;
+  --learn-radius-md: 12px;
+  --learn-radius-lg: 16px;
+  --learn-radius-xl: 20px;
+  --learn-radius-pill: 9999px;
+
+  /* --- type scale ----------------------------------------------------- */
+  --learn-text-body: 15px;
+  --learn-leading-body: 1.6;
+  --learn-text-dense: 14px;
+  --learn-leading-dense: 1.5;
+  --learn-text-caption: 13px;
+  --learn-leading-caption: 1.5;
+  --learn-text-pill: 11px;
+  --learn-tracking-pill: 0.08em;
+
+  /* --- layout --------------------------------------------------------- */
+  /* Mirrors SiteHeader.tsx: px-5 py-4 + 28px logo + ~34px controls, and
+   * min-[1200px]:py-8. Deliberately a constant rather than a measurement —
+   * a runtime probe paints the first frame at the wrong offset and jumps.
+   * If SiteHeader's padding changes, change this too. */
+  --learn-header-h: 66px;
+  --learn-shell-max: 85rem; /* aligns with SiteHeader / SiteFooter */
+  --learn-sidebar-w: 17rem;
+  --learn-toc-w: 15rem;
+  --learn-gutter: 2.5rem;
+  --learn-measure: 48rem; /* == Tailwind max-w-3xl */
+  --learn-scroll-pad: 1.25rem;
+
+  /* --- motion --------------------------------------------------------- */
+  --learn-ease: cubic-bezier(0.22, 1, 0.36, 1);
+  --learn-dur-fast: 0.2s;
+  --learn-dur: 0.35s;
+
+  /* --- fonts (see header note) ---------------------------------------- */
+  --learn-font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;
+  --learn-font-serif: Georgia, "Times New Roman", serif;
+  --learn-font-mono: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+}
+
+@media (min-width: 1200px) {
+  :root {
+    --learn-header-h: 98px;
+  }
+}

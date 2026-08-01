@@ -1,4 +1,4 @@
-import { COURSES_HREF, DONATE_HREF } from "@/lib/links";
+import { LEARN_HREF, DONATE_HREF } from "@/lib/links";
 
 export function QuoteSection() {
   return (
@@ -14,10 +14,10 @@ export function QuoteSection() {
             not a privilege.
           </blockquote>
           <a
-            href={COURSES_HREF}
+            href={LEARN_HREF}
             className="home-arrow-link mt-12 justify-center !text-[#dbefdb] md:mt-20"
           >
-            Start Learning Free <span className="home-arrow">→</span>
+            Explore courses <span className="home-arrow">→</span>
           </a>
         </div>
         <div className="mt-4 grid gap-2.5 md:mt-6 md:grid-cols-3">

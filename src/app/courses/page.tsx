@@ -4,7 +4,6 @@ import { PageHero, PageSection, PhotoGrid } from "@/components/PageHero";
 import { PageShell } from "@/components/PageShell";
 import { Reveal } from "@/components/Reveal";
 import { TopicCover, type TopicCoverVariant } from "@/components/TopicCover";
-import { WaitlistButton } from "@/components/WaitlistButton";
 import { images } from "@/lib/images";
 import {
   ABOUT_HREF,
@@ -90,9 +89,7 @@ export default function CoursesPage() {
         image={images.codingLaptop}
         imageAlt="Student learning to code on a laptop"
       >
-        <WaitlistButton location="courses_hero" className="home-btn home-btn-fill">
-          Start Learning Free
-        </WaitlistButton>
+        <Link href="/learn" className="home-btn home-btn-fill">Explore courses</Link>
         <Link href={ABOUT_HREF} className="home-btn home-btn-outline">
           Our Story
         </Link>
@@ -137,7 +134,7 @@ export default function CoursesPage() {
         </div>
       </PageSection>
 
-      <PageSection className="border-t-[0.5px] border-[#e1e1e1] bg-[#ececec]">
+      <PageSection className="border-t-[0.5px] border-[var(--home-grey-500)] bg-[var(--home-grey-450)]">
         <h2 className="home-serif text-[1.75rem] md:text-[2.25rem]">
           See our courses in action
         </h2>
