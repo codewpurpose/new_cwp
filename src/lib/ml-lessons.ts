@@ -43,6 +43,20 @@ export const ML_PARTS: readonly LearnPart[] = [
     summary:
       "Every way a score lies to you, and what to do about each one. This is the part that separates a demo from a result.",
   },
+  {
+    id: "beyond-labels",
+    number: 5,
+    title: "Learning Without Labels",
+    summary:
+      "Every model so far needed somebody to write the right answer down first. Three that do not, and the new ways each of them can be wrong.",
+  },
+  {
+    id: "how-fitting-works",
+    number: 6,
+    title: "How the Fitting Actually Works",
+    summary:
+      "Under the fit is a search, and under the search is a step size. What the optimiser is doing, what it costs, and what happens to a model after it ships.",
+  },
 ];
 
 export const ML_CHAPTERS: readonly LearnChapter[] = [
@@ -313,6 +327,158 @@ export const ML_CHAPTERS: readonly LearnChapter[] = [
       { id: "when-the-baseline-wins", text: "When the baseline wins", level: 2 },
     ],
     status: "published",
+  },
+  {
+    slug: "clustering",
+    partId: "beyond-labels",
+    order: 15,
+    title: "Clustering",
+    description:
+      "Every model up to here needed somebody to write the right answer down first. Step a k-means run one move at a time and watch the groups it settles on change with where you started it.",
+    level: "intermediate",
+    minutes: 12,
+    prerequisites: ["features-and-labels"],
+    tags: ["Unsupervised", "Interactive"],
+    headings: [
+      { id: "when-nobody-labelled-anything", text: "When nobody labelled anything", level: 2 },
+      { id: "two-moves-repeated", text: "Two moves, repeated until nothing changes", level: 2 },
+      { id: "choosing-k-is-your-problem", text: "Choosing k is your problem, not the algorithm's", level: 2 },
+      { id: "when-the-groups-mean-nothing", text: "When the groups mean nothing", level: 2 },
+    ],
+    status: "draft",
+  },
+  {
+    slug: "dimensionality-reduction",
+    partId: "beyond-labels",
+    order: 16,
+    title: "Dimensionality Reduction",
+    description:
+      "Forty columns is not forty times more information than one, and the extra ones cost you accuracy. Rotate the line a cloud of points is flattened onto and watch how much of the spread survives.",
+    level: "intermediate",
+    minutes: 12,
+    prerequisites: ["features-and-labels", "overfitting"],
+    tags: ["Unsupervised", "Interactive"],
+    headings: [
+      { id: "more-columns-is-not-more-information", text: "More columns is not more information", level: 2 },
+      { id: "flattening-without-losing-the-point", text: "Flattening without losing the point", level: 2 },
+      { id: "what-a-component-actually-is", text: "What a component actually is", level: 2 },
+      { id: "what-you-give-up", text: "What you give up, and when it is worth it", level: 2 },
+    ],
+    status: "draft",
+  },
+  {
+    slug: "anomaly-detection",
+    partId: "beyond-labels",
+    order: 17,
+    title: "Anomaly Detection",
+    description:
+      "The cases you care about most are the ones you have almost no examples of, which is exactly why training a classifier on them fails. Move a cut-off and watch caught fraud trade against false alarms.",
+    level: "intermediate",
+    minutes: 11,
+    prerequisites: ["class-imbalance", "precision-recall"],
+    tags: ["Unsupervised", "Interactive"],
+    headings: [
+      { id: "the-class-you-cannot-collect", text: "The class you cannot collect", level: 2 },
+      { id: "describe-normal-instead", text: "Describe normal instead", level: 2 },
+      { id: "where-to-draw-the-cut-off", text: "Where to draw the cut-off", level: 2 },
+      { id: "why-normal-moves", text: "Why normal moves under you", level: 2 },
+    ],
+    status: "draft",
+  },
+  {
+    slug: "feature-scaling",
+    partId: "how-fitting-works",
+    order: 18,
+    title: "Feature Scaling",
+    description:
+      "Distance arithmetic does not know that one column is in years and another in pounds, so the big column quietly decides every answer. Rescale the axes and watch a nearest-neighbour verdict flip.",
+    level: "intermediate",
+    minutes: 11,
+    prerequisites: ["k-nearest-neighbours", "data-leakage"],
+    tags: ["Preprocessing", "Interactive"],
+    headings: [
+      { id: "the-column-that-shouts", text: "The column that shouts over the others", level: 2 },
+      { id: "two-ways-onto-one-scale", text: "Two ways onto one scale", level: 2 },
+      { id: "which-models-care", text: "Which models care, and which genuinely do not", level: 2 },
+      { id: "scaling-belongs-inside-the-split", text: "Scaling belongs inside the split", level: 2 },
+    ],
+    status: "draft",
+  },
+  {
+    slug: "gradient-descent",
+    partId: "how-fitting-works",
+    order: 19,
+    title: "Gradient Descent",
+    description:
+      "Trying every slope works with one parameter and never works again after that. Set a step size and watch the same search converge, crawl, or throw itself off the hill entirely.",
+    level: "intermediate",
+    minutes: 13,
+    prerequisites: ["how-models-learn"],
+    tags: ["Optimisation", "Interactive"],
+    headings: [
+      { id: "why-you-cannot-try-everything", text: "Why you cannot just try everything", level: 2 },
+      { id: "walking-downhill", text: "Walking downhill on the error", level: 2 },
+      { id: "the-step-size-decides-everything", text: "The step size decides everything", level: 2 },
+      { id: "what-it-does-not-promise", text: "What it does not promise you", level: 2 },
+    ],
+    status: "draft",
+  },
+  {
+    slug: "regularisation",
+    partId: "how-fitting-works",
+    order: 20,
+    title: "Regularisation",
+    description:
+      "Overfitting has a fix that is not \"collect more data\", and it works by charging the model rent on its own complexity. Turn the penalty up and watch coefficients fall over one at a time.",
+    level: "intermediate",
+    minutes: 12,
+    prerequisites: ["overfitting", "cross-validation"],
+    tags: ["Evaluation", "Interactive"],
+    headings: [
+      { id: "charging-rent-on-complexity", text: "Charging rent on complexity", level: 2 },
+      { id: "two-penalties-two-behaviours", text: "Two penalties, two different behaviours", level: 2 },
+      { id: "the-strength-is-a-dial", text: "The strength is a dial, not a switch", level: 2 },
+      { id: "choosing-it-honestly", text: "Choosing it without cheating", level: 2 },
+    ],
+    status: "draft",
+  },
+  {
+    slug: "neural-networks",
+    partId: "how-fitting-works",
+    order: 21,
+    title: "Neural Networks",
+    description:
+      "A neural network is not a brain. It is the straight-line fit you already understand, stacked, with one small bend between the layers — add hidden units one at a time and watch a flat boundary learn to curve.",
+    level: "advanced",
+    minutes: 14,
+    prerequisites: ["how-models-learn", "gradient-descent"],
+    tags: ["Models", "Interactive"],
+    headings: [
+      { id: "what-is-actually-inside-one", text: "What is actually inside one", level: 2 },
+      { id: "the-bend-that-changes-everything", text: "The bend that changes everything", level: 2 },
+      { id: "width-depth-and-what-each-buys", text: "Width, depth, and what each one buys", level: 2 },
+      { id: "what-they-cost-you", text: "What they cost you", level: 2 },
+    ],
+    status: "draft",
+  },
+  {
+    slug: "from-notebook-to-production",
+    partId: "how-fitting-works",
+    order: 22,
+    title: "From Notebook to Production",
+    description:
+      "A model that scored well on Tuesday's data is not a system, and the gap between the two is where most projects quietly die. Age a deployed model month by month and watch the score decay before anyone files a bug.",
+    level: "advanced",
+    minutes: 12,
+    prerequisites: ["baselines", "data-leakage"],
+    tags: ["Practice", "Interactive"],
+    headings: [
+      { id: "the-score-was-never-the-product", text: "The score was never the product", level: 2 },
+      { id: "the-world-moves-your-model-does-not", text: "The world moves, your model does not", level: 2 },
+      { id: "monitoring-when-labels-are-late", text: "Monitoring when the labels arrive late", level: 2 },
+      { id: "retraining-without-fooling-yourself", text: "Retraining without fooling yourself", level: 2 },
+    ],
+    status: "draft",
   },
 ];
 
