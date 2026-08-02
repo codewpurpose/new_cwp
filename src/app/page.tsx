@@ -20,11 +20,14 @@ export default function Home() {
       <SiteHeader />
       <main id="top">
         <HeroSection />
-        <PromptsMarquee />
+        {/* TrustedBySection is padding-neutral, so the gap from the hero lives
+            here. PromptsMarquee below brings its own pt-16 md:pt-32 and needs
+            no spacer of its own. */}
+        <div className="h-14 md:h-28" />
+        <TrustedBySection />
         <div className="h-16 md:h-40" />
         <ProductSection />
-        <div className="h-16 md:h-24" />
-        <TrustedBySection />
+        <PromptsMarquee />
         <div className="h-16 md:h-40" />
         <UseCasesSection />
         <GlobalReachSection />
