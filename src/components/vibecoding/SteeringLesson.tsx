@@ -1,7 +1,8 @@
 import { Callout } from "@/components/learn/primitives/Callout";
 import { CodeBlock, InlineCode } from "@/components/learn/primitives/CodeBlock";
-import { ChecklistCard, TakeawayCard } from "@/components/learn/primitives/Cards";
+import { ChecklistCard, CompareGrid, TakeawayCard } from "@/components/learn/primitives/Cards";
 import { Lead, LessonSection, P, Strong } from "@/components/learn/primitives/LessonSection";
+import { RevealCard } from "@/components/learn/primitives/RevealCard";
 import { StepList } from "@/components/learn/primitives/StepList";
 
 export function SteeringLesson() {
@@ -12,6 +13,60 @@ export function SteeringLesson() {
         politely for it to finish. Do not. Interrupting early is cheap; letting a wrong
         approach complete is expensive, and then you have to argue it back out.
       </Lead>
+
+      <LessonSection id="what-off-course-actually-looks-like" title="What off course actually looks like">
+        <P>
+          &ldquo;Wrong&rdquo; rarely announces itself with an error. Long before the code fails
+          to run, there are signals — if you are watching for them rather than waiting for a red
+          terminal to tell you.
+        </P>
+        <CompareGrid
+          columns={2}
+          items={[
+            {
+              title: "Touching files you did not name",
+              tone: "caution",
+              children: (
+                <p>
+                  Ask why before it goes further. Sometimes it found a real dependency you
+                  missed. More often it is guessing at scope.
+                </p>
+              ),
+            },
+            {
+              title: "Inventing a function or API that is not there",
+              tone: "caution",
+              children: (
+                <p>
+                  A sign it is pattern-matching from training data instead of reading your code —
+                  the same mechanism behind the hallucinated imports from the chapter on what the
+                  AI can see.
+                </p>
+              ),
+            },
+            {
+              title: "Fixing something you did not ask about",
+              tone: "caution",
+              children: (
+                <p>
+                  It found a real bug on the way, or it is filling silence with visible progress.
+                  Either way it is now solving two problems on your one prompt&apos;s budget.
+                </p>
+              ),
+            },
+            {
+              title: "A diff that keeps growing while you watch",
+              tone: "caution",
+              children: (
+                <p>
+                  Each additional file is another decision built on the one you have not yet
+                  confirmed. The longer you wait, the more expensive the interrupt gets.
+                </p>
+              ),
+            },
+          ]}
+        />
+      </LessonSection>
 
       <LessonSection id="interrupt-early" title="Interrupt early">
         <P>
@@ -88,6 +143,29 @@ Start again there.`}
           either attach the file it was clearly missing, break the task into a smaller step, or
           escalate to a reasoning model. All three beat prompting again.
         </Callout>
+        <P>
+          What that looks like in practice, on a real bug:
+        </P>
+        <RevealCard
+          summaryTag="Attempts one and two"
+          summary={
+            <>
+              Both replies patched the symptom in <InlineCode>Cart.tsx</InlineCode> — clamping
+              the total to zero whenever it went negative — without touching the discount
+              calculation that was actually producing the negative number.
+            </>
+          }
+          detailTag="What changed for attempt three"
+          detail={
+            <>
+              Restoring, then attaching the real discount logic in{" "}
+              <InlineCode>pricing.ts</InlineCode>, gave it the one file it had been guessing
+              about. The fix landed in a single message once it could see the actual bug instead
+              of a symptom of it.
+            </>
+          }
+          footnote="Same model, same bug. The difference was the input it was given, not a cleverer prompt for the same input."
+        />
       </LessonSection>
 
       <LessonSection id="restart-the-conversation" title="Restart the conversation, not just the prompt">

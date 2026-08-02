@@ -59,6 +59,33 @@ git branch -D add-dark-mode     # delete the experiment`}
         </P>
       </LessonSection>
 
+      <LessonSection id="review-the-diff-before-you-stage" title="Read the diff before you stage it">
+        <P>
+          <InlineCode>git add .</InlineCode> stages everything indiscriminately, including
+          whatever the AI touched that you never asked about. That habit is forgivable for code
+          you wrote yourself and already know. It is a bad one to inherit for a diff you have
+          not read end to end.
+        </P>
+        <P>
+          <InlineCode>git diff</InlineCode> shows every change before anything is staged. Read
+          all of it, not just the file you expected — models edit configuration, delete
+          comments, or quietly &ldquo;fix&rdquo; something you never mentioned, more often than a
+          human collaborator would.
+        </P>
+        <CodeBlock
+          variant="terminal"
+          label="Terminal"
+          code={`git diff                      # everything unstaged, file by file
+git add -p                    # stage hunk by hunk, skip what you don't want
+git diff --staged             # confirm exactly what's about to be committed`}
+        />
+        <Callout tone="tip" title="git add -p is the actual review tool">
+          Stepping through hunk by hunk forces a decision on each change instead of one verdict
+          on the whole diff. It is how you catch the single out-of-scope edit sitting inside
+          nine good ones.
+        </Callout>
+      </LessonSection>
+
       <LessonSection id="commit-messages" title="Commit messages are notes to your future self">
         <P>
           You will read these when something breaks and you are trying to find where it came
@@ -110,6 +137,7 @@ lines on why the change was needed.`}
         <StepList
           steps={[
             { label: "Committed something you should not have", detail: "git reset --soft HEAD~1 undoes the commit and keeps the changes staged." },
+            { label: "An AI change already merged to main turns out to be wrong", detail: "git revert <sha> undoes it with a new commit, instead of rewriting history that others may have already pulled — the right tool once a change is shared." },
             { label: "Committed a secret", detail: "Rotate the key. It is in the history now, and removing it from the current files does not remove it from the repo." },
             { label: "Branch is a mess", detail: "Switch back to main and delete it. That is what branches are for." },
             { label: "Merge conflict", detail: "Paste both versions and the conflict markers to the AI with context on what each side was doing — this is one of the things it is good at." },
@@ -121,9 +149,11 @@ lines on why the change was needed.`}
         items={[
           "Four commands cover daily work: status, add, commit, push.",
           "git restore . is the undo that makes accepting AI changes safe — as long as you commit often.",
+          "Read the diff, ideally hunk by hunk with git add -p, before you stage a change you did not write yourself.",
           "Branches make ambitious requests free, because rejecting everything costs one command.",
           "Write commit messages about why, not which files. Or have them written from the diff.",
           "Review the diff on GitHub, not in your editor. You will catch different things.",
+          "Once a change is merged and shared, revert it forward — don't rewrite history other people already pulled.",
           "A committed secret must be rotated. Deleting the line does not remove it from history.",
         ]}
       />

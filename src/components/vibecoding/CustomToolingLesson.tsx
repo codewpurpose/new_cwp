@@ -2,6 +2,7 @@ import { Callout } from "@/components/learn/primitives/Callout";
 import { CodeBlock, InlineCode } from "@/components/learn/primitives/CodeBlock";
 import { TakeawayCard } from "@/components/learn/primitives/Cards";
 import { Lead, LessonSection, P, Strong } from "@/components/learn/primitives/LessonSection";
+import { RevealCard } from "@/components/learn/primitives/RevealCard";
 import { StepList } from "@/components/learn/primitives/StepList";
 
 export function CustomToolingLesson() {
@@ -91,6 +92,40 @@ is clean, say so explicitly rather than staying silent.`}
         </P>
       </LessonSection>
 
+      <LessonSection id="when-the-tool-remembers-for-you" title="When the tool remembers so you don't have to">
+        <P>
+          There is a third case the split above misses: judgement work with a rule attached,
+          one you keep having to restate because the model — or you, tired, at the end of the
+          day — forgets it. That is not a script, because a step still needs a decision made.
+          And it is not solved by a better command either, because the failure is not in the
+          reasoning. It is in remembering the rule exists at all.
+        </P>
+        <P>
+          The fix is a tool that enforces the rule mechanically and leaves only the judgement
+          to the prompt.
+        </P>
+        <RevealCard
+          summaryTag="Command alone"
+          summary="A saved prompt that says: scaffold a new lesson, and remember — a chapter is either fully draft or fully published, never registered halfway."
+          detailTag="Command plus a tool"
+          detail={
+            <>
+              A script that creates the files, appends the draft entry, and runs the validator
+              before it lets the run finish — rolling every change back if anything is wrong.
+              Nobody has to remember to restate the rule about halfway states, because the tool
+              will not produce one.
+            </>
+          }
+          footnote="This is a real pattern in this repository: scaffolding a lesson runs the validator itself and cannot leave the project red."
+        />
+        <Callout tone="tip" title="The question that decides it">
+          Ask what is actually failing when you skip the ceremony: your memory, or your
+          judgement. A memory problem — a rule you keep forgetting to restate — is solved by a
+          tool that enforces it. A judgement problem — deciding whether this particular case is
+          fine — still needs a prompt, because that decision is the whole point of asking.
+        </Callout>
+      </LessonSection>
+
       <LessonSection id="the-compounding-part" title="The part that compounds">
         <P>
           Each command you write makes the next task slightly cheaper. After a few months the
@@ -110,6 +145,7 @@ is clean, say so explicitly rather than staying silent.`}
           "The value is consistency: your best prompt applied every time, not a shortened version from memory.",
           "Commit commands to the repo so the workflow is shared and reviewable.",
           "Deterministic work belongs in a script, not a prompt. Judgement work belongs in a command.",
+          "A memory problem — a rule you keep forgetting to restate — is solved by a tool. A judgement problem still needs a prompt.",
           "Accumulated commands encode how your project wants to be worked on — that is yours, and it outlasts the model.",
         ]}
       />

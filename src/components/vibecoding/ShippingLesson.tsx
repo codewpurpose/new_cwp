@@ -1,7 +1,9 @@
 "use client";
 
 import { motion } from "motion/react";
-import { TakeawayCard } from "@/components/learn/primitives/Cards";
+import { Callout } from "@/components/learn/primitives/Callout";
+import { ChecklistCard, CompareGrid, TakeawayCard } from "@/components/learn/primitives/Cards";
+import { Lead, LessonSection, P } from "@/components/learn/primitives/LessonSection";
 import { Reveal } from "@/components/Reveal";
 
 interface Stage {
@@ -54,10 +56,13 @@ const PROJECT_IDEAS = [
 export function ShippingLesson() {
   return (
     <div>
-      <p className="text-[15px] leading-[1.6] text-learn-muted">
-        A single idea can go from nothing to a live, shareable app in one
-        sitting. Scroll through each stage of the trip.
-      </p>
+      <Lead>
+        Shipping feels like the reward lap — the easy part, after all the real work of
+        prompting and reviewing is done. It is closer to a light switch: the moment your code
+        most needs to hold up is the moment it starts meeting people who did not write it, do
+        not know its quirks, and will not forgive a raw stack trace. Scroll through each stage
+        of the trip from idea to something real people can use.
+      </Lead>
 
       <div className="relative mt-10">
         <div className="absolute left-[15px] top-2 bottom-2 w-px bg-learn-line" />
@@ -95,6 +100,64 @@ export function ShippingLesson() {
         </div>
       </div>
 
+      <LessonSection id="what-deploying-actually-checks" title="What deploying actually checks">
+        <P>
+          A local server hides three things: environment variables you set once and forgot
+          about, a dev mode that skips checks a production build runs, and an audience of
+          exactly one. Deploying removes all three at once, which is why code that
+          &ldquo;worked&rdquo; on your machine sometimes breaks on its first real visitor.
+        </P>
+        <CompareGrid
+          items={[
+            {
+              title: "Local",
+              tone: "neutral",
+              children: (
+                <p>
+                  Reads variables from a .env file only you have. Dev mode skips some of the
+                  checks a real build runs, in exchange for faster reloads. One visitor: you.
+                </p>
+              ),
+            },
+            {
+              title: "Deployed",
+              tone: "caution",
+              children: (
+                <p>
+                  Needs those same variables entered into the host&apos;s own settings, or the
+                  app fails at the exact places that used them. Runs the real build, which
+                  surfaces problems dev mode was hiding. Real visitors, on real networks, on
+                  devices you never tested against.
+                </p>
+              ),
+            },
+          ]}
+        />
+        <Callout tone="warning" title="Secrets do not travel automatically">
+          Copy each environment variable into your hosting platform&apos;s own settings. The
+          .env file on your machine does not follow the code up by itself — this is the single
+          most common &ldquo;it worked locally&rdquo; surprise on a first deploy.
+        </Callout>
+      </LessonSection>
+
+      <LessonSection id="the-pre-launch-checklist" title="Before you share the link">
+        <P>
+          A minute spent here catches the mistakes that are embarrassing to find from a bug
+          report instead.
+        </P>
+        <ChecklistCard
+          marker="check"
+          title="Check before you send the link"
+          items={[
+            "Environment variables are set on the host, not just in your local .env",
+            "The production build runs clean, not just the dev server",
+            "You have clicked through it yourself on a phone, not only a laptop",
+            "Errors fail quietly for the user instead of showing a raw stack trace",
+            "There is some way for someone to tell you when it breaks — even just your own email",
+          ]}
+        />
+      </LessonSection>
+
       <Reveal className="mt-12">
         <h3 id="ideas-to-try-this-week" className="text-lg text-learn-strong">Ideas to try this week</h3>
         <p className="mt-3 text-[15px] leading-[1.5] text-learn-muted">
@@ -117,7 +180,8 @@ export function ShippingLesson() {
         items={[
           "Deploying is a skill you can practise, not a final exam you take once.",
           "Get something live early and ugly, then improve it — a local-only project teaches you less.",
-          "Secrets go in environment variables, never in the code you are about to push.",
+          "Secrets go in environment variables on the host itself, never in the code you push.",
+          "The production build catches mistakes dev mode was hiding from you the whole time.",
           "The first real bug report is worth more than another day of polishing.",
         ]}
       />

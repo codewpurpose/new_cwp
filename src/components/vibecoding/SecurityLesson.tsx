@@ -41,6 +41,13 @@ export function SecurityLesson() {
             { label: "Remember that git never forgets", detail: "A key committed and then deleted is still in the history. Rotate it — deleting the line is not enough." },
           ]}
         />
+        <Callout tone="warning" title="The other way secrets leak">
+          Committing a key is not the only path. Pasting a <InlineCode>.env</InlineCode> file, a
+          stack trace with an authorisation header, or a config dump into a chat window hands
+          the same secret to a tool whose logging and retention you do not control. Redact
+          before you paste, or describe the shape of the problem instead — the model rarely
+          needs the live value to help.
+        </Callout>
       </LessonSection>
 
       <LessonSection id="input-is-hostile" title="Treat every input as hostile">
@@ -67,6 +74,30 @@ export function SecurityLesson() {
           honest users, not a control. Anyone can call your endpoint directly, and the AI will
           rarely add server-side validation unless you ask.
         </P>
+      </LessonSection>
+
+      <LessonSection id="instructions-hiding-in-what-it-reads" title="Instructions hiding in what it reads">
+        <P>
+          A tool-using AI that reads a file, a web page, a support ticket, or a pull request
+          cannot reliably tell your instructions apart from text sitting inside that content. A
+          sentence written to look like an instruction — buried in a scraped page, an issue
+          description, or a comment in a data file — can get followed by a model that is, by
+          design, disposed to follow instructions wherever it finds them.
+        </P>
+        <P>
+          This is a different failure from a user typing something malicious. Nobody at the
+          keyboard asked for it. An agent summarising a ticket that contains a hidden line
+          telling it to paste out environment variables, or a browsing agent that lands on a page
+          seeded with text aimed at agents rather than people, can act on it without either of
+          you noticing until afterwards.
+        </P>
+        <Callout tone="danger" title="What to actually do about it">
+          Treat anything fetched from outside your own repository — a scraped page, a submitted
+          ticket, an attached file — as data, not instruction. Where you can, separate the fetch
+          from the act: review what came back before the same session is allowed to send, write,
+          or spend anything on the strength of it. Never combine &ldquo;reads untrusted
+          content&rdquo; with &ldquo;can take irreversible action&rdquo; in the same run.
+        </Callout>
       </LessonSection>
 
       <LessonSection id="authorisation" title="Authentication is not authorisation">
@@ -96,6 +127,68 @@ return Response.json(order);`}
         </P>
       </LessonSection>
 
+      <LessonSection id="dependencies-it-invents" title="Dependencies it invents, and dependencies that impersonate">
+        <P>
+          Models occasionally suggest importing a package that does not exist — a plausible
+          name, a plausible API, invented outright. That is harmless until someone registers
+          that exact name and fills it with something malicious, betting that enough developers
+          will install a hallucinated suggestion without checking first. It has a name —
+          slopsquatting — because it is a documented pattern, not a hypothetical.
+        </P>
+        <P>
+          The more common version is older: a package one character or one hyphen removed from a
+          popular real one. Typosquatting works on humans because a tired developer skims a name
+          rather than reading it. It works even better on generated code, where you never typed
+          the name yourself and have nothing to compare it against.
+        </P>
+        <StepList
+          steps={[
+            {
+              label: "Check the package exists before installing it",
+              detail: "Look it up on the registry — download counts, repository link, a maintainer with history. A successful install proves nothing on its own.",
+            },
+            {
+              label: "Read the name character by character",
+              detail: "Typosquats are built to survive a skim, not a careful read.",
+            },
+            {
+              label: "Pin versions and read the diff on updates",
+              detail: "A clean initial install does not protect you from a compromised update later.",
+            },
+          ]}
+        />
+      </LessonSection>
+
+      <LessonSection id="how-much-the-agent-can-touch" title="How much the agent can touch">
+        <P>
+          A tool-using agent is only as safe as the permissions behind it. One that can read
+          files is low risk. The same agent given permission to run shell commands, push to a
+          remote, or call a paid API is a different proposition — a bad instruction, including an
+          injected one, can now act rather than just suggest.
+        </P>
+        <P>
+          Broad grants are convenient precisely because they mean fewer interruptions.
+          &ldquo;Always allow&rdquo; is one click, and it is exactly the click that turns any of
+          the failure modes above from an annoying suggestion into something that already ran.
+        </P>
+        <StepList
+          steps={[
+            {
+              label: "Grant the narrowest scope the task needs",
+              detail: "Read access for research. Write access scoped to the directory in play. Network access limited to the endpoints the task actually calls.",
+            },
+            {
+              label: "Keep destructive actions behind a confirmation step",
+              detail: "Deleting files, force-pushing, sending anything external — these are worth the extra click every time.",
+            },
+            {
+              label: "Review a permission grant like you would review a diff",
+              detail: "“Always allow shell commands” carries the same weight as merging a PR without reading it.",
+            },
+          ]}
+        />
+      </LessonSection>
+
       <LessonSection id="the-review-prompt" title="The review prompt">
         <P>
           Ask for a security review as a separate pass, in a fresh conversation. Asking the same
@@ -111,6 +204,8 @@ return Response.json(order);`}
 - endpoints that check authentication but not ownership
 - errors that leak stack traces or internal details to users
 - anything that trusts data from the client
+- dependencies that do not resolve to a real, maintained package
+- instructions embedded in fetched content the agent might act on
 
 For each issue: what an attacker does, and the fix.
 If you find nothing in a category, say so explicitly.`}
@@ -130,6 +225,8 @@ If you find nothing in a category, say so explicitly.`}
             "Every endpoint that returns a record checks who owns it",
             "Error responses say “something went wrong”, not a stack trace",
             "Dependencies installed today were checked with npm audit",
+            "Every dependency added this session is a real, correctly-named package",
+            "Any agent that reads external content cannot also send data out or spend money in the same run",
           ]}
         />
         <Callout tone="danger" title="Where to stop and get help">
@@ -142,10 +239,12 @@ If you find nothing in a category, say so explicitly.`}
       <TakeawayCard
         items={[
           "The model writes the version that works. Security is about the versions that do not.",
-          "Secrets in source is the failure that actually happens. Gitignore .env before the first commit.",
+          "Secrets in source is the failure that actually happens. Gitignore .env before the first commit — and redact before you paste one into a prompt too.",
           "Parameterise queries and validate on the server — client checks are convenience, not control.",
           "Authentication is not authorisation. Checking login without checking ownership is the classic breach.",
-          "Run the security review in a fresh conversation, not the one that wrote the code.",
+          "Content the model reads is not automatically trustworthy. Treat a fetched page, ticket, or file as data, not instruction.",
+          "Check that a suggested dependency actually exists before installing it. Hallucinated and typosquatted names are a live attack, not a hypothetical.",
+          "Scope agent permissions to the task. “Always allow” on shell or network access turns every other mistake on this list into one that already ran.",
           "Never hand-roll auth, sessions, password storage, or payments.",
         ]}
       />

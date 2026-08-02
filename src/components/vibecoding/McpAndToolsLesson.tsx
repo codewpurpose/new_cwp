@@ -67,6 +67,45 @@ export function McpAndToolsLesson() {
         />
       </LessonSection>
 
+      <LessonSection id="two-kinds-of-tool" title="Two kinds of tool, and only one is free">
+        <P>
+          Not every tool carries the same risk, and collapsing them into one category is how
+          people end up granting write access somewhere they only meant to grant read access.
+        </P>
+        <CompareGrid
+          items={[
+            {
+              title: "Read tools",
+              tone: "positive",
+              children: (
+                <p>
+                  Query a database, fetch a page, search the issue tracker. A wrong call wastes
+                  a turn. You catch it on the next line, because nothing outside the
+                  conversation has changed yet.
+                </p>
+              ),
+            },
+            {
+              title: "Write tools",
+              tone: "caution",
+              children: (
+                <p>
+                  Run a migration, push a commit, close a ticket, send an email. A wrong call
+                  has already happened by the time you notice it, and undoing it is a second
+                  task, not a correction to the first.
+                </p>
+              ),
+            },
+          ]}
+        />
+        <P>
+          That asymmetry, not the specific integration, is the thing worth reasoning about
+          before you connect anything. The question is never &ldquo;is this tool useful&rdquo;
+          — it almost always is. The question is what a confident, wrong call through it costs
+          you, and whether that cost is one you can undo.
+        </P>
+      </LessonSection>
+
       <LessonSection id="setting-one-up" title="Setting one up">
         <P>
           Configuration is a JSON file naming the servers to launch. The exact path differs per
@@ -132,6 +171,7 @@ and show me the result.`}
       <TakeawayCard
         items={[
           "Tools let the model check reality instead of predicting it — that is the whole value.",
+          "A read tool that gets something wrong costs you a bad turn. A write tool that gets something wrong has already happened. Grant them differently.",
           "MCP is a shared protocol, so one server works across tools rather than per-editor integrations.",
           "Reference credentials from the environment. The config file gets committed.",
           "Read-only by default. Widen access only when you have a specific reason.",

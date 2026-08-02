@@ -65,14 +65,53 @@ export function AgentsLesson() {
         </Callout>
       </LessonSection>
 
+      <LessonSection id="how-a-loop-fails" title="How a loop fails, specifically">
+        <P>
+          Three failure modes are specific to something that acts across many steps without you
+          watching each one. None of them show up when you are approving every change by hand,
+          because you would have caught them at step one.
+        </P>
+        <StepList
+          variant="timeline"
+          steps={[
+            {
+              label: "A wrong step compounds",
+              detail:
+                "It misreads one function on step two and builds the next eight steps on that misunderstanding. By the time it reports back, the diff looks coherent and is wrong throughout, not just at the point of the original mistake.",
+            },
+            {
+              label: "Cost and time run away",
+              detail:
+                "A model that has not converged does not know it has not converged. Left alone it keeps trying variations, and every attempt spends tokens and minutes whether or not it is getting closer.",
+            },
+            {
+              label: "A destructive action, taken confidently",
+              detail:
+                "Deleting a directory it decided was unused, force-pushing over a branch, dropping a table to “clean up” a migration. It has never once asked permission first — only explained afterwards why it seemed reasonable at the time.",
+            },
+          ]}
+        />
+        <Callout tone="danger" title="The one that actually causes damage">
+          The first two cost you time and money, and both are recoverable. The third can cost
+          you data or a production incident, and it is the only one where undo is not
+          guaranteed to exist. That is what the controls below are for — not to make an agent
+          slower, but to make sure the third failure mode is always recoverable too.
+        </Callout>
+      </LessonSection>
+
       <LessonSection id="setting-it-up-safely" title="Setting it up so mistakes are cheap">
         <P>
-          An agent runs commands on your machine and edits many files without pausing. Do three
+          An agent runs commands on your machine and edits many files without pausing. Do four
           things before letting one loose.
         </P>
         <StepList
           variant="timeline"
           steps={[
+            {
+              label: "Scope what it is allowed to touch",
+              detail:
+                "Point it at the directory the task is actually about. Treat anything destructive — deleting files, force-pushing, touching production data — as requiring your explicit approval, never the agent's own judgement.",
+            },
             {
               label: "Commit first, always",
               detail: "A clean tree means the entire run can be discarded with one command.",
@@ -141,14 +180,22 @@ git worktree remove ../myapp-agent    # when finished`}
             { label: "Look for deleted tests", detail: "The fastest way to make tests pass is to remove them. Confirm the count went up, not down." },
           ]}
         />
+        <Callout tone="tip" title="If it is wrong, revert — do not patch">
+          A large diff that took the wrong approach is faster to discard and re-run with a
+          better prompt than to hand-patch into something you would have written yourself. You
+          already have a checkpoint from before the run — that is what the commit was for. Use
+          it.
+        </Callout>
       </LessonSection>
 
       <TakeawayCard
         items={[
           "The real shift is that an agent can run your code and read the result, so it self-corrects.",
           "Good agent tasks have a machine-checkable finish line. If a script cannot judge it, stay in the loop.",
-          "Commit and branch before every run — that is what makes a bad run cost nothing.",
-          "Always give a stop condition, or a stuck agent piles failures on failures.",
+          "A wrong step compounds silently across a long run — that is what scoping and checkpoints exist to contain.",
+          "Treat destructive actions — deletions, force-pushes, schema changes — as requiring your approval, never the agent's judgement.",
+          "Commit and branch before every run — that is what makes a bad run cost nothing to discard.",
+          "Always give a stop condition, or a stuck agent piles failures on top of failures.",
           "Worktrees let an agent work in parallel with you, in a separate folder.",
           "Check that tests were fixed, not deleted. That is the shortcut you must look for.",
         ]}

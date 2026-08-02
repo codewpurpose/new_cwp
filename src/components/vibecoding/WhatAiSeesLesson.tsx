@@ -1,6 +1,6 @@
 import { Callout } from "@/components/learn/primitives/Callout";
 import { CodeBlock, InlineCode } from "@/components/learn/primitives/CodeBlock";
-import { CompareGrid, TakeawayCard } from "@/components/learn/primitives/Cards";
+import { CompareGrid, LabelRows, TakeawayCard } from "@/components/learn/primitives/Cards";
 import { Lead, LessonSection, P, Strong } from "@/components/learn/primitives/LessonSection";
 import { StepList } from "@/components/learn/primitives/StepList";
 
@@ -36,6 +36,31 @@ export function WhatAiSeesLesson() {
         </P>
       </LessonSection>
 
+      <LessonSection id="the-illusion-of-one-continuous-conversation" title="The illusion of one continuous conversation">
+        <P>
+          The chat window makes this harder to see, because it is designed to look continuous.
+          Your messages stay on screen, scrolling upward, reading like a conversation with
+          someone who remembers what you said earlier. Nothing about the interface tells you
+          that underneath, each message you send triggers a completely fresh request — the model
+          wakes up, is handed the transcript so far as plain text, answers, and then, in every
+          sense that matters, stops existing until the next message arrives.
+        </P>
+        <P>
+          &ldquo;Remembering&rdquo; what you said five minutes ago is not memory in any sense a
+          person would recognise. It is re-reading. The transcript is included again, in full,
+          every single time — right up until it gets too large to fit, at which point the tool
+          starts quietly leaving parts of it out, usually the oldest parts first. You experience
+          that as the model forgetting. What actually happened is closer to someone being handed
+          a shorter and shorter set of notes to read before answering.
+        </P>
+        <Callout tone="note" title="Why closing the tab doesn't lose anything">
+          Since nothing is genuinely remembered between requests, starting a new conversation
+          costs you nothing except having to restate context the model needs. It does not erase
+          your code, and it does not erase progress — the code was never in the model&rsquo;s
+          memory to begin with. It was always just on your disk.
+        </Callout>
+      </LessonSection>
+
       <LessonSection id="the-context-window" title="The context window is a budget">
         <P>
           There is a hard ceiling on how much text can go in that package, measured in{" "}
@@ -54,6 +79,31 @@ export function WhatAiSeesLesson() {
           at message five can contradict it at message fifty. Starting a fresh conversation is
           often the fix, not a defeat.
         </Callout>
+      </LessonSection>
+
+      <LessonSection id="how-big-a-window-actually-is-in-practice" title="How big a window actually is, in practice">
+        <P>
+          &ldquo;Hundreds of thousands of tokens&rdquo; is an abstract number until you put your
+          own project next to it. Roughly speaking a token is three-quarters of a word, and the
+          maths runs in a direction most people do not expect: a paragraph of prose is cheap, a
+          single file is still cheap, and a whole codebase adds up far faster than either.
+        </P>
+        <LabelRows
+          rows={[
+            { label: "Short prompt", text: "Around fifty tokens — roughly the sentence you just typed." },
+            { label: "One file", text: "A few hundred to a couple of thousand tokens, depending on how long it is." },
+            { label: "This lesson", text: "Somewhere in the low thousands of tokens, as plain text." },
+            { label: "A small project", text: "Tens of thousands of tokens once you count every file." },
+            { label: "A mid-sized repo", text: "Easily past a million tokens — more than any single request can hold, whichever tool or model you are using." },
+          ]}
+        />
+        <P>
+          The jump from &ldquo;one file&rdquo; to &ldquo;the whole repo&rdquo; is where budgets
+          actually run out. A single component fits with room to spare. A directory of forty
+          related files starts competing with everything else that also needs a place in the
+          package: the system prompt, your rules file, the conversation so far. Something gives,
+          and it is rarely the part you would have chosen yourself.
+        </P>
       </LessonSection>
 
       <LessonSection id="why-it-invents-things" title="Why it invents functions you never wrote">
@@ -92,6 +142,29 @@ export function WhatAiSeesLesson() {
             },
           ]}
         />
+      </LessonSection>
+
+      <LessonSection id="two-different-kinds-of-knowing" title="Two different kinds of knowing">
+        <P>
+          There are two entirely different sources a model draws on, and mixing them up is most
+          of why hallucination feels unpredictable. The first is what it learned during
+          training: the shape of idiomatic code, common library APIs, the usual name for the
+          usual pattern, absorbed from a huge amount of text it cannot point back to and cannot
+          quote a source for.
+        </P>
+        <P>
+          The second is what is sitting in the context window right now — your actual files, in
+          this actual request. The model does not experience these as different in kind, so it
+          does not warn you when it switches from one to the other. It writes your project&rsquo;s{" "}
+          <InlineCode>formatDate</InlineCode> helper using the second source, and a
+          plausible-looking substitute using the first, in exactly the same confident voice.
+        </P>
+        <Callout tone="warning" title="The tell, when there is one">
+          Trained-in knowledge tends to be generically correct and locally wrong — it matches
+          how most projects do a thing, not how yours does it. If a suggestion reads like a
+          tutorial answer rather than something that reflects your other files, that is usually
+          why.
+        </Callout>
       </LessonSection>
 
       <LessonSection id="test-what-it-can-see" title="Test what it can see">
@@ -145,11 +218,11 @@ cannot see. Do not guess — if you are unsure, say so.`}
 
       <TakeawayCard
         items={[
-          "The model has no memory. Every request ships a fresh package of text, and that package is its whole world.",
-          "The context window is a budget, and the tool silently decides what to drop.",
-          "Hallucinated functions are gap-filling, not dishonesty. Show it the real file and they stop.",
-          "Ask a tool what it can see. The answer is often narrower than you assumed.",
-          "A long, drifting conversation is worse than a fresh one with a good opening prompt.",
+          "The model has no memory. Every request ships a fresh package of text, and that package is its whole world for that one reply.",
+          "The chat window's continuity is an illusion — 'remembering' is re-reading the transcript, and once a message ages out of the window it is genuinely gone from what the model can see.",
+          "The context window is a budget, and a handful of files eats it far faster than any amount of prose.",
+          "Hallucinated functions come from two different sources, trained-in patterns and your actual files, and the model never tells you which one it used.",
+          "Ask a tool what it can see before you trust its answer. The honest reply is often narrower than you assumed.",
         ]}
       />
     </div>

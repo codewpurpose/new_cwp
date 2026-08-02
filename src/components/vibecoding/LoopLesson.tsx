@@ -2,7 +2,9 @@
 
 import { useState } from "react";
 import { motion } from "motion/react";
-import { TakeawayCard } from "@/components/learn/primitives/Cards";
+import { Callout } from "@/components/learn/primitives/Callout";
+import { ChecklistCard, TakeawayCard } from "@/components/learn/primitives/Cards";
+import { P } from "@/components/learn/primitives/LessonSection";
 import { Reveal } from "@/components/Reveal";
 
 interface LoopStep {
@@ -169,12 +171,51 @@ export function LoopLesson() {
         </div>
       </Reveal>
 
+      <Reveal delay={0.12} className="mt-12">
+        <h3 id="when-the-loop-stops-converging" className="text-lg text-learn-strong">
+          When the loop stops converging
+        </h3>
+        <P>
+          Most of the time, review leads to a small refine, and the refine fixes it. Sometimes
+          it does not. You send a correction, the AI produces something that is wrong in a new
+          way, you correct that, and three rounds later you are further from working code than
+          when you started, not closer.
+        </P>
+        <P>
+          The instinct is to keep prompting: rephrase the same request, add emphasis, type
+          &ldquo;no, actually&rdquo; and try again. That treats the model as if it just needs one
+          more nudge. Usually it needs something else entirely — a piece of context it never
+          had, or a task that was too large to hold together in one pass.
+        </P>
+        <Callout tone="warning" title="Re-prompting is not the same as fixing the problem">
+          Three failed refinements on the same bug rarely mean a fourth prompt will land
+          differently. It usually means the model is missing something you have not given it,
+          not that it needs to try harder at the same thing.
+        </Callout>
+        <ChecklistCard
+          title="When you notice you are on attempt three, do one of these instead"
+          items={[
+            "Stop and read what actually changed each time. If nothing is converging, that is the signal, not a feeling.",
+            "Give it the thing it is obviously missing: the real error text, the file it has not seen, the failing test.",
+            "Cut the task in half and ask for just the first part.",
+            "Start a fresh conversation with one clear prompt instead of the fourth correction inside a long one.",
+          ]}
+        />
+        <P>
+          Two chapters ahead cover this properly — steering mid-flight, and knowing when to
+          restart entirely — but the shape to remember now is simple. Re-prompting fixes a
+          prompt that was almost right. A stalled loop needs a different input, not a louder
+          version of the same one.
+        </P>
+      </Reveal>
+
       <TakeawayCard
         items={[
           "Vibe coding is a loop, not a single prompt. The review step is where the quality comes from.",
           "Read the diff before you accept it. Skimming is how bugs get committed.",
           "Refine with a targeted follow-up rather than restarting with a whole new prompt.",
           "Run it yourself before you call it done.",
+          "A loop that keeps producing new wrong answers needs a different input, not a fourth attempt at the same prompt.",
         ]}
       />
     </div>

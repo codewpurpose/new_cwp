@@ -116,6 +116,26 @@ Full error from the console:
         />
       </LessonSection>
 
+      <LessonSection id="what-you-attach-is-not-all-thats-in-there" title="What you attach is not all that's in there">
+        <P>
+          Everything so far assumes the window has room for what you deliberately attach. It
+          has to share that room with something you are not managing directly: the conversation
+          itself.
+        </P>
+        <P>
+          Every prior message, every file the model already read, every failed attempt sits in
+          the window whether you meant to keep it there or not. A session that has gone through
+          three wrong approaches to the same bug is carrying all three, and by the fourth
+          attempt the model is reasoning with a full history of dead ends crowding out the
+          actual fix.
+        </P>
+        <Callout tone="tip" title="When to start over">
+          If a conversation has gone sideways more than once on the same problem, a fresh
+          session with a tighter opening message usually outperforms one more correction.
+          You are not just fixing the approach — you are clearing the room.
+        </Callout>
+      </LessonSection>
+
       <LessonSection id="the-cheapest-check" title="The cheapest check there is">
         <P>
           Before any substantial request, one line of prompt saves entire rounds of confusion:
@@ -139,6 +159,7 @@ missing or ambiguous, ask before starting.`}
           "The similar-file example is the highest-value attachment and the one most people skip.",
           "Do not attach everything — noise pushes the useful parts out of the budget.",
           "Never attach secrets or customer data. It leaves your machine and does not come back.",
+          "The conversation itself fills the window over time. A session with several wrong turns is often worth restarting rather than correcting again.",
           "Ask “do you have what you need?” before big requests.",
         ]}
       />

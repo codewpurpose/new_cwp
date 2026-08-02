@@ -71,6 +71,22 @@ not the implementation.`}
         />
       </LessonSection>
 
+      <LessonSection id="what-green-does-not-prove" title="What a green suite does not prove">
+        <P>
+          A passing test is not proof of correctness. It is proof that the assertions you wrote
+          hold — and if you asked for tests after the implementation already existed, the model
+          read that implementation to decide what &ldquo;correct&rdquo; looks like, mistakes
+          included. Ask for tests over code that is already wrong and there is a real chance you
+          get tests that pass by agreeing with the bug.
+        </P>
+        <Callout tone="warning" title="Where this actually bites">
+          It shows up hardest on logic you have not verified by hand: a discount calculation, a
+          sort order, a permission check. Write the expected result yourself for the one case you
+          care about most, rather than letting the test infer it from whatever the code currently
+          does.
+        </Callout>
+      </LessonSection>
+
       <LessonSection id="failing-first" title="Make it fail first">
         <P>
           A test that has never failed has not been shown to work. This matters more than usual

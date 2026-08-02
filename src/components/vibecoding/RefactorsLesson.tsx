@@ -1,6 +1,6 @@
 import { Callout } from "@/components/learn/primitives/Callout";
 import { CodeBlock } from "@/components/learn/primitives/CodeBlock";
-import { TakeawayCard } from "@/components/learn/primitives/Cards";
+import { CompareGrid, TakeawayCard } from "@/components/learn/primitives/Cards";
 import { Lead, LessonSection, P, Strong } from "@/components/learn/primitives/LessonSection";
 import { StepList } from "@/components/learn/primitives/StepList";
 
@@ -35,6 +35,49 @@ export function RefactorsLesson() {
           People get hurt by treating a semantic refactor as if it were mechanical, because it
           looked mechanical while it was happening.
         </P>
+      </LessonSection>
+
+      <LessonSection id="what-its-actually-good-at" title="What it's actually good at, and what it isn't">
+        <P>
+          Before sequencing anything, be honest about which side of the mechanical-versus-
+          semantic line your change actually sits on. Handing over the wrong kind is the
+          mistake underneath most of the others in this chapter.
+        </P>
+        <CompareGrid
+          items={[
+            {
+              title: "Well suited to a model",
+              tone: "positive",
+              children: (
+                <p>
+                  Renaming a symbol across forty files. Converting a class component to a
+                  function component, mechanically. Splitting one large file into several along
+                  boundaries you specify. Updating every call site after you change a type.
+                </p>
+              ),
+            },
+            {
+              title: "The wrong thing to hand it",
+              tone: "caution",
+              children: (
+                <p>
+                  Redesigning a data model when the right shape depends on a product decision
+                  nobody has written down. A performance rewrite where correctness depends on
+                  an invariant that lives in someone&rsquo;s head, not the code. Any refactor
+                  where &ldquo;better&rdquo; is a judgement call rather than a checkable
+                  property.
+                </p>
+              ),
+            },
+          ]}
+        />
+        <Callout tone="warning" title="The tell">
+          If you cannot state what &ldquo;done&rdquo; looks like as a fact the type checker or a
+          test can verify, you are handing over a decision, not a mechanical task. It will make
+          that decision anyway, confidently and silently, in whatever direction looks most
+          plausible — which is a fine outcome for a rename and a bad one for an architecture
+          choice.
+        </Callout>
       </LessonSection>
 
       <LessonSection id="make-it-verifiable-first" title="Make it verifiable first">
@@ -155,6 +198,7 @@ git branch -D refactor/split-dashboard`}
       <TakeawayCard
         items={[
           "Decide whether the change is mechanical or semantic. Semantic changes must be stepped.",
+          "If you can't state what \"done\" means as something a test or type checker can verify, it's a judgement call — hand it to a person, not a model.",
           "Write characterisation tests first — they make “did behaviour change?” answerable.",
           "Ask for a plan where every step compiles, passes, and commits on its own.",
           "Change the type first and let the compiler produce an exhaustive list of call sites.",

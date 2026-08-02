@@ -2,8 +2,11 @@
 
 import { useState } from "react";
 import { motion } from "motion/react";
-import { TakeawayCard } from "@/components/learn/primitives/Cards";
-import { Reveal } from "@/components/Reveal";
+import { Callout } from "@/components/learn/primitives/Callout";
+import { CodeBlock } from "@/components/learn/primitives/CodeBlock";
+import { ChecklistCard, TakeawayCard } from "@/components/learn/primitives/Cards";
+import { Lead, LessonSection, P } from "@/components/learn/primitives/LessonSection";
+import { StepList } from "@/components/learn/primitives/StepList";
 
 interface Example {
   generic: string;
@@ -37,6 +40,7 @@ const CONTEXT_CHECKLIST = [
   "Is there an existing pattern, component, or hook to point at?",
   "What naming and styling conventions does this codebase already use?",
   "What tests or checks should still pass after the change?",
+  "Does something like this already exist elsewhere in the repo, that you should point at instead of letting it get invented twice?",
 ];
 
 export function CodebaseLesson() {
@@ -50,12 +54,40 @@ export function CodebaseLesson() {
 
   return (
     <div>
-      <p className="text-[15px] leading-[1.6] text-learn-muted">
-        &ldquo;Add a login page&rdquo; means something very different in a
-        fresh repo versus a 50,000-line one. In an existing codebase, the AI
-        can only match your patterns if you tell it what they are. Click
-        each card to see the difference.
-      </p>
+      <Lead>
+        You assume more context always helps: paste in the whole repository and let the model
+        sort out what matters. That is backwards. There is more code in a real repository than
+        fits in front of the model at once, so somebody has to decide what it actually sees —
+        and if that somebody is not you, it will guess.
+      </Lead>
+
+      <LessonSection id="the-repository-does-not-fit" title="The repository does not fit">
+        <P>
+          A fresh project fits inside a single request more or less completely, which is why
+          the first demo everyone tries feels effortless. A real codebase does not. Fifty
+          thousand lines of TypeScript is several times too large to hand over whole, before
+          you have counted the conversation you are already having and the reply you are
+          waiting on.
+        </P>
+        <P>
+          So the model works from a fraction of the repository: whatever it searched for,
+          whatever you attached, whatever survived from earlier in the conversation. That
+          fraction is rarely the whole picture, and the model has no way to tell you what it is
+          missing, because it cannot see what it cannot see.
+        </P>
+        <Callout tone="warning" title="The failure mode particular to large repos">
+          It invents a second implementation of something that already exists forty files away,
+          because it never saw the first one. A new date formatter next to three existing ones.
+          A second validation helper doing almost, but not quite, the same thing as the first.
+          The fix is not a longer prompt. It is asking it to look before it writes.
+        </Callout>
+        <P>
+          &ldquo;Add a login page&rdquo; means something very different in a fresh repo versus a
+          50,000-line one, for exactly this reason. In an existing codebase, the AI can only
+          match your patterns if you tell it what they are. Click each card below to see the
+          difference.
+        </P>
+      </LessonSection>
 
       <div className="mt-8 space-y-4">
         {EXAMPLES.map((example, i) => (
@@ -102,29 +134,56 @@ export function CodebaseLesson() {
         ))}
       </div>
 
-      <Reveal className="learn-card mt-10 rounded-learn-lg p-6 md:p-8">
-        <h3 id="before-you-prompt-gather-context" className="text-lg text-learn-strong">
-          Before you prompt, gather context
-        </h3>
-        <ul className="mt-4 space-y-2">
-          {CONTEXT_CHECKLIST.map((item) => (
-            <li
-              key={item}
-              className="flex items-start gap-3 text-[14px] leading-[1.5] text-learn-strong"
-            >
-              <span className="mt-0.5 text-learn-accent-text">→</span>
-              {item}
-            </li>
-          ))}
-        </ul>
-      </Reveal>
+      <LessonSection id="work-in-slices-not-sweeps" title="Work in slices, not sweeps" delay={0.05}>
+        <P>
+          The strategies that follow all come from the same constraint: since the model cannot
+          hold the whole repository, keep every request small enough that what it does hold is
+          enough.
+        </P>
+        <StepList
+          variant="timeline"
+          steps={[
+            {
+              label: "Let it search before it writes",
+              detail:
+                "Most tools can grep or search the repo on their own. Ask explicitly when it matters: \"check whether something like this already exists before creating it.\"",
+            },
+            {
+              label: "Point at the entry point, not the whole feature",
+              detail:
+                "Name the file that should change and a similar one that already does it right, rather than describing the feature and hoping it finds the same files you would have.",
+            },
+            {
+              label: "One module at a time",
+              detail:
+                "Scope a request to a single route or component tree instead of the whole app. A prompt that spans the codebase is a prompt nothing can verify against.",
+            },
+            {
+              label: "Let a rules file carry the constants",
+              detail:
+                "Conventions that apply everywhere do not need to be re-explained per request, which frees the window's budget for what is actually specific to this one.",
+            },
+          ]}
+        />
+        <CodeBlock
+          variant="prompt"
+          label="Prompt"
+          code={`Before adding a new date formatter, search the repo for an
+existing one and reuse it if you find one.`}
+        />
+      </LessonSection>
+
+      <LessonSection id="before-you-prompt-gather-context" title="Before you prompt, gather context" delay={0.1}>
+        <ChecklistCard items={CONTEXT_CHECKLIST} />
+      </LessonSection>
 
       <TakeawayCard
         items={[
-          "In a real repo, context is the whole game. The same prompt gets a different answer depending on what you attached.",
-          "Point at the actual files. Do not make the model search for what you already know.",
+          "A real repository does not fit in front of the model at once — something has to decide what it sees, and by default that something is you.",
+          "Point at the actual files. Do not make the model search for what you already know it needs.",
           "Match the conventions that already exist rather than letting the AI invent new ones.",
-          "Small, scoped changes are reviewable. Large ones are not.",
+          "Scope each request to one module or one slice. A prompt that spans the whole app is unreviewable and unverifiable.",
+          "The failure mode specific to large repos is a second implementation of something that already exists elsewhere. Ask it to search before it writes.",
         ]}
       />
     </div>

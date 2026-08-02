@@ -1,6 +1,6 @@
 import { Callout } from "@/components/learn/primitives/Callout";
 import { CodeBlock } from "@/components/learn/primitives/CodeBlock";
-import { CompareGrid, TakeawayCard } from "@/components/learn/primitives/Cards";
+import { ChecklistCard, CompareGrid, TakeawayCard } from "@/components/learn/primitives/Cards";
 import { Lead, LessonSection, P, Strong } from "@/components/learn/primitives/LessonSection";
 import { StepList } from "@/components/learn/primitives/StepList";
 
@@ -44,7 +44,33 @@ export function OrchestrationLesson() {
         />
       </LessonSection>
 
+      <LessonSection id="what-has-to-be-true-first" title="What has to be true before you split">
+        <P>
+          Splitting work across agents is not automatically faster, for the same reason
+          splitting work across people is not automatically faster: coordination has a cost. If
+          the pieces are not genuinely separable, you pay that cost on top of doing the work,
+          not instead of it.
+        </P>
+        <ChecklistCard
+          title="Three things have to be true, all of them"
+          items={[
+            "The tasks are genuinely independent — neither one's answer depends on what the other decides.",
+            "The files are disjoint — no two agents will write to, or need the live state of, the same file.",
+            "You have a merge plan before you start — who resolves a conflict and in what order the branches land — not one you improvise once three diffs are sitting in front of you.",
+          ]}
+        />
+        <Callout tone="warning" title="If any one of these is false">
+          You are not parallelising the work. You are creating a second job — reconciling what
+          the agents produced — and that job is often larger than the time the split was
+          supposed to save.
+        </Callout>
+      </LessonSection>
+
       <LessonSection id="the-shapes-that-work" title="The shapes that work">
+        <P>
+          Each shape below only works when the three conditions above hold. They are ways of
+          satisfying them, not ways around them.
+        </P>
         <StepList
           variant="timeline"
           steps={[
@@ -139,6 +165,7 @@ git worktree add ../app-billing -b agent/billing
 
       <TakeawayCard
         items={[
+          "Parallel work pays off only when tasks are independent, files are disjoint, and you have a merge plan decided in advance.",
           "Split for breadth (by item) or for confidence (by perspective). Know which you are doing.",
           "Generate-then-refute is the highest-value shape. Ask the second agent to break it, not to check it.",
           "Partition so no two agents touch the same file, or use separate worktrees.",

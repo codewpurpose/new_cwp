@@ -1,6 +1,6 @@
 import { Callout } from "@/components/learn/primitives/Callout";
 import { CodeBlock } from "@/components/learn/primitives/CodeBlock";
-import { CompareGrid, TakeawayCard } from "@/components/learn/primitives/Cards";
+import { CompareGrid, LabelRows, TakeawayCard } from "@/components/learn/primitives/Cards";
 import { Lead, LessonSection, P, Strong } from "@/components/learn/primitives/LessonSection";
 import { StepList } from "@/components/learn/primitives/StepList";
 
@@ -45,6 +45,43 @@ export function ChoosingAModelLesson() {
         <P>
           A fast model with no deliberation is excellent at the thing you already know how to
           do. A reasoning model earns its cost on the thing you are stuck on.
+        </P>
+        <P>
+          The two axes are independent, which is the part worth sitting with. A model can be
+          highly capable and still answer instantly, if the problem in front of it is one it has
+          effectively memorised the shape of. And a model can deliberate for a long time and
+          still be wrong, because thinking longer helps with problems that benefit from working
+          through steps, not with problems where the model is simply missing information it was
+          never given.
+        </P>
+      </LessonSection>
+
+      <LessonSection id="what-the-picker-is-really-asking" title="What the picker is really asking">
+        <P>
+          Strip away the branding and every model picker on the market is asking the same
+          question in different words: how much of the second axis do you want switched on. The
+          exact labels change with every release. The underlying choice does not.
+        </P>
+        <LabelRows
+          rows={[
+            {
+              label: "Fast / Standard",
+              text: "Deliberation off. The reasonable default — use it until it visibly struggles.",
+            },
+            {
+              label: "Think / Extended / Pro",
+              text: "Deliberation on. Reach for it after a specific failure, not as a default.",
+            },
+            {
+              label: "An effort or depth slider",
+              text: "The same dial, made continuous instead of binary. Higher is not automatically better on an easy task — it is slower and more expensive for no gain.",
+            },
+          ]}
+        />
+        <P>
+          Read a new picker by mapping its options onto this pair of axes before you touch it.
+          You will be right about what each setting does long before you have learned what it is
+          currently called.
         </P>
       </LessonSection>
 
@@ -98,6 +135,13 @@ export function ChoosingAModelLesson() {
           <Strong>cost per problem actually solved</Strong> — and by that measure the expensive
           model is frequently the cheap one, because three cycles with a fast model that never
           gets there costs more than one that does.
+        </P>
+        <P>
+          None of this requires knowing an exact price, and it will keep being true after every
+          price changes. A wrong answer costs you the time to notice it was wrong, plus the time
+          to redo it. A slower, pricier answer only has to beat that combined cost once to be
+          worth reaching for — it does not have to be cheap, it has to be cheaper than being
+          wrong.
         </P>
       </LessonSection>
 

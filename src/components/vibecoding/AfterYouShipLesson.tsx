@@ -64,6 +64,52 @@ export function AfterYouShipLesson() {
         </Callout>
       </LessonSection>
 
+      <LessonSection id="know-when-to-roll-back" title="Know when to roll back instead of fixing forward">
+        <P>
+          A live bug and a bug caught in review are not the same problem. One of them is
+          actively costing someone something right now, and the instinct to fully understand it
+          before you touch anything is exactly backwards under that kind of pressure.
+        </P>
+        <P>
+          If the last deploy is the obvious suspect — a change went out an hour ago and the
+          errors started ten minutes later — the fastest fix is usually not a fix. It is putting
+          the previous, known-good version back in front of people, then debugging calmly with
+          the fire already out.
+        </P>
+        <StepList
+          variant="timeline"
+          steps={[
+            {
+              label: "Is the last deploy the suspect?",
+              detail:
+                "Check error timestamps against your deploy log. A tight correlation is your answer before you have read a single line of the diff.",
+            },
+            {
+              label: "Can you undo it in under a minute?",
+              detail:
+                "Most hosts let you redeploy the previous build directly, and a git revert undoes the commit without rewriting history the way a reset would.",
+            },
+            {
+              label: "Roll back, then debug",
+              detail:
+                "Once the previous version is live, you are debugging a problem, not fighting an outage. Those are different tasks, and the second one is much easier to think clearly about.",
+            },
+          ]}
+        />
+        <CodeBlock
+          variant="terminal"
+          label="Terminal"
+          code={`git log --oneline -5
+git revert <bad-commit-sha>
+git push`}
+        />
+        <Callout tone="tip" title="Reverting is not admitting defeat">
+          Shipping a rollback in five minutes and a real fix the next day beats shipping a real
+          fix in five minutes that turns out to be wrong. Treat them as two separate decisions,
+          made at two separate times.
+        </Callout>
+      </LessonSection>
+
       <LessonSection id="the-fix-loop" title="The fix loop, with the AI in it">
         <P>
           Once you can reproduce it, the loop is the one you already know — with one addition
@@ -84,6 +130,11 @@ then fix it.`}
         <P>
           Test first, cause second, fix third. The test is what makes this a permanent fix
           rather than a temporary one.
+        </P>
+        <P>
+          Skip the test and you have closed today&rsquo;s report. The same defect can resurface
+          through a different input next month, and nothing will flag it until another user
+          finds it — now annoyed twice, by the same bug you already fixed once.
         </P>
       </LessonSection>
 
@@ -132,7 +183,8 @@ then fix it.`}
           "Add error tracking on day one. It is the highest-value post-launch addition.",
           "Convert vague reports into a reproduction you have seen yourself before prompting.",
           "Ask which device and browser — it resolves a surprising share of bugs immediately.",
-          "Write a failing test for every real bug, so the fix is permanent.",
+          "When the last deploy is the obvious cause, revert first and debug second. They are different tasks under different amounts of pressure.",
+          "Write a failing test for every real bug, so the fix is permanent rather than a repeat performance.",
           "Analytics tell you which of your features nobody uses. Believe them.",
           "Few users is the normal outcome. The feedback is the point, not the traffic.",
         ]}

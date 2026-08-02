@@ -223,6 +223,14 @@ export function InstallLesson() {
           Open the <Strong>folder</Strong>, not the file. This one habit removes a large share
           of the &ldquo;why is the AI making things up&rdquo; problem before it starts.
         </P>
+        <P>
+          Here is the concrete version of that problem. Ask a tool that only sees one open file
+          to explain how your authentication flow works, and it will answer anyway — drawing on
+          generic patterns from millions of other codebases, not yours. The answer sounds
+          authoritative because plausible text always does. It just is not about your project.
+          The next part of the course goes into exactly why that happens; for now, the fix is
+          the one above.
+        </P>
       </LessonSection>
 
       <LessonSection id="a-first-real-test" title="A first real test">
@@ -239,7 +247,10 @@ Do not guess — if you cannot see something, say so.`}
         <P>
           A repo-aware tool lists your real files. A chat window tells you it cannot see them.
           Both answers are correct for what that tool is, and knowing which you are holding is
-          the whole point of this chapter.
+          the whole point of this chapter. The answer to distrust is the confident-sounding
+          third option: a chat-only tool that rattles off filenames as though it can see your
+          folder. That is worse than not knowing, because it means it invented an answer instead
+          of admitting the limit.
         </P>
       </LessonSection>
 

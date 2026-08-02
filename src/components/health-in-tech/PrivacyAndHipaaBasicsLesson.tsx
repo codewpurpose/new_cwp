@@ -1,6 +1,6 @@
 import { Lead, LessonSection, P, Strong } from "@/components/learn/primitives/LessonSection";
 import { RevealCard } from "@/components/learn/primitives/RevealCard";
-import { TakeawayCard } from "@/components/learn/primitives/Cards";
+import { ChecklistCard, TakeawayCard } from "@/components/learn/primitives/Cards";
 import { Callout } from "@/components/learn/primitives/Callout";
 
 export function PrivacyAndHipaaBasicsLesson() {
@@ -19,10 +19,72 @@ export function PrivacyAndHipaaBasicsLesson() {
       >
         <P>
           HIPAA — the Health Insurance Portability and Accountability Act — covers{" "}
-          <Strong>Protected Health Information</Strong>: data created or held by a covered
-          healthcare provider, health plan, or their business partners, tied to an identifiable
-          patient. A doctor&apos;s note about your diagnosis is squarely inside that boundary. A
-          lot of health-adjacent data people assume is covered is not.
+          <Strong>Protected Health Information</Strong>, or PHI: data created or held by a
+          covered healthcare provider, health plan, or their business partners, tied to an
+          identifiable patient. A doctor&apos;s note about your diagnosis is squarely inside
+          that boundary. A lot of health-adjacent data people assume is covered is not.
+        </P>
+        <P>
+          PHI is not just the diagnosis itself. It is any of a defined list of identifiers —
+          name, address, birth date, and more — attached to health information, held by one of
+          those specific organisations. Strip every identifier from that same data and, under
+          the rules covered later in this chapter, it can stop being PHI entirely. The
+          identifiers are doing almost all of the legal work, which is worth seeing spelled out
+          rather than taken on faith.
+        </P>
+      </LessonSection>
+
+      <LessonSection
+        id="the-eighteen-identifiers-that-actually-define-phi"
+        title="The eighteen identifiers that actually define PHI"
+      >
+        <P>
+          HIPAA&apos;s regulations name eighteen specific identifiers. Health information tied
+          to any one of them, held by a covered entity, is PHI. A representative slice of the
+          list:
+        </P>
+        <ChecklistCard
+          marker="dot"
+          items={[
+            "Name",
+            "Any geographic subdivision smaller than a state — street address, county, or ZIP code",
+            "All dates directly tied to an individual, other than the year — birth date, admission date, discharge date",
+            "Telephone and fax numbers, email addresses",
+            "Social Security number, medical record number, health plan beneficiary number",
+            "Biometric identifiers, including fingerprints and voiceprints",
+            "Full-face photographs",
+            "Any other unique identifying number, characteristic, or code",
+          ]}
+        />
+        <P>
+          That last line does most of the quiet work — it is a catch-all, not a loophole. A
+          hospital-assigned patient ID that looks meaningless to an outsider still counts,
+          because it can be traced back to one specific person inside that hospital&apos;s own
+          systems.
+        </P>
+      </LessonSection>
+
+      <LessonSection
+        id="treatment-payment-and-operations-need-no-extra-authorization"
+        title="Treatment, payment, and operations need no extra authorisation"
+      >
+        <P>
+          HIPAA is often pictured as requiring a fresh signature every time PHI moves between
+          two people. It doesn&apos;t. The law carves out three broad purposes — usually
+          shortened to <Strong>TPO</Strong> — where a covered entity can use or share PHI
+          without asking the patient again each time: <Strong>treatment</Strong> (a specialist
+          pulling your primary care notes before an appointment), <Strong>payment</Strong> (a
+          hospital sending your claim details to your insurer), and{" "}
+          <Strong>healthcare operations</Strong> (a hospital reviewing its own case outcomes to
+          improve quality).
+        </P>
+        <P>
+          An emergency room doctor at a hospital you have never visited before can request your
+          records from your regular clinic in the middle of treating you, without a new consent
+          form, because that request falls inside treatment. The one blanket document you sign —
+          the Notice of Privacy Practices, usually on a clipboard at a first visit — is what
+          covers all three going forward. Anything outside TPO, like selling PHI to a
+          marketer, needs the patient&apos;s specific authorisation instead.
         </P>
       </LessonSection>
 
@@ -33,6 +95,15 @@ export function PrivacyAndHipaaBasicsLesson() {
           hire to handle patient data on their behalf, like a billing service or a cloud
           storage provider. Step outside that specific relationship and HIPAA typically has
           nothing to say, even about data that looks exactly like medical information.
+        </P>
+        <P>
+          That relationship with a business associate is not informal. The law requires a{" "}
+          <Strong>Business Associate Agreement</Strong>, or BAA, before PHI can be shared at
+          all — a signed contract that obligates the vendor to use appropriate safeguards, to
+          report a breach on its end back to the covered entity, and to limit its use of the
+          data to exactly what the contract permits. A cloud provider hosting patient records
+          without a BAA in place is not a grey area; it is a compliance failure on both sides of
+          the contract, regardless of how good that provider&apos;s actual security is.
         </P>
         <RevealCard
           summaryTag="Scenario"
@@ -64,6 +135,36 @@ export function PrivacyAndHipaaBasicsLesson() {
         />
       </LessonSection>
 
+      <LessonSection
+        id="de-identifying-data-and-how-re-identification-can-undo-it"
+        title="De-identifying data, and how re-identification can undo it"
+      >
+        <P>
+          Once PHI has every one of those eighteen identifiers stripped out — the{" "}
+          <Strong>Safe Harbor</Strong> method — HIPAA no longer treats it as PHI at all, and a
+          hospital can share it freely for research without patient authorisation. The
+          alternative, <Strong>Expert Determination</Strong>, lets a qualified statistician
+          certify a smaller, more tailored set of removals as sufficiently low-risk instead of
+          following the fixed list.
+        </P>
+        <P>
+          The gap in Safe Harbor is that &ldquo;identifier removed&rdquo; is not the same
+          guarantee as &ldquo;person unidentifiable.&rdquo; Researcher Latanya Sweeney showed
+          that <Strong>ZIP code, birth date, and sex alone — none of them a full identifier on
+          their own — uniquely identify roughly 87% of the U.S. population</Strong> when
+          combined with an outside, publicly available list like a voter roll. De-identified
+          data can be <Strong>re-identified</Strong> by cross-referencing it against a second
+          dataset that was never covered by HIPAA in the first place.
+        </P>
+        <Callout tone="danger" title="De-identified is not the same claim as anonymous">
+          Removing the eighteen identifiers satisfies the legal definition of de-identified. It
+          does not guarantee the data cannot be traced back to a person once it is combined with
+          something else — and the second dataset doing the linking is very often outside
+          HIPAA&apos;s reach entirely, which is exactly what makes this risk easy to
+          underestimate.
+        </Callout>
+      </LessonSection>
+
       <LessonSection id="what-a-breach-actually-triggers" title="What a breach actually triggers">
         <P>
           When a covered entity has a breach — a hacked hospital database, a lost
@@ -88,9 +189,10 @@ export function PrivacyAndHipaaBasicsLesson() {
       <TakeawayCard
         items={[
           "HIPAA protects Protected Health Information handled by covered entities and their business associates — not every piece of health-adjacent data everywhere.",
-          "A consumer wellness app is usually outside HIPAA entirely, even when its data is more detailed than what a doctor's office holds.",
-          "What determines HIPAA coverage is who is holding the data, not how sensitive the data feels.",
-          "A real HIPAA breach triggers fixed notification deadlines and potential fines running into the millions — obligations a non-covered app simply doesn't have.",
+          "PHI is defined by eighteen specific identifiers attached to health data, including a catch-all for any other unique identifying code — strip all eighteen and the legal category can disappear.",
+          "Treatment, payment, and healthcare operations need no fresh authorisation each time; one signed notice at the first visit covers all three going forward.",
+          "A business associate can only touch PHI under a signed agreement obligating it to safeguard the data and report its own breaches — sharing without one is a compliance failure regardless of actual security.",
+          "De-identified data is a legal category, not a guarantee of anonymity — ZIP code, birth date, and sex alone re-identify most Americans once cross-referenced against an outside dataset.",
         ]}
       />
     </div>
