@@ -3,6 +3,7 @@ import { SiteHeader } from "@/components/SiteHeader";
 import { HeroSection } from "@/components/HeroSection";
 import { PromptsMarquee } from "@/components/PromptsMarquee";
 import { ProductSection } from "@/components/ProductSection";
+import { TrustedBySection } from "@/components/TrustedBySection";
 import { UseCasesSection } from "@/components/UseCasesSection";
 import { GlobalReachSection } from "@/components/GlobalReachSection";
 import { SecuritySection } from "@/components/SecuritySection";
@@ -22,6 +23,8 @@ export default function Home() {
         <PromptsMarquee />
         <div className="h-16 md:h-40" />
         <ProductSection />
+        <div className="h-16 md:h-24" />
+        <TrustedBySection />
         <div className="h-16 md:h-40" />
         <UseCasesSection />
         <GlobalReachSection />
