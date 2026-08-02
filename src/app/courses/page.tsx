@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { ContributeBand } from "@/components/learn/cards/ContributeBand";
 import { PageHero, PageSection, PhotoGrid } from "@/components/PageHero";
 import { PageShell } from "@/components/PageShell";
 import { Reveal } from "@/components/Reveal";
@@ -9,6 +10,9 @@ import {
   ABOUT_HREF,
   FINANCIAL_LITERACY_COURSE_HREF,
   HEALTH_IN_TECH_COURSE_HREF,
+  LEARN_ML_HREF,
+  LEARN_PYTHON_HREF,
+  LEARN_VIBECODING_HREF,
   ML_PART_1_COURSE_HREF,
   ML_PART_2_COURSE_HREF,
   PYTHON_COURSE_HREF,
@@ -18,7 +22,7 @@ import {
 export const metadata: Metadata = {
   title: "Free Coding Courses",
   description:
-    "Free courses for students worldwide. Python, Vibecoding, Machine Learning, Financial Literacy, and Health in Tech.",
+    "Free courses and interactive lessons for students worldwide. Python, Vibecoding, Machine Learning, Financial Literacy, and Health in Tech.",
   alternates: { canonical: "/courses" },
 };
 
@@ -28,6 +32,13 @@ interface Course {
   description: string;
   href: string;
   cover: TopicCoverVariant;
+  /**
+   * The interactive track on this site, for the subjects that have one. The
+   * catalog and the lesson tracks used to be separate pages; a course that is
+   * taught both ways now offers both from the same card rather than asking the
+   * reader to find the other page.
+   */
+  lessonsHref?: string;
 }
 
 const courses: Course[] = [
@@ -38,6 +49,7 @@ const courses: Course[] = [
       "Zero experience? Perfect. You'll go from nothing to building real projects, just like 800+ students across 50+ countries already have.",
     cover: "python",
     href: PYTHON_COURSE_HREF,
+    lessonsHref: LEARN_PYTHON_HREF,
   },
   {
     title: "Vibecoding 101",
@@ -46,6 +58,7 @@ const courses: Course[] = [
       "Build real apps using AI tools like Cursor and Copilot. This is where coding is headed: fast, creative, and full of purpose.",
     cover: "vibecoding",
     href: VIBECODING_COURSE_HREF,
+    lessonsHref: LEARN_VIBECODING_HREF,
   },
   {
     title: "Intro to Machine Learning: Part 1",
@@ -54,6 +67,7 @@ const courses: Course[] = [
       "Curious how machines actually learn? Start from the ground up with data, models, and your first predictions, all explained in plain English.",
     cover: "ml1",
     href: ML_PART_1_COURSE_HREF,
+    lessonsHref: LEARN_ML_HREF,
   },
   {
     title: "Intro to Machine Learning: Part 2",
@@ -86,7 +100,7 @@ export default function CoursesPage() {
     <PageShell>
       <PageHero
         title="Courses built for the curious"
-        description="Real coding skills from student teachers, completely free, forever. Enroll and start learning today."
+        description="Real coding skills from student teachers, completely free, forever. Take the full course on Udemy, or work through the interactive lessons right here."
         image={images.codingLaptop}
         imageAlt="Student learning to code on a laptop"
       >
@@ -120,14 +134,24 @@ export default function CoursesPage() {
                   <p className="mt-3 text-[15px] leading-[1.55] text-[var(--home-ink-soft)]">
                     {course.description}
                   </p>
-                  <a
-                    href={course.href}
-                    target="_blank"
-                    rel="noreferrer"
-                    className="home-btn home-btn-fill mt-6"
-                  >
-                    Enroll Free
-                  </a>
+                  <div className="mt-6 flex flex-wrap gap-2">
+                    <a
+                      href={course.href}
+                      target="_blank"
+                      rel="noreferrer"
+                      className="home-btn home-btn-fill"
+                    >
+                      Enroll Free
+                    </a>
+                    {course.lessonsHref && (
+                      <Link
+                        href={course.lessonsHref}
+                        className="home-btn home-btn-outline"
+                      >
+                        Interactive Lessons
+                      </Link>
+                    )}
+                  </div>
                 </div>
               </article>
             </Reveal>
@@ -147,6 +171,11 @@ export default function CoursesPage() {
           <PhotoGrid photos={images.gallery.slice(0, 8)} columns={4} />
         </div>
       </PageSection>
+
+      {/* Came across with the lesson tracks when /learn folded in here: the
+          contributor funnel used to live on that index and has nowhere else
+          to sit. */}
+      <ContributeBand />
     </PageShell>
   );
 }

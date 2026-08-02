@@ -9,7 +9,7 @@ import { CtaBand } from "@/components/learn/cards/CtaBand";
 import { LessonCard } from "@/components/learn/cards/LessonCard";
 import { images } from "@/lib/images";
 import {
-  LEARN_HREF,
+  COURSES_HREF,
   LEARN_ML_HREF,
   VIBECODING_COURSE_HREF,
 } from "@/lib/links";
@@ -36,8 +36,8 @@ export default function LearnVibecodingPage() {
         image={images.codingLaptop}
         imageAlt="Student vibe coding with AI tools"
       >
-        <Link href={LEARN_HREF} className="home-btn home-btn-outline">
-          All Learning Tracks
+        <Link href={COURSES_HREF} className="home-btn home-btn-outline">
+          All Courses
         </Link>
         <a
           href={VIBECODING_COURSE_HREF}

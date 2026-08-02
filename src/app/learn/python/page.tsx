@@ -8,7 +8,7 @@ import { ContributeBand } from "@/components/learn/cards/ContributeBand";
 import { CtaBand } from "@/components/learn/cards/CtaBand";
 import { LessonCard } from "@/components/learn/cards/LessonCard";
 import { images } from "@/lib/images";
-import { COURSES_HREF, LEARN_HREF, PYTHON_COURSE_HREF } from "@/lib/links";
+import { COURSES_HREF, LEARN_ML_HREF, PYTHON_COURSE_HREF } from "@/lib/links";
 import { chapterHref, getPartsWithChapters } from "@/lib/learn-nav";
 
 export const metadata: Metadata = {
@@ -27,8 +27,8 @@ export default function LearnPythonPage() {
         image={images.codingLaptop}
         imageAlt="Student learning Python"
       >
-        <Link href={LEARN_HREF} className="home-btn home-btn-outline">
-          All Learning Tracks
+        <Link href={COURSES_HREF} className="home-btn home-btn-outline">
+          All Courses
         </Link>
         <a
           href={PYTHON_COURSE_HREF}
@@ -84,7 +84,7 @@ export default function LearnPythonPage() {
         body="These lessons are part of CodeWithPurpose's free learning library, built by students, for students, everywhere."
         actions={[
           { href: COURSES_HREF, label: "Browse All Courses", variant: "primary" },
-          { href: LEARN_HREF, label: "Back to Learn", variant: "secondary" },
+          { href: LEARN_ML_HREF, label: "Try Machine Learning", variant: "secondary" },
         ]}
       />
     </PageShell>

@@ -9,7 +9,7 @@ import { PageShell } from "@/components/PageShell";
 import { Reveal } from "@/components/Reveal";
 import { images } from "@/lib/images";
 import {
-  LEARN_HREF,
+  COURSES_HREF,
   LEARN_VIBECODING_HREF,
   ML_PART_1_COURSE_HREF,
 } from "@/lib/links";
@@ -37,8 +37,8 @@ export default function LearnMlPage() {
         image={images.codingLaptop}
         imageAlt="Student exploring machine learning with CodeWithPurpose"
       >
-        <Link href={LEARN_HREF} className="home-btn home-btn-outline">
-          All Learning Tracks
+        <Link href={COURSES_HREF} className="home-btn home-btn-outline">
+          All Courses
         </Link>
         <a
           href={ML_PART_1_COURSE_HREF}

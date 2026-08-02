@@ -1,5 +1,5 @@
 import { images } from "@/lib/images";
-import { LEARN_HREF } from "@/lib/links";
+import { COURSES_HREF } from "@/lib/links";
 
 const GALLERY_IMAGES = images.gallery.slice(0, 4);
 
@@ -35,7 +35,7 @@ export function HowItWorksSection() {
                 communities gathering around free education. Every photo here is
                 a student who got real skills because of this movement.
               </p>
-              <a href={LEARN_HREF} className="home-arrow-link mt-5 self-start">
+              <a href={COURSES_HREF} className="home-arrow-link mt-5 self-start">
                 Explore courses <span className="home-arrow">→</span>
               </a>
             </figcaption>

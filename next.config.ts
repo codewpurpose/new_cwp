@@ -27,11 +27,23 @@ const nextConfig: NextConfig = {
   output: "standalone",
   trailingSlash: true,
   async redirects() {
-    return RETIRED_ML_SLUGS.map((slug) => ({
-      source: `/learn/ml/${slug}`,
-      destination: "/learn/ml/",
-      permanent: true,
-    }));
+    return [
+      ...RETIRED_ML_SLUGS.map((slug) => ({
+        source: `/learn/ml/${slug}`,
+        destination: "/learn/ml/",
+        permanent: true,
+      })),
+      /**
+       * The /learn index and /courses were two catalogs of the same material,
+       * so they are one page now. Only the index moved — the per-track
+       * indexes and every chapter under them still live at /learn/<track>/,
+       * and this matches the index exactly, not its children.
+       *
+       * Trailing slash on the destination for the same reason as above: it
+       * lands in one hop instead of being 308'd again by trailingSlash.
+       */
+      { source: "/learn", destination: "/courses/", permanent: true },
+    ];
   },
 };
 
