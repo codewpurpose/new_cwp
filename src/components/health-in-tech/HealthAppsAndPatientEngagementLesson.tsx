@@ -6,7 +6,7 @@ export function HealthAppsAndPatientEngagementLesson() {
   return (
     <div>
       <Lead>
-        A diabetes-management app built on genuinely sound medicine is worthless to a patient
+        A diabetes-management app built on sound medicine is worthless to a patient
         who deletes it after day three. An app nobody opens twice doesn&apos;t help the person
         it was built for, no matter how good the medicine underneath it is — and what actually
         keeps someone coming back sits right next to a line that is easy to cross into
@@ -65,7 +65,7 @@ export function HealthAppsAndPatientEngagementLesson() {
           Ask whether a feature would still make sense to keep if it stopped increasing app
           opens tomorrow. A reminder timed to when a patient actually needs their medication
           passes that test. A streak that guilts someone into opening the app on a day they
-          genuinely didn&apos;t need to does not.
+          didn&apos;t need to does not.
         </Callout>
       </LessonSection>
 

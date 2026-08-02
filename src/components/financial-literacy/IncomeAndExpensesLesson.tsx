@@ -53,7 +53,7 @@ export function IncomeAndExpensesLesson() {
                     Changes month to month based on choices you make in the moment: groceries,
                     fuel, takeout, entertainment.
                   </P>
-                  <P>Harder to forecast, but the part of a budget you actually have leverage over.</P>
+                  <P>Harder to forecast, but the part of a budget you can actually change.</P>
                 </>
               ),
             },
@@ -78,7 +78,7 @@ export function IncomeAndExpensesLesson() {
       <TakeawayCard
         items={[
           "Income is every dollar that arrives, and the number that matters for budgeting is net pay, not gross.",
-          "Fixed expenses repeat at a set amount and are hard to change quickly; variable expenses swing month to month and are where your leverage actually lives.",
+          "Fixed expenses repeat at a set amount and are hard to change quickly; variable expenses swing month to month and are where your control actually lives.",
           "A single month of honestly tracking every expense usually reveals one category running 20 to 40% higher than believed.",
           "Tracking is a measurement, not a judgement — you can't fix spending you haven't actually measured.",
         ]}

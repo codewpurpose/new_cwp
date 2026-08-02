@@ -132,7 +132,7 @@ cannot see. Do not guess — if you are unsure, say so.`}
               label: "Put durable facts in a rules file",
               detail:
                 "Anything you find yourself repeating every session belongs somewhere the tool loads automatically.",
-              note: "That is Chapter 15, and it is the highest-leverage thing in this part of the course.",
+              note: "That is Chapter 15, and it is the highest-payoff thing in this part of the course.",
             },
             {
               label: "Paste errors in full",

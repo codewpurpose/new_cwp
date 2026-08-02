@@ -145,7 +145,7 @@ export function PromptPatternsLesson() {
       <TakeawayCard
         items={[
           "Separate thinking from doing. Almost every good pattern is some version of that.",
-          "Ask for options before implementations when the approach is genuinely open.",
+          "Ask for options before implementations when the approach is open.",
           "State the boundary explicitly, or the diff will decide its own size.",
           "“What are you least confident about?” is the cheapest review you can run.",
           "A clarification you have typed three times belongs in a rules file, not in your fingers.",

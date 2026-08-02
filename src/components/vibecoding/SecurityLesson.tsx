@@ -135,8 +135,7 @@ If you find nothing in a category, say so explicitly.`}
         <Callout tone="danger" title="Where to stop and get help">
           Do not vibe-code your own authentication, session handling, password storage, or
           payment processing. Use an established provider. These are the areas where a subtle
-          mistake is both invisible and severe, and where the well-tested option is genuinely
-          free.
+          mistake is both invisible and severe, and where the well-tested option is free.
         </Callout>
       </LessonSection>
 

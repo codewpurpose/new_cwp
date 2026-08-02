@@ -8,7 +8,7 @@ export function DrugDiscoveryAndAiLesson() {
     <div>
       <Lead>
         &ldquo;AI discovered a new drug&rdquo; makes it sound like a model can conjure a
-        medicine out of nothing. What actually happens is narrower and still genuinely useful:
+        medicine out of nothing. What actually happens is narrower and still useful:
         getting a molecule from a lab bench to an approved drug is a pipeline with years-long
         stages, and AI meaningfully shortens a few of them — without skipping a single one of
         the rest.

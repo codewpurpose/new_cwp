@@ -68,7 +68,7 @@ export function RegulationAndOversightLesson() {
 
       <TakeawayCard
         items={[
-          "A regulator like the FDA reviews software that makes a genuine medical claim — diagnosing, treating, or preventing disease — before it can reach patients.",
+          "A regulator like the FDA reviews software that makes a medical claim — diagnosing, treating, or preventing disease — before it can reach patients.",
           "A general wellness app that makes no such claim typically falls outside this review entirely, regardless of how health-adjacent its data feels.",
           "Software as a Medical Device is a real category built because qualifying software makes the same kind of decision a regulated physical device used to make alone.",
           "Regulated approval requires proving safety and effectiveness before launch, not iterating live in public the way a typical consumer app does.",

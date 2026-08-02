@@ -19,7 +19,7 @@ export const HEALTH_IN_TECH_PARTS: readonly LearnPart[] = [
   {
     id: "foundations",
     number: 1,
-    title: "The Landscape",
+    title: "What Health Tech Is",
     summary:
       "What health tech actually is, why the stakes change the engineering, and what a visit to a digital clinic generates behind the scenes.",
   },
@@ -49,7 +49,7 @@ export const HEALTH_IN_TECH_PARTS: readonly LearnPart[] = [
     number: 5,
     title: "Access & Delivery",
     summary:
-      "What telemedicine genuinely replaces, who gets left out by the assumptions behind it, and what keeps a patient actually engaged.",
+      "What telemedicine replaces, who gets left out by the assumptions behind it, and what keeps a patient actually engaged.",
   },
   {
     id: "future",
@@ -71,7 +71,7 @@ export const HEALTH_IN_TECH_CHAPTERS: readonly LearnChapter[] = [
     level: "beginner",
     minutes: 7,
     prerequisites: [],
-    tags: ["Landscape"],
+    tags: ["Foundations"],
     headings: [
       { id: "health-tech-is-software-touching-an-actual-patient", text: "Health tech is software touching an actual patient", level: 2 },
       { id: "three-places-it-already-lives-in-your-life", text: "Three places it already lives in your life", level: 2 },
@@ -89,7 +89,7 @@ export const HEALTH_IN_TECH_CHAPTERS: readonly LearnChapter[] = [
     level: "beginner",
     minutes: 7,
     prerequisites: [],
-    tags: ["Landscape"],
+    tags: ["Foundations"],
     headings: [
       { id: "a-bug-in-a-shopping-app-loses-a-sale", text: "A bug in a shopping app loses a sale", level: 2 },
       { id: "a-bug-in-a-health-app-can-lose-more-than-that", text: "A bug in a health app can lose more than that", level: 2 },
@@ -107,7 +107,7 @@ export const HEALTH_IN_TECH_CHAPTERS: readonly LearnChapter[] = [
     level: "beginner",
     minutes: 7,
     prerequisites: [],
-    tags: ["Landscape"],
+    tags: ["Foundations"],
     headings: [
       { id: "its-not-just-doctors-and-its-not-just-engineers", text: "It's not just doctors, and it's not just engineers", level: 2 },
       { id: "the-roles-that-sit-between-the-two", text: "The roles that sit between the two", level: 2 },
@@ -125,7 +125,7 @@ export const HEALTH_IN_TECH_CHAPTERS: readonly LearnChapter[] = [
     level: "beginner",
     minutes: 8,
     prerequisites: [],
-    tags: ["Landscape"],
+    tags: ["Foundations"],
     headings: [
       { id: "checking-in-before-you-even-arrive", text: "Checking in before you even arrive", level: 2 },
       { id: "the-visit-itself-generates-more-data-than-you-notice", text: "The visit itself generates more data than you notice", level: 2 },
@@ -283,7 +283,7 @@ export const HEALTH_IN_TECH_CHAPTERS: readonly LearnChapter[] = [
     order: 13,
     title: "What Medical AI Is Actually Doing Today",
     description:
-      "Medical AI is pattern-matching at a scale no single person can hold in their head, already in genuine use in a few specific places — and still mostly hype in a few others that make better headlines.",
+      "Medical AI is pattern-matching at a scale no single person can hold in their head, already in use in a few specific places — and still mostly hype in a few others that make better headlines.",
     level: "intermediate",
     minutes: 8,
     prerequisites: [],
@@ -319,7 +319,7 @@ export const HEALTH_IN_TECH_CHAPTERS: readonly LearnChapter[] = [
     order: 15,
     title: "Drug Discovery and AI",
     description:
-      "Getting a molecule from a lab bench to an approved drug is a pipeline with years-long stages. AI genuinely shortens a few of them — and still can't skip a single one of the rest.",
+      "Getting a molecule from a lab bench to an approved drug is a pipeline with years-long stages. AI shortens a few of them — and still can't skip a single one of the rest.",
     level: "intermediate",
     minutes: 8,
     prerequisites: [],
@@ -355,13 +355,13 @@ export const HEALTH_IN_TECH_CHAPTERS: readonly LearnChapter[] = [
     order: 17,
     title: "What Telemedicine Actually Replaces",
     description:
-      "Telemedicine genuinely replaces some visits — a follow-up, a prescription refill, a quick consult. It can't replace a physical exam or an urgent procedure, and confusing the two is where trust in the whole system tends to break.",
+      "Telemedicine replaces some visits — a follow-up, a prescription refill, a quick consult. It can't replace a physical exam or an urgent procedure, and confusing the two is where trust in the whole system tends to break.",
     level: "intermediate",
     minutes: 8,
     prerequisites: [],
     tags: ["Access & Delivery"],
     headings: [
-      { id: "the-visits-it-genuinely-replaces", text: "The visits it genuinely replaces", level: 2 },
+      { id: "the-visits-it-genuinely-replaces", text: "The visits it replaces", level: 2 },
       { id: "the-visits-it-cant", text: "The visits it can't", level: 2 },
       { id: "why-the-difference-matters-for-trust-in-the-whole-system", text: "Why the difference matters for trust in the whole system", level: 2 },
     ],

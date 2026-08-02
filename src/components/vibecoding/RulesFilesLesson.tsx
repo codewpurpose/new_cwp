@@ -8,7 +8,7 @@ export function RulesFilesLesson() {
     <div>
       <Lead>
         A rules file is a markdown file in your repo that your AI tool reads automatically
-        before every request. It is the highest-leverage thing in this course: written once, it
+        before every request. It is the highest-payoff thing in this course: written once, it
         improves every prompt you will ever write in that project.
       </Lead>
 

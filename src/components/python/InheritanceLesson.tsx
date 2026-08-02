@@ -100,7 +100,7 @@ export function InheritanceLesson() {
         items={[
           "class Dog(Animal): makes Dog a subclass that inherits everything Animal defines.",
           "Defining a method with the same name in the subclass overrides it there only — the parent class is untouched.",
-          "Use inheritance when the relationship is genuinely \"is a kind of\", not \"has one of\".",
+          "Use inheritance when the relationship is \"is a kind of\", not \"has one of\".",
           "When in doubt, say the relationship out loud. \"X is a Y\" earns inheritance; \"X has a Y\" earns a plain attribute.",
         ]}
       />

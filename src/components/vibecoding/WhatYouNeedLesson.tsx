@@ -68,7 +68,7 @@ cd my-first-app`}
           In order: <Strong>pwd</Strong> prints where you currently are.{" "}
           <Strong>ls</Strong> lists what is here. <Strong>cd</Strong> moves you into a folder
           (<InlineCode>cd ..</InlineCode> moves back out). <Strong>mkdir</Strong> makes a new
-          folder. That is genuinely most of it.
+          folder. That is most of it.
         </P>
         <Callout tone="tip" title="If a command is not found">
           Close the terminal and open a new one. Installers add themselves to your PATH — the

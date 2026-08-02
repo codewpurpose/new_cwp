@@ -65,7 +65,7 @@ UnboundLocalError: cannot access local variable 'count'`}
             </>
           }
         />
-        <Callout tone="tip" title="If you genuinely need to change it">
+        <Callout tone="tip" title="If you need to change it">
           Declare <Strong>global count</Strong> as the first line of the function. It is rarely
           the right tool — passing the value in and returning the new one is almost always
           clearer — but it is what the keyword is for.

@@ -9,7 +9,7 @@ export function WhatMedicalAiIsActuallyDoingTodayLesson() {
         Headlines about medical AI tend to land on one of two extremes: it is either about to
         replace your doctor, or it is barely more than a gimmick. Neither is what is actually
         happening. Medical AI today is pattern-matching at a scale no single radiologist or
-        researcher can hold in their head — genuinely useful in a few specific places, and
+        researcher can hold in their head — useful in a few specific places, and
         mostly hype in a couple of others that happen to make better headlines.
       </Lead>
 
@@ -22,7 +22,7 @@ export function WhatMedicalAiIsActuallyDoingTodayLesson() {
           case they have personally seen across a career — a few tens of thousands at most. A
           model trained on scans can be shown millions of labelled examples before it ever looks
           at a real patient&apos;s image. That gap in raw exposure, not some deeper form of
-          understanding, is where most of medical AI&apos;s genuine advantage actually comes
+          understanding, is where most of medical AI&apos;s advantage actually comes
           from.
         </P>
         <P>
@@ -66,7 +66,7 @@ export function WhatMedicalAiIsActuallyDoingTodayLesson() {
           patterns can actually say about one specific person.
         </P>
         <Callout tone="note" title="The pattern behind both categories">
-          The places medical AI genuinely works share one trait: a human reviews the output
+          The places medical AI works share one trait: a human reviews the output
           before anything happens to a patient. The places it is mostly hype are exactly the
           ones proposing to remove that review.
         </Callout>
@@ -75,9 +75,9 @@ export function WhatMedicalAiIsActuallyDoingTodayLesson() {
       <TakeawayCard
         items={[
           "Medical AI's real advantage is exposure at scale — millions of training examples versus one career's worth of cases — not a deeper kind of reasoning.",
-          "Imaging review, patient triage scoring, and narrowing drug candidates are three places it is genuinely deployed today.",
+          "Imaging review, patient triage scoring, and narrowing drug candidates are three places it is deployed today.",
           "Fully autonomous diagnosis with no clinician in the loop is essentially not deployed anywhere serious, despite the headlines.",
-          "Every place it genuinely works keeps a human reviewing the output before it reaches a patient — the places that skip that step are exactly the overhyped ones.",
+          "Every place it works keeps a human reviewing the output before it reaches a patient — the places that skip that step are exactly the overhyped ones.",
         ]}
       />
     </div>

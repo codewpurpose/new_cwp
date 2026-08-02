@@ -16,7 +16,7 @@ export function FinalProjectLesson() {
       <LessonSection id="planning-the-shape-before-writing-a-line" title="Planning the shape before writing a line">
         <P>
           The project: a command-line word-frequency counter. Give it a sentence, and it
-          reports how many times each word appears — the smallest program that genuinely needs
+          reports how many times each word appears — the smallest program that needs
           a loop, a dictionary, and a function working together rather than in isolation.
         </P>
         <StepList
@@ -107,7 +107,7 @@ export function FinalProjectLesson() {
       <TakeawayCard
         items={[
           "A real program combines ideas that were taught separately — this one needed a loop, a function, and a dictionary together, not in isolation.",
-          "counts.get(word, 0) is the dictionary-with-a-default pattern from earlier in the track, doing genuine work here for the first time.",
+          "counts.get(word, 0) is the dictionary-with-a-default pattern from earlier in the track, doing work here for the first time.",
           "Testing the empty-string case here is the same habit the testing chapter argued for: prove the edge, not just the common case.",
           "The shape of this program — loop, accumulate into a dict, wrap in a function — recurs constantly outside of word counting specifically.",
         ]}

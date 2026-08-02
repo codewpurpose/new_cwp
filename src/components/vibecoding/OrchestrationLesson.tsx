@@ -128,7 +128,7 @@ git worktree add ../app-billing -b agent/billing
         <P>
           Orchestration adds coordination overhead — partitioning, merging, reconciling. For
           most tasks a single agent with a good prompt beats three with mediocre ones. Reach for
-          it when the work genuinely exceeds one context, or when you want an adversarial second
+          it when the work exceeds one context, or when you want an adversarial second
           opinion.
         </P>
         <P>

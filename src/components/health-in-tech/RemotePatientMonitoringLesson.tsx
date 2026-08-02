@@ -62,7 +62,7 @@ export function RemotePatientMonitoringLesson() {
         <Callout tone="warning" title="Alert fatigue is the real failure mode here">
           Set the threshold too sensitively and the nurse on the other end starts getting paged
           constantly for readings that turn out fine — and starts, understandably, taking every
-          alert a little less seriously. Getting that threshold right is a genuine design
+          alert a little less seriously. Getting that threshold right is a design
           problem, not a settings toggle to leave on the default.
         </Callout>
       </LessonSection>

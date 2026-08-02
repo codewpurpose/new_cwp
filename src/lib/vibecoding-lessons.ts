@@ -470,7 +470,7 @@ export const VIBECODING_CHAPTERS: readonly LearnChapter[] = [
     order: 22,
     title: "When Not to Vibe Code",
     description:
-      "The situations where typing it yourself is genuinely faster, safer, or the only responsible option.",
+      "The situations where typing it yourself is faster, safer, or the only responsible option.",
     level: "intermediate",
     minutes: 8,
     prerequisites: [],
@@ -478,7 +478,7 @@ export const VIBECODING_CHAPTERS: readonly LearnChapter[] = [
     headings: [
       { id: "when-you-are-learning", text: "When the point is that you learn it", level: 2 },
       { id: "when-you-cannot-verify", text: "When you cannot verify the answer", level: 2 },
-      { id: "when-it-is-faster-to-type", text: "When it is genuinely faster to type it", level: 2 },
+      { id: "when-it-is-faster-to-type", text: "When it is faster to type it", level: 2 },
       { id: "when-it-is-not-yours-to-share", text: "When the code is not yours to share", level: 2 },
       { id: "when-the-thread-is-lost", text: "When the loop has stopped converging", level: 2 },
       { id: "the-underlying-principle", text: "The principle underneath all of these", level: 2 },

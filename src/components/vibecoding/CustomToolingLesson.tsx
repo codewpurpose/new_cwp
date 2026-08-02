@@ -94,7 +94,7 @@ is clean, say so explicitly rather than staying silent.`}
       <LessonSection id="the-compounding-part" title="The part that compounds">
         <P>
           Each command you write makes the next task slightly cheaper. After a few months the
-          accumulated set is genuinely more valuable than any individual model improvement,
+          accumulated set is more valuable than any individual model improvement,
           because it encodes <Strong>how your project specifically wants to be worked on</Strong>{" "}
           — which no vendor can ship you.
         </P>

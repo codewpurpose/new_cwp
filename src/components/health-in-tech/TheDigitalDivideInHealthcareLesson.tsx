@@ -45,7 +45,7 @@ export function TheDigitalDivideInHealthcareLesson() {
           <Strong>A phone-only fallback, not just a video option</Strong>, closes most of the
           device gap at once — a basic phone call still gets a patient a real consultation, even
           without a smartphone or broadband. Clinics that keep an in-person or phone path
-          genuinely available, rather than treating it as a legacy option nobody should need
+          available, rather than treating it as a legacy option nobody should need
           anymore, are the ones that do not quietly lose exactly the patients who most need
           consistent care.
         </P>

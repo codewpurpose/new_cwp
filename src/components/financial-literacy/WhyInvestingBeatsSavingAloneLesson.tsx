@@ -29,7 +29,7 @@ export function WhyInvestingBeatsSavingAloneLesson() {
           loan to a government — whose value can rise or fall with real economic outcomes.
           Historically, a diversified stock portfolio has returned an average of roughly{" "}
           {formatPercent(7)} a year after inflation over long periods, but &ldquo;average&rdquo;
-          hides a genuinely bumpy ride: any single year can be sharply up or sharply down.
+          hides a bumpy ride: any single year can be sharply up or sharply down.
         </P>
       </LessonSection>
 

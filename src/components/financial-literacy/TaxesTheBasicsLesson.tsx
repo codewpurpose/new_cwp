@@ -45,7 +45,7 @@ export function TaxesTheBasicsLesson() {
         </P>
         <Callout tone="note" title="Where this actually gets confusing">
           Some tax credits and government benefits do phase out above certain income thresholds,
-          and that can genuinely offset a raise&apos;s value. That&apos;s a separate, real
+          and that can offset a raise&apos;s value. That&apos;s a separate, real
           calculation — but it is never the tax brackets themselves doing it.
         </Callout>
       </LessonSection>

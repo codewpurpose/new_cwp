@@ -112,7 +112,7 @@ lines on why the change was needed.`}
             { label: "Committed something you should not have", detail: "git reset --soft HEAD~1 undoes the commit and keeps the changes staged." },
             { label: "Committed a secret", detail: "Rotate the key. It is in the history now, and removing it from the current files does not remove it from the repo." },
             { label: "Branch is a mess", detail: "Switch back to main and delete it. That is what branches are for." },
-            { label: "Merge conflict", detail: "Paste both versions and the conflict markers to the AI with context on what each side was doing — this is one of the things it is genuinely good at." },
+            { label: "Merge conflict", detail: "Paste both versions and the conflict markers to the AI with context on what each side was doing — this is one of the things it is good at." },
           ]}
         />
       </LessonSection>
