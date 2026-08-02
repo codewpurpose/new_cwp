@@ -52,7 +52,7 @@ export function SiteFooter() {
                 className="flex flex-col gap-3"
                 aria-label="CodeWithPurpose home"
               >
-                <CwpLogo height={40} />
+                <CwpLogo className="cwp-logo-lg" />
                 <p className="max-w-sm text-sm text-[var(--home-ink-soft)]">
                   A student-run nonprofit making tech education free and
                   accessible for everyone, everywhere.

@@ -13,7 +13,7 @@ const GLASS_STYLE = {
 function LogoLink() {
   return (
     <a href={HOME_HREF} className="flex items-center" aria-label="CodeWithPurpose home">
-      <CwpLogo height={28} />
+      <CwpLogo className="cwp-logo-header" />
     </a>
   );
 }
@@ -23,8 +23,13 @@ export function SiteHeader() {
 
   return (
     <header className="sticky top-0 z-10">
-      <div className="mx-auto grid w-full max-w-[85rem] grid-cols-[1fr_auto_1fr] items-center gap-4 px-5 py-4 md:px-10 min-[1200px]:py-8">
-        <div className="justify-self-start">
+      {/* Flex below the desktop breakpoint, grid at and above it. The three
+          columns exist only to hold the nav pill optically centred; once the
+          pill is display:none the two 1fr tracks still claim their gaps and
+          both outer tracks still size to max-content, which is what pushed the
+          menu toggle past the right edge of a phone. */}
+      <div className="mx-auto flex w-full max-w-[85rem] items-center justify-between gap-3 px-4 py-4 sm:px-5 md:px-10 min-[1200px]:grid min-[1200px]:grid-cols-[1fr_auto_1fr] min-[1200px]:gap-4 min-[1200px]:py-8">
+        <div className="min-w-0 min-[1200px]:justify-self-start">
           <LogoLink />
         </div>
         <nav
@@ -37,14 +42,19 @@ export function SiteHeader() {
             </a>
           ))}
         </nav>
-        <div className="col-start-3 flex items-center gap-2 justify-self-end">
+        <div className="flex shrink-0 items-center gap-2 min-[1200px]:col-start-3 min-[1200px]:justify-self-end">
           <div className="hidden min-[1200px]:block">
             <a href={JOIN_HREF} className="home-btn home-btn-glass whitespace-nowrap">
               Volunteer
             </a>
           </div>
-          <a href={DONATE_HREF} className="home-btn home-btn-glass whitespace-nowrap">
-            Donate Now
+          <a
+            href={DONATE_HREF}
+            className="home-btn home-btn-compact home-btn-glass whitespace-nowrap"
+          >
+            {/* "Now" is the first thing to go: below ~360px the label, the menu
+                toggle and the lockup cannot all keep their full width. */}
+            Donate<span className="hidden min-[360px]:inline">&nbsp;Now</span>
           </a>
           <div className="min-[1200px]:hidden">
             <button
@@ -53,7 +63,7 @@ export function SiteHeader() {
               aria-expanded={menuOpen}
               aria-controls="home-mobile-menu"
               aria-label={menuOpen ? "Close menu" : "Open menu"}
-              className="home-btn home-btn-glass"
+              className="home-btn home-btn-compact home-btn-glass"
             >
               <svg
                 width="16"
@@ -78,7 +88,7 @@ export function SiteHeader() {
       {menuOpen && (
         <nav
           id="home-mobile-menu"
-          className="absolute inset-x-0 top-full mx-5 flex flex-col rounded-xl p-2 backdrop-blur-[10px] min-[1200px]:hidden"
+          className="absolute inset-x-0 top-full mx-4 flex flex-col rounded-xl p-2 backdrop-blur-[10px] sm:mx-5 md:mx-10 min-[1200px]:hidden"
           style={GLASS_STYLE}
         >
           {NAV_LINKS.map((link) => (

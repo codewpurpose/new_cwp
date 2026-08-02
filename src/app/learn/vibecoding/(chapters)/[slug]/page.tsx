@@ -1,9 +1,8 @@
 import type { Metadata } from "next";
-import Link from "next/link";
 import { notFound } from "next/navigation";
 import { LearnChapterHeader } from "@/components/learn/shell/LearnChapterHeader";
 import { LearnMobileBar } from "@/components/learn/shell/LearnMobileBar";
-import { LearnPager } from "@/components/learn/shell/LearnPager";
+import { LearnPager, LearnPagerEnd } from "@/components/learn/shell/LearnPager";
 import { LearnShell } from "@/components/learn/shell/LearnShell";
 import { LearnToc } from "@/components/learn/shell/LearnToc";
 import { CodebaseLesson } from "@/components/vibecoding/CodebaseLesson";
@@ -124,23 +123,10 @@ export default async function VibecodingChapterPage({
         prev={prev}
         next={next}
         fallback={
-          <div
-            data-direction="next"
-            className="learn-pager-link learn-on-inverse !border-transparent !bg-learn-inverse text-right"
-          >
-            <span className="learn-pager-direction !text-learn-on-inverse opacity-80">
-              You reached the end
-            </span>
-            {/* Finishing the track earns a real next step, not a bounce out to
-                the catalog. The other track is the one thing here the reader
-                provably has not done. */}
-            <Link
-              href={LEARN_ML_HREF}
-              className="learn-pager-title learn-focusable !text-learn-heading-on-inverse underline"
-            >
-              Start the Machine Learning track
-            </Link>
-          </div>
+          /* Finishing the track earns a real next step, not a bounce out to
+             the catalog. The other track is the one thing here the reader
+             provably has not done. */
+          <LearnPagerEnd href={LEARN_ML_HREF} eyebrow="You reached the end" title="Start the Machine Learning track" />
         }
       />
     </LearnShell>

@@ -393,6 +393,55 @@
 .home-mono {
   font-family: var(--font-home-mono), ui-monospace, monospace;
 }
+
+/* --- brand lockup ------------------------------------------------------
+ * One property drives the mark and the wordmark together, so a single
+ * declaration resizes the lockup without the two drifting out of proportion.
+ * Sizes are classes rather than a prop because the header lockup has to
+ * respond to the viewport, and a prop can only arrive as an inline style. */
+.cwp-logo {
+  --cwp-logo-h: 28px;
+}
+.cwp-logo-mark {
+  height: var(--cwp-logo-h);
+  width: auto;
+  flex: none;
+}
+.cwp-logo-word {
+  font-size: calc(var(--cwp-logo-h) * 0.58);
+  font-weight: 500;
+  line-height: 1;
+  letter-spacing: -0.02em;
+  white-space: nowrap;
+}
+/* Footer display size. It steps down on phones so the lockup never sets the
+ * footer card's minimum width. */
+.cwp-logo-lg {
+  --cwp-logo-h: 30px;
+}
+@media (min-width: 640px) {
+  .cwp-logo-lg {
+    --cwp-logo-h: 40px;
+  }
+}
+/* Header: the wordmark is the widest fixed object on the line, so it is what
+ * yields first — before the Donate button or the menu toggle give up any of
+ * their tap target. */
+@media (max-width: 400px) {
+  .cwp-logo-header {
+    --cwp-logo-h: 23px;
+  }
+}
+
+/* Below the desktop nav breakpoint the header carries the logo, Donate and the
+ * menu toggle on one line. Full .home-btn padding overflows that line on a
+ * 320px viewport, so the gutters tighten while the 44px tap height stays. */
+@media (max-width: 639px) {
+  .home-btn-compact {
+    padding-left: 0.8rem;
+    padding-right: 0.8rem;
+  }
+}
 /* Section rhythm.
  *
  * The page used to space its sections with empty `<div className="h-16 md:h-40" />`
