@@ -248,17 +248,84 @@
   letter-spacing: -0.02em;
 }
 .proof-point-strip {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: .7rem;
-  min-height: 2.35rem;
-  padding: .35rem 1rem;
   background: #1e3c2c;
   color: #dbefdb;
   font-family: "Comic Sans MS", "Bradley Hand", cursive;
   font-size: .95rem;
   letter-spacing: .01em;
+}
+/* Three columns rather than a centred flex row, so the rotating claim stays
+   optically centred no matter how wide the socials or the join link get.
+   Same max-width and gutters as the header below it, so the socials line up
+   with the logo rather than hugging the viewport edge. */
+.proof-point-inner {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: center;
+  gap: .75rem;
+  min-height: 2.35rem;
+  margin: 0 auto;
+  width: 100%;
+  max-width: 85rem;
+  padding: .3rem 1.25rem;
+}
+@media (min-width: 768px) {
+  .proof-point-inner { padding: .3rem 2.5rem; }
+}
+.proof-point-side {
+  display: flex;
+  align-items: center;
+  gap: .55rem;
+  min-width: 0;
+}
+.proof-point-side-end { justify-content: flex-end; }
+.proof-point-label {
+  font-size: .8rem;
+  opacity: .75;
+}
+.proof-point-icon {
+  display: inline-flex;
+  height: 1rem;
+  width: 1rem;
+  flex: none;
+  color: currentColor;
+  opacity: .8;
+  transition: opacity .2s, transform .2s;
+}
+.proof-point-icon:hover { opacity: 1; transform: translateY(-1px); }
+.proof-point-centre {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: .7rem;
+  white-space: nowrap;
+}
+.proof-point-join {
+  display: inline-flex;
+  align-items: center;
+  gap: .3rem;
+  white-space: nowrap;
+  border-bottom: 1px solid rgba(219, 239, 219, .35);
+  padding-bottom: .05rem;
+  transition: border-color .2s;
+}
+.proof-point-join:hover { border-bottom-color: #dbefdb; }
+.proof-point-strip a:focus-visible {
+  outline: 2px solid #dbefdb;
+  outline-offset: 3px;
+  border-radius: 3px;
+}
+/* Below the header breakpoint the claim is the only thing that must survive:
+   the "Follow" label goes first, then the strip tightens around the icons. */
+@media (max-width: 640px) {
+  .proof-point-strip { font-size: .8rem; }
+  .proof-point-inner {
+    gap: .5rem;
+    padding: .3rem .9rem;
+  }
+  .proof-point-label { display: none; }
+  .proof-point-centre { gap: .45rem; }
+  .proof-point-icon { height: .9rem; width: .9rem; }
 }
 .proof-point-text { animation: proof-point-in .45s ease both; }
 @keyframes proof-point-in { from { opacity: 0; transform: translateY(.35rem) rotate(-1deg); } to { opacity: 1; transform: none; } }

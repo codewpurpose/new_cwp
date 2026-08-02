@@ -12,11 +12,15 @@ import { HowItWorksSection } from "@/components/HowItWorksSection";
 import { FaqSection } from "@/components/FaqSection";
 import { FinalCtaSection } from "@/components/FinalCtaSection";
 import { SiteFooter } from "@/components/SiteFooter";
+import { getChapters } from "@/lib/learn-nav";
+
+/** Counted from the lesson graph, so the strip cannot claim a stale number. */
+const LESSON_COUNT = getChapters("ml").length + getChapters("vibecoding").length;
 
 export default function Home() {
   return (
     <>
-      <ProofPointStrip />
+      <ProofPointStrip lessonCount={LESSON_COUNT} />
       <SiteHeader />
       <main id="top">
         <HeroSection />
