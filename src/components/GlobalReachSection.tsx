@@ -129,11 +129,11 @@ function DetailContent({ detail }: { detail: ImpactDetail }) {
   return (
     <>
       <h4 className="pr-8 text-lg leading-[1.2] md:text-xl">{detail.title}</h4>
-      <p className="mt-4 text-[15px] leading-[1.55] text-[#636363]">
+      <p className="mt-4 text-[15px] leading-[1.55] text-[var(--home-ink-soft)]">
         {detail.body}
       </p>
-      <div className="mt-5 border-t-[0.5px] border-[#e1e1e1] pt-4">
-        <p className="text-[11px] font-medium uppercase tracking-[0.12em] text-[#818181]">
+      <div className="mt-5 border-t-[0.5px] border-[var(--home-hairline)] pt-4">
+        <p className="text-[11px] font-medium uppercase tracking-[0.12em] text-[var(--home-ink-quiet)]">
           In the field
         </p>
         <p className="mt-2 text-[14px] leading-[1.55] text-[#15120c]">
@@ -182,7 +182,7 @@ export function GlobalReachSection() {
                       aria-expanded={open === index}
                       aria-controls={`impact-detail impact-detail-${index}`}
                       className={[
-                        "home-template-row group flex flex-1 items-center gap-3 border-t-[0.5px] border-[#e1e1e1] px-4 py-4 text-left first:border-t-0",
+                        "home-template-row group flex flex-1 items-center gap-3 border-t-[0.5px] border-[var(--home-hairline)] px-4 py-4 text-left first:border-t-0",
                         open === index ? "rounded-lg bg-[#f3f3f1]" : "",
                       ].join(" ")}
                     >
@@ -223,7 +223,7 @@ export function GlobalReachSection() {
                       type="button"
                       onClick={() => setOpen(null)}
                       aria-label="Close detail window"
-                      className="absolute right-5 top-5 text-xl leading-none text-[#818181] transition-colors hover:text-[#15120c]"
+                      className="absolute right-5 top-5 text-xl leading-none text-[var(--home-ink-quiet)] transition-colors hover:text-[#15120c]"
                       tabIndex={open === null ? -1 : 0}
                     >
                       ×

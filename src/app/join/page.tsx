@@ -64,7 +64,7 @@ export default function JoinPage() {
             <Reveal key={role.title} delay={(index % 2) * 0.08}>
               <div className="home-card home-lift h-full rounded-xl p-6 md:p-8">
                 <h2 className="text-xl">{role.title}</h2>
-                <p className="mt-3 text-[15px] leading-[1.55] text-[#636363]">
+                <p className="mt-3 text-[15px] leading-[1.55] text-[var(--home-ink-soft)]">
                   {role.body}
                 </p>
               </div>
@@ -73,7 +73,7 @@ export default function JoinPage() {
         </div>
       </PageSection>
 
-      <PageSection className="border-t-[0.5px] border-[var(--home-grey-500)] bg-[#1e3c2c] text-[#dbefdb]">
+      <PageSection className="border-t-[0.5px] border-[var(--home-hairline)] bg-[#1e3c2c] text-[#dbefdb]">
         <div className="mx-auto max-w-3xl text-center">
           <h2 className="home-serif text-[1.75rem] text-[#f9f9f9] md:text-[2.25rem]">
             Ready to volunteer?

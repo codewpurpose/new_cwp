@@ -25,7 +25,7 @@ interface ContributeBandProps {
  */
 export function ContributeBand({ noun = "lesson" }: ContributeBandProps) {
   return (
-    <PageSection className="border-t-[0.5px] border-[var(--home-grey-500)] bg-[var(--home-page)]">
+    <PageSection className="border-t-[0.5px] border-[var(--home-hairline)] bg-[var(--home-page)]">
       <Reveal>
         <div className="home-card mx-auto max-w-4xl rounded-learn-xl p-6 md:p-10">
           <div className="grid items-center gap-8 md:grid-cols-[200px_1fr] md:gap-12">

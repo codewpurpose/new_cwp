@@ -4,10 +4,10 @@ export function FinalCtaSection() {
   return (
     <section id="join" className="scroll-mt-24 pb-16 md:pb-32">
       <div className="mx-auto w-full max-w-[85rem] px-5 md:px-10 text-center">
-        <h2 className="text-[1.625rem] leading-[1.05] tracking-[-0.029em] md:text-[2.5rem] md:leading-[0.98]">
+        <h2 className="home-serif mx-auto max-w-4xl text-[1.75rem] leading-[1.08] md:text-[2.5rem]">
           Join 4,000+ students across 130 countries already learning with us.
         </h2>
-        <p className="mt-4 text-[#636363]">
+        <p className="mx-auto mt-4 max-w-xl text-[15px] leading-[1.6] text-[var(--home-ink-soft)] md:text-base">
           Free. Forever. Start learning today or support our mission to bring
           coding education to every student, everywhere.
         </p>

@@ -13,14 +13,14 @@ export function SecuritySection() {
               <h2 className="home-serif mt-4 text-[2rem] leading-[1.05] md:text-[3rem]">
                 Tremendous leadership and service to your community.
               </h2>
-              <p className="mt-4 max-w-[36rem] text-[15px] text-[#636363] md:text-base">
+              <p className="mt-4 max-w-[36rem] text-[15px] text-[var(--home-ink-soft)] md:text-base">
                 Representative Mark DeSaulnier of the U.S. House of
                 Representatives recognized CodeWithPurpose for our work bringing
                 free coding education to students worldwide. We&apos;re proud to
                 serve communities across 130+ countries with the same commitment
                 every day.
               </p>
-              <p className="mt-3 text-sm text-[#818181]">
+              <p className="mt-3 text-sm text-[var(--home-ink-quiet)]">
                 Representative Mark DeSaulnier · March 4, 2026
               </p>
               <div className="mt-8">

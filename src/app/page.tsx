@@ -22,28 +22,27 @@ export default function Home() {
     <>
       <ProofPointStrip lessonCount={LESSON_COUNT} />
       <SiteHeader />
-      <main id="top">
+      {/* One rhythm from .home-flow. The three wrappers below are the only
+          places a section deliberately sits closer than the rest: the marquee
+          carries its own top padding, global reach reads as part of the use
+          cases above it, and security follows on from that pair. */}
+      <main id="top" className="home-flow">
         <HeroSection />
-        {/* TrustedBySection is padding-neutral, so the gap from the hero lives
-            here. PromptsMarquee below brings its own pt-16 md:pt-32 and needs
-            no spacer of its own. */}
-        <div className="h-14 md:h-28" />
         <TrustedBySection />
-        <div className="h-16 md:h-40" />
         <ProductSection />
-        <PromptsMarquee />
-        <div className="h-16 md:h-40" />
+        <div className="home-flow-attach">
+          <PromptsMarquee />
+        </div>
         <UseCasesSection />
-        <GlobalReachSection />
-        <div className="h-12 md:h-20" />
-        <SecuritySection />
-        <div className="h-16 md:h-40" />
+        <div className="home-flow-attach">
+          <GlobalReachSection />
+        </div>
+        <div className="home-flow-close">
+          <SecuritySection />
+        </div>
         <QuoteSection />
-        <div className="h-16 md:h-40" />
         <HowItWorksSection />
-        <div className="h-16 md:h-40" />
         <FaqSection />
-        <div className="h-16 md:h-40" />
         <FinalCtaSection />
       </main>
       <SiteFooter />

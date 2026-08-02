@@ -87,7 +87,7 @@ function TeamCard({
         </span>
       )}
       <p className="mt-3 font-medium">{member.name}</p>
-      <p className="text-sm text-[#818181]">{member.role}</p>
+      <p className="text-sm text-[var(--home-ink-quiet)]">{member.role}</p>
     </div>
   );
 }
@@ -115,16 +115,16 @@ export default function AboutPage() {
             <h2 className="home-serif text-[1.75rem] md:text-[2.5rem]">
               Recognized by the U.S. House of Representatives
             </h2>
-            <p className="mt-4 text-[15px] leading-[1.6] text-[#636363] md:text-base">
+            <p className="mt-4 text-[15px] leading-[1.6] text-[var(--home-ink-soft)] md:text-base">
               Representative Mark DeSaulnier recognized CodeWithPurpose for
               tremendous leadership and service to our community. We work every
               day to reach students in 130+ countries, from rural villages in
               India to classrooms in Nigeria.
             </p>
-            <blockquote className="mt-6 border-l-2 border-[#397554] pl-4 text-lg italic text-[#1f1f1f]">
+            <blockquote className="mt-6 border-l-2 border-[#397554] pl-4 text-lg italic text-[var(--home-ink)]">
               &ldquo;Tremendous leadership and service to your community.&rdquo;
             </blockquote>
-            <p className="mt-2 text-sm text-[#818181]">
+            <p className="mt-2 text-sm text-[var(--home-ink-quiet)]">
               Representative Mark DeSaulnier · March 4, 2026
             </p>
             <a
@@ -149,9 +149,9 @@ export default function AboutPage() {
         </div>
       </PageSection>
 
-      <PageSection className="border-t-[0.5px] border-[var(--home-grey-500)]">
+      <PageSection className="border-t-[0.5px] border-[var(--home-hairline)]">
         <h2 className="home-serif text-[1.75rem] md:text-[2.25rem]">Our Team</h2>
-        <p className="mt-3 max-w-2xl text-[#636363]">
+        <p className="mt-3 max-w-2xl text-[var(--home-ink-soft)]">
           Made by students, for students. Shreyan, Samanyu, Bruhatt, and
           volunteers around the world building a more inclusive future.
         </p>
@@ -186,7 +186,7 @@ export default function AboutPage() {
         <div className="home-card mt-4 flex flex-col items-center gap-4 rounded-xl p-6 text-center sm:flex-row sm:justify-between sm:text-left">
           <div>
             <p className="font-medium">Want to see your face here?</p>
-            <p className="mt-1 text-sm text-[#636363]">
+            <p className="mt-1 text-sm text-[var(--home-ink-soft)]">
               We&rsquo;re always looking for volunteers. Email us at{" "}
               <span className="whitespace-nowrap">{CONTACT_EMAIL}</span> and tell us what
               you&rsquo;d like to work on.

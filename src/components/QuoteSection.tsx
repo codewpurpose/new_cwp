@@ -25,7 +25,7 @@ export function QuoteSection() {
             <p className="home-serif text-[2rem] leading-none text-[#3e7f5c] md:text-[3.5rem]">
               130+
             </p>
-            <p className="mt-3 text-sm text-[#636363] md:text-base">
+            <p className="mt-3 text-sm text-[var(--home-ink-soft)] md:text-base">
               Countries where students are already learning with us.
             </p>
           </div>
@@ -33,7 +33,7 @@ export function QuoteSection() {
             <p className="home-serif text-[2rem] leading-none text-[#3e7f5c] md:text-[3.5rem]">
               4,000+
             </p>
-            <p className="mt-3 text-sm text-[#636363] md:text-base">
+            <p className="mt-3 text-sm text-[var(--home-ink-soft)] md:text-base">
               Students reached with free, real coding education worldwide.
             </p>
           </div>
@@ -41,7 +41,7 @@ export function QuoteSection() {
             <p className="home-serif text-[2rem] leading-none text-[#3e7f5c] md:text-[3.5rem]">
               Free
             </p>
-            <p className="mt-3 text-sm text-[#636363] md:text-base">
+            <p className="mt-3 text-sm text-[var(--home-ink-soft)] md:text-base">
               Always. Every course, every resource. No cost, no strings attached.
             </p>
           </div>

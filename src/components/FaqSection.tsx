@@ -62,7 +62,7 @@ function FaqItem({ faq }: { faq: Faq }) {
             height="14"
             viewBox="0 0 14 14"
             fill="none"
-            stroke="#818181"
+            stroke="var(--home-ink-quiet)"
             strokeWidth="1.5"
             strokeLinecap="round"
             aria-hidden="true"
@@ -82,7 +82,7 @@ function FaqItem({ faq }: { faq: Faq }) {
       >
         <div className="overflow-hidden">
           <p
-            className={`px-6 pb-6 text-sm leading-[1.5] text-[#636363] transition-opacity duration-300 motion-reduce:transition-none md:px-8 md:pb-8 md:text-[15px] ${
+            className={`px-6 pb-6 text-sm leading-[1.5] text-[var(--home-ink-soft)] transition-opacity duration-300 motion-reduce:transition-none md:px-8 md:pb-8 md:text-[15px] ${
               open ? "opacity-100" : "opacity-0"
             }`}
           >
@@ -114,14 +114,14 @@ export function FaqSection() {
               <FaqItem key={faq.question} faq={faq} />
             ))}
           </div>
-          <div className="mx-auto mt-8 max-w-[51rem] rounded-xl border-[0.5px] border-[var(--home-grey-500)] bg-[var(--home-page)] px-6 py-8 md:px-10 md:py-10">
+          <div className="mx-auto mt-8 max-w-[51rem] rounded-xl border-[0.5px] border-[var(--home-hairline)] bg-[var(--home-page)] px-6 py-8 md:px-10 md:py-10">
             <h3 className="text-lg font-medium md:text-xl">A Note From Our Team</h3>
-            <blockquote className="mt-4 text-[15px] leading-[1.6] text-[#636363] md:text-base">
+            <blockquote className="mt-4 text-[15px] leading-[1.6] text-[var(--home-ink-soft)] md:text-base">
               &ldquo;Every dollar helps us build a more inclusive future where code
               is a tool for good. Whether it&apos;s $5 or $500, you&apos;re helping a
               student start their journey today.&rdquo;
             </blockquote>
-            <p className="mt-4 text-sm text-[#818181]">
+            <p className="mt-4 text-sm text-[var(--home-ink-quiet)]">
               Shreyan, Samanyu &amp; Bruhatt
             </p>
           </div>

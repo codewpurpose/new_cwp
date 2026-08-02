@@ -192,7 +192,7 @@ const art: Record<TopicCoverVariant, { label: string; scene: ReactNode }> = {
         <text x="172" y="108" fontSize="13" fill={FERN} className="home-mono">
           &gt;&gt;&gt; print(&quot;hello&quot;)
         </text>
-        <text x="172" y="130" fontSize="13" fill="#636363" className="home-mono">
+        <text x="172" y="130" fontSize="13" fill="var(--home-ink-soft)" className="home-mono">
           hello
         </text>
         <text x="172" y="152" fontSize="13" fill={INK} className="home-mono">

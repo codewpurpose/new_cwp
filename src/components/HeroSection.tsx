@@ -16,7 +16,7 @@ export function HeroSection() {
           Talent Is Everywhere.
           <br className="hidden sm:block" /> Opportunity Isn&apos;t.
         </h1>
-        <p className="mx-auto mt-5 max-w-[44rem] text-center text-lg text-[#636363]">
+        <p className="mx-auto mt-5 max-w-[44rem] text-center text-lg text-[var(--home-ink-soft)]">
           We&apos;re students teaching students real coding skills in 130+
           countries. Completely free, forever. No catch, no fine print.
         </p>
@@ -35,7 +35,7 @@ export function HeroSection() {
               <p className="home-serif text-[1.5rem] leading-none text-[#3e7f5c] md:text-[2rem]">
                 {stat.value}
               </p>
-              <p className="mt-2 text-[13px] text-[#636363] md:text-sm">
+              <p className="mt-2 text-[13px] text-[var(--home-ink-soft)] md:text-sm">
                 {stat.label}
               </p>
             </div>

@@ -36,20 +36,20 @@ export default async function BlogPostPage({
 
   return (
     <PageShell>
-      <article className="relative overflow-hidden border-b-[0.5px] border-[var(--home-grey-500)] bg-[var(--home-page)] pb-16 pt-10 md:pb-24 md:pt-16">
+      <article className="relative overflow-hidden border-b-[0.5px] border-[var(--home-hairline)] bg-[var(--home-page)] pb-16 pt-10 md:pb-24 md:pt-16">
         <div aria-hidden="true" className="cwp-hero-bg absolute inset-0" />
         <div className="relative mx-auto w-full max-w-[46rem] px-5 md:px-0">
           <Reveal>
             <Link href={BLOG_HREF} className="home-arrow-link text-sm">
               <span className="home-arrow rotate-180">→</span> All stories
             </Link>
-            <p className="mt-8 text-[11px] uppercase tracking-[0.12em] text-[#818181]">
+            <p className="mt-8 text-[11px] uppercase tracking-[0.12em] text-[var(--home-ink-quiet)]">
               {post.date}
             </p>
             <h1 className="home-display mt-3 text-[2rem] leading-[1.08] tracking-[-0.02em] md:text-[2.75rem]">
               {post.title}
             </h1>
-            <p className="mt-4 text-lg leading-[1.5] text-[#636363]">
+            <p className="mt-4 text-lg leading-[1.5] text-[var(--home-ink-soft)]">
               {post.excerpt}
             </p>
           </Reveal>
@@ -63,13 +63,13 @@ export default async function BlogPostPage({
               {post.body.map((paragraph) => (
                 <p
                   key={paragraph.slice(0, 32)}
-                  className="text-[17px] leading-[1.75] text-[#1f1f1f]"
+                  className="text-[17px] leading-[1.75] text-[var(--home-ink)]"
                 >
                   {paragraph}
                 </p>
               ))}
             </div>
-            <p className="mt-10 border-t-[0.5px] border-[var(--home-grey-500)] pt-6 text-sm text-[#818181]">
+            <p className="mt-10 border-t-[0.5px] border-[var(--home-hairline)] pt-6 text-sm text-[var(--home-ink-quiet)]">
               Written by the CodeWithPurpose team
             </p>
           </Reveal>
@@ -82,7 +82,7 @@ export default async function BlogPostPage({
             <h2 className="home-serif text-[1.5rem] md:text-[1.875rem]">
               Want the next story in your inbox?
             </h2>
-            <p className="mt-3 text-[#636363]">
+            <p className="mt-3 text-[var(--home-ink-soft)]">
               Subscribe on Substack. It&apos;s free, just like everything else
               we make.
             </p>
@@ -91,7 +91,7 @@ export default async function BlogPostPage({
                 src={SUBSTACK_EMBED_SRC}
                 title="Subscribe to the CodeWithPurpose Substack"
                 scrolling="no"
-                className="h-[320px] w-full max-w-[480px] rounded-xl border-[0.5px] border-[var(--home-grey-500)] bg-white"
+                className="h-[320px] w-full max-w-[480px] rounded-xl border-[0.5px] border-[var(--home-hairline)] bg-white"
               />
             </div>
           </div>

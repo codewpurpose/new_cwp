@@ -31,7 +31,7 @@ function SocialLink({
       rel="noreferrer"
       aria-label={label}
       title={label}
-      className="flex h-9 w-9 items-center justify-center rounded-full border-[0.5px] border-[var(--home-grey-500)] text-[#636363] transition-colors hover:border-[var(--home-fern)] hover:bg-[#f3faf3] hover:text-[var(--home-moss)]"
+      className="flex h-9 w-9 items-center justify-center rounded-full border-[0.5px] border-[var(--home-hairline)] text-[var(--home-ink-soft)] transition-colors hover:border-[var(--home-fern)] hover:bg-[#f3faf3] hover:text-[var(--home-moss)]"
     >
       {children}
     </a>
@@ -51,11 +51,11 @@ export function SiteFooter() {
                 aria-label="CodeWithPurpose home"
               >
                 <CwpLogo height={40} />
-                <p className="max-w-sm text-sm text-[#636363]">
+                <p className="max-w-sm text-sm text-[var(--home-ink-soft)]">
                   A student-run nonprofit making tech education free and
                   accessible for everyone, everywhere.
                 </p>
-                <p className="text-xs text-[#636363]">
+                <p className="text-xs text-[var(--home-ink-soft)]">
                   Recognized by the U.S. House of Representatives
                 </p>
               </a>

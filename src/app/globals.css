@@ -234,7 +234,11 @@
    * somewhere to go between "page" and "ink". */
   --home-sage: #6d9b7f; /* mid green — dividers, quiet marks */
   --home-moss-deep: #162c20; /* below moss, for weight */
-  --home-ink-soft: #3a4048; /* body copy that still clears AA */
+  /* Body and caption ink, both warm so they sit on cream rather than over it.
+   * These replace #636363 (5.4:1) and #818181 — the latter landed at about
+   * 3.9:1 on the page background, which fails AA for body text outright. */
+  --home-ink-soft: #4f483d; /* body copy — ~7.7:1 on the page */
+  --home-ink-quiet: #6b6255; /* captions and labels — ~5.2:1 */
   --home-hairline: rgba(30, 60, 44, 0.1);
   --home-hairline-strong: rgba(30, 60, 44, 0.18);
 
@@ -244,9 +248,10 @@
   --home-shadow-lg: 0 4px 8px rgba(46, 38, 24, 0.05), 0 18px 44px rgba(46, 38, 24, 0.09);
 
   /* --- section rhythm --------------------------------------------------
-   * Replaces the hand-tuned `h-14 md:h-28` spacer divs between sections. */
+   * One value, applied by .home-flow. Replaces six hand-tuned spacer divs
+   * carrying four different values between them. */
   --home-space-section: 4rem;
-  --home-space-section-lg: 7rem;
+  --home-space-section-lg: 8rem;
 
   /* Re-declared here, not in learn-tokens.css, because next/font puts
    * --font-home-* on <body class="home-root"> — below :root — and a custom
@@ -380,6 +385,27 @@
 .home-mono {
   font-family: var(--font-home-mono), ui-monospace, monospace;
 }
+/* Section rhythm.
+ *
+ * The page used to space its sections with empty `<div className="h-16 md:h-40" />`
+ * elements — six of them, carrying four different values, with a comment
+ * explaining which neighbouring component brought its own padding. One gap here
+ * instead, with two modifiers for the pairs that genuinely belong closer:
+ * .home-flow-attach cancels the gap for a section that should butt against the
+ * one above it, .home-flow-close halves it. */
+.home-flow {
+  display: flex;
+  flex-direction: column;
+  gap: var(--home-space-section);
+}
+.home-flow > .home-flow-attach { margin-top: calc(-1 * var(--home-space-section)); }
+.home-flow > .home-flow-close { margin-top: calc(-0.5 * var(--home-space-section)); }
+@media (min-width: 768px) {
+  .home-flow { gap: var(--home-space-section-lg); }
+  .home-flow > .home-flow-attach { margin-top: calc(-1 * var(--home-space-section-lg)); }
+  .home-flow > .home-flow-close { margin-top: calc(-0.5 * var(--home-space-section-lg)); }
+}
+
 /* A hairline plus a warm shadow, rather than a full-saturation fern outline.
  * The old 1px fern on every card made a stat, a course and a section wrapper
  * read as the same object, and hard green rules across a cream page are most
@@ -396,49 +422,60 @@
 }
 .home-root a:not(.home-btn):not(.home-arrow-link) { text-decoration-color: var(--home-fern); }
 .home-root section, .home-root footer > div > div { border-color: var(--home-hairline); }
+/* Buttons had 10px of horizontal padding against 8px vertical, so the label
+ * touched the edges, and the desktop rule *reduced* the height — buttons got
+ * smaller on the roomier screen. Proper padding, a weight that separates the
+ * label from body copy, and a size step below body text so a button reads as a
+ * control rather than a sentence. */
 .home-btn {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  padding: 0.5rem 0.625rem;
-  border-radius: 0.375rem;
+  gap: 0.4rem;
+  padding: 0.62rem 1.15rem;
+  border-radius: 0.5rem;
   border: 1px solid transparent;
-  font-size: 1rem;
+  font-size: 0.9375rem;
+  font-weight: 500;
   line-height: 1;
-  letter-spacing: -0.019em;
+  letter-spacing: -0.012em;
   cursor: pointer;
-  transition: background 0.3s, border 0.3s, color 0.3s, transform 0.1s;
-}
-@media (min-width: 768px) {
-  .home-btn {
-    padding: 0.4375rem 0.625rem;
-    border-radius: 0.5rem;
-  }
+  white-space: nowrap;
+  transition: background 0.2s, border-color 0.2s, color 0.2s, box-shadow 0.2s,
+    transform 0.12s;
 }
 .home-btn:active {
-  transform: scale(0.97);
+  transform: scale(0.98);
 }
 .home-btn:focus-visible {
-  outline: 2px solid var(--home-ink);
-  outline-offset: 3px;
+  outline: 2px solid var(--home-fern);
+  outline-offset: 2px;
+}
+@media (prefers-reduced-motion: reduce) {
+  .home-btn:active { transform: none; }
 }
 .home-btn-fill {
   background: var(--home-ink);
   border-color: var(--home-ink);
   color: #fff;
+  box-shadow: var(--home-shadow-sm);
 }
 .home-btn-fill:hover {
   background: var(--home-ink-hover);
   border-color: var(--home-ink-hover);
+  box-shadow: var(--home-shadow-md);
 }
+/* A hairline on the card surface rather than a hard ink outline: the old
+ * version competed with the filled button beside it for the same attention. */
 .home-btn-outline {
-  background: transparent;
-  border-color: var(--home-ink);
+  background: var(--home-white);
+  border-color: var(--home-hairline-strong);
   color: var(--home-ink);
+  box-shadow: var(--home-shadow-sm);
 }
 .home-btn-outline:hover {
-  background: var(--home-ink);
-  color: #fff;
+  border-color: var(--home-ink);
+  box-shadow: var(--home-shadow-md);
 }
 .home-btn-glass {
   background: linear-gradient(rgba(224, 212, 196, 0.35), rgba(224, 212, 196, 0.35)),

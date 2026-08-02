@@ -34,20 +34,20 @@ const impactAreas = [
 export default function DonatePage() {
   return (
     <PageShell>
-      <section className="relative overflow-hidden border-b-[0.5px] border-[var(--home-grey-500)] bg-[var(--home-page)] pt-12 pb-14 md:pt-20 md:pb-24">
+      <section className="relative overflow-hidden border-b-[0.5px] border-[var(--home-hairline)] bg-[var(--home-page)] pt-12 pb-14 md:pt-20 md:pb-24">
         <div aria-hidden="true" className="cwp-hero-bg absolute inset-0" />
         <div className="relative mx-auto grid w-full max-w-[85rem] items-start gap-10 px-5 md:px-10 lg:grid-cols-2">
           <Reveal>
             <h1 className="home-display text-[2rem] leading-[1.05] tracking-[-0.02em] md:text-[2.75rem] lg:text-[3.25rem]">
               Help a student start their journey today
             </h1>
-            <p className="mt-5 max-w-xl text-lg leading-[1.5] text-[#636363]">
+            <p className="mt-5 max-w-xl text-lg leading-[1.5] text-[var(--home-ink-soft)]">
               Every dollar helps us build a more inclusive future where code is a
               tool for good. CodeWithPurpose is fiscally sponsored by Hack Club,
               so donations are tax-deductible and go straight to keeping coding
               education free.
             </p>
-            <p className="mt-4 max-w-xl text-[15px] leading-[1.6] text-[#636363]">
+            <p className="mt-4 max-w-xl text-[15px] leading-[1.6] text-[var(--home-ink-soft)]">
               Pick any amount. Five dollars covers a student&apos;s first lesson.
             </p>
             <div className="mt-8">
@@ -71,13 +71,13 @@ export default function DonatePage() {
         </div>
       </section>
 
-      <PageSection className="border-t-[0.5px] border-[var(--home-grey-500)]">
+      <PageSection className="border-t-[0.5px] border-[var(--home-hairline)]">
         <div className="grid gap-4 md:grid-cols-2">
           {impactAreas.map((area, index) => (
             <Reveal key={area.title} delay={(index % 2) * 0.08}>
               <div className="home-card home-lift h-full rounded-xl p-6 md:p-8">
                 <h2 className="text-xl">{area.title}</h2>
-                <p className="mt-3 text-[15px] leading-[1.55] text-[#636363]">
+                <p className="mt-3 text-[15px] leading-[1.55] text-[var(--home-ink-soft)]">
                   {area.body}
                 </p>
               </div>
@@ -86,7 +86,7 @@ export default function DonatePage() {
         </div>
       </PageSection>
 
-      <PageSection className="border-t-[0.5px] border-[var(--home-grey-500)] bg-[#1e3c2c]">
+      <PageSection className="border-t-[0.5px] border-[var(--home-hairline)] bg-[#1e3c2c]">
         <div className="mx-auto max-w-3xl text-center text-[#dbefdb]">
           <h2 className="home-serif text-[1.75rem] text-[#f9f9f9] md:text-[2.5rem]">
             A Note From Our Team

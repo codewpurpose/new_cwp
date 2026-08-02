@@ -30,7 +30,7 @@ export default function ContactPage() {
             >
               {CONTACT_EMAIL}
             </a>
-            <p className="mx-auto mt-4 max-w-md text-[15px] leading-[1.6] text-[#636363]">
+            <p className="mx-auto mt-4 max-w-md text-[15px] leading-[1.6] text-[var(--home-ink-soft)]">
               Big idea, small question, or just want to say hi? Write to us.
               Every message gets read by a real person on the team.
             </p>
