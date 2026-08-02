@@ -44,7 +44,7 @@ export default function LearnMlPage() {
           href={ML_PART_1_COURSE_HREF}
           target="_blank"
           rel="noreferrer"
-          className="home-btn home-btn-fill"
+          className="home-btn home-btn-violet"
         >
           Udemy ML Course
         </a>

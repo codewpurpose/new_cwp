@@ -140,9 +140,9 @@ export default function CoursesPage() {
                     {course.description}
                   </p>
                   {/* Lessons lead where they exist — they are ours and they
-                      are one click away, where enrolling leaves the site.
-                      Without a track, the enrolment takes the lead instead so
-                      every card still has one primary action. */}
+                      are one click away, where enrolling leaves the site. The
+                      enrolments carry the violet either way, so the button that
+                      hands the reader to Udemy looks the same on every card. */}
                   <div className="mt-6 flex flex-wrap gap-2">
                     {course.lessonsHref && (
                       <Link
@@ -158,9 +158,7 @@ export default function CoursesPage() {
                         href={enrol.href}
                         target="_blank"
                         rel="noreferrer"
-                        className={`home-btn ${
-                          course.lessonsHref ? "home-btn-outline" : "home-btn-fill"
-                        }`}
+                        className="home-btn home-btn-violet"
                       >
                         {enrol.label}
                       </a>

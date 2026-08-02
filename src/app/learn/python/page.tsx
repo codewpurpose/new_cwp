@@ -34,7 +34,7 @@ export default function LearnPythonPage() {
           href={PYTHON_COURSE_HREF}
           target="_blank"
           rel="noreferrer"
-          className="home-btn home-btn-fill"
+          className="home-btn home-btn-violet"
         >
           Udemy Python Course
         </a>
