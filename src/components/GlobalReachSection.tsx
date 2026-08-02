@@ -136,7 +136,7 @@ function DetailContent({ detail }: { detail: ImpactDetail }) {
         <p className="text-[11px] font-medium uppercase tracking-[0.12em] text-[#818181]">
           In the field
         </p>
-        <p className="mt-2 text-[14px] leading-[1.55] text-[#0a0e19]">
+        <p className="mt-2 text-[14px] leading-[1.55] text-[#15120c]">
           {detail.scenario}
         </p>
       </div>
@@ -186,7 +186,7 @@ export function GlobalReachSection() {
                         open === index ? "rounded-lg bg-[#f3f3f1]" : "",
                       ].join(" ")}
                     >
-                      <span className="shrink-0 text-[#0a0e19]">
+                      <span className="shrink-0 text-[#15120c]">
                         {item.icon}
                       </span>
                       <span className="flex-1 text-[15px]">{item.label}</span>
@@ -223,7 +223,7 @@ export function GlobalReachSection() {
                       type="button"
                       onClick={() => setOpen(null)}
                       aria-label="Close detail window"
-                      className="absolute right-5 top-5 text-xl leading-none text-[#818181] transition-colors hover:text-[#0a0e19]"
+                      className="absolute right-5 top-5 text-xl leading-none text-[#818181] transition-colors hover:text-[#15120c]"
                       tabIndex={open === null ? -1 : 0}
                     >
                       ×

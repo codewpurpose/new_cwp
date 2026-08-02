@@ -12,7 +12,7 @@ export function HeroSection() {
   return (
     <section className="pt-8 md:pt-[3.69rem]">
       <div className="mx-auto w-full max-w-[85rem] px-5 md:px-10">
-        <h1 className="home-serif text-center text-[2rem] leading-[1.05] tracking-[-0.02em] md:text-[2.75rem] lg:text-[3.5rem] xl:text-[4rem]">
+        <h1 className="home-display text-center text-[2rem] leading-[1.05] tracking-[-0.02em] md:text-[2.75rem] lg:text-[3.5rem] xl:text-[4rem]">
           Talent Is Everywhere.
           <br className="hidden sm:block" /> Opportunity Isn&apos;t.
         </h1>

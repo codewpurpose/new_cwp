@@ -8,7 +8,7 @@ export function QuoteSection() {
           <p className="home-serif text-base text-[#dbefdb] md:text-lg">
             Free education for every student, everywhere
           </p>
-          <blockquote className="home-serif mx-auto mt-6 max-w-[70.5rem] text-[1.75rem] leading-[1.1] text-[#f9f9f9] md:text-[2.5rem] lg:text-[3.25rem]">
+          <blockquote className="home-display mx-auto mt-6 max-w-[70.5rem] text-[1.75rem] leading-[1.1] text-[#f9f9f9] md:text-[2.5rem] lg:text-[3.25rem]">
             Education is a right,
             <br className="hidden sm:block" />
             not a privilege.

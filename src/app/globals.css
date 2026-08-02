@@ -209,8 +209,10 @@
 .home-root {
   --home-page: #fcf4e8;
   --home-white: #fffbf5;
-  --home-ink: #0a0e19;
-  --home-ink-hover: #1a2030;
+  /* Warm near-black. The old #0a0e19 was blue-black, which fights a cream page
+   * — the classic tell of a palette assembled from two different systems. */
+  --home-ink: #15120c;
+  --home-ink-hover: #2b2419;
   --home-grey-400: #f5ebdb;
   --home-grey-450: #efe3d2;
   --home-grey-500: #e0d4c4;
@@ -224,6 +226,27 @@
   --home-link-green: #397554;
   --home-fern: #3e7f5c;
   --home-border: 0.5px solid var(--home-grey-500);
+
+  /* --- tonal range -----------------------------------------------------
+   * The page and the card surface used to sit ~2% apart, so every card
+   * depended on a 1px fern outline to exist at all and a stat card, a course
+   * card and a section wrapper were indistinguishable. These give the palette
+   * somewhere to go between "page" and "ink". */
+  --home-sage: #6d9b7f; /* mid green — dividers, quiet marks */
+  --home-moss-deep: #162c20; /* below moss, for weight */
+  --home-ink-soft: #3a4048; /* body copy that still clears AA */
+  --home-hairline: rgba(30, 60, 44, 0.1);
+  --home-hairline-strong: rgba(30, 60, 44, 0.18);
+
+  /* Warm-tinted rather than neutral black: a grey shadow on cream reads dirty. */
+  --home-shadow-sm: 0 1px 2px rgba(46, 38, 24, 0.05);
+  --home-shadow-md: 0 2px 4px rgba(46, 38, 24, 0.05), 0 8px 20px rgba(46, 38, 24, 0.06);
+  --home-shadow-lg: 0 4px 8px rgba(46, 38, 24, 0.05), 0 18px 44px rgba(46, 38, 24, 0.09);
+
+  /* --- section rhythm --------------------------------------------------
+   * Replaces the hand-tuned `h-14 md:h-28` spacer divs between sections. */
+  --home-space-section: 4rem;
+  --home-space-section-lg: 7rem;
 
   /* Re-declared here, not in learn-tokens.css, because next/font puts
    * --font-home-* on <body class="home-root"> — below :root — and a custom
@@ -239,13 +262,33 @@
   font-family: var(--font-home-sans), system-ui, sans-serif;
   background: var(--home-page);
   color: var(--home-ink);
-  letter-spacing: -0.02em;
+  /* Archivo runs slightly wider than Inter at the same size, so the old
+   * -0.02em tracking closes it up too far. */
+  letter-spacing: -0.011em;
   -webkit-font-smoothing: antialiased;
 }
+
+/* Fraunces carries optical-size, SOFT and WONK axes. The defaults here are the
+ * section-heading voice: sober, barely wonky. .home-display below opens all
+ * three up for headline sizes, so one family covers both without a second
+ * webfont. */
 .home-serif {
   font-family: var(--font-home-serif), Georgia, serif;
-  font-weight: 300;
-  letter-spacing: -0.02em;
+  font-weight: 480;
+  letter-spacing: -0.012em;
+  /* opsz is left to the browser rather than pinned here, so the same class
+   * reads correctly from a 1.5rem section heading up to a 4rem headline. */
+  font-optical-sizing: auto;
+  font-variation-settings: "SOFT" 14, "WONK" 0;
+}
+/* Headline voice: lighter, softer, and slightly wonky. Only for h1-scale type —
+ * WONK's angled terminals turn to mush below about 2rem. */
+.home-display {
+  font-family: var(--font-home-serif), Georgia, serif;
+  font-weight: 400;
+  letter-spacing: -0.021em;
+  font-optical-sizing: auto;
+  font-variation-settings: "SOFT" 50, "WONK" 1;
 }
 .proof-point-strip {
   background: #1e3c2c;
@@ -337,12 +380,22 @@
 .home-mono {
   font-family: var(--font-home-mono), ui-monospace, monospace;
 }
+/* A hairline plus a warm shadow, rather than a full-saturation fern outline.
+ * The old 1px fern on every card made a stat, a course and a section wrapper
+ * read as the same object, and hard green rules across a cream page are most
+ * of what made this look flat. Cards that genuinely need to be picked out take
+ * .home-card-accent. */
 .home-card {
   background: var(--home-white);
-  border: 1px solid var(--home-fern);
+  border: 1px solid var(--home-hairline);
+  box-shadow: var(--home-shadow-sm);
+}
+.home-card-accent {
+  border-color: rgba(62, 127, 92, 0.4);
+  box-shadow: var(--home-shadow-md);
 }
 .home-root a:not(.home-btn):not(.home-arrow-link) { text-decoration-color: var(--home-fern); }
-.home-root section, .home-root footer > div > div { border-color: var(--home-fern); }
+.home-root section, .home-root footer > div > div { border-color: var(--home-hairline); }
 .home-btn {
   display: inline-flex;
   align-items: center;
@@ -447,9 +500,15 @@
   transition: transform 0.4s cubic-bezier(0.19, 1, 0.22, 1), background 0.3s,
     box-shadow 0.3s, border-color 0.3s;
 }
+/* Lift and deepen the shadow rather than washing the surface beige. Swapping
+ * the background on hover made the card look like it had gone stale. */
 .home-lift:hover {
-  transform: translateY(-2px);
-  background: var(--home-grey-400);
+  transform: translateY(-3px);
+  box-shadow: var(--home-shadow-lg);
+  border-color: var(--home-hairline-strong);
+}
+@media (prefers-reduced-motion: reduce) {
+  .home-lift:hover { transform: none; }
 }
 .home-tooltip {
   position: absolute;

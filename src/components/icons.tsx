@@ -7,7 +7,7 @@ export function CwpLogo({
 }) {
   return (
     <span
-      className={`inline-flex w-fit items-center gap-2 text-[#0a0e19] ${className ?? ""}`}
+      className={`inline-flex w-fit items-center gap-2 text-[#15120c] ${className ?? ""}`}
     >
       <svg
         height={height}

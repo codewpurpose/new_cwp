@@ -46,7 +46,7 @@ export default async function BlogPostPage({
             <p className="mt-8 text-[11px] uppercase tracking-[0.12em] text-[#818181]">
               {post.date}
             </p>
-            <h1 className="home-serif mt-3 text-[2rem] leading-[1.08] tracking-[-0.02em] md:text-[2.75rem]">
+            <h1 className="home-display mt-3 text-[2rem] leading-[1.08] tracking-[-0.02em] md:text-[2.75rem]">
               {post.title}
             </h1>
             <p className="mt-4 text-lg leading-[1.5] text-[#636363]">

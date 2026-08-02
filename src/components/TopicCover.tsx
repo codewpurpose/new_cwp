@@ -11,7 +11,7 @@ export type TopicCoverVariant =
   | "python"
   | "vibecoding";
 
-const INK = "#0a0e19";
+const INK = "#15120c";
 const PISTACHIO = "#dbefdb";
 const FERN = "#3e7f5c";
 const GREY = "#cecece";
