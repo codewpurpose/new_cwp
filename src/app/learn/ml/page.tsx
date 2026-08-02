@@ -60,6 +60,8 @@ export default function LearnMlPage() {
         </div>
       </PageSection>
 
+      <ContributeBand />
+
       <CtaBand
         title="Keep building your ML foundation"
         body="These lessons are part of CodeWithPurpose's free learning library — built by students, for students, everywhere."
@@ -68,8 +70,6 @@ export default function LearnMlPage() {
           { href: LEARN_HREF, label: "Back to Learn", variant: "secondary" },
         ]}
       />
-
-      <ContributeBand body="These machine learning lessons are open source, written by students in the open. Add a topic of your own, or fix a lesson that confused you — the guide walks through every step." />
     </PageShell>
   );
 }

@@ -88,6 +88,8 @@ export default function LearnVibecodingPage() {
         </PageSection>
       ))}
 
+      <ContributeBand noun="chapter" />
+
       <CtaBand
         title="Keep building your vibe coding practice"
         body="These lessons are part of CodeWithPurpose's free learning library, built by students, for students, everywhere."
@@ -96,8 +98,6 @@ export default function LearnVibecodingPage() {
           { href: LEARN_HREF, label: "Back to Learn", variant: "secondary" },
         ]}
       />
-
-      <ContributeBand body="These vibe coding chapters are open source, written by students in the open. Add a chapter of your own, or fix one that confused you — the guide walks through every step." />
     </PageShell>
   );
 }
