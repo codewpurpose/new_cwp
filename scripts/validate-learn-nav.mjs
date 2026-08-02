@@ -5,81 +5,26 @@
  * Runs from `prebuild` so a broken curriculum fails the build rather than
  * producing a subtly wrong sidebar at runtime.
  *
- * Deliberately a source scan rather than an import: the data modules are
- * TypeScript with @/ path aliases, and adding a transpile step to a pre-build
- * hook is more machinery than these checks are worth.
+ * Where the tracks live and how their source is parsed is in
+ * scripts/lib/learn-source.mjs, shared with new-lesson.mjs so the scaffold
+ * cannot emit a chapter this script would fail to read.
  *
- * The block-splitting regex below assumes chapter objects are formatted at
- * two-space indentation. A data file formatted differently parses as zero
- * chapters, which the first check catches loudly rather than passing silently.
+ * Every failure message here is documented, with its fix, in
+ * docs/contributing/LESSON_AUTHORING.md. Keep the two in sync.
  */
 
 import { existsSync, readFileSync } from "node:fs";
-import { dirname, join, resolve } from "node:path";
-import { fileURLToPath } from "node:url";
-
-const REPO_ROOT = resolve(dirname(fileURLToPath(import.meta.url)), "..");
-
-const TRACKS = [
-  {
-    name: "vibecoding",
-    data: join(REPO_ROOT, "src", "lib", "vibecoding-lessons.ts"),
-    chaptersConst: "VIBECODING_CHAPTERS",
-    route: join(REPO_ROOT, "src", "app", "learn", "vibecoding", "(chapters)", "[slug]", "page.tsx"),
-    bodiesDir: join(REPO_ROOT, "src", "components", "vibecoding"),
-    bodiesConst: "LESSON_BODIES",
-    coverFile: join(REPO_ROOT, "src", "components", "vibecoding", "VibecodingIcons.tsx"),
-    coverConst: "VIBECODING_GLYPHS",
-    partKeyedCover: false,
-  },
-  {
-    name: "ml",
-    data: join(REPO_ROOT, "src", "lib", "ml-lessons.ts"),
-    chaptersConst: "ML_CHAPTERS",
-    route: join(REPO_ROOT, "src", "app", "learn", "ml", "(chapters)", "[slug]", "page.tsx"),
-    bodiesDir: join(REPO_ROOT, "src", "components", "ml"),
-    bodiesConst: "ML_LESSON_BODIES",
-    coverFile: join(REPO_ROOT, "src", "components", "ml", "MlLessonCover.tsx"),
-    coverConst: "COVERS",
-    partKeyedCover: false,
-  },
-];
+import { join } from "node:path";
+import { REPO_ROOT, TRACKS, parseChapters, parsePartIds } from "./lib/learn-source.mjs";
 
 const problems = [];
-
-/** Pull one field out of a chapter object literal. */
-function field(block, name, { quoted = true } = {}) {
-  const pattern = quoted
-    ? new RegExp(`${name}:\\s*"([^"]*)"`)
-    : new RegExp(`${name}:\\s*([0-9]+)`);
-  const match = block.match(pattern);
-  return match ? match[1] : undefined;
-}
 
 function validateTrack(track) {
   const fail = (message) => problems.push(`[${track.name}] ${message}`);
 
   const source = readFileSync(track.data, "utf8");
 
-  const chaptersStart = source.indexOf(track.chaptersConst);
-  const blocks = source
-    .slice(chaptersStart)
-    .split(/\n  \{\n/)
-    .slice(1)
-    .map((block) => block.split(/\n  \},?/)[0]);
-
-  const chapters = blocks.map((block) => ({
-    slug: field(block, "slug"),
-    partId: field(block, "partId"),
-    order: Number(field(block, "order", { quoted: false })),
-    status: field(block, "status"),
-    thumbnail: field(block, "thumbnail"),
-    prerequisites: (block.match(/prerequisites:\s*\[([^\]]*)\]/)?.[1] ?? "")
-      .split(",")
-      .map((s) => s.trim().replace(/^"|"$/g, ""))
-      .filter(Boolean),
-    headingIds: [...block.matchAll(/\{\s*id:\s*"([^"]+)"/g)].map((m) => m[1]),
-  }));
+  const chapters = parseChapters(source, track.chaptersConst);
 
   if (chapters.length === 0) {
     fail("Parsed zero chapters — the scan pattern is out of date.");
@@ -87,9 +32,7 @@ function validateTrack(track) {
   }
 
   // Part ids must resolve.
-  const partIds = new Set(
-    [...source.matchAll(/id:\s*"([a-z-]+)",\n\s*number:/g)].map((m) => m[1]),
-  );
+  const partIds = parsePartIds(source);
   for (const chapter of chapters) {
     if (!partIds.has(chapter.partId)) {
       fail(`${chapter.slug}: partId "${chapter.partId}" does not match any part.`);

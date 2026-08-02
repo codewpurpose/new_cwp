@@ -3,10 +3,10 @@ name: CI
 on:
   push:
     branches:
-      - master
+      - main
   pull_request:
     branches:
-      - master
+      - main
 
 jobs:
   quality:
@@ -31,6 +31,11 @@ jobs:
 
       - name: Type check
         run: npm run typecheck
+
+      # Runs again via `prebuild`, but naming it here means a broken lesson
+      # graph reports as itself instead of as a mysterious build failure.
+      - name: Validate lesson graph
+        run: npm run learn:check
 
       - name: Build
         run: npm run build
