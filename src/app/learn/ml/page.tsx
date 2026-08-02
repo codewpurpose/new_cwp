@@ -9,8 +9,8 @@ import { PageShell } from "@/components/PageShell";
 import { Reveal } from "@/components/Reveal";
 import { images } from "@/lib/images";
 import {
-  COURSES_HREF,
   LEARN_HREF,
+  LEARN_VIBECODING_HREF,
   ML_PART_1_COURSE_HREF,
 } from "@/lib/links";
 import { chapterHref, getChapters } from "@/lib/learn-nav";
@@ -22,6 +22,12 @@ export const metadata: Metadata = {
 };
 
 export default function LearnMlPage() {
+  const lessons = getChapters("ml");
+  // Published chapters come back in reading order, so this is lesson one. It is
+  // read defensively because a track with nothing published is a valid state
+  // for the validator, and a missing chapter must not take the build down.
+  const firstLesson = lessons[0];
+
   return (
     <PageShell>
       <PageHero
@@ -45,7 +51,7 @@ export default function LearnMlPage() {
 
       <PageSection>
         <div className="grid gap-6 md:grid-cols-2">
-          {getChapters("ml").map((lesson, index) => (
+          {lessons.map((lesson, index) => (
             <Reveal key={lesson.slug} delay={index * 0.08}>
               <LessonCard
                 href={chapterHref("ml", lesson.slug)}
@@ -62,12 +68,23 @@ export default function LearnMlPage() {
 
       <ContributeBand />
 
+      {/* The band promises more ML, so its actions stay inside /learn. Sending
+          the strongest action to /courses was what closed the exploration
+          cycle; /courses is reachable from the nav on every page anyway. */}
       <CtaBand
         title="Keep building your ML foundation"
         body="These lessons are part of CodeWithPurpose's free learning library — built by students, for students, everywhere."
         actions={[
-          { href: COURSES_HREF, label: "Browse All Courses", variant: "primary" },
-          { href: LEARN_HREF, label: "Back to Learn", variant: "secondary" },
+          ...(firstLesson
+            ? ([
+                {
+                  href: chapterHref("ml", firstLesson.slug),
+                  label: "Start the first lesson",
+                  variant: "primary",
+                },
+              ] as const)
+            : []),
+          { href: LEARN_VIBECODING_HREF, label: "Try Vibe Coding", variant: "secondary" },
         ]}
       />
     </PageShell>

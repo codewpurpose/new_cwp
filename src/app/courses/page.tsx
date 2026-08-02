@@ -89,13 +89,13 @@ export default function CoursesPage() {
         image={images.codingLaptop}
         imageAlt="Student learning to code on a laptop"
       >
-        <Link href="/learn" className="home-btn home-btn-fill">Explore courses</Link>
+        <a href="#catalog" className="home-btn home-btn-fill">Explore courses</a>
         <Link href={ABOUT_HREF} className="home-btn home-btn-outline">
           Our Story
         </Link>
       </PageHero>
 
-      <PageSection>
+      <PageSection id="catalog" className="scroll-mt-24">
         <div className="grid gap-6 md:grid-cols-2">
           {courses.map((course, index) => (
             <Reveal key={course.title} delay={(index % 2) * 0.08}>
