@@ -7,12 +7,12 @@ export function WhatTelemedicineActuallyReplacesLesson() {
     <div>
       <Lead>
         Telemedicine got sold, briefly, as a replacement for the doctor&apos;s office itself.
-        It isn&apos;t one. It genuinely replaces some visits — a follow-up, a prescription
+        It isn&apos;t one. It replaces some visits — a follow-up, a prescription
         refill, a quick consult — and it cannot replace a physical exam or an urgent procedure,
         no matter how good the video quality gets.
       </Lead>
 
-      <LessonSection id="the-visits-it-genuinely-replaces" title="The visits it genuinely replaces">
+      <LessonSection id="the-visits-it-genuinely-replaces" title="The visits it replaces">
         <P>
           A medication check-in, a follow-up after a procedure that is healing normally, a
           mental-health session, a renewed prescription for a condition already diagnosed — all
@@ -34,7 +34,7 @@ export function WhatTelemedicineActuallyReplacesLesson() {
         <CompareGrid
           items={[
             {
-              title: "Genuinely replaceable by video",
+              title: "Replaceable by video",
               tone: "positive",
               children: (
                 <>
@@ -62,7 +62,7 @@ export function WhatTelemedicineActuallyReplacesLesson() {
         <P>
           <Strong>Blurring that line is where telemedicine loses people&apos;s trust</Strong>,
           not the technology itself. A patient routed to a video call for something that needed
-          a physical exam, and told everything is fine over the phone, has a genuinely bad
+          a physical exam, and told everything is fine over the phone, has a bad
           experience — and the natural conclusion they draw is not &ldquo;that specific visit
           was mis-routed,&rdquo; it is &ldquo;telemedicine doesn&apos;t work.&rdquo;
         </P>
@@ -75,7 +75,7 @@ export function WhatTelemedicineActuallyReplacesLesson() {
 
       <TakeawayCard
         items={[
-          "Telemedicine genuinely replaces conversations — follow-ups, therapy, prescription renewals — as well as an in-person visit would.",
+          "Telemedicine replaces conversations — follow-ups, therapy, prescription renewals — as well as an in-person visit would.",
           "It cannot replace anything that depends on physical contact, equipment in the room, or an urgent in-person intervention.",
           "Routing a visit that needed a physical exam onto a video call is where trust in the whole system breaks, not a one-off mistake.",
           "The real design challenge is the triage step that sorts visits correctly before the patient ever picks a format.",

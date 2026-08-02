@@ -9,8 +9,8 @@ export function AgentsLesson() {
     <div>
       <Lead>
         Everything so far has had you in the loop for every step. An agent removes you from the
-        middle: you describe an outcome, it works until it gets there. That shift is genuinely
-        powerful and it changes which mistakes are possible.
+        middle: you describe an outcome, it works until it gets there. That shift is powerful
+        and it changes which mistakes are possible.
       </Lead>
 
       <LessonSection id="what-changes" title="What actually changes">

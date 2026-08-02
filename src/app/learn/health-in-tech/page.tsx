@@ -34,7 +34,7 @@ export default function LearnHealthInTechPage() {
           href={HEALTH_IN_TECH_COURSE_HREF}
           target="_blank"
           rel="noreferrer"
-          className="home-btn home-btn-fill"
+          className="home-btn home-btn-violet"
         >
           Udemy Health in Tech Course
         </a>

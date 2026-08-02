@@ -8,8 +8,8 @@ export function WhenNotToLesson() {
     <div>
       <Lead>
         A course that only argues for its subject is marketing. Here is the honest accounting:
-        the situations where reaching for an AI makes things slower, worse, or genuinely
-        irresponsible — and how to recognise them before you are already in one.
+        the situations where reaching for an AI makes things slower, worse, or irresponsible
+        — and how to recognise them before you are already in one.
       </Lead>
 
       <LessonSection id="when-you-are-learning" title="When the point is that you learn it">
@@ -49,7 +49,7 @@ export function WhenNotToLesson() {
         </P>
       </LessonSection>
 
-      <LessonSection id="when-it-is-faster-to-type" title="When it is genuinely faster to type it">
+      <LessonSection id="when-it-is-faster-to-type" title="When it is faster to type it">
         <P>
           Describing a three-line change precisely takes longer than making it. Writing the
           prompt, waiting, reading the diff, and correcting the parts it over-reached on is

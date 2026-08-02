@@ -55,7 +55,7 @@ export function AiAssistedDiagnosisLesson() {
       <Callout tone="warning" title="There is no threshold that eliminates both problems">
         Every choice of threshold is a trade-off between missed cases and false alarms, not a
         setting you can tune your way out of the trade-off entirely. A hospital deciding where
-        to set that line is making a genuine values decision — how many false alarms is it
+        to set that line is making a values decision — how many false alarms is it
         willing to generate to catch one more real case — dressed up as a technical setting.
       </Callout>
 

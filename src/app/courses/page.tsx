@@ -91,8 +91,8 @@ const courses: Course[] = [
       "The money skills every student should have: budgeting, saving, credit, and investing, taught simply and without the jargon.",
     cover: "finance",
     enrol: [{ href: FINANCIAL_LITERACY_COURSE_HREF, label: "Enroll Free" }],
+    lessonsHref: LEARN_FINANCIAL_LITERACY_HREF,
   },
-
   {
     title: "Health in Tech: An Introduction",
     tags: ["New", "Career"],
@@ -100,6 +100,7 @@ const courses: Course[] = [
       "See where healthcare meets technology, from medical data to digital health careers, and learn how code is already saving lives.",
     cover: "health",
     enrol: [{ href: HEALTH_IN_TECH_COURSE_HREF, label: "Enroll Free" }],
+    lessonsHref: LEARN_HEALTH_IN_TECH_HREF,
   },
 ];
 

@@ -25,7 +25,7 @@ export function HowModelsLearnLesson() {
         <Callout tone="tip" title="Why this example and not a straight line">
           Most beginner examples fit a line with two numbers, a slope and a starting height.
           Fuel is better: a trip of zero kilometres uses zero litres, so the starting height is
-          genuinely zero and the model honestly has <em>one</em> number to learn. One number is
+          zero and the model honestly has <em>one</em> number to learn. One number is
           something you can find by hand, which is the point of the next section.
         </Callout>
       </LessonSection>

@@ -37,7 +37,7 @@ export function IndexFundsAndTimeInMarketLesson() {
       <LessonSection id="missing-the-ten-best-days-changes-everything" title="Missing the ten best days changes everything">
         <P>
           Toggle between the two paths above. Ten trading days, out of thousands across a decade —
-          a genuinely tiny fraction of the whole period — account for the entire gap between them.
+          a tiny fraction of the whole period — account for the entire gap between them.
           Nobody rings a bell on the best days in advance; the only way to guarantee you&apos;re
           invested on all of them is to stay invested on all of the days.
         </P>

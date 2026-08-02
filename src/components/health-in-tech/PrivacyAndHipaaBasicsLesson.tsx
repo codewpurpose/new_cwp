@@ -66,7 +66,7 @@ export function PrivacyAndHipaaBasicsLesson() {
 
       <LessonSection id="what-a-breach-actually-triggers" title="What a breach actually triggers">
         <P>
-          When a genuinely covered entity has a breach — a hacked hospital database, a lost
+          When a covered entity has a breach — a hacked hospital database, a lost
           laptop with patient files on it — HIPAA requires notifying every affected patient,
           notifying the federal government, and in large breaches notifying the media, all
           within a fixed number of days. Fines follow, and they can run into the millions for a

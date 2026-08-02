@@ -29,7 +29,7 @@ cherry`}
         />
         <P>
           <Strong>fruit</Strong> is not an index — it <em>is</em> each item, in turn. If you
-          genuinely need the position too, <Strong>enumerate()</Strong> hands you both without
+          need the position too, <Strong>enumerate()</Strong> hands you both without
           you tracking a counter yourself: <Strong>{"for i, fruit in enumerate(fruits):"}</Strong>.
         </P>
       </LessonSection>

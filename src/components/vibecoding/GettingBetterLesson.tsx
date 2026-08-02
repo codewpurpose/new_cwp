@@ -118,7 +118,7 @@ and what I should do differently.`}
             { label: "Knowing what the model can and cannot see", detail: "Explains most of its behaviour, and no version bump changes that." },
             { label: "Working in small, verifiable steps", detail: "Predates AI by decades and will outlast it." },
             { label: "Reading a diff properly", detail: "The skill that makes speed safe." },
-            { label: "Knowing when not to use it", detail: "Judgement is the part that is genuinely yours." },
+            { label: "Knowing when not to use it", detail: "Judgement is the part that is yours." },
           ]}
         />
       </LessonSection>

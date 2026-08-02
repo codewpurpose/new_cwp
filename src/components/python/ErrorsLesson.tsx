@@ -43,7 +43,7 @@ export function ErrorsLesson() {
         />
         <Callout tone="danger" title="Do not write a bare except:">
           <Strong>{"except:"}</Strong> with nothing after it catches every possible error,
-          including ones you never considered and genuinely need to see — a typo in a variable
+          including ones you never considered and need to see — a typo in a variable
           name will fail silently instead of telling you it exists. Name the specific
           exception you expect.
         </Callout>

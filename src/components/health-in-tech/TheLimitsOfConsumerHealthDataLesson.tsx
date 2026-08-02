@@ -9,7 +9,7 @@ export function TheLimitsOfConsumerHealthDataLesson() {
         A watch that flags an irregular heartbeat feels like it just diagnosed you with
         something. It didn&apos;t. A wearable estimates — it doesn&apos;t diagnose — and the gap
         between those two words is exactly where a lot of unnecessary panic, and a fair amount
-        of genuinely missed care, both actually live.
+        of missed care, both actually live.
       </Lead>
 
       <LessonSection

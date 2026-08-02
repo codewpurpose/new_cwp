@@ -20,7 +20,7 @@ export function RemoteCareAcrossBordersLesson() {
           CodeWithPurpose exists because good coding education was historically locked behind
           location and cost — a great teacher existed, but reaching them required money or
           geography most students didn&apos;t have. Cross-border telemedicine is the identical
-          shape of problem in a different field: a specialist who could genuinely help exists
+          shape of problem in a different field: a specialist who could help exists
           somewhere, and for most of history the only thing standing between them and a patient
           who needed them was distance nobody could afford to close.
         </P>
@@ -34,7 +34,7 @@ export function RemoteCareAcrossBordersLesson() {
           A rare-disease specialist practising in one country can now review a patient&apos;s
           scans and history from another country entirely, over a video call that costs a
           fraction of what a flight and a hotel would have. A patient in a region with no local
-          specialist in a specific condition can get a genuine second opinion without leaving
+          specialist in a specific condition can get a second opinion without leaving
           their city. None of this required new medicine — it required the connectivity and
           record-sharing infrastructure covered earlier in this track to exist first.
         </P>

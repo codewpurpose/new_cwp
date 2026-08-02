@@ -83,7 +83,7 @@ export function CareersInHealthTechLesson() {
         <Callout tone="tip" title="You don't have to pick a side first">
           Most people in this field started firmly on one side — clinical or technical — and
           picked up the other over a few years on the job. The translating skill is learnable
-          later; showing genuine curiosity about the side you don&apos;t already know is what
+          later; showing curiosity about the side you don&apos;t already know is what
           gets you the interview.
         </Callout>
       </LessonSection>

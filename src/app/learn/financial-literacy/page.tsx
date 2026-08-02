@@ -34,7 +34,7 @@ export default function LearnFinancialLiteracyPage() {
           href={FINANCIAL_LITERACY_COURSE_HREF}
           target="_blank"
           rel="noreferrer"
-          className="home-btn home-btn-fill"
+          className="home-btn home-btn-violet"
         >
           Udemy Financial Literacy Course
         </a>

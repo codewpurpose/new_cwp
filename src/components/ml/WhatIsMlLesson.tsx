@@ -81,7 +81,7 @@ export function WhatIsMlLesson() {
         <Callout tone="success" title="So what is a model, really">
           A model is a shape with adjustable numbers in it, and training is the search for
           numbers that fit your examples. Here the shape is &ldquo;a straight line&rdquo; and
-          there are two numbers to find. That is genuinely all it is — the next lessons take
+          there are two numbers to find. That is all it is — the next lessons take
           that apart step by step.
         </Callout>
       </LessonSection>
@@ -105,7 +105,7 @@ export function WhatIsMlLesson() {
         </P>
         <P>
           <Strong>It is never exactly right.</Strong> Notice that even the learned line does not
-          get everything — some of these messages are genuinely ambiguous, and no method
+          get everything — some of these messages are ambiguous, and no method
           recovers those. Machine learning trades certainty for coverage.
         </P>
         <Callout tone="warning" title="The question to ask first">

@@ -91,7 +91,7 @@ export function McpAndToolsLesson() {
         <Callout tone="warning" title="Least privilege, always">
           Give a database tool a read-only user. The point is to let the model{" "}
           <Strong>check</Strong> reality, not rewrite it — and a confused agent with write
-          access to production is a genuinely bad afternoon.
+          access to production is a bad afternoon.
         </Callout>
       </LessonSection>
 
