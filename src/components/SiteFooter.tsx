@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { CwpLogo, DiscordIcon, InstagramIcon, XIcon } from "@/components/icons";
+import { CwpLogo, DiscordIcon, GitHubIcon, InstagramIcon, XIcon } from "@/components/icons";
 import {
   ABOUT_HREF,
   BLOG_HREF,
@@ -7,6 +7,7 @@ import {
   COURSES_HREF,
   DISCORD_HREF,
   DONATE_HREF,
+  GITHUB_HREF,
   HOME_HREF,
   INSTAGRAM_HREF,
   JOIN_HREF,
@@ -159,6 +160,9 @@ export function SiteFooter() {
                 </SocialLink>
                 <SocialLink href={X_HREF} label="Follow us on X">
                   <XIcon className="h-[18px] w-[18px]" />
+                </SocialLink>
+                <SocialLink href={GITHUB_HREF} label="CodeWithPurpose on GitHub">
+                  <GitHubIcon className="h-[18px] w-[18px]" />
                 </SocialLink>
               </div>
               <span className="text-xs opacity-70">
