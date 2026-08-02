@@ -12,11 +12,17 @@ export function HowItWorksSection() {
             <div className="p-6 md:p-8">
               <div className="grid grid-cols-2 gap-2 overflow-hidden rounded-lg border-[0.5px] border-[var(--home-hairline)]">
                 {GALLERY_IMAGES.map((image) => (
+                  // Eight sections below the fold and ~1.6MB between them, so
+                  // these are deferred: eager, they were fetched on first paint
+                  // and held up `window.load` — and with it the splash screen —
+                  // for the whole download on a slow connection.
                   // eslint-disable-next-line @next/next/no-img-element
                   <img
                     key={image.src}
                     src={image.src}
                     alt={image.alt}
+                    loading="lazy"
+                    decoding="async"
                     className="aspect-[4/3] w-full object-cover"
                   />
                 ))}

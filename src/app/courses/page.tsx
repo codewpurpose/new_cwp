@@ -17,6 +17,7 @@ import {
   ML_PART_2_COURSE_HREF,
   PYTHON_COURSE_HREF,
   VIBECODING_COURSE_HREF,
+  VIBECODING_PART_2_COURSE_HREF,
 } from "@/lib/links";
 
 export const metadata: Metadata = {
@@ -52,13 +53,21 @@ const courses: Course[] = [
     lessonsHref: LEARN_PYTHON_HREF,
   },
   {
-    title: "Vibecoding 101",
+    title: "Vibecoding 101: Part 1",
     tags: ["Creative", "AI-Powered"],
     description:
       "Build real apps using AI tools like Cursor and Copilot. This is where coding is headed: fast, creative, and full of purpose.",
     cover: "vibecoding",
     href: VIBECODING_COURSE_HREF,
     lessonsHref: LEARN_VIBECODING_HREF,
+  },
+  {
+    title: "Vibecoding Mastery: Part 2",
+    tags: ["New", "AI-Powered"],
+    description:
+      "Take vibe coding past the first app. Go deeper on prompting, reviewing what the AI writes, and shipping something you'd actually put your name on.",
+    cover: "vibecoding",
+    href: VIBECODING_PART_2_COURSE_HREF,
   },
   {
     title: "Intro to Machine Learning: Part 1",
