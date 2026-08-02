@@ -252,6 +252,269 @@ function ThresholdCover() {
   );
 }
 
+function NeighboursCover() {
+  const pts = dots(22, (i) => ({ x: 14 + ((i * 47) % 132), y: 12 + ((i * 37) % 66) }));
+  const query = { x: 78, y: 46 };
+  const near = pts
+    .map((p, i) => ({ p, i, d: Math.hypot(p.x - query.x, p.y - query.y) }))
+    .sort((a, b) => a.d - b.d)
+    .slice(0, 5);
+  const nearSet = new Set(near.map((n) => n.i));
+  return (
+    <Frame>
+      {near.map((n) => (
+        <line
+          key={`s${n.i}`}
+          x1={query.x}
+          y1={query.y}
+          x2={n.p.x}
+          y2={n.p.y}
+          stroke="var(--learn-chart-axis)"
+          strokeWidth={0.9}
+          opacity={0.6}
+        />
+      ))}
+      {pts.map((p, i) =>
+        i % 2 === 0 ? (
+          <circle
+            key={i}
+            cx={p.x}
+            cy={p.y}
+            r={2.6}
+            fill="var(--learn-series-1)"
+            opacity={nearSet.has(i) ? 1 : 0.32}
+          />
+        ) : (
+          <rect
+            key={i}
+            x={p.x - 2.3}
+            y={p.y - 2.3}
+            width={4.6}
+            height={4.6}
+            fill="none"
+            stroke="var(--learn-series-3)"
+            strokeWidth={1.1}
+            opacity={nearSet.has(i) ? 1 : 0.32}
+          />
+        ),
+      )}
+      <line x1={query.x - 5} y1={query.y} x2={query.x + 5} y2={query.y} stroke="var(--learn-ink)" strokeWidth={1.8} />
+      <line x1={query.x} y1={query.y - 5} x2={query.x} y2={query.y + 5} stroke="var(--learn-ink)" strokeWidth={1.8} />
+    </Frame>
+  );
+}
+
+function TreeCover() {
+  return (
+    <Frame>
+      <rect x={0} y={0} width={72} height={54} fill="var(--learn-chart-highlight)" />
+      <rect x={72} y={0} width={88} height={90} fill="var(--learn-chart-plot)" />
+      <rect x={0} y={54} width={72} height={36} fill="var(--learn-chart-plot)" />
+      <line x1={72} y1={0} x2={72} y2={90} stroke="var(--learn-chart-axis)" strokeWidth={1.4} />
+      <line x1={0} y1={54} x2={72} y2={54} stroke="var(--learn-chart-axis)" strokeWidth={1.4} />
+      <line x1={72} y1={30} x2={160} y2={30} stroke="var(--learn-chart-axis)" strokeWidth={1} />
+      {dots(24, (i) => ({ x: 10 + ((i * 43) % 142), y: 8 + ((i * 31) % 76) })).map((p, i) => {
+        const fast = p.x < 72 && p.y < 54;
+        return fast ? (
+          <circle key={i} cx={p.x} cy={p.y} r={2.4} fill="var(--learn-series-1)" />
+        ) : (
+          <rect
+            key={i}
+            x={p.x - 2.1}
+            y={p.y - 2.1}
+            width={4.2}
+            height={4.2}
+            fill="none"
+            stroke="var(--learn-series-3)"
+            strokeWidth={1}
+          />
+        );
+      })}
+    </Frame>
+  );
+}
+
+function ForestCover() {
+  // A staircase per tree, offset, fading into a soft band around the diagonal.
+  const stairs = [0, 1, 2, 3].map((t) => {
+    const steps = Array.from({ length: 7 }, (_, i) => {
+      const x = 10 + i * 20 + t * 3;
+      const y = 74 - i * 9 - ((t * 5 + i * 3) % 7);
+      return `L${x} ${y} L${x + 20} ${y}`;
+    }).join(" ");
+    return `M10 ${78 - t * 2} ${steps}`;
+  });
+  return (
+    <Frame>
+      {stairs.map((d, i) => (
+        <path
+          key={i}
+          d={d}
+          fill="none"
+          stroke="var(--learn-series-1)"
+          strokeWidth={1.2}
+          opacity={0.32}
+        />
+      ))}
+      <line
+        x1={10}
+        y1={80}
+        x2={150}
+        y2={14}
+        stroke="var(--learn-chart-truth)"
+        strokeWidth={2}
+        strokeDasharray="6 4"
+      />
+      {dots(14, (i) => ({ x: 14 + ((i * 53) % 132), y: 12 + ((i * 41) % 70) })).map((p, i) =>
+        p.y > 78 - (p.x - 10) * 0.47 ? (
+          <circle key={i} cx={p.x} cy={p.y} r={2.3} fill="var(--learn-series-1)" />
+        ) : (
+          <rect
+            key={i}
+            x={p.x - 2}
+            y={p.y - 2}
+            width={4}
+            height={4}
+            fill="none"
+            stroke="var(--learn-series-3)"
+            strokeWidth={1}
+          />
+        ),
+      )}
+    </Frame>
+  );
+}
+
+function FoldsCover() {
+  const rows = [0, 1, 2, 3, 4];
+  return (
+    <Frame>
+      {rows.map((r) =>
+        rows.map((c) => (
+          <rect
+            key={`${r}-${c}`}
+            x={10 + c * 28}
+            y={9 + r * 15}
+            width={26}
+            height={11}
+            rx={1.5}
+            fill={r === c ? "var(--learn-series-3)" : "var(--learn-series-1)"}
+            opacity={r === c ? 1 : 0.34}
+          />
+        )),
+      )}
+      <line
+        x1={152}
+        y1={9}
+        x2={152}
+        y2={84}
+        stroke="var(--learn-chart-axis)"
+        strokeWidth={1}
+      />
+    </Frame>
+  );
+}
+
+function LeakCover() {
+  const bars = [
+    { w: 118, leak: true },
+    { w: 46, leak: true },
+    { w: 74, leak: true },
+    { w: 0, leak: false },
+  ];
+  return (
+    <Frame>
+      <line
+        x1={30}
+        y1={8}
+        x2={30}
+        y2={82}
+        stroke="var(--learn-chart-truth)"
+        strokeWidth={1.6}
+        strokeDasharray="5 4"
+      />
+      {bars.map((b, i) => (
+        <g key={i}>
+          <rect
+            x={30}
+            y={14 + i * 18}
+            width={b.w}
+            height={11}
+            rx={1.5}
+            fill={b.leak ? "var(--learn-chart-error)" : "var(--learn-series-1)"}
+            opacity={b.leak ? 0.8 : 1}
+          />
+          {!b.leak && <circle cx={30} cy={19 + i * 18} r={4} fill="var(--learn-series-1)" />}
+        </g>
+      ))}
+    </Frame>
+  );
+}
+
+function ImbalanceCover() {
+  return (
+    <Frame>
+      {dots(150, (i) => ({ x: 8 + ((i * 17) % 148), y: 8 + ((i * 29) % 76) })).map((p, i) =>
+        i % 37 === 0 ? (
+          <circle key={i} cx={p.x} cy={p.y} r={2.8} fill="var(--learn-outcome-tp)" />
+        ) : (
+          <circle key={i} cx={p.x} cy={p.y} r={1.4} fill="var(--learn-chart-muted-mark)" opacity={0.5} />
+        ),
+      )}
+      <line
+        x1={44}
+        y1={4}
+        x2={44}
+        y2={86}
+        stroke="var(--learn-ink)"
+        strokeWidth={2}
+        strokeDasharray="5 4"
+      />
+    </Frame>
+  );
+}
+
+function BaselineCover() {
+  const bars = [
+    { w: 34, beaten: false, baseline: true },
+    { w: 20, beaten: false, baseline: true },
+    { w: 118, beaten: false, baseline: true },
+    { w: 82, beaten: true, baseline: false },
+    { w: 74, beaten: true, baseline: false },
+  ];
+  return (
+    <Frame>
+      <line
+        x1={24 + 118}
+        y1={4}
+        x2={24 + 118}
+        y2={86}
+        stroke="var(--learn-chart-truth)"
+        strokeWidth={1.6}
+        strokeDasharray="5 4"
+      />
+      {bars.map((b, i) => (
+        <rect
+          key={i}
+          x={12}
+          y={10 + i * 16}
+          width={b.w}
+          height={11}
+          rx={1.5}
+          fill={
+            b.beaten
+              ? "var(--learn-chart-error)"
+              : b.baseline
+                ? "var(--learn-series-3)"
+                : "var(--learn-series-1)"
+          }
+          opacity={b.beaten ? 0.78 : 1}
+        />
+      ))}
+    </Frame>
+  );
+}
+
 const COVERS: Record<string, () => React.ReactElement> = {
   "what-is-ml": RulesCover,
   "features-and-labels": FeaturesCover,
@@ -260,6 +523,13 @@ const COVERS: Record<string, () => React.ReactElement> = {
   "train-test-split": SplitCover,
   overfitting: OverfitCover,
   "precision-recall": ThresholdCover,
+  "k-nearest-neighbours": NeighboursCover,
+  "decision-trees": TreeCover,
+  "random-forests": ForestCover,
+  "cross-validation": FoldsCover,
+  "data-leakage": LeakCover,
+  "class-imbalance": ImbalanceCover,
+  baselines: BaselineCover,
 };
 
 export function MlLessonCover({ slug }: CoverProps) {

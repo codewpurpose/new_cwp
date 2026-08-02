@@ -7,12 +7,19 @@ import { LearnPager } from "@/components/learn/shell/LearnPager";
 import { LearnShell } from "@/components/learn/shell/LearnShell";
 import { LearnToc } from "@/components/learn/shell/LearnToc";
 import { ClassificationVsRegressionLesson } from "@/components/ml/ClassificationVsRegressionLesson";
+import { BaselinesLesson } from "@/components/ml/BaselinesLesson";
+import { ClassImbalanceLesson } from "@/components/ml/ClassImbalanceLesson";
+import { CrossValidationLesson } from "@/components/ml/CrossValidationLesson";
+import { DataLeakageLesson } from "@/components/ml/DataLeakageLesson";
+import { DecisionTreesLesson } from "@/components/ml/DecisionTreesLesson";
 import { FeaturesAndLabelsLesson } from "@/components/ml/FeaturesAndLabelsLesson";
+import { KNearestNeighboursLesson } from "@/components/ml/KNearestNeighboursLesson";
 import { WhatIsMlLesson } from "@/components/ml/WhatIsMlLesson";
 import { HowModelsLearnLesson } from "@/components/ml/HowModelsLearnLesson";
 import { TrainTestSplitLesson } from "@/components/ml/TrainTestSplitLesson";
 import { OverfittingLesson } from "@/components/ml/OverfittingLesson";
 import { PrecisionRecallLesson } from "@/components/ml/PrecisionRecallLesson";
+import { RandomForestsLesson } from "@/components/ml/RandomForestsLesson";
 import { LEARN_VIBECODING_HREF } from "@/lib/links";
 import { getAdjacent, getChapter, getChapters, getPositionLabel } from "@/lib/learn-nav";
 
@@ -30,6 +37,13 @@ const ML_LESSON_BODIES: Record<string, () => React.ReactElement> = {
   "train-test-split": TrainTestSplitLesson,
   overfitting: OverfittingLesson,
   "precision-recall": PrecisionRecallLesson,
+  "k-nearest-neighbours": KNearestNeighboursLesson,
+  "decision-trees": DecisionTreesLesson,
+  "random-forests": RandomForestsLesson,
+  "cross-validation": CrossValidationLesson,
+  "data-leakage": DataLeakageLesson,
+  "class-imbalance": ClassImbalanceLesson,
+  baselines: BaselinesLesson,
 };
 
 export function generateStaticParams() {

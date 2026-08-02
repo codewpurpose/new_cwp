@@ -3,8 +3,8 @@ import type { LearnChapter, LearnPart } from "@/lib/learn-types";
 export { LEARN_ML_HREF } from "@/lib/links";
 
 /**
- * The Machine Learning track: seven lessons covering only the fundamentals, in
- * order, each built around a single interactive.
+ * The Machine Learning track: fourteen lessons covering only the fundamentals,
+ * in order, each built around a single interactive.
  *
  * Written natively as LearnChapters (rather than adapted from a thinner shape)
  * so the track gets the same sidebar, table of contents, and prev/next pager as
@@ -28,6 +28,20 @@ export const ML_PARTS: readonly LearnPart[] = [
     title: "Getting It Right",
     summary:
       "The two questions you can ask, why you hold data back, and the failure that catches everyone.",
+  },
+  {
+    id: "models-you-can-picture",
+    number: 3,
+    title: "Models You Can Picture",
+    summary:
+      "Three real algorithms, each simple enough to run by hand on paper — and each wrong in its own instructive way.",
+  },
+  {
+    id: "making-it-honest",
+    number: 4,
+    title: "Making the Number Honest",
+    summary:
+      "Every way a score lies to you, and what to do about each one. This is the part that separates a demo from a result.",
   },
 ];
 
@@ -164,6 +178,139 @@ export const ML_CHAPTERS: readonly LearnChapter[] = [
       { id: "recall", text: "Recall: of everything real, how much did I catch?", level: 2 },
       { id: "the-dial-between-them", text: "The dial between them", level: 2 },
       { id: "which-one-do-you-optimise", text: "So which one do you optimise?", level: 2 },
+    ],
+    status: "published",
+  },
+  {
+    slug: "k-nearest-neighbours",
+    partId: "models-you-can-picture",
+    order: 8,
+    title: "k-Nearest Neighbours",
+    description:
+      "A model that learns nothing at all, and still beats a careless one. Move a student across the chart and watch five neighbours vote on their future.",
+    level: "beginner",
+    minutes: 12,
+    prerequisites: ["overfitting"],
+    tags: ["Algorithms", "Interactive"],
+    headings: [
+      { id: "a-model-that-learns-nothing", text: "A model that learns nothing", level: 2 },
+      { id: "asking-the-nearest-few", text: "Asking the nearest few", level: 2 },
+      { id: "k-is-the-entire-model", text: "k is the entire model", level: 2 },
+      { id: "when-distance-lies-to-you", text: "When distance lies to you", level: 2 },
+    ],
+    status: "published",
+  },
+  {
+    slug: "decision-trees",
+    partId: "models-you-can-picture",
+    order: 9,
+    title: "Decision Trees",
+    description:
+      "Twenty questions, asked in the right order. Pick the split yourself, see how much confusion each one clears, and find out why the greedy choice is not always the best one.",
+    level: "beginner",
+    minutes: 13,
+    prerequisites: ["overfitting"],
+    tags: ["Algorithms", "Interactive"],
+    headings: [
+      { id: "a-flowchart-nobody-wrote", text: "A flowchart nobody wrote", level: 2 },
+      { id: "what-makes-a-question-good", text: "What makes a question good", level: 2 },
+      { id: "choosing-the-split", text: "Choosing the split, one level at a time", level: 2 },
+      { id: "a-tree-left-to-grow", text: "A tree left to grow will memorise", level: 2 },
+    ],
+    status: "published",
+  },
+  {
+    slug: "random-forests",
+    partId: "models-you-can-picture",
+    order: 10,
+    title: "Random Forests",
+    description:
+      "One deep tree memorises its training data. Two hundred of them, each deliberately handicapped, do not. Add trees one at a time and watch the boundary settle down.",
+    level: "intermediate",
+    minutes: 12,
+    prerequisites: ["decision-trees"],
+    tags: ["Algorithms", "Interactive"],
+    headings: [
+      { id: "many-mediocre-opinions", text: "Many mediocre opinions", level: 2 },
+      { id: "making-the-trees-disagree", text: "Making the trees disagree on purpose", level: 2 },
+      { id: "watching-the-vote-settle", text: "Watching the vote settle", level: 2 },
+      { id: "what-you-give-up", text: "What you give up for it", level: 2 },
+    ],
+    status: "published",
+  },
+  {
+    slug: "cross-validation",
+    partId: "making-it-honest",
+    order: 11,
+    title: "Cross-Validation",
+    description:
+      "Chapter five left you with a score that was partly luck. Rotate which slice is held back, average the five results, and watch a lottery ticket turn into a measurement.",
+    level: "intermediate",
+    minutes: 12,
+    prerequisites: ["train-test-split"],
+    tags: ["Evaluation", "Interactive"],
+    headings: [
+      { id: "one-split-is-one-opinion", text: "One split is one opinion", level: 2 },
+      { id: "using-every-row-twice", text: "Using every row twice", level: 2 },
+      { id: "the-spread-is-the-point", text: "The spread is the point, not the average", level: 2 },
+      { id: "when-not-to-bother", text: "When not to bother", level: 2 },
+    ],
+    status: "published",
+  },
+  {
+    slug: "data-leakage",
+    partId: "making-it-honest",
+    order: 12,
+    title: "Data Leakage",
+    description:
+      "The bug that makes your model look brilliant in testing and useless in production. Four realistic pipelines, one of them honest — find the leak before you scroll to the answer.",
+    level: "intermediate",
+    minutes: 13,
+    prerequisites: ["train-test-split"],
+    tags: ["Evaluation", "Interactive"],
+    headings: [
+      { id: "a-score-too-good-to-be-true", text: "A score too good to be true", level: 2 },
+      { id: "the-column-that-knows-the-answer", text: "The column that knows the answer", level: 2 },
+      { id: "leaks-through-the-back-door", text: "Leaks that come through the back door", level: 2 },
+      { id: "catching-it-before-production", text: "Catching it before production does", level: 2 },
+    ],
+    status: "published",
+  },
+  {
+    slug: "class-imbalance",
+    partId: "making-it-honest",
+    order: 13,
+    title: "Class Imbalance",
+    description:
+      "When one answer is rare, accuracy stops meaning anything and most fixes quietly make the model worse. Rebalance a fraud dataset and watch what each repair actually costs.",
+    level: "intermediate",
+    minutes: 12,
+    prerequisites: ["precision-recall"],
+    tags: ["Evaluation", "Interactive"],
+    headings: [
+      { id: "the-rare-thing-is-the-point", text: "The rare thing is the whole point", level: 2 },
+      { id: "three-ways-to-rebalance", text: "Three ways to rebalance, and what each costs", level: 2 },
+      { id: "moving-the-threshold-instead", text: "Moving the threshold instead", level: 2 },
+      { id: "what-to-report", text: "What to report when the classes are lopsided", level: 2 },
+    ],
+    status: "published",
+  },
+  {
+    slug: "baselines",
+    partId: "making-it-honest",
+    order: 14,
+    title: "Baselines",
+    description:
+      "Before you can say a model is good you need something for it to be better than. Race four models against a rule a child could write, and find out which ones lose.",
+    level: "beginner",
+    minutes: 11,
+    prerequisites: ["precision-recall"],
+    tags: ["Evaluation", "Interactive"],
+    headings: [
+      { id: "better-than-what", text: "Better than what?", level: 2 },
+      { id: "the-four-baselines", text: "The four you should always run", level: 2 },
+      { id: "racing-them", text: "Racing them against the real thing", level: 2 },
+      { id: "when-the-baseline-wins", text: "When the baseline wins", level: 2 },
     ],
     status: "published",
   },
