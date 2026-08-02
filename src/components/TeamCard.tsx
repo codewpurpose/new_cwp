@@ -26,8 +26,10 @@ export interface TeamMember {
   bio?: string;
 }
 
+/** Bare mark, no frame: a circle around a logo that already has its own shape
+ *  reads as a button the icon is sitting inside rather than as the logo. */
 const socialLinkClass =
-  "flex h-8 w-8 items-center justify-center rounded-full border-[0.5px] border-[var(--home-hairline)] text-[var(--home-ink-soft)] transition-colors hover:border-[var(--home-fern)] hover:bg-[#f3faf3] hover:text-[var(--home-moss)]";
+  "flex items-center justify-center p-1 text-[var(--home-ink-soft)] transition-colors hover:text-[var(--home-moss)]";
 
 /** Shown in place of a bio nobody has written yet. */
 const BIO_PLACEHOLDER =
@@ -118,9 +120,9 @@ export function TeamCard({
           aria-label={`${member.name} on LinkedIn`}
           title={`${member.name} on LinkedIn`}
           onClick={(event) => event.stopPropagation()}
-          className="mx-auto mt-2 flex h-7 w-7 items-center justify-center rounded-full border-[0.5px] border-[var(--home-hairline)] text-[var(--home-ink-soft)] transition-colors hover:border-[var(--home-fern)] hover:bg-[#f3faf3] hover:text-[var(--home-moss)]"
+          className={`mx-auto mt-2 w-fit ${socialLinkClass}`}
         >
-          <LinkedInIcon className="h-[15px] w-[15px]" />
+          <LinkedInIcon className="h-[18px] w-[18px]" />
         </a>
       )}
       {open && <TeamMemberDialog member={member} onClose={() => setOpen(false)} />}
@@ -186,7 +188,7 @@ function TeamMemberDialog({
         <p className="text-sm text-[var(--home-ink-quiet)]">{member.role}</p>
 
         {(member.linkedin || member.instagram) && (
-          <div className="mt-3 flex items-center justify-center gap-2">
+          <div className="mt-3 flex items-center justify-center gap-3">
             {member.linkedin && (
               <a
                 href={member.linkedin}
@@ -195,7 +197,7 @@ function TeamMemberDialog({
                 aria-label={`${member.name} on LinkedIn`}
                 className={socialLinkClass}
               >
-                <LinkedInIcon className="h-4 w-4" />
+                <LinkedInIcon className="h-[18px] w-[18px]" />
               </a>
             )}
             {member.instagram && (
@@ -206,7 +208,7 @@ function TeamMemberDialog({
                 aria-label={`${member.name} on Instagram`}
                 className={socialLinkClass}
               >
-                <InstagramIcon className="h-4 w-4" />
+                <InstagramIcon className="h-[18px] w-[18px]" />
               </a>
             )}
           </div>

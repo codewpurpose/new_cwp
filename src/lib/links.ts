@@ -26,6 +26,8 @@ export const PYTHON_COURSE_HREF =
   "https://www.udemy.com/course/introduction-to-python-bootcamp/";
 export const VIBECODING_COURSE_HREF =
   "https://www.udemy.com/course/vibecoding-101/";
+export const VIBECODING_PART_2_COURSE_HREF =
+  "https://www.udemy.com/course/vibecoding-the-mastery/";
 export const ML_PART_1_COURSE_HREF =
   "https://www.udemy.com/course/intro-to-machine-learning-part-1/";
 export const ML_PART_2_COURSE_HREF =
