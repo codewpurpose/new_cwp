@@ -225,12 +225,14 @@
   --home-pistachio: #dbefdb;
   --home-link-green: #397554;
   --home-fern: #3e7f5c;
-  /* Enrolment violet. Reserved for the Udemy buttons — the one action that
-   * hands the reader to another site — so it never competes with the ink fill
-   * that every on-site action uses. White on it is ~8.6:1, and the hover a
-   * step lighter still clears AA at ~6.9:1. */
-  --home-violet: #5b3a8c;
-  --home-violet-hover: #6b47a0;
+  /* Udemy's brand purple and its hover, used as-is. Reserved for enrolment —
+   * the one action that hands the reader to another site — so the button
+   * carries the mark of where it goes and never competes with the ink fill
+   * every on-site action uses. White on the base is ~4.8:1 and on the hover
+   * ~6.8:1, so both clear AA for the 15px label; neither reaches AAA, which is
+   * the cost of matching a brand exactly rather than picking our own violet. */
+  --home-violet: #a435f0;
+  --home-violet-hover: #8710d8;
   --home-border: 0.5px solid var(--home-grey-500);
 
   /* --- tonal range -----------------------------------------------------
