@@ -16,13 +16,35 @@ export const metadata: Metadata = {
     "A student-run nonprofit making tech education free and accessible for everyone, everywhere.",
 };
 
-const team = [
+interface TeamMember {
+  name: string;
+  role: string;
+  /** Optional: members without a photo yet fall back to their initials. */
+  photo?: string;
+}
+
+const team: TeamMember[] = [
   { name: "Shreyan Mitra", role: "Co-founder", photo: images.team.shreyan },
   { name: "Bruhatt Rao", role: "Co-founder", photo: images.team.bhim },
   { name: "Samanyu Goyal", role: "Co-founder", photo: images.team.samanyu },
-  { name: "Naman Jain", role: "Lead Member", photo: images.team.naman },
-  { name: "Sanjay Vellore", role: "Director of Operations", photo: images.team.sanjay },
+  { name: "Naman Jain", role: "Director of Operations", photo: images.team.naman },
+  { name: "Sanjay Vellore", role: "Director of Outreach", photo: images.team.sanjay },
+  { name: "Om Anand Khuante", role: "Director of Community", photo: images.team.om },
+  { name: "Aadi Naik", role: "Lead Instructor", photo: images.team.aadi },
+  { name: "Trey Lim", role: "Finance Lead", photo: images.team.trey },
+  { name: "Sirish Aytham", role: "Marketing", photo: images.team.sirish },
+  { name: "Aakash Sanil", role: "Head of Media" },
 ];
+
+function initials(name: string): string {
+  return name
+    .split(" ")
+    .filter(Boolean)
+    .map((part) => part[0])
+    .slice(0, 2)
+    .join("")
+    .toUpperCase();
+}
 
 export default function AboutPage() {
   return (
@@ -87,17 +109,26 @@ export default function AboutPage() {
           Made by students, for students. Shreyan, Samanyu, Bruhatt, and
           volunteers around the world building a more inclusive future.
         </p>
-        <div className="mt-8 grid grid-cols-2 gap-4 md:grid-cols-3 lg:grid-cols-5">
+        <div className="mt-8 grid grid-cols-2 gap-4 md:grid-cols-5">
           {team.map((member) => (
             <div key={member.name} className="home-card home-lift rounded-xl p-4 text-center">
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img
-                src={member.photo}
-                alt={member.name}
-                loading="lazy"
-                decoding="async"
-                className="mx-auto aspect-square w-20 rounded-full object-cover md:w-24"
-              />
+              {member.photo ? (
+                // eslint-disable-next-line @next/next/no-img-element
+                <img
+                  src={member.photo}
+                  alt={member.name}
+                  loading="lazy"
+                  decoding="async"
+                  className="mx-auto aspect-square w-20 rounded-full object-cover md:w-24"
+                />
+              ) : (
+                <span
+                  aria-hidden="true"
+                  className="mx-auto flex aspect-square w-20 items-center justify-center rounded-full bg-[var(--home-pistachio)] text-lg font-semibold text-[var(--home-moss)] md:w-24 md:text-xl"
+                >
+                  {initials(member.name)}
+                </span>
+              )}
               <p className="mt-3 font-medium">{member.name}</p>
               <p className="text-sm text-[#818181]">{member.role}</p>
             </div>
