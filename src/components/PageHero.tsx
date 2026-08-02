@@ -15,15 +15,15 @@ export function PageHero({
   imageAlt?: string;
 }) {
   return (
-    <section className="relative overflow-hidden border-b-[0.5px] border-[var(--home-grey-500)] bg-[var(--home-page)] pt-12 pb-14 md:pt-20 md:pb-24">
+    <section className="relative overflow-hidden border-b-[0.5px] border-[var(--home-hairline)] bg-[var(--home-page)] pt-12 pb-14 md:pt-20 md:pb-24">
       <div aria-hidden="true" className="cwp-hero-bg absolute inset-0" />
       <div className="relative mx-auto grid w-full max-w-[85rem] items-center gap-10 px-5 md:px-10 lg:grid-cols-2">
         <Reveal>
-          <h1 className="home-serif text-[2rem] leading-[1.05] tracking-[-0.02em] md:text-[2.75rem] lg:text-[3.25rem]">
+          <h1 className="home-display text-[2rem] leading-[1.05] tracking-[-0.02em] md:text-[2.75rem] lg:text-[3.25rem]">
             {title}
           </h1>
           {description && (
-            <p className="mt-5 max-w-xl text-lg leading-[1.5] text-[#636363]">
+            <p className="mt-5 max-w-xl text-lg leading-[1.5] text-[var(--home-ink-soft)]">
               {description}
             </p>
           )}

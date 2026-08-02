@@ -8,7 +8,7 @@ export function QuoteSection() {
           <p className="home-serif text-base text-[#dbefdb] md:text-lg">
             Free education for every student, everywhere
           </p>
-          <blockquote className="home-serif mx-auto mt-6 max-w-[70.5rem] text-[1.75rem] leading-[1.1] text-[#f9f9f9] md:text-[2.5rem] lg:text-[3.25rem]">
+          <blockquote className="home-display mx-auto mt-6 max-w-[70.5rem] text-[1.75rem] leading-[1.1] text-[#f9f9f9] md:text-[2.5rem] lg:text-[3.25rem]">
             Education is a right,
             <br className="hidden sm:block" />
             not a privilege.
@@ -25,7 +25,7 @@ export function QuoteSection() {
             <p className="home-serif text-[2rem] leading-none text-[#3e7f5c] md:text-[3.5rem]">
               130+
             </p>
-            <p className="mt-3 text-sm text-[#636363] md:text-base">
+            <p className="mt-3 text-sm text-[var(--home-ink-soft)] md:text-base">
               Countries where students are already learning with us.
             </p>
           </div>
@@ -33,7 +33,7 @@ export function QuoteSection() {
             <p className="home-serif text-[2rem] leading-none text-[#3e7f5c] md:text-[3.5rem]">
               4,000+
             </p>
-            <p className="mt-3 text-sm text-[#636363] md:text-base">
+            <p className="mt-3 text-sm text-[var(--home-ink-soft)] md:text-base">
               Students reached with free, real coding education worldwide.
             </p>
           </div>
@@ -41,7 +41,7 @@ export function QuoteSection() {
             <p className="home-serif text-[2rem] leading-none text-[#3e7f5c] md:text-[3.5rem]">
               Free
             </p>
-            <p className="mt-3 text-sm text-[#636363] md:text-base">
+            <p className="mt-3 text-sm text-[var(--home-ink-soft)] md:text-base">
               Always. Every course, every resource. No cost, no strings attached.
             </p>
           </div>

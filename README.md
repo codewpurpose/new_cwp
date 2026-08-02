@@ -26,6 +26,9 @@ npm run start      # Serve the production build
 npm run lint       # ESLint
 npm run typecheck  # tsc --noEmit
 npm run check      # lint + typecheck + build — run this before pushing
+
+npm run learn:check  # validate the lesson graph
+npm run learn:new -- --track ml --slug my-lesson --title "My Lesson"  # scaffold a draft lesson
 ```
 
 `npm run learn:check` validates the lesson navigation on its own. It also runs automatically on `prebuild`, so a broken lesson graph fails the build rather than shipping.
@@ -61,7 +64,9 @@ src/components/ml/<Name>.tsx        The interactive ("use client")
 src/components/ml/<Name>Lesson.tsx  The prose
 ```
 
-then an entry in `ML_LESSONS` (or `VIBECODING_LESSONS`) and in the `[slug]` body map.
+then an entry in `ML_CHAPTERS` (or `VIBECODING_CHAPTERS`), one in the `[slug]` body map, and one in the cover map.
+
+A chapter is either a **draft** — `status: "draft"`, registered nowhere — or **published**, registered in both maps. The validator rejects every state in between, which is what makes a half-written lesson safe to commit: drafts are excluded from routing, so the build stays green until you deliberately publish.
 
 Two rules are load-bearing rather than stylistic:
 
@@ -70,6 +75,26 @@ Two rules are load-bearing rather than stylistic:
 
 Charts are hand-written SVG with a fluid `viewBox` — no chart library, no canvas, no `ResizeObserver`.
 
+## Contribute a lesson
+
+Lessons are the main thing we want from outside contributors. Both tracks are open, and new topics are welcome.
+
+1. **Propose it first.** Open a [lesson proposal issue](../../issues/new?template=lesson_proposal.yml) with the track, the one idea the reader leaves with, and your section headings. A maintainer confirms the slot before you write anything — a lesson is several hundred lines of prose plus hand-drawn cover art, and we would rather spend ten minutes on the shape than have you write a day's work we cannot merge.
+
+2. **Scaffold it.**
+
+   ```bash
+   npm run learn:new -- --track ml --slug your-slug --title "Your Title"
+   ```
+
+   This creates a `status: "draft"` chapter and a prose skeleton, then validates itself and rolls back if anything is wrong. Drafts are excluded from routing, so you can commit and push half-finished work without breaking the build.
+
+3. **Write it.** [`docs/contributing/LESSON_AUTHORING.md`](docs/contributing/LESSON_AUTHORING.md) has the anatomy, a full worked example, the prose-primitive API, the house voice standard, and every validator error with its fix. Read it before you start — it is the difference between one review round and four.
+
+4. **Check it.** `npm run learn:check` while you work, `npm run check` before you push.
+
+Full process, pull request conventions, and the review bar: [CONTRIBUTING.md](CONTRIBUTING.md). Working with an AI agent is encouraged — [`AGENTS.md`](AGENTS.md) points it at the right guide.
+
 ## Project Structure
 
 ```
@@ -77,20 +102,26 @@ src/
   app/              Routes (App Router)
     learn/          The two lesson tracks
   components/
+    learn/primitives/  Prose primitives — lessons are composed from these
+    learn/shell/       Sidebar, TOC, pager, chapter header (track-agnostic)
     ml/             ML lesson interactives and prose
     vibecoding/     Vibe coding chapters
     ui/             shadcn/ui primitives
   lib/
     ml/             Seeded lesson data and pure math helpers
     images.ts       Asset path map
+    learn-types.ts  Shared chapter, part, and track types
     learn-nav.ts    Lesson graph: ordering, prerequisites, adjacency
 public/
   learn/shared/     Design tokens and docs shell CSS
   seo/              Favicons and OG images
 scripts/
   validate-learn-nav.mjs  Lesson graph validator (runs on prebuild)
+  new-lesson.mjs          Draft-lesson scaffold
+  lib/learn-source.mjs    Shared track descriptors and source parser
 docs/
-  research/         Inspection guide for reverse-engineering reference sites
+  contributing/
+    LESSON_AUTHORING.md   Everything you need to write a lesson
 ```
 
 ## Design Tokens
@@ -101,10 +132,12 @@ Colors used as text meet WCAG AA on the cream background. The chart palette addi
 
 ## Contributing
 
+Start with [CONTRIBUTING.md](CONTRIBUTING.md) — what we want, how to propose it, and the review bar. For lessons specifically, [`docs/contributing/LESSON_AUTHORING.md`](docs/contributing/LESSON_AUTHORING.md) is the deep guide.
+
 Run `npm run check` before pushing. It runs lint, typecheck, the lesson-graph validator, and a production build — the same gate CI uses.
 
-Project instructions for AI coding agents live in `AGENTS.md`, which `CLAUDE.md` and the other platform files import.
+Project instructions for AI coding agents live in `AGENTS.md`, which `CLAUDE.md` and the other platform files import. After editing it, run `bash scripts/sync-agent-rules.sh` to regenerate them.
 
 ## License
 
-MIT
+MIT © CodeWithPurpose

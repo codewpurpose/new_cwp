@@ -1,86 +1,81 @@
 name: Bug Report
-description: Report a bug or unexpected behavior
+description: Report something broken on the site, or wrong in a lesson
 title: "[Bug]: "
 labels: ["bug"]
 body:
   - type: markdown
     attributes:
       value: |
-        Thanks for taking the time to report a bug! Please fill out the form below so we can reproduce and fix it.
+        Thanks for reporting this. If a lesson says something that is factually wrong,
+        this is the right form — you do not need to fix it yourself.
 
-  - type: textarea
-    id: description
+  - type: dropdown
+    id: area
     attributes:
-      label: Description
-      description: A clear description of what the bug is.
-      placeholder: What happened?
+      label: Where is it?
+      options:
+        - A lesson — wrong, confusing, or broken content
+        - A lesson interactive — chart or control misbehaving
+        - The learn shell — sidebar, table of contents, pager, navigation
+        - Marketing pages — home, about, courses, join, impact, blog, contact
+        - Build and tooling — scripts, CI, local dev
+        - Other
+    validations:
+      required: true
+
+  - type: input
+    id: url
+    attributes:
+      label: Page URL
+      description: The page where you saw it.
+      placeholder: https://codewithpurpose.org/learn/ml/train-test-split/
     validations:
       required: true
 
   - type: textarea
-    id: reproduction
+    id: description
     attributes:
-      label: Steps to Reproduce
-      description: Step-by-step instructions to reproduce the behavior.
-      placeholder: |
-        1. Run `/clone-website https://example.com`
-        2. Wait for agents to finish
-        3. See error in terminal...
+      label: What happened?
+      description: >
+        For a content bug: what the lesson says, and what is actually true.
+        For a functional bug: what you did and what went wrong.
     validations:
       required: true
 
   - type: textarea
     id: expected
     attributes:
-      label: Expected Behavior
-      description: What did you expect to happen?
-    validations:
-      required: true
-
-  - type: textarea
-    id: actual
-    attributes:
-      label: Actual Behavior
-      description: What actually happened? Include error messages or screenshots if possible.
+      label: What did you expect instead?
     validations:
       required: true
 
   - type: input
-    id: target-url
+    id: browser
     attributes:
-      label: Target URL
-      description: The website URL you were trying to clone (if applicable).
-      placeholder: https://example.com
+      label: Browser and device
+      description: Only needed for a visual or interactive bug.
+      placeholder: Safari 18, iPhone 15
 
   - type: dropdown
     id: os
     attributes:
       label: Operating System
+      description: Only needed for a build or tooling bug.
       options:
+        - Not applicable
         - macOS
         - Windows
         - Linux
-    validations:
-      required: true
 
   - type: input
     id: node-version
     attributes:
       label: Node.js Version
-      description: Run `node -v` to find this.
+      description: Only needed for a build or tooling bug. Run `node -v`.
       placeholder: v24.x.x
-    validations:
-      required: true
-
-  - type: input
-    id: claude-code-version
-    attributes:
-      label: Claude Code Version
-      description: Run `claude --version` to find this.
-      placeholder: 1.x.x
 
   - type: textarea
     id: additional
     attributes:
       label: Additional Context
-      description: Any other context, logs, or screenshots.
+      description: Screenshots, console output, or anything else useful.

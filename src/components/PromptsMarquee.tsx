@@ -40,7 +40,7 @@ function LocationRow({
         {[...items, ...items].map((item, index) => (
           <span
             key={index}
-            className="home-card home-chip flex shrink-0 items-center gap-2.5 rounded-lg px-4 py-2.5 text-[15px] leading-none text-[#1f1f1f]"
+            className="home-card home-chip flex shrink-0 items-center gap-2.5 rounded-lg px-4 py-2.5 text-[15px] leading-none text-[var(--home-ink)]"
           >
             <span
               className="home-chip-dot"
@@ -66,7 +66,7 @@ function StatRow({ items }: { items: { value: string; label: string }[] }) {
             <span className="home-mono text-[13px] font-medium tracking-[-0.01em] text-[#3e7f5c]">
               {item.value}
             </span>
-            <span className="text-[#1f1f1f]">{item.label}</span>
+            <span className="text-[var(--home-ink)]">{item.label}</span>
           </span>
         ))}
       </div>
@@ -78,7 +78,7 @@ export function PromptsMarquee() {
   return (
     <section className="pt-16 md:pt-32">
       <div className="mx-auto w-full max-w-[85rem] px-5 md:px-10">
-        <p className="home-mono flex items-center justify-center gap-2.5 text-[11px] uppercase tracking-[0.18em] text-[#818181] md:text-xs">
+        <p className="home-mono flex items-center justify-center gap-2.5 text-[11px] uppercase tracking-[0.18em] text-[var(--home-ink-quiet)] md:text-xs">
           <span className="home-live-dot" />
           Students on every corner of the Earth
         </p>

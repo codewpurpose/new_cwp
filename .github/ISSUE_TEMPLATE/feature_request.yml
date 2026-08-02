@@ -6,7 +6,11 @@ body:
   - type: markdown
     attributes:
       value: |
-        Thanks for suggesting a feature! Please describe the problem and your proposed solution.
+        Thanks for suggesting something. Please describe the problem and your proposed solution.
+
+        **Proposing a new lesson?** Use the
+        [Lesson Proposal](?template=lesson_proposal.yml) form instead — it asks the
+        questions we actually need answered before you start writing.
 
   - type: textarea
     id: problem
@@ -36,11 +40,14 @@ body:
     attributes:
       label: Category
       options:
-        - Cloning pipeline
-        - Asset extraction
-        - Component generation
+        - Existing lesson — improve or extend one
+        - Lesson interactive — add or improve a widget
+        - New track — a whole new topic
+        - Learn shell — sidebar, table of contents, pager, navigation
+        - Marketing site
         - Documentation
-        - Developer experience
+        - Developer experience — scripts, tooling, CI
+        - Accessibility
         - Other
 
   - type: textarea

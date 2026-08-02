@@ -1,27 +1,25 @@
 {
-  "name": "ai-website-clone-template",
-  "version": "0.3.1",
+  "name": "codewithpurpose-website",
+  "version": "1.0.0",
   "private": true,
-  "description": "Clone any website into a clean, modern Next.js codebase using AI coding agents",
-  "author": "JCodesMore",
+  "description": "The CodeWithPurpose website and interactive learning platform",
+  "author": "CodeWithPurpose",
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/JCodesMore/ai-website-cloner-template.git"
+    "url": "https://github.com/codewpurpose/new_cwp.git"
   },
-  "homepage": "https://github.com/JCodesMore/ai-website-cloner-template",
+  "homepage": "https://codewithpurpose.org",
   "bugs": {
-    "url": "https://github.com/JCodesMore/ai-website-cloner-template/issues"
+    "url": "https://github.com/codewpurpose/new_cwp/issues"
   },
   "keywords": [
-    "claude-code",
-    "website-clone",
-    "reverse-engineering",
     "nextjs",
-    "ai",
-    "template",
-    "tailwindcss",
-    "shadcn-ui"
+    "education",
+    "nonprofit",
+    "interactive-lessons",
+    "machine-learning",
+    "tailwindcss"
   ],
   "engines": {
     "node": ">=24"
@@ -33,6 +31,7 @@
     "lint": "eslint",
     "typecheck": "tsc --noEmit",
     "learn:check": "node scripts/validate-learn-nav.mjs",
+    "learn:new": "node scripts/new-lesson.mjs",
     "prebuild": "node scripts/validate-learn-nav.mjs",
     "check": "npm run lint && npm run typecheck && npm run build"
   },

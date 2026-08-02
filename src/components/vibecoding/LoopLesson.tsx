@@ -87,7 +87,7 @@ export function LoopLesson() {
               cy="160"
               r="110"
               fill="none"
-              stroke="#e1e1e1"
+              stroke="var(--home-hairline)"
               strokeWidth="1.5"
               strokeDasharray="4 6"
             />

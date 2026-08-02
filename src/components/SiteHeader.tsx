@@ -94,7 +94,7 @@ export function SiteHeader() {
           <a
             href={JOIN_HREF}
             onClick={() => setMenuOpen(false)}
-            className="mt-1 rounded-lg border-t-[0.5px] border-[#e1e1e1] px-3 py-2.5 text-[1rem]"
+            className="mt-1 rounded-lg border-t-[0.5px] border-[var(--home-hairline)] px-3 py-2.5 text-[1rem]"
           >
             Volunteer
           </a>

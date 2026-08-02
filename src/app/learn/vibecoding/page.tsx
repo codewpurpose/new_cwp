@@ -4,6 +4,7 @@ import { PageHero, PageSection } from "@/components/PageHero";
 import { PageShell } from "@/components/PageShell";
 import { Reveal } from "@/components/Reveal";
 import { VibecodingLessonCover } from "@/components/vibecoding/VibecodingLessonCover";
+import { ContributeBand } from "@/components/learn/cards/ContributeBand";
 import { CtaBand } from "@/components/learn/cards/CtaBand";
 import { LessonCard } from "@/components/learn/cards/LessonCard";
 import { images } from "@/lib/images";
@@ -86,6 +87,8 @@ export default function LearnVibecodingPage() {
           </div>
         </PageSection>
       ))}
+
+      <ContributeBand noun="chapter" />
 
       <CtaBand
         title="Keep building your vibe coding practice"

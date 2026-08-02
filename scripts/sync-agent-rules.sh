@@ -31,7 +31,11 @@ if [[ ! -f "$SOURCE" ]]; then
 fi
 
 # Resolve @file imports (Claude Code syntax) into inline content.
-# Lines like "@docs/research/INSPECTION_GUIDE.md" become the file's contents.
+# A line consisting of "@some/path.md" becomes that file's contents.
+#
+# AGENTS.md deliberately has none: it is loaded into every agent's context on
+# every task, so it links to docs/contributing/LESSON_AUTHORING.md rather than
+# inlining it into four always-on rules files.
 resolve_imports() {
   while IFS= read -r line || [[ -n "$line" ]]; do
     line="${line%$'\r'}"
@@ -74,7 +78,7 @@ write_file "$REPO_ROOT/.clinerules" "$RESOLVED_CONTENT"
 
 # Continue — .continue/rules/project.md
 CONTINUE_FRONTMATTER="---
-description: Project conventions for AI Website Clone Template
+description: Project conventions for the CodeWithPurpose website
 alwaysApply: true
 ---"
 write_file "$REPO_ROOT/.continue/rules/project.md" "$CONTINUE_FRONTMATTER

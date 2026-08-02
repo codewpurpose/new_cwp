@@ -10,7 +10,7 @@ export function HowItWorksSection() {
         <div className="overflow-hidden rounded-xl bg-[var(--home-grey-450)]">
           <figure className="grid md:grid-cols-[2fr_3fr]">
             <div className="p-6 md:p-8">
-              <div className="grid grid-cols-2 gap-2 overflow-hidden rounded-lg border-[0.5px] border-[var(--home-grey-500)]">
+              <div className="grid grid-cols-2 gap-2 overflow-hidden rounded-lg border-[0.5px] border-[var(--home-hairline)]">
                 {GALLERY_IMAGES.map((image) => (
                   // eslint-disable-next-line @next/next/no-img-element
                   <img
@@ -23,13 +23,13 @@ export function HowItWorksSection() {
               </div>
             </div>
             <figcaption className="flex flex-col justify-center p-6 md:p-8">
-              <p className="text-[11px] uppercase tracking-[0.12em] text-[#818181]">
+              <p className="text-[11px] uppercase tracking-[0.12em] text-[var(--home-ink-quiet)]">
                 Watch our story
               </p>
               <h2 className="mt-3 text-lg leading-[1.15] md:text-[1.375rem]">
                 See what CodeWithPurpose looks like in action
               </h2>
-              <p className="mt-3 max-w-[40rem] text-sm leading-[1.5] text-[#636363]">
+              <p className="mt-3 max-w-[40rem] text-sm leading-[1.5] text-[var(--home-ink-soft)]">
                 In classrooms, at workshops, and in booths around the world,
                 you&apos;ll find students coding, volunteers presenting, and
                 communities gathering around free education. Every photo here is

@@ -116,7 +116,7 @@ export default function CoursesPage() {
                     ))}
                   </div>
                   <h2 className="mt-4 text-xl md:text-2xl">{course.title}</h2>
-                  <p className="mt-3 text-[15px] leading-[1.55] text-[#636363]">
+                  <p className="mt-3 text-[15px] leading-[1.55] text-[var(--home-ink-soft)]">
                     {course.description}
                   </p>
                   <a
@@ -134,11 +134,11 @@ export default function CoursesPage() {
         </div>
       </PageSection>
 
-      <PageSection className="border-t-[0.5px] border-[var(--home-grey-500)] bg-[var(--home-grey-450)]">
+      <PageSection className="border-t-[0.5px] border-[var(--home-hairline)] bg-[var(--home-grey-450)]">
         <h2 className="home-serif text-[1.75rem] md:text-[2.25rem]">
           See our courses in action
         </h2>
-        <p className="mt-3 max-w-2xl text-[#636363]">
+        <p className="mt-3 max-w-2xl text-[var(--home-ink-soft)]">
           Students around the world learning Python, building projects, and
           discovering that code can be a tool for good.
         </p>

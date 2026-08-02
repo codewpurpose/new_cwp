@@ -23,12 +23,24 @@ interface TeamMember {
   role: string;
   /** Optional: members without a photo yet fall back to their initials. */
   photo?: string;
+  /**
+   * Optional crop for photos that are not head-and-shoulders to begin with.
+   * A full-body shot cropped to a circle leaves the face too small to read, so
+   * these scale and offset inside the avatar rather than asking everyone to
+   * re-shoot.
+   */
+  photoClass?: string;
 }
 
 const founders: TeamMember[] = [
   { name: "Shreyan Mitra", role: "Co-founder", photo: images.team.shreyan },
   { name: "Bruhatt Rao", role: "Co-founder", photo: images.team.bhim },
-  { name: "Samanyu Goyal", role: "Co-founder", photo: images.team.samanyu },
+  {
+    name: "Samanyu Goyal",
+    role: "Co-founder",
+    photo: images.team.samanyu,
+    photoClass: "scale-[3] -translate-x-[50%] translate-y-[9%]",
+  },
 ];
 
 /** Add and remove freely — the layout below centres whatever ends up on the
@@ -36,13 +48,14 @@ const founders: TeamMember[] = [
 const teamMembers: TeamMember[] = [
   { name: "Naman Jain", role: "Director of Outreach", photo: images.team.naman },
   { name: "Sanjay Vellore", role: "Director of Operations", photo: images.team.sanjay },
-  { name: "Om Anand Khuante", role: "Director of Community", photo: images.team.om },
-  { name: "Darsh Pande", role: "Community Lead", photo: images.team.darsh },
+  { name: "Om Anand Khuante", role: "Co-Director of Community", photo: images.team.om },
+  { name: "Darsh Pande", role: "Co-Director of Community", photo: images.team.darsh },
   { name: "Aakash Sanil", role: "Director of Media" },
   { name: "Karthik Tummala", role: "Lead Instructor" },
-  { name: "Trey Lim", role: "Finance Lead", photo: images.team.trey },
+  { name: "Trey Lim", role: "Member of Finance", photo: images.team.trey },
   { name: "Aadi Naik", role: "Lead Instructor", photo: images.team.aadi },
   { name: "Sirish Aytham", role: "Marketing", photo: images.team.sirish },
+  { name: "Ashwika Ashok", role: "Instructor & Operations" },
 ];
 
 function initials(name: string): string {
@@ -70,14 +83,18 @@ function TeamCard({
   return (
     <div className={`home-card home-lift rounded-xl p-4 text-center ${width}`}>
       {member.photo ? (
-        // eslint-disable-next-line @next/next/no-img-element
-        <img
-          src={member.photo}
-          alt={member.name}
-          loading="lazy"
-          decoding="async"
-          className={`mx-auto aspect-square rounded-full object-cover ${avatar}`}
-        />
+        // The circle is the clipping frame, so a per-member `photoClass` can
+        // scale and offset the photo inside it without spilling past the edge.
+        <div className={`mx-auto aspect-square overflow-hidden rounded-full ${avatar}`}>
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            src={member.photo}
+            alt={member.name}
+            loading="lazy"
+            decoding="async"
+            className={`h-full w-full object-cover ${member.photoClass ?? ""}`}
+          />
+        </div>
       ) : (
         <span
           aria-hidden="true"
@@ -87,7 +104,7 @@ function TeamCard({
         </span>
       )}
       <p className="mt-3 font-medium">{member.name}</p>
-      <p className="text-sm text-[#818181]">{member.role}</p>
+      <p className="text-sm text-[var(--home-ink-quiet)]">{member.role}</p>
     </div>
   );
 }
@@ -115,16 +132,16 @@ export default function AboutPage() {
             <h2 className="home-serif text-[1.75rem] md:text-[2.5rem]">
               Recognized by the U.S. House of Representatives
             </h2>
-            <p className="mt-4 text-[15px] leading-[1.6] text-[#636363] md:text-base">
+            <p className="mt-4 text-[15px] leading-[1.6] text-[var(--home-ink-soft)] md:text-base">
               Representative Mark DeSaulnier recognized CodeWithPurpose for
               tremendous leadership and service to our community. We work every
               day to reach students in 130+ countries, from rural villages in
               India to classrooms in Nigeria.
             </p>
-            <blockquote className="mt-6 border-l-2 border-[#397554] pl-4 text-lg italic text-[#1f1f1f]">
+            <blockquote className="mt-6 border-l-2 border-[#397554] pl-4 text-lg italic text-[var(--home-ink)]">
               &ldquo;Tremendous leadership and service to your community.&rdquo;
             </blockquote>
-            <p className="mt-2 text-sm text-[#818181]">
+            <p className="mt-2 text-sm text-[var(--home-ink-quiet)]">
               Representative Mark DeSaulnier · March 4, 2026
             </p>
             <a
@@ -149,9 +166,9 @@ export default function AboutPage() {
         </div>
       </PageSection>
 
-      <PageSection className="border-t-[0.5px] border-[var(--home-grey-500)]">
+      <PageSection className="border-t-[0.5px] border-[var(--home-hairline)]">
         <h2 className="home-serif text-[1.75rem] md:text-[2.25rem]">Our Team</h2>
-        <p className="mt-3 max-w-2xl text-[#636363]">
+        <p className="mt-3 max-w-2xl text-[var(--home-ink-soft)]">
           Made by students, for students. Shreyan, Samanyu, Bruhatt, and
           volunteers around the world building a more inclusive future.
         </p>
@@ -186,10 +203,10 @@ export default function AboutPage() {
         <div className="home-card mt-4 flex flex-col items-center gap-4 rounded-xl p-6 text-center sm:flex-row sm:justify-between sm:text-left">
           <div>
             <p className="font-medium">Want to see your face here?</p>
-            <p className="mt-1 text-sm text-[#636363]">
+            <p className="mt-1 text-sm text-[var(--home-ink-soft)]">
               We&rsquo;re always looking for volunteers. Email us at{" "}
-              <span className="whitespace-nowrap">{CONTACT_EMAIL}</span> and tell us what
-              you&rsquo;d like to work on.
+              <span className="whitespace-nowrap">{CONTACT_EMAIL}</span>{" "}
+              and tell us what you&rsquo;d like to work on.
             </p>
           </div>
           <a href={CONTACT_EMAIL_HREF} className="home-btn home-btn-moss shrink-0">

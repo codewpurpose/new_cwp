@@ -17,7 +17,7 @@ interface CtaBandProps {
 /** Was copy-pasted verbatim across three pages. */
 export function CtaBand({ title, body, actions }: CtaBandProps) {
   return (
-    <PageSection className="learn-on-inverse border-t-[0.5px] border-[var(--home-grey-500)] bg-learn-inverse">
+    <PageSection className="learn-on-inverse border-t-[0.5px] border-[var(--home-hairline)] bg-learn-inverse">
       <div className="mx-auto max-w-3xl text-center text-learn-on-inverse">
         <h2 className="home-serif text-[1.75rem] text-learn-heading-on-inverse md:text-[2.25rem]">
           {title}

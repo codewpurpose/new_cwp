@@ -41,18 +41,18 @@ export default function ImpactPage() {
                 <p className="home-serif text-[2rem] leading-none text-[#3e7f5c] md:text-[2.75rem]">
                   {stat.value}
                 </p>
-                <p className="mt-3 text-sm text-[#636363]">{stat.label}</p>
+                <p className="mt-3 text-sm text-[var(--home-ink-soft)]">{stat.label}</p>
               </div>
             </Reveal>
           ))}
         </div>
       </PageSection>
 
-      <PageSection className="border-t-[0.5px] border-[var(--home-grey-500)]">
+      <PageSection className="border-t-[0.5px] border-[var(--home-hairline)]">
         <h2 className="home-serif text-[1.75rem] md:text-[2.25rem]">
           In classrooms, workshops, and communities
         </h2>
-        <p className="mt-3 max-w-2xl text-[#636363]">
+        <p className="mt-3 max-w-2xl text-[var(--home-ink-soft)]">
           Hands-on learning, smiling students, crowded workshops, and volunteers
           presenting. This is what CodeWithPurpose looks like in action.
         </p>
@@ -78,7 +78,7 @@ export default function ImpactPage() {
             <h2 className="home-serif mt-4 text-[1.75rem] md:text-[2.25rem]">
               Recognized for leadership and service
             </h2>
-            <p className="mt-4 text-[#636363]">
+            <p className="mt-4 text-[var(--home-ink-soft)]">
               Representative Mark DeSaulnier of the U.S. House of Representatives
               formally recognized our work bringing free coding education to
               underserved communities worldwide.

@@ -25,7 +25,7 @@ export function TrustedBySection() {
   return (
     <section className="py-4">
       <div className="mx-auto w-full max-w-[85rem] px-5 md:px-10">
-        <p className="home-mono text-center text-[11px] uppercase tracking-[0.18em] text-[#818181] md:text-xs">
+        <p className="home-mono text-center text-[11px] uppercase tracking-[0.18em] text-[var(--home-ink-quiet)] md:text-xs">
           Used by people at
         </p>
       </div>

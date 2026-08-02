@@ -1,0 +1,103 @@
+name: Lesson Proposal
+description: Propose a new lesson before you write it
+title: "[Lesson]: "
+labels: ["lesson", "proposal"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for wanting to teach something.
+
+        **Please fill this in before you start writing.** A lesson is several hundred
+        lines of prose plus hand-drawn SVG cover art — we would much rather spend ten
+        minutes agreeing on the shape now than have you write a day's work we cannot
+        merge.
+
+        Details on how lessons are built: [docs/contributing/LESSON_AUTHORING.md](../blob/main/docs/contributing/LESSON_AUTHORING.md)
+
+  - type: dropdown
+    id: track
+    attributes:
+      label: Track
+      options:
+        - Machine Learning (/learn/ml)
+        - Vibe Coding (/learn/vibecoding)
+        - A new track entirely
+    validations:
+      required: true
+
+  - type: input
+    id: position
+    attributes:
+      label: Where does it go?
+      description: Which part, and before or after which existing chapter.
+      placeholder: 'Part 2 "Getting It Right", after train-test-split'
+    validations:
+      required: true
+
+  - type: input
+    id: slug
+    attributes:
+      label: Proposed slug and title
+      description: Slug in kebab-case. It becomes the URL and cannot change later.
+      placeholder: "decision-trees — Decision Trees"
+    validations:
+      required: true
+
+  - type: textarea
+    id: idea
+    attributes:
+      label: The one idea the reader leaves with
+      description: One sentence. If you need two, the lesson is probably two lessons.
+    validations:
+      required: true
+
+  - type: textarea
+    id: misconception
+    attributes:
+      label: What misconception does it correct?
+      description: >
+        Our lessons open by naming a belief the reader probably holds and then taking
+        it apart. What is the wrong belief here?
+    validations:
+      required: true
+
+  - type: textarea
+    id: interactive
+    attributes:
+      label: The interactive (optional)
+      description: >
+        If it has one — what is the single control the reader manipulates, and what
+        changes on screen when they do? One primary control, not three.
+      placeholder: "Drag a max-depth slider; the decision boundary goes from a straight line to a jagged shape that traces individual points."
+
+  - type: textarea
+    id: headings
+    attributes:
+      label: Section headings
+      description: Three to six. Clauses rather than nouns — "The score is a lottery ticket", not "Scoring".
+      placeholder: |
+        The question a tree asks
+        Splitting on the best feature
+        When a tree memorises
+    validations:
+      required: true
+
+  - type: input
+    id: prerequisites
+    attributes:
+      label: Prerequisites
+      description: >
+        Non-adjacent prerequisites only, as slugs. The previous chapter is implied by
+        ordering, so leave this blank unless it depends on something earlier than that.
+      placeholder: "overfitting"
+
+  - type: checkboxes
+    id: acknowledgements
+    attributes:
+      label: Before you submit
+      options:
+        - label: This is original work — not paraphrased from another course, book, or blog.
+          required: true
+        - label: I have read docs/contributing/LESSON_AUTHORING.md, including the voice standard.
+          required: true
