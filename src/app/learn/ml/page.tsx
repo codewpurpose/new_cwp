@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { PageHero, PageSection } from "@/components/PageHero";
+import { ContributeBand } from "@/components/learn/cards/ContributeBand";
 import { CtaBand } from "@/components/learn/cards/CtaBand";
 import { LessonCard } from "@/components/learn/cards/LessonCard";
 import { MlLessonCover } from "@/components/ml/MlLessonCover";
@@ -67,6 +68,8 @@ export default function LearnMlPage() {
           { href: LEARN_HREF, label: "Back to Learn", variant: "secondary" },
         ]}
       />
+
+      <ContributeBand body="These machine learning lessons are open source, written by students in the open. Add a topic of your own, or fix a lesson that confused you — the guide walks through every step." />
     </PageShell>
   );
 }

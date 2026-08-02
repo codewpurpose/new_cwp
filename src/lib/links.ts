@@ -32,6 +32,13 @@ export const DISCORD_HREF = "https://discord.gg/W948bWbCAK";
 export const INSTAGRAM_HREF = "https://www.instagram.com/codewpurpose/";
 export const VOLUNTEER_FORM_HREF = "https://forms.gle/qiSULkmBB7vWk9YDA";
 export const HACK_CLUB_HREF = "https://hackclub.com";
+
+/** The lessons under /learn are open source. These point contributors at them. */
+export const GITHUB_HREF = "https://github.com/codewpurpose/new_cwp";
+export const LESSON_AUTHORING_HREF =
+  "https://github.com/codewpurpose/new_cwp/blob/main/docs/contributing/LESSON_AUTHORING.md";
+export const LESSON_PROPOSAL_HREF =
+  "https://github.com/codewpurpose/new_cwp/issues/new?template=lesson_proposal.yml";
 export const HCB_DONATE_EMBED_SRC =
   "https://hcb.hackclub.com/donations/start/code-with-purpose";
 export const SUBSTACK_EMBED_SRC = "https://codewithpurpose.substack.com/embed";

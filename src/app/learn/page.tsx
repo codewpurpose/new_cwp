@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { ContributeBand } from "@/components/learn/cards/ContributeBand";
 import { PageHero, PageSection } from "@/components/PageHero";
 import { PageShell } from "@/components/PageShell";
 import { Reveal } from "@/components/Reveal";
@@ -132,6 +133,8 @@ export default function LearnPage() {
           ))}
         </div>
       </PageSection>
+
+      <ContributeBand />
     </PageShell>
   );
 }

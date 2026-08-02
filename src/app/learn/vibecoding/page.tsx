@@ -4,6 +4,7 @@ import { PageHero, PageSection } from "@/components/PageHero";
 import { PageShell } from "@/components/PageShell";
 import { Reveal } from "@/components/Reveal";
 import { VibecodingLessonCover } from "@/components/vibecoding/VibecodingLessonCover";
+import { ContributeBand } from "@/components/learn/cards/ContributeBand";
 import { CtaBand } from "@/components/learn/cards/CtaBand";
 import { LessonCard } from "@/components/learn/cards/LessonCard";
 import { images } from "@/lib/images";
@@ -95,6 +96,8 @@ export default function LearnVibecodingPage() {
           { href: LEARN_HREF, label: "Back to Learn", variant: "secondary" },
         ]}
       />
+
+      <ContributeBand body="These vibe coding chapters are open source, written by students in the open. Add a chapter of your own, or fix one that confused you — the guide walks through every step." />
     </PageShell>
   );
 }
