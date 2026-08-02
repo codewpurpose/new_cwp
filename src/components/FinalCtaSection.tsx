@@ -1,4 +1,4 @@
-import { DONATE_HREF, LEARN_HREF } from "@/lib/links";
+import { DONATE_HREF, COURSES_HREF } from "@/lib/links";
 
 export function FinalCtaSection() {
   return (
@@ -12,7 +12,7 @@ export function FinalCtaSection() {
           coding education to every student, everywhere.
         </p>
         <div className="mt-8 flex flex-wrap items-center justify-center gap-2">
-          <a href={LEARN_HREF} className="home-btn home-btn-fill">Explore courses</a>
+          <a href={COURSES_HREF} className="home-btn home-btn-fill">Explore courses</a>
           <a href={DONATE_HREF} className="home-btn home-btn-outline">
             Support Our Mission
           </a>

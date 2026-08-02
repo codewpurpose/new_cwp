@@ -225,6 +225,14 @@
   --home-pistachio: #dbefdb;
   --home-link-green: #397554;
   --home-fern: #3e7f5c;
+  /* Udemy's brand purple and its hover, used as-is. Reserved for enrolment —
+   * the one action that hands the reader to another site — so the button
+   * carries the mark of where it goes and never competes with the ink fill
+   * every on-site action uses. White on the base is ~4.8:1 and on the hover
+   * ~6.8:1, so both clear AA for the 15px label; neither reaches AAA, which is
+   * the cost of matching a brand exactly rather than picking our own violet. */
+  --home-violet: #a435f0;
+  --home-violet-hover: #8710d8;
   --home-border: 0.5px solid var(--home-grey-500);
 
   /* --- tonal range -----------------------------------------------------
@@ -486,6 +494,24 @@
 .home-btn-glass:hover {
   background: linear-gradient(rgba(224, 212, 196, 0.5), rgba(224, 212, 196, 0.5)),
     rgba(255, 251, 245, 0.85);
+}
+/* Enrolment buttons, sitewide. Same weight as .home-btn-fill so a card whose
+ * only action is enrolling still reads as having a primary button. */
+.home-btn-violet {
+  background: var(--home-violet);
+  border-color: var(--home-violet);
+  color: #fff;
+  box-shadow: var(--home-shadow-sm);
+}
+.home-btn-violet:hover {
+  background: var(--home-violet-hover);
+  border-color: var(--home-violet-hover);
+  box-shadow: var(--home-shadow-md);
+}
+/* The global ring is fern, which reads as an unrelated accent on a violet
+ * button. */
+.home-btn-violet:focus-visible {
+  outline-color: var(--home-violet);
 }
 .home-btn-moss {
   background: var(--home-moss);

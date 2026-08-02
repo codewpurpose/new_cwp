@@ -1,9 +1,17 @@
 export const SITE_URL = "https://www.codewithpurpose.org";
 
+/**
+ * The catalog. Courses and the interactive lesson tracks used to be two
+ * sections with two nav entries; they are one page now, and `/learn` 308s
+ * here. The individual track indexes below still live under /learn — only the
+ * old index was folded in.
+ */
 export const COURSES_HREF = "/courses";
-export const LEARN_HREF = "/learn";
 export const LEARN_ML_HREF = "/learn/ml";
 export const LEARN_VIBECODING_HREF = "/learn/vibecoding";
+export const LEARN_PYTHON_HREF = "/learn/python";
+export const LEARN_FINANCIAL_LITERACY_HREF = "/learn/financial-literacy";
+export const LEARN_HEALTH_IN_TECH_HREF = "/learn/health-in-tech";
 export const ABOUT_HREF = "/about";
 export const JOIN_HREF = "/join";
 export const IMPACT_HREF = "/impact";
@@ -18,6 +26,8 @@ export const PYTHON_COURSE_HREF =
   "https://www.udemy.com/course/introduction-to-python-bootcamp/";
 export const VIBECODING_COURSE_HREF =
   "https://www.udemy.com/course/vibecoding-101/";
+export const VIBECODING_PART_2_COURSE_HREF =
+  "https://www.udemy.com/course/vibecoding-the-mastery/";
 export const ML_PART_1_COURSE_HREF =
   "https://www.udemy.com/course/intro-to-machine-learning-part-1/";
 export const ML_PART_2_COURSE_HREF =
@@ -46,7 +56,6 @@ export const SUBSTACK_EMBED_SRC = "https://codewithpurpose.substack.com/embed";
 
 export const NAV_LINKS = [
   { label: "Courses", href: COURSES_HREF },
-  { label: "Learn", href: LEARN_HREF },
   { label: "About Us", href: ABOUT_HREF },
   { label: "Join Us", href: JOIN_HREF },
   { label: "Impact", href: IMPACT_HREF },

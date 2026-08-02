@@ -9,16 +9,17 @@ import { CtaBand } from "@/components/learn/cards/CtaBand";
 import { LessonCard } from "@/components/learn/cards/LessonCard";
 import { images } from "@/lib/images";
 import {
-  LEARN_HREF,
+  COURSES_HREF,
   LEARN_ML_HREF,
   VIBECODING_COURSE_HREF,
 } from "@/lib/links";
 import { chapterHref, getChapters, getPartsWithChapters } from "@/lib/learn-nav";
 
 export const metadata: Metadata = {
-  title: "Vibe Coding | CWP",
+  title: "Vibe Coding",
   description:
     "Free interactive vibe coding lessons from CodeWithPurpose. Learn to prompt, pair-program, debug, and ship real apps with AI.",
+  alternates: { canonical: "/learn/vibecoding" },
 };
 
 export default function LearnVibecodingPage() {
@@ -35,14 +36,14 @@ export default function LearnVibecodingPage() {
         image={images.codingLaptop}
         imageAlt="Student vibe coding with AI tools"
       >
-        <Link href={LEARN_HREF} className="home-btn home-btn-outline">
-          All Learning Tracks
+        <Link href={COURSES_HREF} className="home-btn home-btn-outline">
+          All Courses
         </Link>
         <a
           href={VIBECODING_COURSE_HREF}
           target="_blank"
           rel="noreferrer"
-          className="home-btn home-btn-fill"
+          className="home-btn home-btn-violet"
         >
           Udemy Vibecoding Course
         </a>

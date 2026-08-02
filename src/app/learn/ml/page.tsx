@@ -9,16 +9,17 @@ import { PageShell } from "@/components/PageShell";
 import { Reveal } from "@/components/Reveal";
 import { images } from "@/lib/images";
 import {
-  LEARN_HREF,
+  COURSES_HREF,
   LEARN_VIBECODING_HREF,
   ML_PART_1_COURSE_HREF,
 } from "@/lib/links";
 import { chapterHref, getChapters } from "@/lib/learn-nav";
 
 export const metadata: Metadata = {
-  title: "Machine Learning | CWP",
+  title: "Machine Learning",
   description:
     "Free interactive machine learning lessons from CodeWithPurpose. Start from nothing: what ML is, what data has to look like, how a model learns, and how to tell whether it worked.",
+  alternates: { canonical: "/learn/ml" },
 };
 
 export default function LearnMlPage() {
@@ -36,14 +37,14 @@ export default function LearnMlPage() {
         image={images.codingLaptop}
         imageAlt="Student exploring machine learning with CodeWithPurpose"
       >
-        <Link href={LEARN_HREF} className="home-btn home-btn-outline">
-          All Learning Tracks
+        <Link href={COURSES_HREF} className="home-btn home-btn-outline">
+          All Courses
         </Link>
         <a
           href={ML_PART_1_COURSE_HREF}
           target="_blank"
           rel="noreferrer"
-          className="home-btn home-btn-fill"
+          className="home-btn home-btn-violet"
         >
           Udemy ML Course
         </a>

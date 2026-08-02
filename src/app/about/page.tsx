@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { PageHero, PageSection, PhotoGrid } from "@/components/PageHero";
 import { PageShell } from "@/components/PageShell";
+import { TeamCard, type TeamMember } from "@/components/TeamCard";
 import { images } from "@/lib/images";
 import {
   CONGRESS_LETTER_HREF,
@@ -13,101 +14,89 @@ import {
 } from "@/lib/links";
 
 export const metadata: Metadata = {
-  title: "About Us | CWP",
+  title: "About Us",
   description:
     "A student-run nonprofit making tech education free and accessible for everyone, everywhere.",
+  alternates: { canonical: "/about" },
 };
 
-interface TeamMember {
-  name: string;
-  role: string;
-  /** Optional: members without a photo yet fall back to their initials. */
-  photo?: string;
-  /**
-   * Optional crop for photos that are not head-and-shoulders to begin with.
-   * A full-body shot cropped to a circle leaves the face too small to read, so
-   * these scale and offset inside the avatar rather than asking everyone to
-   * re-shoot.
-   */
-  photoClass?: string;
-}
-
 const founders: TeamMember[] = [
-  { name: "Shreyan Mitra", role: "Co-founder", photo: images.team.shreyan },
-  { name: "Bruhatt Rao", role: "Co-founder", photo: images.team.bhim },
+  {
+    name: "Shreyan Mitra",
+    role: "Co-founder",
+    photo: images.team.shreyan,
+    linkedin: "https://www.linkedin.com/in/shreyan-mitra-8910172b7/",
+  },
+  {
+    name: "Bruhatt Rao",
+    role: "Co-founder",
+    photo: images.team.bhim,
+    linkedin: "https://www.linkedin.com/in/bruhatt-rao/",
+  },
   {
     name: "Samanyu Goyal",
     role: "Co-founder",
     photo: images.team.samanyu,
     photoClass: "scale-[3] -translate-x-[50%] translate-y-[9%]",
+    linkedin: "https://www.linkedin.com/in/samanyu-goyal/",
+    bio: "Hey guys, I'm Samanyu Goyal. I'm the co-founder of Code With Purpose. What I plan to do with this organization is make the largest nonprofit in the world that helps everyone get access to high-quality CS education, specifically focused on how they can take advantage of the AI revolution.",
   },
 ];
 
 /** Add and remove freely — the layout below centres whatever ends up on the
- *  final row, so no count needs the column classes retuned. */
+ *  final row, so no count needs the column classes retuned.
+ *
+ *  Every card opens a dialog whether or not it is filled in, so a member with
+ *  no `bio` yet gets the "check back later" placeholder rather than a dead
+ *  card. To finish someone's profile, add the two optional fields:
+ *
+ *    bio: "First person, a few sentences.",
+ *    instagram: "https://www.instagram.com/<handle>/",
+ *
+ *  `instagram` renders as an icon beside LinkedIn in the dialog. Only add one
+ *  once the member has said yes to it being public. */
 const teamMembers: TeamMember[] = [
-  { name: "Naman Jain", role: "Director of Outreach", photo: images.team.naman },
-  { name: "Sanjay Vellore", role: "Director of Operations", photo: images.team.sanjay },
-  { name: "Om Anand Khuante", role: "Co-Director of Community", photo: images.team.om },
-  { name: "Darsh Pande", role: "Co-Director of Community", photo: images.team.darsh },
+  {
+    name: "Sanjay Vellore",
+    role: "Director of Operations",
+    photo: images.team.sanjay,
+    linkedin: "https://www.linkedin.com/in/sanjay-vellore-6247a63b1/",
+    bio: 'Hi! I\'m Sanjay Vellore, Director of Operations at Code With Purpose. I oversee sponsorships, spearhead new initiatives, and ensure our day-to-day operations run smoothly. My goal is to help scale Code With Purpose into one of the top student-led non-profits worldwide. Believing in Chamath Palihapitiya\'s vision that AI is "the most important economic leveler of our lifetime," I\'m dedicated to empowering all of you to succeed along the way.',
+  },
+  {
+    name: "Naman Jain",
+    role: "Director of Outreach",
+    photo: images.team.naman,
+    linkedin: "https://www.linkedin.com/in/naman-jain-9276593a5/",
+  },
+  {
+    name: "Om Anand Khuante",
+    role: "Co-Director of Community",
+    photo: images.team.om,
+    linkedin: "https://www.linkedin.com/in/om-anand-khaunte/",
+  },
+  {
+    name: "Darsh Pande",
+    role: "Co-Director of Community",
+    photo: images.team.darsh,
+    linkedin: "https://www.linkedin.com/in/darsh-pande-a73bb8421/",
+  },
   { name: "Aakash Sanil", role: "Director of Media" },
-  { name: "Karthik Tummala", role: "Lead Instructor" },
+  {
+    name: "Karthik Tummala",
+    role: "Lead Instructor",
+    linkedin: "https://www.linkedin.com/in/karthik-tummala-6783233a4/",
+  },
   { name: "Trey Lim", role: "Member of Finance", photo: images.team.trey },
   { name: "Aadi Naik", role: "Lead Instructor", photo: images.team.aadi },
-  { name: "Sirish Aytham", role: "Marketing", photo: images.team.sirish },
+  {
+    name: "Sirish Aytham",
+    role: "Marketing",
+    photo: images.team.sirish,
+    linkedin: "https://www.linkedin.com/in/sirish-aytham-bb74753a3/",
+  },
   { name: "Ashwika Ashok", role: "Instructor & Operations" },
 ];
-
-function initials(name: string): string {
-  return name
-    .split(" ")
-    .filter(Boolean)
-    .map((part) => part[0])
-    .slice(0, 2)
-    .join("")
-    .toUpperCase();
-}
-
-/** Avatar sizing differs per row: the founders sit 3-up even on a phone, where
- *  a w-20 circle would overflow its card. `width` makes the card itself the
- *  flex item, so a short final row centres instead of hanging off the left. */
-function TeamCard({
-  member,
-  avatar,
-  width,
-}: {
-  member: TeamMember;
-  avatar: string;
-  width: string;
-}) {
-  return (
-    <div className={`home-card home-lift rounded-xl p-4 text-center ${width}`}>
-      {member.photo ? (
-        // The circle is the clipping frame, so a per-member `photoClass` can
-        // scale and offset the photo inside it without spilling past the edge.
-        <div className={`mx-auto aspect-square overflow-hidden rounded-full ${avatar}`}>
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img
-            src={member.photo}
-            alt={member.name}
-            loading="lazy"
-            decoding="async"
-            className={`h-full w-full object-cover ${member.photoClass ?? ""}`}
-          />
-        </div>
-      ) : (
-        <span
-          aria-hidden="true"
-          className={`mx-auto flex aspect-square items-center justify-center rounded-full bg-[var(--home-pistachio)] font-semibold text-[var(--home-moss)] ${avatar}`}
-        >
-          {initials(member.name)}
-        </span>
-      )}
-      <p className="mt-3 font-medium">{member.name}</p>
-      <p className="text-sm text-[var(--home-ink-quiet)]">{member.role}</p>
-    </div>
-  );
-}
 
 export default function AboutPage() {
   return (

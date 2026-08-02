@@ -1,0 +1,497 @@
+import type { LearnChapter, LearnPart } from "@/lib/learn-types";
+
+export { LEARN_PYTHON_HREF } from "@/lib/links";
+
+/**
+ * The Python track: twenty-four lessons running from a complete beginner's
+ * first program through decorators, generators, and shipping tested code.
+ *
+ * Written natively as LearnChapters (rather than adapted from a thinner shape)
+ * so the track gets the same sidebar, table of contents, and prev/next pager as
+ * the ML and Vibe Coding chapters.
+ *
+ * `headings` must match the ids the body component renders — scripts/validate-
+ * learn-nav.mjs fails the build if they drift.
+ */
+
+export const PYTHON_PARTS: readonly LearnPart[] = [
+  {
+    id: "foundations",
+    number: 1,
+    title: "Foundations",
+    summary:
+      "What Python actually is, the one thing you need to run it, and what a name really points at.",
+  },
+  {
+    id: "data",
+    number: 2,
+    title: "Working With Data",
+    summary:
+      "Strings, lists, tuples, dictionaries, and sets — the shapes almost every program is built from.",
+  },
+  {
+    id: "flow",
+    number: 3,
+    title: "Controlling the Flow",
+    summary:
+      "Making a program choose, repeat, and remember work as a function instead of a copy-paste.",
+  },
+  {
+    id: "objects",
+    number: 4,
+    title: "Thinking in Objects",
+    summary:
+      "Reading your own mistakes, splitting a program into files, and bundling data with the behaviour that acts on it.",
+  },
+  {
+    id: "real-programs",
+    number: 5,
+    title: "Working Like a Real Program",
+    summary:
+      "Touching the outside world through files, writing collections in one line, and producing values lazily.",
+  },
+  {
+    id: "advanced",
+    number: 6,
+    title: "Going Further",
+    summary:
+      "Other people's code, the internet's data format, proving your program works, and building one from scratch.",
+  },
+];
+
+export const PYTHON_CHAPTERS: readonly LearnChapter[] = [
+  {
+    slug: "what-is-python",
+    partId: "foundations",
+    order: 1,
+    title: "Why Python, Specifically",
+    description:
+      "Every language claims to be simple, right up until you try to read one. Look at a working Python program you have never seen before, and notice how much of it you already understand.",
+    level: "beginner",
+    minutes: 7,
+    prerequisites: [],
+    tags: ["Foundations", "Interactive"],
+    headings: [
+      { id: "a-language-you-can-read-before-you-can-write-it", text: "A language you can read before you can write it", level: 2 },
+      { id: "what-it-is-actually-running-underneath", text: "What it is actually running underneath", level: 2 },
+      { id: "where-speed-gets-traded-for-your-time-back", text: "Where speed gets traded for your time back", level: 2 },
+    ],
+    status: "published",
+  },
+  {
+    slug: "setting-up",
+    partId: "foundations",
+    order: 2,
+    title: "Setting Up Without the Ceremony",
+    description:
+      "The usual first step in a Python tutorial is an hour of installer screenshots. Run one line without installing anything, and see the same interpreter everyone else is using.",
+    level: "beginner",
+    minutes: 8,
+    prerequisites: [],
+    tags: ["Foundations", "Interactive"],
+    headings: [
+      { id: "the-one-thing-you-actually-need", text: "The one thing you actually need", level: 2 },
+      { id: "a-terminal-that-already-has-it", text: "A terminal that already has it", level: 2 },
+      { id: "where-a-file-stops-and-a-script-begins", text: "Where a file stops and a script begins", level: 2 },
+    ],
+    status: "published",
+  },
+  {
+    slug: "variables",
+    partId: "foundations",
+    order: 3,
+    title: "Names Are Not Boxes",
+    description:
+      "Most explanations call a variable a box that holds a value, and that picture breaks the moment one name affects another. Point two names at the same list, change it through one, and watch the other see it too.",
+    level: "beginner",
+    minutes: 9,
+    prerequisites: [],
+    tags: ["Foundations", "Interactive"],
+    headings: [
+      { id: "a-name-pointing-at-a-value-not-holding-it", text: "A name pointing at a value, not holding it", level: 2 },
+      { id: "reassigning-a-name-never-touches-the-value", text: "Reassigning a name never touches the value", level: 2 },
+      { id: "names-python-will-not-let-you-use", text: "Names Python will not let you use", level: 2 },
+    ],
+    status: "published",
+  },
+  {
+    slug: "numbers-and-operators",
+    partId: "foundations",
+    order: 4,
+    title: "Arithmetic, and Where It Surprises You",
+    description:
+      "Two slashes and one slash look like a typo of each other, and they hand back different types on purpose. Divide the same two numbers both ways and see exactly where a float appears uninvited.",
+    level: "beginner",
+    minutes: 8,
+    prerequisites: [],
+    tags: ["Foundations", "Interactive"],
+    headings: [
+      { id: "two-kinds-of-division", text: "Two kinds of division", level: 2 },
+      { id: "the-order-operations-actually-run-in", text: "The order operations actually run in", level: 2 },
+      { id: "where-an-int-quietly-becomes-a-float", text: "Where an int quietly becomes a float", level: 2 },
+    ],
+    status: "published",
+  },
+  {
+    slug: "strings",
+    partId: "data",
+    order: 5,
+    title: "Text Is Not a Single Thing",
+    description:
+      "A string looks like one piece of text until you need its third character. Slice a sentence apart by position and find out why the end index is never the one you first guess.",
+    level: "beginner",
+    minutes: 9,
+    prerequisites: [],
+    tags: ["Data", "Interactive"],
+    headings: [
+      { id: "a-string-is-a-sequence-not-a-word", text: "A string is a sequence, not a word", level: 2 },
+      { id: "slicing-without-the-off-by-one", text: "Slicing without the off-by-one", level: 2 },
+      { id: "nothing-about-a-string-changes-in-place", text: "Nothing about a string ever changes in place", level: 2 },
+    ],
+    status: "published",
+  },
+  {
+    slug: "lists-and-tuples",
+    partId: "data",
+    order: 6,
+    title: "Ordered Collections, Two Ways",
+    description:
+      "Python gives you two ways to hold an ordered group of things, and the difference is not the brackets. Try to change a tuple the way you would a list, and read exactly what it refuses, and why.",
+    level: "beginner",
+    minutes: 9,
+    prerequisites: [],
+    tags: ["Data", "Interactive"],
+    headings: [
+      { id: "an-ordered-collection-you-can-change", text: "An ordered collection you can change", level: 2 },
+      { id: "the-same-idea-deliberately-locked", text: "The same idea, deliberately locked", level: 2 },
+      { id: "why-the-distinction-is-worth-keeping", text: "Why the distinction is worth keeping", level: 2 },
+    ],
+    status: "published",
+  },
+  {
+    slug: "dictionaries",
+    partId: "data",
+    order: 7,
+    title: "Looking Things Up Instead of Counting Along",
+    description:
+      "A list makes you remember where something is. A dictionary lets you forget. Build one from scratch, look something up by name instead of position, and ask for a key that was never there.",
+    level: "beginner",
+    minutes: 9,
+    prerequisites: [],
+    tags: ["Data", "Interactive"],
+    headings: [
+      { id: "looking-up-by-name-instead-of-position", text: "Looking up by name instead of position", level: 2 },
+      { id: "a-missing-key-is-not-zero-it-is-an-error", text: "A missing key is not zero, it is an error", level: 2 },
+      { id: "when-a-dictionary-is-the-right-tool", text: "When a dictionary is the right tool, and when a list still is", level: 2 },
+    ],
+    status: "published",
+  },
+  {
+    slug: "sets-and-truthiness",
+    partId: "data",
+    order: 8,
+    title: "What Counts as Empty, False, or Equal",
+    description:
+      "Python will evaluate almost anything as true or false, including things that are neither. Feed in an empty list, the number zero, and the string that spells the word False, and see which ones the language actually treats as false.",
+    level: "beginner",
+    minutes: 8,
+    prerequisites: ["lists-and-tuples"],
+    tags: ["Data", "Interactive"],
+    headings: [
+      { id: "what-counts-as-empty", text: "What counts as empty", level: 2 },
+      { id: "a-collection-that-refuses-duplicates", text: "A collection that refuses duplicates", level: 2 },
+      { id: "testing-membership-without-a-loop", text: "Testing membership without a loop", level: 2 },
+    ],
+    status: "published",
+  },
+  {
+    slug: "conditionals",
+    partId: "flow",
+    order: 9,
+    title: "Teaching a Program to Choose",
+    description:
+      "A program that always does the same thing is not a program, it is a constant. Feed one input through a chain of conditions and watch exactly one branch of it ever run.",
+    level: "beginner",
+    minutes: 8,
+    prerequisites: [],
+    tags: ["Control Flow", "Interactive"],
+    headings: [
+      { id: "a-program-that-chooses", text: "A program that chooses", level: 2 },
+      { id: "elif-is-not-a-second-if", text: "elif is not a second if", level: 2 },
+      { id: "what-python-accepts-in-place-of-true-or-false", text: "What Python accepts in place of true or false", level: 2 },
+    ],
+    status: "published",
+  },
+  {
+    slug: "loops",
+    partId: "flow",
+    order: 10,
+    title: "Doing Something More Than Once",
+    description:
+      "Looping in Python means iterating over the thing itself, not counting up to its length and hoping you stop in time. Step through a collection one item at a time and watch the loop variable outlive the loop that created it.",
+    level: "beginner",
+    minutes: 9,
+    prerequisites: [],
+    tags: ["Control Flow", "Interactive"],
+    headings: [
+      { id: "iterating-over-the-thing-not-an-index-into-it", text: "Iterating over the thing, not an index into it", level: 2 },
+      { id: "while-repeating-until-something-changes", text: "While: repeating until something changes", level: 2 },
+      { id: "the-loop-variable-outlives-the-loop", text: "The loop variable is still there after the loop ends", level: 2 },
+    ],
+    status: "published",
+  },
+  {
+    slug: "functions",
+    partId: "flow",
+    order: 11,
+    title: "Naming a Piece of Work",
+    description:
+      "Copy the same five lines into three places in a program and you have created three bugs waiting to happen, not three features. Wrap them in a function once, and watch every copy become a single name you can call.",
+    level: "beginner",
+    minutes: 10,
+    prerequisites: [],
+    tags: ["Control Flow", "Interactive"],
+    headings: [
+      { id: "naming-a-piece-of-work-you-will-repeat", text: "Naming a piece of work you will repeat", level: 2 },
+      { id: "parameters-are-just-names-local-to-the-call", text: "Parameters are just names local to the call", level: 2 },
+      { id: "return-sends-a-value-back-print-only-shows-it", text: "Return sends a value back; print only ever shows you one", level: 2 },
+    ],
+    status: "published",
+  },
+  {
+    slug: "scope-and-arguments",
+    partId: "flow",
+    order: 12,
+    title: "Where a Name Actually Lives",
+    description:
+      "A variable created inside a function looks like it should be visible everywhere once the function has run. Try to read it from outside, and find out Python disagrees, on purpose.",
+    level: "intermediate",
+    minutes: 10,
+    prerequisites: ["functions"],
+    tags: ["Control Flow", "Interactive"],
+    headings: [
+      { id: "a-name-only-exists-where-it-was-created", text: "A name only exists where it was created", level: 2 },
+      { id: "reading-an-outer-name-is-allowed-changing-it-is-not", text: "Reading an outer name is allowed; changing it is not, by default", level: 2 },
+      { id: "default-arguments-are-evaluated-once", text: "Default arguments are evaluated once, not every call", level: 2 },
+    ],
+    status: "published",
+  },
+  {
+    slug: "errors",
+    partId: "objects",
+    order: 13,
+    title: "When Things Go Wrong on Purpose",
+    description:
+      "A traceback looks like the program's way of failing at you. Read one from the bottom up instead of the top down, and it turns into the most specific bug report you will ever get for free.",
+    level: "intermediate",
+    minutes: 9,
+    prerequisites: [],
+    tags: ["Objects", "Interactive"],
+    headings: [
+      { id: "reading-a-traceback-from-the-bottom-not-the-top", text: "Reading a traceback from the bottom, not the top", level: 2 },
+      { id: "catching-the-error-you-expect-not-every-error", text: "Catching the error you expect, not every error", level: 2 },
+      { id: "raising-one-on-purpose-before-it-happens-by-accident", text: "Raising one on purpose, before it happens by accident", level: 2 },
+    ],
+    status: "published",
+  },
+  {
+    slug: "modules-and-packages",
+    partId: "objects",
+    order: 14,
+    title: "Splitting a Program Into Pieces",
+    description:
+      "A single file works exactly until it does not, somewhere around the point it holds three unrelated things. Split one program across two files, import one from the other, and watch the boundary hold.",
+    level: "intermediate",
+    minutes: 8,
+    prerequisites: [],
+    tags: ["Objects"],
+    headings: [
+      { id: "one-file-becomes-two-on-purpose", text: "One file becomes two, on purpose", level: 2 },
+      { id: "what-import-actually-does-the-first-time", text: "What import actually does the first time", level: 2 },
+      { id: "a-package-is-a-folder-with-one-extra-file-in-it", text: "A package is a folder with one extra file in it", level: 2 },
+    ],
+    status: "published",
+  },
+  {
+    slug: "classes-and-objects",
+    partId: "objects",
+    order: 15,
+    title: "Bundling Data With Behaviour",
+    description:
+      "A dictionary can hold a name and an age, but nothing stops you misspelling the key next time you use it. Define a class once, stamp out three objects from it, and give each its own values without repeating the shape.",
+    level: "intermediate",
+    minutes: 11,
+    prerequisites: ["dictionaries"],
+    tags: ["Objects", "Interactive"],
+    headings: [
+      { id: "a-blueprint-and-the-objects-made-from-it", text: "A blueprint, and the objects made from it", level: 2 },
+      { id: "self-is-the-object-talking-about-itself", text: "self is the object talking about itself", level: 2 },
+      { id: "bundling-data-and-the-functions-that-act-on-it", text: "Bundling data and the functions that act on it", level: 2 },
+    ],
+    status: "published",
+  },
+  {
+    slug: "inheritance",
+    partId: "objects",
+    order: 16,
+    title: "Reusing Behaviour Without Copying It",
+    description:
+      "Two classes that share eighty percent of their behaviour usually end up as two copies of that eighty percent. Write the shared part once, inherit it in both, and override only what actually differs.",
+    level: "intermediate",
+    minutes: 10,
+    prerequisites: [],
+    tags: ["Objects"],
+    headings: [
+      { id: "a-child-class-starts-with-everything-the-parent-has", text: "A child class starts with everything the parent has", level: 2 },
+      { id: "overriding-a-method-without-touching-the-original", text: "Overriding a method without touching the original", level: 2 },
+      { id: "when-inheritance-is-the-right-tool", text: "When inheritance is the right tool, and when composition is", level: 2 },
+    ],
+    status: "published",
+  },
+  {
+    slug: "files-and-paths",
+    partId: "real-programs",
+    order: 17,
+    title: "Reading and Writing Outside the Program",
+    description:
+      "Everything so far has lived inside the program and vanished the moment it stopped running. Write a line to an actual file on disk, close it properly, and read the same line back in a program that starts fresh.",
+    level: "intermediate",
+    minutes: 9,
+    prerequisites: [],
+    tags: ["Real Programs"],
+    headings: [
+      { id: "opening-a-file-is-not-the-same-as-using-it-safely", text: "Opening a file is not the same as using it safely", level: 2 },
+      { id: "with-closes-the-file-even-when-something-goes-wrong", text: "with closes the file even when something goes wrong", level: 2 },
+      { id: "paths-behave-differently-depending-on-where-you-run-from", text: "Paths behave differently depending on where the program runs from", level: 2 },
+    ],
+    status: "published",
+  },
+  {
+    slug: "comprehensions",
+    partId: "real-programs",
+    order: 18,
+    title: "Building a Collection in One Line",
+    description:
+      "Building a new list from an old one usually starts as three lines: an empty list, a loop, and an append. Write the same transformation as one line, and read it back exactly as fast as you wrote it.",
+    level: "intermediate",
+    minutes: 9,
+    prerequisites: ["loops"],
+    tags: ["Real Programs", "Interactive"],
+    headings: [
+      { id: "the-three-line-version-first", text: "The three-line version, first", level: 2 },
+      { id: "the-same-idea-written-as-one-expression", text: "The same idea, written as one expression", level: 2 },
+      { id: "when-a-comprehension-makes-code-harder-to-read", text: "When a comprehension makes code harder to read, not easier", level: 2 },
+    ],
+    status: "published",
+  },
+  {
+    slug: "iterators-and-generators",
+    partId: "real-programs",
+    order: 19,
+    title: "Producing Values One at a Time",
+    description:
+      "A list built to hold a million numbers holds all million in memory at once, whether you need them yet or not. Write a generator instead, pull one value at a time, and watch it produce the next number only when asked.",
+    level: "advanced",
+    minutes: 11,
+    prerequisites: ["functions"],
+    tags: ["Real Programs", "Interactive"],
+    headings: [
+      { id: "a-list-you-already-have-versus-a-value-not-made-yet", text: "A list you already have, versus a value you have not made yet", level: 2 },
+      { id: "yield-pauses-a-function-instead-of-ending-it", text: "yield pauses a function instead of ending it", level: 2 },
+      { id: "why-laziness-is-the-entire-point", text: "Why laziness is the entire point", level: 2 },
+    ],
+    status: "published",
+  },
+  {
+    slug: "decorators",
+    partId: "real-programs",
+    order: 20,
+    title: "Wrapping a Function Without Rewriting It",
+    description:
+      "Adding logging to ten functions usually means editing ten functions. Write the logging once as a decorator, apply it with one line above each function, and leave the original code untouched.",
+    level: "advanced",
+    minutes: 11,
+    prerequisites: ["functions"],
+    tags: ["Real Programs"],
+    headings: [
+      { id: "a-function-that-takes-a-function-and-returns-one", text: "A function that takes a function and returns one", level: 2 },
+      { id: "the-at-sign-is-not-special-syntax", text: "@ is not special syntax, it is one line saved", level: 2 },
+      { id: "what-a-decorator-costs-you-when-it-goes-wrong", text: "What a decorator costs you when it goes wrong", level: 2 },
+    ],
+    status: "published",
+  },
+  {
+    slug: "working-with-libraries",
+    partId: "advanced",
+    order: 21,
+    title: "Standing on Other People's Code",
+    description:
+      "Nobody writes date parsing or HTTP requests from scratch, because somebody has already written it better and tested it more. Install a real package, import it, and use in three lines what would take an afternoon to build.",
+    level: "advanced",
+    minutes: 9,
+    prerequisites: [],
+    tags: ["Advanced"],
+    headings: [
+      { id: "pip-installs-code-not-magic", text: "pip installs code, not magic", level: 2 },
+      { id: "a-virtual-environment-is-a-clean-room-per-project", text: "A virtual environment is a clean room per project", level: 2 },
+      { id: "reading-documentation-instead-of-guessing-at-an-api", text: "Reading documentation instead of guessing at an API", level: 2 },
+    ],
+    status: "published",
+  },
+  {
+    slug: "json-and-apis",
+    partId: "advanced",
+    order: 22,
+    title: "Talking to the Outside World",
+    description:
+      "JSON looks almost exactly like a Python dictionary, right up until you notice the differences. Convert one into the other in both directions, and find the two places the conversion is not quite what you expected.",
+    level: "advanced",
+    minutes: 10,
+    prerequisites: ["dictionaries"],
+    tags: ["Advanced", "Interactive"],
+    headings: [
+      { id: "the-format-everything-on-the-internet-already-speaks", text: "The format everything on the internet already speaks", level: 2 },
+      { id: "loading-json-turns-it-into-ordinary-python-values", text: "Loading JSON turns it into ordinary Python values", level: 2 },
+      { id: "where-the-two-formats-quietly-disagree", text: "Where the two formats quietly disagree", level: 2 },
+    ],
+    status: "published",
+  },
+  {
+    slug: "testing-your-code",
+    partId: "advanced",
+    order: 23,
+    title: "Proving It Works, Not Just Believing It",
+    description:
+      "Running a program and reading the output by eye works fine until it has more than one path through it. Write an assertion that checks the answer for you, and let it fail loudly the moment the code stops agreeing with itself.",
+    level: "advanced",
+    minutes: 10,
+    prerequisites: ["functions"],
+    tags: ["Advanced"],
+    headings: [
+      { id: "assert-is-the-smallest-test-you-can-write", text: "assert is the smallest test you can write", level: 2 },
+      { id: "a-test-that-only-ever-passes-is-not-testing-anything", text: "A test that only ever passes is not testing anything", level: 2 },
+      { id: "naming-a-test-after-what-it-proves", text: "Naming a test after what it proves, not what it calls", level: 2 },
+    ],
+    status: "published",
+  },
+  {
+    slug: "final-project",
+    partId: "advanced",
+    order: 24,
+    title: "Building Something From All of It",
+    description:
+      "Every chapter until now has proven one idea in isolation. Build one program that needs variables, a loop, a function, and a dictionary all in the same twenty lines, and watch them stop being separate topics.",
+    level: "advanced",
+    minutes: 14,
+    prerequisites: [],
+    tags: ["Advanced"],
+    headings: [
+      { id: "planning-the-shape-before-writing-a-line", text: "Planning the shape before writing a line", level: 2 },
+      { id: "building-it-piece-by-piece-testing-each-one", text: "Building it piece by piece, testing each one", level: 2 },
+      { id: "where-to-go-from-here", text: "Where to go from here", level: 2 },
+    ],
+    status: "published",
+  },
+];
+
+export type { LearnChapter as PythonLesson } from "@/lib/learn-types";

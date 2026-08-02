@@ -4,6 +4,21 @@ import { useEffect, useState } from "react";
 
 const LOADER_SEEN_KEY = "cwp-loader-seen";
 const MIN_VISIBLE_MS = 1900;
+/**
+ * Hard ceiling on the splash, counted from mount.
+ *
+ * The loader covers the page with an opaque layer and takes `overflow: hidden`
+ * on <html>, so for as long as it is up the site is neither readable nor
+ * scrollable. It used to come down only on `window.load` — an event that waits
+ * for every subresource on the page, including images far below the fold and
+ * third-party requests the visitor's network may drop rather than refuse. One
+ * stalled request and the event never fires at all, leaving the visitor on a
+ * cream screen with a pulsing logo and no way out.
+ *
+ * A brand splash is not a progress indicator, so it no longer behaves like
+ * one: whichever comes first, `load` or this ceiling, takes it down.
+ */
+const MAX_VISIBLE_MS = 3500;
 const EXIT_MS = 650;
 
 type LoaderPhase = "loading" | "exit" | "done";
@@ -30,8 +45,13 @@ export function SiteLoader() {
     const startedAt = Date.now();
     let exitTimer: ReturnType<typeof setTimeout> | undefined;
     let doneTimer: ReturnType<typeof setTimeout> | undefined;
+    let dismissing = false;
 
+    // Idempotent: `load` and the ceiling below race, and whichever loses must
+    // not schedule a second pair of timers.
     const finish = () => {
+      if (dismissing) return;
+      dismissing = true;
       const wait = Math.max(0, MIN_VISIBLE_MS - (Date.now() - startedAt));
       exitTimer = setTimeout(() => setPhase("exit"), wait);
       doneTimer = setTimeout(() => {
@@ -47,8 +67,11 @@ export function SiteLoader() {
       window.addEventListener("load", finish, { once: true });
     }
 
+    const ceilingTimer = setTimeout(finish, MAX_VISIBLE_MS);
+
     return () => {
       window.removeEventListener("load", finish);
+      clearTimeout(ceilingTimer);
       if (exitTimer) clearTimeout(exitTimer);
       if (doneTimer) clearTimeout(doneTimer);
       document.documentElement.classList.remove("cwp-loader-active");

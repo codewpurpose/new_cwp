@@ -11,8 +11,8 @@ import {
   HOME_HREF,
   INSTAGRAM_HREF,
   JOIN_HREF,
-  LEARN_HREF,
   LEARN_ML_HREF,
+  LEARN_PYTHON_HREF,
   LEARN_VIBECODING_HREF,
   X_HREF,
 } from "@/lib/links";
@@ -78,18 +78,13 @@ export function SiteFooter() {
                       </a>
                     </li>
                     <li>
-                      <a href={LEARN_HREF} className="home-footer-link">
-                        Learn
+                      <a href={LEARN_PYTHON_HREF} className="home-footer-link">
+                        Python Lessons
                       </a>
                     </li>
                     <li>
                       <a href={COURSES_HREF} className="home-footer-link">
                         All Courses
-                      </a>
-                    </li>
-                    <li>
-                      <a href={COURSES_HREF} className="home-footer-link">
-                        Free Courses
                       </a>
                     </li>
                     <li>

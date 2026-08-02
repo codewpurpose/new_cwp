@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { ContributeBand } from "@/components/learn/cards/ContributeBand";
 import { PageHero, PageSection, PhotoGrid } from "@/components/PageHero";
 import { PageShell } from "@/components/PageShell";
 import { Reveal } from "@/components/Reveal";
@@ -9,24 +10,44 @@ import {
   ABOUT_HREF,
   FINANCIAL_LITERACY_COURSE_HREF,
   HEALTH_IN_TECH_COURSE_HREF,
+  LEARN_FINANCIAL_LITERACY_HREF,
+  LEARN_HEALTH_IN_TECH_HREF,
+  LEARN_ML_HREF,
+  LEARN_PYTHON_HREF,
+  LEARN_VIBECODING_HREF,
   ML_PART_1_COURSE_HREF,
   ML_PART_2_COURSE_HREF,
   PYTHON_COURSE_HREF,
   VIBECODING_COURSE_HREF,
+  VIBECODING_PART_2_COURSE_HREF,
 } from "@/lib/links";
 
 export const metadata: Metadata = {
-  title: "Courses | CWP",
+  title: "Free Coding Courses",
   description:
-    "Free courses for students worldwide. Python, Vibecoding, Machine Learning, Financial Literacy, and Health in Tech.",
+    "Free courses and interactive lessons for students worldwide. Python, Vibecoding, Machine Learning, Financial Literacy, and Health in Tech.",
+  alternates: { canonical: "/courses" },
 };
 
 interface Course {
   title: string;
   tags: string[];
   description: string;
-  href: string;
   cover: TopicCoverVariant;
+  /**
+   * Udemy enrolments. A subject taught in two parts is one card with two
+   * buttons rather than two cards: split across cards, the pair repeated the
+   * same art, tags and half the description, and read as unrelated courses
+   * rather than as one course with a second half.
+   */
+  enrol: { href: string; label: string }[];
+  /**
+   * The interactive track on this site, for the subjects that have one. The
+   * catalog and the lesson tracks used to be separate pages; a course that is
+   * taught both ways now offers both from the same card rather than asking the
+   * reader to find the other page.
+   */
+  lessonsHref?: string;
 }
 
 const courses: Course[] = [
@@ -36,31 +57,32 @@ const courses: Course[] = [
     description:
       "Zero experience? Perfect. You'll go from nothing to building real projects, just like 800+ students across 50+ countries already have.",
     cover: "python",
-    href: PYTHON_COURSE_HREF,
+    enrol: [{ href: PYTHON_COURSE_HREF, label: "Enroll Free" }],
+    lessonsHref: LEARN_PYTHON_HREF,
   },
   {
     title: "Vibecoding 101",
     tags: ["Creative", "AI-Powered"],
     description:
-      "Build real apps using AI tools like Cursor and Copilot. This is where coding is headed: fast, creative, and full of purpose.",
+      "Build real apps using AI tools like Cursor and Copilot. Part 1 gets you shipping; Part 2 goes deeper on prompting and reviewing what the AI writes. This is where coding is headed: fast, creative, and full of purpose.",
     cover: "vibecoding",
-    href: VIBECODING_COURSE_HREF,
+    enrol: [
+      { href: VIBECODING_COURSE_HREF, label: "Enroll Part 1" },
+      { href: VIBECODING_PART_2_COURSE_HREF, label: "Enroll Part 2" },
+    ],
+    lessonsHref: LEARN_VIBECODING_HREF,
   },
   {
-    title: "Intro to Machine Learning: Part 1",
+    title: "Intro to Machine Learning",
     tags: ["New", "AI & ML"],
     description:
-      "Curious how machines actually learn? Start from the ground up with data, models, and your first predictions, all explained in plain English.",
+      "Curious how machines actually learn? Part 1 starts from the ground up with data, models, and your first predictions. Part 2 trains smarter models, dodges the classic beginner pitfalls, and builds projects worth showing off.",
     cover: "ml1",
-    href: ML_PART_1_COURSE_HREF,
-  },
-  {
-    title: "Intro to Machine Learning: Part 2",
-    tags: ["New", "AI & ML"],
-    description:
-      "Pick up right where Part 1 left off. Train smarter models, dodge the classic beginner pitfalls, and build projects worth showing off.",
-    cover: "ml2",
-    href: ML_PART_2_COURSE_HREF,
+    enrol: [
+      { href: ML_PART_1_COURSE_HREF, label: "Enroll Part 1" },
+      { href: ML_PART_2_COURSE_HREF, label: "Enroll Part 2" },
+    ],
+    lessonsHref: LEARN_ML_HREF,
   },
   {
     title: "Financial Literacy: The Basics",
@@ -68,15 +90,16 @@ const courses: Course[] = [
     description:
       "The money skills every student should have: budgeting, saving, credit, and investing, taught simply and without the jargon.",
     cover: "finance",
-    href: FINANCIAL_LITERACY_COURSE_HREF,
+    enrol: [{ href: FINANCIAL_LITERACY_COURSE_HREF, label: "Enroll Free" }],
   },
+
   {
     title: "Health in Tech: An Introduction",
     tags: ["New", "Career"],
     description:
       "See where healthcare meets technology, from medical data to digital health careers, and learn how code is already saving lives.",
     cover: "health",
-    href: HEALTH_IN_TECH_COURSE_HREF,
+    enrol: [{ href: HEALTH_IN_TECH_COURSE_HREF, label: "Enroll Free" }],
   },
 ];
 
@@ -85,7 +108,7 @@ export default function CoursesPage() {
     <PageShell>
       <PageHero
         title="Courses built for the curious"
-        description="Real coding skills from student teachers, completely free, forever. Enroll and start learning today."
+        description="Real coding skills from student teachers, completely free, forever. Take the full course on Udemy, or work through the interactive lessons right here."
         image={images.codingLaptop}
         imageAlt="Student learning to code on a laptop"
       >
@@ -119,14 +142,31 @@ export default function CoursesPage() {
                   <p className="mt-3 text-[15px] leading-[1.55] text-[var(--home-ink-soft)]">
                     {course.description}
                   </p>
-                  <a
-                    href={course.href}
-                    target="_blank"
-                    rel="noreferrer"
-                    className="home-btn home-btn-fill mt-6"
-                  >
-                    Enroll Free
-                  </a>
+                  {/* Lessons lead where they exist — they are ours and they
+                      are one click away, where enrolling leaves the site. The
+                      enrolments carry the violet either way, so the button that
+                      hands the reader to Udemy looks the same on every card. */}
+                  <div className="mt-6 flex flex-wrap gap-2">
+                    {course.lessonsHref && (
+                      <Link
+                        href={course.lessonsHref}
+                        className="home-btn home-btn-fill"
+                      >
+                        Interactive Lessons
+                      </Link>
+                    )}
+                    {course.enrol.map((enrol) => (
+                      <a
+                        key={enrol.href}
+                        href={enrol.href}
+                        target="_blank"
+                        rel="noreferrer"
+                        className="home-btn home-btn-violet"
+                      >
+                        {enrol.label}
+                      </a>
+                    ))}
+                  </div>
                 </div>
               </article>
             </Reveal>
@@ -146,6 +186,11 @@ export default function CoursesPage() {
           <PhotoGrid photos={images.gallery.slice(0, 8)} columns={4} />
         </div>
       </PageSection>
+
+      {/* Came across with the lesson tracks when /learn folded in here: the
+          contributor funnel used to live on that index and has nowhere else
+          to sit. */}
+      <ContributeBand />
     </PageShell>
   );
 }

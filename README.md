@@ -43,12 +43,15 @@ npm run learn:new -- --track ml --slug my-lesson --title "My Lesson"  # scaffold
 
 ## The Learn Section
 
-Two self-paced tracks live under `/learn`. Both run on the same documentation shell — sidebar, table of contents, prev/next pager — so they read as one product.
+Five self-paced tracks live under `/learn`. All run on the same documentation shell — sidebar, table of contents, prev/next pager — so they read as one product.
 
 | Track | Path | Content |
 | ----- | ---- | ------- |
 | Machine Learning | `/learn/ml` | 7 lessons, absolute basics through measuring a model |
 | Vibe Coding | `/learn/vibecoding` | 29 chapters, setup through advanced practice |
+| Python | `/learn/python` | 24 chapters, first line of code through a tested capstone project |
+| Financial Literacy | `/learn/financial-literacy` | 24 chapters, first budget through investing, taxes, and a one-page plan |
+| Health in Tech | `/learn/health-in-tech` | 24 chapters, what health tech is through AI bias, security, and a capstone |
 
 Every ML lesson is built around a single hero interactive: one control the reader drags, with the concept made *felt* before it is named. Drag a decision threshold and watch precision trade against recall; stack hand-written rules and watch each one buy less than the last.
 
@@ -100,12 +103,15 @@ Full process, pull request conventions, and the review bar: [CONTRIBUTING.md](CO
 ```
 src/
   app/              Routes (App Router)
-    learn/          The two lesson tracks
+    learn/          The five lesson tracks
   components/
     learn/primitives/  Prose primitives — lessons are composed from these
     learn/shell/       Sidebar, TOC, pager, chapter header (track-agnostic)
     ml/             ML lesson interactives and prose
     vibecoding/     Vibe coding chapters
+    python/         Python lesson interactives and prose
+    financial-literacy/  Financial literacy interactives and prose
+    health-in-tech/      Health in tech interactives and prose
     ui/             shadcn/ui primitives
   lib/
     ml/             Seeded lesson data and pure math helpers

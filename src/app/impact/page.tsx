@@ -7,9 +7,10 @@ import { images } from "@/lib/images";
 import { CONGRESS_LETTER_HREF, DONATE_HREF } from "@/lib/links";
 
 export const metadata: Metadata = {
-  title: "Impact | CWP",
+  title: "Our Impact",
   description:
     "4,000+ students across 130+ countries. See the impact of free coding education.",
+  alternates: { canonical: "/impact" },
 };
 
 const stats = [
