@@ -43,8 +43,12 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const { slug } = await params;
   const chapter = getChapter(TRACK, slug);
-  if (!chapter) return { title: "Machine Learning | CWP" };
-  return { title: `${chapter.title} | CWP`, description: chapter.description };
+  if (!chapter) return { title: "Machine Learning" };
+  return {
+    title: chapter.title,
+    description: chapter.description,
+    alternates: { canonical: `/learn/ml/${slug}` },
+  };
 }
 
 export default async function MlLessonPage({

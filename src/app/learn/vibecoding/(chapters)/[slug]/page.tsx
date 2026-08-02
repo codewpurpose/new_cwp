@@ -87,8 +87,12 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const { slug } = await params;
   const chapter = getChapter(TRACK, slug);
-  if (!chapter) return { title: "Vibe Coding | CWP" };
-  return { title: `${chapter.title} | CWP`, description: chapter.description };
+  if (!chapter) return { title: "Vibe Coding" };
+  return {
+    title: chapter.title,
+    description: chapter.description,
+    alternates: { canonical: `/learn/vibecoding/${slug}` },
+  };
 }
 
 export default async function VibecodingChapterPage({

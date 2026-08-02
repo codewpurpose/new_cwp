@@ -7,9 +7,10 @@ import { images } from "@/lib/images";
 import { CONTACT_HREF, COURSES_HREF, HCB_DONATE_EMBED_SRC } from "@/lib/links";
 
 export const metadata: Metadata = {
-  title: "Donate | CWP",
+  title: "Donate",
   description:
     "Support CodeWithPurpose. Every dollar helps a student start their coding journey today.",
+  alternates: { canonical: "/donate" },
 };
 
 const impactAreas = [

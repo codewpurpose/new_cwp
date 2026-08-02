@@ -8,8 +8,9 @@ import { posts } from "@/lib/posts";
 import { SUBSTACK_EMBED_SRC } from "@/lib/links";
 
 export const metadata: Metadata = {
-  title: "Blog | CWP",
+  title: "Blog",
   description: "Stories, updates, and insights from the CodeWithPurpose community.",
+  alternates: { canonical: "/blog" },
 };
 
 export default function BlogPage() {

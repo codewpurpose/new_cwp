@@ -16,9 +16,10 @@ import {
 } from "@/lib/links";
 
 export const metadata: Metadata = {
-  title: "Courses | CWP",
+  title: "Free Coding Courses",
   description:
     "Free courses for students worldwide. Python, Vibecoding, Machine Learning, Financial Literacy, and Health in Tech.",
+  alternates: { canonical: "/courses" },
 };
 
 interface Course {

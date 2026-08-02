@@ -16,9 +16,10 @@ import {
 import { chapterHref, getPartsWithChapters } from "@/lib/learn-nav";
 
 export const metadata: Metadata = {
-  title: "Vibe Coding | CWP",
+  title: "Vibe Coding",
   description:
     "Free interactive vibe coding lessons from CodeWithPurpose. Learn to prompt, pair-program, debug, and ship real apps with AI.",
+  alternates: { canonical: "/learn/vibecoding" },
 };
 
 export default function LearnVibecodingPage() {

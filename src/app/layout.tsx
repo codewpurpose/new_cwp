@@ -2,7 +2,13 @@ import type { Metadata } from "next";
 import { Archivo, Fraunces, Spline_Sans_Mono } from "next/font/google";
 import { MotionProvider } from "@/components/MotionProvider";
 import { SiteLoader } from "@/components/SiteLoader";
+import { SITE_URL } from "@/lib/links";
 import "./globals.css";
+
+const SITE_NAME = "CodeWithPurpose";
+const SITE_TITLE = "CodeWithPurpose — Free Coding Education for Students Worldwide";
+const SITE_DESCRIPTION =
+  "We're a student-run nonprofit teaching real coding skills to students in 130+ countries. Completely free, forever.";
 
 /* Archivo over Inter: a grotesque with actual character in its terminals and a
  * tall x-height that holds up at the 13–15px the interface leans on. Inter is
@@ -30,16 +36,29 @@ const homeMono = Spline_Sans_Mono({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://www.codewithpurpose.org"),
-  title: "CWP",
-  description:
-    "We're a student-run nonprofit teaching real coding skills to students in 130+ countries. Completely free, forever.",
+  metadataBase: new URL(SITE_URL),
+  title: {
+    default: SITE_TITLE,
+    template: `%s | ${SITE_NAME}`,
+  },
+  description: SITE_DESCRIPTION,
+  keywords: [
+    "free coding education",
+    "learn to code for free",
+    "student-run nonprofit",
+    "free coding courses",
+    "coding education for students",
+    "CodeWithPurpose",
+  ],
+  alternates: {
+    canonical: "/",
+  },
   openGraph: {
     title: "Free Education for Every Student, Everywhere | CodeWithPurpose",
     description:
       "Together in Learning, Stronger in Purpose. Free coding courses for students worldwide.",
-    url: "https://www.codewithpurpose.org",
-    siteName: "CodeWithPurpose",
+    url: SITE_URL,
+    siteName: SITE_NAME,
     images: [
       {
         url: "/seo/og-image.png",
@@ -50,9 +69,27 @@ export const metadata: Metadata = {
     ],
     type: "website",
   },
+  twitter: {
+    card: "summary_large_image",
+    title: "Free Education for Every Student, Everywhere | CodeWithPurpose",
+    description:
+      "Together in Learning, Stronger in Purpose. Free coding courses for students worldwide.",
+    images: ["/seo/og-image.png"],
+  },
   icons: {
     icon: [{ url: "/icon.svg", type: "image/svg+xml" }],
   },
+};
+
+const organizationJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "NonprofitOrganization",
+  name: SITE_NAME,
+  alternateName: "CWP",
+  url: SITE_URL,
+  logo: `${SITE_URL}/codewp-logo.png`,
+  description: SITE_DESCRIPTION,
+  sameAs: ["https://hackclub.com", "https://codewithpurpose.substack.com"],
 };
 
 export default function RootLayout({
@@ -65,6 +102,10 @@ export default function RootLayout({
       <body
         className={`home-root ${homeSans.variable} ${homeSerif.variable} ${homeMono.variable} min-h-full`}
       >
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationJsonLd) }}
+        />
         <SiteLoader />
         <MotionProvider>{children}</MotionProvider>
       </body>

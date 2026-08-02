@@ -16,9 +16,10 @@ import {
 import { chapterHref, getChapters } from "@/lib/learn-nav";
 
 export const metadata: Metadata = {
-  title: "Machine Learning | CWP",
+  title: "Machine Learning",
   description:
     "Free interactive machine learning lessons from CodeWithPurpose. Start from nothing: what ML is, what data has to look like, how a model learns, and how to tell whether it worked.",
+  alternates: { canonical: "/learn/ml" },
 };
 
 export default function LearnMlPage() {
