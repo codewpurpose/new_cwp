@@ -1,5 +1,13 @@
 import type { LearnChapter, LearnPart, LearnTrack, LearnTrackId } from "@/lib/learn-types";
-import { LEARN_ML_HREF, LEARN_PYTHON_HREF, LEARN_VIBECODING_HREF } from "@/lib/links";
+import {
+  LEARN_FINANCIAL_LITERACY_HREF,
+  LEARN_HEALTH_IN_TECH_HREF,
+  LEARN_ML_HREF,
+  LEARN_PYTHON_HREF,
+  LEARN_VIBECODING_HREF,
+} from "@/lib/links";
+import { FINANCIAL_LITERACY_CHAPTERS, FINANCIAL_LITERACY_PARTS } from "@/lib/financial-literacy-lessons";
+import { HEALTH_IN_TECH_CHAPTERS, HEALTH_IN_TECH_PARTS } from "@/lib/health-in-tech-lessons";
 import { ML_CHAPTERS, ML_PARTS } from "@/lib/ml-lessons";
 import { PYTHON_CHAPTERS, PYTHON_PARTS } from "@/lib/python-lessons";
 import { VIBECODING_CHAPTERS, VIBECODING_PARTS } from "@/lib/vibecoding-lessons";
@@ -26,6 +34,20 @@ const TRACKS: Record<LearnTrackId, LearnTrack> = {
     parts: PYTHON_PARTS,
     chapters: PYTHON_CHAPTERS,
   },
+  "financial-literacy": {
+    id: "financial-literacy",
+    title: "Financial Literacy",
+    href: LEARN_FINANCIAL_LITERACY_HREF,
+    parts: FINANCIAL_LITERACY_PARTS,
+    chapters: FINANCIAL_LITERACY_CHAPTERS,
+  },
+  "health-in-tech": {
+    id: "health-in-tech",
+    title: "Health in Tech",
+    href: LEARN_HEALTH_IN_TECH_HREF,
+    parts: HEALTH_IN_TECH_PARTS,
+    chapters: HEALTH_IN_TECH_CHAPTERS,
+  },
 };
 
 /** Computed once at module scope rather than per render. */
@@ -39,6 +61,14 @@ const PUBLISHED: Record<LearnTrackId, readonly LearnChapter[]> = {
     .slice()
     .sort((a, b) => a.order - b.order),
   python: TRACKS.python.chapters
+    .filter((c) => c.status === "published")
+    .slice()
+    .sort((a, b) => a.order - b.order),
+  "financial-literacy": TRACKS["financial-literacy"].chapters
+    .filter((c) => c.status === "published")
+    .slice()
+    .sort((a, b) => a.order - b.order),
+  "health-in-tech": TRACKS["health-in-tech"].chapters
     .filter((c) => c.status === "published")
     .slice()
     .sort((a, b) => a.order - b.order),

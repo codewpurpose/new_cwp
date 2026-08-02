@@ -10,6 +10,8 @@ import {
   ABOUT_HREF,
   FINANCIAL_LITERACY_COURSE_HREF,
   HEALTH_IN_TECH_COURSE_HREF,
+  LEARN_FINANCIAL_LITERACY_HREF,
+  LEARN_HEALTH_IN_TECH_HREF,
   LEARN_ML_HREF,
   LEARN_PYTHON_HREF,
   LEARN_VIBECODING_HREF,
@@ -90,6 +92,7 @@ const courses: Course[] = [
     cover: "finance",
     enrol: [{ href: FINANCIAL_LITERACY_COURSE_HREF, label: "Enroll Free" }],
   },
+
   {
     title: "Health in Tech: An Introduction",
     tags: ["New", "Career"],

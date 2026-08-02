@@ -16,6 +16,8 @@ export default function sitemap(): MetadataRoute.Sitemap {
     "/learn/ml",
     "/learn/vibecoding",
     "/learn/python",
+    "/learn/financial-literacy",
+    "/learn/health-in-tech",
   ].map((path) => ({
     url: `${SITE_URL}${path}`,
     lastModified: new Date(),
@@ -30,7 +32,9 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.6,
   }));
 
-  const lessonRoutes = (["ml", "vibecoding", "python"] as const).flatMap((track) =>
+  const lessonRoutes = (
+    ["ml", "vibecoding", "python", "financial-literacy", "health-in-tech"] as const
+  ).flatMap((track) =>
     getChapters(track).map((chapter) => ({
       url: `${SITE_URL}/learn/${track}/${chapter.slug}`,
       lastModified: new Date(),
