@@ -205,8 +205,8 @@ export default function AboutPage() {
             <p className="font-medium">Want to see your face here?</p>
             <p className="mt-1 text-sm text-[var(--home-ink-soft)]">
               We&rsquo;re always looking for volunteers. Email us at{" "}
-              <span className="whitespace-nowrap">{CONTACT_EMAIL}</span> and tell us what
-              you&rsquo;d like to work on.
+              <span className="whitespace-nowrap">{CONTACT_EMAIL}</span>{" "}
+              and tell us what you&rsquo;d like to work on.
             </p>
           </div>
           <a href={CONTACT_EMAIL_HREF} className="home-btn home-btn-moss shrink-0">
