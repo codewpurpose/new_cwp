@@ -1,170 +1,109 @@
-# AI Website Cloner Template
+# CodeWithPurpose
 
-<a href="https://github.com/JCodesMore/ai-website-cloner-template/blob/master/LICENSE"><img src="https://img.shields.io/badge/license-MIT-blue" alt="MIT License" /></a> <a href="https://github.com/JCodesMore/ai-website-cloner-template/stargazers"><img src="https://img.shields.io/github/stars/JCodesMore/ai-website-cloner-template?style=flat" alt="Stars" /></a> <a href="https://discord.gg/hrTSX5yTpB"><img src="https://img.shields.io/discord/1400896964597383279?label=discord" alt="Discord" /></a>
+The website for [CodeWithPurpose](https://codewithpurpose.org) — a student-run nonprofit making coding education free for everyone, everywhere.
 
-A reusable template for reverse-engineering any website into a clean, modern Next.js codebase using AI coding agents. 
+We got tired of $15,000 bootcamps deciding who gets to learn. So we built free courses, real curriculum, and a community of volunteers that now reaches students in 130+ countries. In March 2026 the work was recognized by U.S. Representative Mark DeSaulnier for "tremendous leadership and service to your community."
 
-**Recommended: [Claude Code](https://docs.anthropic.com/en/docs/claude-code) with Opus 4.7 for best results** — but works with a variety of AI coding agents.
-
-Point it at a URL, run `/clone-website`, and your AI agent will inspect the site, extract design tokens and assets, write component specs, and dispatch parallel builders to reconstruct every section.
-
-## Demo
-
-[![Watch the demo](docs/design-references/comparison.png)](https://youtu.be/O669pVZ_qr0)
-
-> Click the image above to watch the full demo on YouTube.
+This repository is the marketing site *and* the learning platform — the interactive lessons are part of the app, not an embed.
 
 ## Quick Start
 
-> **Important:** Start by making your own copy with GitHub's **Use this template** button. Do not clone this template repository directly for your website project, and do not open pull requests here with your generated website.
+```bash
+npm install
+npm run dev
+```
 
-1. **Create your own repository from this template**
+Then open [http://localhost:3000](http://localhost:3000).
 
-   On the GitHub page for this project, click **Use this template**, then click **Create a new repository**.
+Requires Node.js 24+.
 
-   Give your new repository a name, choose whether it should be public or private, then click **Create repository**. If GitHub shows an **Include all branches** option, you can leave it off.
+## Commands
 
-   This gives you your own separate project to work in, so your website changes stay in your account instead of coming back to the main template.
+```bash
+npm run dev        # Start the dev server
+npm run build      # Production build
+npm run start      # Serve the production build
+npm run lint       # ESLint
+npm run typecheck  # tsc --noEmit
+npm run check      # lint + typecheck + build — run this before pushing
+```
 
-2. **Open your new repository on your computer**
-
-   After GitHub creates your copy, open that new repository. Click **Code** and open or clone your new repository with your preferred coding tool.
-
-   If you use the terminal, the command will look like this:
-
-   ```bash
-   git clone https://github.com/YOUR-USERNAME/YOUR-NEW-REPOSITORY.git
-   cd YOUR-NEW-REPOSITORY
-   ```
-
-3. **Install dependencies**
-   ```bash
-   npm install
-   ```
-4. **Start your AI agent** — Claude Code recommended:
-   ```bash
-   claude --chrome
-   ```
-5. **Run the skill**:
-   ```
-   /clone-website <target-url1> [<target-url2> ...]
-   ```
-6. **Customize** (optional) — after the base clone is built, modify as needed
-
-> Using a different agent? Open `AGENTS.md` for project instructions — most agents pick it up automatically.
-
-## Supported Platforms
-
-| Agent                                                         | Status                     |
-| ------------------------------------------------------------- | -------------------------- |
-| [Claude Code](https://docs.anthropic.com/en/docs/claude-code) | **Recommended** — Opus 4.7 |
-| [Codex CLI](https://github.com/openai/codex)                  | Supported                  |
-| [OpenCode](https://opencode.ai/)                              | Supported                  |
-| [GitHub Copilot](https://github.com/features/copilot)         | Supported                  |
-| [Cursor](https://cursor.com/)                                 | Supported                  |
-| [Windsurf](https://codeium.com/windsurf)                      | Supported                  |
-| [Gemini CLI](https://github.com/google-gemini/gemini-cli)     | Supported                  |
-| [Cline](https://github.com/cline/cline)                       | Supported                  |
-| [Roo Code](https://github.com/RooCodeInc/Roo-Code)            | Supported                  |
-| [Continue](https://continue.dev/)                             | Supported                  |
-| [Amazon Q](https://aws.amazon.com/q/developer/)               | Supported                  |
-| [Augment Code](https://www.augmentcode.com/)                  | Supported                  |
-| [Aider](https://aider.chat/)                                  | Supported                  |
-
-## Prerequisites
-
-- [Node.js](https://nodejs.org/) 24+
-- An AI coding agent (see [Supported Platforms](#supported-platforms))
+`npm run learn:check` validates the lesson navigation on its own. It also runs automatically on `prebuild`, so a broken lesson graph fails the build rather than shipping.
 
 ## Tech Stack
 
 - **Next.js 16** — App Router, React 19, TypeScript strict
-- **shadcn/ui** — Radix primitives + Tailwind CSS v4
-- **Tailwind CSS v4** — oklch design tokens
-- **Lucide React** — default icons (replaced by extracted SVGs during cloning)
+- **Tailwind CSS v4** — design tokens, no config file
+- **Motion** — animation
+- **Base UI + shadcn/ui** — accessible primitives
+- **Lucide React** — icons, alongside custom SVG marks
 
-## How It Works
+## The Learn Section
 
-The `/clone-website` skill runs a multi-phase pipeline:
+Two self-paced tracks live under `/learn`. Both run on the same documentation shell — sidebar, table of contents, prev/next pager — so they read as one product.
 
-1. **Reconnaissance** — screenshots, design token extraction, interaction sweep (scroll, click, hover, responsive)
-2. **Foundation** — updates fonts, colors, globals, downloads all assets
-3. **Component Specs** — writes detailed spec files (`docs/research/components/`) with exact computed CSS values, states, behaviors, and content
-4. **Parallel Build** — dispatches builder agents in git worktrees, one per section/component
-5. **Assembly & QA** — merges worktrees, wires up the page, runs visual diff against the original
+| Track | Path | Content |
+| ----- | ---- | ------- |
+| Machine Learning | `/learn/ml` | 7 lessons, absolute basics through measuring a model |
+| Vibe Coding | `/learn/vibecoding` | 29 chapters, setup through advanced practice |
 
-Each builder agent receives the full component specification inline — exact `getComputedStyle()` values, interaction models, multi-state content, responsive breakpoints, and asset paths. No guessing.
+Every ML lesson is built around a single hero interactive: one control the reader drags, with the concept made *felt* before it is named. Drag a decision threshold and watch precision trade against recall; stack hand-written rules and watch each one buy less than the last.
 
-## Use Cases
+These lessons are original work. An earlier version of this site vendored third-party lesson bundles; those were removed and rewritten from scratch, which is what makes the CodeWithPurpose byline on them accurate.
 
-- **Platform migration** — rebuild a site you own from WordPress/Webflow/Squarespace into a modern Next.js codebase
-- **Lost source code** — your site is live but the repo is gone, the developer left, or the stack is legacy. Get the code back in a modern format
-- **Learning** — deconstruct how production sites achieve specific layouts, animations, and responsive behavior by working with real code
+### How lessons are built
 
-## Not Intended For
+A lesson is three files plus a registration:
 
-- **Phishing or impersonation** — this project must not be used for deceptive purposes, impersonation, or any activity that breaks the law.
-- **Passing off someone's design as your own** — logos, brand assets, and original copy belong to their owners.
-- **Violating terms of service** — some sites explicitly prohibit scraping or reproduction. Check first.
+```
+src/lib/ml/<topic>-data.ts          Seeded data + pure query functions
+src/components/ml/<Name>.tsx        The interactive ("use client")
+src/components/ml/<Name>Lesson.tsx  The prose
+```
+
+then an entry in `ML_LESSONS` (or `VIBECODING_LESSONS`) and in the `[slug]` body map.
+
+Two rules are load-bearing rather than stylistic:
+
+- **Data is seeded at module scope** so the server and the client render byte-identically. Hydration mismatches are prevented by construction, not patched afterward.
+- **`toLocaleString` and `Intl.NumberFormat` are banned** in lesson modules. They are locale- and ICU-dependent, which makes them the likeliest source of a server/client mismatch in a component printing forty numbers. Use `toFixed`.
+
+Charts are hand-written SVG with a fluid `viewBox` — no chart library, no canvas, no `ResizeObserver`.
 
 ## Project Structure
 
 ```
 src/
-  app/              # Next.js routes
-  components/       # React components
-    ui/             # shadcn/ui primitives
-    icons.tsx       # Extracted SVG icons
-  lib/utils.ts      # cn() utility
-  types/            # TypeScript interfaces
-  hooks/            # Custom React hooks
+  app/              Routes (App Router)
+    learn/          The two lesson tracks
+  components/
+    ml/             ML lesson interactives and prose
+    vibecoding/     Vibe coding chapters
+    ui/             shadcn/ui primitives
+  lib/
+    ml/             Seeded lesson data and pure math helpers
+    images.ts       Asset path map
+    learn-nav.ts    Lesson graph: ordering, prerequisites, adjacency
 public/
-  images/           # Downloaded images from target
-  videos/           # Downloaded videos from target
-  seo/              # Favicons, OG images
-docs/
-  research/         # Extraction output & component specs
-  design-references/ # Screenshots
+  learn/shared/     Design tokens and docs shell CSS
+  seo/              Favicons and OG images
 scripts/
-  sync-agent-rules.sh  # Regenerate agent instruction files
-  sync-skills.mjs      # Regenerate /clone-website for all platforms
-AGENTS.md           # Agent instructions (single source of truth)
-CLAUDE.md           # Claude Code config (imports AGENTS.md)
-GEMINI.md           # Gemini CLI config (imports AGENTS.md)
+  validate-learn-nav.mjs  Lesson graph validator (runs on prebuild)
+docs/
+  research/         Inspection guide for reverse-engineering reference sites
 ```
 
-## Commands
+## Design Tokens
 
-```bash
-npm run dev    # Start dev server
-npm run build  # Production build
-npm run lint   # ESLint check
-npm run typecheck # TypeScript check
-npm run check  # Run lint + typecheck + build
-```
+Tokens live in `public/learn/shared/learn-tokens.css` as plain CSS custom properties, and are mapped to Tailwind utilities through the `@theme inline` block in `globals.css`. The `inline` keyword matters — without it the utilities bake in literal values instead of emitting `var()`, and runtime theming breaks.
 
-### If using docker
+Colors used as text meet WCAG AA on the cream background. The chart palette additionally avoids relying on fern-and-rust as the sole distinction between two states, since those converge under deuteranopia; two-class charts vary mark shape as well as hue.
 
-```bash
-docker compose up app --build # build and run the app
-docker compose up dev --build # run the app in dev mode on port 3001
-```
+## Contributing
 
-## Updating for Other Platforms
+Run `npm run check` before pushing. It runs lint, typecheck, the lesson-graph validator, and a production build — the same gate CI uses.
 
-Two source-of-truth files power all platform support. Edit the source, then run the sync script:
-
-| What                   | Source of truth                         | Sync command                       |
-| ---------------------- | --------------------------------------- | ---------------------------------- |
-| Project instructions   | `AGENTS.md`                             | `bash scripts/sync-agent-rules.sh` |
-| `/clone-website` skill | `.claude/skills/clone-website/SKILL.md` | `node scripts/sync-skills.mjs`     |
-
-Each script regenerates the platform-specific copies automatically. Agents that read the source files natively need no regeneration.
-
-
-## Star History
-
-[![Star History Chart](https://api.star-history.com/svg?repos=JCodesMore/ai-website-cloner-template&type=Date)](https://star-history.com/#JCodesMore/ai-website-cloner-template&Date)
+Project instructions for AI coding agents live in `AGENTS.md`, which `CLAUDE.md` and the other platform files import.
 
 ## License
 

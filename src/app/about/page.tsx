@@ -34,11 +34,11 @@ const teamMembers: TeamMember[] = [
   { name: "Naman Jain", role: "Director of Operations", photo: images.team.naman },
   { name: "Sanjay Vellore", role: "Director of Outreach", photo: images.team.sanjay },
   { name: "Om Anand Khuante", role: "Director of Community", photo: images.team.om },
-  { name: "Aadi Naik", role: "Lead Instructor", photo: images.team.aadi },
+  { name: "Aakash Sanil", role: "Director of Media" },
   { name: "Karthik Tummala", role: "Lead Instructor" },
   { name: "Trey Lim", role: "Finance Lead", photo: images.team.trey },
+  { name: "Aadi Naik", role: "Lead Instructor", photo: images.team.aadi },
   { name: "Sirish Aytham", role: "Marketing", photo: images.team.sirish },
-  { name: "Aakash Sanil", role: "Head of Media" },
 ];
 
 function initials(name: string): string {
