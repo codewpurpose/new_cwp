@@ -31,8 +31,8 @@ const founders: TeamMember[] = [
   { name: "Samanyu Goyal", role: "Co-founder", photo: images.team.samanyu },
 ];
 
-/** Nine people, so the grid runs 3-up on desktop and fills three rows exactly.
- *  Four columns would strand a single card alone on a third row. */
+/** Add and remove freely — the layout below centres whatever ends up on the
+ *  final row, so no count needs the column classes retuned. */
 const teamMembers: TeamMember[] = [
   { name: "Naman Jain", role: "Director of Outreach", photo: images.team.naman },
   { name: "Sanjay Vellore", role: "Director of Operations", photo: images.team.sanjay },
@@ -56,10 +56,19 @@ function initials(name: string): string {
 }
 
 /** Avatar sizing differs per row: the founders sit 3-up even on a phone, where
- *  a w-20 circle would overflow its card. */
-function TeamCard({ member, avatar }: { member: TeamMember; avatar: string }) {
+ *  a w-20 circle would overflow its card. `width` makes the card itself the
+ *  flex item, so a short final row centres instead of hanging off the left. */
+function TeamCard({
+  member,
+  avatar,
+  width,
+}: {
+  member: TeamMember;
+  avatar: string;
+  width: string;
+}) {
   return (
-    <div className="home-card home-lift rounded-xl p-4 text-center">
+    <div className={`home-card home-lift rounded-xl p-4 text-center ${width}`}>
       {member.photo ? (
         // eslint-disable-next-line @next/next/no-img-element
         <img
@@ -146,22 +155,28 @@ export default function AboutPage() {
           Made by students, for students. Shreyan, Samanyu, Bruhatt, and
           volunteers around the world building a more inclusive future.
         </p>
-        <div className="mt-8 grid grid-cols-3 gap-4">
+        {/* flex-wrap rather than a grid, so a partial final row centres itself.
+            Widths are percentage-minus-gap-share: with gap-4 (1rem), four
+            across means three 1rem gaps split four ways, hence 25% - 0.75rem.
+            Nobody has to retune column counts when the roster changes size. */}
+        <div className="mt-8 flex flex-wrap justify-center gap-4">
           {founders.map((member) => (
             <TeamCard
               key={member.name}
               member={member}
               avatar="w-16 text-base sm:w-20 sm:text-lg md:w-28 md:text-2xl"
+              width="w-[calc(33.333%-0.667rem)]"
             />
           ))}
         </div>
 
-        <div className="mt-4 grid grid-cols-2 gap-4 md:grid-cols-3">
+        <div className="mt-4 flex flex-wrap justify-center gap-4">
           {teamMembers.map((member) => (
             <TeamCard
               key={member.name}
               member={member}
               avatar="w-20 text-lg md:w-24 md:text-xl"
+              width="w-[calc(50%-0.5rem)] md:w-[calc(25%-0.75rem)]"
             />
           ))}
         </div>
