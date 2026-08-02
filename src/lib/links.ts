@@ -28,6 +28,8 @@ export const HEALTH_IN_TECH_COURSE_HREF =
   "https://www.udemy.com/course/health-iin-tech/";
 export const CONTACT_EMAIL = "team@codewithpurpose.org";
 export const CONTACT_EMAIL_HREF = `mailto:${CONTACT_EMAIL}`;
+export const DISCORD_HREF = "https://discord.gg/W948bWbCAK";
+export const INSTAGRAM_HREF = "https://www.instagram.com/codewpurpose/";
 export const VOLUNTEER_FORM_HREF = "https://forms.gle/qiSULkmBB7vWk9YDA";
 export const HACK_CLUB_HREF = "https://hackclub.com";
 export const HCB_DONATE_EMBED_SRC =

@@ -1,17 +1,42 @@
 import Link from "next/link";
-import { CwpLogo } from "@/components/icons";
+import { CwpLogo, DiscordIcon, InstagramIcon } from "@/components/icons";
 import {
   ABOUT_HREF,
   BLOG_HREF,
   CONTACT_HREF,
   COURSES_HREF,
+  DISCORD_HREF,
   DONATE_HREF,
   HOME_HREF,
+  INSTAGRAM_HREF,
   JOIN_HREF,
   LEARN_HREF,
   LEARN_ML_HREF,
   LEARN_VIBECODING_HREF,
 } from "@/lib/links";
+
+function SocialLink({
+  href,
+  label,
+  children,
+}: {
+  href: string;
+  label: string;
+  children: React.ReactNode;
+}) {
+  return (
+    <a
+      href={href}
+      target="_blank"
+      rel="noreferrer"
+      aria-label={label}
+      title={label}
+      className="flex h-9 w-9 items-center justify-center rounded-full border-[0.5px] border-[var(--home-grey-500)] text-[#636363] transition-colors hover:border-[var(--home-fern)] hover:bg-[#f3faf3] hover:text-[var(--home-moss)]"
+    >
+      {children}
+    </a>
+  );
+}
 
 export function SiteFooter() {
   return (
@@ -123,7 +148,19 @@ export function SiteFooter() {
                 student, everywhere.
               </p>
             </div>
-            <span className="text-xs opacity-70">Student-led free education for everyone</span>
+            <div className="flex flex-wrap items-center gap-x-5 gap-y-3">
+              <div className="flex items-center gap-2">
+                <SocialLink href={DISCORD_HREF} label="Join us on Discord">
+                  <DiscordIcon className="h-[18px] w-[18px]" />
+                </SocialLink>
+                <SocialLink href={INSTAGRAM_HREF} label="Follow us on Instagram">
+                  <InstagramIcon className="h-[18px] w-[18px]" />
+                </SocialLink>
+              </div>
+              <span className="text-xs opacity-70">
+                Student-led free education for everyone
+              </span>
+            </div>
           </div>
         </div>
       </div>
