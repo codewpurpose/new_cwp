@@ -44,7 +44,17 @@ const founders: TeamMember[] = [
 ];
 
 /** Add and remove freely — the layout below centres whatever ends up on the
- *  final row, so no count needs the column classes retuned. */
+ *  final row, so no count needs the column classes retuned.
+ *
+ *  Every card opens a dialog whether or not it is filled in, so a member with
+ *  no `bio` yet gets the "check back later" placeholder rather than a dead
+ *  card. To finish someone's profile, add the two optional fields:
+ *
+ *    bio: "First person, a few sentences.",
+ *    instagram: "https://www.instagram.com/<handle>/",
+ *
+ *  `instagram` renders as an icon beside LinkedIn in the dialog. Only add one
+ *  once the member has said yes to it being public. */
 const teamMembers: TeamMember[] = [
   {
     name: "Sanjay Vellore",
