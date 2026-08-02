@@ -95,7 +95,12 @@ const teamMembers: TeamMember[] = [
     photo: images.team.sirish,
     linkedin: "https://www.linkedin.com/in/sirish-aytham-bb74753a3/",
   },
-  { name: "Ashwika Ashok", role: "Instructor & Operations" },
+  {
+    name: "Ashwika Ashok",
+    role: "Instructor & Operations",
+    photo: images.team.ashwika,
+    instagram: "https://www.instagram.com/wika_pages/",
+  },
 ];
 
 export default function AboutPage() {
