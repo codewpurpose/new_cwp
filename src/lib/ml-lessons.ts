@@ -3,8 +3,9 @@ import type { LearnChapter, LearnPart } from "@/lib/learn-types";
 export { LEARN_ML_HREF } from "@/lib/links";
 
 /**
- * The Machine Learning track: fourteen lessons covering only the fundamentals,
- * in order, each built around a single interactive.
+ * The Machine Learning track: twenty-two lessons, in order, each built around a
+ * single interactive. Parts 1 to 4 are the fundamentals; parts 5 and 6 go past
+ * them, into learning without labels and into what the optimiser is doing.
  *
  * Written natively as LearnChapters (rather than adapted from a thinner shape)
  * so the track gets the same sidebar, table of contents, and prev/next pager as
@@ -345,7 +346,7 @@ export const ML_CHAPTERS: readonly LearnChapter[] = [
       { id: "choosing-k-is-your-problem", text: "Choosing k is your problem, not the algorithm's", level: 2 },
       { id: "when-the-groups-mean-nothing", text: "When the groups mean nothing", level: 2 },
     ],
-    status: "draft",
+    status: "published",
   },
   {
     slug: "dimensionality-reduction",
@@ -364,7 +365,7 @@ export const ML_CHAPTERS: readonly LearnChapter[] = [
       { id: "what-a-component-actually-is", text: "What a component actually is", level: 2 },
       { id: "what-you-give-up", text: "What you give up, and when it is worth it", level: 2 },
     ],
-    status: "draft",
+    status: "published",
   },
   {
     slug: "anomaly-detection",
@@ -383,7 +384,7 @@ export const ML_CHAPTERS: readonly LearnChapter[] = [
       { id: "where-to-draw-the-cut-off", text: "Where to draw the cut-off", level: 2 },
       { id: "why-normal-moves", text: "Why normal moves under you", level: 2 },
     ],
-    status: "draft",
+    status: "published",
   },
   {
     slug: "feature-scaling",
@@ -402,7 +403,7 @@ export const ML_CHAPTERS: readonly LearnChapter[] = [
       { id: "which-models-care", text: "Which models care, and which genuinely do not", level: 2 },
       { id: "scaling-belongs-inside-the-split", text: "Scaling belongs inside the split", level: 2 },
     ],
-    status: "draft",
+    status: "published",
   },
   {
     slug: "gradient-descent",
@@ -421,7 +422,7 @@ export const ML_CHAPTERS: readonly LearnChapter[] = [
       { id: "the-step-size-decides-everything", text: "The step size decides everything", level: 2 },
       { id: "what-it-does-not-promise", text: "What it does not promise you", level: 2 },
     ],
-    status: "draft",
+    status: "published",
   },
   {
     slug: "regularisation",
@@ -440,7 +441,7 @@ export const ML_CHAPTERS: readonly LearnChapter[] = [
       { id: "the-strength-is-a-dial", text: "The strength is a dial, not a switch", level: 2 },
       { id: "choosing-it-honestly", text: "Choosing it without cheating", level: 2 },
     ],
-    status: "draft",
+    status: "published",
   },
   {
     slug: "neural-networks",
@@ -459,7 +460,7 @@ export const ML_CHAPTERS: readonly LearnChapter[] = [
       { id: "width-depth-and-what-each-buys", text: "Width, depth, and what each one buys", level: 2 },
       { id: "what-they-cost-you", text: "What they cost you", level: 2 },
     ],
-    status: "draft",
+    status: "published",
   },
   {
     slug: "from-notebook-to-production",
@@ -478,7 +479,7 @@ export const ML_CHAPTERS: readonly LearnChapter[] = [
       { id: "monitoring-when-labels-are-late", text: "Monitoring when the labels arrive late", level: 2 },
       { id: "retraining-without-fooling-yourself", text: "Retraining without fooling yourself", level: 2 },
     ],
-    status: "draft",
+    status: "published",
   },
 ];
 

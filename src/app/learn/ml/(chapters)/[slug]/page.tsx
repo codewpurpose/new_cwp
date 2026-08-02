@@ -19,6 +19,14 @@ import { TrainTestSplitLesson } from "@/components/ml/TrainTestSplitLesson";
 import { OverfittingLesson } from "@/components/ml/OverfittingLesson";
 import { PrecisionRecallLesson } from "@/components/ml/PrecisionRecallLesson";
 import { RandomForestsLesson } from "@/components/ml/RandomForestsLesson";
+import { ClusteringLesson } from "@/components/ml/ClusteringLesson";
+import { DimensionalityReductionLesson } from "@/components/ml/DimensionalityReductionLesson";
+import { AnomalyDetectionLesson } from "@/components/ml/AnomalyDetectionLesson";
+import { FeatureScalingLesson } from "@/components/ml/FeatureScalingLesson";
+import { GradientDescentLesson } from "@/components/ml/GradientDescentLesson";
+import { RegularisationLesson } from "@/components/ml/RegularisationLesson";
+import { NeuralNetworksLesson } from "@/components/ml/NeuralNetworksLesson";
+import { FromNotebookToProductionLesson } from "@/components/ml/FromNotebookToProductionLesson";
 import { LEARN_VIBECODING_HREF } from "@/lib/links";
 import { getAdjacent, getChapter, getChapters, getPositionLabel } from "@/lib/learn-nav";
 
@@ -43,6 +51,14 @@ const ML_LESSON_BODIES: Record<string, () => React.ReactElement> = {
   "data-leakage": DataLeakageLesson,
   "class-imbalance": ClassImbalanceLesson,
   baselines: BaselinesLesson,
+  clustering: ClusteringLesson,
+  "dimensionality-reduction": DimensionalityReductionLesson,
+  "anomaly-detection": AnomalyDetectionLesson,
+  "feature-scaling": FeatureScalingLesson,
+  "gradient-descent": GradientDescentLesson,
+  regularisation: RegularisationLesson,
+  "neural-networks": NeuralNetworksLesson,
+  "from-notebook-to-production": FromNotebookToProductionLesson,
 };
 
 export function generateStaticParams() {
