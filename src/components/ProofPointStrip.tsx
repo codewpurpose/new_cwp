@@ -68,7 +68,9 @@ export function ProofPointStrip({ lessonCount }: ProofPointStripProps) {
               aria-label={label}
               className="proof-point-icon"
             >
-              <Icon className="h-full w-full" />
+              {/* Unsized here on purpose — .proof-point-icon is the tap target
+                  and sizes the glyph inside it. */}
+              <Icon />
             </a>
           ))}
         </div>

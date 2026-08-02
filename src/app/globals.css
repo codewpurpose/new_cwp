@@ -339,14 +339,23 @@
   font-size: .8rem;
   opacity: .75;
 }
+/* The box is the tap target, the svg inside it is the glyph. Sizing the anchor
+   itself to the mark gave these a 14px-square hit area on a phone, which is far
+   below what a thumb can reliably land on. */
 .proof-point-icon {
   display: inline-flex;
-  height: 1rem;
-  width: 1rem;
+  align-items: center;
+  justify-content: center;
+  height: 2rem;
+  width: 2rem;
   flex: none;
   color: currentColor;
   opacity: .8;
   transition: opacity .2s, transform .2s;
+}
+.proof-point-icon svg {
+  height: 1rem;
+  width: 1rem;
 }
 .proof-point-icon:hover { opacity: 1; transform: translateY(-1px); }
 .proof-point-centre {
@@ -372,7 +381,15 @@
   border-radius: 3px;
 }
 /* Below the header breakpoint the claim is the only thing that must survive:
-   the "Follow" label goes first, then the strip tightens around the icons. */
+   the "Follow" label goes first, then the socials, then the join link.
+ *
+ * Each is dropped at the width where keeping it would start colliding with the
+ * claim rather than where it merely gets tight. The claim has to stay on one
+ * line — it swaps every 2.8 seconds, and a wrapping claim would change the
+ * strip's height on every swap — so it cannot yield, and the outer 1fr tracks
+ * carry min-width:0 and let their contents overflow. The result on a 320px
+ * phone was the X and GitHub marks sitting on top of the words, and the words
+ * sitting on top of "Join us". */
 @media (max-width: 640px) {
   .proof-point-strip { font-size: .8rem; }
   .proof-point-inner {
@@ -381,7 +398,17 @@
   }
   .proof-point-label { display: none; }
   .proof-point-centre { gap: .45rem; }
-  .proof-point-icon { height: .9rem; width: .9rem; }
+  .proof-point-side { gap: .1rem; }
+  .proof-point-icon { width: 1.9rem; }
+  .proof-point-icon svg { height: .9rem; width: .9rem; }
+}
+/* Measured against the longest claim ("Recognised by the U.S. House"), which is
+   what has to fit — not the shortest. */
+@media (max-width: 519px) {
+  .proof-point-side:not(.proof-point-side-end) { display: none; }
+}
+@media (max-width: 359px) {
+  .proof-point-side-end { display: none; }
 }
 .proof-point-text { animation: proof-point-in .45s ease both; }
 @keyframes proof-point-in { from { opacity: 0; transform: translateY(.35rem) rotate(-1deg); } to { opacity: 1; transform: none; } }
@@ -392,6 +419,66 @@
 }
 .home-mono {
   font-family: var(--font-home-mono), ui-monospace, monospace;
+}
+
+/* --- brand lockup ------------------------------------------------------
+ * One property drives the mark and the wordmark together, so a single
+ * declaration resizes the lockup without the two drifting out of proportion.
+ * Sizes are classes rather than a prop because the header lockup has to
+ * respond to the viewport, and a prop can only arrive as an inline style. */
+.cwp-logo {
+  --cwp-logo-h: 28px;
+}
+.cwp-logo-mark {
+  height: var(--cwp-logo-h);
+  width: auto;
+  flex: none;
+}
+.cwp-logo-word {
+  font-size: calc(var(--cwp-logo-h) * 0.58);
+  font-weight: 500;
+  line-height: 1;
+  letter-spacing: -0.02em;
+  white-space: nowrap;
+}
+/* Footer display size. It steps down on phones so the lockup never sets the
+ * footer card's minimum width. */
+.cwp-logo-lg {
+  --cwp-logo-h: 30px;
+}
+@media (min-width: 640px) {
+  .cwp-logo-lg {
+    --cwp-logo-h: 40px;
+  }
+}
+/* Header: the wordmark is the widest fixed object on the line, so it is what
+ * yields first — before the Donate button or the menu toggle give up any of
+ * their tap target. It steps down, then goes entirely and leaves the mark. The
+ * link carries aria-label="CodeWithPurpose home", so the accessible name
+ * survives either way.
+ *
+ * It has to disappear rather than merely shrink: the lockup sets
+ * white-space:nowrap, so on a narrow viewport it neither wraps nor truncates —
+ * it slides underneath the Donate button. */
+@media (max-width: 400px) {
+  .cwp-logo-header {
+    --cwp-logo-h: 23px;
+  }
+}
+@media (max-width: 359px) {
+  .cwp-logo-header .cwp-logo-word {
+    display: none;
+  }
+}
+
+/* Below the desktop nav breakpoint the header carries the logo, Donate and the
+ * menu toggle on one line. Full .home-btn padding overflows that line on a
+ * 320px viewport, so the gutters tighten while the 44px tap height stays. */
+@media (max-width: 639px) {
+  .home-btn-compact {
+    padding-left: 0.8rem;
+    padding-right: 0.8rem;
+  }
 }
 /* Section rhythm.
  *
@@ -550,7 +637,12 @@
 .home-footer-link::before {
   content: "";
   position: absolute;
-  inset: -0.2rem -0.4rem;
+  /* This box is the tap target as well as the hover wash — it is a child of the
+     anchor, so it takes hits. The vertical inset is what lifts a 16px line of
+     text to a target a thumb can hit; it is paired with the list spacing in
+     SiteFooter, which has to stay wider than twice this so neighbouring links
+     do not overlap. */
+  inset: -0.3rem -0.4rem;
   border-radius: 0.375rem;
   background: currentColor;
   opacity: 0;

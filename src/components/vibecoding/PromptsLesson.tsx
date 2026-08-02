@@ -2,7 +2,10 @@
 
 import { useState } from "react";
 import { motion } from "motion/react";
+import { Callout } from "@/components/learn/primitives/Callout";
+import { CodeBlock } from "@/components/learn/primitives/CodeBlock";
 import { TakeawayCard } from "@/components/learn/primitives/Cards";
+import { P, Strong } from "@/components/learn/primitives/LessonSection";
 import { Reveal } from "@/components/Reveal";
 
 interface PromptExample {
@@ -195,12 +198,62 @@ export function PromptsLesson() {
         </ul>
       </Reveal>
 
+      <Reveal delay={0.16} className="mt-10">
+        <h3 id="putting-it-together" className="text-lg text-learn-strong">
+          Putting the four parts together
+        </h3>
+        <P>
+          The anatomy table above is useful as a checklist, but a real prompt reads as{" "}
+          <Strong>one paragraph</Strong>, not four labelled fields. Here is the search example
+          from earlier, assembled the way you would actually type it.
+        </P>
+        <CodeBlock
+          variant="prompt"
+          label="One real prompt"
+          code={`I have a Next.js blog with posts stored in a posts array in
+src/lib/posts.ts. Add a search bar above the post list that
+filters posts by title as the user types. Don't add any new
+dependencies, use plain React state. Show me the full updated
+component.`}
+        />
+        <P>
+          Notice what is missing: no heading that says &ldquo;Context&rdquo;, no bullet points.
+          The four parts are still there, in the order that reads naturally. They have just
+          stopped being labelled.
+        </P>
+        <Callout tone="tip" title="It is a checklist, not a template">
+          A one-line typo fix does not need all four parts spelled out — the context is the file
+          you already have open. Save the full treatment for prompts you will only get one real
+          shot at: a feature with several moving pieces, or a fix you cannot easily verify by
+          eye.
+        </Callout>
+      </Reveal>
+
+      <Reveal delay={0.2} className="mt-10">
+        <h3 id="the-cost-of-skipping-a-part" className="text-lg text-learn-strong">
+          The cost of skipping a part
+        </h3>
+        <P>
+          Leaving a part out does not usually produce an error. It produces a plausible-looking
+          answer that is wrong in a way you only notice later, when you are three prompts deep
+          trying to explain what you actually meant the first time.
+        </P>
+        <P>
+          A vague first prompt against a real feature typically costs two or three follow-up
+          messages to converge on what you meant, each one narrowing the guess a little further.
+          A prompt with context, goal, constraints, and format named up front usually gets there
+          in one. The four parts are not extra work — they are work you would do anyway, spread
+          across a longer conversation instead of paid upfront.
+        </P>
+      </Reveal>
+
       <TakeawayCard
         items={[
           "Name the file, the current behaviour, and the expected behaviour. Missing any of the three means the AI guesses.",
           "Saying what must NOT change is as useful as saying what should.",
           "A prompt that would not brief a human will not brief a model either.",
           "If the reply is wrong twice in a row, the prompt is the problem, not the model.",
+          "Leaving a part out rarely errors loudly. It just costs you the follow-up messages you didn't budget for.",
         ]}
       />
     </div>

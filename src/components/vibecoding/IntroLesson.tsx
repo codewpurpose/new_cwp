@@ -2,7 +2,9 @@
 
 import { useState } from "react";
 import { AnimatePresence, motion } from "motion/react";
-import { Reveal } from "@/components/Reveal";
+import { Callout } from "@/components/learn/primitives/Callout";
+import { CompareGrid, LabelRows, TakeawayCard } from "@/components/learn/primitives/Cards";
+import { Lead, LessonSection, P } from "@/components/learn/primitives/LessonSection";
 
 type Mode = "traditional" | "vibe";
 
@@ -33,13 +35,13 @@ export function IntroLesson() {
 
   return (
     <div>
-      <p className="text-[15px] leading-[1.6] text-learn-muted">
+      <Lead>
         <strong className="text-learn-strong">Vibe coding</strong> is building
         software by describing what you want in natural language and letting
         an AI model generate and adjust the code, while you steer, review,
         and decide what ships. Toggle between the two workflows below to see
         what actually changes.
-      </p>
+      </Lead>
 
       <div className="mt-8 inline-flex rounded-full border-[0.5px] border-learn-line bg-white p-1">
         {(["traditional", "vibe"] as Mode[]).map((option) => (
@@ -99,9 +101,8 @@ export function IntroLesson() {
         </AnimatePresence>
       </div>
 
-      <Reveal className="mt-10">
-        <h3 id="where-the-term-comes-from" className="text-lg text-learn-strong">Where the term comes from</h3>
-        <p className="mt-3 text-[15px] leading-[1.6] text-learn-muted">
+      <LessonSection id="where-the-term-comes-from" title="Where the term comes from">
+        <P>
           Former Tesla AI director Andrej Karpathy coined &ldquo;vibe
           coding&rdquo; in February 2025, describing a style of building
           software where you &ldquo;fully give in to the vibes&rdquo;: you
@@ -110,47 +111,116 @@ export function IntroLesson() {
           stuck because it captures something real, the feel of coding
           changes, even though the underlying engineering discipline still
           matters just as much.
-        </p>
-      </Reveal>
+        </P>
+        <P>
+          The definition drifted fast, and it is worth naming the drift
+          rather than pretending the word means one thing. Karpathy&rsquo;s
+          original post described barely reading the output at all. Within
+          months the term had grown into a catch-all for any development
+          where an AI model is doing a meaningful share of the writing,
+          careful diff-reading and test-running very much included. That
+          split matters because two people can both call themselves vibe
+          coders while meaning opposite things by it: one hears &ldquo;code
+          without understanding it&rdquo;, the other hears &ldquo;code
+          faster, understand it just as thoroughly&rdquo;. This course
+          means the second one, on every page that follows.
+        </P>
+        <LabelRows
+          rows={[
+            {
+              label: "Coined",
+              text: "February 2025, by Andrej Karpathy, describing a specific way of working rather than a general term for AI-assisted coding.",
+            },
+            {
+              label: "Original claim",
+              text: "That you could give in to the vibes and barely look at the code it produced.",
+            },
+            {
+              label: "How it is used now",
+              text: "As a catch-all for building software with an AI model in the loop, review and testing included.",
+            },
+          ]}
+        />
+      </LessonSection>
 
-      <Reveal delay={0.08} className="mt-10 grid gap-4 md:grid-cols-2">
-        <div className="learn-card rounded-learn-lg p-5">
-          <h3 className="text-[15px] font-semibold text-learn-strong">
-            Vibe coding shines for
-          </h3>
-          <ul className="mt-3 space-y-2 text-[14px] leading-[1.5] text-learn-muted">
-            <li>Prototypes and proofs of concept</li>
-            <li>One-off scripts and automations</li>
-            <li>Scaffolding new UI from a description</li>
-            <li>Exploring an unfamiliar library quickly</li>
-          </ul>
-        </div>
-        <div className="learn-card rounded-learn-lg p-5">
-          <h3 className="text-[15px] font-semibold text-learn-strong">
-            Be more careful with
-          </h3>
-          <ul className="mt-3 space-y-2 text-[14px] leading-[1.5] text-learn-muted">
-            <li>Security-critical or payment-handling code</li>
-            <li>Code with tight performance budgets</li>
-            <li>Anything you can&apos;t explain line by line</li>
-            <li>Changes you can&apos;t easily test before shipping</li>
-          </ul>
-        </div>
-      </Reveal>
+      <LessonSection id="where-it-earns-its-keep" title="Where it earns its keep, and where to slow down">
+        <P>
+          Neither half of that split is more &ldquo;real&rdquo; vibe coding
+          than the other. What actually varies, task to task, is how much
+          the approach is worth and how carefully you need to check the
+          result. Both questions have the same answer: it depends what
+          breaks if the AI is confidently wrong.
+        </P>
+        <CompareGrid
+          items={[
+            {
+              title: "Where it earns its keep",
+              tone: "positive",
+              children: (
+                <>
+                  <p>
+                    Prototypes you plan to throw away, one-off scripts, and
+                    scaffolding a new screen from a description. Iteration
+                    speed is the entire point here, and being wrong costs
+                    you a re-prompt, not a rewrite.
+                  </p>
+                  <p>
+                    Also anywhere you are fluent enough to read the output
+                    and catch a mistake in seconds. There it is a
+                    multiplier on judgement you already have, not a
+                    replacement for it.
+                  </p>
+                </>
+              ),
+            },
+            {
+              title: "Where to slow down",
+              tone: "caution",
+              children: (
+                <>
+                  <p>
+                    Security-critical or payment-handling code, and
+                    anything with a performance budget the AI cannot
+                    measure for you.
+                  </p>
+                  <p>
+                    Anything you could not explain to a reviewer line by
+                    line. If you cannot defend a change, you should not
+                    ship it, regardless of who typed it.
+                  </p>
+                </>
+              ),
+            },
+          ]}
+        />
+      </LessonSection>
 
-      <Reveal delay={0.16} className="mt-10 rounded-learn-lg bg-learn-inverse p-6 text-learn-on-inverse md:p-8">
-        <h3 className="text-[15px] font-semibold uppercase tracking-[0.08em]">
-          Key takeaways
-        </h3>
-        <ul className="mt-3 space-y-2 text-[14px] leading-[1.6] opacity-90">
-          <li>Vibe coding replaces typing with describing and reviewing.</li>
-          <li>You are still responsible for what ships, the AI is not.</li>
-          <li>
-            It is fastest for prototypes, slowest to trust for critical
-            systems.
-          </li>
-        </ul>
-      </Reveal>
+      <LessonSection id="the-part-that-does-not-change" title="The part that does not change">
+        <P>
+          It is tempting to treat a generated feature as the AI&rsquo;s
+          work, and therefore the AI&rsquo;s fault if it breaks. That is
+          not how responsibility works here, and no amount of tooling
+          progress changes it. You reviewed it, or you did not. You tested
+          it, or you did not. You shipped it, or you did not. Every one of
+          those is your decision, whichever tool typed the characters.
+        </P>
+        <Callout tone="warning" title="A rule worth keeping">
+          Never ship a change you could not explain to a teammate without
+          checking first. If you cannot say what a function does without
+          re-reading it, you have not actually reviewed it, no matter how
+          many times you clicked &ldquo;accept&rdquo;.
+        </Callout>
+      </LessonSection>
+
+      <TakeawayCard
+        items={[
+          "Vibe coding replaces typing with describing, reviewing, and steering — the review is not optional.",
+          "The term drifted from Karpathy's original 'barely look at the code' framing into a catch-all for any AI-assisted development.",
+          "It earns its keep fastest on throwaway prototypes and is slowest to trust on anything security-critical or hard to verify.",
+          "You are responsible for what ships, whichever tool typed the characters.",
+          "If you cannot explain a change to a teammate without re-reading it, you have not reviewed it yet.",
+        ]}
+      />
     </div>
   );
 }

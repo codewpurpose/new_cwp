@@ -1,6 +1,6 @@
 import { Callout } from "@/components/learn/primitives/Callout";
 import { CodeBlock, InlineCode } from "@/components/learn/primitives/CodeBlock";
-import { ChecklistCard, TakeawayCard } from "@/components/learn/primitives/Cards";
+import { ChecklistCard, LabelRows, TakeawayCard } from "@/components/learn/primitives/Cards";
 import { Lead, LessonSection, P, Strong } from "@/components/learn/primitives/LessonSection";
 import { StepList } from "@/components/learn/primitives/StepList";
 
@@ -131,6 +131,33 @@ git commit -m "Describe what changed"`}
         </Callout>
       </LessonSection>
 
+      <LessonSection id="if-you-already-have-some-of-this" title="If you already have some of this">
+        <P>
+          Most readers are not starting from zero. If you already have two of the four, the
+          honest move is to verify what you have rather than reinstall it out of caution.
+        </P>
+        <LabelRows
+          rows={[
+            {
+              label: "Have VS Code",
+              text: "Good — skip straight to Node. There is nothing else to change about your editor.",
+            },
+            {
+              label: "Prefer another editor",
+              text: "Fine, as long as the AI tool you pick in the next chapter plugs into it. Check before switching editors just for this course.",
+            },
+            {
+              label: "Have Git but never configured it",
+              text: "Run the two git config commands above once. You do not need to reinstall anything.",
+            },
+            {
+              label: "On a school or work machine",
+              text: "You may not have permission to install software. Ask before you spend an hour fighting a permissions dialog that was never going to let you in.",
+            },
+          ]}
+        />
+      </LessonSection>
+
       <LessonSection id="before-you-continue" title="Before you continue">
         <ChecklistCard
           marker="check"
@@ -153,6 +180,7 @@ git commit -m "Describe what changed"`}
           "Reopen your terminal after any install — a stale PATH is the most common false failure.",
           "Verify installs with --version instead of assuming they worked.",
           "Commit before you let an AI make changes. That single habit is what makes the rest safe.",
+          "If you already have some of this, verify it rather than reinstalling it out of caution.",
         ]}
       />
     </div>

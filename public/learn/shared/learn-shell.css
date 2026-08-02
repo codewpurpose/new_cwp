@@ -316,14 +316,39 @@ html:has(.learn-shell) {
   border-top: 1px solid var(--learn-line);
 }
 
+/*
+ * Below 640px the pager is one column, so the empty slot that holds column 1
+ * open on the first and last chapter has nothing to hold open. Leaving it in
+ * the flow costs a phantom grid row and a 0.75rem gap above the only card.
+ */
+.learn-pager-slot {
+  display: none;
+}
+
 @media (min-width: 640px) {
   .learn-pager {
     grid-template-columns: 1fr 1fr;
+  }
+
+  .learn-pager-slot {
+    display: block;
+  }
+
+  /*
+   * Only pin the column once there are two of them. Unconditionally this
+   * generates an implicit second column in the single-column layout, which
+   * sizes to the card's max-content width and overflows the page on a phone.
+   */
+  .learn-pager-link[data-direction="next"] {
+    grid-column: 2;
   }
 }
 
 .learn-pager-link {
   display: block;
+  /* Grid items default to min-width: auto, so a long unbroken chapter title
+     pushes the track wider than its 1fr share instead of wrapping. */
+  min-width: 0;
   padding: 1rem 1.15rem;
   border: 1px solid var(--learn-line);
   border-radius: var(--learn-radius-md);
@@ -339,7 +364,6 @@ html:has(.learn-shell) {
 
 .learn-pager-link[data-direction="next"] {
   text-align: right;
-  grid-column: 2;
 }
 
 .learn-pager-direction {
@@ -356,6 +380,7 @@ html:has(.learn-shell) {
   font-size: 0.95rem;
   font-weight: 600;
   color: var(--learn-ink-strong);
+  overflow-wrap: anywhere;
 }
 
 /* --------------------------------------------------------------------------

@@ -1,4 +1,5 @@
 import { Callout } from "@/components/learn/primitives/Callout";
+import { InlineCode } from "@/components/learn/primitives/CodeBlock";
 import { TakeawayCard } from "@/components/learn/primitives/Cards";
 import { Lead, LessonSection, P, Strong } from "@/components/learn/primitives/LessonSection";
 import { StepList } from "@/components/learn/primitives/StepList";
@@ -49,11 +50,40 @@ export function WhenNotToLesson() {
         </P>
       </LessonSection>
 
+      <LessonSection id="when-the-blast-radius-is-real" title="When getting it wrong is expensive to undo">
+        <P>
+          Some mistakes cost you a debugging session. A smaller category costs data, money, or
+          someone else&apos;s afternoon, and which category you are in has nothing to do with how
+          confident the model sounded while producing it. Running a migration against a real
+          database, deleting a table, emailing everyone on a list, deploying straight to
+          production with no rollback path — these carry consequences no code review catches
+          after the fact, because by the time you are reviewing it, it already ran.
+        </P>
+        <P>
+          The signal to watch for is not complexity, it is reversibility. A wrong shade of blue
+          costs one more prompt. A wrong <InlineCode>DELETE</InlineCode> statement against
+          production costs however long recovery takes — assuming recovery is possible at all.
+        </P>
+        <StepList
+          steps={[
+            { label: "Run it somewhere fake first", detail: "A staging database, a dry-run flag, a --no-execute mode. Insist on one before anything touches production data." },
+            { label: "Read the exact statement, not a description of it", detail: "“This removes inactive users” is a summary. The WHERE clause is the truth." },
+            { label: "Keep a human in the loop for anything with no undo", detail: "A confirmation step costs ten seconds and exists specifically for this category." },
+          ]}
+        />
+      </LessonSection>
+
       <LessonSection id="when-it-is-faster-to-type" title="When it is faster to type it">
         <P>
           Describing a three-line change precisely takes longer than making it. Writing the
           prompt, waiting, reading the diff, and correcting the parts it over-reached on is
           real overhead — and for small, well-understood edits it exceeds the work.
+        </P>
+        <P>
+          Renaming a variable across one file, swapping a hard-coded colour, fixing a typo in a
+          label — a decent typist clears these in under thirty seconds. Writing the sentence
+          that describes it, waiting for a reply, and reading the diff to confirm nothing else
+          moved easily takes three or four times as long.
         </P>
         <P>
           Watch for the tell: if you are on your third prompt for something you could have typed
@@ -106,6 +136,7 @@ export function WhenNotToLesson() {
         items={[
           "When learning is the point, the struggle is the mechanism. Write it first, then ask for a critique.",
           "If you could not tell a correct answer from a plausible one, you are hoping, not reviewing.",
+          "Reversibility matters more than difficulty. Run anything with no undo somewhere fake first.",
           "For a three-line change, typing it is often faster than describing it.",
           "Check what you are allowed to send before you paste. Prompts leave your machine.",
           "When each fix creates the next problem, stop and read the code yourself.",

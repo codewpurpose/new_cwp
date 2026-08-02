@@ -75,6 +75,7 @@ export const HEALTH_IN_TECH_CHAPTERS: readonly LearnChapter[] = [
     headings: [
       { id: "health-tech-is-software-touching-an-actual-patient", text: "Health tech is software touching an actual patient", level: 2 },
       { id: "three-places-it-already-lives-in-your-life", text: "Three places it already lives in your life", level: 2 },
+      { id: "where-the-boundary-gets-blurry", text: "Where the boundary gets blurry", level: 2 },
       { id: "why-this-track-treats-it-as-one-connected-system", text: "Why this track treats it as one connected system", level: 2 },
     ],
     status: "published",
@@ -93,6 +94,9 @@ export const HEALTH_IN_TECH_CHAPTERS: readonly LearnChapter[] = [
     headings: [
       { id: "a-bug-in-a-shopping-app-loses-a-sale", text: "A bug in a shopping app loses a sale", level: 2 },
       { id: "a-bug-in-a-health-app-can-lose-more-than-that", text: "A bug in a health app can lose more than that", level: 2 },
+      { id: "the-person-who-uses-it-is-not-who-pays", text: "The person who uses it is not who pays", level: 2 },
+      { id: "procurement-runs-in-years-not-sprints", text: "Procurement runs in years, not sprints", level: 2 },
+      { id: "regulation-decides-whether-you-can-ship-at-all", text: "Regulation decides whether you can ship at all", level: 2 },
       { id: "why-move-fast-and-break-things-doesnt-work-here", text: "Why \"move fast and break things\" doesn't work here", level: 2 },
     ],
     status: "published",
@@ -111,6 +115,8 @@ export const HEALTH_IN_TECH_CHAPTERS: readonly LearnChapter[] = [
     headings: [
       { id: "its-not-just-doctors-and-its-not-just-engineers", text: "It's not just doctors, and it's not just engineers", level: 2 },
       { id: "the-roles-that-sit-between-the-two", text: "The roles that sit between the two", level: 2 },
+      { id: "what-you-would-actually-study", text: "What you would actually study", level: 2 },
+      { id: "which-paths-need-a-clinical-licence-and-which-dont", text: "Which paths need a clinical licence, and which don't", level: 2 },
       { id: "what-actually-gets-you-hired-into-one", text: "What actually gets you hired into one", level: 2 },
     ],
     status: "published",
@@ -129,6 +135,7 @@ export const HEALTH_IN_TECH_CHAPTERS: readonly LearnChapter[] = [
     headings: [
       { id: "checking-in-before-you-even-arrive", text: "Checking in before you even arrive", level: 2 },
       { id: "the-visit-itself-generates-more-data-than-you-notice", text: "The visit itself generates more data than you notice", level: 2 },
+      { id: "the-handoffs-where-information-quietly-goes-missing", text: "The handoffs where information quietly goes missing", level: 2 },
       { id: "what-happens-to-that-data-after-you-leave", text: "What happens to that data after you leave", level: 2 },
     ],
     status: "published",
@@ -146,7 +153,9 @@ export const HEALTH_IN_TECH_CHAPTERS: readonly LearnChapter[] = [
     tags: ["Health Data", "Interactive"],
     headings: [
       { id: "the-record-that-replaced-the-paper-chart", text: "The record that replaced the paper chart", level: 2 },
+      { id: "what-an-ehr-is-actually-for", text: "What an EHR is actually for, versus what you wish it were", level: 2 },
       { id: "what-actually-lives-inside-one", text: "What actually lives inside one", level: 2 },
+      { id: "structured-data-and-the-documentation-burden", text: "Structured data, free text, and the documentation burden", level: 2 },
       { id: "who-gets-to-see-which-parts", text: "Who gets to see which parts", level: 2 },
     ],
     status: "published",
@@ -165,6 +174,8 @@ export const HEALTH_IN_TECH_CHAPTERS: readonly LearnChapter[] = [
     headings: [
       { id: "two-hospitals-two-different-ehr-systems", text: "Two hospitals, two different EHR systems", level: 2 },
       { id: "the-same-diagnosis-coded-two-different-ways", text: "The same diagnosis, coded two different ways", level: 2 },
+      { id: "syntactic-interoperability-is-not-semantic-interoperability", text: "Syntactic interoperability is not semantic interoperability", level: 2 },
+      { id: "information-blocking-is-a-business-choice-not-a-technical-limit", text: "Information blocking is a business choice, not a technical limit", level: 2 },
       { id: "why-a-shared-standard-is-the-only-real-fix", text: "Why a shared standard is the only real fix", level: 2 },
     ],
     status: "published",
@@ -182,7 +193,9 @@ export const HEALTH_IN_TECH_CHAPTERS: readonly LearnChapter[] = [
     tags: ["Health Data"],
     headings: [
       { id: "fhir-is-the-standard-most-new-systems-speak", text: "FHIR is the standard most new systems speak", level: 2 },
+      { id: "hl7-v2-and-the-problem-it-solved-first", text: "HL7 v2 and the problem it solved first", level: 2 },
       { id: "a-patient-record-as-plain-structured-data", text: "A patient record as plain, structured data", level: 2 },
+      { id: "the-terminologies-that-give-the-codes-meaning", text: "The terminologies that give the codes meaning", level: 2 },
       { id: "why-standards-took-decades-to-actually-catch-on", text: "Why standards took decades to actually catch on", level: 2 },
     ],
     status: "published",
@@ -200,7 +213,10 @@ export const HEALTH_IN_TECH_CHAPTERS: readonly LearnChapter[] = [
     tags: ["Health Data"],
     headings: [
       { id: "hipaa-protects-specific-information-not-all-of-it", text: "HIPAA protects specific information, not all of it", level: 2 },
+      { id: "the-eighteen-identifiers-that-actually-define-phi", text: "The eighteen identifiers that actually define PHI", level: 2 },
+      { id: "treatment-payment-and-operations-need-no-extra-authorization", text: "Treatment, payment, and operations need no extra authorisation", level: 2 },
       { id: "who-is-actually-bound-by-it", text: "Who is actually bound by it", level: 2 },
+      { id: "de-identifying-data-and-how-re-identification-can-undo-it", text: "De-identifying data, and how re-identification can undo it", level: 2 },
       { id: "what-a-breach-actually-triggers", text: "What a breach actually triggers", level: 2 },
     ],
     status: "published",
@@ -219,6 +235,8 @@ export const HEALTH_IN_TECH_CHAPTERS: readonly LearnChapter[] = [
     headings: [
       { id: "further-than-a-fitness-band-on-your-wrist", text: "Further than a fitness band on your wrist", level: 2 },
       { id: "consumer-grade-versus-medical-grade", text: "Consumer-grade versus medical-grade", level: 2 },
+      { id: "a-wellness-claim-versus-a-cleared-medical-claim", text: "A wellness claim versus a cleared medical claim", level: 2 },
+      { id: "the-different-signals-a-wearable-can-actually-measure", text: "The different signals a wearable can actually measure", level: 2 },
       { id: "what-a-wearable-is-actually-measuring", text: "What a wearable is actually measuring", level: 2 },
     ],
     status: "published",
@@ -238,6 +256,9 @@ export const HEALTH_IN_TECH_CHAPTERS: readonly LearnChapter[] = [
       { id: "moving-monitoring-out-of-the-clinic-and-into-the-home", text: "Moving monitoring out of the clinic and into the home", level: 2 },
       { id: "watching-a-vital-sign-update-in-real-time", text: "Watching a vital sign update in real time", level: 2 },
       { id: "who-actually-looks-at-the-stream", text: "Who actually looks at the stream", level: 2 },
+      { id: "who-is-actually-watching-at-3am", text: "Who is actually watching at 3am", level: 2 },
+      { id: "getting-paid-for-a-service-that-happens-between-visits", text: "Getting paid for a service that happens between visits", level: 2 },
+      { id: "when-the-patient-stops-wearing-it", text: "When the patient stops wearing it", level: 2 },
     ],
     status: "published",
   },
@@ -256,6 +277,9 @@ export const HEALTH_IN_TECH_CHAPTERS: readonly LearnChapter[] = [
       { id: "a-sensor-samples-not-a-single-instant", text: "A sensor samples, not a single instant", level: 2 },
       { id: "raw-signal-is-noisier-than-you-would-expect", text: "Raw signal is noisier than you would expect", level: 2 },
       { id: "why-the-number-on-screen-is-already-smoothed", text: "Why the number on screen is already smoothed", level: 2 },
+      { id: "why-motion-skin-tone-and-tattoos-all-degrade-the-signal", text: "Why motion, skin tone, and tattoos all degrade the signal", level: 2 },
+      { id: "how-sleep-stages-are-inferred-not-measured", text: "How sleep stages are inferred, not measured", level: 2 },
+      { id: "a-step-count-versus-a-validated-clinical-measure", text: "A step count versus a validated clinical measure", level: 2 },
     ],
     status: "published",
   },
@@ -272,7 +296,10 @@ export const HEALTH_IN_TECH_CHAPTERS: readonly LearnChapter[] = [
     tags: ["Connected Care"],
     headings: [
       { id: "a-wearable-estimates-it-doesnt-diagnose", text: "A wearable estimates, it doesn't diagnose", level: 2 },
+      { id: "accuracy-claims-versus-what-the-validation-study-actually-tested", text: "Accuracy claims versus what the validation study actually tested", level: 2 },
       { id: "the-gap-between-wellness-data-and-medical-data", text: "The gap between wellness data and medical data", level: 2 },
+      { id: "what-a-consumer-device-simply-cannot-detect", text: "What a consumer device simply cannot detect", level: 2 },
+      { id: "the-cost-of-anxiety-and-over-testing-from-continuous-data", text: "The cost of anxiety and over-testing from continuous data", level: 2 },
       { id: "when-a-number-is-worth-a-real-appointment", text: "When a number is worth a real appointment", level: 2 },
     ],
     status: "published",
@@ -291,6 +318,7 @@ export const HEALTH_IN_TECH_CHAPTERS: readonly LearnChapter[] = [
     headings: [
       { id: "pattern-matching-at-a-scale-no-person-can", text: "Pattern-matching at a scale no person can", level: 2 },
       { id: "the-three-places-its-already-in-use", text: "The three places it's already in use", level: 2 },
+      { id: "the-unglamorous-work-doing-most-of-the-actual-volume", text: "The unglamorous work doing most of the actual volume", level: 2 },
       { id: "the-two-places-its-still-mostly-hype", text: "The two places it's still mostly hype", level: 2 },
     ],
     status: "published",
@@ -310,6 +338,8 @@ export const HEALTH_IN_TECH_CHAPTERS: readonly LearnChapter[] = [
       { id: "a-second-opinion-not-a-replacement", text: "A second opinion, not a replacement", level: 2 },
       { id: "a-model-outputs-a-probability-not-a-verdict", text: "A model outputs a probability, not a verdict", level: 2 },
       { id: "moving-the-threshold-changes-what-counts-as-a-flag", text: "Moving the threshold changes what counts as a flag", level: 2 },
+      { id: "sensitivity-and-specificity-are-not-the-number-a-patient-wants", text: "Sensitivity and specificity are not the number a patient wants", level: 2 },
+      { id: "the-arithmetic-that-collapses-at-low-prevalence", text: "The arithmetic that collapses at low prevalence", level: 2 },
     ],
     status: "published",
   },
@@ -327,6 +357,8 @@ export const HEALTH_IN_TECH_CHAPTERS: readonly LearnChapter[] = [
     headings: [
       { id: "the-pipeline-from-molecule-to-approved-drug", text: "The pipeline from molecule to approved drug", level: 2 },
       { id: "where-ai-actually-shortens-it", text: "Where AI actually shortens it", level: 2 },
+      { id: "what-alphafold-actually-solved", text: "What AlphaFold actually solved", level: 2 },
+      { id: "what-ai-does-inside-a-trial-not-just-before-one", text: "What AI does inside a trial, not just before one", level: 2 },
       { id: "where-it-still-cant-skip-a-single-step", text: "Where it still can't skip a single step", level: 2 },
     ],
     status: "published",
@@ -344,7 +376,9 @@ export const HEALTH_IN_TECH_CHAPTERS: readonly LearnChapter[] = [
     tags: ["AI in Medicine", "Interactive"],
     headings: [
       { id: "95-percent-accurate-overall-can-still-fail-unevenly", text: "95% accurate overall can still fail unevenly", level: 2 },
+      { id: "the-model-learns-from-access-not-illness", text: "The model learns from access, not illness", level: 2 },
       { id: "training-data-that-doesnt-look-like-everyone-it-treats", text: "Training data that doesn't look like everyone it treats", level: 2 },
+      { id: "what-a-sensor-or-a-dataset-can-quietly-leave-out", text: "What a sensor or a dataset can quietly leave out", level: 2 },
       { id: "why-checking-subgroup-accuracy-isnt-optional", text: "Why checking subgroup accuracy isn't optional", level: 2 },
     ],
     status: "published",
@@ -363,6 +397,8 @@ export const HEALTH_IN_TECH_CHAPTERS: readonly LearnChapter[] = [
     headings: [
       { id: "the-visits-it-genuinely-replaces", text: "The visits it replaces", level: 2 },
       { id: "the-visits-it-cant", text: "The visits it can't", level: 2 },
+      { id: "the-visits-it-only-adds-to", text: "The visits it only adds to", level: 2 },
+      { id: "licensing-draws-a-line-state-by-state", text: "Licensing draws a line state by state", level: 2 },
       { id: "why-the-difference-matters-for-trust-in-the-whole-system", text: "Why the difference matters for trust in the whole system", level: 2 },
     ],
     status: "published",
@@ -381,6 +417,7 @@ export const HEALTH_IN_TECH_CHAPTERS: readonly LearnChapter[] = [
     headings: [
       { id: "telemedicine-assumes-a-device-and-a-connection", text: "Telemedicine assumes a device and a connection", level: 2 },
       { id: "who-gets-left-out-by-that-assumption", text: "Who gets left out by that assumption", level: 2 },
+      { id: "literacy-language-and-disability-are-part-of-the-same-gap", text: "Literacy, language, and disability are part of the same gap", level: 2 },
       { id: "closing-the-gap-is-part-of-the-product-not-an-afterthought", text: "Closing the gap is part of the product, not an afterthought", level: 2 },
     ],
     status: "published",
@@ -399,6 +436,8 @@ export const HEALTH_IN_TECH_CHAPTERS: readonly LearnChapter[] = [
     headings: [
       { id: "an-app-that-nobody-opens-twice-doesnt-help-anyone", text: "An app that nobody opens twice doesn't help anyone", level: 2 },
       { id: "what-actually-keeps-a-patient-coming-back", text: "What actually keeps a patient coming back", level: 2 },
+      { id: "engagement-is-not-the-same-as-outcome", text: "Engagement is not the same as outcome", level: 2 },
+      { id: "why-a-popular-app-can-still-be-useless", text: "Why a popular app can still be useless", level: 2 },
       { id: "the-line-between-engagement-and-manipulation", text: "The line between engagement and manipulation", level: 2 },
     ],
     status: "published",
@@ -417,6 +456,9 @@ export const HEALTH_IN_TECH_CHAPTERS: readonly LearnChapter[] = [
     headings: [
       { id: "the-same-problem-cwp-exists-to-solve-shows-up-here", text: "The same problem CodeWithPurpose exists to solve shows up here", level: 2 },
       { id: "a-consultation-that-doesnt-require-a-flight", text: "A consultation that doesn't require a flight", level: 2 },
+      { id: "who-is-actually-allowed-to-treat-you", text: "Who is actually allowed to treat you", level: 2 },
+      { id: "where-your-data-is-legally-allowed-to-live", text: "Where your data is legally allowed to live", level: 2 },
+      { id: "who-is-liable-when-the-clinician-is-elsewhere", text: "Who is liable when the clinician is elsewhere", level: 2 },
       { id: "what-still-has-to-happen-in-person", text: "What still has to happen in person", level: 2 },
     ],
     status: "published",
@@ -434,6 +476,7 @@ export const HEALTH_IN_TECH_CHAPTERS: readonly LearnChapter[] = [
     tags: ["Security & Future", "Interactive"],
     headings: [
       { id: "hospitals-are-a-common-ransomware-target-and-heres-why", text: "Hospitals are a common ransomware target, and here's why", level: 2 },
+      { id: "a-device-that-cannot-be-patched-is-a-permanent-hole", text: "A device that cannot be patched is a permanent hole", level: 2 },
       { id: "what-a-single-breach-actually-costs-a-hospital", text: "What a single breach actually costs a hospital", level: 2 },
       { id: "the-basic-defenses-that-stop-most-attacks", text: "The basic defenses that stop most attacks", level: 2 },
     ],
@@ -452,7 +495,10 @@ export const HEALTH_IN_TECH_CHAPTERS: readonly LearnChapter[] = [
     tags: ["Security & Future"],
     headings: [
       { id: "who-actually-approves-a-new-piece-of-health-tech", text: "Who actually approves a new piece of health tech", level: 2 },
+      { id: "not-every-risk-class-gets-the-same-scrutiny", text: "Not every risk class gets the same scrutiny", level: 2 },
       { id: "software-as-a-medical-device-is-a-real-category-now", text: "\"Software as a medical device\" is a real category now", level: 2 },
+      { id: "the-shortcut-most-devices-actually-take", text: "The shortcut most devices actually take", level: 2 },
+      { id: "a-model-that-keeps-learning-is-a-problem-nobody-has-solved", text: "A model that keeps learning is a problem nobody has solved", level: 2 },
       { id: "why-approval-takes-longer-than-a-typical-app-launch", text: "Why approval takes longer than a typical app launch", level: 2 },
     ],
     status: "published",
@@ -471,6 +517,7 @@ export const HEALTH_IN_TECH_CHAPTERS: readonly LearnChapter[] = [
     headings: [
       { id: "three-trends-already-visible-today", text: "Three trends already visible today", level: 2 },
       { id: "the-one-thing-every-prediction-here-assumes", text: "The one thing every prediction here assumes", level: 2 },
+      { id: "what-doesnt-have-enough-evidence-yet", text: "What doesn't have enough evidence yet", level: 2 },
       { id: "what-probably-wont-change", text: "What probably won't change", level: 2 },
     ],
     status: "published",
@@ -489,7 +536,9 @@ export const HEALTH_IN_TECH_CHAPTERS: readonly LearnChapter[] = [
     headings: [
       { id: "picking-a-real-problem-not-a-vague-one", text: "Picking a real problem, not a vague one", level: 2 },
       { id: "sketching-the-data-it-would-need-and-who-could-see-it", text: "Sketching the data it would need, and who could see it", level: 2 },
+      { id: "seeing-one-idea-answer-all-five-questions", text: "Seeing one idea answer all five questions", level: 2 },
       { id: "the-checklist-any-idea-here-should-survive", text: "The checklist any idea here should survive", level: 2 },
+      { id: "what-this-track-was-actually-teaching-you-to-notice", text: "What this track was actually teaching you to notice", level: 2 },
     ],
     status: "published",
   },

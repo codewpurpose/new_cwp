@@ -1,5 +1,6 @@
 import { Callout } from "@/components/learn/primitives/Callout";
 import { CodeBlock } from "@/components/learn/primitives/CodeBlock";
+import { StepList } from "@/components/learn/primitives/StepList";
 import { TakeawayCard } from "@/components/learn/primitives/Cards";
 import { Lead, LessonSection, P, Strong } from "@/components/learn/primitives/LessonSection";
 
@@ -131,14 +132,46 @@ export function PromptPatternsLesson() {
           colleague who is fast, widely read, and has never seen your codebase — which is very
           close to what you are actually working with.
         </P>
+        <P>
+          There is a mechanical reason it matters more here than with a human colleague. Once a
+          model has written two hundred lines committing to an approach, correcting course means
+          discarding work it has already produced — and a discard is a much bigger ask than a
+          redirect. Separating the plan from the code means the expensive part only happens once
+          you have agreed on the plan.
+        </P>
+        <Callout tone="note" title="Patterns compose">
+          None of these are exclusive. &ldquo;Explain before you change&rdquo; followed by
+          &ldquo;give me three options&rdquo; followed by &ldquo;show me the diff first&rdquo; is
+          a completely reasonable way to open one conversation about a change you care about.
+        </Callout>
       </LessonSection>
 
       <LessonSection id="building-your-own" title="Building your own">
         <P>
-          When you catch yourself typing the same clarification for the third time, that is a
-          pattern forming. Two options: keep it in a notes file you paste from, or — better —
-          put it in a rules file so it applies automatically to every prompt without you typing
-          anything. That is the next part of the course.
+          The list above is not exhaustive, and yours will not match it exactly. You will notice
+          your own pattern forming the same way you notice any habit: you catch yourself typing
+          a near-identical clarification for the third time on unrelated tasks.
+        </P>
+        <StepList
+          steps={[
+            {
+              label: "Write down the shape, not the specific wording",
+              detail: "The instinct is to save the exact sentence. Save the situation it answers instead — “I am about to touch code I don't fully understand” travels better than any one phrasing.",
+            },
+            {
+              label: "Keep it somewhere you will actually paste from",
+              detail: "A notes file works. It is better than nothing and worse than the next step.",
+            },
+            {
+              label: "Promote it to a rules file once it applies to most prompts, not just this one",
+              detail: "That is what makes it automatic instead of something you have to remember to type — the subject of the next part of the course.",
+            },
+          ]}
+        />
+        <P>
+          A pattern you have to remember to use is only half a pattern. The payoff comes when it
+          stops being something you type and starts being something that is simply true of every
+          prompt you send, which is what a rules file buys you.
         </P>
       </LessonSection>
 

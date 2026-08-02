@@ -515,6 +515,293 @@ function BaselineCover() {
   );
 }
 
+function ClusterCover() {
+  /* Three blobs and their centres. Shape carries the group as well as hue, so
+     the split survives deuteranopia at 160px wide. */
+  const blobs = [
+    { cx: 40, cy: 30, fill: "var(--learn-series-1)", square: false },
+    { cx: 112, cy: 34, fill: "var(--learn-series-3)", square: true },
+    { cx: 72, cy: 68, fill: "var(--learn-series-5)", square: false },
+  ];
+  return (
+    <Frame>
+      {blobs.map((blob, b) =>
+        dots(9, (i) => ({
+          x: blob.cx + (((i * 37) % 23) - 11),
+          y: blob.cy + (((i * 29) % 19) - 9),
+        })).map((p, i) =>
+          blob.square ? (
+            <rect key={`${b}-${i}`} x={p.x - 2} y={p.y - 2} width={4} height={4} fill={blob.fill} />
+          ) : (
+            <circle key={`${b}-${i}`} cx={p.x} cy={p.y} r={2.2} fill={blob.fill} />
+          ),
+        ),
+      )}
+      {blobs.map((blob, i) => (
+        <g key={`c${i}`} stroke="var(--learn-chart-model)" strokeWidth={1.8}>
+          <line x1={blob.cx - 5} y1={blob.cy} x2={blob.cx + 5} y2={blob.cy} />
+          <line x1={blob.cx} y1={blob.cy - 5} x2={blob.cx} y2={blob.cy + 5} />
+        </g>
+      ))}
+    </Frame>
+  );
+}
+
+function ProjectionCover() {
+  /* A correlated cloud, the component it is flattened onto, and the shadows. */
+  const cloud = dots(16, (i) => ({
+    x: 22 + i * 7.4 + ((i * 23) % 13) - 6,
+    y: 68 - i * 3.1 - ((i * 31) % 15) + 7,
+  }));
+  const project = (p: { x: number; y: number }) => {
+    const t = ((p.x - 18) * 0.93 + (74 - p.y) * 0.37) / 1;
+    return { x: 18 + t * 0.93, y: 74 - t * 0.37 };
+  };
+  return (
+    <Frame>
+      <line x1={18} y1={74} x2={146} y2={23} stroke="var(--learn-chart-model)" strokeWidth={2} />
+      {cloud.map((p, i) => {
+        const s = project(p);
+        return (
+          <line
+            key={`d${i}`}
+            x1={p.x}
+            y1={p.y}
+            x2={s.x}
+            y2={s.y}
+            stroke="var(--learn-chart-grid-strong)"
+            strokeWidth={0.8}
+          />
+        );
+      })}
+      {cloud.map((p, i) => (
+        <circle key={i} cx={p.x} cy={p.y} r={2.3} fill="var(--learn-series-3)" />
+      ))}
+      {cloud.map((p, i) => {
+        const s = project(p);
+        return <circle key={`s${i}`} cx={s.x} cy={s.y} r={1.7} fill="var(--learn-series-2)" />;
+      })}
+    </Frame>
+  );
+}
+
+function OutlierCover() {
+  const normal = dots(30, (i) => ({ x: 74 + (((i * 37) % 41) - 20), y: 46 + (((i * 53) % 35) - 17) }));
+  const odd = [
+    { x: 22, y: 20 },
+    { x: 134, y: 26 },
+    { x: 26, y: 74 },
+    { x: 140, y: 66 },
+  ];
+  return (
+    <Frame>
+      <ellipse
+        cx={74}
+        cy={46}
+        rx={34}
+        ry={28}
+        fill="var(--learn-chart-highlight)"
+        stroke="var(--learn-chart-truth)"
+        strokeWidth={1.4}
+        strokeDasharray="5 4"
+      />
+      {normal.map((p, i) => (
+        <circle key={i} cx={p.x} cy={p.y} r={2} fill="var(--learn-chart-muted-mark)" />
+      ))}
+      {odd.map((p, i) => (
+        <g key={`o${i}`}>
+          <rect x={p.x - 3} y={p.y - 3} width={6} height={6} fill="var(--learn-series-2)" />
+          <circle
+            cx={p.x}
+            cy={p.y}
+            r={6.5}
+            fill="none"
+            stroke="var(--learn-series-2)"
+            strokeWidth={1.2}
+          />
+        </g>
+      ))}
+    </Frame>
+  );
+}
+
+function ScaleCover() {
+  /* Left: raw units, one axis dwarfing the other. Right: the same cloud once
+     both columns are on one scale. */
+  const raw = dots(14, (i) => ({ x: 12 + ((i * 29) % 56), y: 44 + (((i * 17) % 9) - 4) }));
+  const scaled = dots(14, (i) => ({ x: 92 + ((i * 29) % 44), y: 28 + ((i * 43) % 40) }));
+  return (
+    <Frame>
+      <line x1={80} y1={8} x2={80} y2={82} stroke="var(--learn-chart-grid)" strokeWidth={1} />
+      {raw.map((p, i) => (
+        <circle key={`r${i}`} cx={p.x} cy={p.y} r={2.2} fill="var(--learn-chart-muted-mark)" />
+      ))}
+      {scaled.map((p, i) =>
+        i % 2 === 0 ? (
+          <circle key={`s${i}`} cx={p.x} cy={p.y} r={2.2} fill="var(--learn-series-1)" />
+        ) : (
+          <rect key={`s${i}`} x={p.x - 2} y={p.y - 2} width={4} height={4} fill="var(--learn-series-3)" />
+        ),
+      )}
+      <path
+        d="M62 62 L74 62 L70 58 M74 62 L70 66"
+        fill="none"
+        stroke="var(--learn-chart-model)"
+        strokeWidth={1.6}
+      />
+    </Frame>
+  );
+}
+
+function DescentCover() {
+  /* A parabola and the chain of steps walking down it. */
+  const curve = (x: number) => 22 + ((x - 80) * (x - 80)) / 88;
+  const steps = [16, 30, 46, 58, 66, 72, 76, 78];
+  return (
+    <Frame>
+      <path
+        d={`M10 ${curve(10).toFixed(1)} Q80 ${(curve(80) - 58).toFixed(1)} 150 ${curve(150).toFixed(1)}`}
+        fill="none"
+        stroke="var(--learn-chart-model)"
+        strokeWidth={2}
+      />
+      {steps.map((x, i) => (
+        <g key={i}>
+          {i > 0 && (
+            <line
+              x1={steps[i - 1]}
+              y1={curve(steps[i - 1])}
+              x2={x}
+              y2={curve(x)}
+              stroke="var(--learn-series-2)"
+              strokeWidth={1.2}
+            />
+          )}
+          <circle cx={x} cy={curve(x)} r={2.6} fill="var(--learn-series-2)" />
+        </g>
+      ))}
+      <circle cx={80} cy={curve(80)} r={3.4} fill="none" stroke="var(--learn-series-1)" strokeWidth={1.6} />
+    </Frame>
+  );
+}
+
+function PenaltyCover() {
+  /* Coefficient paths collapsing toward zero as the penalty rises. */
+  const paths = [
+    { start: 14, dashed: false, colour: "var(--learn-series-1)" },
+    { start: 26, dashed: true, colour: "var(--learn-series-3)" },
+    { start: 34, dashed: false, colour: "var(--learn-series-5)" },
+    { start: 58, dashed: true, colour: "var(--learn-series-2)" },
+  ];
+  const zero = 70;
+  return (
+    <Frame>
+      <line x1={10} y1={zero} x2={150} y2={zero} stroke="var(--learn-chart-grid-strong)" strokeWidth={1} />
+      {paths.map((p, i) => (
+        <path
+          key={i}
+          d={`M12 ${p.start} C 60 ${p.start + 4}, 96 ${zero - 4}, 148 ${zero}`}
+          fill="none"
+          stroke={p.colour}
+          strokeWidth={1.8}
+          strokeDasharray={p.dashed ? "5 3" : undefined}
+        />
+      ))}
+    </Frame>
+  );
+}
+
+function NetworkCover() {
+  const inputs = [30, 60];
+  const hidden = [22, 45, 68];
+  return (
+    <Frame>
+      <path
+        d="M104 12 C 118 34, 92 56, 108 80"
+        fill="none"
+        stroke="var(--learn-chart-truth)"
+        strokeWidth={1.6}
+        strokeDasharray="5 4"
+      />
+      {inputs.map((iy, i) =>
+        hidden.map((hy, h) => (
+          <line
+            key={`${i}-${h}`}
+            x1={24}
+            y1={iy}
+            x2={62}
+            y2={hy}
+            stroke="var(--learn-chart-grid-strong)"
+            strokeWidth={0.9}
+          />
+        )),
+      )}
+      {hidden.map((hy, h) => (
+        <line
+          key={`o${h}`}
+          x1={62}
+          y1={hy}
+          x2={96}
+          y2={45}
+          stroke="var(--learn-chart-grid-strong)"
+          strokeWidth={0.9}
+        />
+      ))}
+      {inputs.map((iy, i) => (
+        <circle key={`i${i}`} cx={24} cy={iy} r={4} fill="var(--learn-series-3)" />
+      ))}
+      {hidden.map((hy, h) => (
+        <circle key={`h${h}`} cx={62} cy={hy} r={4} fill="var(--learn-series-1)" />
+      ))}
+      <circle cx={96} cy={45} r={4.4} fill="var(--learn-chart-model)" />
+    </Frame>
+  );
+}
+
+function DriftCover() {
+  /* Accuracy decaying, a cliff where the world changed, then a retrain. */
+  return (
+    <Frame>
+      <path
+        d="M10 24 L46 28 L62 30 L62 56 L92 60 L118 64"
+        fill="none"
+        stroke="var(--learn-chart-model)"
+        strokeWidth={2}
+      />
+      <path
+        d="M118 64 L124 32 L150 34"
+        fill="none"
+        stroke="var(--learn-series-1)"
+        strokeWidth={2}
+      />
+      <path
+        d="M10 74 L48 72 L62 62 L94 50 L118 44 L150 46"
+        fill="none"
+        stroke="var(--learn-series-2)"
+        strokeWidth={1.6}
+        strokeDasharray="5 3"
+      />
+      <line
+        x1={62}
+        y1={8}
+        x2={62}
+        y2={84}
+        stroke="var(--learn-chart-truth)"
+        strokeWidth={1.2}
+        strokeDasharray="3 3"
+      />
+      <line
+        x1={118}
+        y1={8}
+        x2={118}
+        y2={84}
+        stroke="var(--learn-chart-axis)"
+        strokeWidth={1.2}
+      />
+    </Frame>
+  );
+}
+
 const COVERS: Record<string, () => React.ReactElement> = {
   "what-is-ml": RulesCover,
   "features-and-labels": FeaturesCover,
@@ -530,6 +817,14 @@ const COVERS: Record<string, () => React.ReactElement> = {
   "data-leakage": LeakCover,
   "class-imbalance": ImbalanceCover,
   baselines: BaselineCover,
+  clustering: ClusterCover,
+  "dimensionality-reduction": ProjectionCover,
+  "anomaly-detection": OutlierCover,
+  "feature-scaling": ScaleCover,
+  "gradient-descent": DescentCover,
+  regularisation: PenaltyCover,
+  "neural-networks": NetworkCover,
+  "from-notebook-to-production": DriftCover,
 };
 
 export function MlLessonCover({ slug }: CoverProps) {

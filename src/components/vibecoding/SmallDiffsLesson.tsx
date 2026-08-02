@@ -41,6 +41,13 @@ tags, a calendar view, email reminders, and dark mode.`}
             },
           ]}
         />
+        <P>
+          There is a fourth failure that is easy to miss, because it does not look like a
+          failure. The eight features rarely agree with each other. The calendar view and the
+          due-date field were each implemented independently, twenty minutes apart in the same
+          reply, so they store the date in two different formats — and nothing catches it,
+          because nothing in a two-thousand-line diff gets read closely enough to notice.
+        </P>
       </LessonSection>
 
       <LessonSection id="what-good-looks-like" title="What good looks like">
@@ -121,6 +128,53 @@ git commit -m "Add due dates to tasks"`}
           that mixes six unrelated edits, trying to remember which parts you wanted. With
           commits, you throw the bad one away and lose four minutes.
         </Callout>
+      </LessonSection>
+
+      <LessonSection id="when-the-diff-already-happened" title="When the diff already happened">
+        <P>
+          Sometimes you already have the huge diff — the AI took one instruction and ran further
+          than intended, or you accepted a big feature request before reading this chapter.
+          Splitting after the fact is slower than doing it in small pieces from the start, but it
+          is not hopeless.
+        </P>
+        <P>
+          Start by finding the shape of the damage, not by reading every line.{" "}
+          <InlineCode>git diff --stat</InlineCode> tells you how many files changed and by how
+          much before you commit to reading any of it. A diff touching two files you expected and
+          one you did not is a different problem to one touching nineteen.
+        </P>
+        <StepList
+          variant="timeline"
+          steps={[
+            {
+              label: "Separate mechanical changes from real ones",
+              detail:
+                "Reformatting, import sorting, and renamed variables should never share a commit with logic changes. Ask the AI which lines in the diff are purely cosmetic.",
+            },
+            {
+              label: "Commit in slices with git add -p",
+              detail:
+                "Stage and commit the parts you understand and trust, even if it is only the scaffolding, so you are reviewing a shrinking remainder rather than the whole thing at once.",
+            },
+            {
+              label: "Ask for a file-by-file summary",
+              detail:
+                "\"Describe what changed in each file and why\" forces a structure onto a diff that arrived with none.",
+            },
+            {
+              label: "If it is too tangled to trust, discard it",
+              detail:
+                "git restore . and re-request the same feature in three or four prompts. Slower now, faster than debugging code nobody, including the AI, can now explain.",
+            },
+          ]}
+        />
+        <CodeBlock
+          variant="terminal"
+          label="Terminal"
+          code={`git diff --stat
+git add -p
+git commit -m "Add search filtering (1/3): state and input"`}
+        />
       </LessonSection>
 
       <LessonSection id="when-bigger-is-fine" title="When bigger is actually fine">

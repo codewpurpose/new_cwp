@@ -25,7 +25,7 @@ export function LearnPager({ track, prev, next, fallback }: LearnPagerProps) {
           <span className="learn-pager-title">{prev.title}</span>
         </Link>
       ) : (
-        <span aria-hidden="true" />
+        <span className="learn-pager-slot" aria-hidden="true" />
       )}
 
       {next ? (
@@ -38,8 +38,33 @@ export function LearnPager({ track, prev, next, fallback }: LearnPagerProps) {
           <span className="learn-pager-title">{next.title}</span>
         </Link>
       ) : (
-        fallback ?? <span aria-hidden="true" />
+        fallback ?? <span className="learn-pager-slot" aria-hidden="true" />
       )}
     </nav>
+  );
+}
+
+interface LearnPagerEndProps {
+  href: string;
+  /** The uppercase line above the title. */
+  eyebrow: string;
+  title: string;
+}
+
+/**
+ * The end-of-track card. It is a link in its own right rather than a card with
+ * a link inside it: the styled block already lifts on hover, and a block that
+ * lifts but only responds to a click on its inner text reads as broken.
+ */
+export function LearnPagerEnd({ href, eyebrow, title }: LearnPagerEndProps) {
+  return (
+    <Link
+      href={href}
+      data-direction="next"
+      className="learn-pager-link learn-on-inverse learn-focusable !border-transparent !bg-learn-inverse"
+    >
+      <span className="learn-pager-direction !text-learn-on-inverse opacity-80">{eyebrow}</span>
+      <span className="learn-pager-title !text-learn-heading-on-inverse underline">{title}</span>
+    </Link>
   );
 }

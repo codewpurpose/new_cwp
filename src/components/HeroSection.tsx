@@ -13,8 +13,13 @@ export function HeroSection() {
     <section className="pt-8 md:pt-[3.69rem]">
       <div className="mx-auto w-full max-w-[85rem] px-5 md:px-10">
         <h1 className="home-display text-center text-[2rem] leading-[1.05] tracking-[-0.02em] md:text-[2.75rem] lg:text-[3.5rem] xl:text-[4rem]">
-          Talent Is Everywhere.
-          <br className="hidden sm:block" /> Opportunity Isn&apos;t.
+          {/* The explicit space matters: below sm the <br> is display:none, and
+              it was the only break opportunity between the two sentences. Without
+              it they fused into a single 355px unbreakable run that overflowed
+              every phone. */}
+          Talent Is Everywhere.{" "}
+          <br className="hidden sm:block" />
+          Opportunity Isn&apos;t.
         </h1>
         <p className="mx-auto mt-5 max-w-[44rem] text-center text-lg text-[var(--home-ink-soft)]">
           We&apos;re students teaching students real coding skills in 130+

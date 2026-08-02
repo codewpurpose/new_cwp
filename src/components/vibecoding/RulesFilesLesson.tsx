@@ -1,6 +1,6 @@
 import { Callout } from "@/components/learn/primitives/Callout";
 import { CodeBlock, InlineCode } from "@/components/learn/primitives/CodeBlock";
-import { ChecklistCard, TakeawayCard } from "@/components/learn/primitives/Cards";
+import { ChecklistCard, CompareGrid, TakeawayCard } from "@/components/learn/primitives/Cards";
 import { Lead, LessonSection, P, Strong } from "@/components/learn/primitives/LessonSection";
 
 export function RulesFilesLesson() {
@@ -64,6 +64,57 @@ A Next.js 16 app using the App Router. TypeScript strict mode.
 - Every route href must end in a trailing slash
 - Lesson data is seeded — never use Math.random in a component`}
         />
+      </LessonSection>
+
+      <LessonSection id="what-stays-out" title="What's better said once, per request">
+        <P>
+          Not everything true about your project belongs in the file that loads on every single
+          request. Some things are better said once, in the prompt where they matter, and left
+          out otherwise.
+        </P>
+        <CompareGrid
+          items={[
+            {
+              title: "Belongs in the file",
+              tone: "positive",
+              children: (
+                <p>
+                  Stable, and applies to nearly every request: naming conventions, the check
+                  command, which state library you use, where secrets live.
+                </p>
+              ),
+            },
+            {
+              title: "Better said per request",
+              tone: "caution",
+              children: (
+                <p>
+                  True today but volatile — &ldquo;we&rsquo;re mid-migration off X&rdquo; — a
+                  one-off exception, or anything specific to the single file you are editing
+                  right now.
+                </p>
+              ),
+            },
+          ]}
+        />
+        <P>
+          Put a migration note in the rules file and it outlives the migration by months,
+          actively misleading every request that comes after. Put a one-off exception in there
+          and it silently applies everywhere, not just the one place you meant it.
+        </P>
+        <P>
+          There is a second reason to be selective, independent of staleness. A rules file that
+          has grown past a page stops behaving like a set of rules the model reliably follows
+          and starts behaving like reference material it skims. You will see it honour rule four
+          and quietly ignore rule forty — not carelessness, just what happens to a long,
+          undifferentiated list of instructions. The fix is not a longer file. It is a shorter
+          one, with the volatile and the one-off routed to the prompt instead.
+        </P>
+        <Callout tone="warning" title="If it's growing, it's the wrong file">
+          A rules file north of a couple hundred lines is a sign the project needs a second,
+          narrower file loaded only where relevant — or that half of what is in there should
+          have been said in the prompt instead.
+        </Callout>
       </LessonSection>
 
       <LessonSection id="what-makes-a-good-rule" title="What makes a good rule">
@@ -132,6 +183,7 @@ it reports. Do not stop until it passes.`}
         items={[
           "A rules file is loaded into every request automatically. Write it once, benefit forever.",
           "The test: have you explained it in a prompt more than twice?",
+          "Volatile and one-off information belongs in the prompt, not the file — it outlives its truth and misleads every request after.",
           "Spend the space on what is unusual about your project, not on general good practice.",
           "Include your check command — it turns the AI into something that verifies its own work.",
           "A stale rule is worse than no rule. Update it in the same commit as the convention.",

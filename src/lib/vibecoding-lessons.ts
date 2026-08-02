@@ -75,6 +75,8 @@ export const VIBECODING_CHAPTERS: readonly LearnChapter[] = [
     tags: ["Foundations", "Interactive"],
     headings: [
       { id: "where-the-term-comes-from", text: "Where the term comes from", level: 2 },
+      { id: "where-it-earns-its-keep", text: "Where it earns its keep, and where to slow down", level: 2 },
+      { id: "the-part-that-does-not-change", text: "The part that does not change", level: 2 },
     ],
     status: "published",
   },
@@ -94,6 +96,7 @@ export const VIBECODING_CHAPTERS: readonly LearnChapter[] = [
       { id: "the-terminal-in-five-commands", text: "The terminal, in five commands", level: 2 },
       { id: "check-it-worked", text: "Checking it actually worked", level: 2 },
       { id: "git-in-ten-minutes", text: "Git, in ten minutes", level: 2 },
+      { id: "if-you-already-have-some-of-this", text: "If you already have some of this", level: 2 },
       { id: "before-you-continue", text: "Before you continue", level: 2 },
     ],
     status: "published",
@@ -111,6 +114,8 @@ export const VIBECODING_CHAPTERS: readonly LearnChapter[] = [
     tags: ["Tooling", "Interactive"],
     headings: [
       { id: "you-dont-have-to-pick-one", text: "You don't have to pick one", level: 2 },
+      { id: "three-jobs-not-four-products", text: "Three jobs, not four products", level: 2 },
+      { id: "what-a-feature-list-wont-tell-you", text: "What a feature list won't tell you", level: 2 },
     ],
     status: "published",
     lastReviewed: "2026-08-01",
@@ -150,6 +155,7 @@ export const VIBECODING_CHAPTERS: readonly LearnChapter[] = [
       { id: "read-before-you-run", text: "Step 3: read it before you run it", level: 2 },
       { id: "make-it-yours", text: "Step 4: make it yours", level: 2 },
       { id: "when-it-breaks", text: "Step 5: when it breaks", level: 2 },
+      { id: "what-you-actually-end-up-with", text: "What you actually end up with", level: 2 },
       { id: "you-did-the-whole-loop", text: "You just did the whole loop", level: 2 },
     ],
     status: "published",
@@ -169,8 +175,11 @@ export const VIBECODING_CHAPTERS: readonly LearnChapter[] = [
     tags: ["Foundations"],
     headings: [
       { id: "the-model-has-no-memory", text: "The model has no memory", level: 2 },
+      { id: "the-illusion-of-one-continuous-conversation", text: "The illusion of one continuous conversation", level: 2 },
       { id: "the-context-window", text: "The context window is a budget", level: 2 },
+      { id: "how-big-a-window-actually-is-in-practice", text: "How big a window actually is, in practice", level: 2 },
       { id: "why-it-invents-things", text: "Why it invents functions you never wrote", level: 2 },
+      { id: "two-different-kinds-of-knowing", text: "Two different kinds of knowing", level: 2 },
       { id: "test-what-it-can-see", text: "Test what it can see", level: 2 },
       { id: "working-with-the-limit", text: "Working with the limit instead of against it", level: 2 },
     ],
@@ -190,6 +199,8 @@ export const VIBECODING_CHAPTERS: readonly LearnChapter[] = [
     headings: [
       { id: "anatomy-of-a-good-prompt", text: "Anatomy of a good prompt", level: 2 },
       { id: "try-it-yourself", text: "Try it yourself", level: 2 },
+      { id: "putting-it-together", text: "Putting the four parts together", level: 2 },
+      { id: "the-cost-of-skipping-a-part", text: "The cost of skipping a part", level: 2 },
     ],
     status: "published",
   },
@@ -224,6 +235,7 @@ export const VIBECODING_CHAPTERS: readonly LearnChapter[] = [
     tags: ["Tooling"],
     headings: [
       { id: "the-two-axes", text: "The two axes that matter", level: 2 },
+      { id: "what-the-picker-is-really-asking", text: "What the picker is really asking", level: 2 },
       { id: "when-fast-is-right", text: "When fast is right", level: 2 },
       { id: "when-to-escalate", text: "When to escalate", level: 2 },
       { id: "what-the-cost-actually-is", text: "What the cost actually is", level: 2 },
@@ -247,6 +259,7 @@ export const VIBECODING_CHAPTERS: readonly LearnChapter[] = [
     tags: ["Workflow", "Interactive"],
     headings: [
       { id: "applied-to-a-real-example", text: "Applied to a real example", level: 2 },
+      { id: "when-the-loop-stops-converging", text: "When the loop stops converging", level: 2 },
     ],
     status: "published",
   },
@@ -266,6 +279,7 @@ export const VIBECODING_CHAPTERS: readonly LearnChapter[] = [
       { id: "what-good-looks-like", text: "What good looks like", level: 2 },
       { id: "why-the-ai-does-better-too", text: "Why the AI does better too", level: 2 },
       { id: "commit-like-you-mean-it", text: "Commit like you mean it", level: 2 },
+      { id: "when-the-diff-already-happened", text: "When the diff already happened", level: 2 },
       { id: "when-bigger-is-fine", text: "When bigger is actually fine", level: 2 },
     ],
     status: "published",
@@ -282,6 +296,7 @@ export const VIBECODING_CHAPTERS: readonly LearnChapter[] = [
     prerequisites: [],
     tags: ["Workflow"],
     headings: [
+      { id: "what-off-course-actually-looks-like", text: "What off course actually looks like", level: 2 },
       { id: "interrupt-early", text: "Interrupt early", level: 2 },
       { id: "redirect-with-specifics", text: "Redirect with specifics, not vibes", level: 2 },
       { id: "rejecting-well", text: "Rejecting well", level: 2 },
@@ -302,6 +317,8 @@ export const VIBECODING_CHAPTERS: readonly LearnChapter[] = [
     prerequisites: [],
     tags: ["Code Review", "Interactive"],
     headings: [
+      { id: "the-mistakes-cluster-into-four-shapes", text: "The mistakes cluster into four shapes", level: 2 },
+      { id: "some-lines-matter-more-than-others", text: "Some lines matter more than others", level: 2 },
       { id: "before-you-merge-check", text: "Before you merge, check", level: 2 },
     ],
     status: "published",
@@ -324,6 +341,7 @@ export const VIBECODING_CHAPTERS: readonly LearnChapter[] = [
       { id: "what-to-attach", text: "What to attach", level: 2 },
       { id: "what-not-to-attach", text: "What not to attach", level: 2 },
       { id: "screenshots-and-errors", text: "Screenshots and errors", level: 2 },
+      { id: "what-you-attach-is-not-all-thats-in-there", text: "What you attach is not all that's in there", level: 2 },
       { id: "the-cheapest-check", text: "The cheapest check there is", level: 2 },
     ],
     status: "published",
@@ -342,6 +360,7 @@ export const VIBECODING_CHAPTERS: readonly LearnChapter[] = [
     headings: [
       { id: "what-they-are", text: "What they are", level: 2 },
       { id: "what-to-put-in-one", text: "What to put in one", level: 2 },
+      { id: "what-stays-out", text: "What's better said once, per request", level: 2 },
       { id: "what-makes-a-good-rule", text: "What makes a good rule", level: 2 },
       { id: "the-commands-section", text: "The commands section earns its keep", level: 2 },
       { id: "keeping-it-honest", text: "Keeping it honest", level: 2 },
@@ -360,6 +379,8 @@ export const VIBECODING_CHAPTERS: readonly LearnChapter[] = [
     prerequisites: [],
     tags: ["Real Codebases", "Interactive"],
     headings: [
+      { id: "the-repository-does-not-fit", text: "The repository does not fit", level: 2 },
+      { id: "work-in-slices-not-sweeps", text: "Work in slices, not sweeps", level: 2 },
       { id: "before-you-prompt-gather-context", text: "Before you prompt, gather context", level: 2 },
     ],
     status: "published",
@@ -378,6 +399,7 @@ export const VIBECODING_CHAPTERS: readonly LearnChapter[] = [
     headings: [
       { id: "why-this-matters", text: "Why this changes the failure mode", level: 2 },
       { id: "what-mcp-is", text: "What MCP actually is", level: 2 },
+      { id: "two-kinds-of-tool", text: "Two kinds of tool, and only one is free", level: 2 },
       { id: "setting-one-up", text: "Setting one up", level: 2 },
       { id: "the-browser-tool", text: "The one worth setting up first", level: 2 },
       { id: "the-risks", text: "The risks, stated plainly", level: 2 },
@@ -398,6 +420,7 @@ export const VIBECODING_CHAPTERS: readonly LearnChapter[] = [
     tags: ["Real Codebases"],
     headings: [
       { id: "the-two-kinds", text: "Two kinds of large change", level: 2 },
+      { id: "what-its-actually-good-at", text: "What it's actually good at, and what it isn't", level: 2 },
       { id: "make-it-verifiable-first", text: "Make it verifiable first", level: 2 },
       { id: "sequence-it", text: "Sequence it so each step stands alone", level: 2 },
       { id: "use-the-type-checker", text: "Let the type checker do the reviewing", level: 2 },
@@ -421,6 +444,8 @@ export const VIBECODING_CHAPTERS: readonly LearnChapter[] = [
     tags: ["Debugging", "Interactive"],
     headings: [
       { id: "questions-to-ask-when-debugging", text: "Questions to ask when debugging", level: 2 },
+      { id: "the-drift-loop", text: "When each fix creates the next bug", level: 2 },
+      { id: "getting-unstuck", text: "Stop feeding it, start narrowing it", level: 2 },
     ],
     status: "published",
   },
@@ -438,6 +463,7 @@ export const VIBECODING_CHAPTERS: readonly LearnChapter[] = [
     headings: [
       { id: "why-they-matter-more-now", text: "Why they matter more now", level: 2 },
       { id: "asking-for-good-tests", text: "Asking for tests that test something", level: 2 },
+      { id: "what-green-does-not-prove", text: "What a green suite does not prove", level: 2 },
       { id: "failing-first", text: "Make it fail first", level: 2 },
       { id: "what-to-test", text: "What to actually test", level: 2 },
       { id: "wiring-it-in", text: "Wire it into your check command", level: 2 },
@@ -458,7 +484,10 @@ export const VIBECODING_CHAPTERS: readonly LearnChapter[] = [
     headings: [
       { id: "secrets", text: "Secrets: the one that actually happens", level: 2 },
       { id: "input-is-hostile", text: "Treat every input as hostile", level: 2 },
+      { id: "instructions-hiding-in-what-it-reads", text: "Instructions hiding in what it reads", level: 2 },
       { id: "authorisation", text: "Authentication is not authorisation", level: 2 },
+      { id: "dependencies-it-invents", text: "Dependencies it invents, and dependencies that impersonate", level: 2 },
+      { id: "how-much-the-agent-can-touch", text: "How much the agent can touch", level: 2 },
       { id: "the-review-prompt", text: "The review prompt", level: 2 },
       { id: "before-you-ship", text: "Before anything reaches real users", level: 2 },
     ],
@@ -478,6 +507,7 @@ export const VIBECODING_CHAPTERS: readonly LearnChapter[] = [
     headings: [
       { id: "when-you-are-learning", text: "When the point is that you learn it", level: 2 },
       { id: "when-you-cannot-verify", text: "When you cannot verify the answer", level: 2 },
+      { id: "when-the-blast-radius-is-real", text: "When getting it wrong is expensive to undo", level: 2 },
       { id: "when-it-is-faster-to-type", text: "When it is faster to type it", level: 2 },
       { id: "when-it-is-not-yours-to-share", text: "When the code is not yours to share", level: 2 },
       { id: "when-the-thread-is-lost", text: "When the loop has stopped converging", level: 2 },
@@ -501,6 +531,7 @@ export const VIBECODING_CHAPTERS: readonly LearnChapter[] = [
     headings: [
       { id: "the-four-commands", text: "The four commands you will actually use", level: 2 },
       { id: "branches", text: "Branches make experiments free", level: 2 },
+      { id: "review-the-diff-before-you-stage", text: "Read the diff before you stage it", level: 2 },
       { id: "commit-messages", text: "Commit messages are notes to your future self", level: 2 },
       { id: "pull-requests", text: "Pull requests: a place to actually review", level: 2 },
       { id: "when-it-goes-wrong", text: "When it goes wrong", level: 2 },
@@ -519,6 +550,8 @@ export const VIBECODING_CHAPTERS: readonly LearnChapter[] = [
     prerequisites: [],
     tags: ["Shipping", "Interactive"],
     headings: [
+      { id: "what-deploying-actually-checks", text: "What deploying actually checks", level: 2 },
+      { id: "the-pre-launch-checklist", text: "Before you share the link", level: 2 },
       { id: "ideas-to-try-this-week", text: "Ideas to try this week", level: 2 },
     ],
     status: "published",
@@ -537,6 +570,7 @@ export const VIBECODING_CHAPTERS: readonly LearnChapter[] = [
     headings: [
       { id: "know-when-it-breaks", text: "Find out before your users tell you", level: 2 },
       { id: "reading-bug-reports", text: "Reading a real bug report", level: 2 },
+      { id: "know-when-to-roll-back", text: "Know when to roll back instead of fixing forward", level: 2 },
       { id: "the-fix-loop", text: "The fix loop, with the AI in it", level: 2 },
       { id: "what-users-actually-do", text: "Watch what people do, not what they say", level: 2 },
       { id: "keeping-it-alive", text: "Keeping it alive", level: 2 },
@@ -560,6 +594,7 @@ export const VIBECODING_CHAPTERS: readonly LearnChapter[] = [
     headings: [
       { id: "what-changes", text: "What actually changes", level: 2 },
       { id: "what-makes-a-good-task", text: "What makes a good agent task", level: 2 },
+      { id: "how-a-loop-fails", text: "How a loop fails, specifically", level: 2 },
       { id: "setting-it-up-safely", text: "Setting it up so mistakes are cheap", level: 2 },
       { id: "worktrees", text: "Parallel work with worktrees", level: 2 },
       { id: "reviewing-agent-output", text: "Reviewing what comes back", level: 2 },
@@ -579,6 +614,7 @@ export const VIBECODING_CHAPTERS: readonly LearnChapter[] = [
     tags: ["Advanced"],
     headings: [
       { id: "why-split-at-all", text: "Why split at all", level: 2 },
+      { id: "what-has-to-be-true-first", text: "What has to be true before you split", level: 2 },
       { id: "the-shapes-that-work", text: "The shapes that work", level: 2 },
       { id: "what-goes-wrong", text: "What goes wrong", level: 2 },
       { id: "doing-it-by-hand", text: "Doing it by hand first", level: 2 },
@@ -602,6 +638,7 @@ export const VIBECODING_CHAPTERS: readonly LearnChapter[] = [
       { id: "slash-commands", text: "Slash commands", level: 2 },
       { id: "commit-them", text: "Commit them to the repo", level: 2 },
       { id: "scripts-beat-prompts", text: "When a script beats a prompt", level: 2 },
+      { id: "when-the-tool-remembers-for-you", text: "When the tool remembers so you don't have to", level: 2 },
       { id: "the-compounding-part", text: "The part that compounds", level: 2 },
     ],
     status: "published",
@@ -623,6 +660,8 @@ export const VIBECODING_CHAPTERS: readonly LearnChapter[] = [
       { id: "deliberate-practice", text: "Practice that actually builds skill", level: 2 },
       { id: "use-it-on-yourself", text: "Turn the tool on your own work", level: 2 },
       { id: "what-to-keep", text: "What to keep as the tools change", level: 2 },
+      { id: "the-shape-of-what-you-built", text: "The shape of what you built", level: 2 },
+      { id: "what-this-could-not-teach-you", text: "What this course could not teach you", level: 2 },
       { id: "the-end", text: "Where this leaves you", level: 2 },
     ],
     status: "published",

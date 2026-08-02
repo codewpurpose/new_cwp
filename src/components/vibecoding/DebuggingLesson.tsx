@@ -2,7 +2,10 @@
 
 import { useState } from "react";
 import { AnimatePresence, motion } from "motion/react";
+import { Callout } from "@/components/learn/primitives/Callout";
 import { TakeawayCard } from "@/components/learn/primitives/Cards";
+import { Lead, LessonSection, P } from "@/components/learn/primitives/LessonSection";
+import { StepList } from "@/components/learn/primitives/StepList";
 import { Reveal } from "@/components/Reveal";
 
 interface DebugStep {
@@ -132,10 +135,11 @@ export function DebuggingLesson() {
 
   return (
     <div>
-      <p className="text-[15px] leading-[1.6] text-learn-muted">
-        An error message is not a dead end, it is information. Step through
-        how a real bug gets diagnosed and fixed with AI in the loop.
-      </p>
+      <Lead>
+        An error message feels like a dead end. It is closer to the opposite — the most
+        specific description of the bug you will get from anywhere, handed to you for free.
+        Step through how a real one gets diagnosed and fixed with AI in the loop.
+      </Lead>
 
       <div className="mt-6 inline-flex rounded-full border-[0.5px] border-learn-line bg-white p-1">
         {(Object.keys(SCENARIOS) as (keyof typeof SCENARIOS)[]).map((key) => (
@@ -231,12 +235,67 @@ export function DebuggingLesson() {
         </ul>
       </Reveal>
 
+      <LessonSection id="the-drift-loop" title="When each fix creates the next bug">
+        <P>
+          There is a specific way this goes wrong. You paste an error, the AI hands back a fix
+          that sounds right, you apply it, and a different error appears one line downstream.
+          You paste that one too. Three exchanges later you are patching symptoms in a file the
+          original bug never touched, and nobody — you or the model — remembers what the actual
+          problem was.
+        </P>
+        <P>
+          It happens because each new error looks, to the model, like a fresh and separate
+          puzzle. It reasons about what is in front of it, which is often locally correct and
+          globally wrong: the fix removes the crash without touching the reason the value was
+          wrong in the first place. The cause does not get fixed. It moves.
+        </P>
+        <Callout tone="warning" title="The tell">
+          If you cannot state the original bug without scrolling back up the conversation, you
+          are already deep in it. That is the moment to stop, not the moment to paste the next
+          stack trace.
+        </Callout>
+      </LessonSection>
+
+      <LessonSection id="getting-unstuck" title="Stop feeding it, start narrowing it">
+        <P>
+          After two fixes in a row miss, switch modes. Feeding the model another error keeps you
+          moving forward through symptoms; narrowing works backward toward the cause.
+        </P>
+        <StepList
+          variant="timeline"
+          steps={[
+            {
+              label: "Shrink it to the smallest failing case",
+              detail:
+                "Strip the app down to the least code that still reproduces the bug. Understanding every line you keep is usually enough on its own to find it.",
+            },
+            {
+              label: "Separate what you know from what you were told",
+              detail:
+                "“Cannot read properties of undefined” is a fact. “It's probably the state initialisation” was a guess two fixes ago that turned out to be wrong.",
+            },
+            {
+              label: "Check the value directly",
+              detail:
+                "A log statement or a debugger breakpoint at the point of failure answers the question instead of theorising about it again.",
+              note: "One printed value ends more of these loops than another prompt does.",
+            },
+            {
+              label: "Start a fresh conversation with what you found",
+              detail:
+                "Paste the minimal repro and the logged value, not the accumulated thread. A clean context reasons about the real cause instead of defending its last three guesses.",
+            },
+          ]}
+        />
+      </LessonSection>
+
       <TakeawayCard
         items={[
           "An error message is data. Paste the whole thing, not your summary of it.",
           "Give the AI the trigger, the expectation, and the actual result — the same three things a bug report needs.",
           "“It says it is fixed” is not the same as fixed. Reproduce the original failure and confirm it is gone.",
-          "If two fixes in a row miss, the model is missing context, not competence.",
+          "Two fixes in a row that each produce a new error is a sign you are drifting from the cause, not closing in on it.",
+          "When you cannot restate the original bug from memory, stop pasting errors and go check a value yourself.",
         ]}
       />
     </div>

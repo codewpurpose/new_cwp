@@ -120,7 +120,10 @@ export function TeamCard({
           aria-label={`${member.name} on LinkedIn`}
           title={`${member.name} on LinkedIn`}
           onClick={(event) => event.stopPropagation()}
-          className={`mx-auto mt-2 w-fit ${socialLinkClass}`}
+          /* Sized to the thumb, not to the glyph. At w-fit this was a 26px
+             square target sitting inside a card that is itself clickable, so a
+             near miss opened the dialog instead of LinkedIn. */
+          className={`mx-auto mt-1 h-11 w-11 ${socialLinkClass}`}
         >
           <LinkedInIcon className="h-[18px] w-[18px]" />
         </a>
