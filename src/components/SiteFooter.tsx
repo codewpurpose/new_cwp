@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { CwpLogo, DiscordIcon, InstagramIcon } from "@/components/icons";
+import { CwpLogo, DiscordIcon, InstagramIcon, XIcon } from "@/components/icons";
 import {
   ABOUT_HREF,
   BLOG_HREF,
@@ -13,6 +13,7 @@ import {
   LEARN_HREF,
   LEARN_ML_HREF,
   LEARN_VIBECODING_HREF,
+  X_HREF,
 } from "@/lib/links";
 
 function SocialLink({
@@ -155,6 +156,9 @@ export function SiteFooter() {
                 </SocialLink>
                 <SocialLink href={INSTAGRAM_HREF} label="Follow us on Instagram">
                   <InstagramIcon className="h-[18px] w-[18px]" />
+                </SocialLink>
+                <SocialLink href={X_HREF} label="Follow us on X">
+                  <XIcon className="h-[18px] w-[18px]" />
                 </SocialLink>
               </div>
               <span className="text-xs opacity-70">

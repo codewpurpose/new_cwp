@@ -2,8 +2,8 @@
 
 import Link from "next/link";
 import { useEffect, useState } from "react";
-import { DiscordIcon, GitHubIcon, InstagramIcon } from "@/components/icons";
-import { DISCORD_HREF, GITHUB_HREF, INSTAGRAM_HREF, JOIN_HREF } from "@/lib/links";
+import { DiscordIcon, GitHubIcon, InstagramIcon, XIcon } from "@/components/icons";
+import { DISCORD_HREF, GITHUB_HREF, INSTAGRAM_HREF, JOIN_HREF, X_HREF } from "@/lib/links";
 
 interface ProofPointStripProps {
   /**
@@ -18,6 +18,7 @@ interface ProofPointStripProps {
 const SOCIALS = [
   { href: DISCORD_HREF, label: "CodeWithPurpose on Discord", Icon: DiscordIcon },
   { href: INSTAGRAM_HREF, label: "CodeWithPurpose on Instagram", Icon: InstagramIcon },
+  { href: X_HREF, label: "CodeWithPurpose on X", Icon: XIcon },
   { href: GITHUB_HREF, label: "CodeWithPurpose on GitHub", Icon: GitHubIcon },
 ];
 
