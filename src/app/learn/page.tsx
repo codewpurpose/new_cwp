@@ -68,13 +68,16 @@ export default function LearnPage() {
         image={images.codingLaptop}
         imageAlt="Student learning to code"
       >
-        <Link href={LEARN_ML_HREF} className="home-btn home-btn-fill">Explore courses</Link>
+        {/* Same shape as the /courses hero: the primary lands on the list this
+            page is introducing rather than picking a track on the reader's
+            behalf, which "Pick your path" explicitly invites them to do. */}
+        <a href="#tracks" className="home-btn home-btn-fill">Explore the tracks</a>
         <Link href={COURSES_HREF} className="home-btn home-btn-outline">
           Browse All Courses
         </Link>
       </PageHero>
 
-      <PageSection>
+      <PageSection id="tracks" className="scroll-mt-24">
         <div className="grid gap-6 md:grid-cols-2">
           {tracks.map((track, index) => (
             <Reveal key={track.title} delay={index * 0.08}>

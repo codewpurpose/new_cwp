@@ -13,7 +13,7 @@ import { HowModelsLearnLesson } from "@/components/ml/HowModelsLearnLesson";
 import { TrainTestSplitLesson } from "@/components/ml/TrainTestSplitLesson";
 import { OverfittingLesson } from "@/components/ml/OverfittingLesson";
 import { PrecisionRecallLesson } from "@/components/ml/PrecisionRecallLesson";
-import { COURSES_HREF } from "@/lib/links";
+import { LEARN_VIBECODING_HREF } from "@/lib/links";
 import { getAdjacent, getChapter, getChapters, getPositionLabel } from "@/lib/learn-nav";
 
 const TRACK = "ml" as const;
@@ -83,11 +83,14 @@ export default async function MlLessonPage({
             <span className="learn-pager-direction !text-learn-on-inverse opacity-80">
               You reached the end
             </span>
+            {/* Finishing the track earns a real next step, not a bounce out to
+                the catalog. The other track is the one thing here the reader
+                provably has not done. */}
             <Link
-              href={COURSES_HREF}
+              href={LEARN_VIBECODING_HREF}
               className="learn-pager-title learn-focusable !text-learn-heading-on-inverse underline"
             >
-              Browse all courses
+              Start the Vibe Coding track
             </Link>
           </div>
         }
