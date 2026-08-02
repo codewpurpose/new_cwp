@@ -39,6 +39,18 @@ export const TRACKS = [
     partKeyedCover: false,
   },
   {
+    name: "python",
+    title: "Python",
+    data: join(REPO_ROOT, "src", "lib", "python-lessons.ts"),
+    chaptersConst: "PYTHON_CHAPTERS",
+    route: join(REPO_ROOT, "src", "app", "learn", "python", "(chapters)", "[slug]", "page.tsx"),
+    bodiesDir: join(REPO_ROOT, "src", "components", "python"),
+    bodiesConst: "PYTHON_LESSON_BODIES",
+    coverFile: join(REPO_ROOT, "src", "components", "python", "PythonLessonCover.tsx"),
+    coverConst: "COVERS",
+    partKeyedCover: false,
+  },
+  {
     name: "ml",
     title: "Machine Learning",
     data: join(REPO_ROOT, "src", "lib", "ml-lessons.ts"),

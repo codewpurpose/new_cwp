@@ -43,12 +43,13 @@ npm run learn:new -- --track ml --slug my-lesson --title "My Lesson"  # scaffold
 
 ## The Learn Section
 
-Two self-paced tracks live under `/learn`. Both run on the same documentation shell — sidebar, table of contents, prev/next pager — so they read as one product.
+Three self-paced tracks live under `/learn`. All run on the same documentation shell — sidebar, table of contents, prev/next pager — so they read as one product.
 
 | Track | Path | Content |
 | ----- | ---- | ------- |
 | Machine Learning | `/learn/ml` | 7 lessons, absolute basics through measuring a model |
 | Vibe Coding | `/learn/vibecoding` | 29 chapters, setup through advanced practice |
+| Python | `/learn/python` | 24 chapters, first line of code through a tested capstone project |
 
 Every ML lesson is built around a single hero interactive: one control the reader drags, with the concept made *felt* before it is named. Drag a decision threshold and watch precision trade against recall; stack hand-written rules and watch each one buy less than the last.
 
@@ -100,12 +101,13 @@ Full process, pull request conventions, and the review bar: [CONTRIBUTING.md](CO
 ```
 src/
   app/              Routes (App Router)
-    learn/          The two lesson tracks
+    learn/          The three lesson tracks
   components/
     learn/primitives/  Prose primitives — lessons are composed from these
     learn/shell/       Sidebar, TOC, pager, chapter header (track-agnostic)
     ml/             ML lesson interactives and prose
     vibecoding/     Vibe coding chapters
+    python/         Python lesson interactives and prose
     ui/             shadcn/ui primitives
   lib/
     ml/             Seeded lesson data and pure math helpers

@@ -1,6 +1,7 @@
 import type { LearnChapter, LearnPart, LearnTrack, LearnTrackId } from "@/lib/learn-types";
-import { LEARN_ML_HREF, LEARN_VIBECODING_HREF } from "@/lib/links";
+import { LEARN_ML_HREF, LEARN_PYTHON_HREF, LEARN_VIBECODING_HREF } from "@/lib/links";
 import { ML_CHAPTERS, ML_PARTS } from "@/lib/ml-lessons";
+import { PYTHON_CHAPTERS, PYTHON_PARTS } from "@/lib/python-lessons";
 import { VIBECODING_CHAPTERS, VIBECODING_PARTS } from "@/lib/vibecoding-lessons";
 
 const TRACKS: Record<LearnTrackId, LearnTrack> = {
@@ -18,6 +19,13 @@ const TRACKS: Record<LearnTrackId, LearnTrack> = {
     parts: ML_PARTS,
     chapters: ML_CHAPTERS,
   },
+  python: {
+    id: "python",
+    title: "Python",
+    href: LEARN_PYTHON_HREF,
+    parts: PYTHON_PARTS,
+    chapters: PYTHON_CHAPTERS,
+  },
 };
 
 /** Computed once at module scope rather than per render. */
@@ -27,6 +35,10 @@ const PUBLISHED: Record<LearnTrackId, readonly LearnChapter[]> = {
     .slice()
     .sort((a, b) => a.order - b.order),
   ml: TRACKS.ml.chapters
+    .filter((c) => c.status === "published")
+    .slice()
+    .sort((a, b) => a.order - b.order),
+  python: TRACKS.python.chapters
     .filter((c) => c.status === "published")
     .slice()
     .sort((a, b) => a.order - b.order),

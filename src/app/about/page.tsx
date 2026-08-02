@@ -13,9 +13,10 @@ import {
 } from "@/lib/links";
 
 export const metadata: Metadata = {
-  title: "About Us | CWP",
+  title: "About Us",
   description:
     "A student-run nonprofit making tech education free and accessible for everyone, everywhere.",
+  alternates: { canonical: "/about" },
 };
 
 interface TeamMember {
@@ -46,8 +47,8 @@ const founders: TeamMember[] = [
 /** Add and remove freely — the layout below centres whatever ends up on the
  *  final row, so no count needs the column classes retuned. */
 const teamMembers: TeamMember[] = [
-  { name: "Naman Jain", role: "Director of Outreach", photo: images.team.naman },
   { name: "Sanjay Vellore", role: "Director of Operations", photo: images.team.sanjay },
+  { name: "Naman Jain", role: "Director of Outreach", photo: images.team.naman },
   { name: "Om Anand Khuante", role: "Co-Director of Community", photo: images.team.om },
   { name: "Darsh Pande", role: "Co-Director of Community", photo: images.team.darsh },
   { name: "Aakash Sanil", role: "Director of Media" },

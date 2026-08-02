@@ -9,15 +9,18 @@ import { images } from "@/lib/images";
 import {
   COURSES_HREF,
   LEARN_ML_HREF,
+  LEARN_PYTHON_HREF,
   LEARN_VIBECODING_HREF,
   ML_PART_1_COURSE_HREF,
+  PYTHON_COURSE_HREF,
   VIBECODING_COURSE_HREF,
 } from "@/lib/links";
 
 export const metadata: Metadata = {
-  title: "Learn | CWP",
+  title: "Learn",
   description:
-    "Start with Vibe Coding or Machine Learning. Free tracks from student teachers, built for beginners.",
+    "Start with Vibe Coding, Machine Learning, or Python. Free tracks from student teachers, built for beginners.",
+  alternates: { canonical: "/learn" },
 };
 
 interface LearnTrack {
@@ -57,6 +60,18 @@ const tracks: LearnTrack[] = [
     secondaryHref: ML_PART_1_COURSE_HREF,
     secondaryLabel: "Udemy Course",
   },
+  {
+    title: "Python",
+    tags: ["Foundations", "Interactive"],
+    description:
+      "Go from your first line of Python to writing a real program with functions, classes, and tests — 24 chapters, beginner through advanced, with live demos throughout.",
+    cover: "python",
+    primaryHref: LEARN_PYTHON_HREF,
+    primaryLabel: "Explore Python Lessons",
+    primaryExternal: false,
+    secondaryHref: PYTHON_COURSE_HREF,
+    secondaryLabel: "Udemy Course",
+  },
 ];
 
 export default function LearnPage() {
@@ -64,7 +79,7 @@ export default function LearnPage() {
     <PageShell>
       <PageHero
         title="Pick your path"
-        description="Two focused tracks to start building real skills today. Completely free, taught by students who were in your shoes not long ago."
+        description="Focused tracks to start building real skills today. Completely free, taught by students who were in your shoes not long ago."
         image={images.codingLaptop}
         imageAlt="Student learning to code"
       >
@@ -75,7 +90,7 @@ export default function LearnPage() {
       </PageHero>
 
       <PageSection>
-        <div className="grid gap-6 md:grid-cols-2">
+        <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
           {tracks.map((track, index) => (
             <Reveal key={track.title} delay={index * 0.08}>
               <article className="home-card home-lift flex h-full flex-col overflow-hidden rounded-[20px]">
