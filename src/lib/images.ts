@@ -14,6 +14,7 @@ export const images = {
     bhim: "/bhim.jpeg",
     naman: "/team-naman.jpg",
     om: "/team-om.jpeg",
+    darsh: "/team-darsh.jpg",
     trey: "/team-trey.jpg",
     sirish: "/team-sirish.jpg",
     aadi: "/team-aadi.jpg",

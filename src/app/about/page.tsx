@@ -31,11 +31,13 @@ const founders: TeamMember[] = [
   { name: "Samanyu Goyal", role: "Co-founder", photo: images.team.samanyu },
 ];
 
-/** Eight people — divides evenly at both 2 and 4 columns, so no orphan row. */
+/** Nine people, so the grid runs 3-up on desktop and fills three rows exactly.
+ *  Four columns would strand a single card alone on a third row. */
 const teamMembers: TeamMember[] = [
   { name: "Naman Jain", role: "Director of Outreach", photo: images.team.naman },
   { name: "Sanjay Vellore", role: "Director of Operations", photo: images.team.sanjay },
   { name: "Om Anand Khuante", role: "Director of Community", photo: images.team.om },
+  { name: "Darsh Pande", role: "Community Lead", photo: images.team.darsh },
   { name: "Aakash Sanil", role: "Director of Media" },
   { name: "Karthik Tummala", role: "Lead Instructor" },
   { name: "Trey Lim", role: "Finance Lead", photo: images.team.trey },
@@ -154,7 +156,7 @@ export default function AboutPage() {
           ))}
         </div>
 
-        <div className="mt-4 grid grid-cols-2 gap-4 md:grid-cols-4">
+        <div className="mt-4 grid grid-cols-2 gap-4 md:grid-cols-3">
           {teamMembers.map((member) => (
             <TeamCard
               key={member.name}
