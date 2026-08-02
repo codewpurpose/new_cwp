@@ -10,6 +10,8 @@ import {
   ABOUT_HREF,
   FINANCIAL_LITERACY_COURSE_HREF,
   HEALTH_IN_TECH_COURSE_HREF,
+  LEARN_FINANCIAL_LITERACY_HREF,
+  LEARN_HEALTH_IN_TECH_HREF,
   LEARN_ML_HREF,
   LEARN_PYTHON_HREF,
   LEARN_VIBECODING_HREF,
@@ -84,6 +86,7 @@ const courses: Course[] = [
       "The money skills every student should have: budgeting, saving, credit, and investing, taught simply and without the jargon.",
     cover: "finance",
     href: FINANCIAL_LITERACY_COURSE_HREF,
+    lessonsHref: LEARN_FINANCIAL_LITERACY_HREF,
   },
   {
     title: "Health in Tech: An Introduction",
@@ -92,6 +95,7 @@ const courses: Course[] = [
       "See where healthcare meets technology, from medical data to digital health careers, and learn how code is already saving lives.",
     cover: "health",
     href: HEALTH_IN_TECH_COURSE_HREF,
+    lessonsHref: LEARN_HEALTH_IN_TECH_HREF,
   },
 ];
 
