@@ -31,8 +31,14 @@ interface Course {
   title: string;
   tags: string[];
   description: string;
-  href: string;
   cover: TopicCoverVariant;
+  /**
+   * Udemy enrolments. A subject taught in two parts is one card with two
+   * buttons rather than two cards: split across cards, the pair repeated the
+   * same art, tags and half the description, and read as unrelated courses
+   * rather than as one course with a second half.
+   */
+  enrol: { href: string; label: string }[];
   /**
    * The interactive track on this site, for the subjects that have one. The
    * catalog and the lesson tracks used to be separate pages; a course that is
@@ -49,42 +55,32 @@ const courses: Course[] = [
     description:
       "Zero experience? Perfect. You'll go from nothing to building real projects, just like 800+ students across 50+ countries already have.",
     cover: "python",
-    href: PYTHON_COURSE_HREF,
+    enrol: [{ href: PYTHON_COURSE_HREF, label: "Enroll Free" }],
     lessonsHref: LEARN_PYTHON_HREF,
   },
   {
-    title: "Vibecoding 101: Part 1",
+    title: "Vibecoding 101",
     tags: ["Creative", "AI-Powered"],
     description:
-      "Build real apps using AI tools like Cursor and Copilot. This is where coding is headed: fast, creative, and full of purpose.",
+      "Build real apps using AI tools like Cursor and Copilot. Part 1 gets you shipping; Part 2 goes deeper on prompting and reviewing what the AI writes. This is where coding is headed: fast, creative, and full of purpose.",
     cover: "vibecoding",
-    href: VIBECODING_COURSE_HREF,
+    enrol: [
+      { href: VIBECODING_COURSE_HREF, label: "Enroll Part 1" },
+      { href: VIBECODING_PART_2_COURSE_HREF, label: "Enroll Part 2" },
+    ],
     lessonsHref: LEARN_VIBECODING_HREF,
   },
   {
-    title: "Vibecoding Mastery: Part 2",
-    tags: ["New", "AI-Powered"],
-    description:
-      "Take vibe coding past the first app. Go deeper on prompting, reviewing what the AI writes, and shipping something you'd actually put your name on.",
-    cover: "vibecoding",
-    href: VIBECODING_PART_2_COURSE_HREF,
-  },
-  {
-    title: "Intro to Machine Learning: Part 1",
+    title: "Intro to Machine Learning",
     tags: ["New", "AI & ML"],
     description:
-      "Curious how machines actually learn? Start from the ground up with data, models, and your first predictions, all explained in plain English.",
+      "Curious how machines actually learn? Part 1 starts from the ground up with data, models, and your first predictions. Part 2 trains smarter models, dodges the classic beginner pitfalls, and builds projects worth showing off.",
     cover: "ml1",
-    href: ML_PART_1_COURSE_HREF,
+    enrol: [
+      { href: ML_PART_1_COURSE_HREF, label: "Enroll Part 1" },
+      { href: ML_PART_2_COURSE_HREF, label: "Enroll Part 2" },
+    ],
     lessonsHref: LEARN_ML_HREF,
-  },
-  {
-    title: "Intro to Machine Learning: Part 2",
-    tags: ["New", "AI & ML"],
-    description:
-      "Pick up right where Part 1 left off. Train smarter models, dodge the classic beginner pitfalls, and build projects worth showing off.",
-    cover: "ml2",
-    href: ML_PART_2_COURSE_HREF,
   },
   {
     title: "Financial Literacy: The Basics",
@@ -92,7 +88,7 @@ const courses: Course[] = [
     description:
       "The money skills every student should have: budgeting, saving, credit, and investing, taught simply and without the jargon.",
     cover: "finance",
-    href: FINANCIAL_LITERACY_COURSE_HREF,
+    enrol: [{ href: FINANCIAL_LITERACY_COURSE_HREF, label: "Enroll Free" }],
   },
   {
     title: "Health in Tech: An Introduction",
@@ -100,7 +96,7 @@ const courses: Course[] = [
     description:
       "See where healthcare meets technology, from medical data to digital health careers, and learn how code is already saving lives.",
     cover: "health",
-    href: HEALTH_IN_TECH_COURSE_HREF,
+    enrol: [{ href: HEALTH_IN_TECH_COURSE_HREF, label: "Enroll Free" }],
   },
 ];
 
@@ -143,23 +139,32 @@ export default function CoursesPage() {
                   <p className="mt-3 text-[15px] leading-[1.55] text-[var(--home-ink-soft)]">
                     {course.description}
                   </p>
+                  {/* Lessons lead where they exist — they are ours and they
+                      are one click away, where enrolling leaves the site.
+                      Without a track, the enrolment takes the lead instead so
+                      every card still has one primary action. */}
                   <div className="mt-6 flex flex-wrap gap-2">
-                    <a
-                      href={course.href}
-                      target="_blank"
-                      rel="noreferrer"
-                      className="home-btn home-btn-fill"
-                    >
-                      Enroll Free
-                    </a>
                     {course.lessonsHref && (
                       <Link
                         href={course.lessonsHref}
-                        className="home-btn home-btn-outline"
+                        className="home-btn home-btn-fill"
                       >
                         Interactive Lessons
                       </Link>
                     )}
+                    {course.enrol.map((enrol) => (
+                      <a
+                        key={enrol.href}
+                        href={enrol.href}
+                        target="_blank"
+                        rel="noreferrer"
+                        className={`home-btn ${
+                          course.lessonsHref ? "home-btn-outline" : "home-btn-fill"
+                        }`}
+                      >
+                        {enrol.label}
+                      </a>
+                    ))}
                   </div>
                 </div>
               </article>
