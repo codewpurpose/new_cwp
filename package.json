@@ -4,7 +4,7 @@
   "private": true,
   "description": "The CodeWithPurpose website and interactive learning platform",
   "author": "CodeWithPurpose",
-  "license": "MIT",
+  "license": "Apache-2.0",
   "repository": {
     "type": "git",
     "url": "https://github.com/codewpurpose/new_cwp.git"

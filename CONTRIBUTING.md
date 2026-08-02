@@ -136,7 +136,12 @@ Ask on [Discord](https://discord.gg/W948bWbCAK).
 
 ## Licence and conduct
 
-Contributions are MIT licensed, same as the project.
+Contributions are licensed under the Apache License 2.0, same as the project.
+By opening a pull request you agree to that, and you confirm the work is yours
+to license — see section 5 of the [LICENSE](LICENSE).
+
+Code released before the move to Apache 2.0 was MIT licensed. That notice is
+retained in [NOTICE](NOTICE), as the MIT License requires.
 
 Be decent to each other. This is a student project and many contributors are
 beginners — that is the point of it.
