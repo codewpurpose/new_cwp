@@ -8,6 +8,11 @@ import type { NextConfig } from "next";
  * Redirects rather than 404s: the old URLs were live and may be linked from
  * elsewhere. They land on the track index, where the reader can pick from the
  * new lineup.
+ *
+ * The destination carries a trailing slash so it matches `trailingSlash: true`
+ * on the first hop. With "/learn/ml" the redirect landed back on "/learn/ml"
+ * without a slash, which a second 308 then appended — a two-hop chain per
+ * request. "/learn/ml/" lands directly.
  */
 const RETIRED_ML_SLUGS = [
   "train-test-validation",
@@ -24,7 +29,7 @@ const nextConfig: NextConfig = {
   async redirects() {
     return RETIRED_ML_SLUGS.map((slug) => ({
       source: `/learn/ml/${slug}`,
-      destination: "/learn/ml",
+      destination: "/learn/ml/",
       permanent: true,
     }));
   },
