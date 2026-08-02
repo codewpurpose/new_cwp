@@ -62,6 +62,30 @@ export const TRACKS = [
     coverConst: "COVERS",
     partKeyedCover: false,
   },
+  {
+    name: "financial-literacy",
+    title: "Financial Literacy",
+    data: join(REPO_ROOT, "src", "lib", "financial-literacy-lessons.ts"),
+    chaptersConst: "FINANCIAL_LITERACY_CHAPTERS",
+    route: join(REPO_ROOT, "src", "app", "learn", "financial-literacy", "(chapters)", "[slug]", "page.tsx"),
+    bodiesDir: join(REPO_ROOT, "src", "components", "financial-literacy"),
+    bodiesConst: "FINANCIAL_LITERACY_LESSON_BODIES",
+    coverFile: join(REPO_ROOT, "src", "components", "financial-literacy", "FinancialLiteracyLessonCover.tsx"),
+    coverConst: "COVERS",
+    partKeyedCover: false,
+  },
+  {
+    name: "health-in-tech",
+    title: "Health in Tech",
+    data: join(REPO_ROOT, "src", "lib", "health-in-tech-lessons.ts"),
+    chaptersConst: "HEALTH_IN_TECH_CHAPTERS",
+    route: join(REPO_ROOT, "src", "app", "learn", "health-in-tech", "(chapters)", "[slug]", "page.tsx"),
+    bodiesDir: join(REPO_ROOT, "src", "components", "health-in-tech"),
+    bodiesConst: "HEALTH_IN_TECH_LESSON_BODIES",
+    coverFile: join(REPO_ROOT, "src", "components", "health-in-tech", "HealthInTechLessonCover.tsx"),
+    coverConst: "COVERS",
+    partKeyedCover: false,
+  },
 ];
 
 /** Look a track up by its `name`. Returns undefined for an unknown track. */

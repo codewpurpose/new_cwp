@@ -1,6 +1,11 @@
 /** Shared shape for both learning tracks, so one set of nav components serves both. */
 
-export type LearnTrackId = "vibecoding" | "ml" | "python";
+export type LearnTrackId =
+  | "vibecoding"
+  | "ml"
+  | "python"
+  | "financial-literacy"
+  | "health-in-tech";
 
 export type LearnLevel = "beginner" | "intermediate" | "advanced";
 
