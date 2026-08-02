@@ -5,6 +5,8 @@ import { PageShell } from "@/components/PageShell";
 import { images } from "@/lib/images";
 import {
   CONGRESS_LETTER_HREF,
+  CONTACT_EMAIL,
+  CONTACT_EMAIL_HREF,
   COURSES_HREF,
   DONATE_HREF,
   JOIN_HREF,
@@ -31,8 +33,8 @@ const founders: TeamMember[] = [
 
 /** Eight people — divides evenly at both 2 and 4 columns, so no orphan row. */
 const teamMembers: TeamMember[] = [
-  { name: "Naman Jain", role: "Director of Operations", photo: images.team.naman },
-  { name: "Sanjay Vellore", role: "Director of Outreach", photo: images.team.sanjay },
+  { name: "Naman Jain", role: "Director of Outreach", photo: images.team.naman },
+  { name: "Sanjay Vellore", role: "Director of Operations", photo: images.team.sanjay },
   { name: "Om Anand Khuante", role: "Director of Community", photo: images.team.om },
   { name: "Aakash Sanil", role: "Director of Media" },
   { name: "Karthik Tummala", role: "Lead Instructor" },
@@ -160,6 +162,22 @@ export default function AboutPage() {
               avatar="w-20 text-lg md:w-24 md:text-xl"
             />
           ))}
+        </div>
+
+        {/* Sits below the grid rather than as a ninth card: eight members fill
+            two rows exactly at every breakpoint, and a card here would orphan. */}
+        <div className="home-card mt-4 flex flex-col items-center gap-4 rounded-xl p-6 text-center sm:flex-row sm:justify-between sm:text-left">
+          <div>
+            <p className="font-medium">Want to see your face here?</p>
+            <p className="mt-1 text-sm text-[#636363]">
+              We&rsquo;re always looking for volunteers. Email us at{" "}
+              <span className="whitespace-nowrap">{CONTACT_EMAIL}</span> and tell us what
+              you&rsquo;d like to work on.
+            </p>
+          </div>
+          <a href={CONTACT_EMAIL_HREF} className="home-btn home-btn-moss shrink-0">
+            Join Us
+          </a>
         </div>
       </PageSection>
 
