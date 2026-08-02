@@ -142,4 +142,7 @@ Project instructions for AI coding agents live in `AGENTS.md`, which `CLAUDE.md`
 
 ## License
 
-MIT © CodeWithPurpose
+[Apache License 2.0](LICENSE) © CodeWithPurpose.
+
+Earlier releases were MIT licensed; that notice is retained in [NOTICE](NOTICE)
+as the MIT License requires.
