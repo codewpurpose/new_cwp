@@ -166,8 +166,12 @@ export function PenaltyDial() {
         />
       </div>
 
+      {/* min-w-0 on both columns: a grid item defaults to min-width:auto, so
+          the overflow-x-auto wrappers below were held open to their charts'
+          440px min-width instead of scrolling. The figure's overflow-hidden
+          then cut 127px off the right on a phone, with no way to reach it. */}
       <div className="mt-5 grid gap-6 md:grid-cols-2">
-        <div>
+        <div className="min-w-0">
           <h3 className="text-[13px] uppercase tracking-[0.08em] text-learn-muted">
             Coefficient path
           </h3>
@@ -239,7 +243,7 @@ export function PenaltyDial() {
           </div>
         </div>
 
-        <div>
+        <div className="min-w-0">
           <h3 className="text-[13px] uppercase tracking-[0.08em] text-learn-muted">
             Training vs. validation error
           </h3>

@@ -1,8 +1,23 @@
 "use client";
 
-import { motion, useReducedMotion } from "motion/react";
+import { motion } from "motion/react";
 import type { ReactNode } from "react";
 
+/**
+ * Fades a block in as it scrolls into view.
+ *
+ * There is deliberately no `useReducedMotion()` branch here. That hook reads a
+ * media query, so it returns false during SSR and true on a reader's machine
+ * with Reduce Motion on — which made this component render a `motion.div` on
+ * the server and a plain `div` on the client. React does not patch attribute
+ * mismatches during hydration, so the server's `style="opacity:0"` survived on
+ * a node the client no longer animated, and every wrapped block stayed
+ * invisible forever. On a lesson page that is the entire body.
+ *
+ * Reduction is handled one level up instead: MotionProvider's
+ * `MotionConfig reducedMotion="user"` drops the transform and keeps the
+ * opacity, which is the behaviour that file already documents.
+ */
 export function Reveal({
   children,
   delay = 0,
@@ -12,12 +27,6 @@ export function Reveal({
   delay?: number;
   className?: string;
 }) {
-  const reduceMotion = useReducedMotion();
-
-  if (reduceMotion) {
-    return <div className={className}>{children}</div>;
-  }
-
   return (
     <motion.div
       className={className}

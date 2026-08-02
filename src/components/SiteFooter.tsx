@@ -66,7 +66,7 @@ export function SiteFooter() {
               <div className="grid grid-cols-2 gap-x-6 gap-y-8 md:grid-cols-3 lg:gap-x-8">
                 <div>
                   <h3 className="mb-3 text-xs opacity-60">Learn</h3>
-                  <ul className="space-y-2 text-xs xl:text-base">
+                  <ul className="space-y-2.5 text-xs xl:text-base">
                     <li>
                       <a href={LEARN_ML_HREF} className="home-footer-link">
                         ML Lessons
@@ -96,7 +96,7 @@ export function SiteFooter() {
                 </div>
                 <div>
                   <h3 className="mb-3 text-xs opacity-60">Get Involved</h3>
-                  <ul className="space-y-2 text-xs xl:text-base">
+                  <ul className="space-y-2.5 text-xs xl:text-base">
                     <li>
                       <a href={JOIN_HREF} className="home-footer-link">
                         Volunteer
@@ -116,7 +116,7 @@ export function SiteFooter() {
                 </div>
                 <div>
                   <h3 className="mb-3 text-xs opacity-60">Resources</h3>
-                  <ul className="space-y-2 text-xs xl:text-base">
+                  <ul className="space-y-2.5 text-xs xl:text-base">
                     <li>
                       <a href={BLOG_HREF} className="home-footer-link">
                         Blog

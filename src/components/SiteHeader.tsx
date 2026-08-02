@@ -52,9 +52,16 @@ export function SiteHeader() {
             href={DONATE_HREF}
             className="home-btn home-btn-compact home-btn-glass whitespace-nowrap"
           >
-            {/* "Now" is the first thing to go: below ~360px the label, the menu
-                toggle and the lockup cannot all keep their full width. */}
-            Donate<span className="hidden min-[360px]:inline">&nbsp;Now</span>
+            {/* "Now" is the first thing to go. The threshold is 420 rather than
+                the 360 where the wordmark comes back, because between the two
+                the full lockup and the long label together overrun the line and
+                the wordmark slides under this button.
+                One outer span so the label is a single flex item — .home-btn is
+                inline-flex with a 0.4rem gap, which would otherwise land between
+                the two words on top of the space. */}
+            <span>
+              Donate<span className="hidden min-[420px]:inline">{" "}Now</span>
+            </span>
           </a>
           <div className="min-[1200px]:hidden">
             <button
