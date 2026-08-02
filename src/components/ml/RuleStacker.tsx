@@ -69,9 +69,11 @@ export function RuleStacker() {
         still being got wrong.
       </p>
 
+      <div className="mt-5 overflow-x-auto">
+
       <svg
         viewBox={`0 0 ${VIEW_WIDTH} ${VIEW_HEIGHT}`}
-        className="mt-5 w-full"
+        className="w-full min-w-[560px]"
         role="img"
         aria-label={
           `Spam decision chart with ${step.rules.length} hand-written rules. The rules flag ` +
@@ -171,6 +173,7 @@ export function RuleStacker() {
           links
         </text>
       </svg>
+      </div>
 
       <ul className="mt-2 flex flex-wrap gap-x-5 gap-y-1 text-[12px] text-learn-muted">
         <li>

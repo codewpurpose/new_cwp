@@ -75,11 +75,21 @@ html:has(.learn-shell) {
   max-width: var(--learn-measure);
 }
 
-/* Takes over from each lesson body's own `mx-auto max-w-3xl`. Same width
- * (48rem == max-w-3xl), so removing those wrappers changes nothing visually
- * while letting the grid own the column. */
+/* Long unbroken tokens — package names, URLs, file paths — are the one thing
+ * that can still push a phone layout wider than the screen. Prose wraps them;
+ * code blocks scroll instead, because breaking a command mid-token would make
+ * it wrong to copy. */
+/* Width takes over from each lesson body's own `mx-auto max-w-3xl` — same
+ * 48rem, so removing those wrappers changed nothing visually. */
 .learn-prose {
   max-width: var(--learn-measure);
+  overflow-wrap: break-word;
+}
+
+/* Code scrolls rather than wrapping: breaking a command mid-token would make
+ * it wrong to copy. */
+.learn-prose pre {
+  overflow-wrap: normal;
 }
 
 /* globals.css sets `.home-root section { border-color: var(--home-fern) }`,

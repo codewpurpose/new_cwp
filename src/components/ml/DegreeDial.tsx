@@ -92,9 +92,11 @@ export function DegreeDial() {
         group at every complexity you could have chosen.
       </p>
 
+      <div className="mt-5 overflow-x-auto">
+
       <svg
         viewBox={`0 0 ${VIEW_WIDTH} ${VIEW_HEIGHT}`}
-        className="mt-5 w-full"
+        className="w-full min-w-[560px]"
         role="img"
         aria-label={
           `Practice hours against test score for 60 students. A curve with ${degree} ` +
@@ -219,6 +221,7 @@ export function DegreeDial() {
           error
         </text>
       </svg>
+      </div>
 
       {/* Legend as HTML so it scales with the reader's font size */}
       <ul className="mt-2 flex flex-wrap gap-x-5 gap-y-1 text-[12px] text-learn-muted">

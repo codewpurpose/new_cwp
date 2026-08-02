@@ -92,9 +92,11 @@ export function BucketDial() {
         the classifier actually says; rust dots are the ones it puts in the wrong band.
       </p>
 
+      <div className="mt-5 overflow-x-auto">
+
       <svg
         viewBox={`0 0 ${VIEW_WIDTH} ${VIEW_HEIGHT}`}
-        className="mt-5 w-full"
+        className="w-full min-w-[560px]"
         role="img"
         aria-label={
           `180 deliveries plotted by distance against time. Splitting delivery time into ` +
@@ -180,13 +182,14 @@ export function BucketDial() {
         <path d={MAE_PATH} fill="none" stroke="var(--learn-series-2)" strokeWidth={2} />
         <circle cx={xBuckets(buckets)} cy={yAcc(step.accuracy)} r={4} fill="var(--learn-series-1)" />
         <circle cx={xBuckets(buckets)} cy={yMae(step.mae)} r={4} fill="var(--learn-series-2)" />
-        <text x={6} y={STRIP_A_TOP + 12} fontSize={11} fill="var(--learn-series-1)">
+        <text x={6} y={STRIP_A_TOP + 12} fontSize={12} fill="var(--learn-series-1)">
           acc
         </text>
-        <text x={6} y={STRIP_B_TOP + 12} fontSize={11} fill="var(--learn-series-2)">
+        <text x={6} y={STRIP_B_TOP + 12} fontSize={12} fill="var(--learn-series-2)">
           miss
         </text>
       </svg>
+      </div>
 
       <ul className="mt-2 flex flex-wrap gap-x-5 gap-y-1 text-[12px] text-learn-muted">
         <li>

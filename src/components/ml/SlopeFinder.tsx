@@ -84,9 +84,11 @@ export function SlopeFinder() {
         trip. Underneath, the total error at every setting you could have chosen.
       </p>
 
+      <div className="mt-5 overflow-x-auto">
+
       <svg
         viewBox={`0 0 ${VIEW_WIDTH} ${VIEW_HEIGHT}`}
-        className="mt-5 w-full"
+        className="w-full min-w-[560px]"
         role="img"
         aria-label={
           `Thirty-six car trips plotted as distance against fuel used. At ` +
@@ -190,6 +192,7 @@ export function SlopeFinder() {
           error
         </text>
       </svg>
+      </div>
 
       <label htmlFor={sliderId} className="sr-only">
         Litres per 100 kilometres

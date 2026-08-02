@@ -80,7 +80,7 @@ export function LoopLesson() {
       </p>
 
       <div className="mt-8 flex flex-col items-center gap-8 md:flex-row md:items-start">
-        <div className="relative h-[320px] w-[320px] shrink-0">
+        <div className="relative aspect-square w-full max-w-[320px] shrink-0">
           <svg viewBox="0 0 320 320" className="absolute inset-0 h-full w-full" aria-hidden="true">
             <circle
               cx="160"
@@ -108,7 +108,7 @@ export function LoopLesson() {
                   colours and cannot animate a var(). */}
               <span
                 data-active={active === index || undefined}
-                className="flex h-20 w-20 scale-100 items-center justify-center rounded-full border-[1.5px] border-learn-inverse bg-white text-center text-sm font-semibold text-learn-strong shadow-sm transition-[transform,background-color,color] duration-[250ms] data-[active]:scale-115 data-[active]:bg-learn-inverse data-[active]:text-learn-on-inverse motion-reduce:transition-none"
+                className="flex h-16 w-16 scale-100 items-center justify-center rounded-full md:h-20 md:w-20 border-[1.5px] border-learn-inverse bg-white text-center text-sm font-semibold text-learn-strong shadow-sm transition-[transform,background-color,color] duration-[250ms] data-[active]:scale-115 data-[active]:bg-learn-inverse data-[active]:text-learn-on-inverse motion-reduce:transition-none"
               >
                 {step.label}
               </span>

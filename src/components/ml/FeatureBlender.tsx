@@ -74,9 +74,11 @@ export function FeatureBlender() {
         same loaves measured by whatever blend you pick — and where the best single cut falls.
       </p>
 
+      <div className="mt-5 overflow-x-auto">
+
       <svg
         viewBox={`0 0 ${VIEW_WIDTH} ${VIEW_HEIGHT}`}
-        className="mt-5 w-full"
+        className="w-full min-w-[560px]"
         role="img"
         aria-label={
           `140 loaves plotted by baking time against oven temperature. Measuring a blend of ` +
@@ -202,6 +204,7 @@ export function FeatureBlender() {
           best cut
         </text>
       </svg>
+      </div>
 
       <ul className="mt-2 flex flex-wrap gap-x-5 gap-y-1 text-[12px] text-learn-muted">
         <li>

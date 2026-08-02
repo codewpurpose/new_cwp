@@ -132,9 +132,11 @@ export function ThresholdExplorer() {
         right of the threshold is what the model flags.
       </p>
 
+      <div className="mt-5 overflow-x-auto">
+
       <svg
         viewBox={`0 0 ${VIEW_WIDTH} ${VIEW_HEIGHT}`}
-        className="mt-5 w-full"
+        className="w-full min-w-[560px]"
         role="img"
         aria-label={
           `Score distribution at threshold ${threshold.toFixed(2)}: ` +
@@ -214,11 +216,11 @@ export function ThresholdExplorer() {
         </text>
 
         {/* Side labels */}
-        <text x={8} y={AXIS_Y - HALF_HEIGHT / 2} fontSize={11} fill="var(--learn-ink-muted)">
+        <text x={8} y={AXIS_Y - HALF_HEIGHT / 2} fontSize={12} fill="var(--learn-ink-muted)">
           <tspan x={8} dy={0}>actually</tspan>
           <tspan x={8} dy={13}>positive</tspan>
         </text>
-        <text x={8} y={AXIS_Y + HALF_HEIGHT / 2} fontSize={11} fill="var(--learn-ink-muted)">
+        <text x={8} y={AXIS_Y + HALF_HEIGHT / 2} fontSize={12} fill="var(--learn-ink-muted)">
           <tspan x={8} dy={0}>actually</tspan>
           <tspan x={8} dy={13}>negative</tspan>
         </text>
@@ -230,7 +232,7 @@ export function ThresholdExplorer() {
             x={xFor(tick)}
             y={VIEW_HEIGHT - PAD_BOTTOM + 20}
             textAnchor="middle"
-            fontSize={11}
+            fontSize={12}
             fill="var(--learn-ink-subtle)"
           >
             {tick}
@@ -240,12 +242,13 @@ export function ThresholdExplorer() {
           x={PAD_LEFT + PLOT_WIDTH / 2}
           y={VIEW_HEIGHT - 4}
           textAnchor="middle"
-          fontSize={11}
+          fontSize={12}
           fill="var(--learn-ink-muted)"
         >
           model confidence score
         </text>
       </svg>
+      </div>
 
       <label htmlFor={sliderId} className="sr-only">
         Decision threshold
