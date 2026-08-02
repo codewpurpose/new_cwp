@@ -23,12 +23,24 @@ interface TeamMember {
   role: string;
   /** Optional: members without a photo yet fall back to their initials. */
   photo?: string;
+  /**
+   * Optional crop for photos that are not head-and-shoulders to begin with.
+   * A full-body shot cropped to a circle leaves the face too small to read, so
+   * these scale and offset inside the avatar rather than asking everyone to
+   * re-shoot.
+   */
+  photoClass?: string;
 }
 
 const founders: TeamMember[] = [
   { name: "Shreyan Mitra", role: "Co-founder", photo: images.team.shreyan },
   { name: "Bruhatt Rao", role: "Co-founder", photo: images.team.bhim },
-  { name: "Samanyu Goyal", role: "Co-founder", photo: images.team.samanyu },
+  {
+    name: "Samanyu Goyal",
+    role: "Co-founder",
+    photo: images.team.samanyu,
+    photoClass: "scale-[3] -translate-x-[50%] translate-y-[9%]",
+  },
 ];
 
 /** Add and remove freely — the layout below centres whatever ends up on the
@@ -43,6 +55,7 @@ const teamMembers: TeamMember[] = [
   { name: "Trey Lim", role: "Member of Finance", photo: images.team.trey },
   { name: "Aadi Naik", role: "Lead Instructor", photo: images.team.aadi },
   { name: "Sirish Aytham", role: "Marketing", photo: images.team.sirish },
+  { name: "Ashwika Ashok", role: "Instructor & Operations" },
 ];
 
 function initials(name: string): string {
@@ -70,14 +83,18 @@ function TeamCard({
   return (
     <div className={`home-card home-lift rounded-xl p-4 text-center ${width}`}>
       {member.photo ? (
-        // eslint-disable-next-line @next/next/no-img-element
-        <img
-          src={member.photo}
-          alt={member.name}
-          loading="lazy"
-          decoding="async"
-          className={`mx-auto aspect-square rounded-full object-cover ${avatar}`}
-        />
+        // The circle is the clipping frame, so a per-member `photoClass` can
+        // scale and offset the photo inside it without spilling past the edge.
+        <div className={`mx-auto aspect-square overflow-hidden rounded-full ${avatar}`}>
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            src={member.photo}
+            alt={member.name}
+            loading="lazy"
+            decoding="async"
+            className={`h-full w-full object-cover ${member.photoClass ?? ""}`}
+          />
+        </div>
       ) : (
         <span
           aria-hidden="true"
