@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import { createPortal } from "react-dom";
 import { X } from "lucide-react";
-import { InstagramIcon, LinkedInIcon } from "@/components/icons";
+import { InstagramIcon, LinkedInIcon, SnapchatIcon, TikTokIcon } from "@/components/icons";
 
 export interface TeamMember {
   name: string;
@@ -21,6 +21,10 @@ export interface TeamMember {
   /** Full profile URL, e.g. `https://www.instagram.com/<handle>/`. Rendered as
    *  an icon beside LinkedIn in the dialog. Leave off until the member says yes. */
   instagram?: string;
+  /** Full profile URLs for the other networks members have sent. Each renders
+   *  as its own icon beside LinkedIn and Instagram in the dialog. */
+  snapchat?: string;
+  tiktok?: string;
   /** Left off until the member sends one — the dialog shows a placeholder
    *  rather than hiding the card, so every profile is still clickable. */
   bio?: string;
@@ -30,6 +34,45 @@ export interface TeamMember {
  *  reads as a button the icon is sitting inside rather than as the logo. */
 const socialLinkClass =
   "flex items-center justify-center p-1 text-[var(--home-ink-soft)] transition-colors hover:text-[var(--home-moss)]";
+
+/**
+ * The row of social icons, shown on the card face and again in the dialog.
+ * `stopClick` is on for the card face so tapping an icon opens the link rather
+ * than the dialog the whole card sits inside; the dialog does not need it.
+ */
+function SocialLinks({
+  member,
+  stopClick = false,
+}: {
+  member: TeamMember;
+  stopClick?: boolean;
+}) {
+  const links: { href: string; label: string; Icon: (props: { className?: string }) => React.ReactElement }[] = [];
+  if (member.linkedin) links.push({ href: member.linkedin, label: "LinkedIn", Icon: LinkedInIcon });
+  if (member.instagram) links.push({ href: member.instagram, label: "Instagram", Icon: InstagramIcon });
+  if (member.snapchat) links.push({ href: member.snapchat, label: "Snapchat", Icon: SnapchatIcon });
+  if (member.tiktok) links.push({ href: member.tiktok, label: "TikTok", Icon: TikTokIcon });
+  if (links.length === 0) return null;
+
+  return (
+    <div className="mt-3 flex items-center justify-center gap-3">
+      {links.map(({ href, label, Icon }) => (
+        <a
+          key={label}
+          href={href}
+          target="_blank"
+          rel="noreferrer"
+          aria-label={`${member.name} on ${label}`}
+          title={`${member.name} on ${label}`}
+          onClick={stopClick ? (event) => event.stopPropagation() : undefined}
+          className={socialLinkClass}
+        >
+          <Icon className="h-[18px] w-[18px]" />
+        </a>
+      ))}
+    </div>
+  );
+}
 
 /** Shown in place of a bio nobody has written yet. */
 const BIO_PLACEHOLDER =
@@ -112,22 +155,7 @@ export function TeamCard({
       )}
       <p className="mt-3 font-medium">{member.name}</p>
       <p className="text-sm text-[var(--home-ink-quiet)]">{member.role}</p>
-      {member.linkedin && (
-        <a
-          href={member.linkedin}
-          target="_blank"
-          rel="noreferrer"
-          aria-label={`${member.name} on LinkedIn`}
-          title={`${member.name} on LinkedIn`}
-          onClick={(event) => event.stopPropagation()}
-          /* Sized to the thumb, not to the glyph. At w-fit this was a 26px
-             square target sitting inside a card that is itself clickable, so a
-             near miss opened the dialog instead of LinkedIn. */
-          className={`mx-auto mt-1 h-11 w-11 ${socialLinkClass}`}
-        >
-          <LinkedInIcon className="h-[18px] w-[18px]" />
-        </a>
-      )}
+      <SocialLinks member={member} stopClick />
       {open && <TeamMemberDialog member={member} onClose={() => setOpen(false)} />}
     </div>
   );
@@ -190,32 +218,7 @@ function TeamMemberDialog({
         <p className="mt-4 text-lg font-medium">{member.name}</p>
         <p className="text-sm text-[var(--home-ink-quiet)]">{member.role}</p>
 
-        {(member.linkedin || member.instagram) && (
-          <div className="mt-3 flex items-center justify-center gap-3">
-            {member.linkedin && (
-              <a
-                href={member.linkedin}
-                target="_blank"
-                rel="noreferrer"
-                aria-label={`${member.name} on LinkedIn`}
-                className={socialLinkClass}
-              >
-                <LinkedInIcon className="h-[18px] w-[18px]" />
-              </a>
-            )}
-            {member.instagram && (
-              <a
-                href={member.instagram}
-                target="_blank"
-                rel="noreferrer"
-                aria-label={`${member.name} on Instagram`}
-                className={socialLinkClass}
-              >
-                <InstagramIcon className="h-[18px] w-[18px]" />
-              </a>
-            )}
-          </div>
-        )}
+        <SocialLinks member={member} />
 
         <p
           className={`mt-5 text-left text-sm italic leading-[1.6] ${
