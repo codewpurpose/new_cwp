@@ -41,10 +41,10 @@ export function WhyInvestingBeatsSavingAloneLesson() {
         </P>
         <P>
           Run the same {formatCurrency(10000)} through that {formatPercent(7)} real return instead
-          and, after twenty years, it&apos;s worth about {formatCurrency(21426)} in today&apos;s
-          purchasing power — more than three times the savings path over the identical stretch of
+          and, after twenty years, it&apos;s worth about {formatCurrency(38697)} in today&apos;s
+          purchasing power — more than five times the savings path over the identical stretch of
           time. Stretch it to thirty years and the gap widens further: roughly{" "}
-          {formatCurrency(5553)} for the savings account against roughly {formatCurrency(31361)}
+          {formatCurrency(5553)} for the savings account against roughly {formatCurrency(76123)}
           {" "}for the invested amount. The two paths start at the same number and end multiple
           decades apart, purely from where the money sat.
         </P>
@@ -133,7 +133,7 @@ export function WhyInvestingBeatsSavingAloneLesson() {
           "Inflation shrinks the real purchasing power of cash even while the account balance keeps climbing — $10,000 at 1% APY is worth only about $6,756 in today's money after twenty years.",
           "Investing trades short-term volatility for a historically higher long-term average return — roughly 7% after inflation for a diversified stock portfolio.",
           "That average hides real down years — the S&P 500 fell about 37% in 2008 and about 18% in 2022 — and the return is compensation for that risk, not a reward on top of safety.",
-          "Over twenty years, the same $10,000 diverges to roughly $6,756 in savings versus $21,426 invested, purely from where it sat.",
+          "Over twenty years, the same $10,000 diverges to roughly $6,756 in savings versus $38,697 invested, purely from where it sat.",
           "An emergency fund still belongs in savings, not invested — it needs to be there on a bad week, which is exactly when a portfolio might be down.",
         ]}
       />
