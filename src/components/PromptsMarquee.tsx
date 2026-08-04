@@ -37,7 +37,7 @@ function LocationRow({
   return (
     <div className={reverse ? "home-marquee home-marquee-reverse" : "home-marquee"}>
       <div className="home-marquee-track">
-        {[...items, ...items].map((item, index) => (
+        {[...items, ...items, ...items].map((item, index) => (
           <span
             key={index}
             className="home-card home-chip flex shrink-0 items-center gap-2.5 rounded-lg px-4 py-2.5 text-[15px] leading-none text-[var(--home-ink)]"
@@ -58,7 +58,7 @@ function StatRow({ items }: { items: { value: string; label: string }[] }) {
   return (
     <div className="home-marquee">
       <div className="home-marquee-track">
-        {[...items, ...items].map((item, index) => (
+        {[...items, ...items, ...items].map((item, index) => (
           <span
             key={index}
             className="home-card home-chip flex shrink-0 items-baseline gap-2 rounded-lg px-4 py-2.5 text-[15px] leading-none"

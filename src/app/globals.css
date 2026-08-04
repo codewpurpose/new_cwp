@@ -715,7 +715,11 @@
     transform: translateX(0);
   }
   to {
-    transform: translateX(-50%);
+    /* One copy of three: the track renders items ×3, so translating by a third
+       lands exactly on the next copy for a seamless loop. Three copies (not two)
+       keep every row overflowing the viewport at all times, so neither the
+       forward nor the reverse row ever starts with an empty gap on one side. */
+    transform: translateX(-33.3333%);
   }
 }
 .home-marquee-stack {
@@ -917,6 +921,205 @@
   background: var(--home-pistachio);
   color: var(--home-moss);
 }
+
+/* --------------------------------------------------------------------------
+ * Koda the koala — the site mascot. A floating companion that idles with a
+ * gentle bob, pops when tapped, and shows a speech bubble with its persona.
+ * ---------------------------------------------------------------------- */
+.koala-mascot {
+  position: fixed;
+  right: clamp(0.75rem, 2vw, 1.5rem);
+  bottom: clamp(0.75rem, 2vw, 1.5rem);
+  z-index: 40;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 0.5rem;
+  pointer-events: none; /* children opt back in; keeps the gap non-blocking */
+}
+.koala-mascot > * {
+  pointer-events: auto;
+}
+.koala-btn {
+  position: relative;
+  width: clamp(76px, 9vw, 116px);
+  border: 0;
+  background: transparent;
+  cursor: pointer;
+  animation: koala-float 4.5s ease-in-out infinite;
+  transition: transform 0.2s ease;
+  will-change: transform;
+}
+.koala-btn:hover {
+  transform: scale(1.06) rotate(-2deg);
+}
+.koala-btn:active {
+  transform: scale(0.96);
+}
+.koala-img {
+  width: 100%;
+  height: auto;
+  display: block;
+  filter: drop-shadow(0 8px 14px rgba(21, 18, 12, 0.18));
+  animation: koala-pop 0.42s ease-out;
+}
+.koala-bubble {
+  position: relative;
+  max-width: 15rem;
+  border-radius: 16px 16px 4px 16px;
+  background: #fff;
+  border: 0.5px solid var(--home-hairline-strong);
+  box-shadow: 0 10px 30px rgba(21, 18, 12, 0.14);
+  padding: 0.7rem 0.9rem;
+  font-size: 0.85rem;
+  line-height: 1.4;
+  color: var(--home-ink);
+  animation: koala-bubble-in 0.28s ease-out;
+}
+.koala-bubble-name {
+  display: block;
+  font-size: 0.66rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--home-fern);
+  margin-bottom: 0.15rem;
+}
+.koala-dismiss {
+  position: absolute;
+  top: -6px;
+  right: -6px;
+  width: 22px;
+  height: 22px;
+  border-radius: 999px;
+  border: 0.5px solid var(--home-hairline-strong);
+  background: #fff;
+  color: var(--home-ink-quiet);
+  font-size: 13px;
+  line-height: 1;
+  cursor: pointer;
+  display: grid;
+  place-items: center;
+  opacity: 0;
+  transition: opacity 0.2s ease, color 0.2s ease;
+}
+.koala-btn:hover + .koala-dismiss,
+.koala-dismiss:hover,
+.koala-dismiss:focus-visible {
+  opacity: 1;
+}
+.koala-dismiss:hover {
+  color: var(--home-ink);
+}
+@keyframes koala-float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-9px); }
+}
+@keyframes koala-pop {
+  0% { transform: scale(0.7) translateY(10px); opacity: 0; }
+  55% { transform: scale(1.08); opacity: 1; }
+  100% { transform: scale(1); }
+}
+@keyframes koala-bubble-in {
+  from { opacity: 0; transform: translateY(6px) scale(0.96); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .koala-btn { animation: none; }
+  .koala-img { animation: none; }
+  .koala-bubble { animation: none; }
+  .koala-btn:hover { transform: none; }
+}
+
+/* --------------------------------------------------------------------------
+ * Koda's easter eggs — transient reveals triggered by hidden interactions.
+ * ---------------------------------------------------------------------- */
+.koala-egg-layer {
+  position: fixed;
+  inset: 0;
+  z-index: 60;
+  pointer-events: none;
+  overflow: hidden;
+}
+.koala-drop {
+  position: absolute;
+  top: -160px;
+  width: 62px;
+  height: auto;
+  filter: drop-shadow(0 6px 10px rgba(21, 18, 12, 0.16));
+  animation: koala-fall linear forwards;
+}
+@keyframes koala-fall {
+  0% { transform: translateY(-160px) rotate(0deg); }
+  100% { transform: translateY(112vh) rotate(var(--koala-spin, 360deg)); }
+}
+.koala-spin-layer {
+  position: fixed;
+  inset: 0;
+  z-index: 61;
+  display: grid;
+  place-items: center;
+  pointer-events: none;
+}
+.koala-spin-layer img {
+  width: clamp(140px, 22vw, 220px);
+  height: auto;
+  filter: drop-shadow(0 14px 26px rgba(21, 18, 12, 0.22));
+  animation: koala-spin-pop 1.8s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+}
+@keyframes koala-spin-pop {
+  0% { transform: scale(0.2) rotate(0deg); opacity: 0; }
+  22% { transform: scale(1.12) rotate(360deg); opacity: 1; }
+  78% { transform: scale(1) rotate(360deg); opacity: 1; }
+  100% { transform: scale(0.7) rotate(360deg); opacity: 0; }
+}
+.koala-peek {
+  position: fixed;
+  left: clamp(1rem, 8vw, 6rem);
+  bottom: 0;
+  width: clamp(90px, 12vw, 128px);
+  height: auto;
+  z-index: 45;
+  pointer-events: none;
+  filter: drop-shadow(0 -4px 12px rgba(21, 18, 12, 0.12));
+  animation: koala-peek 5.5s ease-in-out forwards;
+}
+@keyframes koala-peek {
+  0% { transform: translateY(115%); }
+  18% { transform: translateY(0); }
+  30% { transform: translateY(0) rotate(-6deg); }
+  42% { transform: translateY(0) rotate(0deg); }
+  82% { transform: translateY(0); }
+  100% { transform: translateY(115%); }
+}
+.koala-egg-toast {
+  position: fixed;
+  left: 50%;
+  bottom: 2rem;
+  transform: translateX(-50%);
+  z-index: 62;
+  background: var(--home-ink);
+  color: #fff;
+  padding: 0.6rem 1.05rem;
+  border-radius: 999px;
+  font-size: 0.82rem;
+  font-weight: 500;
+  box-shadow: 0 12px 30px rgba(21, 18, 12, 0.28);
+  animation: koala-toast 3.6s ease-in-out forwards;
+  pointer-events: none;
+}
+@keyframes koala-toast {
+  0% { opacity: 0; transform: translate(-50%, 12px); }
+  10% { opacity: 1; transform: translate(-50%, 0); }
+  85% { opacity: 1; transform: translate(-50%, 0); }
+  100% { opacity: 0; transform: translate(-50%, 12px); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .koala-drop { animation-duration: 2.5s !important; }
+  .koala-peek { animation: koala-toast 5.5s ease-in-out forwards; }
+  .koala-spin-layer img { animation: koala-toast 1.8s ease-in-out forwards; }
+}
+
 html.cwp-loader-active {
   overflow: hidden;
 }

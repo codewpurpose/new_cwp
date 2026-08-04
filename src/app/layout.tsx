@@ -1,5 +1,7 @@
 import type { Metadata } from "next";
 import { Archivo, Fraunces, Spline_Sans_Mono } from "next/font/google";
+import { KoalaEasterEggs } from "@/components/KoalaEasterEggs";
+import { KoalaMascot } from "@/components/KoalaMascot";
 import { MotionProvider } from "@/components/MotionProvider";
 import { SiteLoader } from "@/components/SiteLoader";
 import { SITE_URL } from "@/lib/links";
@@ -108,6 +110,8 @@ export default function RootLayout({
         />
         <SiteLoader />
         <MotionProvider>{children}</MotionProvider>
+        <KoalaMascot />
+        <KoalaEasterEggs />
       </body>
     </html>
   );

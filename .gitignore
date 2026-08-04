@@ -48,3 +48,9 @@ next-env.d.ts
 # Local temp files
 temp/
 .gstack/
+
+# Sponsor-outreach ops — kept local, never in the public site repo
+sponsorship-outreach.csv
+CodeWithPurpose_Sponsor_Outreach.xlsx
+~$*.xlsx
+/outreach/
