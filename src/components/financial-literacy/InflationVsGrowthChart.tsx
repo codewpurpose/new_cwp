@@ -6,7 +6,7 @@ import { formatCurrency } from "@/lib/finance-format";
 const STARTING_AMOUNT = 10000;
 const INFLATION_RATE = 0.03;
 const SAVINGS_RATE = 0.01;
-const INVESTED_RATE = 0.07;
+const INVESTED_REAL_RATE = 0.07;
 const MAX_YEARS = 30;
 
 const VIEW_WIDTH = 640;
@@ -24,6 +24,10 @@ function realValue(nominalRate: number, years: number): number {
   return STARTING_AMOUNT * Math.pow(1 + realRate, years);
 }
 
+function valueAtRealRate(realRate: number, years: number): number {
+  return STARTING_AMOUNT * Math.pow(1 + realRate, years);
+}
+
 function xFor(year: number): number {
   return PAD_LEFT + (year / MAX_YEARS) * PLOT_WIDTH;
 }
@@ -37,7 +41,7 @@ export function InflationVsGrowthChart() {
     const invested: number[] = [];
     for (let y = 0; y <= MAX_YEARS; y += 1) {
       savings.push(realValue(SAVINGS_RATE, y));
-      invested.push(realValue(INVESTED_RATE, y));
+      invested.push(valueAtRealRate(INVESTED_REAL_RATE, y));
     }
     const max = Math.max(...invested, STARTING_AMOUNT);
     const yFor = (value: number) => PAD_TOP + PLOT_HEIGHT - (value / max) * PLOT_HEIGHT;
@@ -48,7 +52,7 @@ export function InflationVsGrowthChart() {
 
   const yFor = (value: number) => PAD_TOP + PLOT_HEIGHT - (value / maxValue) * PLOT_HEIGHT;
   const savingsAtYear = realValue(SAVINGS_RATE, year);
-  const investedAtYear = realValue(INVESTED_RATE, year);
+  const investedAtYear = valueAtRealRate(INVESTED_REAL_RATE, year);
 
   return (
     <figure className="learn-card mt-8 overflow-hidden rounded-learn-xl p-5 md:p-7">
@@ -61,7 +65,7 @@ export function InflationVsGrowthChart() {
           viewBox={`0 0 ${VIEW_WIDTH} ${VIEW_HEIGHT}`}
           className="w-full min-w-[520px]"
           role="img"
-          aria-label={`After ${year} years, ${formatCurrency(STARTING_AMOUNT)} left in a 1% savings account is worth ${formatCurrency(savingsAtYear)} in today's purchasing power, while the same amount invested at a 7% average return is worth ${formatCurrency(investedAtYear)}.`}
+          aria-label={`After ${year} years, ${formatCurrency(STARTING_AMOUNT)} left in a 1% savings account is worth ${formatCurrency(savingsAtYear)} in today's purchasing power, while the same amount invested at a 7% average real return is worth ${formatCurrency(investedAtYear)}.`}
         >
           <line x1={PAD_LEFT} y1={PAD_TOP + PLOT_HEIGHT} x2={VIEW_WIDTH - PAD_RIGHT} y2={PAD_TOP + PLOT_HEIGHT} stroke="var(--learn-chart-axis)" strokeWidth={1} />
           <line x1={PAD_LEFT} y1={PAD_TOP} x2={PAD_LEFT} y2={PAD_TOP + PLOT_HEIGHT} stroke="var(--learn-chart-axis)" strokeWidth={1} />
@@ -122,7 +126,7 @@ export function InflationVsGrowthChart() {
         <div className="rounded-learn-lg border-[0.5px] border-learn-accent bg-learn-surface p-5">
           <div className="flex items-center gap-2">
             <span className="h-3 w-3 rounded-full bg-learn-series-1" aria-hidden="true" />
-            <h3 className="text-[15px] font-semibold text-learn-strong">Invested, 7% average return</h3>
+            <h3 className="text-[15px] font-semibold text-learn-strong">Invested, 7% average real return</h3>
           </div>
           <p className="mt-2 font-[family-name:var(--learn-font-mono)] text-[20px] tabular-nums text-learn-strong">
             {formatCurrency(investedAtYear)}
