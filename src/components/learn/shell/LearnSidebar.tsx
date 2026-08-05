@@ -4,23 +4,27 @@ import { useEffect, useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { Check, Lock } from "lucide-react";
-import type { LearnTrackId } from "@/lib/learn-types";
-import { chapterHref, getPartsWithChapters, getTrack } from "@/lib/learn-nav";
+import type { LearnNavData, LearnTrackId } from "@/lib/learn-types";
+import { chapterHref } from "@/lib/learn-routes";
 import { readStudent } from "@/lib/student";
 
 interface LearnSidebarProps {
   track: LearnTrackId;
+  /**
+   * Built on the server by `getSidebarNav`. Passed in rather than read here so
+   * this component never imports the lesson graph — see `learn-routes.ts`.
+   */
+  nav: LearnNavData;
   /** "drawer" drops the sticky rail styling; the drawer owns its own scroll. */
   variant?: "rail" | "drawer";
   onNavigate?: () => void;
 }
 
-export function LearnSidebar({ track, variant = "rail", onNavigate }: LearnSidebarProps) {
+export function LearnSidebar({ track, nav, variant = "rail", onNavigate }: LearnSidebarProps) {
   // Layouts do not re-render on navigation and cannot read the pathname, so the
   // active-chapter highlight has to come from a client hook.
   const pathname = usePathname();
-  const groups = getPartsWithChapters(track);
-  const trackMeta = getTrack(track);
+  const { groups, trackTitle } = nav;
 
   // Completion drives the lock/tick marks. It lives in the local store (kept in
   // sync with Supabase when signed in), so it's read on the client after mount.
@@ -50,8 +54,8 @@ export function LearnSidebar({ track, variant = "rail", onNavigate }: LearnSideb
   }
 
   return (
-    <nav aria-label={`${trackMeta.title} chapters`} data-variant={variant}>
-      <p className="learn-nav-heading">{trackMeta.title}</p>
+    <nav aria-label={`${trackTitle} chapters`} data-variant={variant}>
+      <p className="learn-nav-heading">{trackTitle}</p>
 
       {groups.map(({ part, chapters }) => (
         <div key={part.id} className="learn-nav-part">

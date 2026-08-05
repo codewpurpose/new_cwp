@@ -40,6 +40,13 @@ export const FINANCIAL_LITERACY_COURSE_HREF =
   "https://www.udemy.com/course/financial-literacy-the-basics/";
 export const HEALTH_IN_TECH_COURSE_HREF =
   "https://www.udemy.com/course/health-iin-tech/";
+/**
+ * Newsletter sign-up endpoint. The trailing slash is load-bearing: with
+ * `trailingSlash: true`, posting to the unslashed path earns a 308 redirect
+ * instead of a response.
+ */
+export const NEWSLETTER_SUBSCRIBE_PATH = "/api/subscribe/";
+
 export const CONTACT_EMAIL = "team@codewithpurpose.org";
 export const CONTACT_EMAIL_HREF = `mailto:${CONTACT_EMAIL}`;
 export const DISCORD_HREF = "https://discord.gg/W948bWbCAK";

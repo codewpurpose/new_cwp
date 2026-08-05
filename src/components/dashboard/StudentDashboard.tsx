@@ -3,15 +3,8 @@
 import { type CSSProperties, useState } from "react";
 import Link from "next/link";
 import { chapterHref } from "@/lib/learn-nav";
-import {
-  ACHIEVEMENTS,
-  COURSES,
-  TOTAL_CHAPTERS,
-  avatarSrc,
-  courseProgress,
-  levelInfo,
-  themeById,
-} from "@/lib/student";
+import { ACHIEVEMENTS, avatarSrc, levelInfo, themeById } from "@/lib/student";
+import { COURSES, TOTAL_CHAPTERS, courseProgress } from "@/lib/student-courses";
 import { TOOLKIT_HREF } from "@/lib/links";
 import { useStudent } from "@/components/dashboard/useStudent";
 import { Whiteboard } from "@/components/dashboard/Whiteboard";

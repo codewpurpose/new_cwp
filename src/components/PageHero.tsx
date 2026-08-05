@@ -41,6 +41,12 @@ export function PageHero({
                 <img
                   src={image}
                   alt={imageAlt ?? ""}
+                  // The hero art is the largest thing above the fold on every
+                  // page that has one, so it is almost always the LCP element.
+                  // Left at default priority it queues behind the fonts and the
+                  // rest of the head; deliberately NOT lazy for the same reason.
+                  fetchPriority="high"
+                  decoding="async"
                   className="aspect-[4/3] w-full object-cover"
                 />
               </div>

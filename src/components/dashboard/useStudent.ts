@@ -8,12 +8,12 @@ import {
   STUDENT_KEY,
   THEMES,
   XP_PER_CHAPTER,
-  derive,
   hasToolkitNotes,
   today,
   wasYesterday,
   type StudentState,
 } from "@/lib/student";
+import { derive } from "@/lib/student-courses";
 
 function load(): StudentState {
   if (typeof window === "undefined") return DEFAULT_STUDENT;

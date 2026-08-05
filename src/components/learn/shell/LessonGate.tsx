@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import Link from "next/link";
-import { chapterHref } from "@/lib/learn-nav";
+import { chapterHref } from "@/lib/learn-routes";
 import type { LearnTrackId } from "@/lib/learn-types";
 import { isLessonComplete } from "@/lib/student";
 

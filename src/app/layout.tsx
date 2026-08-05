@@ -101,6 +101,20 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  /**
+   * Koda sits inside the auth provider, not beside it: the mascot reads the
+   * signed-in state to decide whether to offer the newsletter, and Clerk's
+   * hooks throw outright without a provider above them. Assembled once here so
+   * neither branch below can drift from the other.
+   */
+  const body = (
+    <>
+      <MotionProvider>{children}</MotionProvider>
+      <KoalaMascot />
+      <KoalaEasterEggs />
+    </>
+  );
+
   return (
     <html lang="en" className="h-full">
       <body
@@ -111,15 +125,7 @@ export default function RootLayout({
           dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationJsonLd) }}
         />
         <SiteLoader />
-        {isClerkConfigured ? (
-          <AppAuthProvider>
-            <MotionProvider>{children}</MotionProvider>
-          </AppAuthProvider>
-        ) : (
-          <MotionProvider>{children}</MotionProvider>
-        )}
-        <KoalaMascot />
-        <KoalaEasterEggs />
+        {isClerkConfigured ? <AppAuthProvider>{body}</AppAuthProvider> : body}
       </body>
     </html>
   );
