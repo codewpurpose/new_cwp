@@ -18,12 +18,19 @@ export const RESEND_AUDIENCE_ID = process.env.RESEND_AUDIENCE_ID ?? "";
 export const isResendConfigured = Boolean(apiKey);
 
 /**
- * Verify a sending subdomain (send.codewithpurpose.org) rather than the root —
- * it keeps sending reputation separate from the team's own Google Workspace
- * mail and leaves the existing MX/SPF records alone.
+ * Must be an address on the domain registered in Resend — which is the root,
+ * codewithpurpose.org.
+ *
+ * Not `send.codewithpurpose.org`: that subdomain carries the SPF and MX records
+ * for the bounce return-path, which Resend creates as part of registering the
+ * root. It is not a domain you send from, and naming it here makes Resend look
+ * for a registration that does not exist ("domain is not verified").
+ *
+ * The mailbox need not exist — DKIM is what authorises the send, and replies go
+ * to EMAIL_REPLY_TO below, which is a real inbox.
  */
 export const EMAIL_FROM =
-  process.env.EMAIL_FROM ?? "CodeWithPurpose <hello@send.codewithpurpose.org>";
+  process.env.EMAIL_FROM ?? "CodeWithPurpose <hello@codewithpurpose.org>";
 
 /** Replies should reach a human, not the sending subdomain. */
 export const EMAIL_REPLY_TO = "team@codewithpurpose.org";
