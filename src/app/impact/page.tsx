@@ -3,13 +3,24 @@ import Link from "next/link";
 import { PageHero, PageSection, PhotoGrid } from "@/components/PageHero";
 import { PageShell } from "@/components/PageShell";
 import { Reveal } from "@/components/Reveal";
+import { TopicCover } from "@/components/TopicCover";
 import { images } from "@/lib/images";
-import { CONGRESS_LETTER_HREF, DONATE_HREF } from "@/lib/links";
+import { posts } from "@/lib/posts";
+import { CONGRESS_LETTER_HREF, DONATE_HREF, SUBSTACK_EMBED_SRC } from "@/lib/links";
 
+/**
+ * Impact and the blog, on one page.
+ *
+ * They were two routes making the same argument from opposite ends — the
+ * numbers, and the students behind them — and each was weaker alone. `/blog`
+ * now redirects here (see next.config.ts). Individual posts keep their own
+ * `/blog/<slug>` URLs: those are linked from outside and there is no reason to
+ * move them.
+ */
 export const metadata: Metadata = {
-  title: "Our Impact",
+  title: "Impact & Stories",
   description:
-    "4,000+ students across 130+ countries. See the impact of free coding education.",
+    "4,000+ students across 130+ countries, and the stories behind the numbers.",
   alternates: { canonical: "/impact" },
 };
 
@@ -92,6 +103,64 @@ export default function ImpactPage() {
             >
               Read the letter
             </a>
+          </div>
+        </div>
+      </PageSection>
+
+      <PageSection className="border-t-[0.5px] border-[var(--home-hairline)]">
+        <h2 className="home-serif text-[1.75rem] md:text-[2.25rem]">
+          Stories from our community
+        </h2>
+        <p className="mt-3 max-w-2xl text-[var(--home-ink-soft)]">
+          Updates on our courses, and the students and volunteers making free
+          education possible worldwide.
+        </p>
+
+        <div className="mt-8 grid gap-6 md:grid-cols-2">
+          {posts.map((post, index) => (
+            <Reveal key={post.slug} delay={index * 0.08}>
+              <Link
+                href={`/blog/${post.slug}`}
+                className="home-card home-lift home-template-row group block overflow-hidden rounded-[20px]"
+              >
+                <TopicCover variant={post.cover} className="aspect-[16/9] w-full" />
+                <div className="p-6 md:p-8">
+                  <p className="text-[11px] uppercase tracking-[0.12em] text-[var(--home-ink-quiet)]">
+                    {post.date}
+                  </p>
+                  {/* h3, not h2: this section already owns the h2 above. */}
+                  <h3 className="mt-2 text-xl md:text-2xl">{post.title}</h3>
+                  <p className="mt-3 text-[15px] leading-[1.55] text-[var(--home-ink-soft)]">
+                    {post.excerpt}
+                  </p>
+                  <p className="home-arrow-link mt-5">
+                    Read the story{" "}
+                    <span className="home-row-arrow text-[#397554]">→</span>
+                  </p>
+                </div>
+              </Link>
+            </Reveal>
+          ))}
+        </div>
+      </PageSection>
+
+      <PageSection className="border-t-[0.5px] border-[var(--home-hairline)] bg-[var(--home-grey-450)]">
+        <div className="mx-auto max-w-3xl text-center">
+          <h2 className="home-serif text-[1.75rem] md:text-[2.25rem]">
+            Get our stories in your inbox
+          </h2>
+          <p className="mt-3 text-[var(--home-ink-soft)]">
+            We write about the students, volunteers, and small wins behind free
+            education. Subscribe on Substack and never miss one.
+          </p>
+          <div className="mt-8 flex justify-center">
+            <iframe
+              src={SUBSTACK_EMBED_SRC}
+              title="Subscribe to the CodeWithPurpose Substack"
+              scrolling="no"
+              loading="lazy"
+              className="h-[320px] w-full max-w-[480px] rounded-xl border-[0.5px] border-[var(--home-hairline)] bg-white"
+            />
           </div>
         </div>
       </PageSection>

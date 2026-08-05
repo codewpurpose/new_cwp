@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useId, useRef, useState } from "react";
-import { NEWSLETTER_SUBSCRIBE_PATH } from "@/lib/links";
+import { useSubscribe } from "@/components/newsletter/useSubscribe";
 
 /**
  * The little card Koda opens when a signed-out visitor taps him.
@@ -12,8 +12,6 @@ import { NEWSLETTER_SUBSCRIBE_PATH } from "@/lib/links";
  * field when it opens and returns to whatever opened it on the way out.
  */
 
-type Status = "idle" | "sending" | "done" | "error";
-
 interface NewsletterPopupProps {
   onClose: () => void;
   /** Called once the address is accepted, so the opener can stop re-offering. */
@@ -22,8 +20,7 @@ interface NewsletterPopupProps {
 
 export function NewsletterPopup({ onClose, onSubscribed }: NewsletterPopupProps) {
   const [email, setEmail] = useState("");
-  const [status, setStatus] = useState<Status>("idle");
-  const [message, setMessage] = useState("");
+  const { status, message, subscribe } = useSubscribe(onSubscribed);
   const inputRef = useRef<HTMLInputElement>(null);
   const headingId = useId();
 
@@ -45,32 +42,7 @@ export function NewsletterPopup({ onClose, onSubscribed }: NewsletterPopupProps)
   const submit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (status === "sending") return;
-
-    setStatus("sending");
-    setMessage("");
-    try {
-      const res = await fetch(NEWSLETTER_SUBSCRIBE_PATH, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email }),
-      });
-      const data: { error?: string; warning?: string } = await res
-        .json()
-        .catch(() => ({}));
-
-      if (!res.ok) {
-        setStatus("error");
-        setMessage(data.error ?? "That didn't go through. Try again in a moment.");
-        return;
-      }
-
-      setStatus("done");
-      setMessage(data.warning ?? "");
-      onSubscribed();
-    } catch {
-      setStatus("error");
-      setMessage("Couldn't reach us just now — check your connection.");
-    }
+    await subscribe(email);
   };
 
   return (

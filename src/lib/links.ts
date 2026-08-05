@@ -18,8 +18,11 @@ export const LOGIN_HREF = "/login";
 export const LEADERBOARD_HREF = "/leaderboard";
 export const ABOUT_HREF = "/about";
 export const JOIN_HREF = "/join";
+/**
+ * Impact and the blog are one page. `/blog` 308s here (next.config.ts); only
+ * the individual posts still live under /blog/<slug>.
+ */
 export const IMPACT_HREF = "/impact";
-export const BLOG_HREF = "/blog";
 export const CONTACT_HREF = "/contact";
 export const DONATE_HREF = "/donate";
 export const HOME_HREF = "/";
@@ -69,7 +72,6 @@ export const NAV_LINKS = [
   { label: "Courses", href: COURSES_HREF },
   { label: "About Us", href: ABOUT_HREF },
   { label: "Join Us", href: JOIN_HREF },
-  { label: "Impact", href: IMPACT_HREF },
-  { label: "Blog", href: BLOG_HREF },
+  { label: "Stories", href: IMPACT_HREF },
   { label: "Contact", href: CONTACT_HREF },
 ] as const;
