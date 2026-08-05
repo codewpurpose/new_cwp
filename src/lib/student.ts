@@ -1,15 +1,15 @@
 /**
  * Local-first student progress model.
  *
- * Everything a signed-out student earns — XP, streak, which chapters they've
- * ticked off, cosmetics they've unlocked — lives in ONE localStorage blob on
- * their own device. No account, no server, nothing collected. When a real
- * backend arrives later, this shape is what gets synced.
+ * Everything a student earns — XP, streak, which chapters they've ticked off,
+ * cosmetics they've unlocked — lives in ONE localStorage blob on their own
+ * device. Signed out, that's the whole story: no account, nothing collected.
+ * Signed in, `ClerkDataSync` mirrors this same shape to Supabase and back, so
+ * this stays the thing the UI reads either way.
  */
 
 import { getChapters, getTrack } from "@/lib/learn-nav";
 import type { LearnTrackId } from "@/lib/learn-types";
-import { images } from "@/lib/images";
 
 export const STUDENT_KEY = "cwp-student-v1";
 export const XP_PER_CHAPTER = 20;
@@ -248,5 +248,3 @@ export function markLessonComplete(courseId: string, slug: string): number {
   }
   return next.xp;
 }
-
-export { images };

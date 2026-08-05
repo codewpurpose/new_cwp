@@ -119,13 +119,21 @@ by design — every visitor can read every display name — so the sign-up asks 
 Key files, if you need them: `src/lib/clerk.ts` (config flag),
 `src/lib/supabase/client.ts` (public/anon reads),
 `src/lib/supabase/with-clerk.tsx` (token-bearing client + profile sync),
-`src/components/auth/` (provider + login form), `src/middleware.ts` (Clerk
-middleware, gated).
+`src/components/auth/` (provider + login form), `src/proxy.ts` (Clerk route
+gating — Next 16's `proxy` convention, which replaced `middleware`).
 
 ## What's intentionally still local-first
 
-Day-to-day progress is still the on-device store; signing in mirrors the student's
-profile (name, avatar, XP) up so the leaderboard has data. Full two-way sync —
-pushing every `progress` row to Supabase and pulling it back on a new device — is
-the natural next step once the project exists and we can test against real auth.
-It's isolated to `src/lib/supabase/`, so it won't touch lesson code.
+The on-device store stays the thing the UI reads: every screen works signed out,
+and nothing is collected without an account. Supabase sits behind it as the
+durable copy.
+
+`ClerkDataSync` (in `src/lib/supabase/with-clerk.tsx`) reconciles the two once per
+sign-in — it pulls the learner's `progress` rows and `xp`, merges them into the
+local store (union of completions, higher XP wins), then pushes back whatever the
+server was missing. After that, each passed quick check writes straight through.
+So progress follows a student across devices, and the chapter gate trusts a
+durable record rather than one browser's localStorage.
+
+Without keys, none of this mounts and the site behaves exactly as it did before.
+All of it is isolated to `src/lib/supabase/`, so it never touches lesson code.

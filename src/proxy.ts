@@ -9,11 +9,14 @@ import { NextResponse } from "next/server";
 const isLessonRoute = createRouteMatcher([/^\/learn\/[^/]+\/[^/]+/]);
 
 /**
- * Clerk's middleware is only engaged once keys exist. Without them it's a
+ * Clerk's handler is only engaged once keys exist. Without them it's a
  * pass-through, so the site builds and runs exactly as before (local-first,
  * lessons open to everyone).
+ *
+ * Next 16 renamed the `middleware` file convention to `proxy`; Clerk still ships
+ * `clerkMiddleware()`, which is just a request handler, so it drops straight in.
  */
-const handler = process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY
+export const proxy = process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY
   ? clerkMiddleware(async (auth, req) => {
       if (isLessonRoute(req)) {
         const { userId, redirectToSignIn } = await auth();
@@ -21,8 +24,6 @@ const handler = process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY
       }
     })
   : () => NextResponse.next();
-
-export default handler;
 
 export const config = {
   matcher: [
