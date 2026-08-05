@@ -117,6 +117,23 @@ export function KoalaEasterEggs() {
     let konamiIndex = 0;
     let typed = "";
     const onKey = (e: KeyboardEvent) => {
+      // Autofill, password managers and IME composition all dispatch keydown
+      // with no `key` at all. Reading it blind crashed the listener the moment
+      // the page grew a text field for a browser to autofill.
+      if (typeof e.key !== "string") return;
+
+      // Never read along while someone is actually typing. Koda's newsletter
+      // field sits on every page, and "koda" is four letters that turn up in
+      // plenty of real email addresses — spinning the mascot mid-signup is not
+      // a delightful surprise.
+      const target = e.target as HTMLElement | null;
+      if (
+        target?.isContentEditable ||
+        /^(input|textarea|select)$/i.test(target?.tagName ?? "")
+      ) {
+        return;
+      }
+
       const lower = e.key.toLowerCase();
       konamiIndex =
         lower === KONAMI[konamiIndex].toLowerCase()

@@ -94,19 +94,25 @@ export async function POST(req: Request) {
     );
   }
 
-  // Store first: a subscriber we failed to greet is recoverable, a greeting we
-  // failed to record is not. A repeat address is a no-op on Resend's side.
+  // Store first, and stop here if it fails. A subscriber we failed to greet is
+  // recoverable; a greeting we failed to record is not — and mailing "you're on
+  // the list" to someone who is demonstrably not on the list is worse than
+  // saying the sign-up didn't work. A repeat address is a no-op on Resend's side.
   const stored = await addContact(address);
   if (!stored.ok) {
     console.error("[cwp] subscribe: could not store contact:", stored.error);
+    return NextResponse.json(
+      { error: "Couldn't add you to the list just now. Try again shortly." },
+      { status: 502 },
+    );
   }
 
   const sent = await sendEmail(address, renderNewsletterWelcome(UNSUBSCRIBE_URL));
   if (!sent.ok) {
     console.error("[cwp] subscribe: welcome email failed:", sent.error);
-    // They are on the list either way, so don't imply the sign-up failed.
+    // Genuinely on the list now, so don't imply the sign-up itself failed.
     return NextResponse.json(
-      { ok: true, warning: "You're subscribed, but the welcome email didn't send." },
+      { ok: true, warning: "You're on the list — the welcome email didn't send, though." },
       { status: 200 },
     );
   }
