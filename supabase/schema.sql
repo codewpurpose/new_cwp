@@ -69,3 +69,59 @@ create policy "own progress"
   to authenticated
   using ((select auth.jwt() ->> 'sub') = user_id)
   with check ((select auth.jwt() ->> 'sub') = user_id);
+
+-- ---------------------------------------------------------------------------
+-- subscribers: newsletter sign-ups from Koda's popup. NOT tied to a Clerk user
+-- — most subscribers never make an account, which is why there is no user_id.
+--
+-- `email` is the primary key, and /api/subscribe/ always trims and lowercases
+-- before writing, so a repeat sign-up collides with the existing row and is
+-- ignored rather than duplicated.
+--
+-- `source` records which surface the address came from — there is more than one
+-- (Koda's popup and the footer form), and 'website' is the honest answer when
+-- the request didn't say. See ALLOWED_SOURCES in the subscribe route.
+--
+-- `unsubscribed` exists because the opt-out is a mailto: to a human — someone
+-- has to be able to flip a flag when a request lands in the inbox.
+-- ---------------------------------------------------------------------------
+create table if not exists public.subscribers (
+  email        text primary key,
+  created_at   timestamptz not null default now(),
+  source       text not null default 'website',
+  unsubscribed boolean not null default false
+);
+
+create index if not exists subscribers_created_at_idx
+  on public.subscribers (created_at desc);
+
+-- RLS on, and DELIBERATELY NO POLICIES. Unlike profiles and progress, nothing
+-- in the browser may read or write this table: with RLS enabled and no policy
+-- granting anything, anon and authenticated get nothing at all. The only writer
+-- is the /api/subscribe/ route holding the service_role key, which bypasses
+-- RLS by design. A subscriber list is not public data — do not add a policy
+-- here without a very good reason.
+alter table public.subscribers enable row level security;
+
+-- ---------------------------------------------------------------------------
+-- account_welcomes: which Clerk users have already been sent the account
+-- welcome email. A ledger, not a feature.
+--
+-- Clerk delivers webhooks AT LEAST once and retries any non-2xx response, so
+-- `user.created` can arrive more than once for the same person. `user_id` is
+-- the primary key and the route inserts before sending, so the second delivery
+-- loses the race on the key and sends nothing. That is the whole mechanism —
+-- Postgres does the locking, the route just reads the outcome.
+--
+-- Keyed on the Clerk user id rather than the address on purpose: someone may
+-- already be in `subscribers` from the newsletter, and that must not suppress
+-- the email they get for making an account.
+-- ---------------------------------------------------------------------------
+create table if not exists public.account_welcomes (
+  user_id text primary key,
+  email   text not null,
+  sent_at timestamptz not null default now()
+);
+
+-- Same reasoning as subscribers: server-side only, no browser access at all.
+alter table public.account_welcomes enable row level security;

@@ -1,4 +1,5 @@
-import { renderEmail, type EmailLink, type RenderedEmail } from "../layout";
+import { renderEmail, type RenderedEmail } from "../layout";
+import { TRACK_LINKS } from "./tracks";
 import { CONTACT_EMAIL, DISCORD_HREF, SITE_URL } from "@/lib/links";
 
 /**
@@ -10,14 +11,6 @@ import { CONTACT_EMAIL, DISCORD_HREF, SITE_URL } from "@/lib/links";
  * subscriber straight into a login wall — a poor first impression from an email
  * whose whole argument is that nothing is gated behind a payment.
  */
-
-const TRACKS: EmailLink[] = [
-  { label: "Python", href: `${SITE_URL}/learn/python/`, note: "24 chapters — start from nothing installed" },
-  { label: "Vibe Coding", href: `${SITE_URL}/learn/vibecoding/`, note: "29 chapters — build real things with AI" },
-  { label: "Machine Learning", href: `${SITE_URL}/learn/ml/`, note: "22 chapters — interactive, no maths degree needed" },
-  { label: "Financial Literacy", href: `${SITE_URL}/learn/financial-literacy/`, note: "24 chapters — the money rules school skips" },
-  { label: "Health in Tech", href: `${SITE_URL}/learn/health-in-tech/`, note: "24 chapters — where code meets care" },
-];
 
 export function renderNewsletterWelcome(unsubscribeUrl?: string): RenderedEmail {
   return renderEmail({
@@ -47,7 +40,7 @@ export function renderNewsletterWelcome(unsubscribeUrl?: string): RenderedEmail 
       { kind: "button", label: "Browse the courses →", href: `${SITE_URL}/courses/` },
       { kind: "divider" },
       { kind: "eyebrow", text: "123 chapters, five tracks" },
-      { kind: "links", items: TRACKS },
+      { kind: "links", items: TRACK_LINKS },
       {
         kind: "callout",
         title: "What you'll actually get",

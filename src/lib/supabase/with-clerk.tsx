@@ -4,6 +4,7 @@ import { useEffect, useMemo, useRef } from "react";
 import { createClient, type SupabaseClient } from "@supabase/supabase-js";
 import { useSession, useUser } from "@clerk/nextjs";
 import { readStudent, writeStudent, type StudentState } from "@/lib/student";
+import { ACCOUNT_WELCOME_PATH } from "@/lib/links";
 
 const url = process.env.NEXT_PUBLIC_SUPABASE_URL;
 const anonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
@@ -47,10 +48,59 @@ function displayNameFor(local: StudentState, user: ReturnType<typeof useUser>["u
  * quiz-gate's "previous chapter complete" check trust a durable record rather
  * than one device's localStorage.
  */
+/**
+ * Remembers, per browser, that we've already pinged the welcome endpoint for a
+ * user. Purely to save a pointless request on every page load — the endpoint is
+ * idempotent on the server, which is what actually guarantees one email.
+ */
+const WELCOMED_KEY = "cwp-account-welcomed-v1";
+
+function alreadyPinged(userId: string): boolean {
+  try {
+    return localStorage.getItem(`${WELCOMED_KEY}:${userId}`) === "1";
+  } catch {
+    return false; // Private mode, storage disabled — the server still dedupes.
+  }
+}
+
+function markPinged(userId: string): void {
+  try {
+    localStorage.setItem(`${WELCOMED_KEY}:${userId}`, "1");
+  } catch {
+    // Nothing to do; worst case is one extra request next load.
+  }
+}
+
 export function ClerkDataSync() {
   const { user, isSignedIn } = useUser();
   const supabase = useClerkSupabase();
   const reconciledFor = useRef<string | null>(null);
+  const welcomedFor = useRef<string | null>(null);
+
+  /**
+   * The account welcome email, sent on first sign-in.
+   *
+   * Deliberately independent of the progress sync below: it needs a Clerk
+   * session and nothing else, so it still works when Supabase is unconfigured.
+   * It sends no body — the endpoint reads the user from the session, so the
+   * browser cannot name someone else's address.
+   */
+  useEffect(() => {
+    if (!isSignedIn || !user) return;
+    if (welcomedFor.current === user.id) return;
+    welcomedFor.current = user.id;
+    if (alreadyPinged(user.id)) return;
+
+    void fetch(ACCOUNT_WELCOME_PATH, { method: "POST" })
+      .then((res) => {
+        // A 500 means "try again later", so leave the flag unset for next load.
+        if (res.ok) markPinged(user.id);
+      })
+      .catch(() => {
+        // Offline or blocked. Silent by design — this is not the visitor's
+        // problem, and it will be retried the next time they load the site.
+      });
+  }, [isSignedIn, user]);
 
   // One-time reconciliation per signed-in user.
   useEffect(() => {

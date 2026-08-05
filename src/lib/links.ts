@@ -50,6 +50,9 @@ export const HEALTH_IN_TECH_COURSE_HREF =
  */
 export const NEWSLETTER_SUBSCRIBE_PATH = "/api/subscribe/";
 
+/** Account welcome email, pinged once on first sign-in. Same slash rule. */
+export const ACCOUNT_WELCOME_PATH = "/api/account-welcome/";
+
 export const CONTACT_EMAIL = "team@codewithpurpose.org";
 export const CONTACT_EMAIL_HREF = `mailto:${CONTACT_EMAIL}`;
 export const DISCORD_HREF = "https://discord.gg/W948bWbCAK";

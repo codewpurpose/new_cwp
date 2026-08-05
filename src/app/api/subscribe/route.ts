@@ -1,10 +1,16 @@
 import { NextResponse } from "next/server";
 import { renderNewsletterWelcome } from "@/lib/email/emails/newsletter-welcome";
 import { addContact, isResendConfigured, sendEmail } from "@/lib/email/resend";
+import { isSupabaseServerConfigured } from "@/lib/supabase/server";
+import { recordSubscriber } from "@/lib/supabase/subscribers";
 import { CONTACT_EMAIL } from "@/lib/links";
 
 /**
  * Newsletter sign-up. The only server surface the mascot's popup talks to.
+ *
+ * One submission lands in two places: the `subscribers` table in Supabase, which
+ * is the record, and the Resend audience, which is the mailing tool's working
+ * copy. Supabase is the one that decides whether the sign-up succeeded.
  *
  * Note the trailing slash: `trailingSlash: true` in next.config.ts means a POST
  * to `/api/subscribe` is answered with a 308 to `/api/subscribe/`. Callers must
@@ -23,6 +29,15 @@ const UNSUBSCRIBE_URL = `mailto:${CONTACT_EMAIL}?subject=Unsubscribe`;
  */
 const EMAIL_RE = /^[^\s@]+@[^\s@.]+\.[^\s@]+$/;
 const MAX_EMAIL_LENGTH = 254; // RFC 5321
+
+/**
+ * Which sign-up surface sent this, recorded on the row so the two can be told
+ * apart later. An allowlist rather than free text: the body is attacker-
+ * controlled, and there is no reason for this column to hold arbitrary strings.
+ * Anything else — including a request that says nothing — is stored as
+ * "website", which is vague but true.
+ */
+const ALLOWED_SOURCES = ["koda-popup", "footer"] as const;
 
 /**
  * Per-IP rate limit. This endpoint is unauthenticated and causes mail to be
@@ -61,7 +76,10 @@ function clientIp(req: Request): string {
 }
 
 export async function POST(req: Request) {
-  if (!isResendConfigured) {
+  // Either store on its own makes this endpoint worth having: Supabase can
+  // record someone without Resend, and Resend could greet someone without
+  // Supabase. Only when neither exists is there nothing to offer.
+  if (!isSupabaseServerConfigured && !isResendConfigured) {
     return NextResponse.json(
       { error: "Email sign-up isn't switched on yet." },
       { status: 503 },
@@ -76,8 +94,9 @@ export async function POST(req: Request) {
   }
 
   let email: unknown;
+  let source: unknown;
   try {
-    ({ email } = await req.json());
+    ({ email, source } = await req.json());
   } catch {
     return NextResponse.json({ error: "Send a JSON body." }, { status: 400 });
   }
@@ -94,27 +113,52 @@ export async function POST(req: Request) {
     );
   }
 
-  // Store first: a subscriber we failed to greet is recoverable, a greeting we
-  // failed to record is not. A repeat address is a no-op on Resend's side.
+  // An unrecognised source is not worth a 400 — the address is the point, and
+  // rejecting a real sign-up over a label would be absurd. Fall back instead.
+  const from = ALLOWED_SOURCES.find((s) => s === source);
+
+  // Store before greeting: a subscriber we failed to greet is recoverable, a
+  // greeting we failed to record is not. Both stores treat a repeat address as
+  // a no-op, so this is safe to call on every submission.
   //
-  // The two failures are not equivalent. If an audience is configured and the
-  // call fails, something is broken and claiming success would quietly drop a
-  // real subscriber — so stop. If no audience is configured at all, the site is
-  // running welcome-email-only: an intentional state while setting Resend up,
-  // and the sign-up still does the visible thing. It is NOT a state to launch
-  // in, hence the warning; nobody is being recorded.
-  const stored = await addContact(address);
-  if (!stored.ok) {
-    if (stored.reason === "failed") {
-      console.error("[cwp] subscribe: could not store contact:", stored.error);
+  // Supabase goes first because it is the record. If it is configured and the
+  // write fails, stop — claiming success would quietly drop a real subscriber,
+  // and a retry costs nothing.
+  const stored = await recordSubscriber(address, from);
+  if (!stored.ok && stored.reason === "failed") {
+    console.error("[cwp] subscribe: could not record subscriber:", stored.error);
+    return NextResponse.json(
+      { error: "Couldn't add you to the list just now. Try again shortly." },
+      { status: 502 },
+    );
+  }
+
+  // Resend's audience is the mailing tool's copy, so a failure here is only
+  // fatal when Supabase isn't holding the address either. Otherwise the two
+  // lists have drifted, which is a problem for us and not for the visitor.
+  const contact = await addContact(address);
+  if (!contact.ok && contact.reason === "failed") {
+    if (!stored.ok) {
+      console.error("[cwp] subscribe: could not store contact:", contact.error);
       return NextResponse.json(
         { error: "Couldn't add you to the list just now. Try again shortly." },
         { status: 502 },
       );
     }
+    console.error(
+      "[cwp] subscribe: recorded in Supabase but Resend rejected the contact:",
+      contact.error,
+    );
+  }
+
+  // Neither store switched on. The site is running welcome-email-only: an
+  // intentional state while setting the services up, and the sign-up still does
+  // the visible thing. It is NOT a state to launch in — nobody is being kept.
+  if (!stored.ok && !contact.ok) {
     console.warn(
-      `[cwp] subscribe: ${stored.error}. Sending the welcome but NOT recording ${address} — ` +
-        "set RESEND_AUDIENCE_ID before launch or every subscriber is lost.",
+      `[cwp] subscribe: sending the welcome but NOT recording ${address} anywhere — ` +
+        "set SUPABASE_SERVICE_ROLE_KEY or RESEND_AUDIENCE_ID before launch, or " +
+        "every subscriber is lost.",
     );
   }
 
