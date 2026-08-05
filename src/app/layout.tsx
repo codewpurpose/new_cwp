@@ -4,6 +4,8 @@ import { KoalaEasterEggs } from "@/components/KoalaEasterEggs";
 import { KoalaMascot } from "@/components/KoalaMascot";
 import { MotionProvider } from "@/components/MotionProvider";
 import { SiteLoader } from "@/components/SiteLoader";
+import { AppAuthProvider } from "@/components/auth/AppAuthProvider";
+import { isClerkConfigured } from "@/lib/clerk";
 import { SITE_URL } from "@/lib/links";
 import "./globals.css";
 
@@ -109,7 +111,13 @@ export default function RootLayout({
           dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationJsonLd) }}
         />
         <SiteLoader />
-        <MotionProvider>{children}</MotionProvider>
+        {isClerkConfigured ? (
+          <AppAuthProvider>
+            <MotionProvider>{children}</MotionProvider>
+          </AppAuthProvider>
+        ) : (
+          <MotionProvider>{children}</MotionProvider>
+        )}
         <KoalaMascot />
         <KoalaEasterEggs />
       </body>

@@ -1351,3 +1351,63 @@ html.cwp-loader-active {
     filter: blur(0);
   }
 }
+
+/* --------------------------------------------------------------------------
+ * Learning Toolkit — print / Save-as-PDF isolation. The filled note lives
+ * off-screen normally; the browser print dialog reveals only it.
+ * ---------------------------------------------------------------------- */
+.toolkit-printable {
+  position: fixed;
+  left: -9999px;
+  top: 0;
+  width: 700px;
+  color: #15120c;
+}
+.toolkit-printable h1 {
+  font-family: var(--font-heading, serif);
+  font-size: 26px;
+  margin: 0 0 2px;
+}
+.toolkit-printable__track {
+  font-size: 12px;
+  color: #6b6255;
+  margin: 0 0 20px;
+}
+.toolkit-printable__row {
+  margin-bottom: 16px;
+  border-bottom: 1px solid #e7ddcd;
+  padding-bottom: 10px;
+}
+.toolkit-printable dt {
+  font-size: 13px;
+  font-weight: 700;
+  margin-bottom: 4px;
+}
+.toolkit-printable dd {
+  margin: 0;
+  font-size: 15px;
+  line-height: 1.55;
+  white-space: pre-wrap;
+  min-height: 1.2em;
+}
+.toolkit-printable__foot {
+  margin-top: 24px;
+  font-size: 11px;
+  color: #9a8f7d;
+}
+@media print {
+  body * {
+    visibility: hidden;
+  }
+  .toolkit-printable,
+  .toolkit-printable * {
+    visibility: visible;
+  }
+  .toolkit-printable {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    padding: 8px 16px;
+  }
+}

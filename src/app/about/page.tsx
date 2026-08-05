@@ -93,7 +93,7 @@ const teamMembers: TeamMember[] = [
     name: "Aakash Sanil",
     role: "Director of Media",
     photo: images.team.aakash,
-    photoClass: "object-[50%_26%] scale-[1.5]",
+    photoClass: "object-[50%_20%] scale-[1.2]",
     instagram: "https://www.instagram.com/sanilaakash/",
     bio: "Hi, my name is Aakash Sanil. I'm the Director of Media of Code With Purpose. I joined Code With Purpose to help reach kids all throughout the world and help them. I mainly focus on making social media videos, spreading our message.",
   },
@@ -116,6 +116,7 @@ const teamMembers: TeamMember[] = [
     role: "Lead Instructor",
     photo: images.team.aadi,
     photoClass: "object-[45%_48%] scale-[1.15]",
+    instagram: "https://www.instagram.com/naik_aadi4/",
     bio: "Hey everyone! My name is Aadi Naik. I'm an instructor for Code With Purpose that focuses on med courses. I've been with CWP for around 5 months and it's definitely taught me many things, such as responsibility and time management. I'm deeply interested in the human body, and I wanted to become an instructor so that I could educate people on it.",
   },
   {
