@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { usePathname } from "next/navigation";
 import { useUser } from "@clerk/nextjs";
 import { isClerkConfigured } from "@/lib/clerk";
@@ -49,6 +49,13 @@ const POSES: Pose[] = [
 const STORAGE_KEY = "cwp-koala-dismissed";
 const SUBSCRIBED_KEY = "cwp-newsletter-v1";
 
+/** Koda's thank-you after a sign-up. Looked up so reordering POSES is safe. */
+const THANKS_POSE = Math.max(
+  0,
+  POSES.findIndex((p) => p.src.endsWith("koala-heart.png")),
+);
+const THANKS_LINE = "Thanks! Keep an eye on your inbox 💚";
+
 /**
  * Clerk's hooks need a ClerkProvider above them, and the provider only mounts
  * when keys exist (see the root layout). Splitting on the build-time flag keeps
@@ -92,17 +99,41 @@ function KoalaBase({ canOfferSignup }: { canOfferSignup: boolean }) {
     return () => clearTimeout(t);
   }, [dismissed]);
 
+  const handOffTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const clearHandOff = () => {
+    if (handOffTimer.current) clearTimeout(handOffTimer.current);
+    handOffTimer.current = null;
+  };
+  useEffect(() => clearHandOff, []);
+
   const closeSignup = useCallback(() => {
+    clearHandOff();
     setSignupOpen(false);
     setSignupSettled(true); // asked once; from here on, tapping means poses
   }, []);
 
+  /**
+   * Subscribed. Leave the confirmation up long enough to be read, then close it
+   * and hand the mascot back to its ordinary self — a thank-you on the heart
+   * pose, and every tap after that is the carousel again. The visitor did what
+   * was asked; Koda should stop asking without them having to dismiss anything.
+   */
   const onSubscribed = useCallback(() => {
     try {
       localStorage.setItem(SUBSCRIBED_KEY, "1");
     } catch {
       /* private mode — fine, it just won't persist */
     }
+    setSignupSettled(true);
+
+    clearHandOff();
+    handOffTimer.current = setTimeout(() => {
+      setSignupOpen(false);
+      setIndex(THANKS_POSE);
+      setSpecial(THANKS_LINE);
+      setBubble(true);
+      handOffTimer.current = null;
+    }, 2400);
   }, []);
 
   // The immersive lesson reader (/learn/<track>/<slug>) has its own bottom

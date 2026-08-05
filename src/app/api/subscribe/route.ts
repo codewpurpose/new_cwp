@@ -94,16 +94,27 @@ export async function POST(req: Request) {
     );
   }
 
-  // Store first, and stop here if it fails. A subscriber we failed to greet is
-  // recoverable; a greeting we failed to record is not — and mailing "you're on
-  // the list" to someone who is demonstrably not on the list is worse than
-  // saying the sign-up didn't work. A repeat address is a no-op on Resend's side.
+  // Store first: a subscriber we failed to greet is recoverable, a greeting we
+  // failed to record is not. A repeat address is a no-op on Resend's side.
+  //
+  // The two failures are not equivalent. If an audience is configured and the
+  // call fails, something is broken and claiming success would quietly drop a
+  // real subscriber — so stop. If no audience is configured at all, the site is
+  // running welcome-email-only: an intentional state while setting Resend up,
+  // and the sign-up still does the visible thing. It is NOT a state to launch
+  // in, hence the warning; nobody is being recorded.
   const stored = await addContact(address);
   if (!stored.ok) {
-    console.error("[cwp] subscribe: could not store contact:", stored.error);
-    return NextResponse.json(
-      { error: "Couldn't add you to the list just now. Try again shortly." },
-      { status: 502 },
+    if (stored.reason === "failed") {
+      console.error("[cwp] subscribe: could not store contact:", stored.error);
+      return NextResponse.json(
+        { error: "Couldn't add you to the list just now. Try again shortly." },
+        { status: 502 },
+      );
+    }
+    console.warn(
+      `[cwp] subscribe: ${stored.error}. Sending the welcome but NOT recording ${address} — ` +
+        "set RESEND_AUDIENCE_ID before launch or every subscriber is lost.",
     );
   }
 

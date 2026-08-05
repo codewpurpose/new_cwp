@@ -47,6 +47,12 @@ export interface SendResult {
   ok: boolean;
   /** Present when ok is false. Safe to log; never surfaced to the browser verbatim. */
   error?: string;
+  /**
+   * Why it failed. "unconfigured" means the feature was never set up, which
+   * callers may reasonably choose to tolerate; "failed" means it was set up and
+   * the call went wrong, which they should not.
+   */
+  reason?: "unconfigured" | "failed";
 }
 
 /** Sends one rendered email. Both the HTML and text parts always go together. */
@@ -72,8 +78,12 @@ export async function sendEmail(to: string, email: RenderedEmail): Promise<SendR
  */
 export async function addContact(email: string): Promise<SendResult> {
   const resend = getResend();
-  if (!resend) return { ok: false, error: "Resend is not configured" };
-  if (!RESEND_AUDIENCE_ID) return { ok: false, error: "RESEND_AUDIENCE_ID is not set" };
+  if (!resend) {
+    return { ok: false, reason: "unconfigured", error: "Resend is not configured" };
+  }
+  if (!RESEND_AUDIENCE_ID) {
+    return { ok: false, reason: "unconfigured", error: "RESEND_AUDIENCE_ID is not set" };
+  }
 
   const { error } = await resend.contacts.create({
     email,
@@ -81,5 +91,5 @@ export async function addContact(email: string): Promise<SendResult> {
     audienceId: RESEND_AUDIENCE_ID,
   });
 
-  return error ? { ok: false, error: error.message } : { ok: true };
+  return error ? { ok: false, reason: "failed", error: error.message } : { ok: true };
 }
