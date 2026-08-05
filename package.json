@@ -32,6 +32,7 @@
     "typecheck": "tsc --noEmit",
     "learn:check": "node scripts/validate-learn-nav.mjs",
     "learn:new": "node scripts/new-lesson.mjs",
+    "resend:audience": "node scripts/resend-audience.mjs",
     "prebuild": "node scripts/validate-learn-nav.mjs",
     "check": "npm run lint && npm run typecheck && npm run build"
   },
