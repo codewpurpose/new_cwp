@@ -5,15 +5,18 @@ import {
   BLOG_HREF,
   CONTACT_HREF,
   COURSES_HREF,
+  DASHBOARD_HREF,
   DISCORD_HREF,
   DONATE_HREF,
   GITHUB_HREF,
   HOME_HREF,
   INSTAGRAM_HREF,
   JOIN_HREF,
+  LEADERBOARD_HREF,
   LEARN_ML_HREF,
   LEARN_PYTHON_HREF,
   LEARN_VIBECODING_HREF,
+  TOOLKIT_HREF,
   X_HREF,
 } from "@/lib/links";
 
@@ -85,6 +88,21 @@ export function SiteFooter() {
                     <li>
                       <a href={COURSES_HREF} className="home-footer-link">
                         All Courses
+                      </a>
+                    </li>
+                    <li>
+                      <a href={DASHBOARD_HREF} className="home-footer-link">
+                        My Progress
+                      </a>
+                    </li>
+                    <li>
+                      <a href={LEADERBOARD_HREF} className="home-footer-link">
+                        Leaderboard
+                      </a>
+                    </li>
+                    <li>
+                      <a href={TOOLKIT_HREF} className="home-footer-link">
+                        Learning Toolkit
                       </a>
                     </li>
                     <li>

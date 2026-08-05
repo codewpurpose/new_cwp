@@ -2,7 +2,9 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { LearnChapterHeader } from "@/components/learn/shell/LearnChapterHeader";
 import { LearnMobileBar } from "@/components/learn/shell/LearnMobileBar";
-import { LearnPager, LearnPagerEnd } from "@/components/learn/shell/LearnPager";
+import { LessonQuiz } from "@/components/learn/shell/LessonQuiz";
+import { LessonGate } from "@/components/learn/shell/LessonGate";
+import { getQuiz } from "@/lib/quiz";
 import { LearnShell } from "@/components/learn/shell/LearnShell";
 import { LearnToc } from "@/components/learn/shell/LearnToc";
 import { CodebaseLesson } from "@/components/vibecoding/CodebaseLesson";
@@ -114,21 +116,24 @@ export default async function VibecodingChapterPage({
     >
       <LearnChapterHeader track={TRACK} chapter={chapter} />
 
-      <div className="learn-prose mt-10">
-        <LessonBody />
-      </div>
-
-      <LearnPager
+      <LessonGate
         track={TRACK}
-        prev={prev}
-        next={next}
-        fallback={
-          /* Finishing the track earns a real next step, not a bounce out to
-             the catalog. The other track is the one thing here the reader
-             provably has not done. */
-          <LearnPagerEnd href={LEARN_ML_HREF} eyebrow="You reached the end" title="Start the Machine Learning track" />
-        }
+        slug={slug}
+        prev={prev ? { slug: prev.slug, title: prev.title } : null}
+      >
+        <div className="learn-prose mt-10">
+          <LessonBody />
+        </div>
+
+      <LessonQuiz
+        track={TRACK}
+        slug={slug}
+        quiz={getQuiz(TRACK, slug)}
+        prev={prev ? { slug: prev.slug, title: prev.title } : null}
+        next={next ? { slug: next.slug, title: next.title } : null}
+        endHref={LEARN_ML_HREF}
       />
+      </LessonGate>
     </LearnShell>
   );
 }

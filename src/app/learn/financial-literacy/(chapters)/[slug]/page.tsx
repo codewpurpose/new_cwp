@@ -2,7 +2,9 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { LearnChapterHeader } from "@/components/learn/shell/LearnChapterHeader";
 import { LearnMobileBar } from "@/components/learn/shell/LearnMobileBar";
-import { LearnPager, LearnPagerEnd } from "@/components/learn/shell/LearnPager";
+import { LessonQuiz } from "@/components/learn/shell/LessonQuiz";
+import { LessonGate } from "@/components/learn/shell/LessonGate";
+import { getQuiz } from "@/lib/quiz";
 import { LearnShell } from "@/components/learn/shell/LearnShell";
 import { LearnToc } from "@/components/learn/shell/LearnToc";
 import { WhyMoneyRulesMatterLesson } from "@/components/financial-literacy/WhyMoneyRulesMatterLesson";
@@ -104,18 +106,24 @@ export default async function FinancialLiteracyLessonPage({
     >
       <LearnChapterHeader track={TRACK} chapter={chapter} />
 
-      <div className="learn-prose mt-10">
-        <LessonBody />
-      </div>
-
-      <LearnPager
+      <LessonGate
         track={TRACK}
-        prev={prev}
-        next={next}
-        fallback={
-          <LearnPagerEnd href={COURSES_HREF} eyebrow="You reached the end" title="Browse all courses" />
-        }
+        slug={slug}
+        prev={prev ? { slug: prev.slug, title: prev.title } : null}
+      >
+        <div className="learn-prose mt-10">
+          <LessonBody />
+        </div>
+
+      <LessonQuiz
+        track={TRACK}
+        slug={slug}
+        quiz={getQuiz(TRACK, slug)}
+        prev={prev ? { slug: prev.slug, title: prev.title } : null}
+        next={next ? { slug: next.slug, title: next.title } : null}
+        endHref={COURSES_HREF}
       />
+      </LessonGate>
     </LearnShell>
   );
 }

@@ -1,8 +1,43 @@
 "use client";
 
 import { useState } from "react";
+import { UserButton, useUser } from "@clerk/nextjs";
 import { CwpLogo } from "@/components/icons";
-import { DONATE_HREF, HOME_HREF, JOIN_HREF, NAV_LINKS } from "@/lib/links";
+import { isClerkConfigured } from "@/lib/clerk";
+import { DASHBOARD_HREF, DONATE_HREF, HOME_HREF, JOIN_HREF, LOGIN_HREF, NAV_LINKS } from "@/lib/links";
+
+function LogInButton({ onNavigate }: { onNavigate?: () => void }) {
+  return (
+    <a href={LOGIN_HREF} onClick={onNavigate} className="home-btn home-btn-fill whitespace-nowrap">
+      Log in
+    </a>
+  );
+}
+
+/**
+ * The header account control. Signed out (or before Clerk is configured) it's a
+ * plain "Log in" button; signed in it becomes a "My Progress" link plus Clerk's
+ * avatar menu. `isClerkConfigured` is a build-time constant, so the hook branch
+ * is stable across renders.
+ */
+function AuthAction({ onNavigate }: { onNavigate?: () => void }) {
+  if (!isClerkConfigured) return <LogInButton onNavigate={onNavigate} />;
+  return <ClerkAuthAction onNavigate={onNavigate} />;
+}
+
+function ClerkAuthAction({ onNavigate }: { onNavigate?: () => void }) {
+  const { isSignedIn } = useUser();
+  // Before load isSignedIn is undefined -> show "Log in", matching SSR (no flash).
+  if (!isSignedIn) return <LogInButton onNavigate={onNavigate} />;
+  return (
+    <span className="flex items-center gap-2">
+      <a href={DASHBOARD_HREF} onClick={onNavigate} className="home-btn home-btn-fill whitespace-nowrap">
+        My Progress
+      </a>
+      <UserButton />
+    </span>
+  );
+}
 
 const GLASS_STYLE = {
   background:
@@ -43,6 +78,9 @@ export function SiteHeader() {
           ))}
         </nav>
         <div className="flex shrink-0 items-center gap-2 min-[1200px]:col-start-3 min-[1200px]:justify-self-end">
+          <div className="hidden min-[1200px]:block">
+            <AuthAction />
+          </div>
           <div className="hidden min-[1200px]:block">
             <a href={JOIN_HREF} className="home-btn home-btn-glass whitespace-nowrap">
               Volunteer
@@ -108,6 +146,9 @@ export function SiteHeader() {
               {link.label}
             </a>
           ))}
+          <div className="mt-2 flex justify-center">
+            <AuthAction onNavigate={() => setMenuOpen(false)} />
+          </div>
           <a
             href={JOIN_HREF}
             onClick={() => setMenuOpen(false)}
