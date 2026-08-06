@@ -26,7 +26,7 @@ export const metadata: Metadata = {
   title: "Free Coding Courses",
   description:
     "Free courses and interactive lessons for students worldwide. Python, Vibecoding, Machine Learning, Financial Literacy, and Health in Tech.",
-  alternates: { canonical: "/courses" },
+  alternates: { canonical: "/courses/" },
 };
 
 interface Course {

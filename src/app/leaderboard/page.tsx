@@ -10,7 +10,8 @@ export const metadata: Metadata = {
   title: "Leaderboard",
   description:
     "See how CodeWithPurpose students stack up. Earn XP by completing lessons and climb the ranks.",
-  alternates: { canonical: "/leaderboard" },
+  alternates: { canonical: "/leaderboard/" },
+  robots: { index: false, follow: true },
 };
 
 export default function LeaderboardPage() {

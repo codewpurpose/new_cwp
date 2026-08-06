@@ -2,6 +2,8 @@
 
 import { useId, useState } from "react";
 import { CONTACT_HREF } from "@/lib/links";
+import { JsonLd } from "@/components/seo/JsonLd";
+import { faqJsonLd } from "@/lib/seo";
 
 interface Faq {
   question: string;
@@ -97,6 +99,7 @@ function FaqItem({ faq }: { faq: Faq }) {
 export function FaqSection() {
   return (
     <div id="faq" className="scroll-mt-24">
+      <JsonLd data={faqJsonLd(faqs)} />
       <section>
         <div className="mx-auto w-full max-w-[85rem] px-5 md:px-10">
           <h2 className="text-center text-base md:text-lg">

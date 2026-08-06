@@ -8,7 +8,7 @@ import { CONTACT_EMAIL, CONTACT_EMAIL_HREF } from "@/lib/links";
 export const metadata: Metadata = {
   title: "Contact",
   description: "Get in touch with the CodeWithPurpose team.",
-  alternates: { canonical: "/contact" },
+  alternates: { canonical: "/contact/" },
 };
 
 export default function ContactPage() {

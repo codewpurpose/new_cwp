@@ -10,7 +10,7 @@ export const metadata: Metadata = {
   title: "Donate",
   description:
     "Support CodeWithPurpose. Every dollar helps a student start their coding journey today.",
-  alternates: { canonical: "/donate" },
+  alternates: { canonical: "/donate/" },
 };
 
 const impactAreas = [

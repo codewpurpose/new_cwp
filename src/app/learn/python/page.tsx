@@ -1,4 +1,6 @@
 import type { Metadata } from "next";
+import { JsonLd } from "@/components/seo/JsonLd";
+import { courseJsonLd, breadcrumbJsonLd } from "@/lib/seo";
 import Link from "next/link";
 import { PageHero, PageSection } from "@/components/PageHero";
 import { PageShell } from "@/components/PageShell";
@@ -15,12 +17,15 @@ export const metadata: Metadata = {
   title: "Python",
   description:
     "Free interactive Python lessons from CodeWithPurpose, running from your first program through decorators, generators, and shipping tested code.",
-  alternates: { canonical: "/learn/python" },
+  alternates: { canonical: "/learn/python/" },
 };
 
 export default function LearnPythonPage() {
   return (
-    <PageShell>
+    <>
+      <JsonLd data={courseJsonLd({ name: String(metadata.title), description: String(metadata.description), path: "/learn/python/" })} />
+      <JsonLd data={breadcrumbJsonLd([{ name: "Home", path: "/" }, { name: "Courses", path: "/courses/" }, { name: String(metadata.title), path: "/learn/python/" }])} />
+      <PageShell>
       <PageHero
         title="Python, from your first line to your first library"
         description="CodeWithPurpose lessons that turn Python into a language you actually think in, not one you look up. Twenty-four chapters, no setup required."
@@ -87,6 +92,7 @@ export default function LearnPythonPage() {
           { href: LEARN_ML_HREF, label: "Try Machine Learning", variant: "secondary" },
         ]}
       />
-    </PageShell>
+      </PageShell>
+    </>
   );
 }

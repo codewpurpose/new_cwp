@@ -92,7 +92,7 @@ export async function generateMetadata({
   return {
     title: chapter.title,
     description: chapter.description,
-    alternates: { canonical: `/learn/vibecoding/${slug}` },
+    alternates: { canonical: `/learn/vibecoding/${slug}/` },
   };
 }
 

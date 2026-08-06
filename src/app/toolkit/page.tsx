@@ -10,7 +10,8 @@ export const metadata: Metadata = {
   title: "Learning Toolkit",
   description:
     "Free note templates and guides to help students take better notes and apply what they learn — a debugging log, concept breakdown, daily reflection, and project planner. Fill them in and save as PDF.",
-  alternates: { canonical: "/toolkit" },
+  alternates: { canonical: "/toolkit/" },
+  robots: { index: false, follow: true },
 };
 
 export default function ToolkitPage() {
