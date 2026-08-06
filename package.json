@@ -30,8 +30,9 @@
     "start": "next start",
     "lint": "eslint",
     "typecheck": "tsc --noEmit",
-    "learn:check": "node scripts/validate-learn-nav.mjs",
+    "learn:check": "node scripts/validate-learn-nav.mjs && node scripts/gen-chapters-sql.mjs --check",
     "learn:new": "node scripts/new-lesson.mjs",
+    "learn:sql": "node scripts/gen-chapters-sql.mjs",
     "resend:audience": "node scripts/resend-audience.mjs",
     "prebuild": "node scripts/validate-learn-nav.mjs",
     "check": "npm run lint && npm run typecheck && npm run build"

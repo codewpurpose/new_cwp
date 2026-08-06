@@ -5,6 +5,7 @@ import Link from "next/link";
 import { chapterHref } from "@/lib/learn-nav";
 import { ACHIEVEMENTS, avatarSrc, levelInfo, themeById } from "@/lib/student";
 import { COURSES, TOTAL_CHAPTERS, courseProgress } from "@/lib/student-courses";
+import { DISPLAY_NAME_MAX, displayNameIssue } from "@/lib/display-name";
 import { TOOLKIT_HREF } from "@/lib/links";
 import { useStudent } from "@/components/dashboard/useStudent";
 import { Whiteboard } from "@/components/dashboard/Whiteboard";
@@ -49,6 +50,7 @@ export function StudentDashboard() {
 
   const theme = themeById(state.theme);
   const lvl = levelInfo(state.xp);
+  const nameIssue = displayNameIssue(state.name);
   const style = { "--dash-accent": theme.accent, "--dash-soft": theme.soft } as CSSProperties;
 
   // Next thing to continue: first unchecked chapter of a started-but-unfinished course.
@@ -80,9 +82,27 @@ export function StudentDashboard() {
             <input
               value={state.name}
               onChange={(e) => actions.setName(e.target.value)}
-              placeholder="Add your name"
+              placeholder="Pick a display name"
+              maxLength={DISPLAY_NAME_MAX}
+              aria-label="Your display name, shown on the leaderboard"
+              aria-invalid={nameIssue !== null}
+              aria-describedby={nameIssue ? "display-name-issue" : undefined}
               className="home-serif w-full max-w-[16rem] bg-transparent text-2xl outline-none placeholder:text-[var(--home-ink-quiet)] md:text-[1.75rem]"
             />
+            {/* Said once, at the moment they are choosing: this name is not
+                private. Signed-out visitors read it on /leaderboard.
+                #a13c28 is the error red the newsletter forms already use —
+                there is no token for it, and inventing a second one would give
+                the site two disagreeing reds. */}
+            {nameIssue ? (
+              <p id="display-name-issue" role="alert" className="mt-0.5 text-sm text-[#a13c28]">
+                {nameIssue}
+              </p>
+            ) : (
+              <p className="mt-0.5 text-sm text-[var(--home-ink-quiet)]">
+                Shown on the leaderboard — a nickname is fine.
+              </p>
+            )}
             <p className="mt-0.5 text-sm text-[var(--home-ink-soft)]">
               🔥 {state.streakDays}-day streak
             </p>
