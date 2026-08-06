@@ -2,9 +2,10 @@
 
 import { useEffect, useState } from "react";
 import Link from "next/link";
-import { chapterHref } from "@/lib/learn-nav";
+import { chapterHref } from "@/lib/learn-routes";
 import type { LearnTrackId } from "@/lib/learn-types";
 import { isLessonComplete } from "@/lib/student";
+import { LessonPreviewWall } from "@/components/learn/shell/LessonPreviewWall";
 
 interface Prev {
   slug: string;
@@ -26,11 +27,36 @@ interface LessonGateProps {
  *
  * Completion lives in the local store, so the check runs on the client after
  * mount (hence the loading state). The very first chapter of a track has no
- * predecessor and is always open. Login itself is enforced server-side by the
- * Clerk middleware once accounts are switched on.
+ * predecessor and is always open.
+ *
+ * Two gates, in this order, and the order is deliberate. The prerequisite check
+ * comes first because it is the more specific answer: telling a signed-out
+ * reader to make an account, and only then telling them they were three
+ * chapters early, is two rejections where one would do.
+ *
+ * Signing in is no longer enforced by a redirect in `proxy.ts` — a signed-out
+ * reader gets the chapter blurred, with an invitation. See LessonPreviewWall for
+ * why that changed and what it does and does not protect.
  */
 export function LessonGate({ track, slug, prev, children }: LessonGateProps) {
-  const [status, setStatus] = useState<"loading" | "locked" | "open">("loading");
+  /**
+   * "open" before the check has run, not "loading" — and this is the line that
+   * decides whether 123 chapters can be indexed.
+   *
+   * This used to start in a `loading` state that rendered "Checking your
+   * progress…" INSTEAD of the lesson. Because the state is only resolved in an
+   * effect, that placeholder was what got prerendered: the chapter body was
+   * absent from the static HTML of every chapter on the site. Removing the
+   * redirect in `proxy.ts` bought a 200 instead of an off-site 307, and a
+   * crawler still would have found no lesson at the end of it.
+   *
+   * Starting open puts the real body in the HTML. The two gates then apply on
+   * top of it after mount: the wall blurs it for signed-out readers, and a
+   * locked chapter replaces it. Both are client-side, and neither was ever a
+   * secret — the prerequisite check reads localStorage, so a chapter arriving
+   * unlocked in the markup gives away nothing that devtools did not already.
+   */
+  const [status, setStatus] = useState<"locked" | "open">("open");
 
   useEffect(() => {
     const check = () => {
@@ -42,10 +68,6 @@ export function LessonGate({ track, slug, prev, children }: LessonGateProps) {
     window.addEventListener("cwp:progress-changed", check);
     return () => window.removeEventListener("cwp:progress-changed", check);
   }, [track, slug, prev]);
-
-  if (status === "loading") {
-    return <div className="mt-10 text-[14px] text-learn-muted">Checking your progress…</div>;
-  }
 
   if (status === "locked" && prev) {
     return (
@@ -71,5 +93,5 @@ export function LessonGate({ track, slug, prev, children }: LessonGateProps) {
     );
   }
 
-  return <>{children}</>;
+  return <LessonPreviewWall>{children}</LessonPreviewWall>;
 }

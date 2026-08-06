@@ -1,50 +1,41 @@
-import type { LearnChapter, LearnPart, LearnTrack, LearnTrackId } from "@/lib/learn-types";
-import {
-  LEARN_FINANCIAL_LITERACY_HREF,
-  LEARN_HEALTH_IN_TECH_HREF,
-  LEARN_ML_HREF,
-  LEARN_PYTHON_HREF,
-  LEARN_VIBECODING_HREF,
-} from "@/lib/links";
+import type {
+  LearnChapter,
+  LearnNavData,
+  LearnPart,
+  LearnTrack,
+  LearnTrackId,
+} from "@/lib/learn-types";
+import { TRACK_ROUTES, chapterHref } from "@/lib/learn-routes";
 import { FINANCIAL_LITERACY_CHAPTERS, FINANCIAL_LITERACY_PARTS } from "@/lib/financial-literacy-lessons";
 import { HEALTH_IN_TECH_CHAPTERS, HEALTH_IN_TECH_PARTS } from "@/lib/health-in-tech-lessons";
 import { ML_CHAPTERS, ML_PARTS } from "@/lib/ml-lessons";
 import { PYTHON_CHAPTERS, PYTHON_PARTS } from "@/lib/python-lessons";
 import { VIBECODING_CHAPTERS, VIBECODING_PARTS } from "@/lib/vibecoding-lessons";
 
+/** Track identity comes from `learn-routes.ts`; this pairs it with the data. */
 const TRACKS: Record<LearnTrackId, LearnTrack> = {
   vibecoding: {
-    id: "vibecoding",
-    title: "Vibe Coding",
-    href: LEARN_VIBECODING_HREF,
+    ...TRACK_ROUTES.vibecoding,
     parts: VIBECODING_PARTS,
     chapters: VIBECODING_CHAPTERS,
   },
   ml: {
-    id: "ml",
-    title: "Machine Learning",
-    href: LEARN_ML_HREF,
+    ...TRACK_ROUTES.ml,
     parts: ML_PARTS,
     chapters: ML_CHAPTERS,
   },
   python: {
-    id: "python",
-    title: "Python",
-    href: LEARN_PYTHON_HREF,
+    ...TRACK_ROUTES.python,
     parts: PYTHON_PARTS,
     chapters: PYTHON_CHAPTERS,
   },
   "financial-literacy": {
-    id: "financial-literacy",
-    title: "Financial Literacy",
-    href: LEARN_FINANCIAL_LITERACY_HREF,
+    ...TRACK_ROUTES["financial-literacy"],
     parts: FINANCIAL_LITERACY_PARTS,
     chapters: FINANCIAL_LITERACY_CHAPTERS,
   },
   "health-in-tech": {
-    id: "health-in-tech",
-    title: "Health in Tech",
-    href: LEARN_HEALTH_IN_TECH_HREF,
+    ...TRACK_ROUTES["health-in-tech"],
     parts: HEALTH_IN_TECH_PARTS,
     chapters: HEALTH_IN_TECH_CHAPTERS,
   },
@@ -104,11 +95,27 @@ export function getPartsWithChapters(
 }
 
 /**
- * The only place chapter hrefs are constructed. `trailingSlash: true` is set
- * globally, so a missing slash costs a 308 redirect on every navigation.
+ * Re-exported from `learn-routes.ts`, where it lives so client components can
+ * build a link without pulling the curriculum in behind it. Still one
+ * implementation, still the only place chapter hrefs are constructed.
  */
-export function chapterHref(track: LearnTrackId, slug: string): string {
-  return `${TRACKS[track].href}/${slug}/`;
+export { chapterHref };
+
+/**
+ * The sidebar's data, flattened to the few fields it draws.
+ *
+ * Call this on the server and pass the result down. The alternative — letting
+ * the client sidebar call `getPartsWithChapters` itself — is what put all five
+ * tracks' chapters into every lesson page's bundle.
+ */
+export function getSidebarNav(track: LearnTrackId): LearnNavData {
+  return {
+    trackTitle: TRACKS[track].title,
+    groups: getPartsWithChapters(track).map(({ part, chapters }) => ({
+      part: { id: part.id, number: part.number, title: part.title },
+      chapters: chapters.map((chapter) => ({ slug: chapter.slug, title: chapter.title })),
+    })),
+  };
 }
 
 /** No modulo wrap: the last chapter genuinely has no next. */

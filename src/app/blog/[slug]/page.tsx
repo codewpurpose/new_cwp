@@ -4,7 +4,8 @@ import { notFound } from "next/navigation";
 import { PageShell } from "@/components/PageShell";
 import { Reveal } from "@/components/Reveal";
 import { TopicCover } from "@/components/TopicCover";
-import { BLOG_HREF, SUBSTACK_EMBED_SRC } from "@/lib/links";
+// "All stories" now points at /impact, where the blog index was merged.
+import { IMPACT_HREF, SUBSTACK_EMBED_SRC } from "@/lib/links";
 import { getPost, posts } from "@/lib/posts";
 
 export function generateStaticParams() {
@@ -47,7 +48,7 @@ export default async function BlogPostPage({
         <div aria-hidden="true" className="cwp-hero-bg absolute inset-0" />
         <div className="relative mx-auto w-full max-w-[46rem] px-5 md:px-0">
           <Reveal>
-            <Link href={BLOG_HREF} className="home-arrow-link text-sm">
+            <Link href={IMPACT_HREF} className="home-arrow-link text-sm">
               <span className="home-arrow rotate-180">→</span> All stories
             </Link>
             <p className="mt-8 text-[11px] uppercase tracking-[0.12em] text-[var(--home-ink-quiet)]">

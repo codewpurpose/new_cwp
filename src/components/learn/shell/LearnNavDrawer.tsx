@@ -3,11 +3,12 @@
 import { useState } from "react";
 import { Dialog } from "@base-ui/react/dialog";
 import { LearnSidebar } from "@/components/learn/shell/LearnSidebar";
-import type { LearnTrackId } from "@/lib/learn-types";
-import { getTrack } from "@/lib/learn-nav";
+import type { LearnNavData, LearnTrackId } from "@/lib/learn-types";
 
 interface LearnNavDrawerProps {
   track: LearnTrackId;
+  /** Built on the server — see LearnSidebar's note. */
+  nav: LearnNavData;
   triggerLabel: string;
 }
 
@@ -23,9 +24,8 @@ interface LearnNavDrawerProps {
  * The panel renders the same LearnSidebar as the desktop rail — one navigation
  * implementation, two presentations.
  */
-export function LearnNavDrawer({ track, triggerLabel }: LearnNavDrawerProps) {
+export function LearnNavDrawer({ track, nav, triggerLabel }: LearnNavDrawerProps) {
   const [open, setOpen] = useState(false);
-  const trackMeta = getTrack(track);
 
   return (
     <Dialog.Root open={open} onOpenChange={setOpen}>
@@ -40,14 +40,19 @@ export function LearnNavDrawer({ track, triggerLabel }: LearnNavDrawerProps) {
         >
           <div className="mb-4 flex items-center justify-between gap-4">
             <Dialog.Title className="home-serif text-lg text-learn-strong">
-              {trackMeta.title}
+              {nav.trackTitle}
             </Dialog.Title>
             <Dialog.Close className="home-btn home-btn-outline learn-focusable !py-1.5 !text-[0.8rem]">
               Close
             </Dialog.Close>
           </div>
 
-          <LearnSidebar track={track} variant="drawer" onNavigate={() => setOpen(false)} />
+          <LearnSidebar
+            track={track}
+            nav={nav}
+            variant="drawer"
+            onNavigate={() => setOpen(false)}
+          />
         </Dialog.Popup>
       </Dialog.Portal>
     </Dialog.Root>

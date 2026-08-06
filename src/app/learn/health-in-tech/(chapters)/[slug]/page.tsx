@@ -107,6 +107,7 @@ export default async function HealthInTechLessonPage({
       <LearnChapterHeader track={TRACK} chapter={chapter} />
 
       <LessonGate
+        key={slug}
         track={TRACK}
         slug={slug}
         prev={prev ? { slug: prev.slug, title: prev.title } : null}
@@ -115,14 +116,14 @@ export default async function HealthInTechLessonPage({
           <LessonBody />
         </div>
 
-      <LessonQuiz
-        track={TRACK}
-        slug={slug}
-        quiz={getQuiz(TRACK, slug)}
-        prev={prev ? { slug: prev.slug, title: prev.title } : null}
-        next={next ? { slug: next.slug, title: next.title } : null}
-        endHref={COURSES_HREF}
-      />
+        <LessonQuiz
+          track={TRACK}
+          slug={slug}
+          quiz={getQuiz(TRACK, slug)}
+          prev={prev ? { slug: prev.slug, title: prev.title } : null}
+          next={next ? { slug: next.slug, title: next.title } : null}
+          endHref={COURSES_HREF}
+        />
       </LessonGate>
     </LearnShell>
   );

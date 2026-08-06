@@ -15,11 +15,15 @@ export const LEARN_HEALTH_IN_TECH_HREF = "/learn/health-in-tech";
 export const TOOLKIT_HREF = "/toolkit";
 export const DASHBOARD_HREF = "/dashboard";
 export const LOGIN_HREF = "/login";
+export const SIGN_UP_HREF = "/sign-up";
 export const LEADERBOARD_HREF = "/leaderboard";
 export const ABOUT_HREF = "/about";
 export const JOIN_HREF = "/join";
+/**
+ * Impact and the blog are one page. `/blog` 308s here (next.config.ts); only
+ * the individual posts still live under /blog/<slug>.
+ */
 export const IMPACT_HREF = "/impact";
-export const BLOG_HREF = "/blog";
 export const CONTACT_HREF = "/contact";
 export const DONATE_HREF = "/donate";
 export const HOME_HREF = "/";
@@ -40,6 +44,16 @@ export const FINANCIAL_LITERACY_COURSE_HREF =
   "https://www.udemy.com/course/financial-literacy-the-basics/";
 export const HEALTH_IN_TECH_COURSE_HREF =
   "https://www.udemy.com/course/health-iin-tech/";
+/**
+ * Newsletter sign-up endpoint. The trailing slash is load-bearing: with
+ * `trailingSlash: true`, posting to the unslashed path earns a 308 redirect
+ * instead of a response.
+ */
+export const NEWSLETTER_SUBSCRIBE_PATH = "/api/subscribe/";
+
+/** Account welcome email, pinged once on first sign-in. Same slash rule. */
+export const ACCOUNT_WELCOME_PATH = "/api/account-welcome/";
+
 export const CONTACT_EMAIL = "team@codewithpurpose.org";
 export const CONTACT_EMAIL_HREF = `mailto:${CONTACT_EMAIL}`;
 export const DISCORD_HREF = "https://discord.gg/W948bWbCAK";
@@ -62,7 +76,6 @@ export const NAV_LINKS = [
   { label: "Courses", href: COURSES_HREF },
   { label: "About Us", href: ABOUT_HREF },
   { label: "Join Us", href: JOIN_HREF },
-  { label: "Impact", href: IMPACT_HREF },
-  { label: "Blog", href: BLOG_HREF },
+  { label: "Stories", href: IMPACT_HREF },
   { label: "Contact", href: CONTACT_HREF },
 ] as const;

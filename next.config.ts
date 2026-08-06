@@ -43,6 +43,15 @@ const nextConfig: NextConfig = {
        * lands in one hop instead of being 308'd again by trailingSlash.
        */
       { source: "/learn", destination: "/courses/", permanent: true },
+      /**
+       * The blog and the impact page argued the same case from opposite ends —
+       * the numbers, and the students behind them — so they are one page now.
+       *
+       * Matches the index exactly, not its children: the posts still live at
+       * /blog/<slug> and are linked from outside. Trailing slash on the
+       * destination so it lands in one hop, as above.
+       */
+      { source: "/blog", destination: "/impact/", permanent: true },
     ];
   },
 };

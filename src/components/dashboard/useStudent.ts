@@ -8,12 +8,13 @@ import {
   STUDENT_KEY,
   THEMES,
   XP_PER_CHAPTER,
-  derive,
   hasToolkitNotes,
   today,
   wasYesterday,
   type StudentState,
 } from "@/lib/student";
+import { derive } from "@/lib/student-courses";
+import { DISPLAY_NAME_MAX } from "@/lib/display-name";
 
 function load(): StudentState {
   if (typeof window === "undefined") return DEFAULT_STUDENT;
@@ -93,7 +94,23 @@ export function useStudent() {
     setState((s) => (s.unlocked.includes(id) ? { ...s, theme: id } : s));
   }, []);
 
-  const setName = useCallback((name: string) => setState((s) => ({ ...s, name })), []);
+  /**
+   * Only the two rules that can be applied mid-word: strip the invisible
+   * characters, stop at the length limit.
+   *
+   * Not the full sanitiser. That one trims, and trimming on every keystroke
+   * means the space in "Ada L" disappears before "ovelace" can be typed. The
+   * rest of the rules are reported by `displayNameIssue` under the input, and
+   * enforced for real by the CHECK constraint in supabase/schema.sql.
+   */
+  const setName = useCallback(
+    (name: string) =>
+      setState((s) => ({
+        ...s,
+        name: name.replace(/[\p{Cc}\p{Cf}]/gu, "").slice(0, DISPLAY_NAME_MAX),
+      })),
+    [],
+  );
 
   const reset = useCallback(() => {
     setState({ ...DEFAULT_STUDENT, lastActive: today(), streakDays: 1 });

@@ -1,6 +1,7 @@
 import { SiteFooter } from "@/components/SiteFooter";
 import { SiteHeader } from "@/components/SiteHeader";
 import { LearnSidebar } from "@/components/learn/shell/LearnSidebar";
+import { getSidebarNav } from "@/lib/learn-nav";
 import type { LearnTrackId } from "@/lib/learn-types";
 
 interface LearnShellProps {
@@ -31,7 +32,9 @@ export function LearnShell({ track, aside, mobileBar, children }: LearnShellProp
       <main id="learn-content">
         <div className="learn-shell">
           <aside className="learn-sidebar">
-            <LearnSidebar track={track} />
+            {/* Read here, on the server, so the client sidebar receives a
+                flattened chapter list rather than importing the graph. */}
+            <LearnSidebar track={track} nav={getSidebarNav(track)} />
           </aside>
 
           <div className="learn-main">

@@ -1031,6 +1031,102 @@
   .koala-btn:hover { transform: none; }
 }
 
+/* Koda's newsletter card. Shares the bubble's shape language — same corner
+ * treatment, same shadow — so it reads as Koda talking, not as an ad unit that
+ * wandered in. Sized to stay clear of the mascot on a small phone. */
+.koala-signup {
+  position: relative;
+  width: min(19rem, calc(100vw - 2rem));
+  border-radius: 16px 16px 4px 16px;
+  background: #fff;
+  border: 0.5px solid var(--home-hairline-strong);
+  box-shadow: 0 14px 40px rgba(21, 18, 12, 0.18);
+  padding: 1rem 1.05rem 1.1rem;
+  animation: koala-bubble-in 0.28s ease-out;
+}
+.koala-signup-title {
+  font-size: 0.95rem;
+  font-weight: 600;
+  line-height: 1.35;
+  color: var(--home-ink);
+  margin: 0 1.1rem 0.3rem 0; /* clear of the close button */
+}
+.koala-signup-body {
+  font-size: 0.8rem;
+  line-height: 1.45;
+  color: var(--home-ink-soft);
+  margin: 0;
+}
+.koala-signup-form {
+  display: flex;
+  gap: 0.4rem;
+  margin-top: 0.75rem;
+}
+.koala-signup-input {
+  flex: 1;
+  min-width: 0;
+  border-radius: 999px;
+  border: 0.5px solid var(--home-grey-500);
+  background: var(--home-page);
+  padding: 0.5rem 0.85rem;
+  font-size: 0.82rem;
+  color: var(--home-ink);
+}
+.koala-signup-input::placeholder {
+  color: var(--home-ink-quiet);
+}
+.koala-signup-input:focus-visible {
+  outline: 2px solid var(--home-fern);
+  outline-offset: 1px;
+}
+.koala-signup-submit {
+  flex-shrink: 0;
+  border-radius: 999px;
+  border: 0;
+  background: var(--home-moss);
+  color: #fff;
+  padding: 0.5rem 0.95rem;
+  font-size: 0.82rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.18s ease, opacity 0.18s ease;
+}
+.koala-signup-submit:hover:not(:disabled) {
+  background: var(--home-moss-hover);
+}
+.koala-signup-submit:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+.koala-signup-error {
+  margin: 0.55rem 0 0;
+  font-size: 0.75rem;
+  line-height: 1.4;
+  color: #a13c28;
+}
+.koala-signup-close {
+  position: absolute;
+  top: 0.5rem;
+  right: 0.6rem;
+  width: 20px;
+  height: 20px;
+  border: 0;
+  border-radius: 999px;
+  background: transparent;
+  color: var(--home-ink-quiet);
+  font-size: 15px;
+  line-height: 1;
+  cursor: pointer;
+  display: grid;
+  place-items: center;
+}
+.koala-signup-close:hover {
+  color: var(--home-ink);
+}
+@media (prefers-reduced-motion: reduce) {
+  .koala-signup { animation: none; }
+}
+
 /* --------------------------------------------------------------------------
  * Koda's easter eggs — transient reveals triggered by hidden interactions.
  * ---------------------------------------------------------------------- */

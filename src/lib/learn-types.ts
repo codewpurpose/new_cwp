@@ -24,6 +24,24 @@ export interface LearnPart {
   summary: string;
 }
 
+/**
+ * The minimum the chapter sidebar needs to render, and nothing else.
+ *
+ * The sidebar is a client component. Handing it `LearnChapter` objects would
+ * serialise every chapter's description, headings, prerequisites and status
+ * into the payload; it draws a title and a link. This shape is what crosses
+ * the server/client boundary instead.
+ */
+export interface LearnNavGroup {
+  part: { id: string; number: number; title: string };
+  chapters: { slug: string; title: string }[];
+}
+
+export interface LearnNavData {
+  trackTitle: string;
+  groups: LearnNavGroup[];
+}
+
 export interface LearnChapter {
   slug: string;
   partId: LearnPart["id"];

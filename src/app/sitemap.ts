@@ -9,8 +9,9 @@ export default function sitemap(): MetadataRoute.Sitemap {
     "/about",
     "/courses",
     "/join",
+    // No "/blog": it 308s to /impact now. Listing a redirect wastes crawl
+    // budget and muddies which URL is canonical. The posts below still stand.
     "/impact",
-    "/blog",
     "/contact",
     "/donate",
     "/learn/ml",
