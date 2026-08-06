@@ -21,7 +21,7 @@ export const metadata: Metadata = {
   title: "Impact & Stories",
   description:
     "4,000+ students across 130+ countries, and the stories behind the numbers.",
-  alternates: { canonical: "/impact" },
+  alternates: { canonical: "/impact/" },
 };
 
 const stats = [

@@ -1,4 +1,6 @@
 import type { Metadata } from "next";
+import { JsonLd } from "@/components/seo/JsonLd";
+import { courseJsonLd, breadcrumbJsonLd } from "@/lib/seo";
 import Link from "next/link";
 import { PageHero, PageSection } from "@/components/PageHero";
 import { ContributeBand } from "@/components/learn/cards/ContributeBand";
@@ -19,7 +21,7 @@ export const metadata: Metadata = {
   title: "Machine Learning",
   description:
     "Free interactive machine learning lessons from CodeWithPurpose. Start from nothing: what ML is, what data has to look like, how a model learns, and how to tell whether it worked.",
-  alternates: { canonical: "/learn/ml" },
+  alternates: { canonical: "/learn/ml/" },
 };
 
 export default function LearnMlPage() {
@@ -30,7 +32,10 @@ export default function LearnMlPage() {
   const firstLesson = lessons[0];
 
   return (
-    <PageShell>
+    <>
+      <JsonLd data={courseJsonLd({ name: String(metadata.title), description: String(metadata.description), path: "/learn/ml/" })} />
+      <JsonLd data={breadcrumbJsonLd([{ name: "Home", path: "/" }, { name: "Courses", path: "/courses/" }, { name: String(metadata.title), path: "/learn/ml/" }])} />
+      <PageShell>
       <PageHero
         title="Machine learning, made visual"
         description="CodeWithPurpose lessons that explain core ML ideas through live demos and clear visuals. Click any topic to explore — no setup required."
@@ -88,6 +93,7 @@ export default function LearnMlPage() {
           { href: LEARN_VIBECODING_HREF, label: "Try Vibe Coding", variant: "secondary" },
         ]}
       />
-    </PageShell>
+      </PageShell>
+    </>
   );
 }

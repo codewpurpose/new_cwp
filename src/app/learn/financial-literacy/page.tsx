@@ -1,4 +1,6 @@
 import type { Metadata } from "next";
+import { JsonLd } from "@/components/seo/JsonLd";
+import { courseJsonLd, breadcrumbJsonLd } from "@/lib/seo";
 import Link from "next/link";
 import { PageHero, PageSection } from "@/components/PageHero";
 import { PageShell } from "@/components/PageShell";
@@ -15,12 +17,15 @@ export const metadata: Metadata = {
   title: "Financial Literacy",
   description:
     "Free interactive financial literacy lessons from CodeWithPurpose, running from your first budget through investing, taxes, and retirement accounts.",
-  alternates: { canonical: "/learn/financial-literacy" },
+  alternates: { canonical: "/learn/financial-literacy/" },
 };
 
 export default function LearnFinancialLiteracyPage() {
   return (
-    <PageShell>
+    <>
+      <JsonLd data={courseJsonLd({ name: String(metadata.title), description: String(metadata.description), path: "/learn/financial-literacy/" })} />
+      <JsonLd data={breadcrumbJsonLd([{ name: "Home", path: "/" }, { name: "Courses", path: "/courses/" }, { name: String(metadata.title), path: "/learn/financial-literacy/" }])} />
+      <PageShell>
       <PageHero
         title="Money skills, from your first budget to your first plan"
         description="CodeWithPurpose lessons that turn personal finance into a set of skills you actually use, not jargon you look up. Twenty-four chapters, no experience required."
@@ -87,6 +92,7 @@ export default function LearnFinancialLiteracyPage() {
           { href: LEARN_HEALTH_IN_TECH_HREF, label: "Try Health in Tech", variant: "secondary" },
         ]}
       />
-    </PageShell>
+      </PageShell>
+    </>
   );
 }

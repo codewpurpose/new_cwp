@@ -7,7 +7,8 @@ export const metadata: Metadata = {
   title: "Sign up",
   description:
     "Create a free CodeWithPurpose account to sync your progress across devices and join the student leaderboard.",
-  alternates: { canonical: "/sign-up" },
+  alternates: { canonical: "/sign-up/" },
+  robots: { index: false, follow: true },
 };
 
 export default function SignUpPage() {

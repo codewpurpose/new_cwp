@@ -15,7 +15,7 @@ export const metadata: Metadata = {
   title: "Join Us",
   description:
     "Volunteer with CodeWithPurpose. Teach, mentor, and help bring free coding education to students worldwide.",
-  alternates: { canonical: "/join" },
+  alternates: { canonical: "/join/" },
 };
 
 const roles = [

@@ -17,7 +17,7 @@ export const metadata: Metadata = {
   title: "About Us",
   description:
     "A student-run nonprofit making tech education free and accessible for everyone, everywhere.",
-  alternates: { canonical: "/about" },
+  alternates: { canonical: "/about/" },
 };
 
 const founders: TeamMember[] = [
