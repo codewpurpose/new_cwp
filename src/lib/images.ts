@@ -23,6 +23,8 @@ export const images = {
     sanjay: "/team-sanjay.jpg",
     ashwika: "/team-ashwika.jpg",
     bhoumik: "/team-bhoumik.jpeg",
+    hannah: "/team-hannah.jpeg",
+    vetri: "/team-vetri.png",
   },
   gallery: [
     { src: "/opt/IMG_2625.jpg", alt: "In the classroom" },

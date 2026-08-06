@@ -139,6 +139,21 @@ const teamMembers: TeamMember[] = [
     photo: images.team.bhoumik,
     photoClass: "object-[50%_0%] scale-[2.5] translate-y-[45%]",
   },
+  {
+    name: "Hannah Mauro",
+    role: "Social Media",
+    photo: images.team.hannah,
+    photoClass: "object-[50%_8%]",
+    instagram: "https://www.instagram.com/hannah_gm.9045/",
+    bio: "Hi! I assist with media at Code With Purpose. I'm a student researcher interested in neuroscience and abnormal/forensic psychiatry, and have worked with professors from BU and Harvard on research into Parkinson's Disease as well as behavioral economics and neuroscience more broadly. In the future I hope to pursue a career in forensic psychiatry. In my free time I enjoy hanging out with my friends, family, and dogs, playing the violin and guitar, playing volleyball, and dancing.",
+  },
+  {
+    name: "Vetrivel Jagath",
+    role: "Instructor",
+    photo: images.team.vetri,
+    photoClass: "object-[48%_30%] scale-[1.75] -translate-y-[5%]",
+    bio: "Hi, I'm Vetri, a rising freshman with a strong interest in math and helping others learn.",
+  },
 ];
 
 export default function AboutPage() {
