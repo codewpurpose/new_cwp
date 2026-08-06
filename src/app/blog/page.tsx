@@ -10,7 +10,7 @@ import { SUBSTACK_EMBED_SRC } from "@/lib/links";
 export const metadata: Metadata = {
   title: "Blog",
   description: "Stories, updates, and insights from the CodeWithPurpose community.",
-  alternates: { canonical: "/blog" },
+  alternates: { canonical: "/blog/" },
 };
 
 export default function BlogPage() {

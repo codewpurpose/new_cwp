@@ -7,7 +7,8 @@ export const metadata: Metadata = {
   title: "Log in",
   description:
     "Sign in to CodeWithPurpose to sync your course progress across devices and compete on the student leaderboard.",
-  alternates: { canonical: "/login" },
+  alternates: { canonical: "/login/" },
+  robots: { index: false, follow: true },
 };
 
 export default function LoginPage() {

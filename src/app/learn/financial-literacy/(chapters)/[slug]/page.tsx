@@ -82,7 +82,7 @@ export async function generateMetadata({
   return {
     title: chapter.title,
     description: chapter.description,
-    alternates: { canonical: `/learn/financial-literacy/${slug}` },
+    alternates: { canonical: `/learn/financial-literacy/${slug}/` },
   };
 }
 

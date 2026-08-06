@@ -1,4 +1,6 @@
 import type { Metadata } from "next";
+import { JsonLd } from "@/components/seo/JsonLd";
+import { courseJsonLd, breadcrumbJsonLd } from "@/lib/seo";
 import Link from "next/link";
 import { PageHero, PageSection } from "@/components/PageHero";
 import { PageShell } from "@/components/PageShell";
@@ -15,12 +17,15 @@ export const metadata: Metadata = {
   title: "Health in Tech",
   description:
     "Free interactive Health in Tech lessons from CodeWithPurpose, running from what health tech actually is through AI diagnosis bias, cybersecurity, and where it's headed.",
-  alternates: { canonical: "/learn/health-in-tech" },
+  alternates: { canonical: "/learn/health-in-tech/" },
 };
 
 export default function LearnHealthInTechPage() {
   return (
-    <PageShell>
+    <>
+      <JsonLd data={courseJsonLd({ name: String(metadata.title), description: String(metadata.description), path: "/learn/health-in-tech/" })} />
+      <JsonLd data={breadcrumbJsonLd([{ name: "Home", path: "/" }, { name: "Courses", path: "/courses/" }, { name: String(metadata.title), path: "/learn/health-in-tech/" }])} />
+      <PageShell>
       <PageHero
         title="Where healthcare meets technology, chapter by chapter"
         description="CodeWithPurpose lessons that turn health tech into a subject you actually understand, not headlines you half-follow. Twenty-four chapters, no medical or coding background required."
@@ -87,6 +92,7 @@ export default function LearnHealthInTechPage() {
           { href: LEARN_FINANCIAL_LITERACY_HREF, label: "Try Financial Literacy", variant: "secondary" },
         ]}
       />
-    </PageShell>
+      </PageShell>
+    </>
   );
 }

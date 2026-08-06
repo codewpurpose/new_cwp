@@ -10,7 +10,8 @@ export const metadata: Metadata = {
   title: "My Progress",
   description:
     "Track your progress across every CodeWithPurpose course, earn XP and badges, unlock Koda avatars, and keep a whiteboard — all saved right on your device, no account needed.",
-  alternates: { canonical: "/dashboard" },
+  alternates: { canonical: "/dashboard/" },
+  robots: { index: false, follow: true },
 };
 
 export default function DashboardPage() {

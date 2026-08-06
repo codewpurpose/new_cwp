@@ -82,7 +82,7 @@ export async function generateMetadata({
   return {
     title: chapter.title,
     description: chapter.description,
-    alternates: { canonical: `/learn/health-in-tech/${slug}` },
+    alternates: { canonical: `/learn/health-in-tech/${slug}/` },
   };
 }
 

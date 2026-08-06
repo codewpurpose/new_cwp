@@ -78,7 +78,7 @@ export async function generateMetadata({
   return {
     title: chapter.title,
     description: chapter.description,
-    alternates: { canonical: `/learn/ml/${slug}` },
+    alternates: { canonical: `/learn/ml/${slug}/` },
   };
 }
 

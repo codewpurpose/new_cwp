@@ -1,9 +1,17 @@
 import type { MetadataRoute } from "next";
 import { SITE_URL } from "@/lib/links";
 import { posts } from "@/lib/posts";
-import { getChapters } from "@/lib/learn-nav";
+
+/** Absolute URL with a trailing slash, matching how the site serves pages
+ *  (`trailingSlash: true`) so canonicals and the sitemap agree. */
+function abs(path: string): string {
+  return `${SITE_URL}${path === "" ? "/" : `${path}/`}`;
+}
 
 export default function sitemap(): MetadataRoute.Sitemap {
+  // Individual lesson pages (/learn/<track>/<slug>) require a login, so they are
+  // deliberately left out — we don't advertise pages Google can't crawl. The
+  // track index pages stay in; they're public course landing pages.
   const staticRoutes = [
     "",
     "/about",
@@ -19,29 +27,18 @@ export default function sitemap(): MetadataRoute.Sitemap {
     "/learn/financial-literacy",
     "/learn/health-in-tech",
   ].map((path) => ({
-    url: `${SITE_URL}${path}`,
+    url: abs(path),
     lastModified: new Date(),
     changeFrequency: "weekly" as const,
     priority: path === "" ? 1 : 0.8,
   }));
 
   const postRoutes = posts.map((post) => ({
-    url: `${SITE_URL}/blog/${post.slug}`,
+    url: abs(`/blog/${post.slug}`),
     lastModified: new Date(),
     changeFrequency: "monthly" as const,
     priority: 0.6,
   }));
 
-  const lessonRoutes = (
-    ["ml", "vibecoding", "python", "financial-literacy", "health-in-tech"] as const
-  ).flatMap((track) =>
-    getChapters(track).map((chapter) => ({
-      url: `${SITE_URL}/learn/${track}/${chapter.slug}`,
-      lastModified: new Date(),
-      changeFrequency: "monthly" as const,
-      priority: 0.7,
-    })),
-  );
-
-  return [...staticRoutes, ...postRoutes, ...lessonRoutes];
+  return [...staticRoutes, ...postRoutes];
 }

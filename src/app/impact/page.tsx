@@ -10,7 +10,7 @@ export const metadata: Metadata = {
   title: "Our Impact",
   description:
     "4,000+ students across 130+ countries. See the impact of free coding education.",
-  alternates: { canonical: "/impact" },
+  alternates: { canonical: "/impact/" },
 };
 
 const stats = [
