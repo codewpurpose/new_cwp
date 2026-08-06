@@ -15,6 +15,7 @@ export const LEARN_HEALTH_IN_TECH_HREF = "/learn/health-in-tech";
 export const TOOLKIT_HREF = "/toolkit";
 export const DASHBOARD_HREF = "/dashboard";
 export const LOGIN_HREF = "/login";
+export const SIGN_UP_HREF = "/sign-up";
 export const LEADERBOARD_HREF = "/leaderboard";
 export const ABOUT_HREF = "/about";
 export const JOIN_HREF = "/join";
