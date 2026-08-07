@@ -3,8 +3,9 @@ import type { LearnChapter, LearnPart } from "@/lib/learn-types";
 export { LEARN_PYTHON_HREF } from "@/lib/links";
 
 /**
- * The Python track: twenty-four lessons running from a complete beginner's
- * first program through decorators, generators, and shipping tested code.
+ * The Python track: thirty-one lessons running from a complete beginner's
+ * first program through nested data, the collections module, and shipping
+ * tested code.
  *
  * Written natively as LearnChapters (rather than adapted from a thinner shape)
  * so the track gets the same sidebar, table of contents, and prev/next pager as
@@ -51,8 +52,15 @@ export const PYTHON_PARTS: readonly LearnPart[] = [
       "Touching the outside world through files, writing collections in one line, and producing values lazily.",
   },
   {
-    id: "advanced",
+    id: "shaped-data",
     number: 6,
+    title: "Data That Has Shape",
+    summary:
+      "Real data arrives nested, duplicated, and missing the key you asked for — the structures and habits that survive it.",
+  },
+  {
+    id: "advanced",
+    number: 7,
     title: "Going Further",
     summary:
       "Other people's code, the internet's data format, proving your program works, and building one from scratch.",
@@ -469,9 +477,155 @@ export const PYTHON_CHAPTERS: readonly LearnChapter[] = [
     status: "published",
   },
   {
+    slug: "list-methods-in-depth",
+    partId: "shaped-data",
+    order: 21,
+    title: "Sorting, Slicing, and the Methods That Return Nothing",
+    description:
+      "Sorting a list of names is one function call, right up until the names have capital letters in them and the answer is quietly wrong. Sort the same list four ways, changing only the key, and watch the order rearrange itself under each rule.",
+    level: "intermediate",
+    minutes: 11,
+    prerequisites: ["lists-and-tuples"],
+    tags: ["Data", "Interactive"],
+    headings: [
+      { id: "sorted-builds-a-new-list-sort-rewrites-yours", text: "sorted builds a new list; sort rewrites yours", level: 2 },
+      { id: "the-key-argument-is-the-whole-feature", text: "The key argument is the whole feature", level: 2 },
+      { id: "reverse-is-not-the-same-as-reversed", text: "reverse is not the same as reversed", level: 2 },
+      { id: "assigning-into-a-slice-changes-the-length", text: "Assigning into a slice changes the length", level: 2 },
+      { id: "append-adds-one-thing-extend-adds-each-thing", text: "append adds one thing; extend adds each thing", level: 2 },
+      { id: "the-multiplication-trap-in-a-list-of-lists", text: "The multiplication trap in a list of lists", level: 2 },
+    ],
+    status: "published",
+  },
+  {
+    slug: "records-and-tables",
+    partId: "shaped-data",
+    order: 22,
+    title: "A Row Is Just a Dictionary",
+    description:
+      "A spreadsheet has rows and columns; Python has neither, and still holds the same data more honestly. Build a table out of nothing but a list and some dictionaries, then filter it down to three rows without ever writing a counter.",
+    level: "intermediate",
+    minutes: 12,
+    prerequisites: ["dictionaries"],
+    tags: ["Data", "Interactive"],
+    headings: [
+      { id: "one-record-is-a-dictionary-with-agreed-keys", text: "One record is a dictionary with agreed keys", level: 2 },
+      { id: "a-list-of-those-records-is-a-table", text: "A list of those records is a table", level: 2 },
+      { id: "filtering-rows-without-counting-them", text: "Filtering rows without counting them", level: 2 },
+      { id: "sorting-a-table-by-any-column-you-like", text: "Sorting a table by any column you like", level: 2 },
+      { id: "summarising-a-column-down-to-one-number", text: "Summarising a column down to one number", level: 2 },
+      { id: "where-a-list-of-dicts-stops-being-enough", text: "Where a list of dicts stops being enough", level: 2 },
+    ],
+    status: "published",
+  },
+  {
+    slug: "nested-structures",
+    partId: "shaped-data",
+    order: 23,
+    title: "Structures Inside Structures",
+    description:
+      "Every real API response is a dictionary holding lists holding more dictionaries, and the error for guessing wrong is four words long. Click down through a nested structure one level at a time and watch the access path build itself as you go.",
+    level: "intermediate",
+    minutes: 12,
+    prerequisites: ["dictionaries"],
+    tags: ["Data", "Interactive"],
+    headings: [
+      { id: "depth-arrives-whether-you-planned-for-it-or-not", text: "Depth arrives whether you planned for it or not", level: 2 },
+      { id: "each-bracket-moves-you-down-one-level", text: "Each bracket moves you down exactly one level", level: 2 },
+      { id: "looping-over-something-that-nests", text: "Looping over something that nests", level: 2 },
+      { id: "the-error-names-the-level-that-broke", text: "The error names the level that broke", level: 2 },
+      { id: "building-a-nested-structure-on-purpose", text: "Building a nested structure on purpose", level: 2 },
+      { id: "when-nesting-has-gone-too-deep", text: "When nesting has gone too deep", level: 2 },
+    ],
+    status: "published",
+  },
+  {
+    slug: "copying-and-aliasing",
+    partId: "shaped-data",
+    order: 24,
+    title: "Why Changing One Changed the Other",
+    description:
+      "You copied the list, changed the copy, and the original changed with it. Point three different kinds of copy at the same nested list, mutate one item at the bottom, and see precisely which of them flinch.",
+    level: "intermediate",
+    minutes: 11,
+    prerequisites: ["variables"],
+    tags: ["Data", "Interactive"],
+    headings: [
+      { id: "a-copy-that-copied-only-the-outside", text: "A copy that copied only the outside", level: 2 },
+      { id: "three-ways-to-copy-a-flat-list-all-of-which-work", text: "Three ways to copy a flat list, all of which work", level: 2 },
+      { id: "the-same-three-ways-on-a-nested-list", text: "The same three ways on a nested list", level: 2 },
+      { id: "deepcopy-follows-every-level-down", text: "deepcopy follows every level down", level: 2 },
+      { id: "what-deepcopy-costs-you", text: "What deepcopy costs you", level: 2 },
+      { id: "the-mutable-default-argument-seen-again", text: "The mutable default argument, seen again", level: 2 },
+    ],
+    status: "published",
+  },
+  {
+    slug: "errors-in-data",
+    partId: "shaped-data",
+    order: 25,
+    title: "The Errors Your Data Actually Throws",
+    description:
+      "Three exceptions account for almost every crash involving real data, and each one names the exact thing that was not there. Ask a dictionary for a key it has never heard of, four different ways, and compare what each one hands back.",
+    level: "intermediate",
+    minutes: 11,
+    prerequisites: ["errors"],
+    tags: ["Data", "Interactive"],
+    headings: [
+      { id: "three-exceptions-cover-almost-every-data-crash", text: "Three exceptions cover almost every data crash", level: 2 },
+      { id: "get-returns-a-default-instead-of-raising", text: "get returns a default instead of raising", level: 2 },
+      { id: "setdefault-fills-the-gap-as-it-reads", text: "setdefault fills the gap as it reads", level: 2 },
+      { id: "asking-forgiveness-instead-of-permission", text: "Asking forgiveness instead of permission", level: 2 },
+      { id: "catching-the-narrowest-exception-that-fits", text: "Catching the narrowest exception that fits", level: 2 },
+      { id: "a-none-that-travels-is-worse-than-a-crash", text: "A None that travels is worse than a crash", level: 2 },
+    ],
+    status: "published",
+  },
+  {
+    slug: "the-collections-module",
+    partId: "shaped-data",
+    order: 26,
+    title: "The Structures Python Ships But Never Advertises",
+    description:
+      "Counting how often each word appears takes four lines and one conditional that everybody eventually gets wrong. Swap in the structure built for exactly that job and watch the same tally come out of a single line.",
+    level: "intermediate",
+    minutes: 11,
+    prerequisites: ["dictionaries"],
+    tags: ["Data", "Interactive"],
+    headings: [
+      { id: "counter-does-the-tally-you-keep-rewriting", text: "Counter does the tally you keep rewriting", level: 2 },
+      { id: "defaultdict-stops-you-checking-before-every-write", text: "defaultdict stops you checking before every write", level: 2 },
+      { id: "namedtuple-gives-a-tuple-field-names", text: "namedtuple gives a tuple field names", level: 2 },
+      { id: "deque-is-fast-at-the-end-a-list-is-slow-at", text: "deque is fast at the end a list is slow at", level: 2 },
+      { id: "these-are-ordinary-imports-not-language-features", text: "These are ordinary imports, not language features", level: 2 },
+    ],
+    status: "published",
+  },
+  {
+    slug: "choosing-a-structure",
+    partId: "shaped-data",
+    order: 27,
+    title: "Picking One, and What It Costs",
+    description:
+      "A list and a set both answer whether they contain something, and on ten thousand items one of them does ten thousand times more work to say so. Slide the collection size up and watch the number of checks each one performs pull apart.",
+    level: "advanced",
+    minutes: 12,
+    prerequisites: ["sets-and-truthiness"],
+    tags: ["Data", "Interactive"],
+    headings: [
+      { id: "four-structures-and-the-question-each-answers-fast", text: "Four structures, and the question each answers fast", level: 2 },
+      { id: "membership-in-a-list-checks-every-item", text: "Membership in a list checks every item", level: 2 },
+      { id: "a-set-and-a-dict-jump-straight-there", text: "A set and a dict jump straight there", level: 2 },
+      { id: "what-you-give-up-for-that-speed", text: "What you give up for that speed", level: 2 },
+      { id: "order-uniqueness-and-mutability-as-a-decision", text: "Order, uniqueness, and mutability as a decision", level: 2 },
+      { id: "measure-before-you-reach-for-the-clever-one", text: "Measure before you reach for the clever one", level: 2 },
+    ],
+    status: "published",
+  },
+  {
     slug: "working-with-libraries",
     partId: "advanced",
-    order: 21,
+    order: 28,
     title: "Standing on Other People's Code",
     description:
       "Nobody writes date parsing or HTTP requests from scratch, because somebody has already written it better and tested it more. Install a real package, import it, and use in three lines what would take an afternoon to build.",
@@ -491,7 +645,7 @@ export const PYTHON_CHAPTERS: readonly LearnChapter[] = [
   {
     slug: "json-and-apis",
     partId: "advanced",
-    order: 22,
+    order: 29,
     title: "Talking to the Outside World",
     description:
       "JSON looks almost exactly like a Python dictionary, right up until you notice the differences. Convert one into the other in both directions, and find the two places the conversion is not quite what you expected.",
@@ -512,7 +666,7 @@ export const PYTHON_CHAPTERS: readonly LearnChapter[] = [
   {
     slug: "testing-your-code",
     partId: "advanced",
-    order: 23,
+    order: 30,
     title: "Proving It Works, Not Just Believing It",
     description:
       "Running a program and reading the output by eye works fine until it has more than one path through it. Write an assertion that checks the answer for you, and let it fail loudly the moment the code stops agreeing with itself.",
@@ -533,7 +687,7 @@ export const PYTHON_CHAPTERS: readonly LearnChapter[] = [
   {
     slug: "final-project",
     partId: "advanced",
-    order: 24,
+    order: 31,
     title: "Building Something From All of It",
     description:
       "Every chapter until now has proven one idea in isolation. Build one program that needs variables, a loop, a function, and a dictionary all in the same twenty lines, and watch them stop being separate topics.",

@@ -12,7 +12,8 @@ import { SITE_URL } from "@/lib/links";
  * from an email can drop the reader straight into a login wall.
  */
 export const TRACK_LINKS: EmailLink[] = [
-  { label: "Python", href: `${SITE_URL}/learn/python/`, note: "24 chapters — start from nothing installed" },
+  { label: "Python", href: `${SITE_URL}/learn/python/`, note: "31 chapters — start from nothing installed" },
+  { label: "Roblox Studio", href: `${SITE_URL}/learn/roblox/`, note: "14 chapters — build and publish a real obby" },
   { label: "Vibe Coding", href: `${SITE_URL}/learn/vibecoding/`, note: "29 chapters — build real things with AI" },
   { label: "Machine Learning", href: `${SITE_URL}/learn/ml/`, note: "22 chapters — interactive, no maths degree needed" },
   { label: "Financial Literacy", href: `${SITE_URL}/learn/financial-literacy/`, note: "24 chapters — the money rules school skips" },

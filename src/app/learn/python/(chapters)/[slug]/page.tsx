@@ -27,6 +27,13 @@ import { FilesAndPathsLesson } from "@/components/python/FilesAndPathsLesson";
 import { ComprehensionsLesson } from "@/components/python/ComprehensionsLesson";
 import { IteratorsAndGeneratorsLesson } from "@/components/python/IteratorsAndGeneratorsLesson";
 import { DecoratorsLesson } from "@/components/python/DecoratorsLesson";
+import { ListMethodsInDepthLesson } from "@/components/python/ListMethodsInDepthLesson";
+import { RecordsAndTablesLesson } from "@/components/python/RecordsAndTablesLesson";
+import { NestedStructuresLesson } from "@/components/python/NestedStructuresLesson";
+import { CopyingAndAliasingLesson } from "@/components/python/CopyingAndAliasingLesson";
+import { ErrorsInDataLesson } from "@/components/python/ErrorsInDataLesson";
+import { TheCollectionsModuleLesson } from "@/components/python/TheCollectionsModuleLesson";
+import { ChoosingAStructureLesson } from "@/components/python/ChoosingAStructureLesson";
 import { WorkingWithLibrariesLesson } from "@/components/python/WorkingWithLibrariesLesson";
 import { JsonAndApisLesson } from "@/components/python/JsonAndApisLesson";
 import { TestingYourCodeLesson } from "@/components/python/TestingYourCodeLesson";
@@ -61,6 +68,13 @@ const PYTHON_LESSON_BODIES: Record<string, () => React.ReactElement> = {
   comprehensions: ComprehensionsLesson,
   "iterators-and-generators": IteratorsAndGeneratorsLesson,
   decorators: DecoratorsLesson,
+  "list-methods-in-depth": ListMethodsInDepthLesson,
+  "records-and-tables": RecordsAndTablesLesson,
+  "nested-structures": NestedStructuresLesson,
+  "copying-and-aliasing": CopyingAndAliasingLesson,
+  "errors-in-data": ErrorsInDataLesson,
+  "the-collections-module": TheCollectionsModuleLesson,
+  "choosing-a-structure": ChoosingAStructureLesson,
   "working-with-libraries": WorkingWithLibrariesLesson,
   "json-and-apis": JsonAndApisLesson,
   "testing-your-code": TestingYourCodeLesson,

@@ -18,6 +18,7 @@ import { mulberry32, shuffled } from "@/lib/ml/random";
 
 const TRACKS: LearnTrackId[] = [
   "python",
+  "roblox",
   "financial-literacy",
   "health-in-tech",
   "ml",

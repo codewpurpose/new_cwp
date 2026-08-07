@@ -12,6 +12,7 @@ export const LEARN_VIBECODING_HREF = "/learn/vibecoding";
 export const LEARN_PYTHON_HREF = "/learn/python";
 export const LEARN_FINANCIAL_LITERACY_HREF = "/learn/financial-literacy";
 export const LEARN_HEALTH_IN_TECH_HREF = "/learn/health-in-tech";
+export const LEARN_ROBLOX_HREF = "/learn/roblox";
 export const TOOLKIT_HREF = "/toolkit";
 export const DASHBOARD_HREF = "/dashboard";
 export const LOGIN_HREF = "/login";
@@ -32,6 +33,8 @@ export const CONGRESS_LETTER_HREF =
   "https://drive.google.com/file/d/1jWQNoSwYOo9GRvRxcg5XVl8bnvAJf6vj/view?usp=sharing";
 export const PYTHON_COURSE_HREF =
   "https://www.udemy.com/course/introduction-to-python-bootcamp/";
+export const PYTHON_PART_2_COURSE_HREF =
+  "https://www.udemy.com/course/python-data-structures-basic/";
 export const VIBECODING_COURSE_HREF =
   "https://www.udemy.com/course/vibecoding-101/";
 export const VIBECODING_PART_2_COURSE_HREF =
@@ -44,6 +47,8 @@ export const FINANCIAL_LITERACY_COURSE_HREF =
   "https://www.udemy.com/course/financial-literacy-the-basics/";
 export const HEALTH_IN_TECH_COURSE_HREF =
   "https://www.udemy.com/course/health-iin-tech/";
+export const ROBLOX_COURSE_HREF =
+  "https://www.udemy.com/course/master-roblox-studio/";
 /**
  * Newsletter sign-up endpoint. The trailing slash is load-bearing: with
  * `trailingSlash: true`, posting to the unslashed path earns a 308 redirect

@@ -5,47 +5,47 @@ import Link from "next/link";
 import { PageHero, PageSection } from "@/components/PageHero";
 import { PageShell } from "@/components/PageShell";
 import { Reveal } from "@/components/Reveal";
-import { PythonLessonCover } from "@/components/python/PythonLessonCover";
+import { RobloxLessonCover } from "@/components/roblox/RobloxLessonCover";
 import { ContributeBand } from "@/components/learn/cards/ContributeBand";
 import { CtaBand } from "@/components/learn/cards/CtaBand";
 import { LessonCard } from "@/components/learn/cards/LessonCard";
 import { images } from "@/lib/images";
-import { COURSES_HREF, LEARN_ML_HREF, PYTHON_COURSE_HREF } from "@/lib/links";
+import { COURSES_HREF, LEARN_PYTHON_HREF, ROBLOX_COURSE_HREF } from "@/lib/links";
 import { chapterHref, getPartsWithChapters } from "@/lib/learn-nav";
 
 export const metadata: Metadata = {
-  title: "Python",
+  title: "Roblox Studio",
   description:
-    "Free interactive Python lessons from CodeWithPurpose, running from your first program through decorators, generators, and shipping tested code.",
-  alternates: { canonical: "/learn/python/" },
+    "Free interactive Roblox Studio lessons from CodeWithPurpose. Build a working obby in Luau, from your first part through killbricks, debounce, and publishing.",
+  alternates: { canonical: "/learn/roblox/" },
 };
 
-export default function LearnPythonPage() {
+export default function LearnRobloxPage() {
   return (
     <>
-      <JsonLd data={courseJsonLd({ name: String(metadata.title), description: String(metadata.description), path: "/learn/python/" })} />
-      <JsonLd data={breadcrumbJsonLd([{ name: "Home", path: "/" }, { name: "Courses", path: "/courses/" }, { name: String(metadata.title), path: "/learn/python/" }])} />
+      <JsonLd data={courseJsonLd({ name: String(metadata.title), description: String(metadata.description), path: "/learn/roblox/" })} />
+      <JsonLd data={breadcrumbJsonLd([{ name: "Home", path: "/" }, { name: "Courses", path: "/courses/" }, { name: String(metadata.title), path: "/learn/roblox/" }])} />
       <PageShell>
       <PageHero
-        title="Python, from your first line to your first library"
-        description="CodeWithPurpose lessons that turn Python into a language you actually think in, not one you look up. Thirty-one chapters, no setup required."
+        title="Roblox Studio, from a blank baseplate to a published obby"
+        description="CodeWithPurpose lessons that build one real obstacle course in Luau, and explain the engine underneath it as you go. Fourteen chapters, and Studio is free."
         image={images.codingLaptop}
-        imageAlt="Student learning Python"
+        imageAlt="Student building a game on a laptop"
       >
         <Link href={COURSES_HREF} className="home-btn home-btn-outline">
           All Courses
         </Link>
         <a
-          href={PYTHON_COURSE_HREF}
+          href={ROBLOX_COURSE_HREF}
           target="_blank"
           rel="noreferrer"
           className="home-btn home-btn-violet"
         >
-          Udemy Python Course
+          Udemy Roblox Course
         </a>
       </PageHero>
 
-      {getPartsWithChapters("python").map((group, groupIndex) => (
+      {getPartsWithChapters("roblox").map((group, groupIndex) => (
         <PageSection
           key={group.part.id}
           className={groupIndex > 0 ? "!pt-0" : undefined}
@@ -68,13 +68,13 @@ export default function LearnPythonPage() {
             {group.chapters.map((chapter, index) => (
               <Reveal key={chapter.slug} delay={index * 0.08}>
                 <LessonCard
-                  href={chapterHref("python", chapter.slug)}
+                  href={chapterHref("roblox", chapter.slug)}
                   title={chapter.title}
                   description={chapter.description}
                   tags={chapter.tags}
                   meta={`${chapter.minutes} min read`}
                   cta="Start chapter"
-                  media={<PythonLessonCover slug={chapter.slug} />}
+                  media={<RobloxLessonCover slug={chapter.slug} />}
                 />
               </Reveal>
             ))}
@@ -85,11 +85,11 @@ export default function LearnPythonPage() {
       <ContributeBand noun="chapter" />
 
       <CtaBand
-        title="Keep building your Python practice"
+        title="Keep building things people can play"
         body="These lessons are part of CodeWithPurpose's free learning library, built by students, for students, everywhere."
         actions={[
           { href: COURSES_HREF, label: "Browse All Courses", variant: "primary" },
-          { href: LEARN_ML_HREF, label: "Try Machine Learning", variant: "secondary" },
+          { href: LEARN_PYTHON_HREF, label: "Try Python", variant: "secondary" },
         ]}
       />
       </PageShell>

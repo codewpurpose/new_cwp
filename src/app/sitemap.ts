@@ -27,6 +27,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     "/learn/python",
     "/learn/financial-literacy",
     "/learn/health-in-tech",
+    "/learn/roblox",
   ].map((path) => ({
     url: abs(path),
     lastModified: new Date(),

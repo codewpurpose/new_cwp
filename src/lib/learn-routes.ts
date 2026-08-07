@@ -18,6 +18,7 @@ import {
   LEARN_HEALTH_IN_TECH_HREF,
   LEARN_ML_HREF,
   LEARN_PYTHON_HREF,
+  LEARN_ROBLOX_HREF,
   LEARN_VIBECODING_HREF,
 } from "@/lib/links";
 
@@ -42,6 +43,7 @@ export const TRACK_ROUTES: Record<LearnTrackId, LearnTrackRoute> = {
     title: "Health in Tech",
     href: LEARN_HEALTH_IN_TECH_HREF,
   },
+  roblox: { id: "roblox", title: "Roblox Studio", href: LEARN_ROBLOX_HREF },
 };
 
 /**

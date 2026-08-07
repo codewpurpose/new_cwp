@@ -10,7 +10,7 @@
 -- `progress` rows for it in place (they are already written) but stops new
 -- ones being accepted.
 --
--- 123 published chapters across 5 tracks.
+-- 144 published chapters across 6 tracks.
 
 begin;
 
@@ -76,6 +76,13 @@ insert into public.chapters (course_id, chapter_slug) values
   ('python', 'comprehensions'),
   ('python', 'iterators-and-generators'),
   ('python', 'decorators'),
+  ('python', 'list-methods-in-depth'),
+  ('python', 'records-and-tables'),
+  ('python', 'nested-structures'),
+  ('python', 'copying-and-aliasing'),
+  ('python', 'errors-in-data'),
+  ('python', 'the-collections-module'),
+  ('python', 'choosing-a-structure'),
   ('python', 'working-with-libraries'),
   ('python', 'json-and-apis'),
   ('python', 'testing-your-code'),
@@ -149,6 +156,20 @@ insert into public.chapters (course_id, chapter_slug) values
   ('health-in-tech', 'cybersecurity-in-healthcare'),
   ('health-in-tech', 'regulation-and-oversight'),
   ('health-in-tech', 'where-health-tech-is-headed'),
-  ('health-in-tech', 'capstone-mapping-a-health-tech-idea');
+  ('health-in-tech', 'capstone-mapping-a-health-tech-idea'),
+  ('roblox', 'what-is-roblox-studio'),
+  ('roblox', 'the-data-model'),
+  ('roblox', 'parts-and-properties'),
+  ('roblox', 'your-first-script'),
+  ('roblox', 'variables-and-values'),
+  ('roblox', 'instances-and-properties'),
+  ('roblox', 'client-and-server'),
+  ('roblox', 'events-and-connections'),
+  ('roblox', 'debounce'),
+  ('roblox', 'the-killbrick'),
+  ('roblox', 'the-disappearing-platform'),
+  ('roblox', 'the-one-way-platform'),
+  ('roblox', 'debugging-in-studio'),
+  ('roblox', 'publishing-your-experience');
 
 commit;

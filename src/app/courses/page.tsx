@@ -14,10 +14,13 @@ import {
   LEARN_HEALTH_IN_TECH_HREF,
   LEARN_ML_HREF,
   LEARN_PYTHON_HREF,
+  LEARN_ROBLOX_HREF,
   LEARN_VIBECODING_HREF,
   ML_PART_1_COURSE_HREF,
   ML_PART_2_COURSE_HREF,
   PYTHON_COURSE_HREF,
+  PYTHON_PART_2_COURSE_HREF,
+  ROBLOX_COURSE_HREF,
   VIBECODING_COURSE_HREF,
   VIBECODING_PART_2_COURSE_HREF,
 } from "@/lib/links";
@@ -55,10 +58,22 @@ const courses: Course[] = [
     title: "Python for Complete Beginners",
     tags: ["Beginner", "Most Popular"],
     description:
-      "Zero experience? Perfect. You'll go from nothing to building real projects, just like 800+ students across 50+ countries already have.",
+      "Zero experience? Perfect. Part 1 takes you from nothing to building real projects, just like 800+ students across 50+ countries already have. Part 2 goes deeper on the data structures real programs are built from: advanced lists, nested data, and the errors messy data actually throws.",
     cover: "python",
-    enrol: [{ href: PYTHON_COURSE_HREF, label: "Enroll Free" }],
+    enrol: [
+      { href: PYTHON_COURSE_HREF, label: "Enroll Part 1" },
+      { href: PYTHON_PART_2_COURSE_HREF, label: "Enroll Part 2" },
+    ],
     lessonsHref: LEARN_PYTHON_HREF,
+  },
+  {
+    title: "Master Roblox Studio",
+    tags: ["New", "Game Dev"],
+    description:
+      "Build a real obby and publish it, so other people can actually play what you made. You'll write Luau for lasers, disappearing platforms, and one-way floors — and learn why each of them breaks the moment a second player joins.",
+    cover: "roblox",
+    enrol: [{ href: ROBLOX_COURSE_HREF, label: "Enroll Free" }],
+    lessonsHref: LEARN_ROBLOX_HREF,
   },
   {
     title: "Vibecoding 101",

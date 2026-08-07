@@ -301,6 +301,111 @@ function FinalProjectCover() {
   );
 }
 
+function ListMethodsCover() {
+  return (
+    <Frame>
+      {[26, 38, 52, 64].map((h, i) => (
+        <rect
+          key={h}
+          x={44 + i * 20}
+          y={70 - h}
+          width={13}
+          height={h}
+          rx={2}
+          fill={i === 3 ? ACCENT : HIGHLIGHT}
+          stroke={INK}
+          strokeWidth={1.2}
+        />
+      ))}
+      <path d="M40 16 L118 16" stroke={MUTED} strokeWidth={1.4} strokeLinecap="round" />
+      <path d="M112 12 L118 16 L112 20" fill="none" stroke={MUTED} strokeWidth={1.4} strokeLinecap="round" strokeLinejoin="round" />
+    </Frame>
+  );
+}
+
+function RecordsAndTablesCover() {
+  return (
+    <Frame>
+      <rect x={30} y={20} width={100} height={50} rx={4} fill="var(--learn-surface)" stroke={INK} strokeWidth={1.4} />
+      <rect x={30} y={20} width={100} height={13} fill={HIGHLIGHT} />
+      <path d="M30 33 H130M30 46 H130M30 58 H130" stroke={MUTED} strokeWidth={0.9} />
+      <path d="M63 20 V70M97 20 V70" stroke={MUTED} strokeWidth={0.9} />
+      <rect x={30} y={46} width={100} height={12} fill="rgba(62, 127, 92, 0.22)" />
+    </Frame>
+  );
+}
+
+function NestedStructuresCover() {
+  return (
+    <Frame>
+      <rect x={26} y={16} width={108} height={58} rx={6} fill="var(--learn-surface)" stroke={INK} strokeWidth={1.4} />
+      <rect x={40} y={26} width={80} height={38} rx={5} fill={HIGHLIGHT} stroke={INK} strokeWidth={1.2} />
+      <rect x={54} y={35} width={52} height={20} rx={4} fill="var(--learn-surface)" stroke={ACCENT} strokeWidth={1.4} />
+      <circle cx={80} cy={45} r={3.4} fill={ACCENT} />
+    </Frame>
+  );
+}
+
+function CopyingAndAliasingCover() {
+  return (
+    <Frame>
+      <circle cx={30} cy={30} r={9} fill="var(--learn-surface)" stroke={ACCENT} strokeWidth={1.6} />
+      <text x={30} y={34} textAnchor="middle" fontSize={9} fontWeight={700} fill={ACCENT}>a</text>
+      <circle cx={30} cy={62} r={9} fill="var(--learn-surface)" stroke={MUTED} strokeWidth={1.6} strokeDasharray="3 2" />
+      <text x={30} y={66} textAnchor="middle" fontSize={9} fontWeight={700} fill={MUTED}>b</text>
+      <path d="M41 31 C60 33, 66 42, 84 45" fill="none" stroke={ACCENT} strokeWidth={1.5} />
+      <path d="M41 61 C60 59, 66 50, 84 47" fill="none" stroke={MUTED} strokeWidth={1.5} strokeDasharray="4 3" />
+      <rect x={86} y={34} width={44} height={24} rx={5} fill={HIGHLIGHT} stroke={INK} strokeWidth={1.4} />
+    </Frame>
+  );
+}
+
+function ErrorsInDataCover() {
+  return (
+    <Frame>
+      <rect x={36} y={20} width={88} height={50} rx={5} fill="var(--learn-surface)" stroke={INK} strokeWidth={1.4} />
+      <rect x={46} y={28} width={68} height={11} rx={2} fill={HIGHLIGHT} />
+      <rect x={46} y={44} width={68} height={11} rx={2} fill={HIGHLIGHT} />
+      <rect x={46} y={60} width={68} height={11} rx={2} fill="var(--learn-danger-bg)" stroke="var(--learn-outcome-fn)" strokeWidth={1.2} />
+      <path d="M74 63 L86 69M86 63 L74 69" stroke="var(--learn-outcome-fn)" strokeWidth={1.8} strokeLinecap="round" />
+    </Frame>
+  );
+}
+
+function CollectionsModuleCover() {
+  return (
+    <Frame>
+      {[62, 46, 30, 18].map((w, i) => (
+        <rect
+          key={w}
+          x={44}
+          y={20 + i * 14}
+          width={w}
+          height={10}
+          rx={2}
+          fill={i === 0 ? ACCENT : HIGHLIGHT}
+          stroke={INK}
+          strokeWidth={1}
+        />
+      ))}
+      <path d="M40 16 V74" stroke={MUTED} strokeWidth={1.2} strokeLinecap="round" />
+    </Frame>
+  );
+}
+
+function ChoosingAStructureCover() {
+  return (
+    <Frame>
+      <path d="M32 70 H128" stroke={MUTED} strokeWidth={1.2} strokeLinecap="round" />
+      <path d="M32 70 V18" stroke={MUTED} strokeWidth={1.2} strokeLinecap="round" />
+      <path d="M32 70 L126 22" fill="none" stroke="var(--learn-series-2)" strokeWidth={2.2} strokeLinecap="round" />
+      <path d="M32 66 L126 66" fill="none" stroke="var(--learn-series-3)" strokeWidth={2.2} strokeLinecap="round" strokeDasharray="6 4" />
+      <circle cx={126} cy={22} r={3.6} fill="var(--learn-series-2)" />
+      <rect x={122.4} y={62.4} width={7.2} height={7.2} fill="var(--learn-series-3)" />
+    </Frame>
+  );
+}
+
 const COVERS: Record<string, () => React.ReactElement> = {
   "what-is-python": WhatIsPythonCover,
   "setting-up": SettingUpCover,
@@ -322,6 +427,13 @@ const COVERS: Record<string, () => React.ReactElement> = {
   comprehensions: ComprehensionsCover,
   "iterators-and-generators": GeneratorsCover,
   decorators: DecoratorsCover,
+  "list-methods-in-depth": ListMethodsCover,
+  "records-and-tables": RecordsAndTablesCover,
+  "nested-structures": NestedStructuresCover,
+  "copying-and-aliasing": CopyingAndAliasingCover,
+  "errors-in-data": ErrorsInDataCover,
+  "the-collections-module": CollectionsModuleCover,
+  "choosing-a-structure": ChoosingAStructureCover,
   "working-with-libraries": LibrariesCover,
   "json-and-apis": JsonCover,
   "testing-your-code": TestingCover,

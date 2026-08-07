@@ -10,6 +10,7 @@ import { FINANCIAL_LITERACY_CHAPTERS, FINANCIAL_LITERACY_PARTS } from "@/lib/fin
 import { HEALTH_IN_TECH_CHAPTERS, HEALTH_IN_TECH_PARTS } from "@/lib/health-in-tech-lessons";
 import { ML_CHAPTERS, ML_PARTS } from "@/lib/ml-lessons";
 import { PYTHON_CHAPTERS, PYTHON_PARTS } from "@/lib/python-lessons";
+import { ROBLOX_CHAPTERS, ROBLOX_PARTS } from "@/lib/roblox-lessons";
 import { VIBECODING_CHAPTERS, VIBECODING_PARTS } from "@/lib/vibecoding-lessons";
 
 /** Track identity comes from `learn-routes.ts`; this pairs it with the data. */
@@ -39,6 +40,11 @@ const TRACKS: Record<LearnTrackId, LearnTrack> = {
     parts: HEALTH_IN_TECH_PARTS,
     chapters: HEALTH_IN_TECH_CHAPTERS,
   },
+  roblox: {
+    ...TRACK_ROUTES.roblox,
+    parts: ROBLOX_PARTS,
+    chapters: ROBLOX_CHAPTERS,
+  },
 };
 
 /** Computed once at module scope rather than per render. */
@@ -60,6 +66,10 @@ const PUBLISHED: Record<LearnTrackId, readonly LearnChapter[]> = {
     .slice()
     .sort((a, b) => a.order - b.order),
   "health-in-tech": TRACKS["health-in-tech"].chapters
+    .filter((c) => c.status === "published")
+    .slice()
+    .sort((a, b) => a.order - b.order),
+  roblox: TRACKS.roblox.chapters
     .filter((c) => c.status === "published")
     .slice()
     .sort((a, b) => a.order - b.order),

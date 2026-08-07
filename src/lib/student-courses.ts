@@ -15,9 +15,10 @@ import { getChapters, getTrack } from "@/lib/learn-nav";
 import type { LearnTrackId } from "@/lib/learn-types";
 import type { Derived, StudentState } from "@/lib/student";
 
-/** The five on-site tracks, in the order they appear on the dashboard. */
+/** The six on-site tracks, in the order they appear on the dashboard. */
 const TRACK_IDS: LearnTrackId[] = [
   "python",
+  "roblox",
   "financial-literacy",
   "health-in-tech",
   "ml",

@@ -47,11 +47,12 @@ Five self-paced tracks live under `/learn`. All run on the same documentation sh
 
 | Track | Path | Content |
 | ----- | ---- | ------- |
-| Machine Learning | `/learn/ml` | 7 lessons, absolute basics through measuring a model |
+| Machine Learning | `/learn/ml` | 22 chapters, absolute basics through neural networks and production |
 | Vibe Coding | `/learn/vibecoding` | 29 chapters, setup through advanced practice |
-| Python | `/learn/python` | 24 chapters, first line of code through a tested capstone project |
+| Python | `/learn/python` | 31 chapters, first line of code through nested data and a tested capstone project |
 | Financial Literacy | `/learn/financial-literacy` | 24 chapters, first budget through investing, taxes, and a one-page plan |
 | Health in Tech | `/learn/health-in-tech` | 24 chapters, what health tech is through AI bias, security, and a capstone |
+| Roblox Studio | `/learn/roblox` | 14 chapters, a blank baseplate through a published obby in Luau |
 
 Every ML lesson is built around a single hero interactive: one control the reader drags, with the concept made *felt* before it is named. Drag a decision threshold and watch precision trade against recall; stack hand-written rules and watch each one buy less than the last.
 

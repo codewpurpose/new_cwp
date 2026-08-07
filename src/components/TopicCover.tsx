@@ -9,7 +9,8 @@ export type TopicCoverVariant =
   | "global"
   | "congress"
   | "python"
-  | "vibecoding";
+  | "vibecoding"
+  | "roblox";
 
 const INK = "#15120c";
 const PISTACHIO = "#dbefdb";
@@ -200,6 +201,30 @@ const art: Record<TopicCoverVariant, { label: string; scene: ReactNode }> = {
         </text>
         <rect className="home-blink" x="204" y="142" width="7" height="13" fill={INK} />
         <path d="M338 96c14 8 14 48 0 56" stroke={GREY} strokeWidth="1.2" strokeDasharray="3 5" fill="none" />
+      </g>
+    ),
+  },
+  roblox: {
+    label: "ROBLOX STUDIO",
+    scene: (
+      <g>
+        {/* Three floating platforms, ascending — an obby in profile. */}
+        <rect x="132" y="184" width="76" height="14" rx="4" fill={PISTACHIO} stroke={INK} strokeWidth="1.4" />
+        <rect x="222" y="146" width="76" height="14" rx="4" fill={PISTACHIO} stroke={INK} strokeWidth="1.4" />
+        <rect x="312" y="108" width="76" height="14" rx="4" fill="#ffffff" stroke={INK} strokeWidth="1.4" strokeDasharray="7 5" />
+        <path d="M208 191h14M298 153h14" stroke={GREY} strokeWidth="1.2" strokeDasharray="4 4" />
+
+        {/* The laser between two posts, crossing the middle gap. */}
+        <rect x="206" y="96" width="10" height="42" rx="3" fill="#ffffff" stroke={INK} strokeWidth="1.2" />
+        <rect x="304" y="96" width="10" height="42" rx="3" fill="#ffffff" stroke={INK} strokeWidth="1.2" />
+        <path d="M216 117h88" stroke={FERN} strokeWidth="3.4" strokeLinecap="round" />
+        <path d="M216 117h88" stroke="#ffffff" strokeWidth="1.1" strokeLinecap="round" />
+
+        {/* A blocky character standing on the first platform. */}
+        <rect x="156" y="150" width="26" height="30" rx="4" fill={FERN} stroke={INK} strokeWidth="1.4" />
+        <rect x="158" y="124" width="22" height="22" rx="4" fill={PISTACHIO} stroke={INK} strokeWidth="1.4" />
+        <circle cx="165" cy="134" r="1.8" fill={INK} />
+        <circle cx="174" cy="134" r="1.8" fill={INK} />
       </g>
     ),
   },

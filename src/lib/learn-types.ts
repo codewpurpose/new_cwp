@@ -5,7 +5,8 @@ export type LearnTrackId =
   | "ml"
   | "python"
   | "financial-literacy"
-  | "health-in-tech";
+  | "health-in-tech"
+  | "roblox";
 
 export type LearnLevel = "beginner" | "intermediate" | "advanced";
 
