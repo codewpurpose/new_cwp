@@ -92,6 +92,30 @@ function KoalaBase({ canOfferSignup }: { canOfferSignup: boolean }) {
     /* eslint-enable react-hooks/set-state-in-effect */
   }, []);
 
+  /**
+   * Decode every pose once, up front.
+   *
+   * The <img> below is keyed on `index`, and that is deliberate: a keyed
+   * remount is what replays the koala-pop animation on each tap. The cost is
+   * that every tap mounts a brand-new element with no bitmap attached, and
+   * `decoding="async"` explicitly permits the browser to paint that empty
+   * element before the image is ready. Since koala-pop starts at opacity 0,
+   * the two together produced a visible blank frame on every single tap.
+   *
+   * Decoding all eight poses on mount means the next pose's bitmap is already
+   * in memory when the remount happens, so the new element paints with content
+   * in the same frame React commits it.
+   */
+  useEffect(() => {
+    for (const p of POSES) {
+      const img = new Image();
+      img.src = p.src;
+      // A pose that refuses to decode simply behaves as it did before; there
+      // is nothing useful to do about it here.
+      void img.decode?.().catch(() => {});
+    }
+  }, []);
+
   // Wave hello shortly after arriving (deferred inside a timer).
   useEffect(() => {
     if (dismissed) return;
@@ -201,7 +225,10 @@ function KoalaBase({ canOfferSignup }: { canOfferSignup: boolean }) {
           width={pose.w}
           height={pose.h}
           draggable={false}
-          decoding="async"
+          /* Not "async": this element is remounted on every tap, and async
+             decoding is permission to paint it before the bitmap arrives. The
+             preload effect above means there is nothing to wait for. */
+          decoding="sync"
         />
       </button>
 
