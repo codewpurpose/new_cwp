@@ -134,12 +134,6 @@ const teamMembers: TeamMember[] = [
     bio: "Hi! I'm a student researcher interested in neuroscience, psychology, and AI. I have published a paper on Aphantasia through the Teens in Health Journal and have written two articles for Empathy in Medicine. I wish to pursue a career in computational neuroscience. When I do get free time, I enjoy reading, playing volleyball, and hanging out with family and friends.",
   },
   {
-    name: "Bhoumik Sonawane",
-    role: "Newspaper",
-    photo: images.team.bhoumik,
-    photoClass: "object-[50%_0%] scale-[2.5] translate-y-[45%]",
-  },
-  {
     name: "Hannah Mauro",
     role: "Social Media & Design",
     photo: images.team.hannah,
