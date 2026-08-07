@@ -72,9 +72,15 @@ export function LessonGate({ track, slug, prev, children }: LessonGateProps) {
   if (status === "locked" && prev) {
     return (
       <div className="mt-10 rounded-learn-xl border-[0.5px] border-learn-line bg-learn-surface p-8 text-center md:p-10">
-        <div className="text-3xl" aria-hidden="true">
-          🔒
-        </div>
+        <svg
+          viewBox="0 0 24 24"
+          className="mx-auto h-8 w-8 text-learn-subtle"
+          aria-hidden="true"
+          fill="none"
+        >
+          <rect x="4" y="10" width="16" height="10" rx="2" stroke="currentColor" strokeWidth="1.6" />
+          <path d="M8 10V7a4 4 0 0 1 8 0v3" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" />
+        </svg>
         <h2 className="mt-3 text-lg text-learn-strong md:text-xl">
           Finish the previous chapter first
         </h2>
