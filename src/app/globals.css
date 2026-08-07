@@ -943,6 +943,27 @@
 .koala-btn {
   position: relative;
   width: clamp(76px, 9vw, 116px);
+  /*
+   * A FIXED box, not one sized by whichever pose is showing.
+   *
+   * The eight poses have eight different intrinsic ratios — 440 to 560 wide
+   * against 560 tall, plus koala-sleep which is landscape. With `height: auto`
+   * on the image, the button's height therefore changed on every single tap,
+   * and because this container is bottom-anchored the whole mascot resized
+   * under the cursor mid-animation. Pinning the ratio here means a pose swap
+   * changes the picture and nothing else.
+   */
+  aspect-ratio: 500 / 560;
+  /*
+   * Both of these are load-bearing. This button is a flex item in a column,
+   * so its default `min-height: auto` lets it grow to the natural height of
+   * the image inside — which defeats the aspect-ratio above for exactly the
+   * poses that are more portrait than 500/560 (koala-read grew the box to
+   * 139px, koala-tree to 147px). Pinning min-height to 0 is what makes the
+   * ratio the final word.
+   */
+  flex: none;
+  min-height: 0;
   border: 0;
   background: transparent;
   cursor: pointer;
@@ -958,7 +979,12 @@
 }
 .koala-img {
   width: 100%;
-  height: auto;
+  height: 100%;
+  /* Every pose is letterboxed inside the fixed box above rather than resizing
+     it, and anchored to the bottom so Koda's feet stay on the same line as the
+     picture changes shape. */
+  object-fit: contain;
+  object-position: center bottom;
   display: block;
   filter: drop-shadow(0 8px 14px rgba(21, 18, 12, 0.18));
   animation: koala-pop 0.42s ease-out;
