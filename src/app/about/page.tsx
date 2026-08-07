@@ -152,7 +152,12 @@ const teamMembers: TeamMember[] = [
     role: "Instructor",
     photo: images.team.vetri,
     photoClass: "object-[48%_30%] scale-[1.75] -translate-y-[5%]",
-    bio: "Hi, I'm Vetri, a rising freshman with a strong interest in math and helping others learn.",
+    bio: "Hi, I'm Vetrivel Jagath, a rising freshman with a strong interest in math and medicine, and I'm really interested in helping kids learn.",
+  },
+  {
+    name: "Tvisha Arora",
+    role: "Instructor",
+    bio: "Hey I'm a student interested in business and psychology. I helped my school take initiative to start a DECA chapter. Additionally, I am programming a mental health app for students. I want to pursue a career in product management or UX design. Some of my hobbies are teaching, learning dance, colorguard, and writing in my free time.",
   },
 ];
 
