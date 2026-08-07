@@ -141,7 +141,7 @@ const teamMembers: TeamMember[] = [
   },
   {
     name: "Hannah Mauro",
-    role: "Social Media",
+    role: "Social Media & Design",
     photo: images.team.hannah,
     photoClass: "object-[50%_8%]",
     instagram: "https://www.instagram.com/hannah_gm.9045/",
@@ -149,7 +149,7 @@ const teamMembers: TeamMember[] = [
   },
   {
     name: "Vetrivel Jagath",
-    role: "Instructor",
+    role: "Instructor & Design",
     photo: images.team.vetri,
     photoClass: "object-[48%_30%] scale-[1.75] -translate-y-[5%]",
     bio: "Hi, I'm Vetrivel Jagath, a rising freshman with a strong interest in math and medicine, and I'm really interested in helping kids learn.",
