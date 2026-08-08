@@ -7,6 +7,7 @@ import type {
 } from "@/lib/learn-types";
 import { TRACK_ROUTES, chapterHref } from "@/lib/learn-routes";
 import { FINANCIAL_LITERACY_CHAPTERS, FINANCIAL_LITERACY_PARTS } from "@/lib/financial-literacy-lessons";
+import { GITHUB_CHAPTERS, GITHUB_PARTS } from "@/lib/github-lessons";
 import { HEALTH_IN_TECH_CHAPTERS, HEALTH_IN_TECH_PARTS } from "@/lib/health-in-tech-lessons";
 import { ML_CHAPTERS, ML_PARTS } from "@/lib/ml-lessons";
 import { PYTHON_CHAPTERS, PYTHON_PARTS } from "@/lib/python-lessons";
@@ -45,6 +46,11 @@ const TRACKS: Record<LearnTrackId, LearnTrack> = {
     parts: ROBLOX_PARTS,
     chapters: ROBLOX_CHAPTERS,
   },
+  github: {
+    ...TRACK_ROUTES.github,
+    parts: GITHUB_PARTS,
+    chapters: GITHUB_CHAPTERS,
+  },
 };
 
 /** Computed once at module scope rather than per render. */
@@ -70,6 +76,10 @@ const PUBLISHED: Record<LearnTrackId, readonly LearnChapter[]> = {
     .slice()
     .sort((a, b) => a.order - b.order),
   roblox: TRACKS.roblox.chapters
+    .filter((c) => c.status === "published")
+    .slice()
+    .sort((a, b) => a.order - b.order),
+  github: TRACKS.github.chapters
     .filter((c) => c.status === "published")
     .slice()
     .sort((a, b) => a.order - b.order),

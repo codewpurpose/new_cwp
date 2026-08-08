@@ -98,6 +98,18 @@ export const TRACKS = [
     coverConst: "COVERS",
     partKeyedCover: false,
   },
+  {
+    name: "github",
+    title: "Git and GitHub",
+    data: join(REPO_ROOT, "src", "lib", "github-lessons.ts"),
+    chaptersConst: "GITHUB_CHAPTERS",
+    route: join(REPO_ROOT, "src", "app", "learn", "github", "(chapters)", "[slug]", "page.tsx"),
+    bodiesDir: join(REPO_ROOT, "src", "components", "github"),
+    bodiesConst: "GITHUB_LESSON_BODIES",
+    coverFile: join(REPO_ROOT, "src", "components", "github", "GithubLessonCover.tsx"),
+    coverConst: "COVERS",
+    partKeyedCover: false,
+  },
 ];
 
 /** Look a track up by its `name`. Returns undefined for an unknown track. */

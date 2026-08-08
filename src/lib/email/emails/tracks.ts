@@ -2,7 +2,7 @@ import type { EmailLink } from "../layout";
 import { SITE_URL } from "@/lib/links";
 
 /**
- * The five track indexes, as email links.
+ * The seven track indexes, as email links.
  *
  * Shared by every email that offers a starting point, so the chapter counts
  * live in one place rather than drifting between messages.
@@ -13,6 +13,7 @@ import { SITE_URL } from "@/lib/links";
  */
 export const TRACK_LINKS: EmailLink[] = [
   { label: "Python", href: `${SITE_URL}/learn/python/`, note: "31 chapters — start from nothing installed" },
+  { label: "Git and GitHub", href: `${SITE_URL}/learn/github/`, note: "21 chapters — commits through open-source pull requests" },
   { label: "Roblox Studio", href: `${SITE_URL}/learn/roblox/`, note: "14 chapters — build and publish a real obby" },
   { label: "Vibe Coding", href: `${SITE_URL}/learn/vibecoding/`, note: "29 chapters — build real things with AI" },
   { label: "Machine Learning", href: `${SITE_URL}/learn/ml/`, note: "22 chapters — interactive, no maths degree needed" },

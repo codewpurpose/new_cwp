@@ -10,7 +10,7 @@
 -- `progress` rows for it in place (they are already written) but stops new
 -- ones being accepted.
 --
--- 144 published chapters across 6 tracks.
+-- 165 published chapters across 7 tracks.
 
 begin;
 
@@ -170,6 +170,27 @@ insert into public.chapters (course_id, chapter_slug) values
   ('roblox', 'the-disappearing-platform'),
   ('roblox', 'the-one-way-platform'),
   ('roblox', 'debugging-in-studio'),
-  ('roblox', 'publishing-your-experience');
+  ('roblox', 'publishing-your-experience'),
+  ('github', 'why-version-control'),
+  ('github', 'installing-git'),
+  ('github', 'repositories-and-the-three-trees'),
+  ('github', 'staging-and-committing'),
+  ('github', 'reading-history'),
+  ('github', 'undoing-things'),
+  ('github', 'ignoring-files'),
+  ('github', 'what-a-branch-is'),
+  ('github', 'merging-branches'),
+  ('github', 'merge-conflicts'),
+  ('github', 'rebase-and-history'),
+  ('github', 'remotes-and-pushing'),
+  ('github', 'authentication'),
+  ('github', 'anatomy-of-a-repository'),
+  ('github', 'issues-and-tracking'),
+  ('github', 'opening-a-pull-request'),
+  ('github', 'reviewing-a-pull-request'),
+  ('github', 'merging-a-pull-request'),
+  ('github', 'contributing-to-open-source'),
+  ('github', 'automating-with-actions'),
+  ('github', 'choosing-a-workflow');
 
 commit;

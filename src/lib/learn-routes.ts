@@ -15,6 +15,7 @@
 import type { LearnTrackId } from "@/lib/learn-types";
 import {
   LEARN_FINANCIAL_LITERACY_HREF,
+  LEARN_GITHUB_HREF,
   LEARN_HEALTH_IN_TECH_HREF,
   LEARN_ML_HREF,
   LEARN_PYTHON_HREF,
@@ -44,6 +45,7 @@ export const TRACK_ROUTES: Record<LearnTrackId, LearnTrackRoute> = {
     href: LEARN_HEALTH_IN_TECH_HREF,
   },
   roblox: { id: "roblox", title: "Roblox Studio", href: LEARN_ROBLOX_HREF },
+  github: { id: "github", title: "Git and GitHub", href: LEARN_GITHUB_HREF },
 };
 
 /**

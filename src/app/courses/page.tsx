@@ -9,8 +9,10 @@ import { images } from "@/lib/images";
 import {
   ABOUT_HREF,
   FINANCIAL_LITERACY_COURSE_HREF,
+  GITHUB_COURSE_HREF,
   HEALTH_IN_TECH_COURSE_HREF,
   LEARN_FINANCIAL_LITERACY_HREF,
+  LEARN_GITHUB_HREF,
   LEARN_HEALTH_IN_TECH_HREF,
   LEARN_ML_HREF,
   LEARN_PYTHON_HREF,
@@ -65,6 +67,15 @@ const courses: Course[] = [
       { href: PYTHON_PART_2_COURSE_HREF, label: "Enroll Part 2" },
     ],
     lessonsHref: LEARN_PYTHON_HREF,
+  },
+  {
+    title: "Learn Git and GitHub",
+    tags: ["New", "Essential"],
+    description:
+      "The tool every developer uses every day, and the platform every project lives on. Twenty-one chapters take you from your first commit through branches, merge conflicts, and rebasing, to pull requests, code review, and your first contribution to somebody else's open-source project.",
+    cover: "github",
+    enrol: [{ href: GITHUB_COURSE_HREF, label: "Enroll Free" }],
+    lessonsHref: LEARN_GITHUB_HREF,
   },
   {
     title: "Master Roblox Studio",

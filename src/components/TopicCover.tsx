@@ -10,7 +10,8 @@ export type TopicCoverVariant =
   | "congress"
   | "python"
   | "vibecoding"
-  | "roblox";
+  | "roblox"
+  | "github";
 
 const INK = "#15120c";
 const PISTACHIO = "#dbefdb";
@@ -225,6 +226,56 @@ const art: Record<TopicCoverVariant, { label: string; scene: ReactNode }> = {
         <rect x="158" y="124" width="22" height="22" rx="4" fill={PISTACHIO} stroke={INK} strokeWidth="1.4" />
         <circle cx="165" cy="134" r="1.8" fill={INK} />
         <circle cx="174" cy="134" r="1.8" fill={INK} />
+      </g>
+    ),
+  },
+  github: {
+    label: "GIT & GITHUB",
+    scene: (
+      <g>
+        {/* main, running left to right along the bottom. */}
+        <path d="M136 176h180" stroke={INK} strokeWidth="1.6" />
+        {[136, 196, 256, 316].map((x) => (
+          <circle key={x} cx={x} cy="176" r="11" fill={PISTACHIO} stroke={INK} strokeWidth="1.6" />
+        ))}
+
+        {/* A branch leaving at the second commit and merging back at the last. */}
+        <path
+          d="M196 165c14-8 16-40 34-46"
+          fill="none"
+          stroke={GREY}
+          strokeWidth="1.6"
+        />
+        <path
+          d="M290 113c18 6 12 46 26 54"
+          fill="none"
+          stroke={GREY}
+          strokeWidth="1.6"
+        />
+        <path d="M247 113h36" stroke={GREY} strokeWidth="1.6" />
+        <circle cx="240" cy="113" r="11" fill="#ffffff" stroke={INK} strokeWidth="1.6" />
+        <circle cx="290" cy="113" r="11" fill="#ffffff" stroke={INK} strokeWidth="1.6" />
+
+        {/* The merge commit: heavier ring, because two lines arrive at it. */}
+        <circle cx="316" cy="176" r="14" fill={FERN} stroke={INK} strokeWidth="2" />
+
+        {/* A pull-request label pinned to the branch. */}
+        <rect x="196" y="62" width="98" height="26" rx="13" fill={PISTACHIO} stroke={INK} strokeWidth="1.4" />
+        <text x="245" y="80" textAnchor="middle" fontSize="14" fill={INK} className="home-mono">
+          #483
+        </text>
+        <path d="M245 88v14" stroke={GREY} strokeWidth="1.2" strokeDasharray="3 4" />
+
+        {/* A green tick — the check that gates the merge. */}
+        <circle cx="344" cy="126" r="15" fill="#ffffff" stroke={FERN} strokeWidth="1.8" />
+        <path
+          d="M337 126l5 5 9-11"
+          fill="none"
+          stroke={FERN}
+          strokeWidth="2.2"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        />
       </g>
     ),
   },
