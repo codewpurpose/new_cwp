@@ -7,7 +7,8 @@ export type LearnTrackId =
   | "financial-literacy"
   | "health-in-tech"
   | "roblox"
-  | "github";
+  | "github"
+  | "html-css";
 
 export type LearnLevel = "beginner" | "intermediate" | "advanced";
 

@@ -15,6 +15,7 @@ export const LEARN_HEALTH_IN_TECH_HREF = "/learn/health-in-tech";
 export const LEARN_ROBLOX_HREF = "/learn/roblox";
 /** The track. `GITHUB_HREF` further down is this repository — not the same thing. */
 export const LEARN_GITHUB_HREF = "/learn/github";
+export const LEARN_HTML_CSS_HREF = "/learn/html-css";
 export const TOOLKIT_HREF = "/toolkit";
 export const DASHBOARD_HREF = "/dashboard";
 export const LOGIN_HREF = "/login";
@@ -53,6 +54,8 @@ export const ROBLOX_COURSE_HREF =
   "https://www.udemy.com/course/master-roblox-studio/";
 export const GITHUB_COURSE_HREF =
   "https://www.udemy.com/course/learn-github-in-30-minutes/";
+export const HTML_CSS_COURSE_HREF =
+  "https://www.udemy.com/course/master-html-and-css-in-30-minutes/";
 /**
  * Newsletter sign-up endpoint. The trailing slash is load-bearing: with
  * `trailingSlash: true`, posting to the unslashed path earns a 308 redirect

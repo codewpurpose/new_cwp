@@ -110,6 +110,18 @@ export const TRACKS = [
     coverConst: "COVERS",
     partKeyedCover: false,
   },
+  {
+    name: "html-css",
+    title: "HTML and CSS",
+    data: join(REPO_ROOT, "src", "lib", "html-css-lessons.ts"),
+    chaptersConst: "HTML_CSS_CHAPTERS",
+    route: join(REPO_ROOT, "src", "app", "learn", "html-css", "(chapters)", "[slug]", "page.tsx"),
+    bodiesDir: join(REPO_ROOT, "src", "components", "html-css"),
+    bodiesConst: "HTML_CSS_LESSON_BODIES",
+    coverFile: join(REPO_ROOT, "src", "components", "html-css", "HtmlCssLessonCover.tsx"),
+    coverConst: "COVERS",
+    partKeyedCover: false,
+  },
 ];
 
 /** Look a track up by its `name`. Returns undefined for an unknown track. */

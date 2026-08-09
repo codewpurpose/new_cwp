@@ -9,6 +9,7 @@ import { TRACK_ROUTES, chapterHref } from "@/lib/learn-routes";
 import { FINANCIAL_LITERACY_CHAPTERS, FINANCIAL_LITERACY_PARTS } from "@/lib/financial-literacy-lessons";
 import { GITHUB_CHAPTERS, GITHUB_PARTS } from "@/lib/github-lessons";
 import { HEALTH_IN_TECH_CHAPTERS, HEALTH_IN_TECH_PARTS } from "@/lib/health-in-tech-lessons";
+import { HTML_CSS_CHAPTERS, HTML_CSS_PARTS } from "@/lib/html-css-lessons";
 import { ML_CHAPTERS, ML_PARTS } from "@/lib/ml-lessons";
 import { PYTHON_CHAPTERS, PYTHON_PARTS } from "@/lib/python-lessons";
 import { ROBLOX_CHAPTERS, ROBLOX_PARTS } from "@/lib/roblox-lessons";
@@ -51,6 +52,11 @@ const TRACKS: Record<LearnTrackId, LearnTrack> = {
     parts: GITHUB_PARTS,
     chapters: GITHUB_CHAPTERS,
   },
+  "html-css": {
+    ...TRACK_ROUTES["html-css"],
+    parts: HTML_CSS_PARTS,
+    chapters: HTML_CSS_CHAPTERS,
+  },
 };
 
 /** Computed once at module scope rather than per render. */
@@ -80,6 +86,10 @@ const PUBLISHED: Record<LearnTrackId, readonly LearnChapter[]> = {
     .slice()
     .sort((a, b) => a.order - b.order),
   github: TRACKS.github.chapters
+    .filter((c) => c.status === "published")
+    .slice()
+    .sort((a, b) => a.order - b.order),
+  "html-css": TRACKS["html-css"].chapters
     .filter((c) => c.status === "published")
     .slice()
     .sort((a, b) => a.order - b.order),

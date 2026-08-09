@@ -1533,3 +1533,39 @@ html.cwp-loader-active {
     padding: 8px 16px;
   }
 }
+
+/* ---------------------------------------------------------------------------
+ * .layer-raw — a subtree rendered with the BROWSER's stylesheet, not ours.
+ *
+ * Exists for one component: LayerToggle in the HTML and CSS track, whose whole
+ * point is showing what a page looks like with no author CSS at all. Tailwind's
+ * preflight has already stripped the heading sizes, list bullets, and paragraph
+ * margins that ARE the demonstration, so simply "not adding classes" renders an
+ * unstyled-looking page that is nothing of the sort.
+ *
+ * `all: revert` rolls each property back to the previous cascade origin — the
+ * user-agent stylesheet — for this element and, via the descendant selector,
+ * everything inside it. `revert` rather than `initial`: initial gives CSS's own
+ * defaults (display: inline on everything, no margins anywhere), which is not
+ * what any browser has ever shown a reader.
+ *
+ * Scoped as tightly as possible. Do not reuse this to "reset" anything — it
+ * discards the design system wholesale, which is only correct when discarding
+ * the design system is the lesson.
+ * ------------------------------------------------------------------------- */
+.layer-raw,
+.layer-raw * {
+  all: revert;
+}
+
+/* `revert` is not enough for font-family, and the reason is worth writing down.
+ * For an INHERITED property, reverting to the user-agent origin finds no UA rule
+ * on a div — so the value falls through to the inherited one, which is the app's
+ * font. The panel then showed browser-default margins and bullets in our own
+ * typeface, which is a subtly dishonest demonstration.
+ *
+ * `initial` on font-family resolves to the browser's own default font, which is
+ * what an unstyled page actually renders in. */
+.layer-raw {
+  font-family: initial;
+}

@@ -10,7 +10,7 @@
 -- `progress` rows for it in place (they are already written) but stops new
 -- ones being accepted.
 --
--- 165 published chapters across 7 tracks.
+-- 189 published chapters across 8 tracks.
 
 begin;
 
@@ -191,6 +191,30 @@ insert into public.chapters (course_id, chapter_slug) values
   ('github', 'merging-a-pull-request'),
   ('github', 'contributing-to-open-source'),
   ('github', 'automating-with-actions'),
-  ('github', 'choosing-a-workflow');
+  ('github', 'choosing-a-workflow'),
+  ('html-css', 'what-is-a-website'),
+  ('html-css', 'how-a-browser-builds-a-page'),
+  ('html-css', 'your-first-page'),
+  ('html-css', 'elements-and-tags'),
+  ('html-css', 'document-structure'),
+  ('html-css', 'text-and-headings'),
+  ('html-css', 'links-and-images'),
+  ('html-css', 'lists-and-tables'),
+  ('html-css', 'forms-and-inputs'),
+  ('html-css', 'semantic-html'),
+  ('html-css', 'how-css-attaches'),
+  ('html-css', 'selectors'),
+  ('html-css', 'the-cascade-and-specificity'),
+  ('html-css', 'the-box-model'),
+  ('html-css', 'colour-and-typography'),
+  ('html-css', 'display-and-flow'),
+  ('html-css', 'flexbox'),
+  ('html-css', 'grid'),
+  ('html-css', 'responsive-design'),
+  ('html-css', 'marking-up-the-page'),
+  ('html-css', 'styling-the-page'),
+  ('html-css', 'accessibility-basics'),
+  ('html-css', 'devtools'),
+  ('html-css', 'publishing-your-site');
 
 commit;

@@ -20,6 +20,7 @@ const TRACKS: LearnTrackId[] = [
   "python",
   "roblox",
   "github",
+  "html-css",
   "financial-literacy",
   "health-in-tech",
   "ml",

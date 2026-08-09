@@ -11,7 +11,8 @@ export type TopicCoverVariant =
   | "python"
   | "vibecoding"
   | "roblox"
-  | "github";
+  | "github"
+  | "htmlcss";
 
 const INK = "#15120c";
 const PISTACHIO = "#dbefdb";
@@ -226,6 +227,53 @@ const art: Record<TopicCoverVariant, { label: string; scene: ReactNode }> = {
         <rect x="158" y="124" width="22" height="22" rx="4" fill={PISTACHIO} stroke={INK} strokeWidth="1.4" />
         <circle cx="165" cy="134" r="1.8" fill={INK} />
         <circle cx="174" cy="134" r="1.8" fill={INK} />
+      </g>
+    ),
+  },
+  htmlcss: {
+    label: "HTML & CSS",
+    scene: (
+      <g>
+        {/* The markup, on the left — angle brackets around a nested tag. */}
+        <path
+          d="M186 78l-30 34 30 34"
+          fill="none"
+          stroke={INK}
+          strokeWidth="3.4"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        />
+        <path d="M214 70l-14 84" stroke={GREY} strokeWidth="2.6" strokeLinecap="round" />
+        <path
+          d="M228 78l30 34-30 34"
+          fill="none"
+          stroke={INK}
+          strokeWidth="3.4"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        />
+
+        {/* A brace pair between them — CSS, applying to it. */}
+        <path
+          d="M262 96c8 0 4 12 12 16-8 4-4 16-12 16"
+          fill="none"
+          stroke={FERN}
+          strokeWidth="2"
+          strokeLinecap="round"
+        />
+
+        {/* The rendered result — a small page taking shape. */}
+        <rect x="286" y="62" width="102" height="100" rx="8" fill="#ffffff" stroke={INK} strokeWidth="1.4" />
+        <path d="M286 82h102" stroke={GREY} strokeWidth="1" />
+        <circle cx="298" cy="72" r="3" fill="#ffffff" stroke={INK} strokeWidth="1" />
+        <circle cx="308" cy="72" r="3" fill="#ffffff" stroke={INK} strokeWidth="1" />
+        <circle cx="318" cy="72" r="3" fill={PISTACHIO} stroke={INK} strokeWidth="1" />
+
+        {/* A heading, a line of body copy, and a two-column grid below it. */}
+        <path d="M300 100h42" stroke={INK} strokeWidth="5" strokeLinecap="round" />
+        <path d="M300 114h72" stroke={GREY} strokeWidth="2.4" strokeLinecap="round" />
+        <rect x="300" y="126" width="34" height="26" rx="4" fill={PISTACHIO} stroke={INK} strokeWidth="1.2" />
+        <rect x="340" y="126" width="34" height="26" rx="4" fill={PISTACHIO} stroke={INK} strokeWidth="1.2" />
       </g>
     ),
   },

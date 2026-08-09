@@ -11,9 +11,11 @@ import {
   FINANCIAL_LITERACY_COURSE_HREF,
   GITHUB_COURSE_HREF,
   HEALTH_IN_TECH_COURSE_HREF,
+  HTML_CSS_COURSE_HREF,
   LEARN_FINANCIAL_LITERACY_HREF,
   LEARN_GITHUB_HREF,
   LEARN_HEALTH_IN_TECH_HREF,
+  LEARN_HTML_CSS_HREF,
   LEARN_ML_HREF,
   LEARN_PYTHON_HREF,
   LEARN_ROBLOX_HREF,
@@ -67,6 +69,15 @@ const courses: Course[] = [
       { href: PYTHON_PART_2_COURSE_HREF, label: "Enroll Part 2" },
     ],
     lessonsHref: LEARN_PYTHON_HREF,
+  },
+  {
+    title: "Master HTML and CSS",
+    tags: ["New", "Start Here"],
+    description:
+      "The two languages every website is made of, and the fastest thing in programming to see working — save a file, refresh, it changed. Twenty-four chapters take you from your first line of markup through semantic HTML, the cascade, the box model, flexbox and grid, to a real page you build by hand and publish. No framework, no build step.",
+    cover: "htmlcss",
+    enrol: [{ href: HTML_CSS_COURSE_HREF, label: "Enroll Free" }],
+    lessonsHref: LEARN_HTML_CSS_HREF,
   },
   {
     title: "Learn Git and GitHub",
