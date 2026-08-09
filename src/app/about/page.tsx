@@ -155,6 +155,20 @@ const teamMembers: TeamMember[] = [
     photoClass: "object-[50%_30%] scale-[4.2] translate-y-[30%]",
     bio: "Hey I'm a student interested in business and psychology. I helped my school take initiative to start a DECA chapter. Additionally, I am programming a mental health app for students. I want to pursue a career in product management or UX design. Some of my hobbies are teaching, learning dance, colorguard, and writing in my free time.",
   },
+  {
+    name: "Vihaana Malhotra",
+    role: "Instructor",
+    photo: images.team.vihaana,
+    photoClass: "object-[45%_35%] scale-[1.5] translate-x-[4%]",
+    bio: "Hi! I'm Vihaana, I am interested in child psychology and neuroscience. I'm a Life Scout and former Senior Patrol Leader in Scouting America, where I focus on leadership and helping newer scouts get involved. I've served as a summer camp counselor and volunteered with Scouts, Kids Against Hunger, and elementary schools. When I'm not volunteering or in scouts, I enjoy volleyball, violin, art, and spending time with family and friends.",
+  },
+  {
+    name: "Mithra Diyaa Gobinath",
+    role: "Instructor",
+    photo: images.team.mithra,
+    photoClass: "object-[48%_42%] scale-[1.05] translate-y-[14%]",
+    bio: "Hi! I'm Mithra, and I'm interested in robotics, AI, technology, and entrepreneurship. I love building things, trying new ideas, and learning new skills. At Code With Purpose, I'm excited to meet new people, share ideas, and learn from everyone. Outside of that, I enjoy baking, playing volleyball, and spending time with my friends and family.",
+  },
 ];
 
 export default function AboutPage() {

@@ -25,6 +25,8 @@ export const images = {
     hannah: "/team-hannah.jpeg",
     vetri: "/team-vetri.png",
     tvisha: "/team-tvisha.png",
+    vihaana: "/team-vihaana.png",
+    mithra: "/team-mithra.jpeg",
   },
   gallery: [
     { src: "/opt/IMG_2625.jpg", alt: "In the classroom" },
