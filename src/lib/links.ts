@@ -71,7 +71,23 @@ export const CONTACT_EMAIL_HREF = `mailto:${CONTACT_EMAIL}`;
 export const DISCORD_HREF = "https://discord.gg/W948bWbCAK";
 export const INSTAGRAM_HREF = "https://www.instagram.com/codewpurpose/";
 export const X_HREF = "https://x.com/codewpurpose";
-export const VOLUNTEER_FORM_HREF = "https://forms.gle/qiSULkmBB7vWk9YDA";
+/**
+ * The sign-up form on /join — "CodeWithPurpose Further Enrichment".
+ *
+ * Two constants for one form, and the difference is one query parameter.
+ * `embedded=true` is what strips Google's own page chrome so the form sits in
+ * our card rather than arriving with its own header and background. The plain
+ * URL is the fallback for anyone whose browser blocks third-party frames, which
+ * is a real setting and not a rare one.
+ *
+ * Do NOT paste the URL straight out of the Forms editor: it carries
+ * `?usp=publish-editor`, an editor-session parameter that has no business on a
+ * public page.
+ */
+const VOLUNTEER_FORM_ID =
+  "1FAIpQLScpSxKPFuGpFRtJeOa4rmXm2U1ZdhipSiSj4yd6J0EyB-vDqA";
+export const VOLUNTEER_FORM_HREF = `https://docs.google.com/forms/d/e/${VOLUNTEER_FORM_ID}/viewform`;
+export const VOLUNTEER_FORM_EMBED_SRC = `${VOLUNTEER_FORM_HREF}?embedded=true`;
 export const HACK_CLUB_HREF = "https://hackclub.com";
 
 /** The lessons under /learn are open source. These point contributors at them. */

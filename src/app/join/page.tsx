@@ -8,6 +8,7 @@ import {
   CONTACT_EMAIL,
   CONTACT_EMAIL_HREF,
   COURSES_HREF,
+  VOLUNTEER_FORM_EMBED_SRC,
   VOLUNTEER_FORM_HREF,
 } from "@/lib/links";
 
@@ -46,13 +47,10 @@ export default function JoinPage() {
         image={images.danvilleSanRamon}
         imageAlt="CodeWithPurpose volunteers at a community event"
       >
-        <a
-          href={VOLUNTEER_FORM_HREF}
-          target="_blank"
-          rel="noreferrer"
-          className="home-btn home-btn-fill"
-        >
-          Apply to Volunteer
+        {/* The form is on this page now, so this scrolls to it rather than
+            opening a tab. An in-page jump keeps the back button meaningful. */}
+        <a href="#apply" className="home-btn home-btn-fill">
+          Sign Up
         </a>
         <Link href={COURSES_HREF} className="home-btn home-btn-outline">
           See Our Courses
@@ -74,29 +72,77 @@ export default function JoinPage() {
         </div>
       </PageSection>
 
-      <PageSection className="border-t-[0.5px] border-[var(--home-hairline)] bg-[#1e3c2c] text-[#dbefdb]">
+      {/*
+        The sign-up itself. Copy rewritten alongside the form swap: the previous
+        version promised "we read every application and we'll get back to you
+        within a few days", which described a volunteer application. This form
+        collects a name, an email, and permission to contact you — so it says
+        that instead. Copy that oversells the form underneath it is worse than
+        no copy at all.
+
+        scroll-mt-24 keeps the heading clear of the sticky header when the hero
+        button jumps here.
+      */}
+      <PageSection
+        id="apply"
+        className="scroll-mt-24 border-t-[0.5px] border-[var(--home-hairline)] bg-[#1e3c2c] text-[#dbefdb]"
+      >
         <div className="mx-auto max-w-3xl text-center">
           <h2 className="home-serif text-[1.75rem] text-[#f9f9f9] md:text-[2.25rem]">
-            Ready to volunteer?
+            Ready to get involved?
           </h2>
           <p className="mt-4 text-[#dbefdb]/90">
-            Fill out our volunteer form and tell us how you&apos;d like to
-            help. We read every application and we&apos;ll get back to you
-            within a few days. Prefer email? Write to us at{" "}
+            Leave your name and email and we&apos;ll let you know about
+            workshops, webinars, and ways to help as they come up. It takes
+            about thirty seconds. Prefer email? Write to us at{" "}
             <a href={CONTACT_EMAIL_HREF} className="underline">
               {CONTACT_EMAIL}
             </a>
             .
           </p>
+        </div>
+
+        {/* A white card around the frame, matching the donate page. The form
+            arrives on its own white background, so anything else leaves it
+            sitting in a hard-edged rectangle on the moss. */}
+        <div className="home-card mx-auto mt-8 max-w-2xl rounded-[20px] p-2 md:p-4">
+          {/*
+            The height is MEASURED, not guessed. A cross-origin frame cannot
+            report its content height to us and cannot resize itself, so if this
+            is short the form gets its own scrollbar inside a page that already
+            scrolls — which on a phone is genuinely hard to get past.
+
+            Measured content: 1180px at desktop width, 1418px at 390px, where
+            the fields wrap. The values below add headroom for the validation
+            messages that appear when a required field is missed. Re-measure if
+            the form gains a question.
+          */}
+          <iframe
+            src={VOLUNTEER_FORM_EMBED_SRC}
+            title="CodeWithPurpose sign-up form"
+            loading="lazy"
+            className="h-[1500px] w-full rounded-xl border-none md:h-[1260px]"
+          >
+            Loading the form…
+          </iframe>
+        </div>
+
+        {/* Third-party frames are blocked by more browser settings and
+            extensions than people expect, and a blocked iframe fails silently
+            — an empty box with nothing to click. This link is the way out of
+            that, and it costs one line. */}
+        <p className="mt-4 text-center text-[14px] text-[#dbefdb]/80">
+          Form not loading?{" "}
           <a
             href={VOLUNTEER_FORM_HREF}
             target="_blank"
             rel="noreferrer"
-            className="home-btn home-btn-fill mt-8 !border-[#dbefdb] !bg-[#dbefdb] !text-[#1e3c2c]"
+            className="underline"
           >
-            Apply to Volunteer
+            Open it in a new tab
           </a>
-        </div>
+          .
+        </p>
       </PageSection>
     </PageShell>
   );
