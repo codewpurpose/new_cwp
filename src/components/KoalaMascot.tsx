@@ -19,6 +19,14 @@ import { NewsletterPopup } from "@/components/newsletter/NewsletterPopup";
  * on the page to be asked by, and it costs us no extra chrome. Ask once: close
  * it, or subscribe, and every tap after that is the pose carousel again. People
  * who are already signed in never see it at all.
+ *
+ * Once asked, the card stays REACHABLE rather than gone. Closing it used to be
+ * a dead end for the rest of the page view — the only way back was a reload —
+ * so anyone who dismissed it and then changed their mind had nowhere to go.
+ * The speech bubble now carries a small "get them by email" action whenever the
+ * ask has been settled without a sign-up, which keeps the popup one tap away
+ * without going back to hijacking every tap. It is deliberately not shown to
+ * people who already subscribed: they answered, and asking again is nagging.
  */
 
 interface Pose {
@@ -56,6 +64,16 @@ const THANKS_POSE = Math.max(
 );
 const THANKS_LINE = "Thanks! Keep an eye on your inbox 💚";
 
+/** Small envelope for the bubble's re-open action. */
+function MailIcon() {
+  return (
+    <svg viewBox="0 0 16 16" className="koala-bubble-action-icon" aria-hidden="true" fill="none">
+      <rect x="1.5" y="3.5" width="13" height="9" rx="1.5" stroke="currentColor" strokeWidth="1.4" />
+      <path d="M2 4.5 L8 8.75 L14 4.5" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round" />
+    </svg>
+  );
+}
+
 /**
  * Clerk's hooks need a ClerkProvider above them, and the provider only mounts
  * when keys exist (see the root layout). Splitting on the build-time flag keeps
@@ -81,6 +99,14 @@ function KoalaBase({ canOfferSignup }: { canOfferSignup: boolean }) {
   const [dismissed, setDismissed] = useState(true); // default hidden until we check storage (avoids a flash)
   const [signupOpen, setSignupOpen] = useState(false);
   const [signupSettled, setSignupSettled] = useState(true); // as above: assume asked until storage says otherwise
+  /**
+   * Tracked separately from `signupSettled`, which conflates two different
+   * things: "already gave us their address" and "has been asked once on this
+   * page". The re-open action needs to tell them apart — somebody who
+   * subscribed must never be asked again, and somebody who closed the card
+   * should be able to change their mind.
+   */
+  const [subscribed, setSubscribed] = useState(true);
 
   // Only show once we've confirmed the visitor hasn't sent Koda away this
   // session. Storage can't be read during SSR, so this reads it on mount
@@ -88,7 +114,10 @@ function KoalaBase({ canOfferSignup }: { canOfferSignup: boolean }) {
   useEffect(() => {
     /* eslint-disable react-hooks/set-state-in-effect */
     if (sessionStorage.getItem(STORAGE_KEY) !== "1") setDismissed(false);
-    if (localStorage.getItem(SUBSCRIBED_KEY) !== "1") setSignupSettled(false);
+    if (localStorage.getItem(SUBSCRIBED_KEY) !== "1") {
+      setSignupSettled(false);
+      setSubscribed(false);
+    }
     /* eslint-enable react-hooks/set-state-in-effect */
   }, []);
 
@@ -149,6 +178,7 @@ function KoalaBase({ canOfferSignup }: { canOfferSignup: boolean }) {
       /* private mode — fine, it just won't persist */
     }
     setSignupSettled(true);
+    setSubscribed(true); // stops the bubble ever offering it again
 
     clearHandOff();
     handOffTimer.current = setTimeout(() => {
@@ -168,6 +198,17 @@ function KoalaBase({ canOfferSignup }: { canOfferSignup: boolean }) {
 
   const pose = POSES[index];
   const shouldAskForEmail = canOfferSignup && !signupSettled;
+  /**
+   * The way back in. Offered only once the first ask is behind us — before
+   * that the tap itself opens the card, so showing both would be two routes to
+   * the same place — and never to somebody who has already subscribed.
+   */
+  const canReopenSignup = canOfferSignup && signupSettled && !subscribed;
+
+  const reopenSignup = () => {
+    setSignupOpen(true);
+    setBubble(false);
+  };
 
   const onTap = () => {
     if (shouldAskForEmail) {
@@ -199,9 +240,21 @@ function KoalaBase({ canOfferSignup }: { canOfferSignup: boolean }) {
       )}
 
       {bubble && !signupOpen && (
-        <div className="koala-bubble" role="status" aria-live="polite">
-          <span className="koala-bubble-name">Koda</span>
-          {special ?? pose.line}
+        <div className="koala-bubble">
+          {/* The live region wraps the LINE only. With the button inside it,
+              every pose change re-announced the action alongside the new line,
+              which is noise on a control that has not changed. */}
+          <p className="koala-bubble-text" role="status" aria-live="polite">
+            <span className="koala-bubble-name">Koda</span>
+            {special ?? pose.line}
+          </p>
+
+          {canReopenSignup && (
+            <button type="button" className="koala-bubble-action" onClick={reopenSignup}>
+              <MailIcon />
+              Get the lessons by email
+            </button>
+          )}
         </div>
       )}
 

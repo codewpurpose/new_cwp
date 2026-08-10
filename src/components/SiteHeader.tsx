@@ -47,7 +47,13 @@ const GLASS_STYLE = {
 
 function LogoLink() {
   return (
-    <a href={HOME_HREF} className="flex items-center" aria-label="CodeWithPurpose home">
+    <a
+      href={HOME_HREF}
+      /* home-hit-expand: the wordmark's box is 23px tall, a hair under the 24px
+         minimum. Expanded rather than padded so the header height is unchanged. */
+      className="home-hit-expand flex items-center"
+      aria-label="CodeWithPurpose home"
+    >
       <CwpLogo className="cwp-logo-header" />
     </a>
   );

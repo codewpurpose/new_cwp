@@ -366,6 +366,9 @@
   white-space: nowrap;
 }
 .proof-point-join {
+  /* relative + ::after is the tap-target expansion; the bar has a fixed height,
+     so padding here would grow the bar rather than the target. */
+  position: relative;
   display: inline-flex;
   align-items: center;
   gap: .3rem;
@@ -373,6 +376,11 @@
   border-bottom: 1px solid rgba(219, 239, 219, .35);
   padding-bottom: .05rem;
   transition: border-color .2s;
+}
+.proof-point-join::after {
+  content: "";
+  position: absolute;
+  inset: -0.45rem -0.3rem;
 }
 .proof-point-join:hover { border-bottom-color: #dbefdb; }
 .proof-point-strip a:focus-visible {
@@ -629,6 +637,25 @@
 }
 .home-nav-pill > * {
   transition: opacity 0.2s;
+}
+/*
+ * Grows a small control's TAP TARGET without touching layout.
+ *
+ * Same mechanism as .home-footer-link's hover wash below: an absolutely
+ * positioned child inside the control, which takes hits on its behalf. Because
+ * it is out of flow, nothing around it moves — which is what makes this safe
+ * inside a fixed-height bar where vertical padding would push the bar taller.
+ *
+ * For anything whose text box is under the 24px minimum and which is NOT a link
+ * inside a sentence (those are exempt, and padding them would look wrong).
+ */
+.home-hit-expand {
+  position: relative;
+}
+.home-hit-expand::after {
+  content: "";
+  position: absolute;
+  inset: -0.4rem -0.3rem;
 }
 .home-footer-link {
   position: relative;
@@ -1002,6 +1029,9 @@
   color: var(--home-ink);
   animation: koala-bubble-in 0.28s ease-out;
 }
+.koala-bubble-text {
+  margin: 0;
+}
 .koala-bubble-name {
   display: block;
   font-size: 0.66rem;
@@ -1011,12 +1041,48 @@
   color: var(--home-fern);
   margin-bottom: 0.15rem;
 }
+/* The way back to the newsletter card once it has been closed once. Sits under
+   the line rather than replacing it, so the bubble still says its piece. */
+.koala-bubble-action {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  margin-top: 0.5rem;
+  padding: 0.3rem 0.6rem;
+  border: 0.5px solid var(--home-hairline-strong);
+  border-radius: 999px;
+  /* Moss on pistachio, measured at 10:1. Fern on the warm greys came out at
+     3.77:1, which fails AA for text this size — and this label is 0.72rem. */
+  background: var(--home-pistachio);
+  color: var(--home-moss);
+  font-size: 0.72rem;
+  font-weight: 600;
+  line-height: 1.2;
+  cursor: pointer;
+  /* 32px keeps it a comfortable target on a phone without making the bubble
+     taller than the mascot it belongs to. */
+  min-height: 32px;
+  transition: background 0.16s ease, border-color 0.16s ease;
+}
+.koala-bubble-action:hover {
+  background: #cbe6cb;
+  border-color: var(--home-fern);
+}
+.koala-bubble-action-icon {
+  width: 13px;
+  height: 13px;
+  flex: none;
+}
 .koala-dismiss {
   position: absolute;
-  top: -6px;
-  right: -6px;
-  width: 22px;
-  height: 22px;
+  top: -8px;
+  right: -8px;
+  /* 28px, not 22px. This is a real control on a phone and 22 is below the 24px
+     minimum target size — and it is round, so the corners are not usable
+     either. Grown outwards via the offsets above so it does not eat more of
+     the koala's own tap area. */
+  width: 28px;
+  height: 28px;
   border-radius: 999px;
   border: 0.5px solid var(--home-hairline-strong);
   background: #fff;
@@ -1033,6 +1099,21 @@
 .koala-dismiss:hover,
 .koala-dismiss:focus-visible {
   opacity: 1;
+}
+/*
+ * On a touch device there is no hover, so the rule above never fires and this
+ * button was invisible on every phone — while still being present and still
+ * taking taps. That is the worst of both: nobody could deliberately send Koda
+ * away, and anyone reaching for the koala's top corner dismissed it by accident
+ * with nothing on screen to explain what they had hit.
+ *
+ * `hover: none` is the primary pointer being coarse — phones and tablets, not a
+ * narrow desktop window, so this does not fire on a resized browser.
+ */
+@media (hover: none) {
+  .koala-dismiss {
+    opacity: 1;
+  }
 }
 .koala-dismiss:hover {
   color: var(--home-ink);
