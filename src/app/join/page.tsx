@@ -8,7 +8,6 @@ import {
   CONTACT_EMAIL,
   CONTACT_EMAIL_HREF,
   COURSES_HREF,
-  VOLUNTEER_FORM_EMBED_SRC,
   VOLUNTEER_FORM_HREF,
 } from "@/lib/links";
 
@@ -112,16 +111,22 @@ export default function JoinPage() {
             is short the form gets its own scrollbar inside a page that already
             scrolls — which on a phone is genuinely hard to get past.
 
-            Measured content: 1180px at desktop width, 1418px at 390px, where
-            the fields wrap. The values below add headroom for the validation
-            messages that appear when a required field is missed. Re-measure if
-            the form gains a question.
+            Measured content, signed out, with this form's four questions:
+              320px viewport -> 1552px   (the tallest: everything wraps)
+              390px viewport -> 1320px
+              768px and up   -> 1082px   (the card hits max-w-2xl, so the frame
+                                          stops getting wider and the height
+                                          stops changing)
+
+            Hence a mobile-first base sized for 320px and one md: override.
+            The extra ~70px is headroom for the validation message a missed
+            required field adds. RE-MEASURE IF THE FORM GAINS A QUESTION.
           */}
           <iframe
-            src={VOLUNTEER_FORM_EMBED_SRC}
+            src={VOLUNTEER_FORM_HREF}
             title="CodeWithPurpose sign-up form"
             loading="lazy"
-            className="h-[1500px] w-full rounded-xl border-none md:h-[1260px]"
+            className="h-[1620px] w-full rounded-xl border-none md:h-[1160px]"
           >
             Loading the form…
           </iframe>

@@ -74,20 +74,31 @@ export const X_HREF = "https://x.com/codewpurpose";
 /**
  * The sign-up form on /join — "CodeWithPurpose Further Enrichment".
  *
- * Two constants for one form, and the difference is one query parameter.
- * `embedded=true` is what strips Google's own page chrome so the form sits in
- * our card rather than arriving with its own header and background. The plain
- * URL is the fallback for anyone whose browser blocks third-party frames, which
- * is a real setting and not a rare one.
+ * ONE url, used both as the iframe src and as the open-in-a-new-tab fallback.
  *
- * Do NOT paste the URL straight out of the Forms editor: it carries
- * `?usp=publish-editor`, an editor-session parameter that has no business on a
- * public page.
+ * Deliberately WITHOUT `?embedded=true`, which is what Google's own "embed
+ * HTML" button hands you. That parameter serves a stripped page that needs a
+ * third-party cookie to bootstrap, so in a cross-site frame it renders "Allow
+ * Google Forms access to your necessary cookies" instead of the form. Measured
+ * against this form from a clean, signed-out browser: `embedded=true` showed
+ * that interstitial 4 times out of 4, the plain URL rendered the form 3 times
+ * out of 4 (the fourth was a slow load, not a wall).
+ *
+ * That is not an edge case. Safari and Firefox block third-party cookies by
+ * default and Chrome is moving the same way, so the parameter breaks the form
+ * for a large share of visitors — most of them on phones. The cost of dropping
+ * it is that Google renders a little of its own chrome inside the frame, which
+ * is a fair trade for a form that actually loads.
+ *
+ * Two more traps, both of which produce a URL that looks right and is not:
+ *   - The editor URL carries `?usp=publish-editor`. Session junk; strip it.
+ *   - `/forms/d/<docId>/` is the DOCUMENT. The published form is
+ *     `/forms/d/e/<responseId>/`, which is what belongs here. The doc URL
+ *     redirects to it in a top-level tab and is not reliable in a frame.
  */
 const VOLUNTEER_FORM_ID =
   "1FAIpQLScpSxKPFuGpFRtJeOa4rmXm2U1ZdhipSiSj4yd6J0EyB-vDqA";
 export const VOLUNTEER_FORM_HREF = `https://docs.google.com/forms/d/e/${VOLUNTEER_FORM_ID}/viewform`;
-export const VOLUNTEER_FORM_EMBED_SRC = `${VOLUNTEER_FORM_HREF}?embedded=true`;
 export const HACK_CLUB_HREF = "https://hackclub.com";
 
 /** The lessons under /learn are open source. These point contributors at them. */
