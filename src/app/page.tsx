@@ -3,7 +3,6 @@ import { SiteHeader } from "@/components/SiteHeader";
 import { HeroSection } from "@/components/HeroSection";
 import { PromptsMarquee } from "@/components/PromptsMarquee";
 import { ProductSection } from "@/components/ProductSection";
-import { TrustedBySection } from "@/components/TrustedBySection";
 import { UseCasesSection } from "@/components/UseCasesSection";
 import { GlobalReachSection } from "@/components/GlobalReachSection";
 import { SecuritySection } from "@/components/SecuritySection";
@@ -28,7 +27,6 @@ export default function Home() {
           cases above it, and security follows on from that pair. */}
       <main id="top" className="home-flow">
         <HeroSection />
-        <TrustedBySection />
         <ProductSection />
         <div className="home-flow-attach">
           <PromptsMarquee />
