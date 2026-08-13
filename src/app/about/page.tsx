@@ -170,7 +170,7 @@ const teamMembers: TeamMember[] = [
     bio: "Hi! I'm Mithra, and I'm interested in robotics, AI, technology, and entrepreneurship. I love building things, trying new ideas, and learning new skills. At Code With Purpose, I'm excited to meet new people, share ideas, and learn from everyone. Outside of that, I enjoy baking, playing volleyball, and spending time with my friends and family.",
   },
   {
-    name: "Nehha",
+    name: "Nehha Ramesh",
     role: "Instructor & Marketing",
     photo: images.team.nehha,
     photoClass: "object-[50%_42%] scale-[2.5]",
@@ -239,7 +239,7 @@ export default function AboutPage() {
       <PageSection className="border-t-[0.5px] border-[var(--home-hairline)]">
         <h2 className="home-serif text-[1.75rem] md:text-[2.25rem]">Our Team</h2>
         <p className="mt-3 max-w-2xl text-[var(--home-ink-soft)]">
-          Made by students, for students. Shreyan, Samanyu, Bruhatt, and
+          Made by students, for students. Shreyan, Samanyu, Bruhatt, Nehha Ramesh, and
           volunteers around the world building a more inclusive future.
         </p>
         {/* flex-wrap rather than a grid, so a partial final row centres itself.
