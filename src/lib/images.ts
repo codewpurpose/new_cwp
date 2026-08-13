@@ -27,6 +27,7 @@ export const images = {
     tvisha: "/team-tvisha.png",
     vihaana: "/team-vihaana.png",
     mithra: "/team-mithra.jpeg",
+    nehha: "/Nehha-team.jpeg",
   },
   gallery: [
     { src: "/opt/IMG_2625.jpg", alt: "In the classroom" },

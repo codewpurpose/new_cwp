@@ -169,6 +169,14 @@ const teamMembers: TeamMember[] = [
     photoClass: "object-[48%_42%] scale-[1.05] translate-y-[14%]",
     bio: "Hi! I'm Mithra, and I'm interested in robotics, AI, technology, and entrepreneurship. I love building things, trying new ideas, and learning new skills. At Code With Purpose, I'm excited to meet new people, share ideas, and learn from everyone. Outside of that, I enjoy baking, playing volleyball, and spending time with my friends and family.",
   },
+  {
+    name: "Nehha",
+    role: "Instructor & Marketing",
+    photo: images.team.nehha,
+    photoClass: "object-[50%_42%] scale-[2.5]",
+    instagram: "https://www.instagram.com/00_nehha/",
+    bio: "Hi! I'm Nehha. At Code With Purpose, I support classes and contribute to marketing. I'm passionate about bioinformatics and data analysis, especially using data to solve real-world problems. I also lead music therapy sessions for infants and toddlers with Down syndrome. In my free time, I love playing badminton, playing the violin, and hanging out with friends and family.",
+  },
 ];
 
 export default function AboutPage() {
