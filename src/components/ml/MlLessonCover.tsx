@@ -802,6 +802,70 @@ function DriftCover() {
   );
 }
 
+function VisionCover() {
+  /* Left: a coarse pixel grid with a bright disc, and the 3x3 filter window
+     laid over its edge. Right: what an edge filter leaves — only the boundary.
+     Brightness is carried by opacity on a single ink, so it reads at 160px. */
+  const N = 5;
+  const cell = 10.5;
+  const gap = 1.2;
+  const leftX = 12;
+  const rightX = 96;
+  const top = 20;
+  const centre = 2;
+  const cells = Array.from({ length: N }, (_, j) =>
+    Array.from({ length: N }, (_, i) => ({ i, j })),
+  ).flat();
+  const dist = (i: number, j: number) => Math.hypot(i - centre, j - centre);
+  return (
+    <Frame>
+      {cells.map(({ i, j }) => (
+        <rect
+          key={`o${i}-${j}`}
+          x={leftX + i * (cell + gap)}
+          y={top + j * (cell + gap)}
+          width={cell}
+          height={cell}
+          rx={1}
+          fill="var(--learn-ink-strong)"
+          opacity={dist(i, j) < 1.9 ? 0.85 : 0.14}
+        />
+      ))}
+      <rect
+        x={leftX + (cell + gap) - 1.5}
+        y={top - 1.5}
+        width={3 * cell + 2 * gap + 3}
+        height={3 * cell + 2 * gap + 3}
+        rx={2}
+        fill="none"
+        stroke="var(--learn-accent)"
+        strokeWidth={1.6}
+      />
+      <path
+        d="M78 45 L90 45 M86 41 L90 45 L86 49"
+        fill="none"
+        stroke="var(--learn-chart-axis)"
+        strokeWidth={1.4}
+      />
+      {cells.map(({ i, j }) => {
+        const d = dist(i, j);
+        return (
+          <rect
+            key={`e${i}-${j}`}
+            x={rightX + i * (cell + gap)}
+            y={top + j * (cell + gap)}
+            width={cell}
+            height={cell}
+            rx={1}
+            fill="var(--learn-series-1)"
+            opacity={d >= 1.2 && d < 2.4 ? 0.95 : 0.08}
+          />
+        );
+      })}
+    </Frame>
+  );
+}
+
 const COVERS: Record<string, () => React.ReactElement> = {
   "what-is-ml": RulesCover,
   "features-and-labels": FeaturesCover,
@@ -824,6 +888,7 @@ const COVERS: Record<string, () => React.ReactElement> = {
   "gradient-descent": DescentCover,
   regularisation: PenaltyCover,
   "neural-networks": NetworkCover,
+  "computer-vision": VisionCover,
   "from-notebook-to-production": DriftCover,
 };
 

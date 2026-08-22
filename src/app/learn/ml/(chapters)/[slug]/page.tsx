@@ -28,6 +28,7 @@ import { FeatureScalingLesson } from "@/components/ml/FeatureScalingLesson";
 import { GradientDescentLesson } from "@/components/ml/GradientDescentLesson";
 import { RegularisationLesson } from "@/components/ml/RegularisationLesson";
 import { NeuralNetworksLesson } from "@/components/ml/NeuralNetworksLesson";
+import { ComputerVisionLesson } from "@/components/ml/ComputerVisionLesson";
 import { FromNotebookToProductionLesson } from "@/components/ml/FromNotebookToProductionLesson";
 import { LEARN_VIBECODING_HREF } from "@/lib/links";
 import { getAdjacent, getChapter, getChapters, getPositionLabel } from "@/lib/learn-nav";
@@ -60,6 +61,7 @@ const ML_LESSON_BODIES: Record<string, () => React.ReactElement> = {
   "gradient-descent": GradientDescentLesson,
   regularisation: RegularisationLesson,
   "neural-networks": NeuralNetworksLesson,
+  "computer-vision": ComputerVisionLesson,
   "from-notebook-to-production": FromNotebookToProductionLesson,
 };
 

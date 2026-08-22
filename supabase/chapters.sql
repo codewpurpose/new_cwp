@@ -10,7 +10,7 @@
 -- `progress` rows for it in place (they are already written) but stops new
 -- ones being accepted.
 --
--- 189 published chapters across 8 tracks.
+-- 190 published chapters across 8 tracks.
 
 begin;
 
@@ -108,6 +108,7 @@ insert into public.chapters (course_id, chapter_slug) values
   ('ml', 'gradient-descent'),
   ('ml', 'regularisation'),
   ('ml', 'neural-networks'),
+  ('ml', 'computer-vision'),
   ('ml', 'from-notebook-to-production'),
   ('financial-literacy', 'why-money-rules-matter'),
   ('financial-literacy', 'income-and-expenses'),

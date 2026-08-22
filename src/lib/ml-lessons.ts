@@ -463,9 +463,28 @@ export const ML_CHAPTERS: readonly LearnChapter[] = [
     status: "published",
   },
   {
-    slug: "from-notebook-to-production",
+    slug: "computer-vision",
     partId: "how-fitting-works",
     order: 22,
+    title: "How a Computer Sees",
+    description:
+      "A network that recognises a cat never sees a cat — it sees a grid of brightness values, and a stack of tiny filters that each fire on one kind of edge. Slide a three-by-three filter across a real image and watch edges, blur and texture fall out of nine numbers.",
+    level: "advanced",
+    minutes: 13,
+    prerequisites: ["features-and-labels"],
+    tags: ["Models", "Interactive"],
+    headings: [
+      { id: "an-image-is-a-grid-of-numbers", text: "An image is a grid of numbers", level: 2 },
+      { id: "a-filter-is-nine-numbers-and-some-arithmetic", text: "A filter is nine numbers and some arithmetic", level: 2 },
+      { id: "the-same-window-slid-everywhere", text: "The same window, slid everywhere", level: 2 },
+      { id: "what-the-network-learns-for-itself", text: "What the network learns for itself", level: 2 },
+    ],
+    status: "published",
+  },
+  {
+    slug: "from-notebook-to-production",
+    partId: "how-fitting-works",
+    order: 23,
     title: "From Notebook to Production",
     description:
       "A model that scored well on Tuesday's data is not a system, and the gap between the two is where most projects quietly die. Age a deployed model month by month and watch the score decay before anyone files a bug.",
