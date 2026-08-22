@@ -67,12 +67,12 @@ export function UseCasesSection() {
                 <p className="mt-4 max-w-[34rem] text-[15px] leading-[1.5] text-[var(--home-ink-soft)] md:text-base">
                   We got tired of watching $15,000 bootcamps decide who gets to
                   learn. So we built something better: free courses, real skills,
-                  and a community that shows up. Today we reach students in 130+
+                  and a community that shows up. Today we reach students in 150+
                   countries, from rural villages in India to classrooms in Nigeria,
                   and give them the same shot as anyone else.
                 </p>
                 <div className="mt-6 rounded-xl border-[0.5px] border-[var(--home-hairline)] bg-[var(--home-page)] px-4 py-3.5 text-[14px] italic leading-[1.5] text-[var(--home-ink-soft)]">
-                  Students in 130+ countries are already learning with us, for
+                  Students in 150+ countries are already learning with us, for
                   free, with no strings attached.
                 </div>
               </div>

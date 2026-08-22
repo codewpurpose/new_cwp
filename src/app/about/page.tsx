@@ -205,7 +205,7 @@ export default function AboutPage() {
             <p className="mt-4 text-[15px] leading-[1.6] text-[var(--home-ink-soft)] md:text-base">
               Representative Mark DeSaulnier recognized CodeWithPurpose for
               tremendous leadership and service to our community. We work every
-              day to reach students in 130+ countries, from rural villages in
+              day to reach students in 150+ countries, from rural villages in
               India to classrooms in Nigeria.
             </p>
             <blockquote className="mt-6 border-l-2 border-[#397554] pl-4 text-lg italic text-[var(--home-ink)]">

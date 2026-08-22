@@ -261,7 +261,7 @@ export function ProductSection() {
                 Courses built for the curious.
               </h2>
               <p className="mt-4 max-w-2xl text-[15px] leading-[1.6] text-[var(--home-ink-soft)] md:text-base">
-                Real coding skills from student teachers, loved by learners in 130+ countries.
+                Real coding skills from student teachers, loved by learners in 150+ countries.
                 Completely free.
               </p>
             </div>

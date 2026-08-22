@@ -25,6 +25,7 @@ const TRACKS: LearnTrackId[] = [
   "health-in-tech",
   "ml",
   "vibecoding",
+  "computer-vision",
 ];
 
 /** Every heading-claim across the whole curriculum, used as a distractor pool. */

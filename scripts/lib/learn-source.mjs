@@ -122,6 +122,18 @@ export const TRACKS = [
     coverConst: "COVERS",
     partKeyedCover: false,
   },
+  {
+    name: "computer-vision",
+    title: "Computer Vision",
+    data: join(REPO_ROOT, "src", "lib", "computer-vision-lessons.ts"),
+    chaptersConst: "COMPUTER_VISION_CHAPTERS",
+    route: join(REPO_ROOT, "src", "app", "learn", "computer-vision", "(chapters)", "[slug]", "page.tsx"),
+    bodiesDir: join(REPO_ROOT, "src", "components", "computer-vision"),
+    bodiesConst: "COMPUTER_VISION_LESSON_BODIES",
+    coverFile: join(REPO_ROOT, "src", "components", "computer-vision", "ComputerVisionLessonCover.tsx"),
+    coverConst: "COVERS",
+    partKeyedCover: false,
+  },
 ];
 
 /** Look a track up by its `name`. Returns undefined for an unknown track. */

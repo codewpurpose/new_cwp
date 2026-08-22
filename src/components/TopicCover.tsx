@@ -12,7 +12,8 @@ export type TopicCoverVariant =
   | "vibecoding"
   | "roblox"
   | "github"
-  | "htmlcss";
+  | "htmlcss"
+  | "computervision";
 
 const INK = "#15120c";
 const PISTACHIO = "#dbefdb";
@@ -147,7 +148,7 @@ const art: Record<TopicCoverVariant, { label: string; scene: ReactNode }> = {
     ),
   },
   global: {
-    label: "130+ COUNTRIES",
+    label: "150+ COUNTRIES",
     scene: (
       <g>
         <circle cx="240" cy="124" r="62" fill="#ffffff" stroke={INK} strokeWidth="1.4" />
@@ -360,6 +361,50 @@ const art: Record<TopicCoverVariant, { label: string; scene: ReactNode }> = {
           strokeWidth="1.2"
           strokeLinejoin="round"
         />
+      </g>
+    ),
+  },
+  computervision: {
+    label: "COMPUTER VISION",
+    scene: (
+      <g>
+        {/* The lens, left — an aperture with iris blades. */}
+        <circle cx="182" cy="120" r="46" fill="#ffffff" stroke={INK} strokeWidth="1.4" />
+        <circle cx="182" cy="120" r="58" fill="none" stroke={GREY} strokeWidth="1" strokeDasharray="2 6" />
+        <path
+          d="M182 120v-30M182 120l26 15M182 120l-26 15M182 120l26-15M182 120l-26-15M182 120v30"
+          stroke={INK}
+          strokeWidth="1.2"
+        />
+        <circle cx="182" cy="120" r="13" fill={PISTACHIO} stroke={INK} strokeWidth="1.4" />
+
+        {/* The scan, crossing to what the lens sees. */}
+        <path d="M228 120h30" stroke={FERN} strokeWidth="1.5" strokeDasharray="3 5" />
+
+        {/* The frame it's looking at, with a detection box drawn around the subject. */}
+        <rect x="270" y="64" width="118" height="112" rx="8" fill="#ffffff" stroke={INK} strokeWidth="1.4" />
+        <path
+          d="M286 168c0-30 10-56 43-56s43 26 43 56"
+          fill={PISTACHIO}
+          stroke={INK}
+          strokeWidth="1.2"
+        />
+        <circle cx="329" cy="98" r="16" fill={PISTACHIO} stroke={INK} strokeWidth="1.2" />
+        <rect
+          x="294"
+          y="80"
+          width="70"
+          height="88"
+          rx="4"
+          fill="none"
+          stroke={FERN}
+          strokeWidth="1.6"
+          strokeDasharray="5 4"
+        />
+        <rect x="294" y="66" width="46" height="18" rx="9" fill={FERN} />
+        <text x="317" y="79" textAnchor="middle" fontSize="11" fill="#ffffff" className="home-mono">
+          0.98
+        </text>
       </g>
     ),
   },

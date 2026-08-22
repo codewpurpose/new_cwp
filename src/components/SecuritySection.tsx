@@ -17,7 +17,7 @@ export function SecuritySection() {
                 Representative Mark DeSaulnier of the U.S. House of
                 Representatives recognized CodeWithPurpose for our work bringing
                 free coding education to students worldwide. We&apos;re proud to
-                serve communities across 130+ countries with the same commitment
+                serve communities across 150+ countries with the same commitment
                 every day.
               </p>
               <p className="mt-3 text-sm text-[var(--home-ink-quiet)]">

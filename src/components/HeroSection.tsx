@@ -2,8 +2,8 @@ import { ABOUT_HREF } from "@/lib/links";
 import { COURSES_HREF } from "@/lib/links";
 
 const HERO_STATS = [
-  { value: "4,000+", label: "Students Reached" },
-  { value: "130+", label: "Countries" },
+  { value: "5,000+", label: "Students Reached" },
+  { value: "150+", label: "Countries" },
   { value: "30+", label: "Languages Taught" },
   { value: "15,000", label: "Minutes of Teaching" },
 ];
@@ -22,7 +22,7 @@ export function HeroSection() {
           Opportunity Isn&apos;t.
         </h1>
         <p className="mx-auto mt-5 max-w-[44rem] text-center text-lg text-[var(--home-ink-soft)]">
-          We&apos;re students teaching students real coding skills in 130+
+          We&apos;re students teaching students real coding skills in 150+
           countries. Completely free, forever. No catch, no fine print.
         </p>
         <div className="mt-8 flex flex-wrap items-center justify-center gap-2">

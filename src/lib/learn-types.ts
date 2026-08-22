@@ -8,7 +8,8 @@ export type LearnTrackId =
   | "health-in-tech"
   | "roblox"
   | "github"
-  | "html-css";
+  | "html-css"
+  | "computer-vision";
 
 export type LearnLevel = "beginner" | "intermediate" | "advanced";
 

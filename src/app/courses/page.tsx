@@ -8,10 +8,12 @@ import { TopicCover, type TopicCoverVariant } from "@/components/TopicCover";
 import { images } from "@/lib/images";
 import {
   ABOUT_HREF,
+  COMPUTER_VISION_COURSE_HREF,
   FINANCIAL_LITERACY_COURSE_HREF,
   GITHUB_COURSE_HREF,
   HEALTH_IN_TECH_COURSE_HREF,
   HTML_CSS_COURSE_HREF,
+  LEARN_COMPUTER_VISION_HREF,
   LEARN_FINANCIAL_LITERACY_HREF,
   LEARN_GITHUB_HREF,
   LEARN_HEALTH_IN_TECH_HREF,
@@ -138,6 +140,15 @@ const courses: Course[] = [
     cover: "health",
     enrol: [{ href: HEALTH_IN_TECH_COURSE_HREF, label: "Enroll Free" }],
     lessonsHref: LEARN_HEALTH_IN_TECH_HREF,
+  },
+  {
+    title: "Computer Vision in 30 Minutes",
+    tags: ["New", "AI & ML"],
+    description:
+      "How machines actually see: pixels, edges, and the models that turn a photo into a label. In half an hour, cover image classification and object detection, and the core ideas behind everything from face unlock to self-driving cars.",
+    cover: "computervision",
+    enrol: [{ href: COMPUTER_VISION_COURSE_HREF, label: "Enroll Free" }],
+    lessonsHref: LEARN_COMPUTER_VISION_HREF,
   },
 ];
 

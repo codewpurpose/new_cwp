@@ -20,13 +20,13 @@ import { CONGRESS_LETTER_HREF, DONATE_HREF, SUBSTACK_EMBED_SRC } from "@/lib/lin
 export const metadata: Metadata = {
   title: "Impact & Stories",
   description:
-    "4,000+ students across 130+ countries, and the stories behind the numbers.",
+    "5,000+ students across 150+ countries, and the stories behind the numbers.",
   alternates: { canonical: "/impact/" },
 };
 
 const stats = [
-  { value: "4,000+", label: "Students Reached" },
-  { value: "130+", label: "Countries" },
+  { value: "5,000+", label: "Students Reached" },
+  { value: "150+", label: "Countries" },
   { value: "30+", label: "Languages Taught" },
   { value: "15,000", label: "Minutes of Teaching" },
 ];
@@ -36,7 +36,7 @@ export default function ImpactPage() {
     <PageShell>
       <PageHero
         title="Students on every corner of the Earth"
-        description="From San Francisco to Lagos, Bangalore to São Paulo: over 130 countries and counting. Every student is someone who got access to free, real education because of this community."
+        description="From San Francisco to Lagos, Bangalore to São Paulo: over 150 countries and counting. Every student is someone who got access to free, real education because of this community."
         image={images.heroStudent}
         imageAlt="Student smiling while learning to code"
       >

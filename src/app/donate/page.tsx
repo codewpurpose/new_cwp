@@ -20,7 +20,7 @@ const impactAreas = [
   },
   {
     title: "Workshops & outreach",
-    body: "Fund in-person workshops in underserved communities across 130+ countries.",
+    body: "Fund in-person workshops in underserved communities across 150+ countries.",
   },
   {
     title: "Curriculum development",

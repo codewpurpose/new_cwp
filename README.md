@@ -43,7 +43,7 @@ npm run learn:new -- --track ml --slug my-lesson --title "My Lesson"  # scaffold
 
 ## The Learn Section
 
-Eight self-paced tracks live under `/learn`. All run on the same documentation shell — sidebar, table of contents, prev/next pager — so they read as one product.
+Nine self-paced tracks live under `/learn`. All run on the same documentation shell — sidebar, table of contents, prev/next pager — so they read as one product.
 
 | Track | Path | Content |
 | ----- | ---- | ------- |
@@ -55,6 +55,7 @@ Eight self-paced tracks live under `/learn`. All run on the same documentation s
 | Roblox Studio | `/learn/roblox` | 14 chapters, a blank baseplate through a published obby in Luau |
 | Git and GitHub | `/learn/github` | 21 chapters, your first commit through branches, rebasing, code review, and open-source contribution |
 | HTML and CSS | `/learn/html-css` | 24 chapters, your first file through semantic markup, the cascade, layout, and a published page |
+| Computer Vision | `/learn/computer-vision` | 22 chapters, an image as a grid of numbers through classification, detection, segmentation, and production |
 
 Every ML lesson is built around a single hero interactive: one control the reader drags, with the concept made *felt* before it is named. Drag a decision threshold and watch precision trade against recall; stack hand-written rules and watch each one buy less than the last.
 

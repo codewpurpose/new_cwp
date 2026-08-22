@@ -57,9 +57,9 @@ const items: ImpactItem[] = [
     ),
     detail: {
       title: "Students on every corner of the Earth",
-      body: "From San Francisco to Lagos, Bangalore to São Paulo: over 130 countries and counting. Every dot on our map is a student who got access to free, real education because of this community.",
+      body: "From San Francisco to Lagos, Bangalore to São Paulo: over 150 countries and counting. Every dot on our map is a student who got access to free, real education because of this community.",
       scenario:
-        "4,000+ students across 130 countries are already learning with us, for free, with no strings attached.",
+        "5,000+ students across 150 countries are already learning with us, for free, with no strings attached.",
     },
   },
   {
@@ -120,7 +120,7 @@ const items: ImpactItem[] = [
       title: "Education that crosses borders",
       body: "We teach in 30+ languages so students can learn in the language they're most comfortable with. Coding is universal, but learning shouldn't require English fluency.",
       scenario:
-        "A student learns Python in their native language, then joins a global community of 4,000+ learners who share the same passion for code.",
+        "A student learns Python in their native language, then joins a global community of 5,000+ learners who share the same passion for code.",
     },
   },
 ];

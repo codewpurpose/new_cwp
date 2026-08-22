@@ -6,6 +6,7 @@ import type {
   LearnTrackId,
 } from "@/lib/learn-types";
 import { TRACK_ROUTES, chapterHref } from "@/lib/learn-routes";
+import { COMPUTER_VISION_CHAPTERS, COMPUTER_VISION_PARTS } from "@/lib/computer-vision-lessons";
 import { FINANCIAL_LITERACY_CHAPTERS, FINANCIAL_LITERACY_PARTS } from "@/lib/financial-literacy-lessons";
 import { GITHUB_CHAPTERS, GITHUB_PARTS } from "@/lib/github-lessons";
 import { HEALTH_IN_TECH_CHAPTERS, HEALTH_IN_TECH_PARTS } from "@/lib/health-in-tech-lessons";
@@ -57,6 +58,11 @@ const TRACKS: Record<LearnTrackId, LearnTrack> = {
     parts: HTML_CSS_PARTS,
     chapters: HTML_CSS_CHAPTERS,
   },
+  "computer-vision": {
+    ...TRACK_ROUTES["computer-vision"],
+    parts: COMPUTER_VISION_PARTS,
+    chapters: COMPUTER_VISION_CHAPTERS,
+  },
 };
 
 /** Computed once at module scope rather than per render. */
@@ -90,6 +96,10 @@ const PUBLISHED: Record<LearnTrackId, readonly LearnChapter[]> = {
     .slice()
     .sort((a, b) => a.order - b.order),
   "html-css": TRACKS["html-css"].chapters
+    .filter((c) => c.status === "published")
+    .slice()
+    .sort((a, b) => a.order - b.order),
+  "computer-vision": TRACKS["computer-vision"].chapters
     .filter((c) => c.status === "published")
     .slice()
     .sort((a, b) => a.order - b.order),
