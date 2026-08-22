@@ -90,3 +90,9 @@ docs/contributing/
 ## Notes
 - After editing `AGENTS.md`, run `bash scripts/sync-agent-rules.sh` to regenerate the platform-specific instruction files.
 - When launching agent teams, give each teammate its own worktree branch and merge at the end, resolving conflicts with full context of the shared goal.
+
+## Cursor Cloud specific instructions
+- **Node 24 is required** (`engines: node >=24`). The VM's baked-in `/exec-daemon/node` is v22 and sits early in `PATH`, so a plain `nvm use 24` does *not* win. Node 24 is installed via nvm and the login shell (`~/.bashrc`) explicitly prepends its bin dir, so fresh terminals already resolve to `node v24`. Verify with `node --version` before building; if you land on v22, run `source ~/.bashrc`.
+- **All env vars are optional** — see `.env.example`. The site is local-first, so `npm run dev`/`build`/`lint`/`typecheck` and the full `/learn` platform all work with no `.env.local` and no secrets. Clerk (auth), Supabase (leaderboard), and Resend (newsletter) only switch on their optional extras; you do not need them to run or test the app.
+- `npm ci` prints warnings that `sharp` and `unrs-resolver` install scripts were skipped (npm's allow-scripts gate). This is harmless here — lint, typecheck, production build, and the dev server all succeed without them.
+- Standard commands live in the `## Commands` section above. Dev server runs on `http://localhost:3000`; `/learn` is the interactive lesson platform and each track (e.g. `/learn/ml/`) renders hero interactives that respond to dragging/clicking.
