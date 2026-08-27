@@ -32,11 +32,11 @@ const SOCIALS = [
 export function ProofPointStrip({ lessonCount }: ProofPointStripProps) {
   const proofPoints = [
     "Free forever",
-    "5,000+ students",
+    "150k+ students",
     "150+ countries",
     "30+ languages",
     `${lessonCount} free lessons`,
-    "15,000 minutes taught",
+    "20k minutes taught",
     "Recognised by the U.S. House",
     "Student-run",
     "Open source",

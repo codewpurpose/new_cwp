@@ -50,8 +50,8 @@ const POSES: Pose[] = [
   { src: "/koala/koala-branch.png", line: "Every expert was once a total beginner. Promise.", w: 530, h: 560 },
   { src: "/koala/koala-hang.png", line: "Stuck on a bug? Hang in there. 🌿", w: 505, h: 560 },
   { src: "/koala/koala-climb.png", line: "Learning's just a curve you climb one branch at a time.", w: 539, h: 560 },
-  { src: "/koala/koala-tree.png", line: "5,000+ students across 150+ countries. Wild, right?", w: 440, h: 560 },
-  { src: "/koala/koala-sleep.png", line: "Even koalas nap after 15,000 minutes of teaching. 💤", w: 560, h: 355 },
+  { src: "/koala/koala-tree.png", line: "150k+ students across 150+ countries. Wild, right?", w: 440, h: 560 },
+  { src: "/koala/koala-sleep.png", line: "Even koalas nap after 20k minutes of teaching. 💤", w: 560, h: 355 },
 ];
 
 const STORAGE_KEY = "cwp-koala-dismissed";

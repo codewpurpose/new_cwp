@@ -2,10 +2,10 @@ import { ABOUT_HREF } from "@/lib/links";
 import { COURSES_HREF } from "@/lib/links";
 
 const HERO_STATS = [
-  { value: "5,000+", label: "Students Reached" },
+  { value: "150k+", label: "Students Reached" },
   { value: "150+", label: "Countries" },
   { value: "30+", label: "Languages Taught" },
-  { value: "15,000", label: "Minutes of Teaching" },
+  { value: "20k", label: "Minutes of Teaching" },
 ];
 
 export function HeroSection() {

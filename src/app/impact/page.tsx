@@ -20,15 +20,15 @@ import { CONGRESS_LETTER_HREF, DONATE_HREF, SUBSTACK_EMBED_SRC } from "@/lib/lin
 export const metadata: Metadata = {
   title: "Impact & Stories",
   description:
-    "5,000+ students across 150+ countries, and the stories behind the numbers.",
+    "150k+ students across 150+ countries, and the stories behind the numbers.",
   alternates: { canonical: "/impact/" },
 };
 
 const stats = [
-  { value: "5,000+", label: "Students Reached" },
+  { value: "150k+", label: "Students Reached" },
   { value: "150+", label: "Countries" },
   { value: "30+", label: "Languages Taught" },
-  { value: "15,000", label: "Minutes of Teaching" },
+  { value: "20k", label: "Minutes of Teaching" },
 ];
 
 export default function ImpactPage() {

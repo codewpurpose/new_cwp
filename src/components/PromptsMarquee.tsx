@@ -19,10 +19,10 @@ const ROW_TWO: string[] = [
 ];
 
 const ROW_THREE: { value: string; label: string }[] = [
-  { value: "5,000+", label: "students worldwide" },
+  { value: "150k+", label: "students worldwide" },
   { value: "150+", label: "countries" },
   { value: "30+", label: "languages taught" },
-  { value: "15,000", label: "minutes of teaching" },
+  { value: "20k", label: "minutes of teaching" },
   { value: "Free", label: "forever" },
   { value: "100%", label: "student-run nonprofit" },
 ];
