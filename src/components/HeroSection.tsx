@@ -2,10 +2,11 @@ import { ABOUT_HREF } from "@/lib/links";
 import { COURSES_HREF } from "@/lib/links";
 
 const HERO_STATS = [
-  { value: "150k+", label: "Students Reached" },
+  { value: "5,000+", label: "Students Reached" },
   { value: "150+", label: "Countries" },
   { value: "30+", label: "Languages Taught" },
   { value: "20k", label: "Minutes of Teaching" },
+  { value: "150k+", label: "Total Students Reached" },
 ];
 
 export function HeroSection() {
@@ -31,7 +32,7 @@ export function HeroSection() {
             Our Story
           </a>
         </div>
-        <div className="mt-10 grid grid-cols-2 gap-3 md:mt-14 md:grid-cols-4 md:gap-4">
+        <div className="mt-10 grid grid-cols-2 gap-3 md:mt-14 md:grid-cols-5 md:gap-4">
           {HERO_STATS.map((stat) => (
             <div
               key={stat.label}

@@ -20,15 +20,16 @@ import { CONGRESS_LETTER_HREF, DONATE_HREF, SUBSTACK_EMBED_SRC } from "@/lib/lin
 export const metadata: Metadata = {
   title: "Impact & Stories",
   description:
-    "150k+ students across 150+ countries, and the stories behind the numbers.",
+    "5,000+ students across 150+ countries, and the stories behind the numbers.",
   alternates: { canonical: "/impact/" },
 };
 
 const stats = [
-  { value: "150k+", label: "Students Reached" },
+  { value: "5,000+", label: "Students Reached" },
   { value: "150+", label: "Countries" },
   { value: "30+", label: "Languages Taught" },
   { value: "20k", label: "Minutes of Teaching" },
+  { value: "150k+", label: "Total Students Reached" },
 ];
 
 export default function ImpactPage() {
@@ -46,7 +47,7 @@ export default function ImpactPage() {
       </PageHero>
 
       <PageSection>
-        <div className="grid grid-cols-2 gap-3 md:grid-cols-4 md:gap-4">
+        <div className="grid grid-cols-2 gap-3 md:grid-cols-5 md:gap-4">
           {stats.map((stat, index) => (
             <Reveal key={stat.label} delay={index * 0.07}>
               <div className="home-card home-lift h-full rounded-xl px-4 py-8 text-center md:px-6">

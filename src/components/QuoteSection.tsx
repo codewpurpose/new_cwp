@@ -33,7 +33,7 @@ export function QuoteSection() {
           </div>
           <div className="home-card home-lift rounded-xl px-8 py-12">
             <p className="home-serif text-[2rem] leading-none text-[#3e7f5c] md:text-[3.5rem]">
-              150k+
+              5,000+
             </p>
             <p className="mt-3 text-sm text-[var(--home-ink-soft)] md:text-base">
               Students reached with free, real coding education worldwide.
