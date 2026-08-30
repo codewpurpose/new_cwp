@@ -62,8 +62,8 @@ export function UseCasesSection() {
                   </div>
                 </div>
               </div>
-              <div className="order-1 flex min-w-0 flex-col justify-center p-6 md:order-none md:p-10 lg:p-12">
-                <h3 className="max-w-[20ch] text-[1.375rem] leading-[1.1] md:text-[1.875rem]">Knowledge where it&apos;s needed most</h3>
+              <div className="order-1 flex min-w-0 flex-col justify-center p-5 sm:p-6 md:order-none md:p-10 lg:p-12">
+                <h3 className="max-w-[20ch] text-[1.25rem] leading-[1.1] sm:text-[1.375rem] md:text-[1.875rem]">Knowledge where it&apos;s needed most</h3>
                 <p className="mt-4 max-w-[34rem] text-[15px] leading-[1.5] text-[var(--home-ink-soft)] md:text-base">
                   We got tired of watching $15,000 bootcamps decide who gets to
                   learn. So we built something better: free courses, real skills,
@@ -124,8 +124,8 @@ export function UseCasesSection() {
                   </div>
                 </div>
               </div>
-              <div className="order-1 flex min-w-0 flex-col justify-center p-6 md:order-none md:p-10 lg:p-12">
-                <h3 className="max-w-[20ch] text-[1.375rem] leading-[1.1] md:text-[1.875rem]">Volunteers who lean in to help</h3>
+              <div className="order-1 flex min-w-0 flex-col justify-center p-5 sm:p-6 md:order-none md:p-10 lg:p-12">
+                <h3 className="max-w-[20ch] text-[1.25rem] leading-[1.1] sm:text-[1.375rem] md:text-[1.875rem]">Volunteers who lean in to help</h3>
                 <p className="mt-4 max-w-[34rem] text-[15px] leading-[1.5] text-[var(--home-ink-soft)] md:text-base">
                   Our volunteers don&apos;t just teach. They mentor, troubleshoot,
                   and celebrate every breakthrough right alongside our students.
@@ -182,8 +182,8 @@ export function UseCasesSection() {
                   </div>
                 </div>
               </div>
-              <div className="order-1 flex min-w-0 flex-col justify-center p-6 md:order-none md:p-10 lg:p-12">
-                <h3 className="max-w-[20ch] text-[1.375rem] leading-[1.1] md:text-[1.875rem]">Recognized for leadership and service</h3>
+              <div className="order-1 flex min-w-0 flex-col justify-center p-5 sm:p-6 md:order-none md:p-10 lg:p-12">
+                <h3 className="max-w-[20ch] text-[1.25rem] leading-[1.1] sm:text-[1.375rem] md:text-[1.875rem]">Recognized for leadership and service</h3>
                 <p className="mt-4 max-w-[34rem] text-[15px] leading-[1.5] text-[var(--home-ink-soft)] md:text-base">
                   Recognized by the U.S. House of Representatives, we work every
                   day to prove that student-led education can reach the highest

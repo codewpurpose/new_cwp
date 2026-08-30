@@ -79,12 +79,14 @@ export function PromptsMarquee() {
   return (
     <section className="pt-16 md:pt-32">
       <div className="mx-auto w-full max-w-[85rem] px-5 md:px-10">
-        <p className="home-mono flex items-center justify-center gap-2.5 text-[11px] uppercase tracking-[0.18em] text-[var(--home-ink-quiet)] md:text-xs">
-          <span className="home-live-dot" />
+        <p className="home-mono flex items-center justify-center gap-2 px-5 text-center text-[10px] uppercase tracking-[0.16em] text-[var(--home-ink-quiet)] sm:gap-2.5 sm:text-[11px] md:text-xs">
+          <span className="home-live-dot shrink-0" />
           Students on every corner of the Earth
         </p>
       </div>
-      <div className="home-marquee-stack mt-6 flex flex-col gap-2.5">
+      {/* overflow-x-clip: each row's track is intentionally wider than the
+          viewport; clip the stack so phones never pick up a page-level scroll. */}
+      <div className="home-marquee-stack mt-6 flex flex-col gap-2.5 overflow-x-clip">
         <LocationRow items={ROW_ONE} />
         <LocationRow items={ROW_TWO} reverse />
         <StatRow items={ROW_THREE} />

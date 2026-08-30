@@ -91,11 +91,11 @@ const teamMembers: TeamMember[] = [
   },
   {
     name: "Aakash Sanil",
-    role: "Director of Media",
+    role: "Co-Social Media Lead",
     photo: images.team.aakash,
     photoClass: "object-[50%_20%] scale-[1.2]",
     instagram: "https://www.instagram.com/sanilaakash/",
-    bio: "Hi, my name is Aakash Sanil. I'm the Director of Media of Code With Purpose. I joined Code With Purpose to help reach kids all throughout the world and help them. I mainly focus on making social media videos, spreading our message.",
+    bio: "Hi, my name is Aakash Sanil. I'm a Co-Social Media Lead at Code With Purpose. I joined Code With Purpose to help reach kids all throughout the world and help them. I mainly focus on making social media videos, spreading our message.",
   },
   {
     name: "Hannah Mauro",
@@ -107,7 +107,7 @@ const teamMembers: TeamMember[] = [
   },
   {
     name: "Trey Lim",
-    role: "Member of Finance",
+    role: "Co-Social Media Lead & Member of Finance",
     photo: images.team.trey,
     bio: "Hey, I'm Trey! I'm a finance bro that enjoys creating bonds with others, researching AI, and learning with friends.",
   },

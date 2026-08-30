@@ -54,7 +54,7 @@ function FaqItem({ faq }: { faq: Faq }) {
           onClick={() => setOpen((e) => !e)}
           aria-expanded={open}
           aria-controls={panelId}
-          className="flex w-full cursor-pointer items-center justify-between gap-4 p-6 text-left md:p-8"
+          className="flex w-full cursor-pointer items-center justify-between gap-3 p-5 text-left sm:gap-4 sm:p-6 md:p-8"
         >
           <span className="text-lg leading-[1.2] md:text-xl">
             {faq.question}
@@ -84,7 +84,7 @@ function FaqItem({ faq }: { faq: Faq }) {
       >
         <div className="overflow-hidden">
           <p
-            className={`px-6 pb-6 text-sm leading-[1.5] text-[var(--home-ink-soft)] transition-opacity duration-300 motion-reduce:transition-none md:px-8 md:pb-8 md:text-[15px] ${
+            className={`px-5 pb-5 text-sm leading-[1.5] text-[var(--home-ink-soft)] transition-opacity duration-300 motion-reduce:transition-none sm:px-6 sm:pb-6 md:px-8 md:pb-8 md:text-[15px] ${
               open ? "opacity-100" : "opacity-0"
             }`}
           >
@@ -102,7 +102,7 @@ export function FaqSection() {
       <JsonLd data={faqJsonLd(faqs)} />
       <section>
         <div className="mx-auto w-full max-w-[85rem] px-5 md:px-10">
-          <h2 className="text-center text-base md:text-lg">
+          <h2 className="text-center text-[15px] leading-snug md:text-lg">
             {"What students and families usually ask. Still have a question? "}
             <a
               href={CONTACT_HREF}
@@ -117,7 +117,7 @@ export function FaqSection() {
               <FaqItem key={faq.question} faq={faq} />
             ))}
           </div>
-          <div className="mx-auto mt-8 max-w-[51rem] rounded-xl border-[0.5px] border-[var(--home-hairline)] bg-[var(--home-page)] px-6 py-8 md:px-10 md:py-10">
+          <div className="mx-auto mt-8 max-w-[51rem] rounded-xl border-[0.5px] border-[var(--home-hairline)] bg-[var(--home-page)] px-5 py-7 sm:px-6 sm:py-8 md:px-10 md:py-10">
             <h3 className="text-lg font-medium md:text-xl">A Note From Our Team</h3>
             <blockquote className="mt-4 text-[15px] leading-[1.6] text-[var(--home-ink-soft)] md:text-base">
               &ldquo;Every dollar helps us build a more inclusive future where code

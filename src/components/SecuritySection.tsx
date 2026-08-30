@@ -5,12 +5,12 @@ export function SecuritySection() {
     <div id="recognition" className="scroll-mt-24">
       <section>
         <div className="mx-auto w-full max-w-[85rem] px-5 md:px-10">
-          <div className="home-card rounded-xl px-6 py-10 md:px-16 md:py-14">
+          <div className="home-card rounded-xl px-5 py-8 sm:px-6 sm:py-10 md:px-16 md:py-14">
             <div>
               <p className="text-[10px] uppercase tracking-[0.2em] text-[#397554]">
                 Congressional Recognition · 2026
               </p>
-              <h2 className="home-serif mt-4 text-[2rem] leading-[1.05] md:text-[3rem]">
+              <h2 className="home-serif mt-4 text-[1.75rem] leading-[1.05] sm:text-[2rem] md:text-[3rem]">
                 Tremendous leadership and service to your community.
               </h2>
               <p className="mt-4 max-w-[36rem] text-[15px] text-[var(--home-ink-soft)] md:text-base">

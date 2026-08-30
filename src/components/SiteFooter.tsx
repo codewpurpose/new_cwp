@@ -67,7 +67,7 @@ export function SiteFooter() {
               </a>
             </div>
             <div className="lg:col-span-12">
-              <div className="grid grid-cols-2 gap-x-6 gap-y-8 md:grid-cols-4 lg:gap-x-8">
+              <div className="grid grid-cols-2 gap-x-4 gap-y-8 sm:gap-x-6 md:grid-cols-4 lg:gap-x-8">
                 <div>
                   <h3 className="mb-3 text-xs opacity-60">Learn</h3>
                   <ul className="space-y-2.5 text-xs xl:text-base">

@@ -50,12 +50,12 @@ export function FooterNewsletter() {
               required
               disabled={status === "sending"}
               aria-invalid={status === "error"}
-              className="w-full rounded-full border-[0.5px] border-[var(--home-grey-500)] bg-[var(--home-page)] px-3.5 py-2 text-xs text-[var(--home-ink)] placeholder:text-[var(--home-ink-quiet)] focus-visible:outline-2 focus-visible:outline-[var(--home-fern)]"
+              className="min-h-11 w-full rounded-full border-[0.5px] border-[var(--home-grey-500)] bg-[var(--home-page)] px-3.5 py-2.5 text-sm text-[var(--home-ink)] placeholder:text-[var(--home-ink-quiet)] focus-visible:outline-2 focus-visible:outline-[var(--home-fern)] md:text-xs"
             />
             <button
               type="submit"
               disabled={status === "sending" || !email.trim()}
-              className="rounded-full bg-[var(--home-moss)] px-4 py-2 text-xs font-semibold text-white transition-colors hover:bg-[var(--home-moss-hover)] disabled:cursor-not-allowed disabled:opacity-50"
+              className="min-h-11 rounded-full bg-[var(--home-moss)] px-4 py-2.5 text-sm font-semibold text-white transition-colors hover:bg-[var(--home-moss-hover)] disabled:cursor-not-allowed disabled:opacity-50 md:text-xs"
             >
               {status === "sending" ? "Sending…" : "Subscribe"}
             </button>

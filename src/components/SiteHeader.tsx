@@ -147,7 +147,7 @@ export function SiteHeader() {
               key={link.href}
               href={link.href}
               onClick={() => setMenuOpen(false)}
-              className={`rounded-lg px-3 py-2.5 text-[1rem] ${link.label === "Courses" ? "learn-nav-item" : ""}`}
+              className={`rounded-lg px-3 py-3.5 text-[1rem] ${link.label === "Courses" ? "learn-nav-item" : ""}`}
             >
               {link.label}
             </a>
@@ -158,7 +158,7 @@ export function SiteHeader() {
           <a
             href={JOIN_HREF}
             onClick={() => setMenuOpen(false)}
-            className="mt-1 rounded-lg border-t-[0.5px] border-[var(--home-hairline)] px-3 py-2.5 text-[1rem]"
+            className="mt-1 rounded-lg border-t-[0.5px] border-[var(--home-hairline)] px-3 py-3.5 text-[1rem]"
           >
             Volunteer
           </a>

@@ -256,7 +256,7 @@ export function ProductSection() {
             {/* The heading and its subhead used to be two spans inside one h2 at
                 the same size, separated only by colour — which read as one grey
                 paragraph and put a non-heading inside a heading. */}
-            <div className="px-6 pt-8 md:px-10 md:pt-12">
+            <div className="px-5 pt-7 sm:px-6 sm:pt-8 md:px-10 md:pt-12">
               <h2 className="home-serif text-[1.75rem] leading-[1.08] md:text-[2.375rem]">
                 Courses built for the curious.
               </h2>
@@ -266,8 +266,8 @@ export function ProductSection() {
               </p>
             </div>
             <div className="mt-8 grid border-t border-[var(--home-hairline)] md:mt-10 md:grid-cols-2">
-              <div className="flex flex-col gap-8 px-6 py-10 md:flex-row md:items-center md:justify-between md:gap-8 md:px-10 md:py-14 md:border-r-[0.5px] md:border-r-[var(--home-hairline)] border-b-[0.5px] border-b-[var(--home-hairline)] ">
-                <div className="flex-1">
+              <div className="flex flex-col gap-8 px-5 py-8 sm:px-6 sm:py-10 md:flex-row md:items-center md:justify-between md:gap-8 md:px-10 md:py-14 md:border-r-[0.5px] md:border-r-[var(--home-hairline)] border-b-[0.5px] border-b-[var(--home-hairline)] ">
+                <div className="min-w-0 flex-1">
                   <h3 className="text-lg md:text-xl">Python for Complete Beginners</h3>
                   <p className="mt-3 text-[15px] leading-[1.5] text-[var(--home-ink-soft)] md:text-base">
                     Zero experience? Perfect. You&apos;ll go from nothing to
@@ -285,8 +285,8 @@ export function ProductSection() {
                 </div>
                 <PythonSproutArt />
               </div>
-              <div className="flex flex-col gap-8 px-6 py-10 md:flex-row md:items-center md:justify-between md:gap-8 md:px-10 md:py-14  border-b-[0.5px] border-b-[var(--home-hairline)] ">
-                <div className="flex-1">
+              <div className="flex flex-col gap-8 px-5 py-8 sm:px-6 sm:py-10 md:flex-row md:items-center md:justify-between md:gap-8 md:px-10 md:py-14  border-b-[0.5px] border-b-[var(--home-hairline)] ">
+                <div className="min-w-0 flex-1">
                   <h3 className="text-lg md:text-xl">Vibecoding 101</h3>
                   <p className="mt-3 text-[15px] leading-[1.5] text-[var(--home-ink-soft)] md:text-base">
                     Build real apps using AI tools like Cursor and Copilot.
@@ -304,8 +304,8 @@ export function ProductSection() {
                 </div>
                 <VibecodingArt />
               </div>
-              <div className="flex flex-col gap-8 px-6 py-10 md:flex-row md:items-center md:justify-between md:gap-8 md:px-10 md:py-14 md:border-r-[0.5px] md:border-r-[var(--home-hairline)] border-b-[0.5px] border-b-[var(--home-hairline)] md:border-b-0">
-                <div className="flex-1">
+              <div className="flex flex-col gap-8 px-5 py-8 sm:px-6 sm:py-10 md:flex-row md:items-center md:justify-between md:gap-8 md:px-10 md:py-14 md:border-r-[0.5px] md:border-r-[var(--home-hairline)] border-b-[0.5px] border-b-[var(--home-hairline)] md:border-b-0">
+                <div className="min-w-0 flex-1">
                   <h3 className="text-lg md:text-xl">Completely free, forever</h3>
                   <p className="mt-3 text-[15px] leading-[1.5] text-[var(--home-ink-soft)] md:text-base">
                     Quality coding education should cost nothing. Every course,
@@ -318,8 +318,8 @@ export function ProductSection() {
                 </div>
                 <FreeForeverArt />
               </div>
-              <div className="flex flex-col gap-8 px-6 py-10 md:flex-row md:items-center md:justify-between md:gap-8 md:px-10 md:py-14   md:border-b-0">
-                <div className="flex-1">
+              <div className="flex flex-col gap-8 px-5 py-8 sm:px-6 sm:py-10 md:flex-row md:items-center md:justify-between md:gap-8 md:px-10 md:py-14   md:border-b-0">
+                <div className="min-w-0 flex-1">
                   <h3 className="text-lg md:text-xl">Made by students, for students</h3>
                   <p className="mt-3 text-[15px] leading-[1.5] text-[var(--home-ink-soft)] md:text-base">
                     We&apos;re a student-run nonprofit built on one belief:

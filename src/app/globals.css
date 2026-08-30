@@ -721,9 +721,23 @@
   opacity: 1;
   transform: translateX(0);
 }
+/* Touch devices have no hover — keep the affordance visible so accordion rows
+ * still read as expandable. */
+@media (hover: none) {
+  .home-row-arrow {
+    opacity: 1;
+    transform: none;
+  }
+}
 .home-marquee {
   overflow: hidden;
   mask: linear-gradient(90deg, transparent, #000 12% 88%, transparent);
+}
+@media (max-width: 639px) {
+  /* Soften the fade on phones so more of each chip/card stays readable. */
+  .home-marquee {
+    mask: linear-gradient(90deg, transparent, #000 6% 94%, transparent);
+  }
 }
 .home-marquee-track {
   display: flex;
@@ -736,6 +750,17 @@
 }
 .home-marquee:hover .home-marquee-track {
   animation-play-state: paused;
+}
+/* Hero impact cards: a touch slower so the larger tiles stay readable. */
+.home-hero-stats .home-marquee-track {
+  gap: 0.75rem;
+  animation-duration: 36s;
+}
+@media (min-width: 768px) {
+  .home-hero-stats .home-marquee-track {
+    gap: 1rem;
+    animation-duration: 42s;
+  }
 }
 @keyframes home-marquee {
   0% {
@@ -934,6 +959,27 @@
   .cwp-loader__wordmark,
   .cwp-loader__tagline {
     animation: none;
+  }
+  /* Static wrap so the five hero stats stay fully visible without sliding. */
+  .home-hero-stats {
+    mask: none;
+    overflow: visible;
+  }
+  .home-hero-stats .home-marquee-track {
+    width: 100%;
+    max-width: 85rem;
+    margin-inline: auto;
+    padding-inline: 1.25rem;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  @media (min-width: 768px) {
+    .home-hero-stats .home-marquee-track {
+      padding-inline: 2.5rem;
+    }
+  }
+  .home-hero-stats .home-marquee-track > [aria-hidden="true"] {
+    display: none;
   }
   .cwp-cycle {
     animation: none;

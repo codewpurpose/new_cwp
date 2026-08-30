@@ -4,7 +4,7 @@ export function FinalCtaSection() {
   return (
     <section id="join" className="scroll-mt-24 pb-16 md:pb-32">
       <div className="mx-auto w-full max-w-[85rem] px-5 md:px-10 text-center">
-        <h2 className="home-serif mx-auto max-w-4xl text-[1.75rem] leading-[1.08] md:text-[2.5rem]">
+        <h2 className="home-serif mx-auto max-w-4xl text-[1.75rem] leading-[1.08] text-balance md:text-[2.5rem]">
           Join 5,000+ students across 150 countries already learning with us.
         </h2>
         <p className="mx-auto mt-4 max-w-xl text-[15px] leading-[1.6] text-[var(--home-ink-soft)] md:text-base">

@@ -9,7 +9,7 @@ export function HowItWorksSection() {
       <div className="mx-auto w-full max-w-[85rem] px-5 md:px-10">
         <div className="overflow-hidden rounded-xl bg-[var(--home-grey-450)]">
           <figure className="grid md:grid-cols-[2fr_3fr]">
-            <div className="p-6 md:p-8">
+            <div className="p-5 sm:p-6 md:p-8">
               <div className="grid grid-cols-2 gap-2 overflow-hidden rounded-lg border-[0.5px] border-[var(--home-hairline)]">
                 {GALLERY_IMAGES.map((image) => (
                   // Eight sections below the fold and ~1.6MB between them, so
@@ -28,7 +28,7 @@ export function HowItWorksSection() {
                 ))}
               </div>
             </div>
-            <figcaption className="flex flex-col justify-center p-6 md:p-8">
+            <figcaption className="flex flex-col justify-center p-5 sm:p-6 md:p-8">
               <p className="text-[11px] uppercase tracking-[0.12em] text-[var(--home-ink-quiet)]">
                 Watch our story
               </p>

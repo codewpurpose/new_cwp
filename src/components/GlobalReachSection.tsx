@@ -150,9 +150,9 @@ export function GlobalReachSection() {
   const activeDetail = items[lastIndex].detail;
 
   return (
-    <div id="impact" className="mt-28 scroll-mt-24 md:mt-44">
+    <div id="impact" className="mt-16 scroll-mt-28 md:mt-44 md:scroll-mt-24">
       <div className="mx-auto w-full max-w-[85rem] px-5 md:px-10">
-        <div className="relative flex overflow-hidden rounded-[24px] md:min-h-[760px]">
+        <div className="relative flex overflow-hidden rounded-[20px] md:min-h-[760px] md:rounded-[24px]">
           <div
             className="absolute inset-0"
             style={{
@@ -161,12 +161,12 @@ export function GlobalReachSection() {
             }}
           />
           <div className="absolute inset-0 bg-gradient-to-r from-black/40 via-black/15 to-black/30" />
-          <div className="relative z-[1] flex w-full flex-col justify-between gap-10 p-7 md:flex-row md:p-[46px]">
+          <div className="relative z-[1] flex w-full flex-col justify-between gap-8 p-5 sm:gap-10 sm:p-7 md:flex-row md:p-[46px]">
             <h3 className="home-serif text-[1.75rem] leading-[1.05] text-white md:text-[2.75rem]">
               Global reach
             </h3>
-            <div className="flex w-full flex-col md:w-auto md:flex-row md:self-stretch">
-              <div className="flex w-full flex-col rounded-xl bg-white/95 p-2 backdrop-blur-[10px] md:w-[452px] md:max-w-none">
+            <div className="flex min-w-0 w-full flex-col md:w-auto md:flex-row md:self-stretch">
+              <div className="flex min-w-0 w-full flex-col rounded-xl bg-white/95 p-2 backdrop-blur-[10px] md:w-[452px] md:max-w-none">
                 {items.map((item, index) => (
                   <Fragment key={item.label}>
                     <button
@@ -182,15 +182,15 @@ export function GlobalReachSection() {
                       aria-expanded={open === index}
                       aria-controls={`impact-detail impact-detail-${index}`}
                       className={[
-                        "home-template-row group flex flex-1 items-center gap-3 border-t-[0.5px] border-[var(--home-hairline)] px-4 py-4 text-left first:border-t-0",
+                        "home-template-row group flex min-h-12 flex-1 items-center gap-3 border-t-[0.5px] border-[var(--home-hairline)] px-3 py-3.5 text-left first:border-t-0 sm:px-4 sm:py-4",
                         open === index ? "rounded-lg bg-[#f3f3f1]" : "",
                       ].join(" ")}
                     >
                       <span className="shrink-0 text-[#15120c]">
                         {item.icon}
                       </span>
-                      <span className="flex-1 text-[15px]">{item.label}</span>
-                      <span className="home-row-arrow text-[#397554]">→</span>
+                      <span className="min-w-0 flex-1 text-[15px] leading-snug">{item.label}</span>
+                      <span className="home-row-arrow shrink-0 text-[#397554]">→</span>
                     </button>
                     <div
                       id={`impact-detail-${index}`}
@@ -223,7 +223,7 @@ export function GlobalReachSection() {
                       type="button"
                       onClick={() => setOpen(null)}
                       aria-label="Close detail window"
-                      className="absolute right-5 top-5 text-xl leading-none text-[var(--home-ink-quiet)] transition-colors hover:text-[#15120c]"
+                      className="absolute right-3 top-3 flex h-10 w-10 items-center justify-center text-xl leading-none text-[var(--home-ink-quiet)] transition-colors hover:text-[#15120c] sm:right-5 sm:top-5"
                       tabIndex={open === null ? -1 : 0}
                     >
                       ×

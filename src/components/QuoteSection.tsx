@@ -4,7 +4,7 @@ export function QuoteSection() {
   return (
     <section>
       <div className="mx-auto w-full max-w-[85rem] px-5 md:px-10">
-        <div className="rounded-xl bg-[#1e3c2c] px-6 py-16 text-center md:px-12 md:py-20 lg:px-[17%] lg:py-[7.5rem]">
+        <div className="rounded-xl bg-[#1e3c2c] px-5 py-12 text-center sm:px-6 sm:py-16 md:px-12 md:py-20 lg:px-[17%] lg:py-[7.5rem]">
           <p className="home-serif text-base text-[#dbefdb] md:text-lg">
             Free education for every student, everywhere
           </p>
@@ -23,27 +23,27 @@ export function QuoteSection() {
           </a>
         </div>
         <div className="mt-4 grid gap-2.5 md:mt-6 md:grid-cols-3">
-          <div className="home-card home-lift rounded-xl px-8 py-12">
+          <div className="home-card home-lift rounded-xl px-5 py-8 sm:px-8 sm:py-12">
             <p className="home-serif text-[2rem] leading-none text-[#3e7f5c] md:text-[3.5rem]">
               150+
             </p>
-            <p className="mt-3 text-sm text-[var(--home-ink-soft)] md:text-base">
+            <p className="mt-3 text-sm leading-snug text-[var(--home-ink-soft)] md:text-base">
               Countries where students are already learning with us.
             </p>
           </div>
-          <div className="home-card home-lift rounded-xl px-8 py-12">
+          <div className="home-card home-lift rounded-xl px-5 py-8 sm:px-8 sm:py-12">
             <p className="home-serif text-[2rem] leading-none text-[#3e7f5c] md:text-[3.5rem]">
               5,000+
             </p>
-            <p className="mt-3 text-sm text-[var(--home-ink-soft)] md:text-base">
+            <p className="mt-3 text-sm leading-snug text-[var(--home-ink-soft)] md:text-base">
               Students reached with free, real coding education worldwide.
             </p>
           </div>
-          <div className="home-card home-lift rounded-xl px-8 py-12">
+          <div className="home-card home-lift rounded-xl px-5 py-8 sm:px-8 sm:py-12">
             <p className="home-serif text-[2rem] leading-none text-[#3e7f5c] md:text-[3.5rem]">
               Free
             </p>
-            <p className="mt-3 text-sm text-[var(--home-ink-soft)] md:text-base">
+            <p className="mt-3 text-sm leading-snug text-[var(--home-ink-soft)] md:text-base">
               Always. Every course, every resource. No cost, no strings attached.
             </p>
           </div>

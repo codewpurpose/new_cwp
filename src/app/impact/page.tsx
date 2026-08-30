@@ -47,14 +47,22 @@ export default function ImpactPage() {
       </PageHero>
 
       <PageSection>
-        <div className="grid grid-cols-2 gap-3 md:grid-cols-5 md:gap-4">
+        {/* 2 → 3 → 5 so phones never stretch five cards across, and the lone
+            fifth card below sm is centred rather than left-aligned as an orphan. */}
+        <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 md:grid-cols-5 md:gap-4">
           {stats.map((stat, index) => (
-            <Reveal key={stat.label} delay={index * 0.07}>
-              <div className="home-card home-lift h-full rounded-xl px-4 py-8 text-center md:px-6">
-                <p className="home-serif text-[2rem] leading-none text-[#3e7f5c] md:text-[2.75rem]">
+            <Reveal
+              key={stat.label}
+              delay={index * 0.07}
+              className="h-full max-sm:last:col-span-2 max-sm:last:w-full max-sm:last:max-w-[calc(50%-0.375rem)] max-sm:last:justify-self-center"
+            >
+              <div className="home-card home-lift h-full rounded-xl px-3 py-6 text-center sm:px-4 sm:py-8 md:px-6">
+                <p className="home-serif text-[1.75rem] leading-none text-[#3e7f5c] sm:text-[2rem] md:text-[2.75rem]">
                   {stat.value}
                 </p>
-                <p className="mt-3 text-sm text-[var(--home-ink-soft)]">{stat.label}</p>
+                <p className="mt-2 text-[13px] leading-snug text-[var(--home-ink-soft)] sm:mt-3 sm:text-sm">
+                  {stat.label}
+                </p>
               </div>
             </Reveal>
           ))}
@@ -75,7 +83,7 @@ export default function ImpactPage() {
       </PageSection>
 
       <PageSection className="bg-[var(--home-grey-450)]">
-        <div className="grid gap-8 lg:grid-cols-2 lg:items-center">
+        <div className="mt-8 grid gap-6 lg:grid-cols-2 lg:items-center">
           <div className="home-card overflow-hidden rounded-[20px]">
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
@@ -84,7 +92,7 @@ export default function ImpactPage() {
               className="w-full object-cover"
             />
           </div>
-          <div>
+          <div className="min-w-0">
             <p className="text-[10px] uppercase tracking-[0.2em] text-[#397554]">
               Congressional Recognition · 2026
             </p>
