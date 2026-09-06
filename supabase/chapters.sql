@@ -10,7 +10,7 @@
 -- `progress` rows for it in place (they are already written) but stops new
 -- ones being accepted.
 --
--- 189 published chapters across 8 tracks.
+-- 211 published chapters across 9 tracks.
 
 begin;
 
@@ -215,6 +215,28 @@ insert into public.chapters (course_id, chapter_slug) values
   ('html-css', 'styling-the-page'),
   ('html-css', 'accessibility-basics'),
   ('html-css', 'devtools'),
-  ('html-css', 'publishing-your-site');
+  ('html-css', 'publishing-your-site'),
+  ('computer-vision', 'what-is-computer-vision'),
+  ('computer-vision', 'images-as-numbers'),
+  ('computer-vision', 'colour-and-channels'),
+  ('computer-vision', 'convolution'),
+  ('computer-vision', 'edge-detection'),
+  ('computer-vision', 'feature-detectors'),
+  ('computer-vision', 'image-preprocessing'),
+  ('computer-vision', 'image-classification'),
+  ('computer-vision', 'pixels-to-predictions'),
+  ('computer-vision', 'convolutional-neural-networks'),
+  ('computer-vision', 'transfer-learning'),
+  ('computer-vision', 'object-detection'),
+  ('computer-vision', 'bounding-boxes-and-iou'),
+  ('computer-vision', 'non-max-suppression'),
+  ('computer-vision', 'image-segmentation'),
+  ('computer-vision', 'confusion-matrix-for-vision'),
+  ('computer-vision', 'mean-average-precision'),
+  ('computer-vision', 'dataset-bias'),
+  ('computer-vision', 'overfitting-in-vision'),
+  ('computer-vision', 'face-detection-and-privacy'),
+  ('computer-vision', 'vision-in-self-driving-cars'),
+  ('computer-vision', 'from-prototype-to-production');
 
 commit;

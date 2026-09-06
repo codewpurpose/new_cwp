@@ -17,6 +17,7 @@ import {
   LEARN_ML_HREF,
   LEARN_PYTHON_HREF,
   LEARN_VIBECODING_HREF,
+  MEDIA_HREF,
   TOOLKIT_HREF,
   X_HREF,
 } from "@/lib/links";
@@ -104,6 +105,11 @@ export function SiteFooter() {
                     <li>
                       <a href={TOOLKIT_HREF} className="home-footer-link">
                         Learning Toolkit
+                      </a>
+                    </li>
+                    <li>
+                      <a href={MEDIA_HREF} className="home-footer-link">
+                        Media
                       </a>
                     </li>
                     <li>
