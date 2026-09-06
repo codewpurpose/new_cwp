@@ -14,6 +14,8 @@
  * Instagram's embed script is intentionally not loaded on every page.
  */
 
+import { fetchYouTubeUploads } from "@/lib/youtube";
+
 export type MediaPlatform = "youtube" | "instagram";
 
 export interface MediaItem {
@@ -124,8 +126,24 @@ export function validateMediaItems(items: readonly MediaItem[]): void {
 
 validateMediaItems(MEDIA_ITEMS);
 
-export function getMediaItems(): readonly MediaItem[] {
-  return MEDIA_ITEMS;
+function byPublishedDateDesc(a: MediaItem, b: MediaItem): number {
+  if (!a.publishedAt && !b.publishedAt) return 0;
+  if (!a.publishedAt) return 1;
+  if (!b.publishedAt) return -1;
+  return new Date(b.publishedAt).getTime() - new Date(a.publishedAt).getTime();
+}
+
+/**
+ * The full library: hand-curated entries plus the channel's recent uploads,
+ * newest first. Curated entries win on id collisions (e.g. a pinned YouTube
+ * video that's also in recent uploads), so nothing renders twice.
+ */
+export async function getMediaItems(): Promise<readonly MediaItem[]> {
+  const fetched = await fetchYouTubeUploads();
+  const curatedIds = new Set(MEDIA_ITEMS.map((item) => item.id));
+  const merged = [...MEDIA_ITEMS, ...fetched.filter((item) => !curatedIds.has(item.id))];
+
+  return merged.slice().sort(byPublishedDateDesc);
 }
 
 export function getFeaturedMedia(): readonly MediaItem[] {
