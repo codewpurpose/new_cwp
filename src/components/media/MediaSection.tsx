@@ -4,8 +4,8 @@ import { MediaGrid } from "@/components/media/MediaCard";
 import { getFeaturedMedia } from "@/lib/media";
 import { INSTAGRAM_HREF, MEDIA_HREF } from "@/lib/links";
 
-export function MediaSection() {
-  const featured = getFeaturedMedia();
+export async function MediaSection() {
+  const featured = await getFeaturedMedia();
 
   return (
     <section id="media" className="scroll-mt-24">
