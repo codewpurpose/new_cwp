@@ -146,8 +146,17 @@ export async function getMediaItems(): Promise<readonly MediaItem[]> {
   return merged.slice().sort(byPublishedDateDesc);
 }
 
-export function getFeaturedMedia(): readonly MediaItem[] {
-  return MEDIA_ITEMS.filter((item) => item.featured);
+/**
+ * The homepage teaser's three items. If exactly three entries in MEDIA_ITEMS
+ * are manually marked featured, those win outright — a deliberate pin. Short
+ * of that, the three most recent items across the whole library are used, so
+ * the homepage stays current without anyone needing to flip a flag.
+ */
+export async function getFeaturedMedia(): Promise<readonly MediaItem[]> {
+  const pinned = MEDIA_ITEMS.filter((item) => item.featured);
+  if (pinned.length === 3) return pinned;
+
+  return (await getMediaItems()).slice(0, 3);
 }
 
 export function getYouTubeEmbedUrl(videoId: string): string {
