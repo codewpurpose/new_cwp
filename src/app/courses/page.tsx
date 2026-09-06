@@ -36,6 +36,19 @@ export const metadata: Metadata = {
   description:
     "Free courses and interactive lessons for students worldwide. Python, Vibecoding, Machine Learning, Financial Literacy, and Health in Tech.",
   alternates: { canonical: "/courses/" },
+  openGraph: {
+    title: "Free Coding Courses | CodeWithPurpose",
+    description:
+      "Free courses and interactive lessons for students worldwide. Python, Vibecoding, Machine Learning, Financial Literacy, and Health in Tech.",
+    url: "/courses/",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Free Coding Courses | CodeWithPurpose",
+    description:
+      "Free courses and interactive lessons for students worldwide. Python, Vibecoding, Machine Learning, Financial Literacy, and Health in Tech.",
+  },
 };
 
 interface Course {
