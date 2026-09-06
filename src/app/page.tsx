@@ -8,6 +8,7 @@ import { GlobalReachSection } from "@/components/GlobalReachSection";
 import { SecuritySection } from "@/components/SecuritySection";
 import { QuoteSection } from "@/components/QuoteSection";
 import { HowItWorksSection } from "@/components/HowItWorksSection";
+import { MediaSection } from "@/components/media/MediaSection";
 import { FaqSection } from "@/components/FaqSection";
 import { FinalCtaSection } from "@/components/FinalCtaSection";
 import { SiteFooter } from "@/components/SiteFooter";
@@ -40,6 +41,7 @@ export default function Home() {
         </div>
         <QuoteSection />
         <HowItWorksSection />
+        <MediaSection />
         <FaqSection />
         <FinalCtaSection />
       </main>

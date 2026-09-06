@@ -22,6 +22,7 @@ export const DASHBOARD_HREF = "/dashboard";
 export const LOGIN_HREF = "/login";
 export const SIGN_UP_HREF = "/sign-up";
 export const LEADERBOARD_HREF = "/leaderboard";
+export const MEDIA_HREF = "/media";
 export const ABOUT_HREF = "/about";
 export const JOIN_HREF = "/join";
 /**
@@ -116,6 +117,7 @@ export const SUBSTACK_EMBED_SRC = "https://codewithpurpose.substack.com/embed";
 
 export const NAV_LINKS = [
   { label: "Courses", href: COURSES_HREF },
+  { label: "Media", href: MEDIA_HREF },
   { label: "About Us", href: ABOUT_HREF },
   { label: "Join Us", href: JOIN_HREF },
   { label: "Stories", href: IMPACT_HREF },
