@@ -22,6 +22,19 @@ export const metadata: Metadata = {
   description:
     "5,000+ students across 150+ countries, and the stories behind the numbers.",
   alternates: { canonical: "/impact/" },
+  openGraph: {
+    title: "Impact & Stories | CodeWithPurpose",
+    description:
+      "5,000+ students across 150+ countries, and the stories behind the numbers.",
+    url: "/impact/",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Impact & Stories | CodeWithPurpose",
+    description:
+      "5,000+ students across 150+ countries, and the stories behind the numbers.",
+  },
 };
 
 const stats = [
