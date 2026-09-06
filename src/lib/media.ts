@@ -1,5 +1,13 @@
 /**
- * Repository-owned media entries for the public video library.
+ * Media entries for the public video library.
+ *
+ * YouTube entries are pulled live from the channel by fetchYouTubeUploads()
+ * (see lib/youtube.ts) so new uploads appear without a code change. This
+ * file's MEDIA_ITEMS is now only for hand-curated entries — chiefly
+ * Instagram, since there is no equivalent auto-pull for it yet (that needs a
+ * Business/Creator account and a Meta Graph API token; see lib/youtube.ts's
+ * comment for why YouTube alone was wired up first). It can also pin a
+ * specific YouTube video that isn't in the channel's recent uploads.
  *
  * YouTube is embedded directly with its privacy-enhanced host. Instagram is
  * represented as a lightweight card that links to the original Reel or post;
@@ -19,9 +27,11 @@ export interface MediaItem {
   /** A local path under /public, used for Instagram preview cards. */
   thumbnail?: string;
   featured: boolean;
+  /** ISO 8601. Set on fetched YouTube entries; optional on hand-curated ones. */
+  publishedAt?: string;
 }
 
-/** Add published video entries here. Keep this list empty until real URLs exist. */
+/** Hand-curated entries — mainly Instagram. Keep this list empty until real URLs exist. */
 export const MEDIA_ITEMS: readonly MediaItem[] = [];
 
 const YOUTUBE_ID = /^[A-Za-z0-9_-]{11}$/;
@@ -63,8 +73,10 @@ function isInstagramUrl(value: string): boolean {
 
 /**
  * Fails loudly during development/build instead of rendering a broken card.
- * An empty list is valid while the team is collecting the first URLs; once
- * entries exist, the homepage must have exactly three featured items.
+ * An empty list is valid while the team is collecting the first URLs. The
+ * "zero or three" rule only governs manually pinned featured items in this
+ * file — see getFeaturedMedia() for how it combines with fetched YouTube
+ * uploads, which are never marked featured here.
  */
 export function validateMediaItems(items: readonly MediaItem[]): void {
   const ids = new Set<string>();
