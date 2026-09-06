@@ -18,6 +18,19 @@ export const metadata: Metadata = {
   description:
     "A student-run nonprofit making tech education free and accessible for everyone, everywhere.",
   alternates: { canonical: "/about/" },
+  openGraph: {
+    title: "About Us | CodeWithPurpose",
+    description:
+      "A student-run nonprofit making tech education free and accessible for everyone, everywhere.",
+    url: "/about/",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "About Us | CodeWithPurpose",
+    description:
+      "A student-run nonprofit making tech education free and accessible for everyone, everywhere.",
+  },
 };
 
 const founders: TeamMember[] = [
