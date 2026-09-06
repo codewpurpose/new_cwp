@@ -11,7 +11,9 @@ export const metadata: Metadata = {
   alternates: { canonical: "/media/" },
 };
 
-export default function MediaPage() {
+export default async function MediaPage() {
+  const items = await getMediaItems();
+
   return (
     <PageShell>
       <PageHero
@@ -19,7 +21,7 @@ export default function MediaPage() {
         description="Short lessons, student stories, and the work happening behind free coding education. Watch on the site or follow the original post to join the conversation."
       />
       <PageSection>
-        <MediaLibrary items={getMediaItems()} />
+        <MediaLibrary items={items} />
       </PageSection>
     </PageShell>
   );
