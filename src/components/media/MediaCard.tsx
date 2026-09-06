@@ -81,14 +81,21 @@ export function MediaCard({ item }: MediaCardProps) {
   );
 }
 
-export function MediaGrid({ items }: { items: readonly MediaItem[] }) {
+export function MediaGrid({
+  items,
+  emptyTitle = "New videos are on the way",
+  emptyDescription = "We're collecting the lessons, workshops, and small moments that make CodeWithPurpose what it is. Check back soon for the first set.",
+}: {
+  items: readonly MediaItem[];
+  emptyTitle?: string;
+  emptyDescription?: string;
+}) {
   if (items.length === 0) {
     return (
       <div className="home-card rounded-[20px] bg-[var(--home-grey-450)] p-8 text-center md:p-12">
-        <h2 className="home-serif text-[1.75rem] md:text-[2.25rem]">New videos are on the way</h2>
+        <h2 className="home-serif text-[1.75rem] md:text-[2.25rem]">{emptyTitle}</h2>
         <p className="mx-auto mt-3 max-w-xl text-[15px] leading-[1.6] text-[var(--home-ink-soft)]">
-          We&apos;re collecting the lessons, workshops, and small moments that make
-          CodeWithPurpose what it is. Check back soon for the first set.
+          {emptyDescription}
         </p>
       </div>
     );

@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { MediaGrid } from "@/components/media/MediaCard";
+import { MediaLibrary } from "@/components/media/MediaLibrary";
 import { PageHero, PageSection } from "@/components/PageHero";
 import { PageShell } from "@/components/PageShell";
 import { getMediaItems } from "@/lib/media";
@@ -19,7 +19,7 @@ export default function MediaPage() {
         description="Short lessons, student stories, and the work happening behind free coding education. Watch on the site or follow the original post to join the conversation."
       />
       <PageSection>
-        <MediaGrid items={getMediaItems()} />
+        <MediaLibrary items={getMediaItems()} />
       </PageSection>
     </PageShell>
   );
