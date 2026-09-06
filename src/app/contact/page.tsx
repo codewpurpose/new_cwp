@@ -9,6 +9,17 @@ export const metadata: Metadata = {
   title: "Contact",
   description: "Get in touch with the CodeWithPurpose team.",
   alternates: { canonical: "/contact/" },
+  openGraph: {
+    title: "Contact | CodeWithPurpose",
+    description: "Get in touch with the CodeWithPurpose team.",
+    url: "/contact/",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Contact | CodeWithPurpose",
+    description: "Get in touch with the CodeWithPurpose team.",
+  },
 };
 
 export default function ContactPage() {
