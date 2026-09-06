@@ -6,10 +6,11 @@ import type { MediaItem, MediaPlatform } from "@/lib/media";
 
 type MediaFilter = "all" | MediaPlatform;
 
+// Instagram tab removed until Instagram entries exist in lib/media.ts — add
+// `{ label: "Instagram", value: "instagram" }` back once they do.
 const FILTERS: readonly { label: string; value: MediaFilter }[] = [
   { label: "All videos", value: "all" },
   { label: "YouTube", value: "youtube" },
-  { label: "Instagram", value: "instagram" },
 ];
 
 function matchesSearch(item: MediaItem, search: string): boolean {
