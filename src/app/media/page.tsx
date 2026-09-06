@@ -9,6 +9,19 @@ export const metadata: Metadata = {
   description:
     "Short lessons, student stories, and behind-the-scenes videos from CodeWithPurpose.",
   alternates: { canonical: "/media/" },
+  openGraph: {
+    title: "Media | CodeWithPurpose",
+    description:
+      "Short lessons, student stories, and behind-the-scenes videos from CodeWithPurpose.",
+    url: "/media/",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Media | CodeWithPurpose",
+    description:
+      "Short lessons, student stories, and behind-the-scenes videos from CodeWithPurpose.",
+  },
 };
 
 export default async function MediaPage() {

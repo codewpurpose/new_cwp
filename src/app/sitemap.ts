@@ -31,6 +31,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     "/learn/roblox",
     "/learn/github",
     "/learn/html-css",
+    "/learn/computer-vision",
   ].map((path) => ({
     url: abs(path),
     lastModified: new Date(),

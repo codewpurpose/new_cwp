@@ -16,6 +16,19 @@ export const metadata: Metadata = {
   description:
     "Volunteer with CodeWithPurpose. Teach, mentor, and help bring free coding education to students worldwide.",
   alternates: { canonical: "/join/" },
+  openGraph: {
+    title: "Join Us | CodeWithPurpose",
+    description:
+      "Volunteer with CodeWithPurpose. Teach, mentor, and help bring free coding education to students worldwide.",
+    url: "/join/",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Join Us | CodeWithPurpose",
+    description:
+      "Volunteer with CodeWithPurpose. Teach, mentor, and help bring free coding education to students worldwide.",
+  },
 };
 
 const roles = [

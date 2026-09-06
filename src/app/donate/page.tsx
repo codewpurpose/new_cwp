@@ -11,6 +11,19 @@ export const metadata: Metadata = {
   description:
     "Support CodeWithPurpose. Every dollar helps a student start their coding journey today.",
   alternates: { canonical: "/donate/" },
+  openGraph: {
+    title: "Donate | CodeWithPurpose",
+    description:
+      "Support CodeWithPurpose. Every dollar helps a student start their coding journey today.",
+    url: "/donate/",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Donate | CodeWithPurpose",
+    description:
+      "Support CodeWithPurpose. Every dollar helps a student start their coding journey today.",
+  },
 };
 
 const impactAreas = [
