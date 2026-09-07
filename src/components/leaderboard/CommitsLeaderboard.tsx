@@ -38,6 +38,31 @@ function formatDate(iso: string | null): string {
   return `${MONTHS[d.getUTCMonth()]} ${d.getUTCFullYear()}`;
 }
 
+function commitLabel(count: number): string {
+  return count === 1 ? "1 public commit" : `${count} public commits`;
+}
+
+function compactCommitLabel(count: number): string {
+  return count === 1 ? "1 commit" : `${count} commits`;
+}
+
+function retryAfterLabel(retryAfterMs: number): string {
+  const minutes = Math.ceil(retryAfterMs / 60000);
+  return minutes === 1 ? "1 minute" : `${minutes} minutes`;
+}
+
+function readSyncError(body: unknown): string | null {
+  if (!body || typeof body !== "object" || !("error" in body)) return null;
+  const error = body.error;
+  return typeof error === "string" ? error : null;
+}
+
+function readRetryAfterMs(body: unknown): number | null {
+  if (!body || typeof body !== "object" || !("retryAfterMs" in body)) return null;
+  const retryAfterMs = body.retryAfterMs;
+  return typeof retryAfterMs === "number" && Number.isFinite(retryAfterMs) ? retryAfterMs : null;
+}
+
 function ComingSoon() {
   return (
     <div className="home-card mx-auto max-w-xl p-8 text-center">
@@ -59,7 +84,7 @@ export function CommitsLeaderboard() {
 }
 
 function CommitsLeaderboardLive() {
-  const { user } = useUser();
+  const { isLoaded, user } = useUser();
   const [rows, setRows] = useState<Row[] | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [expandedId, setExpandedId] = useState<string | null>(null);
@@ -80,8 +105,12 @@ function CommitsLeaderboardLive() {
       .limit(100)
       .then(({ data, error: err }) => {
         if (!active) return;
-        if (err) setError(err.message);
-        else setRows((data as unknown as Row[]) ?? []);
+        if (err) {
+          setError(err.message);
+          return;
+        }
+        setError(null);
+        setRows((data as unknown as Row[]) ?? []);
       });
     return () => {
       active = false;
@@ -108,7 +137,13 @@ function CommitsLeaderboardLive() {
 
   return (
     <div className="mx-auto max-w-2xl">
-      {!user && (
+      {!isLoaded && (
+        <div className="home-card mb-6 p-4 text-[14px] text-[var(--home-ink-soft)]">
+          Checking your account…
+        </div>
+      )}
+
+      {isLoaded && !user && (
         <div className="home-card mb-6 flex flex-wrap items-center justify-between gap-3 p-4">
           <span className="text-[14px] text-[var(--home-ink-soft)]">
             Log in to link your GitHub and claim your spot.
@@ -119,7 +154,7 @@ function CommitsLeaderboardLive() {
         </div>
       )}
 
-      {user && (
+      {isLoaded && user && (
         <LinkGithubPanel
           ownRow={ownRow}
           onSynced={() => setRefreshKey((k) => k + 1)}
@@ -174,7 +209,7 @@ function CommitsLeaderboardLive() {
                     </span>
                   </span>
                   <span className="w-24 shrink-0 text-right font-medium tabular-nums">
-                    {row.public_commits} commits
+                    {compactCommitLabel(row.public_commits)}
                   </span>
                   <span
                     className="shrink-0 text-[var(--home-ink-quiet)] transition-transform"
@@ -225,7 +260,7 @@ function LinkGithubPanel({
   onSynced: () => void;
 }) {
   const [username, setUsername] = useState("");
-  const [status, setStatus] = useState<"idle" | "syncing" | "error">("idle");
+  const [status, setStatus] = useState<"idle" | "syncing" | "error" | "success">("idle");
   const [message, setMessage] = useState<string | null>(null);
 
   const sync = useCallback(
@@ -238,14 +273,19 @@ function LinkGithubPanel({
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({ username: name }),
         });
-        const body = await res.json().catch(() => ({}));
+        const body: unknown = await res.json().catch(() => ({}));
         if (!res.ok) {
+          const retryAfterMs = readRetryAfterMs(body);
+          const retryAfterText = retryAfterMs
+            ? ` Try again in about ${retryAfterLabel(retryAfterMs)}.`
+            : "";
           setStatus("error");
-          setMessage(body.error || "Couldn't sync right now.");
+          setMessage(`${readSyncError(body) ?? "Couldn't sync right now."}${retryAfterText}`);
           return;
         }
-        setStatus("idle");
+        setStatus("success");
         setUsername("");
+        setMessage("GitHub linked. Refreshing the leaderboard now.");
         onSynced();
       } catch {
         setStatus("error");
@@ -259,7 +299,7 @@ function LinkGithubPanel({
     return (
       <div className="home-card mb-6 flex flex-wrap items-center justify-between gap-3 p-4">
         <span className="text-[14px] text-[var(--home-ink-soft)]">
-          Linked as <strong>@{ownRow.github_username}</strong> — {ownRow.public_commits} public commits.
+          Linked as <strong>@{ownRow.github_username}</strong> — {commitLabel(ownRow.public_commits)}.
         </span>
         <button
           type="button"
@@ -269,7 +309,11 @@ function LinkGithubPanel({
         >
           {status === "syncing" ? "Syncing…" : "Resync"}
         </button>
-        {message && <p className="w-full text-[13px] text-[#a13c28]">{message}</p>}
+        {message && (
+          <p className={`w-full text-[13px] ${status === "error" ? "text-[#a13c28]" : "text-[var(--home-ink-soft)]"}`}>
+            {message}
+          </p>
+        )}
       </div>
     );
   }
@@ -294,15 +338,29 @@ function LinkGithubPanel({
       <input
         id="github-username"
         value={username}
-        onChange={(e) => setUsername(e.target.value)}
+        onChange={(e) => {
+          setUsername(e.target.value);
+          if (status !== "syncing") {
+            setStatus("idle");
+            setMessage(null);
+          }
+        }}
         placeholder="your-username"
         maxLength={39}
         className="min-w-0 flex-1 rounded-full border-[0.5px] border-[var(--home-grey-500)] bg-[var(--home-white)] px-4 py-2 text-[14px] outline-none focus:border-[var(--home-fern)]"
       />
-      <button type="submit" disabled={status === "syncing"} className="home-btn home-btn-fill">
+      <button
+        type="submit"
+        disabled={status === "syncing" || username.trim().length === 0}
+        className="home-btn home-btn-fill"
+      >
         {status === "syncing" ? "Linking…" : "Link"}
       </button>
-      {message && <p className="w-full text-[13px] text-[#a13c28]">{message}</p>}
+      {message && (
+        <p className={`w-full text-[13px] ${status === "error" ? "text-[#a13c28]" : "text-[var(--home-ink-soft)]"}`}>
+          {message}
+        </p>
+      )}
     </form>
   );
 }

@@ -54,6 +54,10 @@ interface GraphQLResponse<T> {
   errors?: { type?: string; message: string }[];
 }
 
+function isRateLimitError(error: { type?: string; message: string }): boolean {
+  return error.type === "RATE_LIMITED" || error.message.toLowerCase().includes("rate limit");
+}
+
 async function githubGraphQL<T>(
   query: string,
   variables: Record<string, unknown>,
@@ -72,18 +76,29 @@ async function githubGraphQL<T>(
     return { ok: false, error: { kind: "failed", error: String(err) } };
   }
 
-  if (res.status === 401 || res.status === 403) {
+  if (res.status === 429 || res.status === 403) {
     const remaining = res.headers.get("x-ratelimit-remaining");
     if (remaining === "0") return { ok: false, error: { kind: "rate-limited" } };
+    if (res.status === 429) return { ok: false, error: { kind: "rate-limited" } };
+  }
+  if (res.status === 401 || res.status === 403) {
     return { ok: false, error: { kind: "failed", error: `GitHub returned ${res.status}` } };
   }
   if (!res.ok) {
     return { ok: false, error: { kind: "failed", error: `GitHub returned ${res.status}` } };
   }
 
-  const body = (await res.json()) as GraphQLResponse<T>;
+  let body: GraphQLResponse<T>;
+  try {
+    body = (await res.json()) as GraphQLResponse<T>;
+  } catch (err) {
+    return { ok: false, error: { kind: "failed", error: `GitHub returned invalid JSON: ${String(err)}` } };
+  }
   if (body.errors?.some((e) => e.type === "NOT_FOUND")) {
     return { ok: false, error: { kind: "not-found" } };
+  }
+  if (body.errors?.some(isRateLimitError)) {
+    return { ok: false, error: { kind: "rate-limited" } };
   }
   if (body.errors?.length) {
     return { ok: false, error: { kind: "failed", error: body.errors[0].message } };

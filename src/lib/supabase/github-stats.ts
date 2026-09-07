@@ -43,18 +43,21 @@ export const SYNC_COOLDOWN_MS = 60 * 60 * 1000;
 export type SyncGate =
   | { allowed: true; existing: GithubStatsRow | null }
   | { allowed: false; reason: "cooldown"; retryAfterMs: number }
-  | { allowed: false; reason: "unconfigured" };
+  | { allowed: false; reason: "unconfigured" }
+  | { allowed: false; reason: "failed"; error: string };
 
 /** Whether `userId` may sync right now, and their existing row (the incremental cache) if any. */
 export async function checkSyncGate(userId: string): Promise<SyncGate> {
   const admin = getSupabaseAdmin();
   if (!admin) return { allowed: false, reason: "unconfigured" };
 
-  const { data } = await admin
+  const { data, error } = await admin
     .from("github_stats")
     .select("*")
     .eq("user_id", userId)
     .maybeSingle();
+  if (error) return { allowed: false, reason: "failed", error: error.message };
+
   const existing = (data as GithubStatsRow | null) ?? null;
 
   if (existing?.last_synced_at) {
