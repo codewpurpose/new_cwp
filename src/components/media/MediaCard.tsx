@@ -1,6 +1,5 @@
 import { InstagramIcon } from "@/components/icons";
-import type { MediaItem } from "@/lib/media";
-import { getYouTubeEmbedUrl } from "@/lib/media";
+import { getYouTubeEmbedUrl, type MediaItem } from "@/lib/media-types";
 
 interface MediaCardProps {
   item: MediaItem;
@@ -24,6 +23,20 @@ export function MediaCard({ item }: MediaCardProps) {
             className="h-full w-full border-0"
           />
         </div>
+        <div className="flex flex-wrap items-center justify-between gap-3 border-b border-[var(--home-hairline)] px-6 py-4 md:px-7">
+          <p className="text-sm text-[var(--home-ink-soft)]">
+            Player not loading?
+          </p>
+          <a
+            href={item.url}
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label={`${item.title} — watch on YouTube`}
+            className="home-arrow-link text-sm"
+          >
+            Watch on YouTube <span className="home-arrow">→</span>
+          </a>
+        </div>
         <div className="p-6 md:p-7">
           <p className="text-[11px] uppercase tracking-[0.12em] text-[var(--home-ink-quiet)]">
             YouTube
@@ -42,7 +55,7 @@ export function MediaCard({ item }: MediaCardProps) {
       <a
         href={item.url}
         target="_blank"
-        rel="noreferrer"
+        rel="noopener noreferrer"
         aria-label={`${item.title} — watch on Instagram`}
         className="group block"
       >
@@ -102,7 +115,7 @@ export function MediaGrid({
   }
 
   return (
-    <div className="grid gap-6 md:grid-cols-2">
+    <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
       {items.map((item) => (
         <MediaCard key={item.id} item={item} />
       ))}

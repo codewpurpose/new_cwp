@@ -2,16 +2,9 @@
 
 import { useMemo, useState } from "react";
 import { MediaGrid } from "@/components/media/MediaCard";
-import type { MediaItem, MediaPlatform } from "@/lib/media";
+import type { MediaItem, MediaPlatform } from "@/lib/media-types";
 
 type MediaFilter = "all" | MediaPlatform;
-
-// Instagram tab removed until Instagram entries exist in lib/media.ts — add
-// `{ label: "Instagram", value: "instagram" }` back once they do.
-const FILTERS: readonly { label: string; value: MediaFilter }[] = [
-  { label: "All videos", value: "all" },
-  { label: "YouTube", value: "youtube" },
-];
 
 function matchesSearch(item: MediaItem, search: string): boolean {
   if (!search.trim()) return true;
@@ -23,6 +16,21 @@ function matchesSearch(item: MediaItem, search: string): boolean {
 export function MediaLibrary({ items }: { items: readonly MediaItem[] }) {
   const [filter, setFilter] = useState<MediaFilter>("all");
   const [search, setSearch] = useState("");
+  const filters = useMemo(() => {
+    const availablePlatforms = new Set(items.map((item) => item.platform));
+    const options: { label: string; value: MediaFilter }[] = [
+      { label: "All videos", value: "all" },
+    ];
+
+    if (availablePlatforms.has("youtube")) {
+      options.push({ label: "YouTube", value: "youtube" });
+    }
+    if (availablePlatforms.has("instagram")) {
+      options.push({ label: "Instagram", value: "instagram" });
+    }
+
+    return options;
+  }, [items]);
 
   const filteredItems = useMemo(
     () =>
@@ -50,7 +58,7 @@ export function MediaLibrary({ items }: { items: readonly MediaItem[] }) {
               className="mt-4 flex flex-wrap gap-2"
               role="group"
             >
-              {FILTERS.map((option) => {
+              {filters.map((option) => {
                 const isActive = filter === option.value;
 
                 return (
