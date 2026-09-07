@@ -22,6 +22,8 @@ export const DASHBOARD_HREF = "/dashboard";
 export const LOGIN_HREF = "/login";
 export const SIGN_UP_HREF = "/sign-up";
 export const LEADERBOARD_HREF = "/leaderboard";
+/** The commit-history leaderboard — a second board, ranked by real GitHub activity instead of XP. */
+export const COMMITS_LEADERBOARD_HREF = "/leaderboard/commits";
 export const MEDIA_HREF = "/media";
 export const ABOUT_HREF = "/about";
 export const JOIN_HREF = "/join";
@@ -69,6 +71,9 @@ export const NEWSLETTER_SUBSCRIBE_PATH = "/api/subscribe/";
 
 /** Account welcome email, pinged once on first sign-in. Same slash rule. */
 export const ACCOUNT_WELCOME_PATH = "/api/account-welcome/";
+
+/** Links or resyncs a student's GitHub username on the commits leaderboard. Same slash rule. */
+export const GITHUB_STATS_SYNC_PATH = "/api/github-stats/";
 
 export const CONTACT_EMAIL = "team@codewithpurpose.org";
 export const CONTACT_EMAIL_HREF = `mailto:${CONTACT_EMAIL}`;
