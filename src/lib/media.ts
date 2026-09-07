@@ -27,6 +27,22 @@ export { getYouTubeEmbedUrl } from "@/lib/media-types";
 /** Hand-curated entries — mainly Instagram. Keep this list empty until real URLs exist. */
 export const MEDIA_ITEMS: readonly MediaItem[] = [];
 
+const YOUTUBE_ID = /^[A-Za-z0-9_-]{11}$/;
+const MEDIA_MONTHS = [
+  "Jan",
+  "Feb",
+  "Mar",
+  "Apr",
+  "May",
+  "Jun",
+  "Jul",
+  "Aug",
+  "Sep",
+  "Oct",
+  "Nov",
+  "Dec",
+] as const;
+
 function isYouTubeUrl(value: string, videoId: string): boolean {
   try {
     const url = new URL(value);
@@ -157,4 +173,25 @@ export async function getFeaturedMedia(): Promise<readonly MediaItem[]> {
   if (pinned.length === 3) return pinned;
 
   return (await getMediaItems()).slice(0, 3);
+}
+
+export function getYouTubeEmbedUrl(videoId: string): string {
+  if (!YOUTUBE_ID.test(videoId)) {
+    throw new Error(`Invalid YouTube videoId: ${videoId}.`);
+  }
+  return `https://www.youtube-nocookie.com/embed/${videoId}`;
+}
+
+/** Formats an ISO date without depending on the visitor's timezone or locale. */
+export function formatMediaDate(value?: string): string | null {
+  const match = value?.match(/^(\d{4})-(\d{2})-(\d{2})/);
+  if (!match) return null;
+
+  const [, year, month, day] = match;
+  const monthIndex = Number(month) - 1;
+  if (!MEDIA_MONTHS[monthIndex] || Number(day) < 1 || Number(day) > 31) {
+    return null;
+  }
+
+  return `${Number(day)} ${MEDIA_MONTHS[monthIndex]} ${year}`;
 }
