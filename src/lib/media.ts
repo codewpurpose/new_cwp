@@ -27,7 +27,6 @@ export { getYouTubeEmbedUrl } from "@/lib/media-types";
 /** Hand-curated entries — mainly Instagram. Keep this list empty until real URLs exist. */
 export const MEDIA_ITEMS: readonly MediaItem[] = [];
 
-const YOUTUBE_ID = /^[A-Za-z0-9_-]{11}$/;
 const MEDIA_MONTHS = [
   "Jan",
   "Feb",
@@ -173,13 +172,6 @@ export async function getFeaturedMedia(): Promise<readonly MediaItem[]> {
   if (pinned.length === 3) return pinned;
 
   return (await getMediaItems()).slice(0, 3);
-}
-
-export function getYouTubeEmbedUrl(videoId: string): string {
-  if (!YOUTUBE_ID.test(videoId)) {
-    throw new Error(`Invalid YouTube videoId: ${videoId}.`);
-  }
-  return `https://www.youtube-nocookie.com/embed/${videoId}`;
 }
 
 /** Formats an ISO date without depending on the visitor's timezone or locale. */
