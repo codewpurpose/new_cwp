@@ -189,6 +189,44 @@ by design — every visitor can read every display name — so the sign-up asks 
 
 ---
 
+## Part D — The commits leaderboard (GitHub), ~5 min
+
+A second, optional leaderboard: signed-in students link a GitHub username, and
+`/leaderboard/commits` ranks them by real lifetime public commits instead of
+lesson XP. Independent of the newsletter and welcome-email pieces above —
+needs only Clerk (already set up) plus one more table and one more key.
+
+1. **Create the table.** SQL Editor → run
+   [`supabase/github-stats.sql`](../supabase/github-stats.sql), **after**
+   `schema.sql` — it references `profiles`.
+
+2. **Get a GitHub token.** github.com → **Settings → Developer settings →
+   Personal access tokens → Tokens (classic) → Generate new token**. Scope:
+   `read:user`. This is **one token for the whole app**, not per-student OAuth
+   — every lookup goes through the server, and it only ever reads a username's
+   public profile (plus their private-contribution count, if their GitHub
+   profile settings expose it).
+
+   ```
+   GITHUB_TOKEN=ghp_...
+   ```
+
+   Add it locally (`.env.local`) and on Vercel, same as the keys in Part C.
+   Leave it blank and `/leaderboard/commits` shows "coming soon" — nothing else
+   is affected.
+
+3. **Verify.** Sign in, open `/leaderboard/commits`, enter a real GitHub
+   username, and click **Link**. Check **Table editor → github_stats** — a row
+   keyed on your Clerk id should appear with a real `public_commits` count.
+
+Same trust model as `profiles`/`xp`: nothing in the request body becomes a
+number in the table. `/api/github-stats` reads a username off the request,
+but every stat is fetched fresh from GitHub's API server-side and written with
+the `service_role` key — there is no insert/update policy for `authenticated`
+on `github_stats` at all (see the comment atop `github-stats.sql`).
+
+---
+
 ## How the pieces map
 
 | Feature | Handled by |
@@ -202,6 +240,7 @@ by design — every visitor can read every display name — so the sign-up asks 
 | Leaderboard ranking | `select … from profiles order by xp desc` |
 | Newsletter sign-ups | Supabase `subscribers`, written server-side; Resend sends the welcome |
 | Access control | Row-level security on the Clerk `sub` claim (`schema.sql`) |
+| Commits leaderboard | Supabase `github_stats` (`github-stats.sql`) + GitHub's GraphQL API, fetched server-side by `/api/github-stats` |
 
 Key files, if you need them: `src/lib/clerk.ts` (config flag),
 `src/lib/supabase/client.ts` (public/anon reads),
