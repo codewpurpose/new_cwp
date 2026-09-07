@@ -4,7 +4,7 @@ import { PageHero, PageSection } from "@/components/PageHero";
 import { PageShell } from "@/components/PageShell";
 import { Leaderboard } from "@/components/leaderboard/Leaderboard";
 import { images } from "@/lib/images";
-import { COURSES_HREF } from "@/lib/links";
+import { COMMITS_LEADERBOARD_HREF, COURSES_HREF } from "@/lib/links";
 
 export const metadata: Metadata = {
   title: "Leaderboard",
@@ -25,6 +25,9 @@ export default function LeaderboardPage() {
       >
         <Link href={COURSES_HREF} className="home-btn home-btn-outline">
           Browse Courses
+        </Link>
+        <Link href={COMMITS_LEADERBOARD_HREF} className="home-btn home-btn-outline">
+          Commits Leaderboard
         </Link>
       </PageHero>
 
