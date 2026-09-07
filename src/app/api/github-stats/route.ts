@@ -1,6 +1,7 @@
 import { auth } from "@clerk/nextjs/server";
 import { NextResponse } from "next/server";
-import { fetchGithubStats, isValidGithubUsername } from "@/lib/github/stats";
+import { fetchGithubStats } from "@/lib/github/stats";
+import { isValidGithubUsername } from "@/lib/github/username";
 import { checkSyncGate, upsertGithubStats } from "@/lib/supabase/github-stats";
 
 /**
@@ -32,12 +33,16 @@ export async function POST(request: Request) {
   if (typeof username !== "string" || !isValidGithubUsername(username.trim())) {
     return NextResponse.json({ error: "That doesn't look like a GitHub username." }, { status: 400 });
   }
-  username = username.trim();
+  const requestedUsername = username.trim();
 
   const gate = await checkSyncGate(userId);
   if (!gate.allowed) {
     if (gate.reason === "unconfigured") {
       return NextResponse.json({ error: "The commits leaderboard isn't switched on yet." }, { status: 503 });
+    }
+    if (gate.reason === "failed") {
+      console.error("[cwp] github-stats: sync gate failed:", gate.error);
+      return NextResponse.json({ error: "Couldn't check your current GitHub link. Try again." }, { status: 500 });
     }
     return NextResponse.json(
       { error: "You just synced — try again in a bit.", retryAfterMs: gate.retryAfterMs },
@@ -45,7 +50,11 @@ export async function POST(request: Request) {
     );
   }
 
-  const result = await fetchGithubStats(username as string, gate.existing?.commits_by_year ?? {});
+  const existingCommitsByYear =
+    gate.existing?.github_username.toLowerCase() === requestedUsername.toLowerCase()
+      ? gate.existing.commits_by_year
+      : {};
+  const result = await fetchGithubStats(requestedUsername, existingCommitsByYear);
   if (!result.ok) {
     switch (result.error.kind) {
       case "unconfigured":
@@ -72,5 +81,12 @@ export async function POST(request: Request) {
     return NextResponse.json({ error: "Fetched your stats but couldn't save them. Try again." }, { status: 500 });
   }
 
-  return NextResponse.json({ ok: true, publicCommits: result.stats.publicCommits }, { status: 200 });
+  return NextResponse.json(
+    {
+      ok: true,
+      githubUsername: result.stats.profile.login,
+      publicCommits: result.stats.publicCommits,
+    },
+    { status: 200 },
+  );
 }
