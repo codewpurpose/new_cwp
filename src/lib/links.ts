@@ -122,6 +122,7 @@ export const SUBSTACK_EMBED_SRC = "https://codewithpurpose.substack.com/embed";
 
 export const NAV_LINKS = [
   { label: "Courses", href: COURSES_HREF },
+  { label: "Commits", href: COMMITS_LEADERBOARD_HREF },
   { label: "Media", href: MEDIA_HREF },
   { label: "About Us", href: ABOUT_HREF },
   { label: "Join Us", href: JOIN_HREF },
