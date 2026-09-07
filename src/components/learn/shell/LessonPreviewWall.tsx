@@ -28,7 +28,7 @@ import { LOGIN_HREF, SIGN_UP_HREF } from "@/lib/links";
  *
  * If a chapter ever must NOT be readable signed-out, this component cannot do
  * it — that needs the content off the page, which means `auth()` in the layout
- * and every chapter losing prerendering. See MISSING.md.
+ * and every chapter losing prerendering.
  */
 export function LessonPreviewWall({ children }: { children: React.ReactNode }) {
   // Stable across renders — a build-time constant, not state — so branching
