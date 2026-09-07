@@ -523,6 +523,10 @@
   border-color: rgba(62, 127, 92, 0.4);
   box-shadow: var(--home-shadow-md);
 }
+.media-card-featured {
+  border-color: rgba(62, 127, 92, 0.45);
+  box-shadow: 0 12px 30px rgba(62, 127, 92, 0.1), var(--home-shadow-sm);
+}
 .home-root a:not(.home-btn):not(.home-arrow-link) { text-decoration-color: var(--home-fern); }
 .home-root section, .home-root footer > div > div { border-color: var(--home-hairline); }
 /* Buttons had 10px of horizontal padding against 8px vertical, so the label
