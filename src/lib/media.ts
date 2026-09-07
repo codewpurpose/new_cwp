@@ -15,28 +15,17 @@
  */
 
 import { fetchYouTubeUploads } from "@/lib/youtube";
+import {
+  isValidYouTubeVideoId,
+  sortMediaByPublishedDate,
+} from "@/lib/media-types";
+import type { MediaItem } from "@/lib/media-types";
 
-export type MediaPlatform = "youtube" | "instagram";
-
-export interface MediaItem {
-  id: string;
-  platform: MediaPlatform;
-  title: string;
-  description: string;
-  url: string;
-  /** Required for YouTube entries; omitted for Instagram entries. */
-  videoId?: string;
-  /** A local path under /public, used for Instagram preview cards. */
-  thumbnail?: string;
-  featured: boolean;
-  /** ISO 8601. Set on fetched YouTube entries; optional on hand-curated ones. */
-  publishedAt?: string;
-}
+export type { MediaItem, MediaPlatform } from "@/lib/media-types";
+export { getYouTubeEmbedUrl } from "@/lib/media-types";
 
 /** Hand-curated entries — mainly Instagram. Keep this list empty until real URLs exist. */
 export const MEDIA_ITEMS: readonly MediaItem[] = [];
-
-const YOUTUBE_ID = /^[A-Za-z0-9_-]{11}$/;
 
 function isYouTubeUrl(value: string, videoId: string): boolean {
   try {
@@ -73,6 +62,22 @@ function isInstagramUrl(value: string): boolean {
   }
 }
 
+function isLocalMediaThumbnail(value: string): boolean {
+  if (!value.startsWith("/media/") || value.includes("\\") || value.startsWith("//")) {
+    return false;
+  }
+
+  try {
+    const url = new URL(value, "https://codewithpurpose.local");
+    return (
+      url.origin === "https://codewithpurpose.local" &&
+      url.pathname.startsWith("/media/")
+    );
+  } catch {
+    return false;
+  }
+}
+
 /**
  * Fails loudly during development/build instead of rendering a broken card.
  * An empty list is valid while the team is collecting the first URLs. The
@@ -102,12 +107,14 @@ export function validateMediaItems(items: readonly MediaItem[]): void {
     if (!item.description.trim()) {
       throw new Error(`Media item ${item.id} needs a description.`);
     }
-    if (item.thumbnail && !item.thumbnail.startsWith("/")) {
-      throw new Error(`Media item ${item.id} must use a local thumbnail path.`);
+    if (item.thumbnail && !isLocalMediaThumbnail(item.thumbnail)) {
+      throw new Error(
+        `Media item ${item.id} must use a local thumbnail path under /media/.`,
+      );
     }
 
     if (item.platform === "youtube") {
-      if (!item.videoId || !YOUTUBE_ID.test(item.videoId)) {
+      if (!item.videoId || !isValidYouTubeVideoId(item.videoId)) {
         throw new Error(`YouTube item ${item.id} needs an 11-character videoId.`);
       }
       if (!isYouTubeUrl(item.url, item.videoId)) {
@@ -126,13 +133,6 @@ export function validateMediaItems(items: readonly MediaItem[]): void {
 
 validateMediaItems(MEDIA_ITEMS);
 
-function byPublishedDateDesc(a: MediaItem, b: MediaItem): number {
-  if (!a.publishedAt && !b.publishedAt) return 0;
-  if (!a.publishedAt) return 1;
-  if (!b.publishedAt) return -1;
-  return new Date(b.publishedAt).getTime() - new Date(a.publishedAt).getTime();
-}
-
 /**
  * The full library: hand-curated entries plus the channel's recent uploads,
  * newest first. Curated entries win on id collisions (e.g. a pinned YouTube
@@ -143,7 +143,7 @@ export async function getMediaItems(): Promise<readonly MediaItem[]> {
   const curatedIds = new Set(MEDIA_ITEMS.map((item) => item.id));
   const merged = [...MEDIA_ITEMS, ...fetched.filter((item) => !curatedIds.has(item.id))];
 
-  return merged.slice().sort(byPublishedDateDesc);
+  return sortMediaByPublishedDate(merged);
 }
 
 /**
@@ -157,11 +157,4 @@ export async function getFeaturedMedia(): Promise<readonly MediaItem[]> {
   if (pinned.length === 3) return pinned;
 
   return (await getMediaItems()).slice(0, 3);
-}
-
-export function getYouTubeEmbedUrl(videoId: string): string {
-  if (!YOUTUBE_ID.test(videoId)) {
-    throw new Error(`Invalid YouTube videoId: ${videoId}.`);
-  }
-  return `https://www.youtube-nocookie.com/embed/${videoId}`;
 }
