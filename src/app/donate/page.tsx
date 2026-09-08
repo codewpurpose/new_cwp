@@ -9,12 +9,12 @@ import { CONTACT_HREF, COURSES_HREF, HCB_DONATE_EMBED_SRC } from "@/lib/links";
 export const metadata: Metadata = {
   title: "Donate",
   description:
-    "Support CodeWithPurpose. Every dollar helps a student start their coding journey today.",
+    "Support CodeWithPurpose. Every dollar helps a student start learning to code.",
   alternates: { canonical: "/donate/" },
   openGraph: {
     title: "Donate | CodeWithPurpose",
     description:
-      "Support CodeWithPurpose. Every dollar helps a student start their coding journey today.",
+      "Support CodeWithPurpose. Every dollar helps a student start learning to code.",
     url: "/donate/",
     type: "website",
   },
@@ -22,7 +22,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Donate | CodeWithPurpose",
     description:
-      "Support CodeWithPurpose. Every dollar helps a student start their coding journey today.",
+      "Support CodeWithPurpose. Every dollar helps a student start learning to code.",
   },
 };
 
@@ -53,7 +53,7 @@ export default function DonatePage() {
         <div className="relative mx-auto grid w-full max-w-[85rem] items-start gap-10 px-5 md:px-10 lg:grid-cols-2">
           <Reveal>
             <h1 className="home-display text-[2rem] leading-[1.05] tracking-[-0.02em] md:text-[2.75rem] lg:text-[3.25rem]">
-              Help a student start their journey today
+              Help a student start learning today
             </h1>
             <p className="mt-5 max-w-xl text-lg leading-[1.5] text-[var(--home-ink-soft)]">
               Every dollar helps us build a more inclusive future where code is a
@@ -108,7 +108,7 @@ export default function DonatePage() {
           <blockquote className="mt-6 text-lg leading-[1.6] md:text-xl">
             &ldquo;Every dollar helps us build a more inclusive future where code
             is a tool for good. Whether it&apos;s $5 or $500, you&apos;re helping a
-            student start their journey today.&rdquo;
+              student start learning today.&rdquo;
           </blockquote>
           <div className="mt-8 flex items-center justify-center gap-4">
             {/* eslint-disable-next-line @next/next/no-img-element */}

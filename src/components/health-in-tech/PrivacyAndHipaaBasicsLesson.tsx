@@ -131,7 +131,7 @@ export function PrivacyAndHipaaBasicsLesson() {
               guarantees.
             </>
           }
-          footnote="This is the single most common misunderstanding people bring to this topic — the sensitivity of the data does not determine whether HIPAA applies; who is holding it does."
+          footnote="A common misunderstanding is that data sensitivity determines whether HIPAA applies; who is holding the data does."
         />
       </LessonSection>
 

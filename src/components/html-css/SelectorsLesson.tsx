@@ -66,7 +66,7 @@ body { margin: 0; }`}
         <P>
           An element can carry several classes, separated by spaces, and every matching rule applies.
           That button gets both <Strong>.btn</Strong> and <Strong>.btn-primary</Strong> — shared
-          styling plus a variant, which is the single most useful pattern in CSS.
+          styling plus a variant, which is one of the most useful patterns in CSS.
         </P>
         <LabelRows
           rows={[
@@ -105,7 +105,7 @@ body { margin: 0; }`}
         <CompareGrid
           items={[
             {
-              title: "IDs are genuinely useful for",
+              title: "IDs are useful for",
               tone: "positive",
               children: (
                 <P>
@@ -184,7 +184,7 @@ h2 ~ p      { }   /* general sibling: every p after h2, same parent */`}
           <em>condition</em> — hovered, focused, first of their kind.
         </P>
         <CodeBlock
-          label="The ones worth knowing"
+          label="The selectors to know"
           code={`a:hover           { text-decoration: underline; }
 a:focus-visible   { outline: 2px solid #3e7f5c; }
 button:disabled   { opacity: 0.5; }
@@ -201,7 +201,7 @@ p:not(.intro)     { }                        /* every p WITHOUT that class */`}
             { label: ":hover", text: "The pointer is over it. Note that this does not exist on touch devices — never hide anything important behind hover alone." },
             { label: ":focus-visible", text: "Focused via the keyboard. Prefer this to :focus, which also fires on mouse clicks and produces outlines people find noisy." },
             { label: ":nth-child()", text: "By position. 2n is every second, odd and even work, 3 is the third exactly." },
-            { label: ":not()", text: "Everything that does NOT match. Excellent for \"all of them except the last\"." },
+            { label: ":not()", text: "Everything that does NOT match. Useful for \"all of them except the last\"." },
           ]}
         />
         <Callout tone="danger" title="Never remove a focus outline without replacing it">

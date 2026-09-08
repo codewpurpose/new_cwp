@@ -128,7 +128,7 @@ export function AutomatingSavingsLesson() {
             },
             {
               label: "Send savings to a separate bank, not a linked sub-account",
-              detail: "An account without a debit card and without a one-tap view in your everyday banking app is genuinely harder to raid on impulse.",
+              detail: "An account without a debit card and without a one-tap view in your everyday banking app is harder to raid on impulse.",
             },
             {
               label: "Raise the transfer amount the same day a raise arrives",

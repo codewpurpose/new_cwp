@@ -209,8 +209,8 @@ def test_average_of_sample_scores(sample_scores):
           <Strong>test_average_of_sample_scores</Strong> is not a coincidence — pytest matches a
           test&apos;s parameters against fixture names by that exact name, runs the matching
           fixture first, and passes in whatever it returned. It is a small piece of machinery,
-          worth knowing exists, and rarely worth reaching for until the same setup has already
-          been copied into three or four tests.
+          that is rarely useful until the same setup has already been copied into three or four
+          tests.
         </P>
       </LessonSection>
 

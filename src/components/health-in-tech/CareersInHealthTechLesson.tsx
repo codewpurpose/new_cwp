@@ -123,7 +123,7 @@ export function CareersInHealthTechLesson() {
           a nursing or medical board exam.
         </P>
         <P>
-          Clinical informatics is the genuinely mixed case. Plenty of working informaticists
+          Clinical informatics is the mixed case. Plenty of working informaticists
           hold an active RN or MD and treat the role as a second career built on top of clinical
           practice — that pathway usually leads to the most senior positions, up to Chief
           Medical Information Officer, which in most hospitals is an MD role by expectation, not

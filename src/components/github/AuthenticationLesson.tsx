@@ -19,7 +19,7 @@ export function AuthenticationLesson() {
       >
         <P>
           For years you could push over HTTPS by typing your GitHub username and password. In August
-          2021 that was switched off entirely, and the replacement error is genuinely misleading.
+          2021 that was switched off entirely, and the replacement error is misleading.
         </P>
         <CodeBlock
           label="What you get if you try"
@@ -78,7 +78,7 @@ fatal: Authentication failed for 'https://github.com/you/project.git/'`}
           steps={[
             {
               label: "Settings → Developer settings → Personal access tokens",
-              detail: "It is at the very bottom of the settings sidebar, which is a genuinely hard place to find the first time.",
+              detail: "It is at the very bottom of the settings sidebar, which is hard to find the first time.",
             },
             {
               label: "Choose fine-grained, not classic",
@@ -152,7 +152,7 @@ ssh -T git@github.com
 git remote -v      # confirm it now starts git@ rather than https://`}
         />
         <P>
-          One organisational detail worth knowing early: if your employer uses SAML single sign-on,
+          One organisational detail matters early: if your employer uses SAML single sign-on,
           both tokens and SSH keys must be separately <Strong>authorised</Strong> for that
           organisation after being created. A key that works fine for your own repositories will fail
           on the company one until you click that button, and the error does not mention SAML.
@@ -164,7 +164,7 @@ git remote -v      # confirm it now starts git@ rather than https://`}
         title="The gh CLI sets all of this up in one command"
       >
         <P>
-          GitHub&apos;s official command-line tool does the whole setup interactively, including
+          GitHub&apos;s official command-line tool handles these steps interactively, including
           generating an SSH key and uploading it for you.
         </P>
         <CodeBlock
@@ -254,7 +254,7 @@ security delete-internet-password -s github.com`}
           "Set a passphrase on the key and let ssh-agent hold it, so the file alone is not enough.",
           "Switch protocols with git remote set-url; you never need to re-clone.",
           "With SAML single sign-on, tokens and keys need separate authorisation and the error never says so.",
-          "gh auth login does the whole setup, including generating and uploading a key.",
+          "gh auth login handles the setup, including generating and uploading a key.",
           "A credential helper caches your token, which is why a rotated one keeps failing until you clear it.",
         ]}
       />

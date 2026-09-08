@@ -57,7 +57,7 @@ export function PublishingYourExperienceLesson() {
         <P>
           The consequence that catches people: some settings belong to the place and some to the
           experience, and they are edited in different windows. Making a place public does not
-          make the experience public, and that is the single most common reason a friend gets an
+          make the experience public, and that is a common reason a friend gets an
           error page from a working obby.
         </P>
       </LessonSection>

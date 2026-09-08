@@ -6,7 +6,7 @@ import { SegmentedControl } from "@/components/learn/primitives/SegmentedControl
 /**
  * The same page, one layer at a time.
  *
- * The HTML-only panel is the one that matters and it has to be genuinely
+ * The HTML-only panel is the one that matters and it has to be
  * unstyled — no card, no spacing, browser defaults only. Anything prettier and
  * the point is lost, which is why the markup here is rendered with real
  * elements inside a `layer-raw` wrapper rather than described in prose.

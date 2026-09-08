@@ -118,7 +118,7 @@ export function ADayInADigitalClinicLesson() {
         />
         <P>
           The nuance — worse at night, worse lying down, which a specialist reading a referral
-          six weeks later might find genuinely useful — usually survives only if a clinician
+          six weeks later might find useful — usually survives only if a clinician
           happened to also type it as a free-text note, and free-text notes are exactly the
           part least likely to travel cleanly to the next system in line.
         </P>

@@ -96,7 +96,7 @@ claude`,
   copilot: {
     name: "GitHub Copilot",
     runsIn: "VS Code, JetBrains, and others",
-    cost: "Free for verified students — worth checking before you pay",
+    cost: "Free for verified students",
     bestFor: "Staying in the editor you already use.",
     steps: [
       {
@@ -131,7 +131,7 @@ claude`,
     steps: [
       {
         label: "Open the site and sign in",
-        detail: "claude.ai or chatgpt.com. That is the whole setup.",
+        detail: "claude.ai or chatgpt.com. That is enough to start.",
       },
       {
         label: "Paste the code you are asking about",

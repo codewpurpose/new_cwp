@@ -214,7 +214,7 @@ PV1|1|I|MED^204^1||||1234^SMITH^ROBERT|||MED`}
           <InlineCode>4548-4</InlineCode> means the exact same test at every hospital on earth
           that uses LOINC, which is nearly all of them. A receiving system does not need to know
           which lab drew the blood to know what was measured — it just needs to recognise one
-          code, once. That is the whole payoff of a shared terminology: the envelope carries the
+          code, once. That is the practical benefit of a shared terminology: the envelope carries the
           data, the terminology makes the data legible to a stranger.
         </P>
       </LessonSection>

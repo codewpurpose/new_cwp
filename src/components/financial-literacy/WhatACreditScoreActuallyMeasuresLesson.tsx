@@ -107,19 +107,19 @@ export function WhatACreditScoreActuallyMeasuresLesson() {
           ]}
         />
         <Callout tone="warning" title="Set up autopay for at least the minimum">
-          Autopay for the minimum payment on every card and loan removes the single most damaging
+          Autopay for the minimum payment on every card and loan removes a damaging
           mistake from the list of things that can go wrong in a busy month.
         </Callout>
       </LessonSection>
 
-      <LessonSection id="two-myths-worth-retiring" title="Two myths worth retiring">
+      <LessonSection id="two-myths-worth-retiring" title="Two myths to retire">
         <P>
           Two beliefs about credit scores are common, confidently repeated, and wrong. Both lead
-          people to either waste money or avoid a genuinely useful habit out of caution that
+          people to either waste money or avoid a useful habit out of caution that
           isn&apos;t earned.
         </P>
         <ChecklistCard
-          title="Myths worth retiring"
+          title="Myths to retire"
           marker="check"
           items={[
             <>

@@ -199,7 +199,7 @@ export interface Pipeline {
   steps: readonly string[];
   /** The score this pipeline's own evaluation prints. */
   reported: number;
-  /** The same model measured on genuinely future, unseen applicants. */
+  /** The same model measured on future, unseen applicants. */
   honest: number;
   leak: string | null;
   tell: string;

@@ -23,7 +23,6 @@ export function DrugDiscoveryAndAiLesson() {
           pipeline never make it out the other end.
         </P>
         <P>
-          The scale of that attrition is worth sitting with before AI enters the picture at all.
           Roughly nine in ten candidates that make it as far as human trials still fail somewhere
           along the way — most often in the phase built specifically to test whether the drug
           actually works, rather than the earlier phase that just checks whether it is safe.
@@ -62,8 +61,8 @@ export function DrugDiscoveryAndAiLesson() {
           <Strong>Candidate discovery</Strong> is where AI has made the clearest dent. Searching
           the space of chemically possible molecules by hand or by brute-force lab testing is
           slow — a model that has learned which molecular shapes tend to bind to a given target
-          can narrow millions of theoretical candidates down to a shortlist worth actually
-          synthesising and testing, in a fraction of the time a purely manual search would take.
+          can narrow millions of theoretical candidates down to a shortlist to synthesise and
+          test, in a fraction of the time a purely manual search would take.
         </P>
         <P>
           <Strong>Target identification</Strong> benefits too, in a smaller way — models that scan
@@ -73,24 +72,24 @@ export function DrugDiscoveryAndAiLesson() {
         <P>
           Both are real, and both are also two of the narrowest stages in the pipeline above —
           which is exactly why the improvement doesn&apos;t show up as a shorter overall timeline
-          yet, and why it is worth being precise about which specific tool did which specific job
-          before crediting AI with the whole pipeline.
+          yet. Be precise about which tool did which job before crediting AI with the whole
+          pipeline.
         </P>
       </LessonSection>
 
       <LessonSection id="what-alphafold-actually-solved" title="What AlphaFold actually solved">
         <P>
-          The single most-cited example of AI in this space is DeepMind&apos;s AlphaFold, and
-          it&apos;s worth being exact about what it did, because the popular version of the story
+          DeepMind&apos;s AlphaFold is a well-known example of AI in this space, and
+          be exact about what it did, because the popular version of the story
           credits it with more than it delivered. Predicting the three-dimensional shape a protein
           folds into, from nothing but the sequence of amino acids that make it up, was an open
           problem biologists had chased for decades. Solving it well enough to compete with a
-          physical lab measurement was a genuine scientific breakthrough, and the resulting
+          physical lab measurement was a scientific breakthrough, and the resulting
           database now holds predicted structures for well over 200 million proteins, most of
           which had never been measured directly at all.
         </P>
         <P>
-          Knowing a target protein&apos;s shape is genuinely useful for candidate discovery — it
+          Knowing a target protein&apos;s shape is useful for candidate discovery — it
           lets a model reason about which molecules might physically fit against it, rather than
           searching blind. It is also a smaller piece of the pipeline than the headline suggests.
         </P>
@@ -137,7 +136,7 @@ export function DrugDiscoveryAndAiLesson() {
         <P>
           Adaptive trial designs go a step further, using interim results to adjust which dosing
           arms keep enrolling patients while the trial is still running, rather than waiting for a
-          fixed design set in advance to finish before learning anything. Both genuinely speed up
+          fixed design set in advance to finish before learning anything. Both speed up
           parts of running a trial. Neither shortens the part that actually takes the years —
           following enough patients for long enough to know whether a drug works and stays safe,
           which is a biological constraint no amount of faster matching or smarter enrolment gets

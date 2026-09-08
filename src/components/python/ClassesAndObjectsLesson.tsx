@@ -146,8 +146,8 @@ True`}
 'Lincoln High'`}
         />
         <P>
-          That is fine for a value that genuinely is the same for everyone. It becomes a real
-          bug the moment the shared value is mutable — a list or a dictionary — because
+          That is fine for a value that is the same for everyone. It becomes a bug the moment
+          the shared value is mutable — a list or a dictionary — because
           changing it through one instance changes it for every instance at once, since there
           was only ever one list to begin with.
         </P>
@@ -171,7 +171,7 @@ True`}
           <Strong>ada.clubs</Strong> and <Strong>grace.clubs</Strong> were never two lists —{" "}
           clubs lives on the class, not on either instance, so both names point at the same
           one. The fix is to create the mutable value inside <Strong>__init__</Strong> instead,
-          where each call genuinely does make a new one.
+          where each call makes a new one.
         </P>
         <Callout tone="danger" title="Never default a mutable value at class level">
           <Strong>self.clubs = []</Strong> inside __init__ gives every instance its own list.{" "}
@@ -180,7 +180,7 @@ True`}
         </Callout>
       </LessonSection>
 
-      <LessonSection id="a-repr-worth-reading" title="A repr worth reading" delay={0.05}>
+      <LessonSection id="a-repr-worth-reading" title="A repr that helps with debugging" delay={0.05}>
         <P>
           Print a plain object and Python shows you something like{" "}
           <Strong>{"<__main__.Student object at 0x104a3f550>"}</Strong> — technically correct,
@@ -216,8 +216,8 @@ Student('Ada', 92)`}
           lineTones={{ 9: "ok", 11: "ok" }}
         />
         <P>
-          Worth doing on almost every class you write, not just the ones you plan to print on
-          purpose: the moment something goes wrong three functions away and you inspect a
+          Define it on almost every class you write, not just the ones you plan to print on
+          purpose. When something goes wrong three functions away and you inspect a
           variable in a debugger or an error message, <Strong>__repr__</Strong> is what you
           actually read.
         </P>

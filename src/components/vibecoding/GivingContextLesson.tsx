@@ -64,7 +64,7 @@ export function GivingContextLesson() {
             {
               label: "A similar file that already does it right",
               detail:
-                "Answers “what should it look like?” This is the one people skip, and it is the highest-value attachment you can make.",
+                "Answers “what should it look like?” A similar-file example gives the model a concrete convention to follow.",
               note: "One good example teaches conventions better than a paragraph describing them.",
             },
             {
@@ -156,7 +156,7 @@ missing or ambiguous, ask before starting.`}
         items={[
           "Point at files instead of describing them. Your summary is lossy; the file is not.",
           "Attach three things: the target, a good example to imitate, and the relevant types.",
-          "The similar-file example is the highest-value attachment and the one most people skip.",
+          "A similar-file example gives the model a concrete convention to follow, but people often skip it.",
           "Do not attach everything — noise pushes the useful parts out of the budget.",
           "Never attach secrets or customer data. It leaves your machine and does not come back.",
           "The conversation itself fills the window over time. A session with several wrong turns is often worth restarting rather than correcting again.",

@@ -36,7 +36,7 @@ const NOTES: Record<Display, { headline: string; body: string; width: string; ma
     headline: "Sits in the line, and behaves like a box",
     width: "respected",
     margin: "respected on all four sides",
-    body: "The compromise: flows inline with its neighbours, but honours width, height, and vertical margins. It was the standard way to lay out a row of things for a decade. Flexbox does this better now, but inline-block is still right for something that genuinely belongs in a sentence.",
+    body: "The compromise: flows inline with its neighbours, but honours width, height, and vertical margins. It was the standard way to lay out a row of things for a decade. Flexbox does this better now, but inline-block is still right for something that belongs in a sentence.",
   },
 };
 

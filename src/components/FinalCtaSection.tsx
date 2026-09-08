@@ -8,8 +8,7 @@ export function FinalCtaSection() {
           Join 5,000+ students across 150 countries already learning with us.
         </h2>
         <p className="mx-auto mt-4 max-w-xl text-[15px] leading-[1.6] text-[var(--home-ink-soft)] md:text-base">
-          Free. Forever. Start learning today or support our mission to bring
-          coding education to every student, everywhere.
+          Start learning today, or help us keep the courses free.
         </p>
         <div className="mt-8 flex flex-wrap items-center justify-center gap-2">
           <a href={COURSES_HREF} className="home-btn home-btn-fill">Explore courses</a>

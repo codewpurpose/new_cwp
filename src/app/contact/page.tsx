@@ -26,8 +26,8 @@ export default function ContactPage() {
   return (
     <PageShell>
       <PageHero
-        title="We'd love to hear from you"
-        description="Questions about courses, volunteering, partnerships, or donations? It all lands in one inbox, answered by actual students."
+        title="Contact the team"
+        description="Questions about courses, volunteering, partnerships, or donations? Email the student team."
       />
 
       <PageSection>
@@ -43,8 +43,8 @@ export default function ContactPage() {
               {CONTACT_EMAIL}
             </a>
             <p className="mx-auto mt-4 max-w-md text-[15px] leading-[1.6] text-[var(--home-ink-soft)]">
-              Big idea, small question, or just want to say hi? Write to us.
-              Every message gets read by a real person on the team.
+              Questions, suggestions, or partnership ideas are welcome. A member
+              of the team will read your message.
             </p>
           </div>
         </Reveal>

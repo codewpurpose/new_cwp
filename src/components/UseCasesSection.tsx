@@ -5,7 +5,7 @@ export function UseCasesSection() {
         <div className="mx-auto w-full max-w-[85rem] px-5 md:px-10">
           <div className="mb-8 md:mb-10">
             <h2 className="home-serif text-[1.75rem] leading-[1.08] md:text-[2.5rem]">
-              Our Mission to Bring Knowledge Where It&apos;s Needed Most
+              Free lessons for students who need them
             </h2>
             <p className="mt-4 max-w-2xl text-[15px] leading-[1.6] text-[var(--home-ink-soft)] md:text-base">
               We&apos;re a community of students who share one belief: quality coding education
@@ -65,11 +65,10 @@ export function UseCasesSection() {
               <div className="order-1 flex min-w-0 flex-col justify-center p-5 sm:p-6 md:order-none md:p-10 lg:p-12">
                 <h3 className="max-w-[20ch] text-[1.25rem] leading-[1.1] sm:text-[1.375rem] md:text-[1.875rem]">Knowledge where it&apos;s needed most</h3>
                 <p className="mt-4 max-w-[34rem] text-[15px] leading-[1.5] text-[var(--home-ink-soft)] md:text-base">
-                  We got tired of watching $15,000 bootcamps decide who gets to
-                  learn. So we built something better: free courses, real skills,
-                  and a community that shows up. Today we reach students in 150+
-                  countries, from rural villages in India to classrooms in Nigeria,
-                  and give them the same shot as anyone else.
+              We got tired of watching $15,000 bootcamps decide who gets to
+              learn. We built free courses instead. Students in 150+ countries,
+              from rural villages in India to classrooms in Nigeria, can use the
+              same lessons without paying.
                 </p>
                 <div className="mt-6 rounded-xl border-[0.5px] border-[var(--home-hairline)] bg-[var(--home-page)] px-4 py-3.5 text-[14px] italic leading-[1.5] text-[var(--home-ink-soft)]">
                   Students in 150+ countries are already learning with us, for
@@ -125,7 +124,7 @@ export function UseCasesSection() {
                 </div>
               </div>
               <div className="order-1 flex min-w-0 flex-col justify-center p-5 sm:p-6 md:order-none md:p-10 lg:p-12">
-                <h3 className="max-w-[20ch] text-[1.25rem] leading-[1.1] sm:text-[1.375rem] md:text-[1.875rem]">Volunteers who lean in to help</h3>
+                <h3 className="max-w-[20ch] text-[1.25rem] leading-[1.1] sm:text-[1.375rem] md:text-[1.875rem]">Volunteers who help</h3>
                 <p className="mt-4 max-w-[34rem] text-[15px] leading-[1.5] text-[var(--home-ink-soft)] md:text-base">
                   Our volunteers don&apos;t just teach. They mentor, troubleshoot,
                   and celebrate every breakthrough right alongside our students.
@@ -187,7 +186,7 @@ export function UseCasesSection() {
                 <p className="mt-4 max-w-[34rem] text-[15px] leading-[1.5] text-[var(--home-ink-soft)] md:text-base">
                   Recognized by the U.S. House of Representatives, we work every
                   day to prove that student-led education can reach the highest
-                  standards of impact and community service.
+                  standards of service to students.
                 </p>
                 <div className="mt-6 rounded-xl border-[0.5px] border-[var(--home-hairline)] bg-[var(--home-page)] px-4 py-3.5 text-[14px] italic leading-[1.5] text-[var(--home-ink-soft)]">
                   &ldquo;Tremendous leadership and service to your community.&rdquo;

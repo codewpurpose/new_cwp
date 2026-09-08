@@ -160,8 +160,8 @@ club["members"][0]["badges"].append("solder")`}
         </P>
         <P>
           Two fixes, both cheap. Pull an intermediate level into a named variable, which turns
-          one unreadable line into two obvious ones. Or, if the shape has become a genuine
-          thing in your program rather than a passing response, give it a class — that was the
+          one unreadable line into two obvious ones. Or, if the shape has become a thing your
+          program uses beyond a passing response, give it a class — that was the
           argument for bundling data with behaviour, and it applies with more force at four
           levels than it did at one.
         </P>

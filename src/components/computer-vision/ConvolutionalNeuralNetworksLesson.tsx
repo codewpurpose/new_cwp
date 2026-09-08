@@ -51,7 +51,7 @@ export function ConvolutionalNeuralNetworksLesson() {
           simply what a network with a 3×3 window and one layer of depth is capable of noticing,
           and so edges are what it converges on.
         </P>
-        <Callout tone="success" title="Worth knowing">
+        <Callout tone="success" title="What changes">
           This is not a claim you have to take on faith. Feature visualisation techniques let you
           render exactly what pattern makes each first-layer kernel fire most strongly, and across
           published networks the result looks the same: a bank of oriented edges and colour

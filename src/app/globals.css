@@ -493,7 +493,7 @@
  * The page used to space its sections with empty `<div className="h-16 md:h-40" />`
  * elements — six of them, carrying four different values, with a comment
  * explaining which neighbouring component brought its own padding. One gap here
- * instead, with two modifiers for the pairs that genuinely belong closer:
+ * instead, with two modifiers for the pairs that belong closer:
  * .home-flow-attach cancels the gap for a section that should butt against the
  * one above it, .home-flow-close halves it. */
 .home-flow {
@@ -512,7 +512,7 @@
 /* A hairline plus a warm shadow, rather than a full-saturation fern outline.
  * The old 1px fern on every card made a stat, a course and a section wrapper
  * read as the same object, and hard green rules across a cream page are most
- * of what made this look flat. Cards that genuinely need to be picked out take
+ * of what made this look flat. Cards that need to be picked out take
  * .home-card-accent. */
 .home-card {
   background: var(--home-white);
@@ -772,7 +772,7 @@
   }
   to {
     /* One copy of three: the track renders items ×3, so translating by a third
-       lands exactly on the next copy for a seamless loop. Three copies (not two)
+       lands exactly on the next copy for a continuous loop. Three copies (not two)
        keep every row overflowing the viewport at all times, so neither the
        forward nor the reverse row ever starts with an empty gap on one side. */
     transform: translateX(-33.3333%);

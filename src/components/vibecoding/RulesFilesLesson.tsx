@@ -8,8 +8,7 @@ export function RulesFilesLesson() {
     <div>
       <Lead>
         A rules file is a markdown file in your repo that your AI tool reads automatically
-        before every request. It is the highest-payoff thing in this course: written once, it
-        improves every prompt you will ever write in that project.
+        before every request. It gives every request the same project context.
       </Lead>
 
       <LessonSection id="what-they-are" title="What they are">
@@ -157,7 +156,7 @@ A Next.js 16 app using the App Router. TypeScript strict mode.
         </P>
         <CodeBlock
           variant="prompt"
-          label="What this unlocks"
+          label="What this enables"
           code={`Add the feature, then run npm run check and fix anything
 it reports. Do not stop until it passes.`}
         />

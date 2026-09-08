@@ -13,7 +13,7 @@ const TONE: Record<CalloutTone, { box: string; label: string }> = {
   },
   success: {
     box: "bg-learn-success-bg text-learn-success-fg border-learn-success-line",
-    label: "Worth knowing",
+    label: "Key point",
   },
   warning: {
     box: "bg-learn-warning-bg text-learn-warning-fg border-learn-warning-line",

@@ -99,10 +99,8 @@ export function McpAndToolsLesson() {
           ]}
         />
         <P>
-          That asymmetry, not the specific integration, is the thing worth reasoning about
-          before you connect anything. The question is never &ldquo;is this tool useful&rdquo;
-          — it almost always is. The question is what a confident, wrong call through it costs
-          you, and whether that cost is one you can undo.
+          Before connecting a tool, ask what a confident, wrong call would cost and whether you
+          could undo it. The risk matters more than the specific integration.
         </P>
       </LessonSection>
 
@@ -175,7 +173,7 @@ and show me the result.`}
           "MCP is a shared protocol, so one server works across tools rather than per-editor integrations.",
           "Reference credentials from the environment. The config file gets committed.",
           "Read-only by default. Widen access only when you have a specific reason.",
-          "A browser tool is the highest-value first addition: it closes the observe-change-verify loop.",
+          "A browser tool is a useful first addition because it closes the observe-change-verify loop.",
           "Content the model fetches is data, not instructions — that distinction is a real attack surface.",
         ]}
       />

@@ -8,9 +8,8 @@ export function TestsLesson() {
   return (
     <div>
       <Lead>
-        Tests were always worth writing. They become considerably more valuable when you did not
-        write the code yourself — because a test is the only mechanism that checks behaviour
-        rather than checking your reading of it.
+        Tests matter for any code. They become more valuable when you did not write the code
+        yourself, because a test checks behaviour rather than your reading of it.
       </Lead>
 
       <LessonSection id="why-they-matter-more-now" title="Why they matter more now">

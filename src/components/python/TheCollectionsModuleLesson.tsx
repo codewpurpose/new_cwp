@@ -158,10 +158,10 @@ queue.popleft()             # cheap on a deque, costly on a list`}
           structure in it could be built out of the dictionaries and lists you already have.
         </P>
         <P>
-          That is worth stating plainly, because it removes the mystery. A{" "}
+          That removes the mystery. A{" "}
           <Strong>Counter</Strong> is a dictionary subclass that overrides what a missing key
           means. A <Strong>defaultdict</Strong> is a dictionary subclass that calls a function
-          on a miss. You could write both, and reading their source is a genuinely good way to
+          on a miss. You could write both, and reading their source is a good way to
           spend twenty minutes.
         </P>
         <P>

@@ -149,7 +149,7 @@ export function fitLine(
 /**
  * Fits y = k·x through the origin.
  *
- * Used where the intercept is genuinely zero rather than merely small — a trip
+ * Used where the intercept is zero rather than merely small — a trip
  * of zero kilometres uses zero litres — so the model honestly has exactly one
  * parameter.
  */

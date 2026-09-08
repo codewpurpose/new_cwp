@@ -95,7 +95,7 @@ platform.CanCollide = false  --> attempt to index nil with 'CanCollide'`}
           lineTones={{ 0: "warn", 3: "err" }}
         />
         <P>
-          Line one is the bug and line four is the error. This is the single most common shape
+          Line one is the bug and line four is the error. This is a common shape
           of failure in Roblox scripting, and the chapter on debugging is largely about reading
           your way back from the second line to the first.
         </P>

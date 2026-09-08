@@ -57,7 +57,7 @@ const TABLE: Record<Klass, Record<Parent, Result>> = {
   LocalScript: {
     Workspace: {
       verdict: "never",
-      note: "A LocalScript in Workspace does not run. It is the single most common reason a beginner's code appears to do nothing at all.",
+      note: "A LocalScript in Workspace does not run. This is a common reason a beginner's code appears to do nothing at all.",
     },
     ServerScriptService: {
       verdict: "never",

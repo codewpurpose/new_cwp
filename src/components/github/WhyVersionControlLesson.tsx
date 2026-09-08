@@ -32,7 +32,7 @@ site-final-USE-THIS-ONE (copy)/`}
         />
         <P>
           This is a real version control system. It stores versions, it lets you go back, and for a
-          weekend project it genuinely works. It is worth being precise about what it cannot do,
+          weekend project it works. Be precise about what it cannot do,
           because each failure is a feature Git exists to provide.
         </P>
         <LabelRows
@@ -56,7 +56,7 @@ site-final-USE-THIS-ONE (copy)/`}
           ]}
         />
         <P>
-          Git answers all four, and the price is learning a handful of ideas that are genuinely
+          Git answers all four, and the price is learning a handful of ideas that are
           strange the first time. It is worth it — this is the tool every professional developer on
           earth uses, every day, and it has been the standard for twenty years.
         </P>
@@ -211,7 +211,7 @@ Parent:  91b2d4f0a7c3e5b8d1f4a6c9e2b5d8f1a4c7e0b3
           ]}
         />
         <P>
-          Two more things worth knowing before you start. Git does not protect you from committing a
+          Two more things to know before you start. Git does not protect you from committing a
           password — it will happily record it and then preserve it forever, which is a whole
           chapter later on. And Git does not decide what your team&apos;s process is: whether you
           review before merging, whether you rebase, whether main is protected. Those are agreements

@@ -135,7 +135,7 @@ ul  ol  li  form  figure  blockquote  table  hr`}
         />
         <P>
           For a decade this was how you laid out a row of anything. Flexbox does that job better now,
-          and inline-block remains right for something that genuinely belongs{" "}
+          and inline-block remains right for something that belongs{" "}
           <em>within a line of text</em> — a tag, a badge, a small button inside a sentence.
         </P>
         <Callout tone="warning" title="inline-block has a whitespace gap">
@@ -164,7 +164,7 @@ ul  ol  li  form  figure  blockquote  table  hr`}
         </P>
         <LabelRows
           rows={[
-            { label: "display: none", text: "Removed from the layout entirely. Takes no space, is not read by screen readers, is not focusable. The right answer for genuinely hidden content." },
+            { label: "display: none", text: "Removed from the layout entirely. Takes no space, is not read by screen readers, is not focusable. The right answer for hidden content." },
             { label: "visibility: hidden", text: "Invisible but STILL OCCUPIES ITS SPACE. Not announced, not focusable. Right when you need the layout to stay put." },
             { label: "opacity: 0", text: "Fully transparent, still occupies space, and is STILL FOCUSABLE AND ANNOUNCED. A keyboard user can tab into something nobody can see." },
             { label: "The visually-hidden class", text: "Invisible on screen, still read by screen readers. For text that gives context to assistive technology only." },

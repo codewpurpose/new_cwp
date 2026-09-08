@@ -47,7 +47,7 @@ const OUTCOMES: Record<Strategy, Outcome> = {
     bisect:
       "Bisect can land on \"wip\", which does not build. Every intermediate commit is now a candidate, and half of them were never meant to be seen.",
     revert:
-      "One revert of the merge commit undoes the whole branch — but it needs -m 1 to say which parent was mainline, and re-merging that branch later is genuinely awkward.",
+      "One revert of the merge commit undoes the whole branch — but it needs -m 1 to say which parent was mainline, and re-merging that branch later is awkward.",
     keeps: "Every commit, with its original hash, plus a record that a branch existed at all.",
     costs: "main's history is now four commits longer, and four of them are noise.",
   },

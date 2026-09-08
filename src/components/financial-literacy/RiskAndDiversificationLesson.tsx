@@ -97,7 +97,7 @@ export function RiskAndDiversificationLesson() {
         </P>
         <P>
           The chart below runs the same idea thirty separate times. Each trial draws twenty
-          companies from an identical, genuinely volatile world — one-year returns anywhere from
+          companies from an identical, volatile world — one-year returns anywhere from
           an 80% loss to a 120% gain are on the table for any of them. Toggle between holding just
           the first company from each trial and holding the average of all twenty, and watch what
           happens to the range of outcomes.
@@ -111,8 +111,8 @@ export function RiskAndDiversificationLesson() {
           There are two different kinds of risk hiding inside &ldquo;risk,&rdquo; and only one of
           them responds to diversification. <Strong>Idiosyncratic risk</Strong> is specific to one
           company — a lawsuit, a product recall, a fraud, a bad management decision. Because these
-          events are largely independent of each other, spreading across many companies genuinely
-          cancels a lot of it out, which is exactly what the chart above shows.
+          events are largely independent of each other, spreading across many companies cancels a
+          lot of it out, which is exactly what the chart above shows.
         </P>
         <P>
           <Strong>Systematic risk</Strong> — also called market risk — is the part that hits
@@ -161,7 +161,7 @@ export function RiskAndDiversificationLesson() {
         <P>
           It doesn&apos;t give up the market-wide swings underneath it. Spreading across many
           holdings tightens the band that idiosyncratic risk carves out, but the whole diversified
-          basket can still fall 30% or 40% in a genuinely bad year for the market as a whole —
+          basket can still fall 30% or 40% in a bad year for the market as a whole —
           it&apos;s just no longer at risk of falling to zero because one company failed.
         </P>
         <Callout tone="warning" title="Diversification doesn't protect against everything">

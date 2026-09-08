@@ -7,7 +7,7 @@ import { SegmentedControl } from "@/components/learn/primitives/SegmentedControl
  * The same missing key, asked for four ways.
  *
  * Every outcome is a literal in the OUTCOMES table rather than something
- * computed, because the interesting part is the *shape* of each answer — a
+ * computed, because the *shape* of each answer — a
  * traceback, a None, a default, a handled branch — and a traceback is not
  * something JavaScript can produce honestly by running anything.
  */

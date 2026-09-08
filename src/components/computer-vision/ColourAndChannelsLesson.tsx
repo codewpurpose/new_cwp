@@ -134,7 +134,7 @@ export function ColourAndChannelsLesson() {
         <Callout tone="danger" title="A bug that never announces itself">
           Because both BGR and RGB are valid three-number-per-pixel arrays of exactly the same
           shape, this mistake produces a perfectly well-formed image every time — just the wrong
-          one. It is a genuinely common real bug, not a hypothetical: forgetting one{" "}
+          one. It is a common bug, not a hypothetical: forgetting one{" "}
           <InlineCode>cv2.cvtColor(img, cv2.COLOR_BGR2RGB)</InlineCode> call is enough to cause it.
         </Callout>
       </LessonSection>

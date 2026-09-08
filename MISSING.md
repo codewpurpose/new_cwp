@@ -48,7 +48,7 @@ its body blurred and an invitation to make an account
 HTML, so anyone who opens devtools or disables CSS can read a chapter without an
 account. That is the trade, and it is the right one for a nonprofit whose whole
 argument is that the material is free: the account buys cross-device sync and
-the leaderboard, and the only thing genuinely defended server-side is a
+the leaderboard, and the only data defended server-side is a
 student's own progress, by row-level security and the column grants.
 
 Making a chapter truly unreadable signed-out would mean keeping the content off
@@ -67,7 +67,7 @@ signed-in state into `LearnShell`, which is a bigger change than it looks.
 
 ---
 
-## 3. Smaller, genuinely optional
+## 3. Smaller, optional follow-ups
 
 - **`hello@codewithpurpose.org` bounces on inbound.** It is the newsletter's From
   address and sends fine — DKIM authorises that, and replies are routed to
@@ -87,7 +87,7 @@ signed-in state into `LearnShell`, which is a bigger change than it looks.
 - **The newsletter unsubscribe is a `mailto:`.** It satisfies the requirement and
   someone has to action it by hand. Resend's audience tracks unsubscribe state
   automatically and suppresses those addresses; wiring the footer link to that is
-  the upgrade. Worth doing before the list is large, and more so given most
+  the upgrade. Do it before the list is large, especially given that most
   subscribers will be minors.
 
 - **20 raw `<img>` tags** across the marketing pages. Most already carry

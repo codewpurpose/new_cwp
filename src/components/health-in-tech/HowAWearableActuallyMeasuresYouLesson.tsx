@@ -67,7 +67,7 @@ export function HowAWearableActuallyMeasuresYouLesson() {
         <P>
           Every consumer wearable does some version of this processing before a single number
           ever reaches its display. The reading you trust every day is already several steps
-          removed from the raw physical signal — a fact worth remembering the next chapter,
+          removed from the raw physical signal — a fact to remember in the next chapter,
           which is specifically about how much you should trust it.
         </P>
       </LessonSection>

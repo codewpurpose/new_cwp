@@ -196,7 +196,7 @@ gh pr ready              # mark it ready when it is`}
         </P>
         <P>
           Which is correct — what matters is whether the result works, not whether your branch works
-          in isolation. It has two consequences worth knowing in advance.
+          in isolation. It has two consequences to account for in advance.
         </P>
         <LabelRows
           rows={[
@@ -222,7 +222,7 @@ gh pr view --web            # open the failing run's logs`}
         />
         <Callout tone="warning" title="Rerunning a failed check does not fix a failed check">
           It is worth a single try when a job died on a network timeout. Beyond that, re-running a
-          genuinely failing test until it passes is how a flaky test becomes permanent — and a test
+          failing test until it passes is how a flaky test becomes permanent — and a test
           that passes on the third attempt is telling you something real about the code.
         </Callout>
         <ChecklistCard

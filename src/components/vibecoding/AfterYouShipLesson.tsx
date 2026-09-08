@@ -8,9 +8,8 @@ export function AfterYouShipLesson() {
   return (
     <div>
       <Lead>
-        Shipping is the start of the interesting part. Real users do things you never
-        considered, on devices you do not own, and the feedback they generate is worth more
-        than any amount of further polishing in private.
+        Shipping shows how people use the product. They will try things you did not consider on
+        devices you do not own. Their feedback tells you what to fix next.
       </Lead>
 
       <LessonSection id="know-when-it-breaks" title="Find out before your users tell you">
@@ -25,7 +24,7 @@ export function AfterYouShipLesson() {
               label: "Error tracking",
               detail:
                 "Sentry or your host's built-in equivalent. It reports what broke, on what page, with the stack trace and browser.",
-              note: "This is the single highest-value thing to add after launch.",
+              note: "Add error tracking first: it tells you what broke, where, and on which browser.",
             },
             {
               label: "Uptime checks",
@@ -180,7 +179,7 @@ then fix it.`}
 
       <TakeawayCard
         items={[
-          "Add error tracking on day one. It is the highest-value post-launch addition.",
+          "Add error tracking on day one. It tells you what broke, where, and on which browser.",
           "Convert vague reports into a reproduction you have seen yourself before prompting.",
           "Ask which device and browser — it resolves a surprising share of bugs immediately.",
           "When the last deploy is the obvious cause, revert first and debug second. They are different tasks under different amounts of pressure.",

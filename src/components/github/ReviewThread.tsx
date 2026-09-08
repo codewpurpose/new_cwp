@@ -89,7 +89,7 @@ export function ReviewThread() {
           does not reject on a 404 — it resolves with{" "}
           <span className="font-[family-name:var(--learn-font-mono)] text-[12.5px]">ok: false</span>
           . As written, a missing user parses an error page as JSON and fails somewhere much less
-          obvious. Worth checking here:
+          obvious. Check the response before parsing it:
         </p>
 
         <div className="mt-3 overflow-hidden rounded-[6px] border-[0.5px] border-learn-line">

@@ -59,7 +59,7 @@ export function ListsAndTuplesLesson() {
           data <em>is</em> — a coordinate is always two numbers, a date is always three. Reach
           for a list when the number of items is expected to change while the program runs.
         </P>
-        <Callout tone="note" title="One tuple worth knowing about">
+        <Callout tone="note" title="A tuple with one item">
           A tuple with one item needs a trailing comma —{" "}
           <Strong>{"(1,)"}</Strong>, not <Strong>{"(1)"}</Strong>. Without it, Python reads
           the parentheses as grouping, not a tuple, and{" "}

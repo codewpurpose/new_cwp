@@ -31,7 +31,8 @@ export function TheBoxModelLesson() {
         />
         <BoxModelExplorer />
         <P>
-          Drag the sliders and watch the sum at the bottom. That arithmetic is the whole chapter.
+          Drag the sliders and watch the sum at the bottom. That arithmetic is the rule this
+          chapter builds on.
         </P>
         <CodeBlock
           label="Shorthand, and how many values mean what"
@@ -81,7 +82,7 @@ Actual space on screen:
           Two elements at{" "}
           <span className="font-[family-name:var(--learn-font-mono)]">width: 50%</span> with any
           padding at all add up to more than 100%, so the second one wraps onto a new line. It is
-          the single most reported layout bug in CSS, it has nothing to do with your layout method,
+          a common layout bug in CSS, it has nothing to do with your layout method,
           and the fix is in the next section.
         </Callout>
       </LessonSection>
@@ -134,7 +135,7 @@ Actual space on screen:
         </P>
         <Callout tone="note" title="The universal selector is right here, unusually">
           <span className="font-[family-name:var(--learn-font-mono)]">*</span> is normally something
-          to be suspicious of, and this is the exception: box-sizing genuinely should apply to
+          to be suspicious of, and this is the exception: box-sizing should apply to
           everything, including the pseudo-elements, which is why{" "}
           <span className="font-[family-name:var(--learn-font-mono)]">*::before, *::after</span> are
           in the selector too.

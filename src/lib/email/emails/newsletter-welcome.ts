@@ -39,12 +39,12 @@ export function renderNewsletterWelcome(unsubscribeUrl?: string): RenderedEmail 
       },
       { kind: "button", label: "Browse the courses →", href: `${SITE_URL}/courses/` },
       { kind: "divider" },
-      { kind: "eyebrow", text: "123 chapters, five tracks" },
+      { kind: "eyebrow", text: "211 chapters, nine tracks" },
       { kind: "links", items: TRACK_LINKS },
       {
         kind: "callout",
         title: "What you'll actually get",
-        text: "An email when we publish a new chapter or track, and the occasional note on what the team is building. We write when there's something worth your time, and not otherwise.",
+        text: "An email when we publish a new chapter or track, plus occasional notes about the work. We only send when there is something new to share.",
       },
       { kind: "divider" },
       {

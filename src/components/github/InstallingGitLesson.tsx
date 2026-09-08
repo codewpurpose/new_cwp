@@ -90,7 +90,7 @@ git config --global user.email "you@example.com"`}
           Git&apos;s historical default branch name was <Strong>master</Strong>. Since 2020 the
           industry standard — and GitHub&apos;s default for new repositories — is{" "}
           <Strong>main</Strong>. Git itself still defaults to the old name unless you tell it
-          otherwise, which produces a genuinely annoying mismatch on your very first push.
+          otherwise, which produces an annoying mismatch on your first push.
         </P>
         <CodeBlock variant="terminal" code={`git config --global init.defaultBranch main`} />
         <P>
@@ -111,7 +111,7 @@ git config --global core.editor nano`}
           Press <span className="font-[family-name:var(--learn-font-mono)]">Esc</span>, then type{" "}
           <span className="font-[family-name:var(--learn-font-mono)]">:wq</span> and press Enter to
           save and quit, or <span className="font-[family-name:var(--learn-font-mono)]">:q!</span> to
-          quit without saving. This is genuinely one of the most-searched programming questions of
+          quit without saving. This is one of the most-searched programming questions of
           all time.
         </Callout>
       </LessonSection>

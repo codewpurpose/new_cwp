@@ -32,7 +32,7 @@ export function WhatMedicalAiIsActuallyDoingTodayLesson() {
           one person.
         </P>
         <P>
-          That gap has a limit worth naming early, because it explains a failure mode the rest of
+          That gap has a limit. Name it early, because it explains a failure mode the rest of
           this part of the track keeps returning to. A model recognises a case because it
           resembles cases in its training data — it has no mechanism for reasoning about a case
           that resembles nothing it has seen. Feed it patients who look, in the data sense, like
@@ -50,7 +50,7 @@ export function WhatMedicalAiIsActuallyDoingTodayLesson() {
           measuring the exact volume of a lesion on a follow-up scan so a radiologist is checking
           a number instead of redrawing an outline by hand. They run in real hospitals, a
           radiologist reviews every result before it reaches a chart, and they catch patterns a
-          tired reviewer on their fortieth scan of the day might genuinely miss.
+          tired reviewer on their fortieth scan of the day might miss.
         </P>
         <P>
           <Strong>Triage and worklist prioritisation</Strong> use a patient&apos;s existing record
@@ -61,7 +61,7 @@ export function WhatMedicalAiIsActuallyDoingTodayLesson() {
         </P>
         <P>
           <Strong>Drug discovery</Strong> uses models to narrow an impossibly large space of
-          candidate molecules down to a shortlist worth testing in a lab — the subject of the next
+          candidate molecules down to a shortlist for testing in a lab — the subject of the next
           chapter.
         </P>
         <LabelRows

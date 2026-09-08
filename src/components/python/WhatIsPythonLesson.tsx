@@ -56,8 +56,8 @@ Explicit is better than implicit.
 Simple is better than complex.`}
         />
         <P>
-          Nobody expects you to memorise that. What is worth noticing is that a language
-          shipping its own design philosophy as an importable module is unusual, and it tells
+          Nobody expects you to memorise that. A language shipping its own design philosophy as
+          an importable module is unusual, and it tells
           you what the people who built it were optimising for on every decision after this
           one.
         </P>
@@ -165,7 +165,7 @@ TypeError: unsupported operand type(s) for +: 'int' and 'str'`}
         <CompareGrid
           items={[
             {
-              title: "Genuinely good for",
+              title: "Good for",
               tone: "positive",
               children: (
                 <>
@@ -181,7 +181,7 @@ TypeError: unsupported operand type(s) for +: 'int' and 'str'`}
               ),
             },
             {
-              title: "Genuinely awkward for",
+              title: "Awkward for",
               tone: "caution",
               children: (
                 <>

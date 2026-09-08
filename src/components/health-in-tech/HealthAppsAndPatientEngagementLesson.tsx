@@ -154,7 +154,7 @@ export function HealthAppsAndPatientEngagementLesson() {
           what the team is actually optimising for once the two start to pull apart, which they
           eventually do.
         </P>
-        <Callout tone="warning" title="A rough test worth applying honestly">
+        <Callout tone="warning" title="A rough test for any feature">
           Ask whether a feature would still make sense to keep if it stopped increasing app
           opens tomorrow. A reminder timed to when a patient actually needs their medication
           passes that test. A streak that guilts someone into opening the app on a day they

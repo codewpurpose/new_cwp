@@ -42,7 +42,7 @@ export function ImageClassificationLesson() {
         <P>
           One label per photo is also, not incidentally, much easier to grade. A classifier is
           either right or wrong about the whole image. A detector can be right about the label
-          and wrong about the box, by a little or a lot, which is a genuinely harder thing to
+          and wrong about the box, by a little or a lot, which is a harder thing to
           score — the subject of a later chapter on its own.
         </P>
       </LessonSection>

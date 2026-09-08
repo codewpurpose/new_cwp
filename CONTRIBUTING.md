@@ -1,7 +1,7 @@
 # Contributing to CodeWithPurpose
 
-Thanks for wanting to help. This is a student-run nonprofit making coding
-education free, and the site is built by volunteers.
+CodeWithPurpose is a student-run nonprofit making coding education free. The
+site is built by volunteers.
 
 ## What we most want
 
@@ -11,7 +11,7 @@ topics are welcome. In rough order of usefulness to us:
 1. **A new lesson in an existing track** — Machine Learning or Vibe Coding. Best
    place to start.
 2. **A fix or improvement to an existing lesson** — a wrong claim, a confusing
-   passage, a broken interactive. Genuinely valuable and much smaller.
+   passage, or a broken interactive. These changes are smaller and useful.
 3. **An interactive for a lesson that has none** — several lessons are prose-only
    and would land harder with one control to drag.
 4. **A whole new track** — a new topic entirely. Talk to us first; see below.
@@ -23,10 +23,9 @@ topics are welcome. In rough order of usefulness to us:
 **Open a [lesson proposal issue](../../issues/new?template=lesson_proposal.yml)
 and wait for a maintainer to confirm the slot before you start writing.**
 
-This is not bureaucracy. A lesson is several hundred lines of prose plus
-hand-drawn SVG cover art. Rejecting one after it is written wastes a real day of
-somebody's life, and we would rather spend ten minutes agreeing on the shape up
-front.
+Agreeing on the outline first saves time. A lesson is several hundred lines of
+prose plus hand-drawn SVG cover art, so rejecting one after it is written can
+waste a day of someone's work.
 
 A proposal is short:
 
@@ -122,8 +121,8 @@ Encouraged. Two conditions:
    in the repo root already tells it to, but say so anyway.
 2. Read every word before you push. You are the author; the byline is yours.
 
-Honestly: the voice standard in §4 of the guide is the thing agents get wrong
-most consistently. Expect to rewrite the lead paragraph yourself.
+Agents most often miss the voice standard in §4 of the guide. Expect to rewrite
+the lead paragraph yourself.
 
 ## Found a problem in a lesson?
 

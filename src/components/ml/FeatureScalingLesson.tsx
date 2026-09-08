@@ -40,8 +40,8 @@ export function FeatureScalingLesson() {
       <LessonSection id="two-ways-onto-one-scale" title="Two ways onto one scale">
         <P>
           The fix is to put every column on a common scale before distance ever gets computed.
-          There are two ways to do it, and it is worth writing both out plainly rather than
-          waving at &ldquo;normalise your data&rdquo;.
+          There are two ways to do it. Write both out plainly rather than waving at
+          &ldquo;normalise your data&rdquo;.
         </P>
         <P>
           <Strong>Min-max scaling</Strong> squashes a column onto [0, 1]:{" "}
@@ -63,14 +63,14 @@ export function FeatureScalingLesson() {
           An outlier pulls the mean a little and the standard deviation a little, but it does not
           redefine the axis for everybody else. When you cannot rule out an extreme value —
           which, with real data, is most of the time — standardisation is the safer default.
-          Min-max earns its place when the bounds are genuine and fixed, such as a pixel value
+          Min-max earns its place when the bounds are known and fixed, such as a pixel value
           that is always 0 to 255.
         </P>
       </LessonSection>
 
       <ScaleToggle />
 
-      <LessonSection id="which-models-care" title="Which models care, and which genuinely do not" delay={0.05}>
+      <LessonSection id="which-models-care" title="Which models care, and which do not" delay={0.05}>
         <P>
           You just watched the same applicant get two different verdicts from the same five
           neighbours. In raw units, income decides essentially 100% of the distance and the
@@ -112,7 +112,7 @@ export function FeatureScalingLesson() {
               ),
             },
             {
-              title: "Genuinely does not care",
+              title: "Does not care about scale",
               tone: "positive",
               children: (
                 <>

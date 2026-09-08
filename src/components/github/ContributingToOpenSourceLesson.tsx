@@ -67,7 +67,7 @@ export function ContributingToOpenSourceLesson() {
           Most maintainers do this unpaid, in evenings, alongside a job. A slow reply is not rudeness
           and an unmerged pull request is not personal. The corollary is that anything you can do to
           make review cheap — a small diff, a clear description, passing tests, following the
-          conventions — genuinely raises your odds.
+          conventions — raises your odds.
         </Callout>
       </LessonSection>
 
@@ -198,7 +198,7 @@ git rebase --signoff HEAD~3`}
           most valuable one.
         </P>
         <ChecklistCard
-          title="Things maintainers genuinely want and rarely get"
+          title="Things maintainers want and rarely get"
           marker="arrow"
           items={[
             "A reproduction on an issue that says \"cannot reproduce\" — you have just unblocked a bug nobody could fix",

@@ -18,9 +18,9 @@ export function ListMethodsInDepthLesson() {
         title="sorted builds a new list; sort rewrites yours"
       >
         <P>
-          You met this pair briefly when lists first appeared. It is worth returning to,
-          because the difference between them is the difference between a function and a
-          method, and Python spells it out in what each one hands back.
+          You met this pair briefly when lists first appeared. Return to it here because the
+          difference between them is the difference between a function and a method, and Python
+          spells it out in what each one hands back.
         </P>
         <CodeBlock
           label="Python"
@@ -42,7 +42,7 @@ export function ListMethodsInDepthLesson() {
         </P>
         <Callout tone="tip" title="A rule that decides for you">
           If you still need the original order afterwards, you need{" "}
-          <Strong>sorted()</Strong>. If the old order is genuinely dead to you and the list
+          <Strong>sorted()</Strong>. If you no longer need the old order and the list
           is large, <Strong>.sort()</Strong> avoids building a second copy of it. That is the
           entire decision.
         </Callout>
@@ -187,7 +187,7 @@ export function ListMethodsInDepthLesson() {
         </P>
         <Callout tone="danger" title="Build rows with a comprehension instead">
           <Strong>{"[[0] * 3 for _ in range(3)]"}</Strong> runs the inner expression once per
-          row, so each row is a genuinely separate list. It looks more laborious and it is
+          row, so each row gets a separate list. It looks more laborious and it is
           the only version that is correct.
         </Callout>
       </LessonSection>

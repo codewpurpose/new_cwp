@@ -48,7 +48,7 @@ export function ClassificationVsRegressionLesson() {
 
       <LessonSection id="the-same-model-both-ways" title="The same model, both ways">
         <P>
-          Here is the interesting part. A number can always be chopped into categories.
+          A number can always be chopped into categories.
           &ldquo;How many minutes will this delivery take?&rdquo; becomes &ldquo;is it fast or
           slow?&rdquo; the moment you pick a dividing line — and now the same problem is a
           classification.

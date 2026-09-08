@@ -94,7 +94,7 @@ export function HowCssAttachesLesson() {
               tone: "neutral",
               children: (
                 <P>
-                  A genuinely one-off value that cannot be known in advance — a progress bar&apos;s
+                  A one-off value that cannot be known in advance — a progress bar&apos;s
                   width, a colour swatch from data. That is why several interactives in this course
                   use it: the value <em>is</em> the thing being demonstrated. Handwritten static
                   styling is a different matter.

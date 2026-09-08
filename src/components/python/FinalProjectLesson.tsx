@@ -47,7 +47,7 @@ export function FinalProjectLesson() {
                 <>
                   Also folds case so <Strong>&quot;The&quot;</Strong> and{" "}
                   <Strong>&quot;the&quot;</Strong> count together, strips punctuation off each
-                  word, and reports the single most common one. None of it is required to call
+                  word, and reports the most common one. None of it is required to call
                   the project done.
                 </>
               ),
@@ -184,7 +184,7 @@ def word_counts(text):
         </P>
         <P>
           One more extension worth trying alone, using only what this track already covers:
-          the single most common word. <Strong>{"max(counts, key=counts.get)"}</Strong> finds
+          the most common word. <Strong>{"max(counts, key=counts.get)"}</Strong> finds
           the key whose value is largest without writing a loop yourself — the same{" "}
           <Strong>key=</Strong> argument idea the sorting built-ins in Python use throughout
           the standard library.

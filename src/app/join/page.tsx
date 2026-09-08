@@ -14,12 +14,12 @@ import {
 export const metadata: Metadata = {
   title: "Join Us",
   description:
-    "Volunteer with CodeWithPurpose. Teach, mentor, and help bring free coding education to students worldwide.",
+    "Volunteer with CodeWithPurpose by teaching, mentoring, or helping run free coding courses.",
   alternates: { canonical: "/join/" },
   openGraph: {
     title: "Join Us | CodeWithPurpose",
     description:
-      "Volunteer with CodeWithPurpose. Teach, mentor, and help bring free coding education to students worldwide.",
+      "Volunteer with CodeWithPurpose by teaching, mentoring, or helping run free coding courses.",
     url: "/join/",
     type: "website",
   },
@@ -27,7 +27,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Join Us | CodeWithPurpose",
     description:
-      "Volunteer with CodeWithPurpose. Teach, mentor, and help bring free coding education to students worldwide.",
+      "Volunteer with CodeWithPurpose by teaching, mentoring, or helping run free coding courses.",
   },
 };
 
@@ -42,7 +42,7 @@ const roles = [
   },
   {
     title: "Spread the word",
-    body: "Share CodeWithPurpose with students who need free education. Help us reach more countries, more classrooms, and more curious minds.",
+    body: "Share CodeWithPurpose with students who need free education. Help us reach more classrooms and communities.",
   },
   {
     title: "Build with us",
@@ -55,7 +55,7 @@ export default function JoinPage() {
     <PageShell>
       <PageHero
         title="Help us bring free coding education to every student"
-        description="CodeWithPurpose runs on volunteers. Whether you teach one workshop or mentor one student, you help build a more inclusive future where code is a tool for good."
+        description="CodeWithPurpose runs on volunteers. Teach a workshop, mentor a student, or help with the work behind each course."
         image={images.danvilleSanRamon}
         imageAlt="CodeWithPurpose volunteers at a community event"
       >
@@ -122,7 +122,7 @@ export default function JoinPage() {
             The height is MEASURED, not guessed. A cross-origin frame cannot
             report its content height to us and cannot resize itself, so if this
             is short the form gets its own scrollbar inside a page that already
-            scrolls — which on a phone is genuinely hard to get past.
+            scrolls, which is hard to get past on a phone.
 
             Measured content, signed out, with this form's four questions:
               320px viewport -> 1552px   (the tallest: everything wraps)

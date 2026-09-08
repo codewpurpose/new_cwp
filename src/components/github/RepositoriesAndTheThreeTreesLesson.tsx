@@ -120,7 +120,7 @@ git commit -m "Delete the unused legacy exporter"`}
         </P>
         <Callout tone="note" title="git commit -a skips it, and that is fine sometimes">
           <span className="font-[family-name:var(--learn-font-mono)]">git commit -am &quot;…&quot;</span>{" "}
-          stages every tracked file and commits in one step. On a solo project where you genuinely
+          stages every tracked file and commits in one step. On a solo project where you
           did one thing, it is not a sin. Reach for it as a shortcut you chose, not as the only
           command you know — and note that it ignores brand-new files entirely, which surprises
           people regularly.
@@ -191,7 +191,7 @@ git status --short
         title="A commit freezes the index, not the folder"
       >
         <P>
-          This sentence is the whole chapter and it is worth reading twice.{" "}
+          Keep this sentence in mind throughout the chapter:{" "}
           <Strong>git commit records the index, not your working tree.</Strong>
         </P>
         <P>
@@ -209,9 +209,9 @@ git status --short
 #   M report.md              not staged: everything you typed since`}
         />
         <P>
-          The same file appears twice, because there genuinely are two different versions of it. The
+          The same file appears twice, because there are two different versions of it. The
           fix is to <Strong>git add</Strong> again before committing. This is not a bug and it is not
-          a trap — it is exactly the behaviour that makes staging useful — but it is the single most
+          a trap — it is exactly the behaviour that makes staging useful — but it is the most
           common source of &quot;I committed it and the change is not there&quot;.
         </P>
         <Callout tone="tip" title="Read the diff you are about to commit">

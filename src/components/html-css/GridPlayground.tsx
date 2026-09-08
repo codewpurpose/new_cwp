@@ -133,7 +133,7 @@ export function GridPlayground() {
       {spanFirst && (
         <p className="mt-3 rounded-[6px] border-[0.5px] border-learn-info-line bg-learn-info-bg px-4 py-3 text-[13px] leading-[1.6] text-learn-info-fg">
           A is now two columns wide and B, C, D and E have shuffled along to fill the remaining
-          cells without you positioning any of them. This is the thing flexbox genuinely cannot do:
+          cells without you positioning any of them. This is the thing flexbox cannot do:
           a flex item can grow, but it cannot occupy a defined cell in a second dimension.
         </p>
       )}

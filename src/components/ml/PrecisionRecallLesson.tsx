@@ -187,8 +187,8 @@ export function PrecisionRecallLesson() {
             The dial between them
           </h2>
           <p className="mt-4 text-[15px] leading-[1.6] text-learn-muted">
-            Here is the part that makes this interesting: you can max out either metric on its
-            own, trivially, and the result is useless both times. Flag every single case and
+            You can max out either metric on its own, trivially, and the result is useless both
+            times. Flag every single case and
             recall is a perfect 1.0. Flag only the one case you are most certain about and
             precision is a perfect 1.0. Neither model is worth shipping.
           </p>
@@ -205,7 +205,7 @@ export function PrecisionRecallLesson() {
 
       <Reveal delay={0.05}>
         <section className="mt-10">
-          <h3 className="text-lg text-learn-strong">Two things worth noticing</h3>
+          <h3 className="text-lg text-learn-strong">Two things to notice</h3>
           <p className="mt-3 text-[15px] leading-[1.6] text-learn-muted">
             Drag the threshold slowly from left to right. Recall falls smoothly and
             predictably — every step right abandons a few more real positives, and they never

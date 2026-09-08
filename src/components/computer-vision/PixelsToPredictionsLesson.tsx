@@ -34,7 +34,7 @@ export function PixelsToPredictionsLesson() {
           Multiply every pixel value by its weight and add the 36 results together, and you get
           a single number: the score. Above some threshold, predict &ldquo;yes&rdquo; — this is
           the shape the model was trained to spot. Below it, predict &ldquo;no&rdquo;. That is
-          the entire inference step, and it is genuinely trainable: adjust the 36 weights until
+          the entire inference step, and it is trainable: adjust the 36 weights until
           the score comes out above threshold for positive examples and below it for negative
           ones.
         </P>

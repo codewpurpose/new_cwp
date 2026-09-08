@@ -196,8 +196,8 @@ export default function AboutPage() {
   return (
     <PageShell>
       <PageHero
-        title="Our Mission to Bring Knowledge Where It's Needed Most"
-        description="We're a community of students who share one belief: quality coding education should cost nothing. We got tired of $15,000 bootcamps deciding who gets to learn, so we built a movement of free courses, real skills, and people who show up."
+        title="Free coding education for everyone"
+        description="We are students who teach coding for free. We built CodeWithPurpose after seeing how much $15,000 bootcamps charge for access to the same skills."
         image={images.volunteerHelp}
         imageAlt="Volunteer helping a student at their laptop"
       >

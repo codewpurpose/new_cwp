@@ -27,7 +27,7 @@ Check your work at any point:
 npm run learn:check
 ```
 
-The single most useful thing to understand is the two-state rule in §1.
+The two-state rule in §1 controls whether a chapter can be published.
 
 ---
 

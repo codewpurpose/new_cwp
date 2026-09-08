@@ -122,7 +122,7 @@ TypeError: unhashable type: 'list'
         <P>
           You also give up duplicates and, in a set, order. Both are frequently the point rather
           than a loss: <Strong>list(set(names))</Strong> is the shortest way to remove
-          duplicates, and it is worth remembering that it discards the original order while
+          duplicates, and it discards the original order while
           doing it.
         </P>
       </LessonSection>
