@@ -11,7 +11,7 @@
  * sidebar, the chapter gate, the quiz, and the leaderboard — all client
  * components — and importing the lesson graph here put every chapter of all
  * five tracks into their bundles for the sake of a localStorage helper. The
- * course-shaped derivations that genuinely need that graph live in
+ * course-shaped derivations that need that graph live in
  * `student-courses.ts`, which only the dashboard loads.
  */
 

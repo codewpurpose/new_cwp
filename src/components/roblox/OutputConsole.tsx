@@ -63,7 +63,7 @@ const LOGS: Record<Case, { lines: Line[]; culprit: string; reading: string }> = 
     ],
     culprit: "",
     reading:
-      "No errors, and still worth reading. The laser message appears twice for one crossing, which is the Touched event firing per limb — the thing a debounce exists to handle. An Output window with no red in it is not the same as a script that is behaving.",
+      "No errors, but still inspect the output. The laser message appears twice for one crossing, which is the Touched event firing per limb — the thing a debounce exists to handle. An Output window with no red in it is not the same as a script that is behaving.",
   },
 };
 

@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { Search } from "lucide-react";
 import { MediaGrid } from "@/components/media/MediaCard";
-import type { MediaItem, MediaPlatform } from "@/lib/media";
+import type { MediaItem, MediaPlatform } from "@/lib/media-types";
 
 type MediaFilter = "all" | MediaPlatform;
 

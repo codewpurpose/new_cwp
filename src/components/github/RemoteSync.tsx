@@ -176,7 +176,7 @@ export function RemoteSync() {
         />
         <Stack
           title="the server"
-          subtitle="What is genuinely on GitHub right now. You cannot see this without asking."
+          subtitle="What is on GitHub right now. You cannot see this without asking."
           count={state.remote}
           highlight={false}
         />

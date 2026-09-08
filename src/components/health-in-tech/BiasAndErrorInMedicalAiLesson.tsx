@@ -62,7 +62,7 @@ export function BiasAndErrorInMedicalAiLesson() {
         <P>
           Nobody involved chose to build a biased algorithm. Cost looked like a defensible,
           measurable proxy for need, right up until someone checked whether it actually measured
-          the same thing for every group it was used on. That is the mechanism worth remembering
+          the same thing for every group it was used on. That mechanism matters more
           more than the specific example: a model does not need to be told anyone&apos;s race, sex,
           or income to reproduce exactly the inequality already baked into whichever number it was
           told to predict.
@@ -88,7 +88,7 @@ export function BiasAndErrorInMedicalAiLesson() {
       >
         <P>
           A proxy variable standing in for illness is one mechanism. Two more, both well
-          documented and both simpler than anything involving a learned model, are worth knowing
+          documented and both simpler than anything involving a learned model, so learn them
           by name.
         </P>
         <LabelRows

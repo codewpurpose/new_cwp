@@ -9,7 +9,7 @@ import { COURSES_HREF } from "@/lib/links";
 export const metadata: Metadata = {
   title: "Learning Toolkit",
   description:
-    "Free note templates and guides to help students take better notes and apply what they learn — a debugging log, concept breakdown, daily reflection, and project planner. Fill them in and save as PDF.",
+    "Free templates for debugging logs, concept breakdowns, daily reflections, and project plans. Fill them in and save them as PDFs.",
   alternates: { canonical: "/toolkit/" },
   robots: { index: false, follow: true },
 };
@@ -19,7 +19,7 @@ export default function ToolkitPage() {
     <PageShell>
       <PageHero
         title="Your Learning Toolkit"
-        description="Blank pages are intimidating. These templates give you a structure to take notes and actually apply what you learn — fill one in as you go, and save it as a PDF to keep. Everything stays on your device."
+        description="Use these templates to take notes, record questions, and plan projects. Fill one in as you go and save it as a PDF. Everything stays on your device."
         image={images.codingLaptop}
         imageAlt="Student taking notes while learning to code"
       >

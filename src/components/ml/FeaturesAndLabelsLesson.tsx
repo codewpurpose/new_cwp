@@ -37,8 +37,8 @@ export function FeaturesAndLabelsLesson() {
 
       <LessonSection id="a-feature-is-a-choice" title="A feature is a choice">
         <P>
-          Here is the part beginners rarely get told. Features are not handed down. Somebody
-          chose them, and a different choice would have produced a different model.
+          Features are not handed down. Somebody chooses them, and a different choice produces a
+          different model.
         </P>
         <P>
           Take bread. You have two measurements for every loaf: how many minutes it baked, and

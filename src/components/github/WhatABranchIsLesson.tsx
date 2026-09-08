@@ -129,7 +129,7 @@ cat .git/HEAD
 # 2c7a91f...        <- a hash, not "ref: refs/heads/..."`}
         />
         <P>
-          This is genuinely useful: it is how you look at the project as it was, run the tests
+          This is useful: it is how you look at the project as it was, run the tests
           against an old commit, or check whether a bug existed in March. Get out by switching back
           to a branch.
         </P>

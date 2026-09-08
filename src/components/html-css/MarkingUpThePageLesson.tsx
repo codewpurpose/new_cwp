@@ -155,7 +155,7 @@ export function MarkingUpThePageLesson() {
         />
         <Callout tone="warning" title="No div has appeared yet">
           Not because divs are banned, but because nothing so far has needed one — every region had
-          an element that described it. Divs will turn up in the next chapter, if a layout genuinely
+          an element that described it. Divs will turn up in the next chapter, if a layout
           needs a wrapper with no meaning. Notice how far you get before that happens.
         </Callout>
       </LessonSection>
@@ -264,7 +264,7 @@ export function MarkingUpThePageLesson() {
           "Name a nav with aria-label when a page could have more than one.",
           "Several of the same kind of thing is a list; something self-contained is an article. Both, nested, is normal.",
           "Put the link inside the heading, so link text is the project name.",
-          "The first div appears only when a wrapper genuinely has no meaning — like a form field group.",
+          "The first div appears only when a wrapper has no meaning — like a form field group.",
           "A static site needs a form service to receive a post; give the email address too.",
           "Read the unstyled page top to bottom and tab through it before writing any CSS.",
           "Validate now, at 90 lines, rather than at 400.",

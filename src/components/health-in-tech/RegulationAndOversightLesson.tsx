@@ -8,7 +8,7 @@ export function RegulationAndOversightLesson() {
     <div>
       <Lead>
         &ldquo;Software as a medical device&rdquo; sounds like a workaround someone invented to
-        dodge oversight. It is the opposite — a real regulatory category built specifically
+        dodge oversight. It is the opposite: a regulatory category created
         because software started making the kind of decisions only hardware used to make, and
         it is exactly why approval takes so much longer than shipping a typical app.
       </Lead>
@@ -44,8 +44,8 @@ export function RegulationAndOversightLesson() {
       >
         <P>
           A device&apos;s risk class is set by how much harm a failure could cause, not by how
-          sophisticated the technology inside it is — a simple piece of software making a
-          high-stakes call can sit in a stricter class than a genuinely complex one making a
+          complex the technology inside it is — a simple piece of software making a high-stakes
+          call can sit in a stricter class than a complex one making a
           low-stakes suggestion.
         </P>
         <CompareGrid
@@ -131,7 +131,7 @@ export function RegulationAndOversightLesson() {
           variant="timeline"
           steps={[
             {
-              label: "A device is cleared as genuinely novel",
+              label: "A device is cleared as novel",
               detail: "It goes through full review because nothing like it exists on the market yet.",
             },
             {
@@ -149,7 +149,7 @@ export function RegulationAndOversightLesson() {
           ]}
         />
         <Callout tone="warning" title="What critics call predicate creep">
-          This is the single most-repeated criticism of the pathway, including from government
+          This is a common criticism of the pathway, including from government
           reviews of the process itself: substantial equivalence is a comparison, not a safety
           finding, and a long enough chain of comparisons can drift a long way from the last
           time anyone actually tested whether the underlying idea works.
@@ -175,7 +175,7 @@ export function RegulationAndOversightLesson() {
           frameworks for exactly this problem, mostly built around requiring a company to
           pre-specify the boundaries an algorithm is allowed to drift within rather than
           freezing it entirely — but there is no settled, universally adopted answer yet. It is
-          one of the genuinely open questions in this entire field.
+          one of the open questions in this entire field.
         </P>
       </LessonSection>
 
@@ -205,7 +205,7 @@ export function RegulationAndOversightLesson() {
           "Risk class, not sophistication, decides how much evidence a product needs — Class I needs almost none, Class III needs a full clinical trial, and most software as a medical device sits in the moderate-risk middle.",
           "Most moderate-risk devices take a shortcut, showing they're substantially equivalent to an already-cleared predicate rather than proving safety and effectiveness from first principles — a chain that can drift a long way from the last device anyone actually tested.",
           "Regulated approval requires proving safety and effectiveness before launch, not iterating live in public the way a typical consumer app does.",
-          "A model that keeps learning after approval breaks the assumption every pathway above is built on — the version reviewed and the version running in a hospital a year later can genuinely differ, with no fully settled answer yet for how to regulate that.",
+          "A model that keeps learning after approval breaks the assumption every pathway above is built on — the version reviewed and the version running in a hospital a year later can differ, with no fully settled answer yet for how to regulate that.",
         ]}
       />
     </div>

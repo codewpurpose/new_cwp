@@ -113,8 +113,8 @@ export function IntroLesson() {
           matters just as much.
         </P>
         <P>
-          The definition drifted fast, and it is worth naming the drift
-          rather than pretending the word means one thing. Karpathy&rsquo;s
+          The definition drifted fast. Name that drift rather than pretending
+          the word means one thing. Karpathy&rsquo;s
           original post described barely reading the output at all. Within
           months the term had grown into a catch-all for any development
           where an AI model is doing a meaningful share of the writing,
@@ -204,7 +204,7 @@ export function IntroLesson() {
           it, or you did not. You shipped it, or you did not. Every one of
           those is your decision, whichever tool typed the characters.
         </P>
-        <Callout tone="warning" title="A rule worth keeping">
+        <Callout tone="warning" title="Keep this rule">
           Never ship a change you could not explain to a teammate without
           checking first. If you cannot say what a function does without
           re-reading it, you have not actually reviewed it, no matter how

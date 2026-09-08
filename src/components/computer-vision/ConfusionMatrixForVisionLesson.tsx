@@ -87,14 +87,14 @@ export function ConfusionMatrixForVisionLesson() {
         <P>
           A clean diagonal on an easy test set is not evidence the model handles hard cases well.
           It is evidence the test set did not contain any hard cases. The wolf/coyote pair above is
-          hard because the two animals genuinely look alike at the pixel level — similar coat
+          hard because the two animals look alike at the pixel level — similar coat
           colour, similar build, overlapping habitats in photos. A benchmark that never pairs
           visually similar classes together will never surface that failure, no matter how good the
           model&rsquo;s overall score looks.
         </P>
         <P>
           The honest question is not &ldquo;what is the accuracy&rdquo; but &ldquo;which confusable
-          pairs did this test set actually contain&rdquo;. A model can be genuinely excellent at
+          pairs did this test set actually contain&rdquo;. A model can be excellent at
           telling a cat from a bird and still fail constantly at the one distinction its
           deployment will actually need.
         </P>

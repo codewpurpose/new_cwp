@@ -49,8 +49,8 @@ export default function ImpactPage() {
   return (
     <PageShell>
       <PageHero
-        title="Students on every corner of the Earth"
-        description="From San Francisco to Lagos, Bangalore to São Paulo: over 150 countries and counting. Every student is someone who got access to free, real education because of this community."
+        title="Students in 150+ countries"
+        description="Students use CodeWithPurpose from San Francisco, Lagos, Bangalore, São Paulo, and many other places. The courses are free."
         image={images.heroStudent}
         imageAlt="Student smiling while learning to code"
       >
@@ -84,11 +84,11 @@ export default function ImpactPage() {
 
       <PageSection className="border-t-[0.5px] border-[var(--home-hairline)]">
         <h2 className="home-serif text-[1.75rem] md:text-[2.25rem]">
-          In classrooms, workshops, and communities
+          In classrooms and workshops
         </h2>
         <p className="mt-3 max-w-2xl text-[var(--home-ink-soft)]">
-          Hands-on learning, smiling students, crowded workshops, and volunteers
-          presenting. This is what CodeWithPurpose looks like in action.
+          Students learn with volunteers at classrooms, workshops, and community
+          events.
         </p>
         <div className="mt-8">
           <PhotoGrid photos={images.gallery} columns={4} />
@@ -110,12 +110,12 @@ export default function ImpactPage() {
               Congressional Recognition · 2026
             </p>
             <h2 className="home-serif mt-4 text-[1.75rem] md:text-[2.25rem]">
-              Recognized for leadership and service
+              Recognized by Congress
             </h2>
             <p className="mt-4 text-[var(--home-ink-soft)]">
               Representative Mark DeSaulnier of the U.S. House of Representatives
               formally recognized our work bringing free coding education to
-              underserved communities worldwide.
+              students who might not otherwise have access.
             </p>
             <a
               href={CONGRESS_LETTER_HREF}
@@ -131,11 +131,10 @@ export default function ImpactPage() {
 
       <PageSection className="border-t-[0.5px] border-[var(--home-hairline)]">
         <h2 className="home-serif text-[1.75rem] md:text-[2.25rem]">
-          Stories from our community
+          Stories from students and volunteers
         </h2>
         <p className="mt-3 max-w-2xl text-[var(--home-ink-soft)]">
-          Updates on our courses, and the students and volunteers making free
-          education possible worldwide.
+          Updates about our courses, students, and volunteers.
         </p>
 
         <div className="mt-8 grid gap-6 md:grid-cols-2">
@@ -172,8 +171,8 @@ export default function ImpactPage() {
             Get our stories in your inbox
           </h2>
           <p className="mt-3 text-[var(--home-ink-soft)]">
-            We write about the students, volunteers, and small wins behind free
-            education. Subscribe on Substack and never miss one.
+            We write about our courses, students, and volunteers. Subscribe on
+            Substack for new posts.
           </p>
           <div className="mt-8 flex justify-center">
             <iframe

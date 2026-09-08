@@ -8,9 +8,9 @@ export function KNearestNeighboursLesson() {
     <div>
       <Lead>
         Every model so far has had numbers inside it that training adjusts. This one has none.
-        It never fits anything, never improves, and has no training step worth the name — and on
-        the right data it will still beat a carefully tuned model. It is worth understanding
-        early, because it makes obvious a problem that stays hidden inside every other algorithm.
+        It never fits anything, never improves, and has no meaningful training step — yet on the
+        right data it will still beat a carefully tuned model. Understand it early: it exposes a
+        problem that stays hidden inside every other algorithm.
       </Lead>
 
       <LessonSection id="a-model-that-learns-nothing" title="A model that learns nothing">

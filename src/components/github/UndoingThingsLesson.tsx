@@ -156,7 +156,7 @@ git revert HEAD               # undo the very last commit, safely`}
         />
         <P>
           Both commits are in the history. That is not clutter — it is the record. Anyone reading it
-          later sees that the caching was tried and withdrawn, which is genuinely useful information
+          later sees that the caching was tried and withdrawn, which is useful information
           and is exactly what a reset would have erased.
         </P>
         <LabelRows

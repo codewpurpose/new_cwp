@@ -137,7 +137,7 @@ export function BaselinesLesson() {
           "Always run: the majority class, a rate-matched random guess, a one-rule stump, and predict-the-last-value for anything timestamped.",
           "Here a single if-statement scored 87.3% while a five-neighbour vote managed 78.0% and a depth-4 tree 76.0%.",
           "The neighbour vote lost because five of six columns were noise diluting every distance; the tree lost by overfitting into the same noise.",
-          "A model that cannot beat the baseline means easy problem, uninformative features, a misconfiguration, or overfitting — all four are worth knowing early.",
+          "A model that cannot beat the baseline may have an easy problem, uninformative features, a misconfiguration, or overfitting. Check these causes before tuning the model.",
           "When the baseline wins, ship the baseline. It is faster, readable, and somebody else can maintain it.",
         ]}
       />

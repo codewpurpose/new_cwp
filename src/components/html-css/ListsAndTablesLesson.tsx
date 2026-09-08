@@ -41,7 +41,7 @@ export function ListsAndTablesLesson() {
           <Strong>ol {"{ list-style: none; }"}</Strong> removes them while keeping the meaning.
         </P>
         <P>
-          A third list type is genuinely useful and almost never used — a{" "}
+          A third list type is useful and almost never used — a{" "}
           <Strong>description list</Strong>, for term-and-definition pairs.
         </P>
         <CodeBlock

@@ -113,13 +113,13 @@ grid-template-columns: 200px 1fr 200px;  /* two sidebars                   */`}
 }`}
         />
         <P>
-          <Strong>grid-column: 1 / -1</Strong> is worth remembering. Grid numbers the{" "}
+          <Strong>grid-column: 1 / -1</Strong> is useful to remember. Grid numbers the{" "}
           <em>lines</em> between tracks rather than the tracks themselves, and negative numbers count
           from the end — so <Strong>-1</Strong> is always the final line whatever the column count.
           That makes it a full-width row that survives changing the grid.
         </P>
         <Callout tone="note" title="Named areas, for a whole page skeleton">
-          Grid can name regions and let you draw the layout as text. It is genuinely readable, and it
+          Grid can name regions and let you draw the layout as text. It is readable, and it
           is the clearest thing in CSS to hand somebody who has not seen it before.
         </Callout>
         <CodeBlock

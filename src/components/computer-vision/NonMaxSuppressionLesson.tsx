@@ -19,7 +19,7 @@ export function NonMaxSuppressionLesson() {
           position, each one confident that it has found a dog.
         </P>
         <P>
-          This is not a bug in the detector. Every location near the real dog genuinely does
+          This is not a bug in the detector. Every location near the real dog does
           contain most of a dog, so the network is not wrong to flag it — it is only wrong to flag
           it a dozen times over.
         </P>
@@ -58,7 +58,7 @@ export function NonMaxSuppressionLesson() {
       >
         <P>
           The threshold above fails in two directions, and the interactive shows both. Set it too
-          low and boxes get suppressed on the slightest overlap — including a second, genuinely
+          low and boxes get suppressed on the slightest overlap — including a second,
           separate object sitting near the first one, which gets wrongly merged into a single
           detection.
         </P>
@@ -73,10 +73,10 @@ export function NonMaxSuppressionLesson() {
 
       <TakeawayCard
         items={[
-          "A real detector's raw output over one object is usually a cluster of boxes, not one — every nearby location genuinely does contain most of the object.",
+          "A real detector's raw output over one object is usually a cluster of boxes, not one — every nearby location contains most of the object.",
           "Non-max suppression always keeps the single highest-confidence box in a cluster outright, with no comparison needed.",
           "Every remaining box is then discarded if its IoU with an already-kept box clears a threshold — heavy overlap almost certainly means the same object, not two.",
-          "Set the threshold too low and it merges genuinely separate nearby objects into one detection.",
+          "Set the threshold too low and it merges separate nearby objects into one detection.",
           "Set it too high and it fails to merge duplicates, leaving several boxes for a single object in the final output.",
         ]}
       />

@@ -33,7 +33,7 @@ export function VisionInSelfDrivingCarsLesson() {
 
       <LessonSection id="why-no-camera-works-alone" title="Why no camera works alone">
         <P>
-          A camera is genuinely excellent at classifying and reading — it can tell a stop sign from
+          A camera is excellent at classifying and reading — it can tell a stop sign from
           a yield sign, read a speed limit, recognise a pedestrian&rsquo;s posture. It is also
           exactly as blind as your own eyes in direct low sun, heavy rain, or full darkness, because
           it is measuring the same thing your eyes measure: visible light bouncing off surfaces.

@@ -257,7 +257,7 @@ export function ReviewLesson() {
           "AI-generated code is a draft from a confident stranger. Review it exactly that way, not as a colleague's pull request.",
           "The mistakes cluster into four repeatable shapes: the wrong import, the swallowed error, the test that asserts nothing, and the invented API.",
           "Spend your attention on money, auth, secrets, and edges first — that is where a mistake costs the most and hides the longest.",
-          "A new import is worth ten seconds of checking: is the package installed, and does it actually export what is being called?",
+          "Take ten seconds to check every new import: is the package installed, and does it export what is being called?",
           "Anything you cannot explain line by line is not ready to ship, no matter how confidently it was written.",
         ]}
       />

@@ -22,7 +22,7 @@ export function AnatomyOfARepositoryLesson() {
           repository, committed like any other, and the website happens to display it.
         </P>
         <P>
-          It is also the single highest-leverage file you will write. Somebody deciding whether to
+          It is also one of the most useful files you will write. Somebody deciding whether to
           use, contribute to, or hire you off the back of this project reads this and usually nothing
           else.
         </P>
@@ -195,7 +195,7 @@ git switch --detach v1.2.0          # look at the code as it was at that release
 
       <LessonSection id="stars-forks-and-watches-count-three-things" title="Stars, forks, and watches count three different things">
         <P>
-          The three numbers at the top mean genuinely different things, and only one of them is about
+          The three numbers at the top mean different things, and only one of them is about
           code.
         </P>
         <CompareGrid
@@ -221,7 +221,7 @@ git switch --detach v1.2.0          # look at the code as it was at that release
         <P>
           The remaining tabs are worth a tour once each. <Strong>Insights</Strong> holds the
           contributor graph, the commit frequency, the dependency graph, and{" "}
-          <Strong>Network</Strong> — a visualisation of every fork and branch that is genuinely the
+          <Strong>Network</Strong> — a visualisation of every fork and branch that is the
           fastest way to see whether a fork went somewhere the original did not.{" "}
           <Strong>Security</Strong> holds Dependabot alerts for known-vulnerable dependencies, secret
           scanning, and code scanning. On a public repository most of it is free and off by default.
@@ -242,7 +242,7 @@ git switch --detach v1.2.0          # look at the code as it was at that release
 
       <TakeawayCard
         items={[
-          "README.md is an ordinary Markdown file that GitHub happens to render. It is the highest-leverage file in most repositories.",
+          "README.md is an ordinary Markdown file that GitHub happens to render. It is one of the most useful files in a repository.",
           "LICENSE, CONTRIBUTING, CODE_OF_CONDUCT, SECURITY and CODEOWNERS all get special treatment and can live in .github/.",
           "Public code with no licence is not open source — copyright says nobody may use it.",
           "MIT for permissive and short, Apache 2.0 for the patent grant, GPL to require derivatives stay open.",

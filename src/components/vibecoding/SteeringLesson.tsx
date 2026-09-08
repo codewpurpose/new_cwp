@@ -115,7 +115,7 @@ Start again there.`}
       <LessonSection id="rejecting-well" title="Rejecting well">
         <P>
           You do not have to accept a change to learn from it. Reading a rejected diff often
-          tells you the prompt was ambiguous, which is worth knowing before you rewrite it.
+          tells you the prompt was ambiguous before you rewrite it.
         </P>
         <ChecklistCard
           title="Ask before rejecting"

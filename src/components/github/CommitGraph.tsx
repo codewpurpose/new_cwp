@@ -84,7 +84,7 @@ const FRAMES: readonly Frame[] = [
   {
     command: "git switch main && git commit",
     caption:
-      "Somebody else moved main too. Now the two branches genuinely diverge: there is a commit on each side that the other does not have. This is the situation a merge exists for.",
+      "Somebody else moved main too. Now the two branches diverge: there is a commit on each side that the other does not have. This is the situation a merge exists for.",
     nodes: [
       A,
       B,

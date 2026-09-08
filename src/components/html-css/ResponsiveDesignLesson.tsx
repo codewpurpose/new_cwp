@@ -76,7 +76,7 @@ export function ResponsiveDesignLesson() {
           confusing bugs in CSS and it is pure source order.
         </Callout>
         <P>
-          Beyond width, a few conditions are genuinely worth knowing:
+          Beyond width, a few other conditions matter:
         </P>
         <CodeBlock
           label="Other useful queries"
@@ -219,7 +219,7 @@ h1 { font-size: clamp(1.75rem, 5vw, 3rem); }
 .tags { display: flex; flex-wrap: wrap; gap: 0.5rem; }`}
         />
         <P>
-          <Strong>clamp(min, preferred, max)</Strong> is worth knowing on its own: never smaller than
+          <Strong>clamp(min, preferred, max)</Strong> is useful on its own: never smaller than
           the first value, never larger than the third, and scaling with the viewport in between.
           One declaration replaces a font-size plus two media queries.
         </P>
@@ -227,13 +227,12 @@ h1 { font-size: clamp(1.75rem, 5vw, 3rem); }
           <span className="font-[family-name:var(--learn-font-mono)]">@container</span> responds to
           the size of a component&apos;s <em>container</em> rather than the viewport — so a card can
           lay itself out differently in a narrow sidebar and a wide main column, on the same screen.
-          It is supported in all current browsers. Worth knowing it exists; not needed for a
-          hand-written site.
+          It is supported in all current browsers, but you do not need it for a hand-written site.
         </Callout>
         <P>
           Two last things that are not layout and matter as much on a phone. Tap targets should be at
           least 44 by 44 pixels — a link with padding, not a bare word. And check that nothing causes
-          horizontal scrolling, which is the single most common mobile bug:
+          horizontal scrolling, one of the most common mobile bugs:
         </P>
         <CodeBlock
           label="Find what is too wide"

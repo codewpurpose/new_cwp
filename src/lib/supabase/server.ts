@@ -16,7 +16,7 @@ import { createClient, type SupabaseClient } from "@supabase/supabase-js";
  *    "fix" such an error by adding the prefix.
  * 2. Nothing here may be re-exported through a client boundary, and no value
  *    derived from this client may be sent to the browser unfiltered.
- * 3. Only reach for this when RLS genuinely cannot express the rule. Anything a
+ * 3. Only reach for this when RLS cannot express the rule. Anything a
  *    signed-in learner does goes through ./with-clerk.tsx instead.
  *
  * Optional in the same way the rest of the stack is: without the key this

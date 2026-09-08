@@ -43,5 +43,4 @@ export const images = {
     { src: "/opt/IMG_2630.jpg", alt: "Coding at laptops" },
     { src: "/opt/IMG_3652.jpg", alt: "Advanced Python workshop" },
   ],
-  stats: ["/2.png", "/3.png", "/4.png"],
 } as const;

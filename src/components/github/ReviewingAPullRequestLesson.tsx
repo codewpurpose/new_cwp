@@ -92,7 +92,7 @@ git diff main...HEAD`}
             },
             {
               label: "Request changes",
-              text: "\"Do not merge yet.\" On a protected branch this is a hard block that only you can lift — pushing a fix does not clear it. Use it when something is genuinely wrong, not for a preference.",
+              text: "\"Do not merge yet.\" On a protected branch this is a hard block that only you can lift — pushing a fix does not clear it. Use it when something is wrong, not for a preference.",
             },
           ]}
         />
@@ -210,7 +210,7 @@ git diff main...HEAD`}
           ]}
         />
         <P>
-          Threads on a specific line have a second behaviour worth knowing:{" "}
+          Threads on a specific line have a second behaviour:{" "}
           <Strong>outdated</Strong>. Push a commit that changes the line a comment was anchored to and
           GitHub hides the thread as outdated. The comment is not gone and not resolved — it is
           collapsed, and it is very easy for a real objection to disappear this way without anybody
@@ -276,7 +276,7 @@ gh pr list --search "review-requested:@me"     # your actual queue`}
             "Use suggestions for the small certain fixes and prose for everything else",
             "Mark taste as \"nit:\" so it is clearly not blocking",
             "Say what is good, specifically. It is the only feedback that tells somebody what to repeat",
-            "Reserve \"request changes\" for genuinely wrong, and dismiss it promptly once it is fixed",
+            "Reserve \"request changes\" for real problems, and dismiss it promptly once they are fixed",
             "Review quickly. A day of waiting costs the author more than the review costs you",
           ]}
         />

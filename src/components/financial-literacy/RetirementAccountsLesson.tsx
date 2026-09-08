@@ -114,7 +114,7 @@ export function RetirementAccountsLesson() {
           ]}
         />
         <P>
-          This is worth checking before counting an employer match as guaranteed money, especially
+          Check this before counting an employer match as guaranteed money, especially
           if a job change is on the horizon — the match shown in the chart above is the maximum
           available, and vesting is the condition attached to actually keeping it.
         </P>
@@ -143,7 +143,7 @@ export function RetirementAccountsLesson() {
           same ten-year head start that mattered in a plain savings comparison matters here too,
           amplified by decades of tax-advantaged compounding on top of the match itself.
         </P>
-        <Callout tone="tip" title="The one-line version of this whole chapter">
+        <Callout tone="tip" title="The one-line version">
           Contribute at least enough to get the full employer match, as early as you can. Every
           other decision about which account type or which funds to hold is worth getting right,
           but none of them matter if the free match is left unclaimed.

@@ -99,7 +99,7 @@ Alan: 87`}
         <P>
           If the two collections are different lengths, <Strong>zip()</Strong> stops as soon
           as the shorter one runs out, silently. A fourth name with no matching score never
-          produces a pairing and never raises an error — worth checking for explicitly if
+          produces a pairing and never raises an error. Check this explicitly if
           mismatched lengths would actually be a bug in your program rather than expected.
         </P>
       </LessonSection>

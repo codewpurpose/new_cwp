@@ -188,7 +188,7 @@ True`}
           Python allows <Strong>{"class Cyborg(Human, Robot):"}</Strong>, inheriting from more
           than one parent at once. It works, but the moment both parents define a method with
           the same name, which version wins depends on Python&apos;s method resolution order —
-          a rule worth knowing exists rather than one to lean on. Most of what multiple
+          a rule to understand rather than one to lean on. Most of what multiple
           inheritance gets used for in practice — pulling in one small piece of shared
           behaviour — is handled more predictably by a single well-placed attribute.
         </Callout>
@@ -200,7 +200,7 @@ True`}
           "Defining a method with the same name in the subclass overrides it there only. The parent class, and anything else that inherits from it, is untouched.",
           "super() calls the parent's version of a method from inside a child's override, most often inside __init__, so the child doesn't have to copy a line the parent already wrote.",
           "Use inheritance when the relationship is \"is a kind of\". Use composition — storing another object as a plain attribute — when it's \"has a\" instead.",
-          "Python allows inheriting from more than one parent at once. It's legal, but which parent's method wins when both define one is decided by an order worth knowing exists rather than depending on.",
+          "Python allows inheriting from more than one parent at once. It's legal, but which parent's method wins when both define one is decided by Python's method resolution order.",
         ]}
       />
     </div>

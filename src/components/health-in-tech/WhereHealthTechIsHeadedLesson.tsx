@@ -6,10 +6,8 @@ export function WhereHealthTechIsHeadedLesson() {
   return (
     <div>
       <Lead>
-        Predicting the future of an entire industry is usually a bad bet. Predicting the next
-        few years of health tech is a safer one, because three trends are already visible today
-        if you know where to look — and every one of those predictions rests on the same single
-        assumption, which is worth naming rather than taking for granted.
+        Predicting the next few years of health tech is uncertain, but three trends are already
+        visible. All three depend on trust and human clinical oversight.
       </Lead>
 
       <LessonSection id="three-trends-already-visible-today" title="Three trends already visible today">
@@ -34,9 +32,8 @@ export function WhereHealthTechIsHeadedLesson() {
           &ldquo;essentially everyone,&rdquo; closing a gap this track spent an entire part on.
         </P>
         <P>
-          Each of those is already happening in some form, not just proposed. What is worth
-          asking of each one is narrower than &ldquo;will this keep growing&rdquo; — it is what,
-          specifically, would have to stay true for it to keep working.
+          Each of those is already happening in some form, not just proposed. For each trend, ask
+          what must remain true for it to keep working.
         </P>
         <CompareGrid
           columns={3}
@@ -111,7 +108,7 @@ export function WhereHealthTechIsHeadedLesson() {
           managed by exactly the human review step this prediction proposes removing.
         </P>
         <ChecklistCard
-          title="Questions worth asking before believing a health-tech prediction"
+          title="Questions to ask before believing a health-tech prediction"
           items={[
             "Is this already happening somewhere in a limited form, or is it purely proposed?",
             "What specifically would have to become true for it to work at scale, not just in a pilot?",
@@ -131,7 +128,7 @@ export function WhereHealthTechIsHeadedLesson() {
           alone — is the one part that isn&apos;t up for negotiation.
         </P>
         <P>
-          That is a genuinely different kind of prediction from the three trends above. Those
+          That is a different kind of prediction from the three trends above. Those
           are bets on where the technology goes next. This one is closer to a constraint the
           rest of the track has been building toward the whole time — not a guess about the
           future, but a boundary nothing so far has given a real reason to expect will move.

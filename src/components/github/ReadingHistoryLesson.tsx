@@ -121,7 +121,7 @@ git diff main...fix/login         # what the branch ADDS, ignoring what main did
 git diff HEAD~3 HEAD -- src/      # three commits ago to now, one directory`}
         />
         <P>
-          The two-dot and three-dot forms are genuinely different and the difference matters on a
+          The two-dot and three-dot forms are different and the difference matters on a
           branch that has been open for a while. <Strong>Two dots</Strong> compares the two endpoints
           directly, so it includes everything main did while you were away.{" "}
           <Strong>Three dots</Strong> compares against the point where the branches diverged, which

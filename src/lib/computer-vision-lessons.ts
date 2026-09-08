@@ -276,7 +276,7 @@ export const COMPUTER_VISION_CHAPTERS: readonly LearnChapter[] = [
     order: 12,
     title: "Object Detection",
     description:
-      "Classification tells you a photo contains a dog. Detection tells you where, how many, and draws a box around each one — a genuinely harder problem, and the rest of this part exists to solve it.",
+      "Classification tells you a photo contains a dog. Detection tells you where, how many, and draws a box around each one — a harder problem, and the rest of this part exists to solve it.",
     level: "intermediate",
     minutes: 11,
     prerequisites: ["convolutional-neural-networks"],

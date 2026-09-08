@@ -128,7 +128,7 @@ export const GITHUB_CHAPTERS: readonly LearnChapter[] = [
     slug: "staging-and-committing",
     partId: "everyday",
     order: 4,
-    title: "Making a Commit Worth Reading",
+    title: "Writing Commits That Explain the Change",
     description:
       "git commit -am is fast and it is why so many histories are useless six months later. Stage deliberately, split one messy file into two honest commits, and write the message the way the people reading git log need it.",
     level: "beginner",

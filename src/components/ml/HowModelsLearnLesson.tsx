@@ -41,8 +41,8 @@ export function HowModelsLearnLesson() {
           model is. That number is the only thing the learning process ever looks at.
         </P>
         <P>
-          One wrinkle worth knowing now: misses are usually <em>squared</em> before they are
-          added. Squaring makes every miss positive, so overshooting by two does not cancel out
+          One detail matters now: misses are usually <em>squared</em> before they are added.
+          Squaring makes every miss positive, so overshooting by two does not cancel out
           undershooting by two — and it makes one large miss count for more than several small
           ones, which is usually what you want.
         </P>
@@ -58,11 +58,11 @@ export function HowModelsLearnLesson() {
 
       <SlopeFinder />
 
-      <LessonSection id="that-is-the-whole-trick" title="That is the whole trick" delay={0.05}>
+      <LessonSection id="that-is-the-whole-trick" title="How the pieces fit" delay={0.05}>
         <P>
-          The curve underneath is the important part, and it is worth saying plainly what it
-          is: <Strong>the total error at every setting you could have picked</Strong>. The dots
-          are scattered and messy. The curve is a smooth bowl.
+          The curve underneath is the important part: it is <Strong>the total error at every
+          setting you could have picked</Strong>. The dots are scattered and messy. The curve
+          is a smooth bowl.
         </P>
         <P>
           That smoothness is the entire reason a machine can do this without understanding

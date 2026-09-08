@@ -46,7 +46,7 @@ export function AccessibilityBasicsLesson() {
           ARIA is measurably worse than no ARIA.
         </Callout>
         <P>
-          The handful of ARIA attributes genuinely worth knowing on a static site:
+          These are the ARIA attributes most likely to appear on a static site:
         </P>
         <CodeBlock
           label="Useful, and small"
@@ -176,7 +176,7 @@ export function AccessibilityBasicsLesson() {
           <span className="font-[family-name:var(--learn-font-mono)]">:focus-visible</span>.
         </Callout>
         <P>
-          Two other keyboard traps worth knowing. A hidden menu at{" "}
+          Two other keyboard traps matter. A hidden menu at{" "}
           <Strong>opacity: 0</Strong> is still focusable, so a keyboard user tabs into invisible
           links — use <Strong>display: none</Strong> or <Strong>visibility: hidden</Strong>. And
           positive <Strong>tabindex</Strong> values scramble the tab order for the whole page; the
@@ -214,7 +214,7 @@ export function AccessibilityBasicsLesson() {
           ]}
         />
         <Callout tone="note" title="Automated tools catch about a third of it">
-          Lighthouse and axe are genuinely useful and will find missing alt attributes, contrast
+          Lighthouse and axe are useful and will find missing alt attributes, contrast
           failures, and unlabelled inputs in seconds. They cannot tell whether your alt text is{" "}
           <em>good</em>, whether your heading order makes sense, or whether the tab order is logical.
           Run them, and then use the keyboard yourself.

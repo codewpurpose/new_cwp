@@ -47,7 +47,7 @@ const ANSWERS: Record<Situation, Answer> = {
     command: "git restore path/to/file",
     headline: "Overwrites the file from the last commit",
     detail:
-      "Your edit was never in Git — not committed, not staged, not stored anywhere. Nothing can bring it back. This is the single most dangerous command a beginner runs while trying to be careful.",
+      "Your edit was never in Git — not committed, not staged, not stored anywhere. Nothing can bring it back. This is a dangerous command to run while trying to be careful.",
     safety: "destructive",
     aside: "Want to keep it for later instead? git stash sets it aside where you can get it back.",
   },
@@ -81,7 +81,7 @@ const ANSWERS: Record<Situation, Answer> = {
     detail:
       "Nothing is rewritten. The bad commit stays in history and a new commit reverses its changes, which is exactly what you want when other people have already pulled it. The record shows both the mistake and the fix.",
     safety: "safe",
-    aside: "Reverting a merge needs -m 1 to say which parent is the mainline. Without it Git refuses, because it genuinely cannot tell.",
+    aside: "Reverting a merge needs -m 1 to say which parent is the mainline. Without it Git refuses, because it cannot tell.",
   },
   lost: {
     command: "git reflog",

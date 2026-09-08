@@ -16,7 +16,7 @@ export function DebounceLesson() {
         <P>
           The instinct on seeing forty prints is that something is happening too fast, and that
           the fix is to slow it down. It is not. Every one of those forty events is real and
-          correct — forty distinct contacts genuinely occurred.
+          correct — forty distinct contacts occurred.
         </P>
         <P>
           The bug is that your handler assumed it was the only one running. Look at what

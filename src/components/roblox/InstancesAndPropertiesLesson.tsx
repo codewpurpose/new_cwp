@@ -87,7 +87,7 @@ end`}
           a crash at least tells you where to look.
         </P>
         <P>
-          There is a family of these, and two are worth knowing by name.
+          There is a family of these, and two are common enough to learn by name.
         </P>
         <LabelRows
           rows={[
@@ -148,7 +148,7 @@ laser.Transparency = 0.5`}
               tone: "caution",
               children: (
                 <P>
-                  The object genuinely might not exist and your script has something sensible
+                  The object might not exist and your script has something sensible
                   to do about that. Waiting forever for something optional is a hang, not a
                   guard.
                 </P>

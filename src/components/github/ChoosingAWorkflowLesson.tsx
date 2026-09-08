@@ -141,7 +141,7 @@ return <LegacyCheckout />;`}
           ]}
         />
         <P>
-          It is a genuinely good design for the problem it was built for: versioned software that
+          It is a good design for the problem it was built for: versioned software that
           ships on a schedule, where several released versions are supported at once, and where a
           release is a thing that gets prepared. Desktop applications, libraries, firmware, anything
           with a version number a customer says out loud.

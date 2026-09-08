@@ -74,7 +74,7 @@ Inherited from section
     color: var(--ink);`}
         />
         <P>
-          Three things in that list are worth knowing about.
+          Three things in that list explain most of the panel&apos;s behaviour.
         </P>
         <LabelRows
           rows={[
@@ -96,7 +96,7 @@ Inherited from section
         title="A crossed-out declaration tells you it lost"
       >
         <P>
-          This is the single most useful thing in devtools and the reason chapter 13 ends by pointing
+          This is one of the most useful devtools habits and the reason chapter 13 ends by pointing
           here. When a declaration is overridden, devtools draws a line through it.
         </P>
         <CodeBlock

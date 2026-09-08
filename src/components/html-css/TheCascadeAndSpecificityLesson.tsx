@@ -48,8 +48,7 @@ export function TheCascadeAndSpecificityLesson() {
         <Callout tone="note" title="There is a step zero: origin">
           Before any of this, declarations are sorted by where they came from — the browser&apos;s
           own stylesheet, then the user&apos;s own settings, then yours. Yours nearly always wins,
-          which is why this rarely matters. It is worth knowing it exists, and worth knowing that
-          user styles with{" "}
+          which is why this rarely matters. User styles with{" "}
           <span className="font-[family-name:var(--learn-font-mono)]">!important</span> beat
           everything of yours — deliberately, so somebody who needs 24-point text can have it.
         </Callout>
@@ -127,7 +126,7 @@ nav ul li a            0-0-4
 
       <LessonSection id="source-order-only-breaks-an-exact-tie" title="Source order only breaks an exact tie">
         <P>
-          When specificity is identical, the later declaration wins. This is genuinely useful and it
+          When specificity is identical, the later declaration wins. This is useful and it
           is what makes an override file work.
         </P>
         <CodeBlock
@@ -151,8 +150,8 @@ nav ul li a            0-0-4
           <span className="font-[family-name:var(--learn-font-mono)]">@layer</span>, which lets you
           declare an explicit override order that beats specificity entirely — so a low-specificity
           rule in a later layer wins over a high-specificity one in an earlier layer. It is well
-          supported and worth knowing exists. It is also not needed for a hand-written site, so it is
-          a thing to look up rather than learn now.
+          supported, but it is not needed for a hand-written site, so look it up rather than learn it
+          now.
         </Callout>
       </LessonSection>
 
@@ -220,7 +219,7 @@ nav ul li a            0-0-4
                   The next override needs its own{" "}
                   <span className="font-[family-name:var(--learn-font-mono)]">!important</span>, and
                   then you are comparing important declarations by specificity — the same problem one
-                  level up, with a smaller escape hatch left. Stylesheets do genuinely reach the
+                  level up, with a smaller escape hatch left. Stylesheets do reach the
                   point where every rule has one.
                 </P>
               ),

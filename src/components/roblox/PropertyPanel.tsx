@@ -127,7 +127,7 @@ part.Transparency = ${formatNumber(transparency, 1)}`}
         {transparency === 1 && canCollide
           ? "Fully transparent and still solid. This is the invisible wall every obby uses, and the reason Transparency and CanCollide have to be two separate properties."
           : !canCollide && transparency === 0
-            ? "Fully visible and completely intangible. A player sees a platform and falls straight through it — the single most common obby bug there is."
+            ? "Fully visible and completely intangible. A player sees a platform and falls straight through it — a common obby bug."
             : "Change one at a time. Each of these three is independent of the other two, and almost every strange part behaviour is one of them set to something you did not intend."}
       </p>
     </figure>

@@ -261,8 +261,8 @@ export function ProductSection() {
                 Courses built for the curious.
               </h2>
               <p className="mt-4 max-w-2xl text-[15px] leading-[1.6] text-[var(--home-ink-soft)] md:text-base">
-                Real coding skills from student teachers, loved by learners in 150+ countries.
-                Completely free.
+                Coding skills taught by students and used by learners in 150+ countries.
+                Free for everyone.
               </p>
             </div>
             <div className="mt-8 grid border-t border-[var(--home-hairline)] md:mt-10 md:grid-cols-2">
@@ -289,9 +289,8 @@ export function ProductSection() {
                 <div className="min-w-0 flex-1">
                   <h3 className="text-lg md:text-xl">Vibecoding 101</h3>
                   <p className="mt-3 text-[15px] leading-[1.5] text-[var(--home-ink-soft)] md:text-base">
-                    Build real apps using AI tools like Cursor and Copilot.
-                    This is where coding is headed: fast, creative, and full of
-                    purpose.
+                    Build apps with AI tools like Cursor and Copilot while you
+                    learn how the code works.
                   </p>
                   <a
                     href={VIBECODING_COURSE_HREF}

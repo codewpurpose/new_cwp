@@ -14,7 +14,7 @@ const faqs: Faq[] = [
   {
     question: "Is CodeWithPurpose really free?",
     answer:
-      "Yes. Really. Every course, workshop, and resource costs nothing, and it always will. We don't think a family's budget should ever decide who gets to learn how to code.",
+      "Yes. Every course, workshop, and resource costs nothing. A family's budget should not decide who gets to learn how to code.",
   },
   {
     question: "Who runs CodeWithPurpose?",
@@ -29,7 +29,7 @@ const faqs: Faq[] = [
   {
     question: "How can I volunteer or join the team?",
     answer:
-      "We'd love to have you. Head to our Join Us page and fill out the volunteer form. Whether you want to teach, mentor, or organize, there's a place for you here.",
+      "Go to our Join Us page and fill out the volunteer form. You can teach, mentor, or help organise workshops and outreach.",
   },
   {
     question: "Where do donations go?",
@@ -118,11 +118,11 @@ export function FaqSection() {
             ))}
           </div>
           <div className="mx-auto mt-8 max-w-[51rem] rounded-xl border-[0.5px] border-[var(--home-hairline)] bg-[var(--home-page)] px-5 py-7 sm:px-6 sm:py-8 md:px-10 md:py-10">
-            <h3 className="text-lg font-medium md:text-xl">A Note From Our Team</h3>
+            <h3 className="text-lg font-medium md:text-xl">Why we keep it free</h3>
             <blockquote className="mt-4 text-[15px] leading-[1.6] text-[var(--home-ink-soft)] md:text-base">
               &ldquo;Every dollar helps us build a more inclusive future where code
               is a tool for good. Whether it&apos;s $5 or $500, you&apos;re helping a
-              student start their journey today.&rdquo;
+              student start learning today.&rdquo;
             </blockquote>
             <p className="mt-4 text-sm text-[var(--home-ink-quiet)]">
               Shreyan, Samanyu &amp; Bruhatt

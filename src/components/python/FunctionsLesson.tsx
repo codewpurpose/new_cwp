@@ -112,7 +112,7 @@ Hi, Grace!`}
           That default is evaluated exactly once — when Python reads the{" "}
           <Strong>def</Strong> line, not fresh on every call. For an immutable default like the
           string above, that distinction is invisible. For a mutable one, like a list, it is
-          the single most common bug beginners write in their first week with functions.
+          a common bug beginners write in their first week with functions.
         </P>
         <Callout tone="danger" title="Never default a parameter to a mutable value">
           <Strong>{"def add_item(item, basket=[]):"}</Strong> creates one list, once, when the
@@ -189,7 +189,7 @@ role: admin`}
         <P>
           The names <Strong>args</Strong> and <Strong>kwargs</Strong> are convention, not
           syntax — the asterisks are what matter. Reach for either only when a function
-          genuinely needs to accept an open-ended set of inputs; a fixed, named parameter list
+          needs to accept an open-ended set of inputs; a fixed, named parameter list
           is easier to read and easier for an editor to check for you whenever you can get
           away with one.
         </P>

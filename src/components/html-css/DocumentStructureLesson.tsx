@@ -74,7 +74,7 @@ export function DocumentStructureLesson() {
           ]}
         />
         <P>
-          <Strong>lang</Strong> is one attribute and genuinely worth typing. Without it a screen
+          <Strong>lang</Strong> is one attribute to add. Without it a screen
           reader may read English with a French pronunciation model, which is not a subtle
           degradation — it is unintelligible.
         </P>
@@ -99,7 +99,7 @@ export function DocumentStructureLesson() {
             },
             {
               label: "viewport",
-              text: "Without this, a phone renders your page at 980 pixels wide and zooms out, so everything is tiny and no CSS media query ever fires. Chapter 19 is entirely about what this unlocks.",
+              text: "Without this, a phone renders your page at 980 pixels wide and zooms out, so everything is tiny and no CSS media query ever fires. Chapter 19 explains how to make the layout respond.",
             },
             {
               label: "title",
@@ -111,7 +111,7 @@ export function DocumentStructureLesson() {
             },
           ]}
         />
-        <Callout tone="tip" title="Two more worth adding to anything public">
+        <Callout tone="tip" title="Two more to add to anything public">
           <span className="font-[family-name:var(--learn-font-mono)]">
             &lt;meta name=&quot;description&quot; content=&quot;…&quot;&gt;
           </span>{" "}

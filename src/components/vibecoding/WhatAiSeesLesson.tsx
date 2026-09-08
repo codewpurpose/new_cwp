@@ -54,7 +54,7 @@ export function WhatAiSeesLesson() {
           a shorter and shorter set of notes to read before answering.
         </P>
         <Callout tone="note" title="Why closing the tab doesn't lose anything">
-          Since nothing is genuinely remembered between requests, starting a new conversation
+          Since nothing is remembered between requests, starting a new conversation
           costs you nothing except having to restate context the model needs. It does not erase
           your code, and it does not erase progress — the code was never in the model&rsquo;s
           memory to begin with. It was always just on your disk.
@@ -205,7 +205,7 @@ cannot see. Do not guess — if you are unsure, say so.`}
               label: "Put durable facts in a rules file",
               detail:
                 "Anything you find yourself repeating every session belongs somewhere the tool loads automatically.",
-              note: "That is Chapter 15, and it is the highest-payoff thing in this part of the course.",
+              note: "That is Chapter 15, where you put repeated context in a rules file.",
             },
             {
               label: "Paste errors in full",
@@ -219,7 +219,7 @@ cannot see. Do not guess — if you are unsure, say so.`}
       <TakeawayCard
         items={[
           "The model has no memory. Every request ships a fresh package of text, and that package is its whole world for that one reply.",
-          "The chat window's continuity is an illusion — 'remembering' is re-reading the transcript, and once a message ages out of the window it is genuinely gone from what the model can see.",
+          "The chat window's continuity is an illusion — 'remembering' is re-reading the transcript, and once a message ages out of the window it is gone from what the model can see.",
           "The context window is a budget, and a handful of files eats it far faster than any amount of prose.",
           "Hallucinated functions come from two different sources, trained-in patterns and your actual files, and the model never tells you which one it used.",
           "Ask a tool what it can see before you trust its answer. The honest reply is often narrower than you assumed.",

@@ -48,7 +48,7 @@ const PARTS: Record<PartId, { label: string; detail: string }> = {
   attr: {
     label: "Attribute name",
     detail:
-      "Extra information about this element, written inside the opening tag and nowhere else. `href` is the one attribute an anchor genuinely needs; without it the link is not a link.",
+      "Extra information about this element, written inside the opening tag and nowhere else. `href` is the one attribute an anchor needs; without it the link is not a link.",
   },
   eq: {
     label: "The equals sign",

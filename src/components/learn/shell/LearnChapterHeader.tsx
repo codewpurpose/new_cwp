@@ -58,7 +58,7 @@ export function LearnChapterHeader({ track, chapter }: LearnChapterHeaderProps) 
 
       {prerequisites.length > 0 && (
         <p className="mt-4 text-[0.85rem] text-learn-muted">
-          Worth reading first:{" "}
+          Read first:{" "}
           {prerequisites.map((prereq, index) => (
             <span key={prereq.slug}>
               {index > 0 && ", "}

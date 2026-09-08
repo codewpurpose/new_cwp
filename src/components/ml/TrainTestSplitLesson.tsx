@@ -66,7 +66,7 @@ export function TrainTestSplitLesson() {
         <Callout tone="tip" title="What it costs — and what it does not, here">
           The usual warning is that holding back too much starves the model. In this data it
           barely does: even with fifteen students to learn from, the model is about as good as
-          with fifty-four. That is worth noticing rather than glossing over — a{" "}
+          with fifty-four. That difference matters — a{" "}
           <em>simple</em> model needs very few examples. How much data you need depends on how
           complicated your model is, which is exactly the next lesson.
         </Callout>

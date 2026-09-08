@@ -48,7 +48,7 @@ export interface EmailDocument {
   masthead?: { imageUrl: string; alt: string; caption: string };
   /** Why this person is receiving the message. Required — every email owes one. */
   footerNote: string;
-  /** Omit for genuinely transactional mail that carries no list membership. */
+  /** Omit for transactional mail that carries no list membership. */
   unsubscribeUrl?: string;
   /** Absolute URLs. Relative paths do not resolve in an inbox. */
   siteUrl: string;

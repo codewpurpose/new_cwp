@@ -174,7 +174,7 @@ RESEND_API_KEY=`}
         </P>
         <CodeBlock
           variant="terminal"
-          code={`# Stop tracking it, but keep it on disk. The --cached is the whole trick.
+    code={`# Stop tracking it, but keep it on disk. The --cached flag is the important detail.
 git rm --cached .env
 
 # For a directory

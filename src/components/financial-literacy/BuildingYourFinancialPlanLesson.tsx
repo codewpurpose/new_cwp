@@ -19,8 +19,8 @@ export function BuildingYourFinancialPlanLesson() {
           fails the same way a budget built on guessed expenses does.
         </P>
         <P>
-          This is deliberately the least exciting part of the whole track, and skipping it is the
-          single most common reason a financial plan gets abandoned within a month. A goal built on
+          This is deliberately the least exciting part of the whole track, and skipping it is a
+          common reason a financial plan gets abandoned within a month. A goal built on
           top of a number you made up doesn&apos;t fail because the goal was wrong — it fails
           because the foundation underneath it was never real to begin with.
         </P>
@@ -118,7 +118,7 @@ export function BuildingYourFinancialPlanLesson() {
           rows={[
             {
               label: "Mortgages",
-              text: "Buying a home involves a down payment, a mortgage structure, and closing costs that deserve their own deep dive when you're actually shopping, not a paragraph here.",
+              text: "Buying a home involves a down payment, a mortgage structure, and closing costs that deserve their own detailed treatment when you're shopping, not a paragraph here.",
             },
             {
               label: "Self-employment",
@@ -126,11 +126,11 @@ export function BuildingYourFinancialPlanLesson() {
             },
             {
               label: "Wills & estates",
-              text: "Deciding where your money and belongings go after you're gone is a real gap in this track, and it doesn't require significant wealth to start being relevant.",
+              text: "Deciding where your money and belongings go after you're gone is a gap in this track, and it doesn't require a large estate to start being relevant.",
             },
             {
               label: "Picking investments",
-              text: "This track taught what a stock, bond, and index fund are — not which specific fund to buy. That decision is worth researching on its own, or asking a fee-only planner about, once the amount at stake justifies it.",
+              text: "This track taught what a stock, bond, and index fund are — not which specific fund to buy. Research that decision separately, or ask a fee-only planner once the amount at stake justifies it.",
             },
             {
               label: "Local rules",
@@ -163,7 +163,7 @@ export function BuildingYourFinancialPlanLesson() {
           "One specific goal per time horizon beats a long list that tries to optimise everything simultaneously.",
           "Breaking the plan into seven small, specific actions gets it built this week, instead of staying a good intention indefinitely.",
           "A plan that fits on one page and gets revisited after real changes gets used; a long document gets written once and forgotten.",
-          "This track built the instincts, not a complete map — mortgages, self-employment, estate planning, and specific investment choices are real gaps worth learning next, when they become relevant.",
+          "This track built the instincts, not a complete map — mortgages, self-employment, estate planning, and specific investment choices are gaps to learn next when they become relevant.",
         ]}
       />
     </div>

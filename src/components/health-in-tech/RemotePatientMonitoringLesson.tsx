@@ -180,7 +180,7 @@ export function RemotePatientMonitoringLesson() {
           A dashboard that has stopped receiving readings looks identical whether the patient is
           doing perfectly well and took the device off, or the patient is in real trouble and
           nobody is checking in. Treating silence as &ldquo;no news is good news&rdquo; is the
-          single most dangerous assumption a remote-monitoring workflow can make, and a
+          dangerous assumption a remote-monitoring workflow can make, and a
           well-designed programme flags a missing patient the same way it flags an abnormal
           reading.
         </Callout>

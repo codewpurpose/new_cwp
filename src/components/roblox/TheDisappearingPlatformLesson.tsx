@@ -75,7 +75,7 @@ wait(3)         -- the old global: 30Hz, and it drifts under load`}
           lineTones={{ 2: "dim" }}
         />
         <P>
-          Two relatives are worth knowing. <Strong>task.delay(n, fn)</Strong> runs a function
+          Two related functions behave differently. <Strong>task.delay(n, fn)</Strong> runs a function
           later without pausing the current thread, and <Strong>task.spawn(fn)</Strong> starts
           one immediately alongside the current one. Neither is needed here, and both are how
           you avoid a wait blocking something that should keep running.

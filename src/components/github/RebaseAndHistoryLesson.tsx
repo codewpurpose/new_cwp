@@ -48,7 +48,7 @@ git rebase main
         title="The result is a straight line, and a small lie"
       >
         <P>
-          The output is a linear history with no merge commits. Reading it is genuinely easier;
+          The output is a linear history with no merge commits. Reading it is easier;
           bisecting it is simpler; the log tells a clean story from top to bottom.
         </P>
         <P>
@@ -83,7 +83,7 @@ git rebase main
           ]}
         />
         <P>
-          Neither is correct in general. The genuinely useful compromise, and what a great many teams
+          Neither is correct in general. The useful compromise, and what many teams
           do, is: <Strong>rebase your own branch while it is still yours</Strong> to keep it tidy and
           up to date, then merge it into main so the landing is recorded.
         </P>
@@ -113,7 +113,7 @@ git rebase main
         />
         <P>
           Every commit is now duplicated. If they merge, both copies land and the diff applies twice.
-          Untangling this is genuinely unpleasant and it is always somebody else&apos;s afternoon,
+          Untangling this is unpleasant and it is always somebody else&apos;s afternoon,
           not yours.
         </P>
         <LabelRows

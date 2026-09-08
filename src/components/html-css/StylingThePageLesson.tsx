@@ -347,7 +347,7 @@ footer ul {
         />
         <LabelRows
           rows={[
-            { label: ":where()", text: "Wraps a selector list at ZERO specificity, so this focus rule is trivially easy to override later. A genuinely useful trick from chapter 13's subject." },
+            { label: ":where()", text: "Wraps a selector list at ZERO specificity, so this focus rule is trivially easy to override later. A useful trick from chapter 13's subject." },
             { label: "focus-visible", text: "Keyboard focus only, so mouse users do not get outlines they find noisy — while keyboard users keep the thing they navigate by." },
             { label: "The skip link", text: "Off-screen until focused, then visible. Two rules, and it is the first thing a keyboard user meets." },
             { label: "transition on specific properties", text: "Not transition: all. Naming them is faster and avoids animating something you did not intend." },

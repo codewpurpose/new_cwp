@@ -97,7 +97,7 @@ export function ImagePreprocessingLesson() {
       <Callout tone="tip" title="What augmentation cannot manufacture">
         Every augmented photo is still a variation on your one original scene, lighting rig, and
         camera. Augmentation multiplies variety around what you already collected — it does not
-        add a genuinely new pose, background, or object you never photographed in the first
+        add a new pose, background, or object you never photographed in the first
         place.
       </Callout>
 
