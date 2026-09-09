@@ -77,17 +77,17 @@ export function StudentDashboard() {
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img src={avatarSrc(state.avatar)} alt="Your Koda" className="h-16 w-16 object-contain" />
           </span>
-          <div>
+          <div className="min-w-0">
             <p className="text-sm text-[var(--home-ink-quiet)]">Welcome back</p>
             <input
               value={state.name}
               onChange={(e) => actions.setName(e.target.value)}
-              placeholder="Pick a display name"
+              placeholder="Add your name"
               maxLength={DISPLAY_NAME_MAX}
               aria-label="Your display name, shown on the leaderboard"
               aria-invalid={nameIssue !== null}
               aria-describedby={nameIssue ? "display-name-issue" : undefined}
-              className="home-serif w-full max-w-[16rem] bg-transparent text-2xl outline-none placeholder:text-[var(--home-ink-quiet)] md:text-[1.75rem]"
+              className="home-serif min-w-0 w-full max-w-[16rem] bg-transparent text-xl outline-none placeholder:text-[var(--home-ink-quiet)] sm:text-2xl md:text-[1.75rem]"
             />
             {/* Said once, at the moment they are choosing: this name is not
                 private. Signed-out visitors read it on /leaderboard.
