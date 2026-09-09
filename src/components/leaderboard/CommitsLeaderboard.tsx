@@ -10,6 +10,8 @@ import { isValidGithubUsername } from "@/lib/github/username";
 import { DASHBOARD_HREF, GITHUB_STATS_SYNC_PATH, LOGIN_HREF } from "@/lib/links";
 import { CommitDistributionChart } from "@/components/leaderboard/CommitDistributionChart";
 
+type CommitYears = Record<string, { public: number; private: number }>;
+
 interface Row {
   user_id: string;
   github_username: string;
@@ -18,7 +20,7 @@ interface Row {
   joined_github_at: string | null;
   public_commits: number;
   private_contributions: number;
-  commits_by_year: Record<string, { public: number; private: number }>;
+  commits_by_year: CommitYears;
   public_repos: number;
   followers: number;
   following: number;
@@ -43,6 +45,7 @@ interface LookupStats {
   totalStars: number;
   publicCommits: number;
   privateContributions: number;
+  commitsByYear: CommitYears;
 }
 
 interface LookupResponse {
@@ -86,8 +89,18 @@ function compactCommitLabel(count: number): string {
   return count === 1 ? "1 commit" : `${count} commits`;
 }
 
-function yearRows(commitsByYear: Row["commits_by_year"]): [string, { public: number; private: number }][] {
+function yearRows(commitsByYear: CommitYears): [string, { public: number; private: number }][] {
   return Object.entries(commitsByYear ?? {}).sort(([yearA], [yearB]) => Number(yearB) - Number(yearA));
+}
+
+function bestCommitYear(commitsByYear: CommitYears): string {
+  const [best] = yearRows(commitsByYear).sort(
+    ([yearA, countsA], [yearB, countsB]) =>
+      countsB.public + countsB.private - (countsA.public + countsA.private) || Number(yearB) - Number(yearA),
+  );
+  if (!best) return "—";
+  const [year, counts] = best;
+  return `${year} · ${counts.public + counts.private}`;
 }
 
 function retryAfterLabel(retryAfterMs: number): string {
@@ -412,6 +425,15 @@ function Stat({ label, value }: { label: string; value: string }) {
   );
 }
 
+function StatCard({ label, value }: { label: string; value: string }) {
+  return (
+    <div className="rounded-lg border-[0.5px] border-[var(--home-hairline)] bg-[var(--home-page)] p-3">
+      <dt className="text-[12px] uppercase tracking-[0.06em] text-[var(--home-ink-quiet)]">{label}</dt>
+      <dd className="mt-1 font-serif text-xl leading-none tabular-nums text-[var(--home-ink)]">{value}</dd>
+    </div>
+  );
+}
+
 function PublicGithubLookup({
   isLoaded,
   isSignedIn,
@@ -516,7 +538,7 @@ function PublicGithubLookup({
               setMessage(null);
             }
           }}
-          placeholder="octocat"
+          placeholder="samanyugoyal2010"
           maxLength={39}
           className="min-w-0 flex-1 rounded-full border-[0.5px] border-[var(--home-grey-500)] bg-[var(--home-white)] px-4 py-2 text-[14px] outline-none focus:border-[var(--home-fern)]"
         />
@@ -569,15 +591,22 @@ function PublicGithubLookup({
             )}
           </div>
 
-          <dl className="mt-4 grid grid-cols-2 gap-x-4 gap-y-3 border-t border-[var(--home-hairline)] pt-4 text-[14px] sm:grid-cols-4">
+          <dl className="mt-4 grid grid-cols-2 gap-3 border-t border-[var(--home-hairline)] pt-4 text-[14px] sm:grid-cols-4">
+            <StatCard
+              label="Total commits"
+              value={String(result.publicCommits + result.privateContributions)}
+            />
+            <StatCard label="Public commits" value={String(result.publicCommits)} />
+            <StatCard label="Private contributions" value={String(result.privateContributions)} />
+            <StatCard label="Best year" value={bestCommitYear(result.commitsByYear)} />
             <Stat label="Public repos" value={String(result.profile.publicRepos)} />
             <Stat label="Pull requests" value={String(result.profile.totalPrs)} />
             <Stat label="Issues opened" value={String(result.profile.totalIssues)} />
             <Stat label="Stars earned" value={String(result.totalStars)} />
             <Stat label="Followers" value={String(result.profile.followers)} />
             <Stat label="Following" value={String(result.profile.following)} />
-            <Stat label="Private contributions" value={String(result.privateContributions)} />
           </dl>
+          <YearlyCommitsTable commitsByYear={result.commitsByYear} />
         </div>
       )}
 
@@ -683,7 +712,7 @@ function LinkGithubPanel({
             setMessage(null);
           }
         }}
-        placeholder="your-username"
+        placeholder="samanyugoyal2010"
         maxLength={39}
         className="min-w-0 flex-1 rounded-full border-[0.5px] border-[var(--home-grey-500)] bg-[var(--home-white)] px-4 py-2 text-[14px] outline-none focus:border-[var(--home-fern)]"
       />
