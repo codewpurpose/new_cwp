@@ -365,8 +365,11 @@ export async function fetchGithubStats(
     privateContributions += priv;
   }
 
+  // Best-effort: only the GET lookup renders these, and upsertGithubStats
+  // never persists them, so a failure here shouldn't sink an otherwise
+  // successful sync of the stats that do get saved.
   const contributionDaysResult = await fetchContributionDays(profile.login);
-  if (!contributionDaysResult.ok) return contributionDaysResult;
+  const contributionDays = contributionDaysResult.ok ? contributionDaysResult.contributionDays : [];
 
   return {
     ok: true,
@@ -376,7 +379,7 @@ export async function fetchGithubStats(
       publicCommits,
       privateContributions,
       commitsByYear,
-      contributionDays: contributionDaysResult.contributionDays,
+      contributionDays,
       syncedThroughYear: currentYear,
     },
   };
