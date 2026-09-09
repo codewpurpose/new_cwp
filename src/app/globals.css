@@ -644,8 +644,13 @@
 }
 
 /* The contribution calendar borrows GitHub's compact daily rhythm while using
- * the site's fern-to-moss palette. It stays wide enough to read on phones and
- * scrolls inside its own frame instead of forcing the page to overflow. */
+ * the site's fern-to-moss palette. The week columns stay fixed so month labels
+ * line up with the actual grid at every viewport width; the outer frame owns
+ * horizontal scrolling on phones. */
+.github-contribution-scroll {
+  scrollbar-color: var(--home-grey-500) transparent;
+  scrollbar-width: thin;
+}
 .github-contribution-weeks {
   display: flex;
   gap: 0.25rem;
@@ -662,13 +667,31 @@
   border: 0.5px solid rgba(30, 60, 44, 0.12);
   border-radius: 0.2rem;
   background: var(--home-grey-400);
+  transition: box-shadow 0.15s ease-out, transform 0.15s ease-out;
 }
 .github-contribution-cell[data-level="1"] { background: var(--home-pistachio); }
 .github-contribution-cell[data-level="2"] { background: var(--home-sage); }
 .github-contribution-cell[data-level="3"] { background: var(--home-fern); }
 .github-contribution-cell[data-level="4"] { background: var(--home-moss); }
-.github-contribution-months > span { min-width: 0; }
+.github-contribution-months {
+  display: flex;
+  gap: 0.25rem;
+  min-width: max-content;
+}
+.github-contribution-month {
+  flex: 0 0 0.75rem;
+  width: 0.75rem;
+  min-width: 0;
+  overflow: visible;
+  white-space: nowrap;
+}
+.github-contribution-legend .github-contribution-cell:hover {
+  box-shadow: inset 0 0 0 1px rgba(30, 60, 44, 0.25);
+}
 .commit-row-chevron { display: inline-block; }
+@media (prefers-reduced-motion: reduce) {
+  .github-contribution-cell { transition: none; }
+}
 /*
  * Grows a small control's TAP TARGET without touching layout.
  *

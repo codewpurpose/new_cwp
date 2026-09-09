@@ -247,7 +247,7 @@ function CommitsLeaderboardLive() {
               No one&apos;s linked a GitHub account yet — be the first.
             </p>
           ) : (
-            <ol className="flex flex-col gap-2">
+            <ol className="flex flex-col gap-2" aria-label="GitHub commits ranking">
               {rankedRows?.map((row, i) => {
                 const me = user?.id === row.user_id;
                 const expanded = expandedId === row.user_id;
@@ -257,14 +257,14 @@ function CommitsLeaderboardLive() {
                     key={row.user_id}
                     className={`home-card rounded-2xl p-3 sm:p-4 ${me ? "ring-2 ring-[var(--home-moss)]" : ""}`}
                   >
-                    <div className="flex min-w-0 items-center gap-2 sm:gap-4">
-                      <button
-                        type="button"
-                        onClick={() => setExpandedId(expanded ? null : row.user_id)}
-                        aria-expanded={expanded}
-                        aria-controls={expanded ? `github-stats-${row.user_id}` : undefined}
-                        className="flex min-w-0 flex-1 items-center gap-2 text-left sm:gap-4"
-                      >
+                    <button
+                      type="button"
+                      onClick={() => setExpandedId(expanded ? null : row.user_id)}
+                      aria-expanded={expanded}
+                      aria-controls={expanded ? `github-stats-${row.user_id}` : undefined}
+                      aria-label={`${expanded ? "Hide" : "Show"} details for ${row.name || row.github_username}, ranked ${i + 1}, ${compactCommitLabel(total)}`}
+                      className="group flex min-w-0 w-full items-center gap-2 rounded-lg text-left focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--home-fern)] sm:gap-4"
+                    >
                         <span className="w-7 shrink-0 text-center font-serif text-lg text-[var(--home-ink-soft)] sm:w-8">
                           {i + 1}
                         </span>
@@ -286,26 +286,16 @@ function CommitsLeaderboardLive() {
                             @{row.github_username}
                           </span>
                         </span>
-                      </button>
                       <span className="shrink-0 text-right text-[13px] font-medium tabular-nums sm:text-[14px]">
                         {compactCommitLabel(total)}
                       </span>
-                      <button
-                        type="button"
-                        onClick={() => setExpandedId(expanded ? null : row.user_id)}
-                        aria-expanded={expanded}
-                        aria-controls={expanded ? `github-stats-${row.user_id}` : undefined}
-                        aria-label={`${expanded ? "Hide" : "Show"} details for ${row.name || row.github_username}`}
-                        className="shrink-0 rounded-md p-1 text-[var(--home-ink-quiet)] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--home-fern)]"
+                      <span
+                        className={`commit-row-chevron shrink-0 px-1 text-base text-[var(--home-ink-quiet)] transition-transform ${expanded ? "rotate-180" : ""}`}
+                        aria-hidden
                       >
-                        <span
-                          className={`commit-row-chevron text-base transition-transform ${expanded ? "rotate-180" : ""}`}
-                          aria-hidden
-                        >
-                          ▾
-                        </span>
-                      </button>
-                    </div>
+                        ▾
+                      </span>
+                    </button>
 
                     {expanded && (
                       <div id={`github-stats-${row.user_id}`} className="mt-4 border-t border-[var(--home-hairline)] pt-4">
