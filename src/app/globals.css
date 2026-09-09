@@ -648,7 +648,7 @@
  * line up with the actual grid at every viewport width; the outer frame owns
  * horizontal scrolling on phones. */
 .github-contribution-scroll {
-  scrollbar-color: var(--home-grey-500) transparent;
+  scrollbar-color: var(--home-ink-quiet) transparent;
   scrollbar-width: thin;
 }
 .github-contribution-weeks {
