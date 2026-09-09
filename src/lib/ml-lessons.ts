@@ -42,7 +42,7 @@ export const ML_PARTS: readonly LearnPart[] = [
     number: 4,
     title: "Making the Number Honest",
     summary:
-      "Every way a score lies to you, and what to do about each one. This is the part that separates a demo from a result.",
+      "How to evaluate a model beyond a single score.",
   },
   {
     id: "beyond-labels",
@@ -105,7 +105,7 @@ export const ML_CHAPTERS: readonly LearnChapter[] = [
     order: 3,
     title: "How a Model Learns",
     description:
-      "Learning sounds mysterious. It is not. Drag one number, watch total error rise and fall, and find the bottom of the bowl yourself.",
+      "Drag one number, watch total error rise and fall, and find the bottom of the bowl yourself.",
     level: "beginner",
     minutes: 12,
     prerequisites: [],
@@ -114,7 +114,7 @@ export const ML_CHAPTERS: readonly LearnChapter[] = [
       { id: "a-model-with-one-number", text: "A model with one number", level: 2 },
       { id: "measuring-how-wrong-you-are", text: "Measuring how wrong you are", level: 2 },
       { id: "the-shape-of-being-wrong", text: "The shape of being wrong", level: 2 },
-      { id: "that-is-the-whole-trick", text: "That is the whole trick", level: 2 },
+      { id: "that-is-the-whole-trick", text: "How the pieces fit", level: 2 },
     ],
     status: "published",
   },
@@ -400,7 +400,7 @@ export const ML_CHAPTERS: readonly LearnChapter[] = [
     headings: [
       { id: "the-column-that-shouts", text: "The column that shouts over the others", level: 2 },
       { id: "two-ways-onto-one-scale", text: "Two ways onto one scale", level: 2 },
-      { id: "which-models-care", text: "Which models care, and which genuinely do not", level: 2 },
+      { id: "which-models-care", text: "Which models care, and which do not", level: 2 },
       { id: "scaling-belongs-inside-the-split", text: "Scaling belongs inside the split", level: 2 },
     ],
     status: "published",

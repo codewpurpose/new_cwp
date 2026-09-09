@@ -370,7 +370,7 @@ export const PYTHON_CHAPTERS: readonly LearnChapter[] = [
       { id: "self-is-the-object-talking-about-itself", text: "self is the object talking about itself", level: 2 },
       { id: "bundling-data-and-the-functions-that-act-on-it", text: "Bundling data and the functions that act on it", level: 2 },
       { id: "instance-attributes-belong-to-the-object-class-attributes-are-shared", text: "Instance attributes belong to the object; class attributes are shared", level: 2 },
-      { id: "a-repr-worth-reading", text: "A repr worth reading", level: 2 },
+      { id: "a-repr-worth-reading", text: "A repr that helps with debugging", level: 2 },
       { id: "not-everything-needs-to-be-a-class", text: "Not everything needs to be a class", level: 2 },
     ],
     status: "published",

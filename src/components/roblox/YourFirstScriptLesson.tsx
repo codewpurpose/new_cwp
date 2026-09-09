@@ -115,8 +115,8 @@ local humanoid = ObbyUtil.getHumanoid(somePart)`}
         <Callout tone="note" title="Which to use while learning">
           Leave it on Legacy and use the containers. The placement rules are what every
           tutorial, every free model, and every person you ask for help will assume — learning
-          them first means you can read other people&apos;s work. RunContext is worth knowing
-          exists so that a script running somewhere &quot;impossible&quot; does not baffle you.
+          them first means you can read other people&apos;s work. RunContext explains why a script
+          running somewhere &quot;impossible&quot; does not run.
         </Callout>
       </LessonSection>
 

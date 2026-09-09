@@ -9,7 +9,7 @@ export function PublishingYourSiteLesson() {
     <div>
       <Lead>
         A folder of HTML files is a website the moment somebody else can open it, and for a static
-        page that is free and takes about five minutes. Then the three checks worth doing before you
+        page that is free and takes about five minutes. Then run three checks before you
         send anyone the link.
       </Lead>
 
@@ -82,7 +82,7 @@ export function PublishingYourSiteLesson() {
           ]}
         />
         <P>
-          One naming trick worth knowing: a repository called{" "}
+          One naming detail: a repository called{" "}
           <Strong>yourname.github.io</Strong> publishes at that bare domain rather than in a
           subfolder — which is both tidier and avoids the path problem in the section below.
         </P>
@@ -95,7 +95,7 @@ export function PublishingYourSiteLesson() {
 
       <LessonSection id="netlify-and-vercel-take-a-dragged-folder" title="Netlify and Vercel take a dragged folder">
         <P>
-          Two alternatives, both free for a personal site, and both with a genuinely
+          Two alternatives, both free for a personal site, with a
           drag-a-folder-onto-a-page option that needs no Git at all.
         </P>
         <LabelRows
@@ -110,17 +110,17 @@ export function PublishingYourSiteLesson() {
             },
             {
               label: "Vercel",
-              text: "Same shape. Excellent at frameworks, and perfectly happy with a folder of HTML.",
+              text: "Good for frameworks, and perfectly happy with a folder of HTML.",
             },
             {
               label: "Cloudflare Pages",
-              text: "Also free, also fine, and notably fast internationally.",
+              text: "Also free, and fast internationally.",
             },
           ]}
         />
         <P>
           All of them give you <Strong>HTTPS</Strong> automatically, on a certificate they renew
-          themselves. That is worth stating because it used to be an annual chore with a fee.
+          themselves. That matters because it used to be an annual chore with a fee.
         </P>
         <P>
           A custom domain costs roughly £10 a year from any registrar and points at your host with
@@ -211,7 +211,7 @@ export function PublishingYourSiteLesson() {
             },
             {
               label: "Run Lighthouse on the live URL",
-              detail: "The devtools tab audits performance, accessibility, best practices, and SEO in one click. Read the accessibility and SEO sections in particular; they are specific and actionable.",
+            detail: "The devtools tab audits performance, accessibility, best practices, and SEO in one click. Read the accessibility and SEO sections in particular; they point to specific fixes.",
             },
           ]}
         />
@@ -243,7 +243,7 @@ export function PublishingYourSiteLesson() {
 <meta property="og:url" content="https://example.com/">
 <meta name="twitter:card" content="summary_large_image">`}
         />
-        <Callout tone="success" title="That is the whole track">
+        <Callout tone="success" title="What you can build now">
           You can now write a document that means something, style it deliberately, lay it out in two
           dimensions, make it work on any screen and for anyone reading it, debug it when it
           misbehaves, and put it on the internet. Everything after this — a framework, a build step,

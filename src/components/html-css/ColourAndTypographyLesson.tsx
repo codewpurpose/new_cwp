@@ -38,7 +38,7 @@ color: rgb(62 127 92 / 50%);          /* modern syntax */`}
             { label: "hsl", text: "Hue 0–360, saturation, lightness. The one you can reason about — same hue with different lightness gives a whole palette, and it is a single number to change." },
           ]}
         />
-        <Callout tone="tip" title="currentColor is quietly excellent">
+        <Callout tone="tip" title="currentColor follows the text">
           It means &quot;whatever this element&apos;s{" "}
           <span className="font-[family-name:var(--learn-font-mono)]">color</span> is&quot;. Set a
           border or an SVG fill to{" "}
@@ -107,7 +107,7 @@ h1, h2 {
               children: (
                 <P>
                   Nothing to download, so text renders on the first frame with no flash. Looks native
-                  on every platform. The right default, and genuinely fine for most sites.
+                  on every platform. The right default for most sites.
                 </P>
               ),
             },
@@ -116,8 +116,8 @@ h1, h2 {
               tone: "neutral",
               children: (
                 <P>
-                  A file the visitor must download before your text appears in it. Worth it for
-                  identity, and it costs bytes and a flash of fallback text. Use{" "}
+                  A file the visitor must download before your text appears in it. Use it when
+                  identity matters, but account for the bytes and a flash of fallback text. Use{" "}
                   <span className="font-[family-name:var(--learn-font-mono)]">
                     font-display: swap
                   </span>{" "}
@@ -195,7 +195,7 @@ h1   { font-size: 40px; }                      /* 40px text, 60px lines — corr
         <Callout tone="success" title="Three lines that fix most amateur-looking pages">
           A max-width around 65ch, a line-height around 1.6, and enough contrast. Applied to plain
           black-on-white text with no other styling at all, a page reads as considered. This is the
-          highest-value thing in the chapter and it is not a matter of taste.
+          most important rule in the chapter, and it is not a matter of taste.
         </Callout>
       </LessonSection>
 
@@ -210,7 +210,7 @@ h1   { font-size: 40px; }                      /* 40px text, 60px lines — corr
           rows={[
             { label: "px", text: "An absolute pixel. Predictable, and it ignores a reader who has set a larger default font size in their browser settings." },
             { label: "rem", text: "Relative to the ROOT font size — 1rem is the browser default, usually 16px, or whatever the reader chose. Use for font sizes and most spacing." },
-            { label: "em", text: "Relative to the CURRENT element's font size, so it compounds through nesting. Excellent for padding that should scale with its own text." },
+            { label: "em", text: "Relative to the CURRENT element's font size, so it compounds through nesting. Useful for padding that should scale with its own text." },
             { label: "%", text: "Relative to the parent's corresponding dimension. Mostly for widths." },
             { label: "ch / ex", text: "Relative to character metrics. ch is the one you will use, for measure." },
             { label: "vw / vh", text: "One per cent of the viewport width or height. Handy for full-screen sections; avoid for text, where it ignores the reader entirely." },
@@ -233,7 +233,7 @@ small  { font-size: 0.875rem; }
           who set 24px to be able to read gets 15px. The convenience is yours and the cost is theirs.
         </Callout>
         <ChecklistCard
-          title="Typographic defaults worth starting from"
+          title="Typographic defaults to start with"
           marker="check"
           items={[
             "font-family: system-ui with a generic fallback last",
@@ -254,7 +254,7 @@ small  { font-size: 0.875rem; }
           "font-family is a fallback list and the last entry must be a generic family.",
           "System font stacks download nothing and render on the first frame.",
           "Every extra weight is another file. Two or three is enough for a whole site.",
-          "line-height is the single highest-value property on a page of text. Use 1.5–1.7 for body copy.",
+          "Line-height matters most on a page of text. Use 1.5–1.7 for body copy.",
           "Write line-height WITHOUT a unit, or large headings inherit a fixed value meant for small text and overlap.",
           "Comfortable reading is 45–75 characters per line. max-width: 65ch tracks the font size for you.",
           "rem respects the reader's chosen base font size; px ignores it.",

@@ -147,8 +147,8 @@ export function ClusteringLesson() {
           &ldquo;this is meaningless,&rdquo; because meaning was never part of what it computes.
         </P>
         <P>
-          That confidence is manufactured, not earned, and it is the single most dangerous thing
-          about this chapter&rsquo;s algorithm. A classifier that is wrong will eventually meet a
+          That confidence is manufactured, not earned, which is the dangerous part of this
+          chapter&rsquo;s algorithm. A classifier that is wrong will eventually meet a
           test set that says so. A clustering that is wrong meets nothing — there is no label to
           contradict it, so a meaningless grouping and a real one look identical in the output.
           The only thing that tells them apart is a check you choose to run.

@@ -76,8 +76,8 @@ export function HowABrowserBuildsAPageLesson() {
       >
         <P>
           JavaScript is a full programming language — variables, conditions, loops, functions — and
-          it is not covered in this track. It is worth knowing what it is <em>for</em>, so you can
-          tell when a problem is not yours yet.
+          it is not covered in this track. Know what it is <em>for</em>, so you can tell when a
+          problem is not yours yet.
         </P>
         <P>
           It runs after the page has loaded, and it changes things: text, styles, whole sections of
@@ -190,7 +190,7 @@ F12  or  Ctrl/Cmd + Shift + I    Devtools — the live page, after the browser
         <Callout tone="success" title="Go and look at something now">
           Open a site you like, press Ctrl/Cmd + U, and read. Most of it will be unfamiliar and it
           does not matter — look for the tags you meet in the next few chapters and watch them turn
-          up everywhere. This is a genuinely good habit and it costs nothing.
+          up everywhere. This is a good habit and it costs nothing.
         </Callout>
       </LessonSection>
 

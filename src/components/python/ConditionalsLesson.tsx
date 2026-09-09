@@ -116,7 +116,7 @@ starting`}
           nothing above it caught, the same role <Strong>else</Strong> plays at the end of an{" "}
           <Strong>elif</Strong> chain.
         </P>
-        <Callout tone="note" title="Reach for elif unless the shape genuinely helps">
+        <Callout tone="note" title="Reach for elif unless the shape helps">
           For a plain sequence of value comparisons, <Strong>if</Strong>/<Strong>elif</Strong>{" "}
           still reads exactly as clearly as <Strong>match</Strong> does, and runs on every
           Python version. Save <Strong>match</Strong> for when you are pulling a value apart by
@@ -139,7 +139,7 @@ starting`}
               tone: "positive",
               children: (
                 <P>
-                  Worth it when you are pulling a value apart by its shape — a tuple, a
+                  Use it when you are pulling a value apart by its shape — a tuple, a
                   dictionary, a class — not just comparing it. Python 3.10 and newer only.
                 </P>
               ),
@@ -228,7 +228,7 @@ empty`}
           Both read the same way you would say the condition out loud.
         </Callout>
         <P>
-          One more piece of syntax worth knowing, briefly: the walrus operator{" "}
+          Another piece of syntax is the walrus operator{" "}
           <Strong>:=</Strong> lets you assign a value and test it in the same expression,
           instead of on the line before.
         </P>

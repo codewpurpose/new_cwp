@@ -116,7 +116,7 @@ export function getSupabase(): SupabaseClient | null {
 }
 ```
 
-Use this for genuinely public data — a leaderboard, a public directory. It carries no
+Use this for public data, such as a leaderboard or public directory. It carries no
 user identity, so RLS sees it as `anon`.
 
 ### 3.2 The Clerk-authenticated client — the important one
@@ -151,7 +151,7 @@ export function useClerkSupabase(): SupabaseClient | null {
 }
 ```
 
-Three things worth knowing:
+Three details matter:
 
 - **`accessToken` is a function, not a string.** supabase-js calls it before every
   request, so an expired token refreshes itself. Never capture the token into a
@@ -192,7 +192,7 @@ from a client component is a build error — the variable resolves to `undefined
 browser bundle. That build error is a safety feature. Do not "fix" it by adding the
 prefix; move the call to a route handler instead.
 
-Reach for this **only when RLS genuinely cannot express the rule** — typically writes
+Use this **only when RLS cannot express the rule** — typically writes
 by anonymous visitors, where there is no `sub` claim to check. Anything a signed-in
 user does should go through 3.2.
 

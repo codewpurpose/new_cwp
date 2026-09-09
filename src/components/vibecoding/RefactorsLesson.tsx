@@ -98,7 +98,7 @@ pass against the code exactly as it is now.`}
           is right, only that it does what it currently does. That is precisely what you need,
           because a refactor is by definition supposed to preserve behaviour.
         </P>
-        <Callout tone="success" title="Why this is the highest-value prompt in the chapter">
+        <Callout tone="success" title="Why tests matter during a refactor">
           With characterisation tests, a refactor becomes falsifiable: the tests pass or they do
           not. Without them you are relying on reading the diff carefully, which does not scale
           past a few hundred lines.

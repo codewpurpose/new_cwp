@@ -24,7 +24,7 @@ export function PartsAndPropertiesLesson() {
           are set and which script is watching it.
         </P>
         <P>
-          That is a genuinely good design and it has one consequence worth internalising: when
+          That is a good design and it has one consequence worth internalising: when
           a part behaves strangely, the answer is always a property. Not a hidden setting, not
           a mode, not something about how you inserted it. A property, visible in the
           Properties panel, that is set to something you did not intend.
@@ -41,7 +41,7 @@ export function PartsAndPropertiesLesson() {
           and nothing can push it.
         </P>
         <P>
-          Every static piece of your obby should be anchored, and forgetting is the single most
+          Every static piece of your obby should be anchored, and forgetting is a common
           common first-day mistake. You build a beautiful floating course, press Play, and the
           entire thing collapses into a heap on the baseplate before you have taken a step.
         </P>
@@ -113,7 +113,7 @@ platform.Anchored = false  -- falls, tumbles, can be pushed by a player`}
           the reason a player is blocked by nothing in the middle of an empty room.
         </P>
         <Callout tone="warning" title="Two properties, one apparent effect">
-          To make a platform genuinely vanish you must set both:{" "}
+          To make a platform vanish you must set both:{" "}
           <Strong>Transparency = 1</Strong> so it cannot be seen, and{" "}
           <Strong>CanCollide = false</Strong> so it cannot be stood on. Setting one and not
           the other is the bug behind almost every broken disappearing platform, and you will

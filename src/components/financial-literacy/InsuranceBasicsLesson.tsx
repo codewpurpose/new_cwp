@@ -39,7 +39,7 @@ export function InsuranceBasicsLesson() {
       <LessonSection id="a-premium-a-deductible-and-a-payout" title="A premium, a deductible, and a payout">
         <P>
           Five terms cover almost every policy you&apos;ll ever compare, and mixing two of them up
-          is the single most common way people misread what a plan actually costs.
+          is a common way people misread what a plan actually costs.
         </P>
         <LabelRows
           rows={[
@@ -94,7 +94,7 @@ export function InsuranceBasicsLesson() {
         <P>
           The pricing logic from the first section gives you an actual rule, not a feeling. A risk
           is worth insuring when it&apos;s both <Strong>catastrophic</Strong> — large enough to
-          genuinely derail your finances — and <Strong>uncertain enough</Strong> that you
+          derail your finances — and <Strong>uncertain enough</Strong> that you
           can&apos;t reasonably save your way around it in time. A risk is not worth insuring when
           it&apos;s <Strong>small</Strong> and <Strong>frequent</Strong> — the kind of cost you
           could absorb from an emergency fund without much trouble, and the kind an insurer prices

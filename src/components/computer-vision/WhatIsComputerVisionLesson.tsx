@@ -39,7 +39,7 @@ export function WhatIsComputerVisionLesson() {
         <P>
           &ldquo;Computer vision&rdquo; sounds like one skill, the way &ldquo;seeing&rdquo; feels
           like one thing to you. It is not one job. Ask a system to look at a photo and you could
-          be asking it to answer three genuinely different questions, and a solution to one does
+          be asking it to answer three different questions, and a solution to one does
           not hand you the other two for free.
         </P>
         <CompareGrid

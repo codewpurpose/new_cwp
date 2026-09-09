@@ -83,9 +83,9 @@ export function PayingOffDebtStrategicallyLesson() {
         />
         <P>
           Snowball costs about {formatCurrency(73)} more in total interest over the entire
-          payoff — a genuinely small amount, spread across more than two years — in exchange for
+          payoff — a small amount, spread across more than two years — in exchange for
           closing an entire account eight months sooner. Both plans reach zero in the same 28th
-          month here, which is worth noticing on its own: the total time to debt-free doesn&apos;t
+          month here, which is notable: the total time to debt-free doesn&apos;t
           always diverge as much as people assume. What actually differs between the two methods
           is the interest total and which debt disappears first, not necessarily how long the
           whole thing takes.
@@ -102,8 +102,8 @@ export function PayingOffDebtStrategicallyLesson() {
       <LessonSection id="refinancing-and-consolidation-and-where-each-goes-wrong" title="Refinancing and consolidation, and where each goes wrong">
         <P>
           Avalanche and snowball both assume the debts themselves stay fixed and only the payment
-          order changes. Two other moves change the debts instead — and both can genuinely help,
-          or genuinely backfire, depending on the fine print.
+          order changes. Two other moves change the debts instead — and both can help or
+          backfire, depending on the fine print.
         </P>
         <P>
           <Strong>Refinancing</Strong> replaces an existing loan with a new one, usually to get a

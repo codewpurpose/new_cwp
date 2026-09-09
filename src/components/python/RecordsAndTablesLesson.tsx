@@ -130,8 +130,8 @@ print(longest["name"])
 
       <LessonSection id="where-a-list-of-dicts-stops-being-enough" title="Where a list of dicts stops being enough">
         <P>
-          This shape is excellent until one of three things becomes true, and it is worth
-          knowing the boundary before you hit it at speed.
+          This shape works until one of three conditions applies. Know the boundary before you
+          hit it at speed.
         </P>
         <CompareGrid
           items={[
@@ -150,7 +150,7 @@ print(longest["name"])
               tone: "caution",
               children: (
                 <P>
-                  Millions of rows, repeated lookups by the same field, or genuine
+                  Millions of rows, repeated lookups by the same field, or
                   column-at-a-time maths. That is what a dictionary keyed by id, or a real
                   dataframe library, exists for.
                 </P>
@@ -159,7 +159,7 @@ print(longest["name"])
           ]}
         />
         <P>
-          The middle case is the interesting one: if you keep scanning the whole list to find
+          The middle case shows the limit: if you keep scanning the whole list to find
           one student by name, you do not need a bigger library — you need a dictionary keyed
           by name instead, which the last chapter of this part is about.
         </P>

@@ -1,10 +1,10 @@
 # CodeWithPurpose
 
-The website for [CodeWithPurpose](https://codewithpurpose.org) — a student-run nonprofit making coding education free for everyone, everywhere.
+The website for [CodeWithPurpose](https://codewithpurpose.org), a student-run nonprofit making coding education free.
 
-We got tired of $15,000 bootcamps deciding who gets to learn. So we built free courses, real curriculum, and a community of volunteers that now reaches students in 130+ countries. In March 2026 the work was recognized by U.S. Representative Mark DeSaulnier for "tremendous leadership and service to your community."
+We got tired of $15,000 bootcamps deciding who gets to learn. We built free courses and a volunteer teaching team. Students now use them in 130+ countries. In March 2026 the work was recognized by U.S. Representative Mark DeSaulnier for "tremendous leadership and service to your community."
 
-This repository is the marketing site *and* the learning platform — the interactive lessons are part of the app, not an embed.
+This repository contains both the marketing site and the learning platform. The interactive lessons are part of the app, not an embed.
 
 ## Quick Start
 
@@ -57,7 +57,7 @@ Nine self-paced tracks live under `/learn`. All run on the same documentation sh
 | HTML and CSS | `/learn/html-css` | 24 chapters, your first file through semantic markup, the cascade, layout, and a published page |
 | Computer Vision | `/learn/computer-vision` | 22 chapters, an image as a grid of numbers through classification, detection, segmentation, and production |
 
-Every ML lesson is built around a single hero interactive: one control the reader drags, with the concept made *felt* before it is named. Drag a decision threshold and watch precision trade against recall; stack hand-written rules and watch each one buy less than the last.
+Each ML lesson has one main interactive. The reader moves one control and sees the concept before it is named. Drag a decision threshold to compare precision and recall. Stack hand-written rules to see each one buy less than the last.
 
 These lessons are original work. An earlier version of this site vendored third-party lesson bundles; those were removed and rewritten from scratch, which is what makes the CodeWithPurpose byline on them accurate.
 
@@ -75,7 +75,7 @@ then an entry in `ML_CHAPTERS` (or `VIBECODING_CHAPTERS`), one in the `[slug]` b
 
 A chapter is either a **draft** — `status: "draft"`, registered nowhere — or **published**, registered in both maps. The validator rejects every state in between, which is what makes a half-written lesson safe to commit: drafts are excluded from routing, so the build stays green until you deliberately publish.
 
-Two rules are load-bearing rather than stylistic:
+Two implementation rules matter beyond style:
 
 - **Data is seeded at module scope** so the server and the client render byte-identically. Hydration mismatches are prevented by construction, not patched afterward.
 - **`toLocaleString` and `Intl.NumberFormat` are banned** in lesson modules. They are locale- and ICU-dependent, which makes them the likeliest source of a server/client mismatch in a component printing forty numbers. Use `toFixed`.

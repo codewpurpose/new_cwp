@@ -75,7 +75,7 @@ export function NumbersAndOperatorsLesson() {
 32`}
         />
         <P>
-          Exponentiation has one more quirk worth knowing: stack two of them, and Python
+          Exponentiation has one more quirk: stack two of them, and Python
           works right to left instead of left to right the way every other operator here
           does.
         </P>
@@ -201,8 +201,8 @@ export function NumbersAndOperatorsLesson() {
           that happens to compute something unexpectedly large.
         </P>
         <Callout tone="note" title="What this costs">
-          Nothing is free. A genuinely huge int is slower to add and multiply than a small
-          one, because Python is doing real multi-digit arithmetic underneath rather than one
+          Nothing is free. A huge int is slower to add and multiply than a small one, because
+          Python does multi-digit arithmetic underneath rather than one
           fixed-size CPU instruction. For the numbers most programs ever touch, the difference
           is not measurable — it only shows up once you are deliberately working with
           hundred-digit numbers.

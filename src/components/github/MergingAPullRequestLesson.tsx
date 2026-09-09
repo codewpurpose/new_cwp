@@ -54,7 +54,7 @@ export function MergingAPullRequestLesson() {
           rows={[
             { label: "Good for", text: "Long-lived branches with commits that were each written deliberately. Also for projects where knowing what was developed together matters." },
             { label: "Costs", text: "Every work-in-progress commit is now on main forever. Bisect can land on \"wip\", which does not build." },
-            { label: "Reverting", text: "One revert of the merge commit undoes the branch — but needs -m 1, and re-merging that branch later is genuinely awkward." },
+            { label: "Reverting", text: "One revert of the merge commit undoes the branch — but needs -m 1, and re-merging that branch later is awkward." },
           ]}
         />
       </LessonSection>
@@ -109,7 +109,7 @@ rows and aborted the download. Fixes #482.`}
         </P>
         <LabelRows
           rows={[
-            { label: "Good for", text: "Teams that keep every commit clean and buildable, and genuinely want a linear history with no merge commits." },
+            { label: "Good for", text: "Teams that keep every commit clean and buildable, and want a linear history with no merge commits." },
             { label: "Costs", text: "New hashes for every commit, and no marker showing where the branch began or ended." },
             { label: "Reverting", text: "There is no one commit to revert. You revert a range, and you work out the range yourself." },
           ]}

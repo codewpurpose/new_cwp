@@ -1,4 +1,4 @@
-import type { MediaItem } from "@/lib/media";
+import type { MediaItem } from "@/lib/media-types";
 
 /**
  * Pulls the channel's recent uploads from the YouTube Data API so the media
@@ -30,6 +30,8 @@ const API_BASE = "https://www.googleapis.com/youtube/v3";
 const REVALIDATE_SECONDS = 60 * 60;
 const MAX_RESULTS = 12;
 const UPLOADS_TAG = "youtube-uploads";
+const FETCH_TIMEOUT_MS = 8_000;
+const MAX_LOG_DETAIL_LENGTH = 200;
 
 const YOUTUBE_ID = /^[A-Za-z0-9_-]{11}$/;
 
@@ -62,19 +64,27 @@ async function youtubeGet<T>(
 
   try {
     const response = await fetch(url, {
+      signal: AbortSignal.timeout(FETCH_TIMEOUT_MS),
       next: { revalidate: REVALIDATE_SECONDS, tags: [UPLOADS_TAG] },
     });
 
     if (!response.ok) {
+      const detail = (await response.text())
+        .replace(/\s+/g, " ")
+        .trim()
+        .slice(0, MAX_LOG_DETAIL_LENGTH);
       console.warn(
-        `[media] YouTube API request to ${path} failed with ${response.status}: ${await response.text()}`,
+        `[media] YouTube API request to ${path} failed with ${response.status}${detail ? `: ${detail}` : ""}`,
       );
       return null;
     }
 
     return (await response.json()) as T;
   } catch (error) {
-    console.warn(`[media] YouTube API request to ${path} threw`, error);
+    const message = error instanceof Error ? error.message : "Unknown request error";
+    console.warn(
+      `[media] YouTube API request to ${path} failed: ${message.slice(0, MAX_LOG_DETAIL_LENGTH)}`,
+    );
     return null;
   }
 }

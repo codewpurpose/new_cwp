@@ -4,7 +4,7 @@ import { getSupabaseAdmin } from "./server";
  * The guard that stops a new account being welcomed twice.
  *
  * Clerk delivers webhooks at least once and retries anything that isn't a 2xx,
- * so `user.created` genuinely does arrive more than once. Rather than trusting
+ * so `user.created` can arrive more than once. Rather than trusting
  * the route to notice, the claim is a row insert against a primary key: the
  * first delivery wins, every later one collides and is told to stand down.
  * Postgres arbitrates, so two deliveries landing at the same instant on two

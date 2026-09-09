@@ -22,7 +22,7 @@ import { SegmentedControl } from "@/components/learn/primitives/SegmentedControl
 
 /**
  * One line style per predictor, in the same order as `PREDICTORS`. Solid and
- * saturated for the three that genuinely matter; dashed and hued to match
+ * saturated for the three that matter; dashed and hued to match
  * whichever true predictor it echoes for the three correlated look-alikes;
  * dotted and neutral for the three that are plain noise. Shape carries the
  * "does this matter" story on its own — colour is the second signal, not
@@ -153,7 +153,7 @@ export function PenaltyDial() {
 
       <p className="mt-2 text-[15px] leading-[1.6] text-learn-strong">
         {TRAIN_COUNT} rental listings to fit on, {VALID_COUNT} held back to check the fit
-        against. Nine predictors go in; only three (solid lines) genuinely set the rent. Three
+        against. Nine predictors go in; only three (solid lines) set the rent. Three
         more (dashed) are correlated look-alikes, and three (dotted) are unrelated noise.
       </p>
 

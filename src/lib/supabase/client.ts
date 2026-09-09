@@ -8,8 +8,8 @@ import { createClient, type SupabaseClient } from "@supabase/supabase-js";
  * We only ever read the anon (publishable) key here. The service_role secret
  * must never ship to the browser — it bypasses row-level security.
  */
-const url = process.env.NEXT_PUBLIC_SUPABASE_URL;
-const anonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
+const url = process.env.NEXT_PUBLIC_SUPABASE_URL?.trim();
+const anonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY?.trim();
 
 export const isSupabaseConfigured = Boolean(url && anonKey);
 

@@ -23,12 +23,12 @@ import { LOGIN_HREF, SIGN_UP_HREF } from "@/lib/links";
  * read the chapter, and no amount of client-side blurring changes that. It is an
  * invitation with a visual cost, not access control. That is the right trade for
  * a nonprofit whose entire argument is that the material is free: the account
- * buys cross-device sync and the leaderboard, and the only thing genuinely
- * protected server-side is a student's own progress, by row-level security.
+ * buys cross-device sync and the leaderboard. The only data protected server-side
+ * is a student's own progress, by row-level security.
  *
  * If a chapter ever must NOT be readable signed-out, this component cannot do
  * it — that needs the content off the page, which means `auth()` in the layout
- * and every chapter losing prerendering. See MISSING.md.
+ * and every chapter losing prerendering.
  */
 export function LessonPreviewWall({ children }: { children: React.ReactNode }) {
   // Stable across renders — a build-time constant, not state — so branching

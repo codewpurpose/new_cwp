@@ -54,7 +54,7 @@ export function FormsAndInputsLesson() {
         title="Every input needs a label that is joined to it"
       >
         <P>
-          This is the most important paragraph in the chapter. A <Strong>&lt;label&gt;</Strong> must
+          A <Strong>&lt;label&gt;</Strong> must
           be <em>programmatically associated</em> with its input, not merely sitting next to it.
         </P>
         <CodeBlock
@@ -100,7 +100,7 @@ export function FormsAndInputsLesson() {
         />
         <P>
           Group related controls with <Strong>fieldset</Strong> and <Strong>legend</Strong> — a set
-          of radio buttons genuinely needs this, because each radio has its own label and the
+          of radio buttons needs this, because each radio has its own label and the
           question they answer has nowhere else to live.
         </P>
         <CodeBlock
@@ -178,7 +178,7 @@ export function FormsAndInputsLesson() {
       >
         <P>
           Placeholder text looks like a tidy way to skip labels. It fails in four separate ways, and
-          it is worth knowing all of them because the design keeps coming back.
+          you need all four because the same design keeps coming back.
         </P>
         <CodeBlock
           label="The pattern to avoid"
@@ -238,7 +238,7 @@ export function FormsAndInputsLesson() {
           happen.
         </Callout>
         <P>
-          One more attribute worth knowing, because it is invisible and helps enormously:{" "}
+          One more attribute matters because it is invisible and helps enormously:{" "}
           <Strong>autocomplete</Strong>. It tells the browser what a field is for, so it can offer
           the right saved value.
         </P>

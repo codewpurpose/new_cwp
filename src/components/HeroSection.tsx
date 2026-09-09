@@ -11,7 +11,7 @@ const HERO_STATS = [
 
 /**
  * Three copies so the existing home-marquee keyframe (−33.333%) loops
- * seamlessly, same trick as PromptsMarquee.
+ * in a loop, using the same approach as PromptsMarquee.
  */
 const MARQUEE_STATS = [...HERO_STATS, ...HERO_STATS, ...HERO_STATS];
 

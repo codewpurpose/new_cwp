@@ -173,7 +173,7 @@ flex-direction: column-reverse;  /* bottom to top                     */`}
         />
         <P>
           Two more properties finish the picture. <Strong>flex-wrap</Strong> lets items move onto a
-          new line instead of shrinking indefinitely — and the combination below is a genuinely
+          new line instead of shrinking indefinitely — and the combination below is a
           responsive layout with no media query.
         </P>
         <CodeBlock

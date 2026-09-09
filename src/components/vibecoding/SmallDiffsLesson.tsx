@@ -8,9 +8,8 @@ export function SmallDiffsLesson() {
   return (
     <div>
       <Lead>
-        The single most common way people fail at vibe coding is asking for too much at once.
-        It feels efficient. It is the opposite, and the reason why is worth understanding
-        precisely rather than taking on faith.
+        A common way people fail at vibe coding is asking for too much at once.
+        It feels efficient. It is the opposite. The reason is precise and easy to test.
       </Lead>
 
       <LessonSection id="the-mega-prompt-trap" title="The mega-prompt trap">
@@ -67,7 +66,7 @@ tags, a calendar view, email reminders, and dark mode.`}
           <Strong>committable</Strong>. If step 5 breaks something, steps 1 to 4 are still good
           and you know exactly where the problem is.
         </P>
-        <Callout tone="success" title="The definition worth internalising">
+        <Callout tone="success" title="The definition to keep">
           A good prompt produces a change you can hold in your head, verify in under two
           minutes, and describe in one commit message. If you cannot write that commit message,
           the prompt was too big.

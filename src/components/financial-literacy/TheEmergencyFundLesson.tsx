@@ -110,7 +110,7 @@ export function TheEmergencyFundLesson() {
 
       <LessonSection id="funding-it-before-or-after-high-interest-debt" title="Funding it before or after high-interest debt">
         <P>
-          There is a genuine trade-off here, and the honest version doesn&apos;t pretend there
+          There is a trade-off here, and the honest version doesn&apos;t pretend there
           isn&apos;t. A {formatCurrency(1000)} balance carried at 22% APR costs roughly{" "}
           {formatCurrency(220)} a year sitting there. A {formatCurrency(500)} starter fund earning
           4.5% APY earns about {formatCurrency(23)} a year. On the arithmetic alone, paying the

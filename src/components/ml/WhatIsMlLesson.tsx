@@ -8,10 +8,9 @@ export function WhatIsMlLesson() {
   return (
     <div>
       <Lead>
-        Machine learning is not a kind of magic and it is not a kind of intelligence. It is a
-        different way of getting a computer to do something: instead of telling it the rules,
-        you show it examples and let it work the rules out. This lesson is about when that
-        trade is worth making — and when it is not.
+        Machine learning fits rules from examples. Instead of telling a computer every rule,
+        you show it examples and let it find a pattern. This lesson explains when that approach
+        works and when it does not.
       </Lead>
 
       <LessonSection
@@ -59,13 +58,13 @@ export function WhatIsMlLesson() {
         delay={0.05}
       >
         <P>
-          Two things are worth noticing, and the second is the one that matters.
+          Two things matter here. The second matters more.
         </P>
         <P>
           First, <Strong>the returns collapse</Strong>. The first rule buys you thirty
           percentage points. By rule six the gains are down to fractions of a point, and rules
-          seven and eight buy literally nothing — there is no rectangle left worth adding. The
-          effort per unit of improvement climbs until it is not worth paying.
+          seven and eight buy literally nothing — there is no rectangle left to add. The effort
+          per unit of improvement keeps climbing.
         </P>
         <P>
           Second, look at the shape. Each rule is a <Strong>rectangle</Strong>, because that is
@@ -78,7 +77,7 @@ export function WhatIsMlLesson() {
           The dashed line is what a model learns from the same data. It is one line rather than
           eight rules, nobody wrote it, and it does better than the rules ever manage.
         </P>
-        <Callout tone="success" title="So what is a model, really">
+        <Callout tone="success" title="So what is a model">
           A model is a shape with adjustable numbers in it, and training is the search for
           numbers that fit your examples. Here the shape is &ldquo;a straight line&rdquo; and
           there are two numbers to find. That is all it is — the next lessons take
@@ -88,7 +87,7 @@ export function WhatIsMlLesson() {
 
       <LessonSection id="what-this-costs-you" title="What this costs you" delay={0.05}>
         <P>
-          This trade is not free, and it is worth knowing the price before you start.
+          This trade is not free. Know the price before you start.
         </P>
         <P>
           <Strong>You need examples, and lots of them.</Strong> The rule for voting needed

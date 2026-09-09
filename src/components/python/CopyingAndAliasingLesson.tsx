@@ -30,7 +30,7 @@ export function CopyingAndAliasingLesson() {
           lineTones={{ 4: "err" }}
         />
         <P>
-          <Strong>b</Strong> is a genuinely separate outer list. It is also holding the exact
+          <Strong>b</Strong> is a separate outer list. It is also holding the exact
           same two inner lists that <Strong>a</Strong> holds, because copying a list copies
           what its slots contain — and what its slots contain are references. One level was
           duplicated. Everything below it was shared.
@@ -139,7 +139,7 @@ print(b)  # [[1, 2, 9], [3, 4]]`}
           is usually the slowest line in the program — and often it was protecting against a
           mutation that never happens.
         </P>
-        <Callout tone="tip" title="A third option worth remembering">
+        <Callout tone="tip" title="A third option">
           Frequently the honest fix is not to copy at all, but to stop mutating. A function
           that builds and returns a new structure, rather than editing the one it was handed,
           removes the question entirely. Comprehensions make that cheap to write.

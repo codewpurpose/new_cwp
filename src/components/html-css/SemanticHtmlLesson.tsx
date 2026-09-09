@@ -28,7 +28,7 @@ export function SemanticHtmlLesson() {
           summary="<div class='header'> … <div class='nav'> … <div class='content'> … <div class='footer'>"
           detailTag="The same page, saying what it is"
           detail="<header> … <nav> … <main> … <footer>. Identical rendering, identical CSS effort — the class names were already describing exactly these things, so the markup was carrying the information and hiding it in a place only your stylesheet could read."
-          footnote="This is the whole chapter. The names were right; they were in the wrong attribute."
+          footnote="The names were right; they were in the wrong attribute."
           openLabel="See the same page, semantically"
           closeLabel="Hide it"
         />
@@ -170,8 +170,7 @@ export function SemanticHtmlLesson() {
           a decade.
         </P>
         <P>
-          Two more elements worth knowing, because they replace a common pile of JavaScript with
-          nothing at all:
+          Two more elements replace a common pile of JavaScript with nothing at all:
         </P>
         <CodeBlock
           label="A working accordion, no script"
@@ -186,11 +185,11 @@ export function SemanticHtmlLesson() {
 
       <LessonSection
         id="when-a-div-is-genuinely-the-right-answer"
-        title="When a div is genuinely the right answer"
+        title="When a div is the right answer"
       >
         <P>
           Divs are not deprecated and this chapter is not asking you to eliminate them. Use one when
-          you need a box <em>for layout</em> and there is genuinely no meaning to express.
+          you need a box <em>for layout</em> and there is no meaning to express.
         </P>
         <CodeBlock
           label="Legitimate divs"

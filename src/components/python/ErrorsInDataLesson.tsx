@@ -86,7 +86,7 @@ for student in students:
         </P>
         <Callout tone="note" title="There is a cleaner version of this">
           <Strong>defaultdict</Strong>, in the next chapter, does the same job without naming
-          the empty list at every call site. <Strong>setdefault</Strong> is still worth knowing
+          the empty list at every call site. <Strong>setdefault</Strong> is still useful
           — it needs no import, and it is what you will find in other people&apos;s code.
         </Callout>
       </LessonSection>
@@ -116,7 +116,7 @@ except KeyError:
           not a theoretical one.
         </P>
         <P>
-          Where checking first genuinely wins is when failure is the common case rather than
+          Checking first helps when failure is the common case rather than
           the exception. Setting up a <Strong>try</Strong> is nearly free; raising and catching
           is not, so a lookup that misses nine times in ten is better off with the{" "}
           <Strong>in</Strong> check.
@@ -171,7 +171,7 @@ average = minutes / chapters      # TypeError, forty lines later`}
         </P>
         <Callout tone="warning" title="Supply a default only when it means something">
           <Strong>{'.get("minutes", 0)'}</Strong> is correct when a record with no recorded
-          minutes genuinely represents zero minutes. It is wrong when the field is missing
+          minutes represents zero minutes. It is wrong when the field is missing
           because the data is broken — there, a zero silently drags every average you compute
           downwards, and no exception is ever raised to tell you.
         </Callout>

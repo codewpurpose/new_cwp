@@ -28,6 +28,30 @@ interface Row {
   last_synced_at: string | null;
 }
 
+interface LookupStats {
+  profile: {
+    login: string;
+    name: string | null;
+    avatarUrl: string;
+    joinedGithubAt: string;
+    followers: number;
+    following: number;
+    publicRepos: number;
+    totalPrs: number;
+    totalIssues: number;
+  };
+  totalStars: number;
+  publicCommits: number;
+  privateContributions: number;
+}
+
+interface LookupResponse {
+  ok?: boolean;
+  stats?: LookupStats;
+  error?: string;
+  retryAfterMs?: number;
+}
+
 const MONTHS = [
   "Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec",
 ];
@@ -78,8 +102,8 @@ function ComingSoon() {
     <div className="home-card mx-auto max-w-xl p-8 text-center">
       <h2 className="font-serif text-2xl">The commits leaderboard is almost here</h2>
       <p className="mt-3 text-[15px] text-[var(--home-ink-soft)]">
-        Ranking students by their real GitHub commit history needs accounts switched on.
-        Check back once it&apos;s live.
+        Ranking students by their real GitHub commit history is not available in this deployment yet.
+        Please check back later.
       </p>
       <Link href={DASHBOARD_HREF} className="home-btn home-btn-fill mt-6 inline-flex">
         Go to My Progress
@@ -102,7 +126,10 @@ function CommitsLeaderboardLive() {
 
   useEffect(() => {
     const supabase = getSupabase();
-    if (!supabase) return;
+    if (!supabase) {
+      setError("Supabase is not configured for this deployment.");
+      return;
+    }
     let active = true;
     supabase
       .from("github_stats")
@@ -131,24 +158,14 @@ function CommitsLeaderboardLive() {
     [rows],
   );
 
-  if (error) {
-    return (
-      <p className="mx-auto max-w-xl text-center text-[14px] text-[var(--home-ink-soft)]">
-        Couldn&apos;t load the commits leaderboard right now. Please try again shortly.
-      </p>
-    );
-  }
-
-  if (rows === null) {
-    return (
-      <p className="mx-auto max-w-xl text-center text-[14px] text-[var(--home-ink-soft)]">
-        Loading the commits leaderboard…
-      </p>
-    );
-  }
-
   return (
     <div className="mx-auto max-w-2xl">
+      <PublicGithubLookup
+        isLoaded={isLoaded}
+        isSignedIn={Boolean(user)}
+        onSynced={() => setRefreshKey((k) => k + 1)}
+      />
+
       {!isLoaded && (
         <div className="home-card mb-6 p-4 text-[14px] text-[var(--home-ink-soft)]">
           Checking your account…
@@ -173,100 +190,116 @@ function CommitsLeaderboardLive() {
         />
       )}
 
-      {rows.length > 0 && (
-        <div className="mb-6">
-          <CommitDistributionChart commitCounts={rows.map(totalCommitCount)} />
-        </div>
+      {error && (
+        <p className="mx-auto max-w-xl text-center text-[14px] text-[var(--home-ink-soft)]">
+          Couldn&apos;t load the commits leaderboard right now. Please try again shortly.
+        </p>
       )}
 
-      {rows.length === 0 ? (
-        <p className="text-center text-[14px] text-[var(--home-ink-soft)]">
-          No one&apos;s linked a GitHub account yet — be the first.
+      {rows === null && !error && (
+        <p className="mx-auto max-w-xl text-center text-[14px] text-[var(--home-ink-soft)]">
+          Loading the commits leaderboard…
         </p>
-      ) : (
-        <ol className="flex flex-col gap-2">
-          {rankedRows?.map((row, i) => {
-            const me = user?.id === row.user_id;
-            const expanded = expandedId === row.user_id;
-            const total = totalCommitCount(row);
-            return (
-              <li
-                key={row.user_id}
-                className={`home-card rounded-2xl p-3 sm:p-4 ${me ? "ring-2 ring-[var(--home-moss)]" : ""}`}
-              >
-                <div className="flex min-w-0 items-center gap-2 sm:gap-4">
-                  <button
-                    type="button"
-                    onClick={() => setExpandedId(expanded ? null : row.user_id)}
-                    aria-expanded={expanded}
-                    aria-controls={expanded ? `github-stats-${row.user_id}` : undefined}
-                    className="flex min-w-0 flex-1 items-center gap-2 text-left sm:gap-4"
-                  >
-                    <span className="w-7 shrink-0 text-center font-serif text-lg text-[var(--home-ink-soft)] sm:w-8">
-                      {i + 1}
-                    </span>
-                    {row.avatar_url ? (
-                      <Image
-                        src={row.avatar_url}
-                        alt=""
-                        width={36}
-                        height={36}
-                        className="h-9 w-9 shrink-0 rounded-full object-cover"
-                      />
-                    ) : (
-                      <span className="h-9 w-9 shrink-0 rounded-full bg-[var(--home-grey-450)]" />
-                    )}
-                    <span className="min-w-0 flex-1 truncate font-medium">
-                      {row.name || row.github_username}
-                      {me && <span className="ml-2 text-[13px] text-[var(--home-ink-soft)]">(you)</span>}
-                      <span className="ml-2 text-[13px] text-[var(--home-ink-quiet)]">
-                        @{row.github_username}
-                      </span>
-                    </span>
-                  </button>
-                  <CommitTotalDisclosure
-                    total={total}
-                    publicCommits={row.public_commits}
-                    privateContributions={row.private_contributions}
-                  />
-                  <button
-                    type="button"
-                    onClick={() => setExpandedId(expanded ? null : row.user_id)}
-                    aria-expanded={expanded}
-                    aria-controls={expanded ? `github-stats-${row.user_id}` : undefined}
-                    aria-label={`${expanded ? "Hide" : "Show"} details for ${row.name || row.github_username}`}
-                    className="shrink-0 rounded-md p-1 text-[var(--home-ink-quiet)] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--home-fern)]"
-                  >
-                  <span
-                    className={`commit-row-chevron text-base transition-transform ${expanded ? "rotate-180" : ""}`}
-                    aria-hidden
-                  >
-                    ▾
-                  </span>
-                  </button>
-                </div>
+      )}
 
-                {expanded && (
-                  <div id={`github-stats-${row.user_id}`} className="mt-4 border-t border-[var(--home-hairline)] pt-4">
-                    <dl className="grid grid-cols-2 gap-x-4 gap-y-3 text-[14px] sm:grid-cols-3">
-                      <Stat label="Total commits" value={String(total)} />
-                      <Stat label="Public commits" value={String(row.public_commits)} />
-                      <Stat label="Private contributions" value={String(row.private_contributions)} />
-                      <Stat label="GitHub since" value={formatDate(row.joined_github_at)} />
-                      <Stat label="Public repos" value={String(row.public_repos)} />
-                      <Stat label="Followers" value={String(row.followers)} />
-                      <Stat label="Following" value={String(row.following)} />
-                      <Stat label="Pull requests" value={String(row.total_prs)} />
-                      <Stat label="Issues opened" value={String(row.total_issues)} />
-                      <Stat label="Stars earned" value={String(row.total_stars)} />
-                    </dl>
-                    <YearlyCommitsTable commitsByYear={row.commits_by_year} />
-                  </div>
-                )}
-              </li>
-            );
-          })}
-        </ol>
+      {rows !== null && !error && (
+        <>
+          {rows.length > 0 && (
+            <div className="mb-6">
+              <CommitDistributionChart commitCounts={rows.map(totalCommitCount)} />
+            </div>
+          )}
+
+          {rows.length === 0 ? (
+            <p className="text-center text-[14px] text-[var(--home-ink-soft)]">
+              No one&apos;s linked a GitHub account yet — be the first.
+            </p>
+          ) : (
+            <ol className="flex flex-col gap-2">
+              {rankedRows?.map((row, i) => {
+                const me = user?.id === row.user_id;
+                const expanded = expandedId === row.user_id;
+                const total = totalCommitCount(row);
+                return (
+                  <li
+                    key={row.user_id}
+                    className={`home-card rounded-2xl p-3 sm:p-4 ${me ? "ring-2 ring-[var(--home-moss)]" : ""}`}
+                  >
+                    <div className="flex min-w-0 items-center gap-2 sm:gap-4">
+                      <button
+                        type="button"
+                        onClick={() => setExpandedId(expanded ? null : row.user_id)}
+                        aria-expanded={expanded}
+                        aria-controls={expanded ? `github-stats-${row.user_id}` : undefined}
+                        className="flex min-w-0 flex-1 items-center gap-2 text-left sm:gap-4"
+                      >
+                        <span className="w-7 shrink-0 text-center font-serif text-lg text-[var(--home-ink-soft)] sm:w-8">
+                          {i + 1}
+                        </span>
+                        {row.avatar_url ? (
+                          <Image
+                            src={row.avatar_url}
+                            alt=""
+                            width={36}
+                            height={36}
+                            className="h-9 w-9 shrink-0 rounded-full object-cover"
+                          />
+                        ) : (
+                          <span className="h-9 w-9 shrink-0 rounded-full bg-[var(--home-grey-450)]" />
+                        )}
+                        <span className="min-w-0 flex-1 truncate font-medium">
+                          {row.name || row.github_username}
+                          {me && <span className="ml-2 text-[13px] text-[var(--home-ink-soft)]">(you)</span>}
+                          <span className="ml-2 text-[13px] text-[var(--home-ink-quiet)]">
+                            @{row.github_username}
+                          </span>
+                        </span>
+                      </button>
+                      <CommitTotalDisclosure
+                        total={total}
+                        publicCommits={row.public_commits}
+                        privateContributions={row.private_contributions}
+                      />
+                      <button
+                        type="button"
+                        onClick={() => setExpandedId(expanded ? null : row.user_id)}
+                        aria-expanded={expanded}
+                        aria-controls={expanded ? `github-stats-${row.user_id}` : undefined}
+                        aria-label={`${expanded ? "Hide" : "Show"} details for ${row.name || row.github_username}`}
+                        className="shrink-0 rounded-md p-1 text-[var(--home-ink-quiet)] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--home-fern)]"
+                      >
+                        <span
+                          className={`commit-row-chevron text-base transition-transform ${expanded ? "rotate-180" : ""}`}
+                          aria-hidden
+                        >
+                          ▾
+                        </span>
+                      </button>
+                    </div>
+
+                    {expanded && (
+                      <div id={`github-stats-${row.user_id}`} className="mt-4 border-t border-[var(--home-hairline)] pt-4">
+                        <dl className="grid grid-cols-2 gap-x-4 gap-y-3 text-[14px] sm:grid-cols-3">
+                          <Stat label="Total commits" value={String(total)} />
+                          <Stat label="Public commits" value={String(row.public_commits)} />
+                          <Stat label="Private contributions" value={String(row.private_contributions)} />
+                          <Stat label="GitHub since" value={formatDate(row.joined_github_at)} />
+                          <Stat label="Public repos" value={String(row.public_repos)} />
+                          <Stat label="Followers" value={String(row.followers)} />
+                          <Stat label="Following" value={String(row.following)} />
+                          <Stat label="Pull requests" value={String(row.total_prs)} />
+                          <Stat label="Issues opened" value={String(row.total_issues)} />
+                          <Stat label="Stars earned" value={String(row.total_stars)} />
+                        </dl>
+                        <YearlyCommitsTable commitsByYear={row.commits_by_year} />
+                      </div>
+                    )}
+                  </li>
+                );
+              })}
+            </ol>
+          )}
+        </>
       )}
     </div>
   );
@@ -356,6 +389,181 @@ function Stat({ label, value }: { label: string; value: string }) {
       <dt className="text-[12px] uppercase tracking-[0.06em] text-[var(--home-ink-quiet)]">{label}</dt>
       <dd className="font-medium tabular-nums">{value}</dd>
     </div>
+  );
+}
+
+function PublicGithubLookup({
+  isLoaded,
+  isSignedIn,
+  onSynced,
+}: {
+  isLoaded: boolean;
+  isSignedIn: boolean;
+  onSynced: () => void;
+}) {
+  const [username, setUsername] = useState("");
+  const [result, setResult] = useState<LookupStats | null>(null);
+  const [lookupStatus, setLookupStatus] = useState<"idle" | "loading" | "error">("idle");
+  const [saveStatus, setSaveStatus] = useState<"idle" | "saving" | "error" | "success">("idle");
+  const [message, setMessage] = useState<string | null>(null);
+
+  const lookup = useCallback(async (name: string) => {
+    setLookupStatus("loading");
+    setSaveStatus("idle");
+    setMessage(null);
+    setResult(null);
+    try {
+      const params = new URLSearchParams({ username: name });
+      const res = await fetch(`${GITHUB_STATS_SYNC_PATH}?${params.toString()}`);
+      const body = (await res.json().catch(() => ({}))) as LookupResponse;
+      if (!res.ok || !body.stats) {
+        setLookupStatus("error");
+        setMessage(body.error ?? "Couldn't look up that GitHub account.");
+        return;
+      }
+      setLookupStatus("idle");
+      setResult(body.stats);
+    } catch {
+      setLookupStatus("error");
+      setMessage("Couldn't reach GitHub. Try again shortly.");
+    }
+  }, []);
+
+  const save = useCallback(async () => {
+    if (!result) return;
+    setSaveStatus("saving");
+    setMessage(null);
+    try {
+      const res = await fetch(GITHUB_STATS_SYNC_PATH, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ username: result.profile.login }),
+      });
+      const body: unknown = await res.json().catch(() => ({}));
+      if (!res.ok) {
+        const retryAfterMs = readRetryAfterMs(body);
+        const retryAfterText = retryAfterMs
+          ? ` Try again in about ${retryAfterLabel(retryAfterMs)}.`
+          : "";
+        setSaveStatus("error");
+        setMessage(`${readSyncError(body) ?? "Couldn't save this account."}${retryAfterText}`);
+        return;
+      }
+      setSaveStatus("success");
+      setMessage("Saved to the CodeWithPurpose leaderboard.");
+      onSynced();
+    } catch {
+      setSaveStatus("error");
+      setMessage("Couldn't reach the server. Try again shortly.");
+    }
+  }, [onSynced, result]);
+
+  return (
+    <section className="home-card mb-6 p-5 md:p-6" aria-labelledby="github-lookup-title">
+      <div className="flex flex-col gap-2">
+        <h2 id="github-lookup-title" className="font-serif text-2xl">
+          Look up GitHub commits
+        </h2>
+        <p className="text-[14px] text-[var(--home-ink-soft)]">
+          Enter any public GitHub username to fetch lifetime public commits and profile stats.
+        </p>
+      </div>
+
+      <form
+        onSubmit={(e) => {
+          e.preventDefault();
+          const trimmed = username.trim();
+          if (!isValidGithubUsername(trimmed)) {
+            setLookupStatus("error");
+            setMessage("That doesn't look like a GitHub username.");
+            return;
+          }
+          lookup(trimmed);
+        }}
+        className="mt-5 flex flex-wrap items-center gap-3"
+      >
+        <label htmlFor="github-lookup-username" className="home-mono text-[13px] text-[var(--home-ink-quiet)]">
+          github.com/
+        </label>
+        <input
+          id="github-lookup-username"
+          value={username}
+          onChange={(e) => {
+            setUsername(e.target.value);
+            if (lookupStatus !== "loading") {
+              setLookupStatus("idle");
+              setSaveStatus("idle");
+              setMessage(null);
+            }
+          }}
+          placeholder="octocat"
+          maxLength={39}
+          className="min-w-0 flex-1 rounded-full border-[0.5px] border-[var(--home-grey-500)] bg-[var(--home-white)] px-4 py-2 text-[14px] outline-none focus:border-[var(--home-fern)]"
+        />
+        <button
+          type="submit"
+          disabled={lookupStatus === "loading" || username.trim().length === 0}
+          className="home-btn home-btn-fill"
+        >
+          {lookupStatus === "loading" ? "Fetching…" : "Fetch"}
+        </button>
+      </form>
+
+      {result && (
+        <div className="mt-5 rounded-lg border-[0.5px] border-[var(--home-hairline)] bg-[var(--home-white)] p-4">
+          <div className="flex flex-wrap items-center gap-4">
+            <Image
+              src={result.profile.avatarUrl}
+              alt=""
+              width={52}
+              height={52}
+              className="h-[52px] w-[52px] shrink-0 rounded-full object-cover"
+            />
+            <div className="min-w-0 flex-1">
+              <p className="truncate font-medium">
+                {result.profile.name || result.profile.login}
+                <span className="ml-2 text-[14px] text-[var(--home-ink-quiet)]">
+                  @{result.profile.login}
+                </span>
+              </p>
+              <p className="mt-1 text-[14px] text-[var(--home-ink-soft)]">
+                {commitLabel(result.publicCommits)} since {formatDate(result.profile.joinedGithubAt)}.
+              </p>
+            </div>
+            {isLoaded && isSignedIn ? (
+              <button
+                type="button"
+                onClick={save}
+                disabled={saveStatus === "saving"}
+                className="home-btn home-btn-outline"
+              >
+                {saveStatus === "saving" ? "Saving…" : "Save to leaderboard"}
+              </button>
+            ) : (
+              <Link href={LOGIN_HREF} className="home-btn home-btn-outline">
+                Log in to save
+              </Link>
+            )}
+          </div>
+
+          <dl className="mt-4 grid grid-cols-2 gap-x-4 gap-y-3 border-t border-[var(--home-hairline)] pt-4 text-[14px] sm:grid-cols-4">
+            <Stat label="Public repos" value={String(result.profile.publicRepos)} />
+            <Stat label="Pull requests" value={String(result.profile.totalPrs)} />
+            <Stat label="Issues opened" value={String(result.profile.totalIssues)} />
+            <Stat label="Stars earned" value={String(result.totalStars)} />
+            <Stat label="Followers" value={String(result.profile.followers)} />
+            <Stat label="Following" value={String(result.profile.following)} />
+            <Stat label="Private contributions" value={String(result.privateContributions)} />
+          </dl>
+        </div>
+      )}
+
+      {message && (
+        <p className={`mt-3 text-[13px] ${lookupStatus === "error" || saveStatus === "error" ? "text-[#a13c28]" : "text-[var(--home-ink-soft)]"}`}>
+          {message}
+        </p>
+      )}
+    </section>
   );
 }
 

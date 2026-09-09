@@ -40,8 +40,7 @@ export function RemoteCareAcrossBordersLesson() {
           record-sharing infrastructure covered earlier in this track to exist first.
         </P>
         <P>
-          The cases where this genuinely earns its keep, rather than being a nice-to-have, are
-          fairly specific.
+          It matters in three specific cases:
         </P>
         <LabelRows
           rows={[
@@ -78,8 +77,8 @@ export function RemoteCareAcrossBordersLesson() {
           States, a physician has historically needed a licence in the state where the patient
           is sitting during the call, not just the state where the doctor practises day to day —
           a handful of states have built compacts to ease this for specific groups of
-          clinicians, but no equivalent system exists for most international consultations. A
-          lot of genuinely useful cross-border care happens in a legal grey zone that both
+          clinicians, but no equivalent system exists for most international consultations.
+          Some useful cross-border care happens in a legal grey zone that both
           doctor and patient are trusting will never actually get tested.
         </P>
       </LessonSection>
@@ -163,7 +162,7 @@ export function RemoteCareAcrossBordersLesson() {
         <Callout tone="warning" title="A workaround, not a settled answer">
           Keeping the remote specialist advisory avoids the sharpest version of the liability
           question. It does not answer it. Whose law actually governs a cross-border
-          consultation remains genuinely unresolved in a lot of jurisdictions, which is a real
+          consultation remains unresolved in many jurisdictions, which is a
           risk both sides of the call are quietly absorbing.
         </Callout>
       </LessonSection>
@@ -182,7 +181,7 @@ export function RemoteCareAcrossBordersLesson() {
           the person physically responsible for the patient inside a single jurisdiction, even
           when the expertise behind their decision travelled from somewhere else entirely.
         </P>
-        <Callout tone="success" title="Worth sitting with">
+        <Callout tone="success" title="The narrower value">
           The value here was never replacing local care. It is giving a patient without local
           access to a specific specialist a real second opinion they could not otherwise have
           reached — the exact kind of gap CodeWithPurpose was built to close, just in a
@@ -193,7 +192,7 @@ export function RemoteCareAcrossBordersLesson() {
       <TakeawayCard
         items={[
           "Cross-border telemedicine and CodeWithPurpose's own mission solve the same shape of problem: a distance between someone who needs help and someone who can give it, that used to be unaffordable to close.",
-          "It genuinely earns its keep in three places: specialist scarcity, second opinions a patient couldn't otherwise reach, and humanitarian or disaster settings with no local specialist at all.",
+          "It earns its keep in three places: specialist scarcity, second opinions a patient couldn't otherwise reach, and humanitarian or disaster settings with no local specialist at all.",
           "Medical licensure is granted per jurisdiction, usually the patient's location rather than the doctor's, which means a lot of useful cross-border care happens in a legal grey area nobody has fully closed.",
           "GDPR and HIPAA protect health data on fundamentally different logic — GDPR follows the person and restricts moving data across borders, HIPAA governs specific organisations and says comparatively little about borders — so compliance on one side of a call doesn't guarantee compliance on the other.",
           "When a remote specialist's advice contributes to a bad outcome, whose malpractice law applies is often unclear, which is why most cross-border care keeps the remote clinician advisory rather than the treating physician of record.",

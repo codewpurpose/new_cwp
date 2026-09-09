@@ -16,9 +16,8 @@ export function DataLeakageLesson() {
       <LessonSection id="a-score-too-good-to-be-true" title="A score too good to be true">
         <P>
           Leakage is any situation where information reaches the model at training time that
-          would not be available at prediction time. That is the entire definition, and it is
-          worth reading twice, because it says nothing about bugs. Every pipeline below runs
-          without error and reports a real number.
+          would not be available at prediction time. Read that definition carefully: it says
+          nothing about bugs. Every pipeline below runs without error and reports a real number.
         </P>
         <P>
           The reason it is the most expensive mistake in applied machine learning is the

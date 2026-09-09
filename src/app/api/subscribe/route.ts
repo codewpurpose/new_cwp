@@ -165,7 +165,7 @@ export async function POST(req: Request) {
   const sent = await sendEmail(address, renderNewsletterWelcome(UNSUBSCRIBE_URL));
   if (!sent.ok) {
     console.error("[cwp] subscribe: welcome email failed:", sent.error);
-    // Genuinely on the list now, so don't imply the sign-up itself failed.
+    // The address is on the list, so don't imply the sign-up itself failed.
     return NextResponse.json(
       { ok: true, warning: "You're on the list — the welcome email didn't send, though." },
       { status: 200 },

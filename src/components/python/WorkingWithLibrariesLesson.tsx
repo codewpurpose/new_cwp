@@ -162,7 +162,7 @@ get(url, params=None, **kwargs)
           items={[
             "When was the last release? A package untouched for a few years may already be quietly broken against the Python version you're running.",
             "How many other projects depend on it? Download counts on PyPI and stars or open issues on its repository are rough proxies for whether other people would notice, and fix, a serious bug.",
-            "What licence is it under? MIT and Apache-2.0 are safe for almost anything you'd build; some licences place real conditions on code that uses them, worth knowing before you build on it rather than after.",
+            "What licence is it under? MIT and Apache-2.0 are safe for almost anything you'd build; some licences place real conditions on code that uses them, so check the licence before you build on it.",
             "How many packages does it pull in underneath it? pip show <package> lists its direct dependencies — each one is someone else's code now running inside yours, whether you call it or not.",
           ]}
         />

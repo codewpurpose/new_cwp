@@ -110,8 +110,8 @@ export function TheLimitsOfConsumerHealthDataLesson() {
         title="What a consumer device simply cannot detect"
       >
         <P>
-          It is worth being specific about the boundary rather than treating &ldquo;it has
-          limits&rdquo; as a vague disclaimer. A consumer wearable can only ever flag something
+          State the boundary rather than treating &ldquo;it has limits&rdquo; as a vague disclaimer.
+          A consumer wearable can only ever flag something
           that shows up as a pattern in the exact signal it measures — and most of what can go
           wrong in a body never touches that signal at all.
         </P>
@@ -168,8 +168,8 @@ export function TheLimitsOfConsumerHealthDataLesson() {
         />
         <P>
           None of this argues for ignoring the data. It argues for treating a single unusual
-          reading the way you would treat a single unusual comment from a stranger — worth
-          noting, not worth rearranging your week over.
+          reading the way you would treat a single unusual comment from a stranger. Note it, but
+          do not rearrange your week over it.
         </P>
       </LessonSection>
 

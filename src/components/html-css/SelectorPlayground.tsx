@@ -75,7 +75,7 @@ const SELECTORS: readonly Selector[] = [
     value: "main > a",
     label: "main > a",
     matches: [],
-    note: "A child combinator. Direct children only — and the anchor inside main is nested inside a paragraph, so it is a grandchild. Nothing matches. This is the single most common cause of \"my selector does nothing\".",
+    note: "A child combinator. Direct children only — and the anchor inside main is nested inside a paragraph, so it is a grandchild. Nothing matches. This is a common cause of \"my selector does nothing\".",
   },
   {
     value: "main a",

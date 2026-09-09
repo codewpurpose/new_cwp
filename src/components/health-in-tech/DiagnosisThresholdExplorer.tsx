@@ -12,7 +12,7 @@ interface Case {
 
 /**
  * Forty simulated diagnosis-assist cases, generated once at module scope from
- * a fixed seed. Roughly 40% genuinely have the condition; the model's score
+ * a fixed seed. Roughly 40% have the condition; the model's score
  * clusters higher for those cases but overlaps with the rest, which is what
  * makes the threshold a real trade-off rather than a formality.
  */
@@ -74,7 +74,7 @@ export function DiagnosisThresholdExplorer() {
           role="img"
           aria-label={
             `At a flag threshold of ${threshold.toFixed(2)}, ${flaggedTotal} of ${CASE_COUNT} cases are flagged: ` +
-            `${counts.truePositive} genuinely have the condition, ${counts.falsePositive} do not. ` +
+            `${counts.truePositive} have the condition, ${counts.falsePositive} do not. ` +
             `${counts.falseNegative} cases with the condition are left unflagged.`
           }
         >

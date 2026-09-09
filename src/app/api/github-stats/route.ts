@@ -4,6 +4,70 @@ import { fetchGithubStats } from "@/lib/github/stats";
 import { isValidGithubUsername } from "@/lib/github/username";
 import { checkSyncGate, upsertGithubStats } from "@/lib/supabase/github-stats";
 
+const LOOKUP_WINDOW_MS = 60 * 60 * 1000;
+const MAX_LOOKUPS_PER_WINDOW = 20;
+const lookupHits = new Map<string, number[]>();
+type GithubStatsFetchResult = Awaited<ReturnType<typeof fetchGithubStats>>;
+type GithubStatsFetchError = Extract<GithubStatsFetchResult, { ok: false }>;
+
+function clientIp(request: Request): string {
+  const forwarded = request.headers.get("x-forwarded-for");
+  return forwarded?.split(",")[0]?.trim() || request.headers.get("x-real-ip") || "unknown";
+}
+
+function lookupRateLimited(ip: string): boolean {
+  const now = Date.now();
+  const recent = (lookupHits.get(ip) ?? []).filter((time) => now - time < LOOKUP_WINDOW_MS);
+  if (recent.length >= MAX_LOOKUPS_PER_WINDOW) {
+    lookupHits.set(ip, recent);
+    return true;
+  }
+  recent.push(now);
+  lookupHits.set(ip, recent);
+
+  if (lookupHits.size > 5000) {
+    for (const [key, times] of lookupHits) {
+      if (times.every((time) => now - time >= LOOKUP_WINDOW_MS)) lookupHits.delete(key);
+    }
+  }
+  return false;
+}
+
+function githubStatsErrorResponse(result: GithubStatsFetchError) {
+  switch (result.error.kind) {
+    case "unconfigured":
+      return NextResponse.json(
+        { error: "GitHub commit lookups aren't configured on the server yet. Please ask an administrator to add GITHUB_TOKEN." },
+        { status: 503 },
+      );
+    case "not-found":
+      return NextResponse.json({ error: "No GitHub user with that username." }, { status: 404 });
+    case "rate-limited":
+      return NextResponse.json({ error: "GitHub is rate-limiting us — try again shortly." }, { status: 503 });
+    case "failed":
+      console.error("[cwp] github-stats: fetch failed:", result.error.error);
+      return NextResponse.json({ error: "Couldn't reach GitHub. Try again shortly." }, { status: 502 });
+  }
+}
+
+export async function GET(request: Request) {
+  const url = new URL(request.url);
+  const username = url.searchParams.get("username")?.trim() ?? "";
+
+  if (!isValidGithubUsername(username)) {
+    return NextResponse.json({ error: "That doesn't look like a GitHub username." }, { status: 400 });
+  }
+
+  if (lookupRateLimited(clientIp(request))) {
+    return NextResponse.json({ error: "That's a few too many lookups. Give it an hour." }, { status: 429 });
+  }
+
+  const result = await fetchGithubStats(username);
+  if (!result.ok) return githubStatsErrorResponse(result);
+
+  return NextResponse.json({ ok: true, stats: result.stats }, { status: 200 });
+}
+
 /**
  * Links (or resyncs) the signed-in student's GitHub username on the commits
  * leaderboard.
@@ -38,7 +102,10 @@ export async function POST(request: Request) {
   const gate = await checkSyncGate(userId);
   if (!gate.allowed) {
     if (gate.reason === "unconfigured") {
-      return NextResponse.json({ error: "The commits leaderboard isn't switched on yet." }, { status: 503 });
+      return NextResponse.json(
+        { error: "GitHub leaderboard storage isn't configured on the server yet. Please ask an administrator to check the Supabase server credentials." },
+        { status: 503 },
+      );
     }
     if (gate.reason === "failed") {
       console.error("[cwp] github-stats: sync gate failed:", gate.error);
@@ -55,19 +122,7 @@ export async function POST(request: Request) {
       ? gate.existing.commits_by_year
       : {};
   const result = await fetchGithubStats(requestedUsername, existingCommitsByYear);
-  if (!result.ok) {
-    switch (result.error.kind) {
-      case "unconfigured":
-        return NextResponse.json({ error: "The commits leaderboard isn't switched on yet." }, { status: 503 });
-      case "not-found":
-        return NextResponse.json({ error: "No GitHub user with that username." }, { status: 404 });
-      case "rate-limited":
-        return NextResponse.json({ error: "GitHub is rate-limiting us — try again shortly." }, { status: 503 });
-      case "failed":
-        console.error("[cwp] github-stats: fetch failed:", result.error.error);
-        return NextResponse.json({ error: "Couldn't reach GitHub. Try again shortly." }, { status: 502 });
-    }
-  }
+  if (!result.ok) return githubStatsErrorResponse(result);
 
   const stored = await upsertGithubStats(userId, result.stats);
   if (!stored.ok) {

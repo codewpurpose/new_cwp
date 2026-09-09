@@ -174,7 +174,7 @@ export const HTML_CSS_CHAPTERS: readonly LearnChapter[] = [
     order: 6,
     title: "Marking Words Up So They Mean Something",
     description:
-      "There are six heading levels and they are an outline, not six font sizes — using h3 because it looked right is the single most common HTML mistake. Learn what each text element claims, and which two look identical and are not.",
+      "There are six heading levels and they are an outline, not six font sizes — using h3 because it looked right is a common HTML mistake. Learn what each text element claims, and which two look identical and are not.",
     level: "beginner",
     minutes: 10,
     prerequisites: ["elements-and-tags"],
@@ -264,7 +264,7 @@ export const HTML_CSS_CHAPTERS: readonly LearnChapter[] = [
       { id: "header-nav-main-and-footer-name-the-regions", text: "header, nav, main, and footer name the regions", level: 2 },
       { id: "article-and-section-are-not-interchangeable", text: "article and section are not interchangeable", level: 2 },
       { id: "semantic-markup-is-free-accessibility", text: "Semantic markup is free accessibility", level: 2 },
-      { id: "when-a-div-is-genuinely-the-right-answer", text: "When a div is genuinely the right answer", level: 2 },
+      { id: "when-a-div-is-genuinely-the-right-answer", text: "When a div is the right answer", level: 2 },
     ],
     status: "published",
   },
@@ -294,7 +294,7 @@ export const HTML_CSS_CHAPTERS: readonly LearnChapter[] = [
     order: 12,
     title: "Choosing What to Style",
     description:
-      "Everything CSS does begins with picking elements, and there are about eight selectors worth knowing out of the hundred that exist. Try each against a real document and watch exactly which elements light up.",
+      "Everything CSS does begins with picking elements, and about eight selectors cover most of the cases you will meet. Try each against a real document and watch exactly which elements light up.",
     level: "beginner",
     minutes: 12,
     prerequisites: ["how-css-attaches"],

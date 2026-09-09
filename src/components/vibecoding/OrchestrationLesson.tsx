@@ -15,8 +15,8 @@ export function OrchestrationLesson() {
 
       <LessonSection id="why-split-at-all" title="Why split at all">
         <P>
-          Two reasons, and it is worth being clear which one you have, because they need
-          different shapes.
+          There are two reasons, and they need different shapes. Decide which one you have
+          first.
         </P>
         <CompareGrid
           items={[
@@ -48,13 +48,13 @@ export function OrchestrationLesson() {
         <P>
           Splitting work across agents is not automatically faster, for the same reason
           splitting work across people is not automatically faster: coordination has a cost. If
-          the pieces are not genuinely separable, you pay that cost on top of doing the work,
+          the pieces are not separable, you pay that cost on top of doing the work,
           not instead of it.
         </P>
         <ChecklistCard
           title="Three things have to be true, all of them"
           items={[
-            "The tasks are genuinely independent — neither one's answer depends on what the other decides.",
+            "The tasks are independent — neither one's answer depends on what the other decides.",
             "The files are disjoint — no two agents will write to, or need the live state of, the same file.",
             "You have a merge plan before you start — who resolves a conflict and in what order the branches land — not one you improvise once three diffs are sitting in front of you.",
           ]}
@@ -158,8 +158,8 @@ git worktree add ../app-billing -b agent/billing
           opinion.
         </P>
         <P>
-          Doing it because it sounds sophisticated is how you end up spending an hour merging
-          three inconsistent implementations of something one agent would have finished.
+          Doing it for its own sake is how you end up spending an hour merging three inconsistent
+          implementations of something one agent would have finished.
         </P>
       </LessonSection>
 
@@ -167,7 +167,7 @@ git worktree add ../app-billing -b agent/billing
         items={[
           "Parallel work pays off only when tasks are independent, files are disjoint, and you have a merge plan decided in advance.",
           "Split for breadth (by item) or for confidence (by perspective). Know which you are doing.",
-          "Generate-then-refute is the highest-value shape. Ask the second agent to break it, not to check it.",
+          "Generate-then-refute works well here. Ask the second agent to break the plan, not just check it.",
           "Partition so no two agents touch the same file, or use separate worktrees.",
           "A shared rules file is what keeps parallel agents from inventing four conventions.",
           "Agreement between identically prompted agents is weak evidence — vary the framing.",

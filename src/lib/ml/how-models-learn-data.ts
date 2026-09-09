@@ -6,7 +6,7 @@ import type { Point } from "@/lib/ml/types";
  * Fuel used against distance driven, for the "How a Model Learns" lesson.
  *
  * Fuel consumption is the rare beginner regression where the intercept is
- * genuinely zero — a trip of zero kilometres uses zero litres — so the model
+ * zero — a trip of zero kilometres uses zero litres — so the model
  * honestly has exactly ONE number to learn. That is what earns the single
  * slider, rather than merely tolerating it.
  *

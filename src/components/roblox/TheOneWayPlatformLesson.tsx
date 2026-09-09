@@ -66,7 +66,7 @@ return root.Position.Y > topSurface`}
     platform.CanCollide = root.Position.Y > platform.Position.Y
 end)`}
         />
-        <Callout tone="tip" title="Velocity is the more robust signal">
+        <Callout tone="tip" title="Velocity is the better signal">
           Height says where they are; <Strong>root.AssemblyLinearVelocity.Y</Strong> says which
           way they are going. A player moving upward is jumping through, whatever their exact
           height — which is why production implementations usually check both.
@@ -173,7 +173,7 @@ end`}
               tone: "caution",
               children: (
                 <P>
-                  Players will genuinely be there together, or the platform is on the critical
+                  Players will be there together, or the platform is on the critical
                   path and dropping someone through it ends their run. The cost of the bug is
                   now higher than the cost of the fix.
                 </P>
@@ -198,7 +198,7 @@ end`}
           "A one-way platform is one comparison: is the player higher than the platform's top surface.",
           "Position is the centre of an object. Add half of Size.Y to compare against the surface players actually stand on.",
           "Compare the HumanoidRootPart, not the part Touched gave you — that is a foot, and a foot is level with the platform on landing.",
-          "AssemblyLinearVelocity.Y tells you which way they are going, which is more robust than height alone.",
+          "AssemblyLinearVelocity.Y tells you which way they are going, which is more reliable than height alone.",
           "CanCollide belongs to the part. One part, one value, shared by every player in the server.",
           "With two players the last Touched event wins, and someone standing on the platform falls through a floor that was solid a frame ago.",
           "This is a shape of bug, not a fact about platforms: per-player state written into a property the part owns always breaks on the second player.",

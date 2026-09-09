@@ -20,7 +20,7 @@ export const posts: Post[] = [
     body: [
       "A few years ago, one of us looked up the price of a coding bootcamp. Fifteen thousand dollars. For a high schooler, that number might as well be a million. We kept thinking about all the kids who would never even get to find out whether they loved this stuff.",
       "So we did the most student thing possible: we decided to teach it ourselves, for free. We recorded lessons after homework, ran workshops on weekends, and put everything online where anyone could reach it.",
-      "The first few students showed up. Then a few hundred. Then we started getting messages from countries we had to look up on a map. That was the moment CodeWithPurpose stopped being a project and became a mission.",
+      "The first few students showed up. Then a few hundred. Then we started getting messages from countries we had to look up on a map. The work had grown beyond the project we first imagined.",
       "Today we're a nonprofit fiscally sponsored by Hack Club, with 4,000+ students in 130+ countries. The plan hasn't changed since day one: keep it free, keep it real, and keep showing up for the next student who wants in.",
     ],
   },

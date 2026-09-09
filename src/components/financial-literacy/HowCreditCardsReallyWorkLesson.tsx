@@ -111,7 +111,7 @@ export function HowCreditCardsReallyWorkLesson() {
           card if it had gone through as an ordinary swipe instead.
         </P>
         <Callout tone="danger" title="An ATM withdrawal on a credit card is almost never worth it">
-          If cash is genuinely needed, a debit card draws from money already owned. A credit card
+          If you need cash, a debit card draws from money already owned. A credit card
           cash advance draws from a loan with no grace period and an APR that&apos;s usually higher
           than the card&apos;s ordinary rate.
         </Callout>

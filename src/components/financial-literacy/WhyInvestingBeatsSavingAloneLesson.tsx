@@ -63,7 +63,7 @@ export function WhyInvestingBeatsSavingAloneLesson() {
         </P>
         <P>
           This is the real trade, stated plainly rather than softened: investing accepts the
-          chance of a genuinely bad year, sometimes several in a row, in exchange for a
+          chance of a bad year, sometimes several in a row, in exchange for a
           historically higher return averaged over a long enough stretch to absorb them. There is
           no version of investing that removes that risk while keeping the higher expected return
           — the return is the compensation for carrying the risk, not a separate reward you get
@@ -86,7 +86,7 @@ export function WhyInvestingBeatsSavingAloneLesson() {
               tone: "caution",
               children: (
                 <>
-                  <P>Not insured — the balance can genuinely fall, sometimes by a third in a single year.</P>
+                  <P>Not insured — the balance can fall, sometimes by a third in a single year.</P>
                   <P>Historically the only path of the two that has outrun inflation over decades.</P>
                 </>
               ),

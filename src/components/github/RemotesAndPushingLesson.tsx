@@ -30,7 +30,7 @@ git remote remove old-server
 git remote set-url origin git@github.com:you/renamed.git`}
         />
         <P>
-          That is the whole concept. A remote stores a name and a URL so you can type{" "}
+          A remote stores a name and a URL so you can type{" "}
           <Strong>origin</Strong> instead of the address every time. A repository can have as many as
           you like — which is exactly how open-source contribution works, with one remote for your
           fork and another for the original project.
@@ -71,7 +71,7 @@ git branch -a
 #   remotes/origin/fix/login`}
         />
         <RemoteSync />
-        <Callout tone="note" title="This is the single most useful thing in the chapter">
+        <Callout tone="note" title="Why git status can be stale">
           Let the teammate push, then read the two boxes. Your{" "}
           <span className="font-[family-name:var(--learn-font-mono)]">git status</span> still says
           you are up to date, confidently and incorrectly, because nothing has updated

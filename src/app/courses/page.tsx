@@ -128,7 +128,7 @@ const courses: Course[] = [
     title: "Intro to Machine Learning",
     tags: ["New", "AI & ML"],
     description:
-      "Curious how machines actually learn? Part 1 starts from the ground up with data, models, and your first predictions. Part 2 trains smarter models, dodges the classic beginner pitfalls, and builds projects worth showing off.",
+      "Learn how machines learn from data, build your first predictions, and train models that avoid common beginner mistakes. Part 2 adds projects you can explain and test.",
     cover: "ml1",
     enrol: [
       { href: ML_PART_1_COURSE_HREF, label: "Enroll Part 1" },
@@ -149,7 +149,7 @@ const courses: Course[] = [
     title: "Health in Tech: An Introduction",
     tags: ["New", "Career"],
     description:
-      "See where healthcare meets technology, from medical data to digital health careers, and learn how code is already saving lives.",
+      "Learn how technology is used with medical data, digital health services, and healthcare careers.",
     cover: "health",
     enrol: [{ href: HEALTH_IN_TECH_COURSE_HREF, label: "Enroll Free" }],
     lessonsHref: LEARN_HEALTH_IN_TECH_HREF,
@@ -158,7 +158,7 @@ const courses: Course[] = [
     title: "Computer Vision in 30 Minutes",
     tags: ["New", "AI & ML"],
     description:
-      "How machines actually see: pixels, edges, and the models that turn a photo into a label. In half an hour, cover image classification and object detection, and the core ideas behind everything from face unlock to self-driving cars.",
+      "Learn how models use pixels and edges to classify images and detect objects. The course covers ideas used in tools such as face unlock and driver-assistance systems.",
     cover: "computervision",
     enrol: [{ href: COMPUTER_VISION_COURSE_HREF, label: "Enroll Free" }],
     lessonsHref: LEARN_COMPUTER_VISION_HREF,
@@ -170,7 +170,7 @@ export default function CoursesPage() {
     <PageShell>
       <PageHero
         title="Courses built for the curious"
-        description="Real coding skills from student teachers, completely free, forever. Take the full course on Udemy, or work through the interactive lessons right here."
+        description="Coding courses taught by students and available for free. Take a full course on Udemy or work through the interactive lessons here."
         image={images.codingLaptop}
         imageAlt="Student learning to code on a laptop"
       >

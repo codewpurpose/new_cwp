@@ -158,7 +158,7 @@ export function getSidebarNav(track: LearnTrackId): LearnNavData {
   };
 }
 
-/** No modulo wrap: the last chapter genuinely has no next. */
+/** No modulo wrap: the last chapter has no next. */
 export function getAdjacent(
   track: LearnTrackId,
   slug: string,

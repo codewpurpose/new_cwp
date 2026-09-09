@@ -5,7 +5,7 @@ import { useMemo, useState } from "react";
 /**
  * A real .gitignore matcher, over a fixed tree.
  *
- * The matching is genuinely computed rather than looked up in a table, because
+ * The matching is computed rather than looked up in a table, because
  * the two rules worth learning are both emergent: **the last matching pattern
  * wins**, and a `!` line only re-includes a file if nothing later re-excludes
  * it. A lookup table would show the right answers and teach neither.

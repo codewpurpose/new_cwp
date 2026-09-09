@@ -128,7 +128,7 @@ TypeError: Cannot read properties of undefined (reading 'split')
         <P>
           Two labels are worth treating as public API. <Strong>good first issue</Strong> and{" "}
           <Strong>help wanted</Strong> are surfaced by GitHub itself — in the repository&apos;s
-          contribute page and in global search — so applying them accurately genuinely brings people
+          contribute page and in global search — so applying them accurately brings people
           in.
         </P>
         <CodeBlock
@@ -142,7 +142,7 @@ gh issue view 482 --comments`}
           <Strong>Projects</Strong> is the layer above: a board or table view across repositories,
           with your own fields — status, priority, size, iteration — that live on the Project rather
           than the issue. An issue can be in several Projects at once and knows nothing about any of
-          them. Worth reaching for when a repository has enough work that the issue list stops being
+          them. Use this when a repository has enough work that the issue list stops being
           readable, and not before.
         </P>
       </LessonSection>
@@ -247,7 +247,7 @@ aborted. Quotes fields per RFC 4180 and adds a test.`}
           "Search closed issues before opening a new one; the answer is often already there.",
           "One issue per issue — a report with three bugs cannot be closed until all three are done.",
           "Labels are many-per-issue categories; a milestone is one per issue; an assignee is who is actually doing it.",
-          "\"good first issue\" and \"help wanted\" are surfaced by GitHub itself, so they genuinely attract contributors.",
+          "\"good first issue\" and \"help wanted\" are surfaced by GitHub itself, so they attract contributors.",
           "YAML issue forms can require fields, so an issue cannot be submitted without a version number.",
           "\"Fixes #482\" in a pull request description closes the issue on merge and links the two permanently.",
           "That keyword does nothing in a comment — it must be in the description or a commit message.",

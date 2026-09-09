@@ -37,7 +37,7 @@ export function EdgeDetectionLesson() {
         </P>
         <P>
           A gradient magnitude is still just a number, though, and a number is not a yes-or-no
-          answer. The whole trick of edge detection is one more step:{" "}
+          answer. The key step in edge detection is one more step:{" "}
           <Strong>pick a cutoff, and call anything above it an edge.</Strong> That single
           decision — a threshold — is what turns a field of slopes into a clean line drawing.
         </P>

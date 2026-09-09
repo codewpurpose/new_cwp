@@ -107,7 +107,7 @@ no votes yet
         />
         <Callout tone="note" title="Reach for is not None whenever zero is a real answer">
           The bug is invisible in testing if you never happen to pass an empty list, a zero, or
-          an empty string as a genuine result. It shows up later, in production, on the one
+          an empty string as a valid result. It shows up later, in production, on the one
           input nobody tried by hand.
         </Callout>
       </LessonSection>

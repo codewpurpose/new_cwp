@@ -20,7 +20,7 @@ export function YourFirstPageLesson() {
         </P>
         <P>
           Any editor that saves plain text will work — Notepad, TextEdit, whatever is already on the
-          machine. That said, one free editor makes the next few weeks noticeably easier:
+          machine. One free editor makes the next few weeks easier:
         </P>
         <LabelRows
           rows={[
@@ -30,7 +30,7 @@ export function YourFirstPageLesson() {
             },
             {
               label: "Live Server",
-              text: "A VS Code extension worth installing on day one. It reloads the browser every time you save, which removes the only repetitive part of this whole process.",
+              text: "Install this VS Code extension on day one. It reloads the browser every time you save, which removes the only repetitive part of this whole process.",
             },
             {
               label: "Anything else",
@@ -97,12 +97,11 @@ export function YourFirstPageLesson() {
         />
         <P>
           <Strong>file://</Strong>, not <Strong>https://</Strong>. No server was involved, nothing
-          touched the network, and the page works. This is genuinely how you will build for most of
+          touched the network, and the page works. This is how you will build for most of
           this track.
         </P>
         <P>
-          There are two things it cannot do, and both are worth knowing so they do not surprise you
-          later.
+          There are two limits to know about, so they do not surprise you later.
         </P>
         <StepList
           steps={[

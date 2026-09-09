@@ -17,15 +17,15 @@ interface ImpactItem {
 
 const items: ImpactItem[] = [
   {
-    label: "Free forever",
+    label: "Free courses",
     icon: (
       <svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" strokeWidth="1.4" aria-hidden="true">
         <path d="M2 10c0-1.6 1.4-2.8 3.2-2.8 3 0 6.6 5.6 9.6 5.6 1.8 0 3.2-1.2 3.2-2.8s-1.4-2.8-3.2-2.8c-3 0-6.6 5.6-9.6 5.6C3.4 12.8 2 11.6 2 10Z" strokeLinejoin="round" />
       </svg>
     ),
     detail: {
-      title: "Education that never costs a dime",
-      body: "Every course, workshop, and resource is completely free. No hidden fees, no premium tiers. Just quality coding education for every student who wants it.",
+      title: "Education without a fee",
+      body: "Every course, workshop, and resource is free. There are no premium tiers or payment forms.",
       scenario:
         "A student in rural India joins our Python course on day one. They never see a paywall, a subscription prompt, or a credit card form.",
     },
@@ -41,7 +41,7 @@ const items: ImpactItem[] = [
     ),
     detail: {
       title: "Made by students, for students",
-      body: "CodeWithPurpose is run by students who believe every young person deserves access to coding skills. We teach, organize, and build because we've seen what happens when education is out of reach.",
+      body: "CodeWithPurpose is run by students who want every young person to have access to coding skills. We teach, organise, and build courses for people who cannot afford a bootcamp.",
       scenario:
         "Our curriculum is written by students who just learned to code themselves, so every lesson speaks to what beginners actually need.",
     },
@@ -56,10 +56,10 @@ const items: ImpactItem[] = [
       </svg>
     ),
     detail: {
-      title: "Students on every corner of the Earth",
-      body: "From San Francisco to Lagos, Bangalore to São Paulo: over 150 countries and counting. Every dot on our map is a student who got access to free, real education because of this community.",
+      title: "Students in 150+ countries",
+      body: "Students use CodeWithPurpose from San Francisco, Lagos, Bangalore, São Paulo, and many other places.",
       scenario:
-        "5,000+ students across 150 countries are already learning with us, for free, with no strings attached.",
+        "5,000+ students across 150 countries can learn with us for free.",
     },
   },
   {
@@ -72,7 +72,7 @@ const items: ImpactItem[] = [
       </svg>
     ),
     detail: {
-      title: "Recognized at the highest level",
+      title: "Recognized by Congress",
       body: "Representative Mark DeSaulnier of the U.S. House of Representatives recognized CodeWithPurpose for tremendous leadership and service to our community in 2026.",
       scenario:
         "A formal letter from the U.S. House of Representatives celebrating our work reaching students who otherwise couldn't access coding education.",
@@ -88,8 +88,8 @@ const items: ImpactItem[] = [
       </svg>
     ),
     detail: {
-      title: "From zero to building real projects",
-      body: "Our Python course takes complete beginners all the way to building real projects, and 800+ students across 50+ countries love it. Vibecoding 101 teaches students to build apps with AI tools like Cursor and Copilot.",
+      title: "Build projects from the start",
+      body: "Our Python course takes complete beginners through their first projects. Vibecoding 101 teaches students to build apps with AI tools like Cursor and Copilot.",
       scenario:
         "A student with zero experience finishes our Python bootcamp and ships their first project. Not a toy exercise, but something they can show the world.",
     },
@@ -102,7 +102,7 @@ const items: ImpactItem[] = [
       </svg>
     ),
     detail: {
-      title: "A community that leans in",
+      title: "Volunteers who teach",
       body: "Volunteers mentor students in classrooms, workshops, and one-on-one sessions. They troubleshoot bugs, celebrate breakthroughs, and make coding feel approachable for everyone.",
       scenario:
         "A volunteer leans in to help a young student at their laptop. That moment is what CodeWithPurpose is all about.",
@@ -120,7 +120,7 @@ const items: ImpactItem[] = [
       title: "Education that crosses borders",
       body: "We teach in 30+ languages so students can learn in the language they're most comfortable with. Coding is universal, but learning shouldn't require English fluency.",
       scenario:
-        "A student learns Python in their native language, then joins a global community of 5,000+ learners who share the same passion for code.",
+        "A student learns Python in their native language, then joins other learners from more than 150 countries.",
     },
   },
 ];

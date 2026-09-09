@@ -92,7 +92,7 @@ export function LinksAndImagesLesson() {
           Opening a page by double-clicking makes the root your entire disk, so{" "}
           <span className="font-[family-name:var(--learn-font-mono)]">/images/logo.png</span> looks
           for a folder at the top of your hard drive and finds nothing. Use relative paths while
-          building locally, or run a local server. This is the single most common &quot;my images
+          building locally, or run a local server. This is a common &quot;my images
           work locally and break when published&quot; bug, in reverse.
         </Callout>
       </LessonSection>
@@ -199,8 +199,8 @@ export function LinksAndImagesLesson() {
         <P>
           Those are the image&apos;s real pixel dimensions and they are not a display size. The
           browser uses the <em>ratio</em> to reserve the right shape, then your CSS scales it. This
-          is the modern advice and it reverses guidance from about 2015 — it is worth knowing that
-          older tutorials say the opposite for a reason that no longer applies.
+          is the modern advice and it reverses guidance from about 2015. Older tutorials say the
+          opposite because browsers used to handle images differently.
         </P>
         <CodeBlock
           label="The one CSS rule every page needs"
@@ -211,7 +211,7 @@ export function LinksAndImagesLesson() {
         />
         <P>
           Without those two lines an 4000-pixel photo blows out your layout on a phone and produces
-          horizontal scrolling. Three more things worth knowing about images:
+          horizontal scrolling. Three more image rules matter:
         </P>
         <LabelRows
           rows={[

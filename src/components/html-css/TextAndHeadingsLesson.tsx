@@ -9,7 +9,7 @@ export function TextAndHeadingsLesson() {
     <div>
       <Lead>
         There are six heading levels and they are an outline, not six font sizes — using h3 because
-        it looked right is the single most common HTML mistake. Learn what each text element claims,
+        it looked right is a common HTML mistake. Learn what each text element claims,
         and which two look identical and are not.
       </Lead>
 
@@ -93,7 +93,7 @@ export function TextAndHeadingsLesson() {
         title="A paragraph is a block, and whitespace is not"
       >
         <P>
-          Here is the thing that surprises everybody on their first page. HTML collapses whitespace:
+          HTML collapses whitespace on the first page you build:
           any run of spaces, tabs, and newlines becomes a single space.
         </P>
         <CodeBlock
@@ -175,7 +175,7 @@ of      space.</p>`}
           (&quot;font-weight: 600&quot;) rather than a tag.
         </P>
         <P>
-          A few more text elements worth knowing, all of which say something a{" "}
+          A few more text elements, all of which say something a{" "}
           <Strong>span</Strong> would not:
         </P>
         <CodeBlock
@@ -199,7 +199,7 @@ of      space.</p>`}
         </P>
         <LabelRows
           rows={[
-            { label: "&lt;", text: "A less-than sign. Written literally, the browser starts reading a tag. This one genuinely breaks things." },
+            { label: "&lt;", text: "A less-than sign. Written literally, the browser starts reading a tag. This one breaks things." },
             { label: "&gt;", text: "Greater-than. Less dangerous, but write it as an entity for symmetry." },
             { label: "&amp;", text: "An ampersand. It is how every entity starts, so a bare & followed by a word can be misread." },
             { label: "&nbsp;", text: "A non-breaking space: a space that will not wrap. For \"10 km\" or \"Chapter 4\", where a line break would read badly. Not for indentation, ever." },
