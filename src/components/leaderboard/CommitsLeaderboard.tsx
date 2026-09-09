@@ -63,6 +63,16 @@ function formatDate(iso: string | null): string {
   return `${MONTHS[d.getUTCMonth()]} ${d.getUTCFullYear()}`;
 }
 
+function formatSyncedAt(iso: string | null): string {
+  if (!iso) return "Not synced yet";
+  const d = new Date(iso);
+  if (Number.isNaN(d.getTime())) return "Unknown";
+  const hour = d.getUTCHours();
+  const minute = String(d.getUTCMinutes()).padStart(2, "0");
+  const hour12 = hour % 12 || 12;
+  return `${MONTHS[d.getUTCMonth()]} ${d.getUTCDate()}, ${d.getUTCFullYear()} at ${hour12}:${minute} ${hour < 12 ? "AM" : "PM"} UTC`;
+}
+
 function totalCommitCount(row: Pick<Row, "public_commits" | "private_contributions">): number {
   return row.public_commits + row.private_contributions;
 }
@@ -298,6 +308,9 @@ function CommitsLeaderboardLive() {
                           <Stat label="Issues opened" value={String(row.total_issues)} />
                           <Stat label="Stars earned" value={String(row.total_stars)} />
                         </dl>
+                        <p className="mt-4 text-[13px] text-[var(--home-ink-soft)]">
+                          Stats last synced: {formatSyncedAt(row.last_synced_at)}
+                        </p>
                         <YearlyCommitsTable commitsByYear={row.commits_by_year} />
                       </div>
                     )}
