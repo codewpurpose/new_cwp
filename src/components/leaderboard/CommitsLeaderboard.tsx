@@ -111,8 +111,6 @@ function CommitsLeaderboardLive() {
           "private_contributions, commits_by_year, public_repos, followers, following, total_prs, " +
           "total_issues, total_stars, last_synced_at",
       )
-      .order("public_commits", { ascending: false })
-      .limit(100)
       .then(({ data, error: err }) => {
         if (!active) return;
         if (err) {
