@@ -119,15 +119,14 @@ export function CommitsLeaderboard() {
 
 function CommitsLeaderboardLive() {
   const { isLoaded, user } = useUser();
+  const supabase = getSupabase();
   const [rows, setRows] = useState<Row[] | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [expandedId, setExpandedId] = useState<string | null>(null);
   const [refreshKey, setRefreshKey] = useState(0);
 
   useEffect(() => {
-    const supabase = getSupabase();
     if (!supabase) {
-      setError("Supabase is not configured for this deployment.");
       return;
     }
     let active = true;
@@ -150,13 +149,21 @@ function CommitsLeaderboardLive() {
     return () => {
       active = false;
     };
-  }, [refreshKey]);
+  }, [refreshKey, supabase]);
 
   const ownRow = rows?.find((r) => r.user_id === user?.id) ?? null;
   const rankedRows = useMemo(
     () => (rows ? [...rows].sort((a, b) => totalCommitCount(b) - totalCommitCount(a)) : null),
     [rows],
   );
+
+  if (!supabase) {
+    return (
+      <p className="mx-auto max-w-xl text-center text-[14px] text-[var(--home-ink-soft)]">
+        Supabase is not configured for this deployment. Please ask an administrator to check the public Supabase credentials.
+      </p>
+    );
+  }
 
   return (
     <div className="mx-auto max-w-2xl">
@@ -527,7 +534,10 @@ function PublicGithubLookup({
                 </span>
               </p>
               <p className="mt-1 text-[14px] text-[var(--home-ink-soft)]">
-                {commitLabel(result.publicCommits)} since {formatDate(result.profile.joinedGithubAt)}.
+                {commitLabel({
+                  public_commits: result.publicCommits,
+                  private_contributions: result.privateContributions,
+                })} since {formatDate(result.profile.joinedGithubAt)}.
               </p>
             </div>
             {isLoaded && isSignedIn ? (
