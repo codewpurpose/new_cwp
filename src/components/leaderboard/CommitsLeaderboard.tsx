@@ -9,6 +9,7 @@ import { isClerkConfigured } from "@/lib/clerk";
 import { isValidGithubUsername } from "@/lib/github/username";
 import { DASHBOARD_HREF, GITHUB_STATS_SYNC_PATH, LOGIN_HREF } from "@/lib/links";
 import { CommitDistributionChart } from "@/components/leaderboard/CommitDistributionChart";
+import { GithubContributionCalendar } from "@/components/leaderboard/GithubContributionCalendar";
 
 type CommitYears = Record<string, { public: number; private: number }>;
 
@@ -46,6 +47,7 @@ interface LookupStats {
   publicCommits: number;
   privateContributions: number;
   commitsByYear: CommitYears;
+  contributionDays: { date: string; count: number }[];
 }
 
 interface LookupResponse {
@@ -245,7 +247,7 @@ function CommitsLeaderboardLive() {
               No one&apos;s linked a GitHub account yet — be the first.
             </p>
           ) : (
-            <ol className="flex flex-col gap-2">
+            <ol className="flex flex-col gap-2" aria-label="GitHub commits ranking">
               {rankedRows?.map((row, i) => {
                 const me = user?.id === row.user_id;
                 const expanded = expandedId === row.user_id;
@@ -255,14 +257,14 @@ function CommitsLeaderboardLive() {
                     key={row.user_id}
                     className={`home-card rounded-2xl p-3 sm:p-4 ${me ? "ring-2 ring-[var(--home-moss)]" : ""}`}
                   >
-                    <div className="flex min-w-0 items-center gap-2 sm:gap-4">
-                      <button
-                        type="button"
-                        onClick={() => setExpandedId(expanded ? null : row.user_id)}
-                        aria-expanded={expanded}
-                        aria-controls={expanded ? `github-stats-${row.user_id}` : undefined}
-                        className="flex min-w-0 flex-1 items-center gap-2 text-left sm:gap-4"
-                      >
+                    <button
+                      type="button"
+                      onClick={() => setExpandedId(expanded ? null : row.user_id)}
+                      aria-expanded={expanded}
+                      aria-controls={expanded ? `github-stats-${row.user_id}` : undefined}
+                      aria-label={`${expanded ? "Hide" : "Show"} details for ${row.name ? `${row.name} (@${row.github_username})` : `@${row.github_username}`}${me ? ", you" : ""}, ranked ${i + 1}, ${compactCommitLabel(total)}`}
+                      className="group flex min-w-0 w-full items-center gap-2 rounded-lg text-left focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--home-fern)] sm:gap-4"
+                    >
                         <span className="w-7 shrink-0 text-center font-serif text-lg text-[var(--home-ink-soft)] sm:w-8">
                           {i + 1}
                         </span>
@@ -284,35 +286,21 @@ function CommitsLeaderboardLive() {
                             @{row.github_username}
                           </span>
                         </span>
-                      </button>
-                      <CommitTotalDisclosure
-                        total={total}
-                        publicCommits={row.public_commits}
-                        privateContributions={row.private_contributions}
-                      />
-                      <button
-                        type="button"
-                        onClick={() => setExpandedId(expanded ? null : row.user_id)}
-                        aria-expanded={expanded}
-                        aria-controls={expanded ? `github-stats-${row.user_id}` : undefined}
-                        aria-label={`${expanded ? "Hide" : "Show"} details for ${row.name || row.github_username}`}
-                        className="shrink-0 rounded-md p-1 text-[var(--home-ink-quiet)] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--home-fern)]"
+                      <span className="shrink-0 text-right text-[13px] font-medium tabular-nums sm:text-[14px]">
+                        {compactCommitLabel(total)}
+                      </span>
+                      <span
+                        className={`commit-row-chevron shrink-0 px-1 text-base text-[var(--home-ink-quiet)] transition-transform ${expanded ? "rotate-180" : ""}`}
+                        aria-hidden
                       >
-                        <span
-                          className={`commit-row-chevron text-base transition-transform ${expanded ? "rotate-180" : ""}`}
-                          aria-hidden
-                        >
-                          ▾
-                        </span>
-                      </button>
-                    </div>
+                        ▾
+                      </span>
+                    </button>
 
                     {expanded && (
                       <div id={`github-stats-${row.user_id}`} className="mt-4 border-t border-[var(--home-hairline)] pt-4">
                         <dl className="grid grid-cols-2 gap-x-4 gap-y-3 text-[14px] sm:grid-cols-3">
                           <Stat label="Total commits" value={String(total)} />
-                          <Stat label="Public commits" value={String(row.public_commits)} />
-                          <Stat label="Private contributions" value={String(row.private_contributions)} />
                           <Stat label="GitHub since" value={formatDate(row.joined_github_at)} />
                           <Stat label="Public repos" value={String(row.public_repos)} />
                           <Stat label="Followers" value={String(row.followers)} />
@@ -338,43 +326,6 @@ function CommitsLeaderboardLive() {
   );
 }
 
-function CommitTotalDisclosure({
-  total,
-  publicCommits,
-  privateContributions,
-}: {
-  total: number;
-  publicCommits: number;
-  privateContributions: number;
-}) {
-  return (
-    <details className="commit-total-details shrink-0">
-      <summary
-        className="commit-total-summary rounded-md px-1 py-1 text-right text-[13px] font-medium tabular-nums focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--home-fern)] sm:text-[14px]"
-        aria-label={`${compactCommitLabel(total)}: ${publicCommits} public, ${privateContributions} private contributions`}
-      >
-        <span>{compactCommitLabel(total)}</span>
-        <span className="commit-total-chevron ml-0.5 text-[var(--home-ink-quiet)]" aria-hidden>
-          ▾
-        </span>
-      </summary>
-      <div className="commit-total-tooltip home-card rounded-lg p-3 text-left text-[13px]" role="tooltip">
-        <p className="font-medium">{compactCommitLabel(total)}</p>
-        <dl className="mt-2 grid grid-cols-2 gap-x-4 gap-y-1 text-[var(--home-ink-soft)]">
-          <div>
-            <dt>Public</dt>
-            <dd className="font-medium tabular-nums text-[var(--home-ink)]">{publicCommits}</dd>
-          </div>
-          <div>
-            <dt>Private</dt>
-            <dd className="font-medium tabular-nums text-[var(--home-ink)]">{privateContributions}</dd>
-          </div>
-        </dl>
-      </div>
-    </details>
-  );
-}
-
 function YearlyCommitsTable({ commitsByYear }: { commitsByYear: Row["commits_by_year"] }) {
   const entries = yearRows(commitsByYear);
   if (entries.length === 0) return null;
@@ -385,7 +336,7 @@ function YearlyCommitsTable({ commitsByYear }: { commitsByYear: Row["commits_by_
         Commits by year
       </h3>
       <p className="mt-1 text-[13px] text-[var(--home-ink-soft)]">
-        Public commits and private contributions are shown separately for every available year.
+        Total commits recorded for each available year.
       </p>
       <div className="mt-3 overflow-x-auto">
         <table className="w-full min-w-[280px] text-left text-[13px]">
@@ -393,8 +344,6 @@ function YearlyCommitsTable({ commitsByYear }: { commitsByYear: Row["commits_by_
           <thead className="text-[var(--home-ink-quiet)]">
             <tr>
               <th scope="col" className="pb-2 font-medium">Year</th>
-              <th scope="col" className="pb-2 text-right font-medium">Public</th>
-              <th scope="col" className="pb-2 text-right font-medium">Private</th>
               <th scope="col" className="pb-2 text-right font-medium">Total</th>
             </tr>
           </thead>
@@ -402,8 +351,6 @@ function YearlyCommitsTable({ commitsByYear }: { commitsByYear: Row["commits_by_
             {entries.map(([year, counts]) => (
               <tr key={year} className="border-t border-[var(--home-hairline)]">
                 <th scope="row" className="py-2 font-medium">{year}</th>
-                <td className="py-2 text-right tabular-nums">{counts.public}</td>
-                <td className="py-2 text-right tabular-nums">{counts.private}</td>
                 <td className="py-2 text-right font-medium tabular-nums">
                   {counts.public + counts.private}
                 </td>
@@ -507,7 +454,7 @@ function PublicGithubLookup({
           Look up GitHub commits
         </h2>
         <p className="text-[14px] text-[var(--home-ink-soft)]">
-          Enter any public GitHub username to fetch lifetime public commits and profile stats.
+          Enter any public GitHub username to fetch lifetime total commits and profile stats.
         </p>
       </div>
 
@@ -596,8 +543,6 @@ function PublicGithubLookup({
               label="Total commits"
               value={String(result.publicCommits + result.privateContributions)}
             />
-            <StatCard label="Public commits" value={String(result.publicCommits)} />
-            <StatCard label="Private contributions" value={String(result.privateContributions)} />
             <StatCard label="Best year" value={bestCommitYear(result.commitsByYear)} />
             <Stat label="Public repos" value={String(result.profile.publicRepos)} />
             <Stat label="Pull requests" value={String(result.profile.totalPrs)} />
@@ -606,6 +551,7 @@ function PublicGithubLookup({
             <Stat label="Followers" value={String(result.profile.followers)} />
             <Stat label="Following" value={String(result.profile.following)} />
           </dl>
+          <GithubContributionCalendar days={result.contributionDays} />
           <YearlyCommitsTable commitsByYear={result.commitsByYear} />
         </div>
       )}
