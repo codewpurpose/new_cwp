@@ -1,5 +1,6 @@
 import { auth } from "@clerk/nextjs/server";
 import { NextResponse } from "next/server";
+import { isClerkConfigured } from "@/lib/clerk";
 import { fetchGithubStats } from "@/lib/github/stats";
 import { isValidGithubUsername } from "@/lib/github/username";
 import { checkSyncGate, upsertGithubStats } from "@/lib/supabase/github-stats";
@@ -94,6 +95,13 @@ export async function GET(request: Request) {
  * Node runtime (the default) because @clerk/nextjs/server needs it.
  */
 export async function POST(request: Request) {
+  if (!isClerkConfigured) {
+    return NextResponse.json(
+      { error: "GitHub account linking is not configured on this deployment yet." },
+      { status: 503 },
+    );
+  }
+
   const { userId } = await auth();
   if (!userId) {
     return NextResponse.json({ error: "Not signed in." }, { status: 401 });
