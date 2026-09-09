@@ -262,7 +262,7 @@ function CommitsLeaderboardLive() {
                       onClick={() => setExpandedId(expanded ? null : row.user_id)}
                       aria-expanded={expanded}
                       aria-controls={expanded ? `github-stats-${row.user_id}` : undefined}
-                      aria-label={`${expanded ? "Hide" : "Show"} details for ${row.name || row.github_username}, ranked ${i + 1}, ${compactCommitLabel(total)}`}
+                      aria-label={`${expanded ? "Hide" : "Show"} details for ${row.name ? `${row.name} (@${row.github_username})` : `@${row.github_username}`}${me ? ", you" : ""}, ranked ${i + 1}, ${compactCommitLabel(total)}`}
                       className="group flex min-w-0 w-full items-center gap-2 rounded-lg text-left focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--home-fern)] sm:gap-4"
                     >
                         <span className="w-7 shrink-0 text-center font-serif text-lg text-[var(--home-ink-soft)] sm:w-8">
