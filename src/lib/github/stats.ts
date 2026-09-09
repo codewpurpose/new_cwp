@@ -40,6 +40,7 @@ export interface GithubStatsResult {
   publicCommits: number;
   privateContributions: number;
   commitsByYear: Record<string, { public: number; private: number }>;
+  contributionDays: { date: string; count: number }[];
   syncedThroughYear: number;
 }
 
@@ -241,6 +242,35 @@ interface ContributionsQueryData {
   } | null;
 }
 
+const CONTRIBUTION_CALENDAR_QUERY = `
+  query($login: String!, $from: DateTime!, $to: DateTime!) {
+    user(login: $login) {
+      contributionsCollection(from: $from, to: $to) {
+        contributionCalendar {
+          weeks {
+            contributionDays {
+              date
+              contributionCount
+            }
+          }
+        }
+      }
+    }
+  }
+`;
+
+interface ContributionCalendarQueryData {
+  user: {
+    contributionsCollection: {
+      contributionCalendar: {
+        weeks: {
+          contributionDays: { date: string; contributionCount: number }[];
+        }[];
+      };
+    };
+  } | null;
+}
+
 /**
  * One year's commit contributions. GitHub caps `contributionsCollection` at a
  * one-year window, which is why this is one query per calendar year rather
@@ -266,6 +296,29 @@ async function fetchYearContributions(
     ok: true,
     public: collection.totalCommitContributions,
     private: collection.restrictedContributionsCount,
+  };
+}
+
+async function fetchContributionDays(
+  login: string,
+): Promise<
+  { ok: true; contributionDays: { date: string; count: number }[] } | { ok: false; error: GithubStatsError }
+> {
+  const to = new Date();
+  const from = new Date(to.getTime() - 365 * 24 * 60 * 60 * 1000);
+  const result = await githubGraphQL<ContributionCalendarQueryData>(CONTRIBUTION_CALENDAR_QUERY, {
+    login,
+    from: from.toISOString(),
+    to: to.toISOString(),
+  });
+  if (!result.ok) return result;
+  const calendar = result.data.user?.contributionsCollection.contributionCalendar;
+  if (!calendar) return { ok: false, error: { kind: "not-found" } };
+  return {
+    ok: true,
+    contributionDays: calendar.weeks.flatMap((week) =>
+      week.contributionDays.map((day) => ({ date: day.date, count: day.contributionCount })),
+    ),
   };
 }
 
@@ -312,6 +365,9 @@ export async function fetchGithubStats(
     privateContributions += priv;
   }
 
+  const contributionDaysResult = await fetchContributionDays(profile.login);
+  if (!contributionDaysResult.ok) return contributionDaysResult;
+
   return {
     ok: true,
     stats: {
@@ -320,6 +376,7 @@ export async function fetchGithubStats(
       publicCommits,
       privateContributions,
       commitsByYear,
+      contributionDays: contributionDaysResult.contributionDays,
       syncedThroughYear: currentYear,
     },
   };

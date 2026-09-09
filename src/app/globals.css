@@ -643,46 +643,32 @@
   transition: opacity 0.2s;
 }
 
-/* The commits leaderboard keeps the headline total compact, while making the
- * public/private split available on hover, keyboard focus, and tap. `details`
- * supplies the touch and keyboard interaction without nesting a control in the
- * row's separate expand button. */
-.commit-total-summary {
-  cursor: help;
-  list-style: none;
-  white-space: nowrap;
+/* The contribution calendar borrows GitHub's compact daily rhythm while using
+ * the site's fern-to-moss palette. It stays wide enough to read on phones and
+ * scrolls inside its own frame instead of forcing the page to overflow. */
+.github-contribution-weeks {
+  display: flex;
+  gap: 0.25rem;
 }
-.commit-total-details { position: relative; }
-.commit-total-summary::-webkit-details-marker { display: none; }
-.commit-total-summary::marker { content: ""; }
-.commit-total-summary:hover,
-.commit-total-summary:focus-visible {
+.github-contribution-week {
+  display: grid;
+  flex: 0 0 0.75rem;
+  grid-template-rows: repeat(7, minmax(0, 1fr));
+  gap: 0.25rem;
+}
+.github-contribution-cell {
+  display: block;
+  aspect-ratio: 1;
+  border: 0.5px solid rgba(30, 60, 44, 0.12);
+  border-radius: 0.2rem;
   background: var(--home-grey-400);
 }
-.commit-total-tooltip {
-  display: none;
-  position: absolute;
-  z-index: 20;
-  top: calc(100% + 0.35rem);
-  right: 0;
-  width: max-content;
-  min-width: 9.5rem;
-  box-shadow: var(--home-shadow-md);
-}
-.commit-total-details:hover .commit-total-tooltip,
-.commit-total-details:focus-within .commit-total-tooltip,
-.commit-total-details[open] .commit-total-tooltip {
-  display: block;
-}
-.commit-row-chevron,
-.commit-total-chevron {
-  display: inline-block;
-}
-@media (max-width: 400px) {
-  .commit-total-tooltip {
-    right: -0.5rem;
-  }
-}
+.github-contribution-cell[data-level="1"] { background: var(--home-pistachio); }
+.github-contribution-cell[data-level="2"] { background: var(--home-sage); }
+.github-contribution-cell[data-level="3"] { background: var(--home-fern); }
+.github-contribution-cell[data-level="4"] { background: var(--home-moss); }
+.github-contribution-months > span { min-width: 0; }
+.commit-row-chevron { display: inline-block; }
 /*
  * Grows a small control's TAP TARGET without touching layout.
  *
