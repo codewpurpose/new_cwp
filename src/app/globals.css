@@ -206,6 +206,15 @@
   }
 }
 /* ===== CodeWithPurpose home styles ===== */
+.hcb-donate-iframe {
+  display: block;
+  height: 1080px;
+}
+@media (max-width: 639px) {
+  .hcb-donate-iframe {
+    height: 1120px;
+  }
+}
 .home-root {
   --home-page: #fcf4e8;
   --home-white: #fffbf5;
