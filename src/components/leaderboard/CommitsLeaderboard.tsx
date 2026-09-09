@@ -11,8 +11,6 @@ import { DASHBOARD_HREF, GITHUB_STATS_SYNC_PATH, LOGIN_HREF } from "@/lib/links"
 import { CommitDistributionChart } from "@/components/leaderboard/CommitDistributionChart";
 import { GithubContributionCalendar } from "@/components/leaderboard/GithubContributionCalendar";
 
-type CommitYears = Record<string, { public: number; private: number }>;
-
 interface Row {
   user_id: string;
   github_username: string;
@@ -21,7 +19,6 @@ interface Row {
   joined_github_at: string | null;
   public_commits: number;
   private_contributions: number;
-  commits_by_year: CommitYears;
   public_repos: number;
   followers: number;
   following: number;
@@ -44,10 +41,8 @@ interface LookupStats {
     totalIssues: number;
   };
   totalStars: number;
-  publicCommits: number;
-  privateContributions: number;
-  commitsByYear: CommitYears;
-  contributionDays: { date: string; count: number }[];
+  totalCommits: number;
+  commitDays: { date: string; count: number }[];
 }
 
 interface LookupResponse {
@@ -89,20 +84,6 @@ function commitLabel(row: Pick<Row, "public_commits" | "private_contributions">)
 
 function compactCommitLabel(count: number): string {
   return count === 1 ? "1 commit" : `${count} commits`;
-}
-
-function yearRows(commitsByYear: CommitYears): [string, { public: number; private: number }][] {
-  return Object.entries(commitsByYear ?? {}).sort(([yearA], [yearB]) => Number(yearB) - Number(yearA));
-}
-
-function bestCommitYear(commitsByYear: CommitYears): string {
-  const [best] = yearRows(commitsByYear).sort(
-    ([yearA, countsA], [yearB, countsB]) =>
-      countsB.public + countsB.private - (countsA.public + countsA.private) || Number(yearB) - Number(yearA),
-  );
-  if (!best) return "—";
-  const [year, counts] = best;
-  return `${year} · ${counts.public + counts.private}`;
 }
 
 function retryAfterLabel(retryAfterMs: number): string {
@@ -159,7 +140,7 @@ function CommitsLeaderboardLive() {
       .from("github_stats")
       .select(
         "user_id, github_username, avatar_url, name, joined_github_at, public_commits, " +
-          "private_contributions, commits_by_year, public_repos, followers, following, total_prs, " +
+          "private_contributions, public_repos, followers, following, total_prs, " +
           "total_issues, total_stars, last_synced_at",
       )
       .then(({ data, error: err }) => {
@@ -312,7 +293,6 @@ function CommitsLeaderboardLive() {
                         <p className="mt-4 text-[13px] text-[var(--home-ink-soft)]">
                           Stats last synced: {formatSyncedAt(row.last_synced_at)}
                         </p>
-                        <YearlyCommitsTable commitsByYear={row.commits_by_year} />
                       </div>
                     )}
                   </li>
@@ -323,43 +303,6 @@ function CommitsLeaderboardLive() {
         </>
       )}
     </div>
-  );
-}
-
-function YearlyCommitsTable({ commitsByYear }: { commitsByYear: Row["commits_by_year"] }) {
-  const entries = yearRows(commitsByYear);
-  if (entries.length === 0) return null;
-
-  return (
-    <section className="mt-5" aria-labelledby="commits-by-year-heading">
-      <h3 id="commits-by-year-heading" className="text-[13px] font-medium text-[var(--home-ink)]">
-        Commits by year
-      </h3>
-      <p className="mt-1 text-[13px] text-[var(--home-ink-soft)]">
-        Total commits recorded for each available year.
-      </p>
-      <div className="mt-3 overflow-x-auto">
-        <table className="w-full min-w-[280px] text-left text-[13px]">
-          <caption className="sr-only">Year-by-year GitHub commit breakdown</caption>
-          <thead className="text-[var(--home-ink-quiet)]">
-            <tr>
-              <th scope="col" className="pb-2 font-medium">Year</th>
-              <th scope="col" className="pb-2 text-right font-medium">Total</th>
-            </tr>
-          </thead>
-          <tbody>
-            {entries.map(([year, counts]) => (
-              <tr key={year} className="border-t border-[var(--home-hairline)]">
-                <th scope="row" className="py-2 font-medium">{year}</th>
-                <td className="py-2 text-right font-medium tabular-nums">
-                  {counts.public + counts.private}
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
-    </section>
   );
 }
 
@@ -516,10 +459,7 @@ function PublicGithubLookup({
                 </span>
               </p>
               <p className="mt-1 text-[14px] text-[var(--home-ink-soft)]">
-                {commitLabel({
-                  public_commits: result.publicCommits,
-                  private_contributions: result.privateContributions,
-                })} since {formatDate(result.profile.joinedGithubAt)}.
+                {result.totalCommits === 1 ? "1 total commit" : `${result.totalCommits} total commits`} since {formatDate(result.profile.joinedGithubAt)}.
               </p>
             </div>
             {isLoaded && isSignedIn ? (
@@ -539,20 +479,13 @@ function PublicGithubLookup({
           </div>
 
           <dl className="mt-4 grid grid-cols-2 gap-3 border-t border-[var(--home-hairline)] pt-4 text-[14px] sm:grid-cols-4">
-            <StatCard
-              label="Total commits"
-              value={String(result.publicCommits + result.privateContributions)}
-            />
-            <StatCard label="Best year" value={bestCommitYear(result.commitsByYear)} />
+            <StatCard label="Total commits" value={String(result.totalCommits)} />
             <Stat label="Public repos" value={String(result.profile.publicRepos)} />
             <Stat label="Pull requests" value={String(result.profile.totalPrs)} />
             <Stat label="Issues opened" value={String(result.profile.totalIssues)} />
             <Stat label="Stars earned" value={String(result.totalStars)} />
-            <Stat label="Followers" value={String(result.profile.followers)} />
-            <Stat label="Following" value={String(result.profile.following)} />
           </dl>
-          <GithubContributionCalendar days={result.contributionDays} />
-          <YearlyCommitsTable commitsByYear={result.commitsByYear} />
+          <GithubContributionCalendar days={result.commitDays} />
         </div>
       )}
 

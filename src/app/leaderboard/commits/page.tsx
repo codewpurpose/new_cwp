@@ -9,7 +9,7 @@ import { LEADERBOARD_HREF } from "@/lib/links";
 export const metadata: Metadata = {
   title: "Commits Leaderboard",
   description:
-    "Link your GitHub account and see how CodeWithPurpose students stack up by total public and private GitHub contributions.",
+    "Link your GitHub account and see how CodeWithPurpose students stack up by total GitHub commits.",
   alternates: { canonical: "/leaderboard/commits/" },
   robots: { index: false, follow: true },
 };
@@ -19,7 +19,7 @@ export default function CommitsLeaderboardPage() {
     <PageShell>
       <PageHero
         title="The commits leaderboard"
-        description="Link your GitHub account and see lifetime commits here — public commits plus private contributions, ranked alongside the XP board."
+        description="Link your GitHub account and see lifetime GitHub commits, ranked alongside the XP board."
         image={images.codingLaptop}
         imageAlt="Students comparing their GitHub commit history"
       >

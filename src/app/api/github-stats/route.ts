@@ -65,7 +65,18 @@ export async function GET(request: Request) {
   const result = await fetchGithubStats(username);
   if (!result.ok) return githubStatsErrorResponse(result);
 
-  return NextResponse.json({ ok: true, stats: result.stats }, { status: 200 });
+  return NextResponse.json(
+    {
+      ok: true,
+      stats: {
+        profile: result.stats.profile,
+        totalStars: result.stats.totalStars,
+        totalCommits: result.stats.publicCommits + result.stats.privateContributions,
+        commitDays: result.stats.commitDays,
+      },
+    },
+    { status: 200 },
+  );
 }
 
 /**
@@ -140,8 +151,6 @@ export async function POST(request: Request) {
     {
       ok: true,
       githubUsername: result.stats.profile.login,
-      publicCommits: result.stats.publicCommits,
-      privateContributions: result.stats.privateContributions,
       totalCommits: result.stats.publicCommits + result.stats.privateContributions,
     },
     { status: 200 },
