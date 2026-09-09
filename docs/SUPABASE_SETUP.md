@@ -192,7 +192,8 @@ by design — every visitor can read every display name — so the sign-up asks 
 ## Part D — The commits leaderboard (GitHub), ~5 min
 
 A second, optional leaderboard: signed-in students link a GitHub username, and
-`/leaderboard/commits` ranks them by real lifetime public commits instead of
+`/leaderboard/commits` ranks them by real lifetime total commits (public commits
+plus private contributions) instead of
 lesson XP. Independent of the newsletter and welcome-email pieces above —
 needs only Clerk (already set up) plus one more table and one more key.
 

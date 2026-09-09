@@ -1,5 +1,5 @@
 /**
- * "How does everyone's commit count stack up?" — a histogram of public
+ * "How does everyone's commit count stack up?" — a histogram of total
  * commits across every linked account, distinct from the ranked list below it
  * (that answers "who's #1"; this answers "what does the whole board look
  * like"). Hand-written SVG with a fluid viewBox, per AGENTS.md: no chart
@@ -14,7 +14,7 @@ const PAD_TOP = 12;
 const PAD_BOTTOM = 28;
 const BAR_GAP = 4;
 
-/** Bucket edges for public commit counts. The last bucket is open-ended. */
+/** Bucket edges for total commit counts. The last bucket is open-ended. */
 const BUCKETS = [
   { max: 10, label: "0–10" },
   { max: 50, label: "11–50" },
@@ -47,14 +47,14 @@ export function CommitDistributionChart({ commitCounts }: { commitCounts: number
         Commit distribution
       </figcaption>
       <p className="mt-1 text-[14px] text-[var(--home-ink-soft)]">
-        How many linked accounts fall into each range of lifetime public commits.
+        How many linked accounts fall into each range of lifetime total commits.
       </p>
 
       <svg
         viewBox={`0 0 ${VIEW_WIDTH} ${VIEW_HEIGHT}`}
         className="mt-4 w-full"
         role="img"
-        aria-label={`Distribution of ${commitCounts.length} linked accounts by public commit count: ${BUCKETS.map(
+        aria-label={`Distribution of ${commitCounts.length} linked accounts by total commit count: ${BUCKETS.map(
           (b, i) => `${counts[i]} in the ${b.label} range`,
         ).join(", ")}.`}
       >
