@@ -141,6 +141,8 @@ export async function POST(request: Request) {
       ok: true,
       githubUsername: result.stats.profile.login,
       publicCommits: result.stats.publicCommits,
+      privateContributions: result.stats.privateContributions,
+      totalCommits: result.stats.publicCommits + result.stats.privateContributions,
     },
     { status: 200 },
   );

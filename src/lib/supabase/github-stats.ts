@@ -76,6 +76,16 @@ export interface StoreResult {
   reason?: "username-taken" | "failed";
 }
 
+async function ensureProfileRow(userId: string): Promise<StoreResult> {
+  const admin = getSupabaseAdmin();
+  if (!admin) return { ok: false, reason: "failed", error: "SUPABASE_SERVICE_ROLE_KEY is not set" };
+
+  const { error } = await admin.from("profiles").insert({ id: userId });
+  if (!error || error.code === "23505") return { ok: true };
+
+  return { ok: false, reason: "failed", error: error.message };
+}
+
 /** Upserts one student's fetched stats, keyed on their Clerk user id. */
 export async function upsertGithubStats(
   userId: string,
@@ -83,6 +93,9 @@ export async function upsertGithubStats(
 ): Promise<StoreResult> {
   const admin = getSupabaseAdmin();
   if (!admin) return { ok: false, reason: "failed", error: "SUPABASE_SERVICE_ROLE_KEY is not set" };
+
+  const profile = await ensureProfileRow(userId);
+  if (!profile.ok) return profile;
 
   const { error } = await admin.from("github_stats").upsert(
     {
