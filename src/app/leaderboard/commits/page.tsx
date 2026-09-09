@@ -3,6 +3,7 @@ import Link from "next/link";
 import { PageHero, PageSection } from "@/components/PageHero";
 import { PageShell } from "@/components/PageShell";
 import { CommitsLeaderboard } from "@/components/leaderboard/CommitsLeaderboard";
+import { LeaderboardExplainer } from "@/components/leaderboard/LeaderboardExplainer";
 import { images } from "@/lib/images";
 import { LEADERBOARD_HREF } from "@/lib/links";
 
@@ -19,7 +20,7 @@ export default function CommitsLeaderboardPage() {
     <PageShell>
       <PageHero
         title="The commits leaderboard"
-        description="Link your GitHub account and see lifetime GitHub commits, ranked alongside the XP board."
+        description="See GitHub commit history on its own board. It is separate from course XP and does not change your level or lesson progress."
         image={images.codingLaptop}
         imageAlt="Students comparing their GitHub commit history"
       >
@@ -29,6 +30,7 @@ export default function CommitsLeaderboardPage() {
       </PageHero>
 
       <PageSection>
+        <LeaderboardExplainer current="commits" />
         <CommitsLeaderboard />
       </PageSection>
     </PageShell>
