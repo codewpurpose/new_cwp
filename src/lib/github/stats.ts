@@ -12,7 +12,7 @@
  */
 
 const GITHUB_GRAPHQL_URL = "https://api.github.com/graphql";
-const token = process.env.GITHUB_TOKEN;
+const token = process.env.GITHUB_TOKEN?.trim();
 
 export const isGithubStatsConfigured = Boolean(token);
 

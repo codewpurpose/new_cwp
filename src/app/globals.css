@@ -642,6 +642,47 @@
 .home-nav-pill > * {
   transition: opacity 0.2s;
 }
+
+/* The commits leaderboard keeps the headline total compact, while making the
+ * public/private split available on hover, keyboard focus, and tap. `details`
+ * supplies the touch and keyboard interaction without nesting a control in the
+ * row's separate expand button. */
+.commit-total-summary {
+  cursor: help;
+  list-style: none;
+  white-space: nowrap;
+}
+.commit-total-details { position: relative; }
+.commit-total-summary::-webkit-details-marker { display: none; }
+.commit-total-summary::marker { content: ""; }
+.commit-total-summary:hover,
+.commit-total-summary:focus-visible {
+  background: var(--home-grey-400);
+}
+.commit-total-tooltip {
+  display: none;
+  position: absolute;
+  z-index: 20;
+  top: calc(100% + 0.35rem);
+  right: 0;
+  width: max-content;
+  min-width: 9.5rem;
+  box-shadow: var(--home-shadow-md);
+}
+.commit-total-details:hover .commit-total-tooltip,
+.commit-total-details:focus-within .commit-total-tooltip,
+.commit-total-details[open] .commit-total-tooltip {
+  display: block;
+}
+.commit-row-chevron,
+.commit-total-chevron {
+  display: inline-block;
+}
+@media (max-width: 400px) {
+  .commit-total-tooltip {
+    right: -0.5rem;
+  }
+}
 /*
  * Grows a small control's TAP TARGET without touching layout.
  *

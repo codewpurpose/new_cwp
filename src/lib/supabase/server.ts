@@ -22,8 +22,8 @@ import { createClient, type SupabaseClient } from "@supabase/supabase-js";
  * Optional in the same way the rest of the stack is: without the key this
  * returns null and callers degrade rather than crash.
  */
-const url = process.env.NEXT_PUBLIC_SUPABASE_URL;
-const serviceKey = process.env.SUPABASE_SERVICE_ROLE_KEY;
+const url = process.env.NEXT_PUBLIC_SUPABASE_URL?.trim();
+const serviceKey = process.env.SUPABASE_SERVICE_ROLE_KEY?.trim();
 
 export const isSupabaseServerConfigured = Boolean(url && serviceKey);
 

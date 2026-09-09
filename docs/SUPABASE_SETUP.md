@@ -192,7 +192,8 @@ by design — every visitor can read every display name — so the sign-up asks 
 ## Part D — The commits leaderboard (GitHub), ~5 min
 
 A second, optional leaderboard: signed-in students link a GitHub username, and
-`/leaderboard/commits` ranks them by real lifetime public commits instead of
+`/leaderboard/commits` ranks them by real lifetime total commits (public commits
+plus private contributions) instead of
 lesson XP. Independent of the newsletter and welcome-email pieces above —
 needs only Clerk (already set up) plus one more table and one more key.
 
@@ -212,8 +213,14 @@ needs only Clerk (already set up) plus one more table and one more key.
    ```
 
    Add it locally (`.env.local`) and on Vercel, same as the keys in Part C.
-   Leave it blank and `/leaderboard/commits` shows "coming soon" — nothing else
-   is affected.
+   Leave it blank and the public leaderboard shell can still load, but GitHub
+   lookups and linking will remain unavailable with a server-configuration
+   message — nothing else is affected.
+
+   `NEXT_PUBLIC_*` values are bundled into the browser at build time, so add
+   or change those values before redeploying. `GITHUB_TOKEN` and
+   `SUPABASE_SERVICE_ROLE_KEY` are server values; restart or redeploy the app
+   after changing them so new server instances receive the configuration.
 
 3. **Verify.** Sign in, open `/leaderboard/commits`, enter a real GitHub
    username, and click **Link**. Check **Table editor → github_stats** — a row

@@ -21,9 +21,9 @@ begin;
 -- ---------------------------------------------------------------------------
 -- github_stats: one row per Clerk user who has linked a GitHub account.
 --
--- `public_commits` is the headline number — the only thing the collapsed
--- leaderboard row shows. Everything else is detail, revealed when a row is
--- expanded.
+-- `public_commits` and `private_contributions` are the two source values for
+-- the total headline shown in the collapsed leaderboard row. Everything else
+-- is detail, revealed when a row is expanded.
 --
 -- `commits_by_year` is what makes a resync cheap: GitHub's contribution count
 -- for a past calendar year never changes, so /api/github-stats only re-queries

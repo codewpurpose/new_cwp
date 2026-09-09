@@ -36,7 +36,10 @@ function lookupRateLimited(ip: string): boolean {
 function githubStatsErrorResponse(result: GithubStatsFetchError) {
   switch (result.error.kind) {
     case "unconfigured":
-      return NextResponse.json({ error: "The commits lookup isn't switched on yet." }, { status: 503 });
+      return NextResponse.json(
+        { error: "GitHub commit lookups aren't configured on the server yet. Please ask an administrator to add GITHUB_TOKEN." },
+        { status: 503 },
+      );
     case "not-found":
       return NextResponse.json({ error: "No GitHub user with that username." }, { status: 404 });
     case "rate-limited":
@@ -99,7 +102,10 @@ export async function POST(request: Request) {
   const gate = await checkSyncGate(userId);
   if (!gate.allowed) {
     if (gate.reason === "unconfigured") {
-      return NextResponse.json({ error: "The commits leaderboard isn't switched on yet." }, { status: 503 });
+      return NextResponse.json(
+        { error: "GitHub leaderboard storage isn't configured on the server yet. Please ask an administrator to check the Supabase server credentials." },
+        { status: 503 },
+      );
     }
     if (gate.reason === "failed") {
       console.error("[cwp] github-stats: sync gate failed:", gate.error);
