@@ -72,14 +72,27 @@ export default function DonatePage() {
           </Reveal>
 
           <Reveal delay={0.15}>
-            <div className="home-card rounded-[20px] p-4 md:p-6">
+            <div className="home-card rounded-[20px] p-2 sm:p-4 md:p-6">
               <iframe
                 src={HCB_DONATE_EMBED_SRC}
                 name="donateFrame"
                 title="Donate to CodeWithPurpose via Hack Club"
                 allowFullScreen
-                className="h-[1080px] w-full border-none"
+                loading="eager"
+                referrerPolicy="strict-origin-when-cross-origin"
+                className="hcb-donate-iframe w-full border-none"
               />
+              <p className="mt-3 px-1 text-center text-[13px] text-[var(--home-ink-quiet)]">
+                Having trouble with the embedded form?{" "}
+                <a
+                  href={HCB_DONATE_EMBED_SRC}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="underline decoration-[var(--home-fern)] underline-offset-2"
+                >
+                  Open it in a new tab.
+                </a>
+              </p>
             </div>
           </Reveal>
         </div>
