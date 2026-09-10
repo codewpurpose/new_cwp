@@ -128,7 +128,7 @@ export function StudentDashboard() {
       </div>
 
       {/* Tabs */}
-      <div className="mt-6 flex flex-wrap gap-2" aria-label="Dashboard sections">
+      <div className="mt-6 flex flex-wrap gap-2" role="group" aria-label="Dashboard sections">
         {TABS.map((t) => (
           <button
             key={t.id}
