@@ -38,6 +38,12 @@ const UNITED_STATES = {
   flag: "🇺🇸",
 } satisfies TeamMember["country"];
 
+const INDIA = {
+  name: "India",
+  flag: "🇮🇳",
+} satisfies TeamMember["country"];
+
+
 const founders: TeamMember[] = [
   {
     name: "Shreyan Mitra",
@@ -79,6 +85,7 @@ const founders: TeamMember[] = [
  *
  *  `instagram` renders as an icon beside LinkedIn in the dialog. Only add one
  *  once the member has said yes to it being public. */
+
 const teamMembers: TeamMember[] = [
   {
     name: "Sanjay Vellore",
@@ -214,6 +221,14 @@ const teamMembers: TeamMember[] = [
     photoClass: "object-[50%_42%] scale-[2.5]",
     instagram: "https://www.instagram.com/00_nehha/",
     bio: "Hi! I'm Nehha. At Code With Purpose, I support classes and contribute to marketing. I'm passionate about bioinformatics and data analysis, especially using data to solve real-world problems. I also lead music therapy sessions for infants and toddlers with Down syndrome. In my free time, I love playing badminton, playing the violin, and hanging out with friends and family.",
+  },
+  {
+    name: "Manit Mishra",
+    role: "Director of CWP India",
+    country: INDIA,
+    photo: images.team.manit,
+    linkedin: "https://www.linkedin.com/in/manit-mishra-39363a309/",
+    instagram: "https://www.instagram.com/manit.polyy/",
   },
 ];
 
