@@ -26,7 +26,7 @@ export default function Home() {
           places a section deliberately sits closer than the rest: the marquee
           carries its own top padding, global reach reads as part of the use
           cases above it, and security follows on from that pair. */}
-      <main id="top" className="home-flow">
+      <main id="main-content" className="home-flow">
         <HeroSection />
         <ProductSection />
         <div className="home-flow-attach">
