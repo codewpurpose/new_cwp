@@ -204,13 +204,13 @@ function CommitsLeaderboardLive() {
       )}
 
       {error && (
-        <p className="mx-auto max-w-xl text-center text-[14px] text-[var(--home-ink-soft)]">
+        <p role="alert" className="mx-auto max-w-xl text-center text-[14px] text-[var(--home-ink-soft)]">
           Couldn&apos;t load the commits leaderboard right now. Please try again shortly.
         </p>
       )}
 
       {rows === null && !error && (
-        <p className="mx-auto max-w-xl text-center text-[14px] text-[var(--home-ink-soft)]">
+        <p role="status" className="mx-auto max-w-xl text-center text-[14px] text-[var(--home-ink-soft)]">
           Loading the commits leaderboard…
         </p>
       )}
@@ -490,7 +490,10 @@ function PublicGithubLookup({
       )}
 
       {message && (
-        <p className={`mt-3 text-[13px] ${lookupStatus === "error" || saveStatus === "error" ? "text-[#a13c28]" : "text-[var(--home-ink-soft)]"}`}>
+        <p
+          role={lookupStatus === "error" || saveStatus === "error" ? "alert" : "status"}
+          className={`mt-3 text-[13px] ${lookupStatus === "error" || saveStatus === "error" ? "text-[#a13c28]" : "text-[var(--home-ink-soft)]"}`}
+        >
           {message}
         </p>
       )}
@@ -556,7 +559,10 @@ function LinkGithubPanel({
           {status === "syncing" ? "Syncing…" : "Resync"}
         </button>
         {message && (
-          <p className={`w-full text-[13px] ${status === "error" ? "text-[#a13c28]" : "text-[var(--home-ink-soft)]"}`}>
+          <p
+            role={status === "error" ? "alert" : "status"}
+            className={`w-full text-[13px] ${status === "error" ? "text-[#a13c28]" : "text-[var(--home-ink-soft)]"}`}
+          >
             {message}
           </p>
         )}
