@@ -325,9 +325,13 @@ async function fetchCommitDays(
 
   return {
     ok: true,
-    commitDays: [...countsByDate.entries()]
-      .sort(([dateA], [dateB]) => dateA.localeCompare(dateB))
-      .map(([date, count]) => ({ date, count })),
+    commitDays: Array.from({ length: 31 }, (_, index) => {
+      const date = new Date(from);
+      date.setUTCHours(0, 0, 0, 0);
+      date.setUTCDate(date.getUTCDate() + index);
+      const key = date.toISOString().slice(0, 10);
+      return { date: key, count: countsByDate.get(key) ?? 0 };
+    }),
   };
 }
 
