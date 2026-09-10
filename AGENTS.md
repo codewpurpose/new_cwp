@@ -81,5 +81,4 @@ docs/contributing/
 ```
 
 ## Notes
-- After editing `AGENTS.md`, run `bash scripts/sync-agent-rules.sh` to regenerate the platform-specific instruction files.
 - When launching agent teams, give each teammate its own worktree branch and merge at the end, resolving conflicts with full context of the shared goal.

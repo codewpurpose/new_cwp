@@ -149,7 +149,7 @@ Start with [CONTRIBUTING.md](CONTRIBUTING.md) — what we want, how to propose i
 
 Run `npm run check` before pushing. It runs lint, typecheck, the lesson-graph validator, and a production build — the same gate CI uses.
 
-Project instructions for AI coding agents live in `AGENTS.md`, which `CLAUDE.md` and the other platform files import. After editing it, run `bash scripts/sync-agent-rules.sh` to regenerate them.
+Project conventions and repository-specific guidance live in `AGENTS.md`.
 
 ## License
 
