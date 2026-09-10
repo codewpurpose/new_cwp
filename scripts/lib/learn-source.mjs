@@ -158,8 +158,11 @@ export function field(block, name, { quoted = true } = {}) {
  * chapter when the declaration order is wrong, rather than on none of them.
  */
 export function parseChapters(source, chaptersConst) {
-  const start = source.indexOf(chaptersConst);
-  const blocks = source
+  // A Windows checkout under core.autocrlf=true stores these files with CRLF,
+  // which would break every \n-anchored scan pattern below.
+  const src = source.replace(/\r\n/g, "\n");
+  const start = src.indexOf(chaptersConst);
+  const blocks = src
     .slice(start)
     .split(/\n  \{\n/)
     .slice(1)
@@ -187,5 +190,6 @@ export function parseChapters(source, chaptersConst) {
  * containing a digit will never be found here.
  */
 export function parsePartIds(source) {
-  return new Set([...source.matchAll(/id:\s*"([a-z-]+)",\n\s*number:/g)].map((m) => m[1]));
+  const src = source.replace(/\r\n/g, "\n");
+  return new Set([...src.matchAll(/id:\s*"([a-z-]+)",\n\s*number:/g)].map((m) => m[1]));
 }
