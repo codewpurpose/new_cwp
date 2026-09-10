@@ -12,8 +12,6 @@ const eslintConfig = defineConfig([
     "out/**",
     "build/**",
     "next-env.d.ts",
-    // Vendored agent skill definitions — not our source, thousands of findings.
-    "agent-skills/**",
     // Static assets: the ML lesson bundles are vendored build output, and
     // the lesson chrome is a vanilla IIFE outside the Next build.
     "public/**",

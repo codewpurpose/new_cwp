@@ -52,6 +52,12 @@ The short version:
 - Responsive: mobile-first
 - British spelling in reader-facing prose (`behaviour`, `colour`, `optimise`); American in code identifiers and CSS properties
 
+## Team roster
+
+- Every `TeamMember` entry on the About page must include the member's confirmed country using the required `country` field.
+- Use the country's full reader-facing name and its flag emoji. Do not infer nationality from a name, photo, ethnicity, school, or location; confirm it with the member before publishing or changing it.
+- Treat country information like social profiles and biographies: publish only what the member has approved.
+
 ## Project Structure
 ```
 src/
@@ -81,5 +87,4 @@ docs/contributing/
 ```
 
 ## Notes
-- After editing `AGENTS.md`, run `bash scripts/sync-agent-rules.sh` to regenerate the platform-specific instruction files.
 - When launching agent teams, give each teammate its own worktree branch and merge at the end, resolving conflicts with full context of the shared goal.

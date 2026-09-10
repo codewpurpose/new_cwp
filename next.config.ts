@@ -24,7 +24,6 @@ const RETIRED_ML_SLUGS = [
 ] as const;
 
 const nextConfig: NextConfig = {
-  output: "standalone",
   trailingSlash: true,
   images: {
     // GitHub avatars, for the commits leaderboard (/leaderboard/commits).

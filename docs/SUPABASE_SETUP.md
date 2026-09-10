@@ -177,11 +177,6 @@ by design — every visitor can read every display name — so the sign-up asks 
    (Settings → Environment Variables), then redeploy. Add your production URL to
    Clerk under **Configure → Domains** as well.
 
-   Running under Docker instead? `SUPABASE_SERVICE_ROLE_KEY` has no
-   `NEXT_PUBLIC_` prefix, so it is read at *runtime* by the route handler rather
-   than inlined at `next build`. The `env_file:` entries in `docker-compose.yml`
-   already cover it — no `ARG`/`ENV` needs adding to the `Dockerfile`.
-
 3. **Verify.** Run `npm run dev`, open `/login`, create an account (try both
    Google and email), and confirm you land on the site signed in. Then check the
    Supabase **Table editor → profiles** — a row with your Clerk id should appear.

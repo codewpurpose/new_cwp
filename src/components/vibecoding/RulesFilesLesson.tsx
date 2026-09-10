@@ -30,9 +30,8 @@ CLAUDE.md        Claude Code
         </P>
         <Callout tone="success" title="This site is a live example">
           The CodeWithPurpose repository has an <InlineCode>AGENTS.md</InlineCode> at its root,
-          with <InlineCode>CLAUDE.md</InlineCode> importing it and a script that regenerates
-          the other platforms&rsquo; files from it. Everything in this chapter is what we
-          actually do.
+          where project-wide commands and conventions live without maintaining duplicate
+          tool-specific copies. Everything in this chapter is what we actually do.
         </Callout>
       </LessonSection>
 

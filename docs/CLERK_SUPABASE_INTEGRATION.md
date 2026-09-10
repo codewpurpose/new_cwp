@@ -682,9 +682,7 @@ No webhook signing secret is needed if you trigger server work from the authenti
 client rather than from Clerk webhooks (§11).
 
 Deploying: add all five to your host's environment variables and redeploy. Add your
-production URL to Clerk under **Configure → Domains**. Under Docker, note that
-`SUPABASE_SERVICE_ROLE_KEY` is read at *runtime* by the route handler rather than
-inlined at build, so `env_file:` covers it — no `ARG`/`ENV` in the Dockerfile.
+production URL to Clerk under **Configure → Domains**.
 
 ---
 
