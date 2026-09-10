@@ -40,7 +40,7 @@ export interface GithubStatsResult {
   publicCommits: number;
   privateContributions: number;
   commitsByYear: Record<string, { public: number; private: number }>;
-  commitDays: { date: string; count: number }[];
+  contributionDays: { date: string; count: number }[];
   syncedThroughYear: number;
 }
 
@@ -242,15 +242,15 @@ interface ContributionsQueryData {
   } | null;
 }
 
-const COMMIT_DAYS_QUERY = `
+const CONTRIBUTION_DAYS_QUERY = `
   query($login: String!, $from: DateTime!, $to: DateTime!) {
     user(login: $login) {
       contributionsCollection(from: $from, to: $to) {
-        commitContributionsByRepository(maxRepositories: 100) {
-          contributions(first: 100) {
-            nodes {
-              occurredAt
-              commitCount
+        contributionCalendar {
+          weeks {
+            contributionDays {
+              date
+              contributionCount
             }
           }
         }
@@ -259,14 +259,14 @@ const COMMIT_DAYS_QUERY = `
   }
 `;
 
-interface CommitDaysQueryData {
+interface ContributionDaysQueryData {
   user: {
     contributionsCollection: {
-      commitContributionsByRepository: {
-        contributions: {
-          nodes: { occurredAt: string; commitCount: number }[];
-        };
-      }[];
+      contributionCalendar: {
+        weeks: {
+          contributionDays: { date: string; contributionCount: number }[];
+        }[];
+      };
     };
   } | null;
 }
@@ -299,33 +299,31 @@ async function fetchYearContributions(
   };
 }
 
-async function fetchCommitDays(
+async function fetchContributionDays(
   login: string,
 ): Promise<
-  { ok: true; commitDays: { date: string; count: number }[] } | { ok: false; error: GithubStatsError }
+  { ok: true; contributionDays: { date: string; count: number }[] } | { ok: false; error: GithubStatsError }
 > {
   const to = new Date();
   const from = new Date(to.getTime() - 30 * 24 * 60 * 60 * 1000);
-  const result = await githubGraphQL<CommitDaysQueryData>(COMMIT_DAYS_QUERY, {
+  const result = await githubGraphQL<ContributionDaysQueryData>(CONTRIBUTION_DAYS_QUERY, {
     login,
     from: from.toISOString(),
     to: to.toISOString(),
   });
   if (!result.ok) return result;
-  const repositories = result.data.user?.contributionsCollection.commitContributionsByRepository;
-  if (!repositories) return { ok: false, error: { kind: "not-found" } };
+  const calendar = result.data.user?.contributionsCollection.contributionCalendar;
+  if (!calendar) return { ok: false, error: { kind: "not-found" } };
 
-  const countsByDate = new Map<string, number>();
-  for (const repository of repositories) {
-    for (const contribution of repository.contributions.nodes) {
-      const date = contribution.occurredAt.slice(0, 10);
-      countsByDate.set(date, (countsByDate.get(date) ?? 0) + contribution.commitCount);
-    }
-  }
+  const countsByDate = new Map(
+    calendar.weeks.flatMap((week) =>
+      week.contributionDays.map((day) => [day.date, day.contributionCount] as const),
+    ),
+  );
 
   return {
     ok: true,
-    commitDays: Array.from({ length: 31 }, (_, index) => {
+    contributionDays: Array.from({ length: 31 }, (_, index) => {
       const date = new Date(from);
       date.setUTCHours(0, 0, 0, 0);
       date.setUTCDate(date.getUTCDate() + index);
@@ -381,8 +379,8 @@ export async function fetchGithubStats(
   // Best-effort: only the GET lookup renders these, and upsertGithubStats
   // never persists them, so a failure here shouldn't sink an otherwise
   // successful sync of the stats that do get saved.
-  const commitDaysResult = await fetchCommitDays(profile.login);
-  const commitDays = commitDaysResult.ok ? commitDaysResult.commitDays : [];
+  const contributionDaysResult = await fetchContributionDays(profile.login);
+  const contributionDays = contributionDaysResult.ok ? contributionDaysResult.contributionDays : [];
 
   return {
     ok: true,
@@ -392,7 +390,7 @@ export async function fetchGithubStats(
       publicCommits,
       privateContributions,
       commitsByYear,
-      commitDays,
+      contributionDays,
       syncedThroughYear: currentYear,
     },
   };

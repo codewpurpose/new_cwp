@@ -73,7 +73,7 @@ export async function GET(request: Request) {
         profile: result.stats.profile,
         totalStars: result.stats.totalStars,
         totalCommits: result.stats.publicCommits + result.stats.privateContributions,
-        commitDays: result.stats.commitDays,
+        contributionDays: result.stats.contributionDays,
       },
     },
     { status: 200 },

@@ -42,7 +42,7 @@ interface LookupStats {
   };
   totalStars: number;
   totalCommits: number;
-  commitDays: { date: string; count: number }[];
+  contributionDays: { date: string; count: number }[];
 }
 
 interface LookupResponse {
@@ -485,7 +485,7 @@ function PublicGithubLookup({
             <Stat label="Issues opened" value={String(result.profile.totalIssues)} />
             <Stat label="Stars earned" value={String(result.totalStars)} />
           </dl>
-          <GithubContributionCalendar days={result.commitDays} />
+          <GithubContributionCalendar days={result.contributionDays} />
         </div>
       )}
 

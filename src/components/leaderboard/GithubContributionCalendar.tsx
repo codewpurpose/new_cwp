@@ -75,15 +75,15 @@ export function GithubContributionCalendar({ days }: { days: ContributionDay[] }
       <div className="flex flex-col gap-3 sm:flex-row sm:items-baseline sm:justify-between">
         <div>
           <h3 id="github-calendar-heading" className="font-serif text-lg text-[var(--home-ink)]">
-            Commit activity in the last month
+            GitHub activity in the last month
           </h3>
           <p className="mt-1 text-[13px] text-[var(--home-ink-soft)]">
-            A daily view of commits on GitHub.
+            A daily view of contributions on GitHub.
           </p>
         </div>
         <p className="flex items-baseline gap-1.5 text-[13px] text-[var(--home-ink-soft)] sm:text-right">
           <span className="font-serif text-xl leading-none tabular-nums text-[var(--home-ink)]">{lastWeek}</span>
-          <span>commits in the last week</span>
+          <span>contributions in the last week</span>
         </p>
       </div>
 
@@ -108,7 +108,7 @@ export function GithubContributionCalendar({ days }: { days: ContributionDay[] }
             <div
               className="github-contribution-weeks"
               role="img"
-              aria-label={`${total} commits in the last month. Darker squares represent more activity.`}
+              aria-label={`${total} contributions in the last month. Darker squares represent more activity.`}
             >
               {weeks.map((week, weekIndex) => (
                 <div className="github-contribution-week" key={`week-${weekIndex}`}>
@@ -118,7 +118,7 @@ export function GithubContributionCalendar({ days }: { days: ContributionDay[] }
                       data-level={contributionLevel(day.count, maximum)}
                       aria-hidden="true"
                       key={day.date}
-                      title={`${day.count} commit${day.count === 1 ? "" : "s"} on ${day.date}`}
+                      title={`${day.count} contribution${day.count === 1 ? "" : "s"} on ${day.date}`}
                     />
                   ))}
                 </div>
