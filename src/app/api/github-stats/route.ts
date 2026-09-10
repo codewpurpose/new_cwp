@@ -95,7 +95,7 @@ export async function GET(request: Request) {
  * Node runtime (the default) because @clerk/nextjs/server needs it.
  */
 export async function POST(request: Request) {
-  if (!isClerkConfigured) {
+  if (!isClerkConfigured || !process.env.CLERK_SECRET_KEY?.trim()) {
     return NextResponse.json(
       { error: "GitHub account linking is not configured on this deployment yet." },
       { status: 503 },
