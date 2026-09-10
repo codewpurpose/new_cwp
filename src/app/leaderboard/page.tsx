@@ -33,7 +33,9 @@ export default function LeaderboardPage() {
       </PageHero>
 
       <PageSection>
-        <LeaderboardExplainer current="xp" />
+        <div className="mb-6">
+          <LeaderboardExplainer current="xp" />
+        </div>
         <Leaderboard />
       </PageSection>
     </PageShell>
