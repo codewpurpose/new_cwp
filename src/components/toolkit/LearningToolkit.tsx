@@ -137,11 +137,10 @@ export function LearningToolkit() {
     <div className="grid gap-8 md:grid-cols-[minmax(0,18rem)_minmax(0,1fr)]">
       {/* Template picker */}
       <aside className="toolkit-screen flex flex-col gap-3">
-        <p className="text-[11px] font-medium uppercase tracking-[0.12em] text-[var(--home-ink-quiet)]">
-          Pick a template
-        </p>
         <fieldset className="flex flex-col gap-3">
-          <legend className="sr-only">Pick a template</legend>
+          <legend className="mb-3 text-[11px] font-medium uppercase tracking-[0.12em] text-[var(--home-ink-quiet)]">
+            Pick a template
+          </legend>
           {TEMPLATES.map((t) => {
             const selected = t.id === activeId;
             return (
