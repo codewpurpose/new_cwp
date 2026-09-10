@@ -104,9 +104,9 @@ export default function JoinPage() {
             Ready to get involved?
           </h2>
           <p className="mt-4 text-[#dbefdb]/90">
-            Leave your name and email and we&apos;ll let you know about
-            workshops, webinars, and ways to help as they come up. It takes
-            about thirty seconds. Prefer email? Write to us at{" "}
+            Answer four short questions and we&apos;ll let you know about
+            workshops, webinars, and ways to help as they come up. It usually
+            takes a couple of minutes. Prefer email? Write to us at{" "}
             <a href={CONTACT_EMAIL_HREF} className="underline">
               {CONTACT_EMAIL}
             </a>
