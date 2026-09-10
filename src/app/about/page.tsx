@@ -265,7 +265,7 @@ export default function AboutPage() {
               key={member.name}
               member={member}
               avatar="w-16 text-base sm:w-20 sm:text-lg md:w-28 md:text-2xl"
-              width="w-[calc(33.333%-0.667rem)]"
+              width="w-[calc(50%-0.5rem)] sm:w-[calc(33.333%-0.667rem)]"
             />
           ))}
         </div>
