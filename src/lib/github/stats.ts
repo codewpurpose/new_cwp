@@ -305,7 +305,9 @@ async function fetchContributionDays(
   { ok: true; contributionDays: { date: string; count: number }[] } | { ok: false; error: GithubStatsError }
 > {
   const to = new Date();
-  const from = new Date(to.getTime() - 30 * 24 * 60 * 60 * 1000);
+  const from = new Date(to);
+  from.setUTCHours(0, 0, 0, 0);
+  from.setUTCDate(from.getUTCDate() - 30);
   const result = await githubGraphQL<ContributionDaysQueryData>(CONTRIBUTION_DAYS_QUERY, {
     login,
     from: from.toISOString(),
@@ -325,7 +327,6 @@ async function fetchContributionDays(
     ok: true,
     contributionDays: Array.from({ length: 31 }, (_, index) => {
       const date = new Date(from);
-      date.setUTCHours(0, 0, 0, 0);
       date.setUTCDate(date.getUTCDate() + index);
       const key = date.toISOString().slice(0, 10);
       return { date: key, count: countsByDate.get(key) ?? 0 };
