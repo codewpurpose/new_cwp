@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { createPortal } from "react-dom";
 import { X } from "lucide-react";
 import { InstagramIcon, LinkedInIcon, SnapchatIcon, TikTokIcon } from "@/components/icons";
@@ -51,7 +51,7 @@ function SocialLinks({
   if (links.length === 0) return null;
 
   return (
-    <div className="mt-3 flex items-center justify-center gap-3">
+    <div className="mt-3 flex flex-wrap items-center justify-center gap-2 sm:gap-3">
       {links.map(({ href, label, Icon }) => (
         <a
           key={label}
@@ -83,9 +83,9 @@ function initials(name: string): string {
     .toUpperCase();
 }
 
-/** Avatar sizing differs per row: the founders sit 3-up even on a phone, where
- *  a w-20 circle would overflow its card. `width` makes the card itself the
- *  flex item, so a short final row centres instead of hanging off the left. */
+/** Avatar sizing differs per row: founders sit two-up on phones and three-up
+ *  from `sm`, while the wider team rows become four-up on desktop. `width`
+ *  makes each card the flex item so a short final row stays centred. */
 export function TeamCard({
   member,
   avatar,
@@ -98,17 +98,17 @@ export function TeamCard({
   const [open, setOpen] = useState(false);
   const openerRef = useRef<HTMLButtonElement | null>(null);
 
-  const closeDialog = () => {
+  const closeDialog = useCallback(() => {
     setOpen(false);
     requestAnimationFrame(() => openerRef.current?.focus());
-  };
+  }, []);
 
   // The card lifts on hover with a transform, which would become the
   // containing block for a `fixed` child — so the dialog goes to the body.
   useEffect(() => {
     if (!open) return;
     const onKey = (event: KeyboardEvent) => {
-      if (event.key === "Escape") setOpen(false);
+      if (event.key === "Escape") closeDialog();
     };
     document.addEventListener("keydown", onKey);
     const previousOverflow = document.body.style.overflow;
@@ -117,7 +117,7 @@ export function TeamCard({
       document.removeEventListener("keydown", onKey);
       document.body.style.overflow = previousOverflow;
     };
-  }, [open]);
+  }, [closeDialog, open]);
 
   return (
     <article className={`home-card home-lift rounded-xl p-4 text-center ${width}`}>
@@ -131,7 +131,7 @@ export function TeamCard({
       {member.photo ? (
         // The circle is the clipping frame, so a per-member `photoClass` can
         // scale and offset the photo inside it without spilling past the edge.
-        <div className={`mx-auto aspect-square overflow-hidden rounded-full ${avatar}`}>
+        <span className={`mx-auto block aspect-square overflow-hidden rounded-full ${avatar}`}>
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
             src={member.photo}
@@ -140,7 +140,7 @@ export function TeamCard({
             decoding="async"
             className={`h-full w-full object-cover ${member.photoClass ?? ""}`}
           />
-        </div>
+        </span>
       ) : (
         <span
           aria-hidden="true"
@@ -149,8 +149,8 @@ export function TeamCard({
           {initials(member.name)}
         </span>
       )}
-      <p className="mt-3 font-medium">{member.name}</p>
-      <p className="text-sm text-[var(--home-ink-quiet)]">{member.role}</p>
+      <span className="mt-3 block font-medium">{member.name}</span>
+      <span className="block text-sm text-[var(--home-ink-quiet)]">{member.role}</span>
       </button>
       <SocialLinks member={member} />
       {open && <TeamMemberDialog member={member} onClose={closeDialog} />}
