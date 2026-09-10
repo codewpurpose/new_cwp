@@ -146,6 +146,7 @@ export function LearningToolkit() {
             <button
               key={t.id}
               type="button"
+              aria-pressed={selected}
               onClick={() => setActiveId(t.id)}
               className={`home-card home-lift flex items-center gap-3 rounded-xl p-3 text-left transition-colors ${
                 selected ? "ring-2 ring-[var(--home-fern)]" : ""

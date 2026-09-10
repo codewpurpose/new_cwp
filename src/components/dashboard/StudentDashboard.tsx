@@ -128,11 +128,12 @@ export function StudentDashboard() {
       </div>
 
       {/* Tabs */}
-      <div className="mt-6 flex flex-wrap gap-2">
+      <div className="mt-6 flex flex-wrap gap-2" aria-label="Dashboard sections">
         {TABS.map((t) => (
           <button
             key={t.id}
             type="button"
+            aria-pressed={tab === t.id}
             onClick={() => setTab(t.id)}
             className={`rounded-full px-4 py-2 text-sm font-medium transition-colors ${
               tab === t.id
@@ -377,7 +378,15 @@ export function StudentDashboard() {
 
       <div className="mt-8 flex items-center justify-between text-xs text-[var(--home-ink-quiet)]">
         <span>Everything here is saved on your device — no account needed.</span>
-        <button type="button" onClick={actions.reset} className="underline hover:text-[var(--home-ink)]">
+        <button
+          type="button"
+          onClick={() => {
+            if (window.confirm("Reset all course progress, XP, badges, and themes saved on this device?")) {
+              actions.reset();
+            }
+          }}
+          className="min-h-11 underline hover:text-[var(--home-ink)]"
+        >
           Reset my progress
         </button>
       </div>

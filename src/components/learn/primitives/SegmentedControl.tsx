@@ -48,7 +48,7 @@ export function SegmentedControl<T extends string>({
             aria-checked={selected}
             onClick={() => onValueChange(option.value)}
             className={cn(
-              "learn-focusable rounded-full px-4 py-2 text-sm font-medium transition-colors motion-reduce:transition-none",
+              "learn-focusable min-h-11 rounded-full px-4 py-2 text-sm font-medium transition-colors motion-reduce:transition-none",
               isTrack
                 ? selected
                   ? "bg-learn-inverse text-learn-on-inverse"

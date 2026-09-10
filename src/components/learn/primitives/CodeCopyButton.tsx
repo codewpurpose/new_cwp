@@ -24,7 +24,7 @@ export function CodeCopyButton({ value }: CodeCopyButtonProps) {
     <button
       type="button"
       onClick={copy}
-      className="learn-focusable rounded-learn-sm border border-learn-code-line px-2 py-1 text-[11px] font-medium uppercase tracking-[0.06em] text-learn-code-dim transition-colors hover:text-learn-code-fg motion-reduce:transition-none"
+      className="learn-focusable min-h-11 rounded-learn-sm border border-learn-code-line px-3 py-1 text-[11px] font-medium uppercase tracking-[0.06em] text-learn-code-dim transition-colors hover:text-learn-code-fg motion-reduce:transition-none"
     >
       {copied ? "Copied" : "Copy"}
     </button>
