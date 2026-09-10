@@ -3,7 +3,6 @@ import { Archivo, Fraunces, Spline_Sans_Mono } from "next/font/google";
 import { KoalaEasterEggs } from "@/components/KoalaEasterEggs";
 import { KoalaMascot } from "@/components/KoalaMascot";
 import { MotionProvider } from "@/components/MotionProvider";
-import { SiteLoader } from "@/components/SiteLoader";
 import { AppAuthProvider } from "@/components/auth/AppAuthProvider";
 import { isClerkConfigured } from "@/lib/clerk";
 import { SITE_URL } from "@/lib/links";
@@ -128,7 +127,6 @@ export default function RootLayout({
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationJsonLd) }}
         />
-        <SiteLoader />
         {isClerkConfigured ? <AppAuthProvider>{body}</AppAuthProvider> : body}
       </body>
     </html>

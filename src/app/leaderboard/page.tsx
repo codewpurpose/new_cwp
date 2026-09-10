@@ -3,6 +3,7 @@ import Link from "next/link";
 import { PageHero, PageSection } from "@/components/PageHero";
 import { PageShell } from "@/components/PageShell";
 import { Leaderboard } from "@/components/leaderboard/Leaderboard";
+import { LeaderboardExplainer } from "@/components/leaderboard/LeaderboardExplainer";
 import { images } from "@/lib/images";
 import { COMMITS_LEADERBOARD_HREF, COURSES_HREF } from "@/lib/links";
 
@@ -19,7 +20,7 @@ export default function LeaderboardPage() {
     <PageShell>
       <PageHero
         title="The leaderboard"
-        description="Every lesson you finish earns XP. Here's how learners stack up — a little friendly competition, still completely free."
+        description="Pass lesson quick checks to earn XP and see how learners stack up — a little friendly competition, still completely free."
         image={images.codingLaptop}
         imageAlt="Students competing on the leaderboard"
       >
@@ -32,6 +33,9 @@ export default function LeaderboardPage() {
       </PageHero>
 
       <PageSection>
+        <div className="mb-6">
+          <LeaderboardExplainer current="xp" />
+        </div>
         <Leaderboard />
       </PageSection>
     </PageShell>

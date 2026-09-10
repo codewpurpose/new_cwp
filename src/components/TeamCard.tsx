@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { createPortal } from "react-dom";
 import { X } from "lucide-react";
 import { InstagramIcon, LinkedInIcon, SnapchatIcon, TikTokIcon } from "@/components/icons";
@@ -33,19 +33,15 @@ export interface TeamMember {
 /** Bare mark, no frame: a circle around a logo that already has its own shape
  *  reads as a button the icon is sitting inside rather than as the logo. */
 const socialLinkClass =
-  "flex items-center justify-center p-1 text-[var(--home-ink-soft)] transition-colors hover:text-[var(--home-moss)]";
+  "flex min-h-11 min-w-11 items-center justify-center p-1 text-[var(--home-ink-soft)] transition-colors hover:text-[var(--home-moss)]";
 
 /**
  * The row of social icons, shown on the card face and again in the dialog.
- * `stopClick` is on for the card face so tapping an icon opens the link rather
- * than the dialog the whole card sits inside; the dialog does not need it.
  */
 function SocialLinks({
   member,
-  stopClick = false,
 }: {
   member: TeamMember;
-  stopClick?: boolean;
 }) {
   const links: { href: string; label: string; Icon: (props: { className?: string }) => React.ReactElement }[] = [];
   if (member.linkedin) links.push({ href: member.linkedin, label: "LinkedIn", Icon: LinkedInIcon });
@@ -55,7 +51,7 @@ function SocialLinks({
   if (links.length === 0) return null;
 
   return (
-    <div className="mt-3 flex items-center justify-center gap-3">
+    <div className="mt-3 flex flex-wrap items-center justify-center gap-2 sm:gap-3">
       {links.map(({ href, label, Icon }) => (
         <a
           key={label}
@@ -64,7 +60,6 @@ function SocialLinks({
           rel="noreferrer"
           aria-label={`${member.name} on ${label}`}
           title={`${member.name} on ${label}`}
-          onClick={stopClick ? (event) => event.stopPropagation() : undefined}
           className={socialLinkClass}
         >
           <Icon className="h-[18px] w-[18px]" />
@@ -88,9 +83,9 @@ function initials(name: string): string {
     .toUpperCase();
 }
 
-/** Avatar sizing differs per row: the founders sit 3-up even on a phone, where
- *  a w-20 circle would overflow its card. `width` makes the card itself the
- *  flex item, so a short final row centres instead of hanging off the left. */
+/** Avatar sizing differs per row: founders sit two-up on phones and three-up
+ *  from `sm`, while the wider team rows become four-up on desktop. `width`
+ *  makes each card the flex item so a short final row stays centred. */
 export function TeamCard({
   member,
   avatar,
@@ -101,13 +96,19 @@ export function TeamCard({
   width: string;
 }) {
   const [open, setOpen] = useState(false);
+  const openerRef = useRef<HTMLButtonElement | null>(null);
+
+  const closeDialog = useCallback(() => {
+    setOpen(false);
+    requestAnimationFrame(() => openerRef.current?.focus());
+  }, []);
 
   // The card lifts on hover with a transform, which would become the
   // containing block for a `fixed` child — so the dialog goes to the body.
   useEffect(() => {
     if (!open) return;
     const onKey = (event: KeyboardEvent) => {
-      if (event.key === "Escape") setOpen(false);
+      if (event.key === "Escape") closeDialog();
     };
     document.addEventListener("keydown", onKey);
     const previousOverflow = document.body.style.overflow;
@@ -116,26 +117,21 @@ export function TeamCard({
       document.removeEventListener("keydown", onKey);
       document.body.style.overflow = previousOverflow;
     };
-  }, [open]);
+  }, [closeDialog, open]);
 
   return (
-    <div
-      onClick={() => setOpen(true)}
-      role="button"
-      tabIndex={0}
-      aria-label={`About ${member.name}`}
-      onKeyDown={(event) => {
-        if (event.key === "Enter" || event.key === " ") {
-          event.preventDefault();
-          setOpen(true);
-        }
-      }}
-      className={`home-card home-lift cursor-pointer rounded-xl p-4 text-center ${width}`}
-    >
+    <article className={`home-card home-lift rounded-xl p-4 text-center ${width}`}>
+      <button
+        ref={openerRef}
+        type="button"
+        onClick={() => setOpen(true)}
+        aria-label={`About ${member.name}`}
+        className="w-full cursor-pointer rounded-lg text-center focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--home-fern)] focus-visible:ring-offset-2"
+      >
       {member.photo ? (
         // The circle is the clipping frame, so a per-member `photoClass` can
         // scale and offset the photo inside it without spilling past the edge.
-        <div className={`mx-auto aspect-square overflow-hidden rounded-full ${avatar}`}>
+        <span className={`mx-auto block aspect-square overflow-hidden rounded-full ${avatar}`}>
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
             src={member.photo}
@@ -144,7 +140,7 @@ export function TeamCard({
             decoding="async"
             className={`h-full w-full object-cover ${member.photoClass ?? ""}`}
           />
-        </div>
+        </span>
       ) : (
         <span
           aria-hidden="true"
@@ -153,11 +149,12 @@ export function TeamCard({
           {initials(member.name)}
         </span>
       )}
-      <p className="mt-3 font-medium">{member.name}</p>
-      <p className="text-sm text-[var(--home-ink-quiet)]">{member.role}</p>
-      <SocialLinks member={member} stopClick />
-      {open && <TeamMemberDialog member={member} onClose={() => setOpen(false)} />}
-    </div>
+      <span className="mt-3 block font-medium">{member.name}</span>
+      <span className="block text-sm text-[var(--home-ink-quiet)]">{member.role}</span>
+      </button>
+      <SocialLinks member={member} />
+      {open && <TeamMemberDialog member={member} onClose={closeDialog} />}
+    </article>
   );
 }
 
@@ -168,6 +165,13 @@ function TeamMemberDialog({
   member: TeamMember;
   onClose: () => void;
 }) {
+  const closeButtonRef = useRef<HTMLButtonElement | null>(null);
+  const dialogRef = useRef<HTMLDivElement | null>(null);
+
+  useEffect(() => {
+    closeButtonRef.current?.focus();
+  }, []);
+
   if (typeof document === "undefined") return null;
 
   return createPortal(
@@ -184,10 +188,28 @@ function TeamMemberDialog({
       className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 p-4 backdrop-blur-[2px]"
     >
       <div
+        ref={dialogRef}
         onClick={(event) => event.stopPropagation()}
+        onKeyDown={(event) => {
+          if (event.key !== "Tab") return;
+          const focusable = dialogRef.current?.querySelectorAll<HTMLElement>(
+            'button:not([disabled]), a[href], input:not([disabled]), textarea:not([disabled]), [tabindex]:not([tabindex="-1"])',
+          );
+          if (!focusable?.length) return;
+          const first = focusable[0];
+          const last = focusable[focusable.length - 1];
+          if (event.shiftKey && document.activeElement === first) {
+            event.preventDefault();
+            last.focus();
+          } else if (!event.shiftKey && document.activeElement === last) {
+            event.preventDefault();
+            first.focus();
+          }
+        }}
         className="home-card relative max-h-[85vh] w-full max-w-md overflow-y-auto rounded-2xl p-6 text-center shadow-[var(--home-shadow-lg)] sm:p-8"
       >
         <button
+          ref={closeButtonRef}
           type="button"
           onClick={onClose}
           aria-label="Close"

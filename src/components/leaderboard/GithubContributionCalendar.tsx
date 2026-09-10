@@ -58,6 +58,16 @@ export function GithubContributionCalendar({ days }: { days: ContributionDay[] }
 
   const maximum = Math.max(...days.map((day) => day.count), 0);
   const total = days.reduce((sum, day) => sum + day.count, 0);
+  const latestDate = days.reduce(
+    (latest, day) => (dateValue(day.date) > latest ? dateValue(day.date) : latest),
+    dateValue(days[0].date),
+  );
+  const lastWeekStart = new Date(latestDate);
+  lastWeekStart.setUTCDate(lastWeekStart.getUTCDate() - 6);
+  const lastWeek = days.reduce(
+    (sum, day) => (dateValue(day.date) >= lastWeekStart ? sum + day.count : sum),
+    0,
+  );
   const monthLabels = contributionMonthLabels(weeks);
 
   return (
@@ -65,15 +75,15 @@ export function GithubContributionCalendar({ days }: { days: ContributionDay[] }
       <div className="flex flex-col gap-3 sm:flex-row sm:items-baseline sm:justify-between">
         <div>
           <h3 id="github-calendar-heading" className="font-serif text-lg text-[var(--home-ink)]">
-            Contributions in the last year
+            GitHub activity in the last month
           </h3>
           <p className="mt-1 text-[13px] text-[var(--home-ink-soft)]">
-            A daily view of activity on GitHub.
+            A daily view of contributions on GitHub.
           </p>
         </div>
         <p className="flex items-baseline gap-1.5 text-[13px] text-[var(--home-ink-soft)] sm:text-right">
-          <span className="font-serif text-xl leading-none tabular-nums text-[var(--home-ink)]">{total}</span>
-          <span>contributions</span>
+          <span className="font-serif text-xl leading-none tabular-nums text-[var(--home-ink)]">{lastWeek}</span>
+          <span>contributions in the last week</span>
         </p>
       </div>
 
@@ -98,7 +108,7 @@ export function GithubContributionCalendar({ days }: { days: ContributionDay[] }
             <div
               className="github-contribution-weeks"
               role="img"
-              aria-label={`${total} contributions in the last year. Darker squares represent more activity.`}
+              aria-label={`${total} contributions in the last month. Darker squares represent more activity.`}
             >
               {weeks.map((week, weekIndex) => (
                 <div className="github-contribution-week" key={`week-${weekIndex}`}>

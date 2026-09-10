@@ -78,6 +78,7 @@ function FaqItem({ faq }: { faq: Faq }) {
       </h3>
       <div
         id={panelId}
+        aria-hidden={!open}
         className={`grid transition-[grid-template-rows] duration-300 ease-out motion-reduce:transition-none ${
           open ? "grid-rows-[1fr]" : "grid-rows-[0fr]"
         }`}

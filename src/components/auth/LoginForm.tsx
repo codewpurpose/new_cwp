@@ -14,9 +14,12 @@ export function LoginForm({ mode = "signin" }: { mode?: "signin" | "signup" }) {
   if (!isClerkConfigured) {
     return (
       <div className="home-card mx-auto max-w-md p-8 text-center">
-        <h2 className="font-serif text-2xl">Accounts are coming soon</h2>
+        <h2 className="font-serif text-2xl">
+          {mode === "signup" ? "Account creation is coming soon" : "Sign-in is coming soon"}
+        </h2>
         <p className="mt-3 text-[15px] text-[var(--home-ink-soft)]">
-          Sign-in isn&apos;t switched on yet. Good news: you don&apos;t need it to start.
+          {mode === "signup" ? "Account creation" : "Sign-in"} isn&apos;t switched on yet.
+          Good news: you don&apos;t need it to start.
           Everything you learn — XP, streak, badges, unlocked Kodas — saves right on
           this device, completely free.
         </p>

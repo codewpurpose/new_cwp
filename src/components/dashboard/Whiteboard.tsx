@@ -48,6 +48,8 @@ function loadBoards(): SavedBoard[] {
 
 export function Whiteboard() {
   const apiRef = useRef<ExcalidrawImperativeAPI | null>(null);
+  const saveButtonRef = useRef<HTMLButtonElement | null>(null);
+  const saveDialogRef = useRef<HTMLDivElement | null>(null);
 
   const [boards, setBoards] = useState<SavedBoard[]>([]);
   const [activeId, setActiveId] = useState<string | null>(null);
@@ -61,6 +63,25 @@ export function Whiteboard() {
     // eslint-disable-next-line react-hooks/set-state-in-effect
     setBoards(loadBoards());
   }, []);
+
+  useEffect(() => {
+    if (!saveOpen) return;
+    const closeOnEscape = (event: KeyboardEvent) => {
+      if (event.key === "Escape" && !busy) setSaveOpen(false);
+    };
+    document.addEventListener("keydown", closeOnEscape);
+    return () => {
+      document.removeEventListener("keydown", closeOnEscape);
+    };
+  }, [busy, saveOpen]);
+
+  useEffect(() => {
+    if (!saveOpen) return;
+    const saveButton = saveButtonRef.current;
+    return () => {
+      saveButton?.focus();
+    };
+  }, [saveOpen]);
 
   const persist = (next: SavedBoard[]) => {
     setBoards(next);
@@ -134,6 +155,10 @@ export function Whiteboard() {
   };
 
   const removeBoard = (id: string) => {
+    const board = boards.find((item) => item.id === id);
+    if (!window.confirm(`Delete ${board?.name ?? "this whiteboard"}? This cannot be undone.`)) {
+      return;
+    }
     persist(boards.filter((b) => b.id !== id));
     if (activeId === id) {
       setActiveId(null);
@@ -156,7 +181,7 @@ export function Whiteboard() {
           <button type="button" onClick={newBoard} className="home-btn home-btn-outline !py-1.5">
             New
           </button>
-          <button type="button" onClick={openSaveDialog} className="home-btn home-btn-fill !py-1.5">
+          <button ref={saveButtonRef} type="button" onClick={openSaveDialog} className="home-btn home-btn-fill !py-1.5">
             {activeId ? "Save" : "Save board"}
           </button>
         </div>
@@ -179,10 +204,30 @@ export function Whiteboard() {
           onClick={() => !busy && setSaveOpen(false)}
         >
           <div
+            ref={saveDialogRef}
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby="whiteboard-save-title"
             className="home-card w-full max-w-sm p-6"
             onClick={(e) => e.stopPropagation()}
+            onKeyDown={(event) => {
+              if (event.key !== "Tab") return;
+              const focusable = saveDialogRef.current?.querySelectorAll<HTMLElement>(
+                'button:not([disabled]), input:not([disabled]), [tabindex]:not([tabindex="-1"])',
+              );
+              if (!focusable?.length) return;
+              const first = focusable[0];
+              const last = focusable[focusable.length - 1];
+              if (event.shiftKey && document.activeElement === first) {
+                event.preventDefault();
+                last.focus();
+              } else if (!event.shiftKey && document.activeElement === last) {
+                event.preventDefault();
+                first.focus();
+              }
+            }}
           >
-            <h3 className="font-serif text-xl">
+            <h3 id="whiteboard-save-title" className="font-serif text-xl">
               {activeId ? "Save changes" : "Name this whiteboard"}
             </h3>
             <p className="mt-1 text-[13px] text-[var(--home-ink-soft)]">

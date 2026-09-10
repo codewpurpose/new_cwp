@@ -63,7 +63,14 @@ export function SiteHeader() {
   const [menuOpen, setMenuOpen] = useState(false);
 
   return (
-    <header className="sticky top-0 z-10">
+    <>
+      <a
+        href="#main-content"
+        className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[60] focus:rounded-lg focus:bg-[var(--home-moss)] focus:px-4 focus:py-3 focus:text-sm focus:text-white focus:outline-none focus:ring-2 focus:ring-[var(--home-fern)] focus:ring-offset-2"
+      >
+        Skip to main content
+      </a>
+      <header className="sticky top-0 z-10">
       {/* Flex below the desktop breakpoint, grid at and above it. The three
           columns exist only to hold the nav pill optically centred; once the
           pill is display:none the two 1fr tracks still claim their gaps and
@@ -74,6 +81,7 @@ export function SiteHeader() {
           <LogoLink />
         </div>
         <nav
+          aria-label="Primary"
           className="home-nav-pill hidden items-center gap-1 justify-self-center rounded-lg text-[1rem] min-[1200px]:flex"
           style={GLASS_STYLE}
         >
@@ -139,6 +147,7 @@ export function SiteHeader() {
       {menuOpen && (
         <nav
           id="home-mobile-menu"
+          aria-label="Primary"
           className="absolute inset-x-0 top-full mx-4 flex flex-col rounded-xl p-2 backdrop-blur-[10px] sm:mx-5 md:mx-10 min-[1200px]:hidden"
           style={GLASS_STYLE}
         >
@@ -164,6 +173,7 @@ export function SiteHeader() {
           </a>
         </nav>
       )}
-    </header>
+      </header>
+    </>
   );
 }

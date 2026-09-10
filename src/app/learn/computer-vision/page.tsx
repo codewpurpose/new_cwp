@@ -15,7 +15,7 @@ import {
   COURSES_HREF,
   LEARN_ML_HREF,
 } from "@/lib/links";
-import { chapterHref, getChapters } from "@/lib/learn-nav";
+import { chapterHref, getChapters, getPartsWithChapters } from "@/lib/learn-nav";
 
 export const metadata: Metadata = {
   title: "Computer Vision",
@@ -26,6 +26,7 @@ export const metadata: Metadata = {
 
 export default function LearnComputerVisionPage() {
   const lessons = getChapters("computer-vision");
+  const parts = getPartsWithChapters("computer-vision");
   // Published chapters come back in reading order, so this is lesson one. It is
   // read defensively because a track with nothing published is a valid state
   // for the validator, and a missing chapter must not take the build down.
@@ -55,22 +56,36 @@ export default function LearnComputerVisionPage() {
         </a>
       </PageHero>
 
-      <PageSection>
-        <div className="grid gap-6 md:grid-cols-2">
-          {lessons.map((lesson, index) => (
-            <Reveal key={lesson.slug} delay={index * 0.08}>
-              <LessonCard
-                href={chapterHref("computer-vision", lesson.slug)}
-                title={lesson.title}
-                description={lesson.description}
-                tags={lesson.tags}
-                meta={`${lesson.minutes} min read`}
-                media={<ComputerVisionLessonCover slug={lesson.slug} />}
-              />
-            </Reveal>
-          ))}
-        </div>
-      </PageSection>
+      {parts.map((group, groupIndex) => (
+        <PageSection key={group.part.id} className={groupIndex > 0 ? "!pt-0" : undefined}>
+          <div className="flex flex-wrap items-baseline gap-3">
+            <h2 className="home-serif text-[1.5rem] text-learn-strong md:text-[1.9rem]">
+              <span className="text-learn-accent-text">{group.part.number}.</span>{" "}
+              {group.part.title}
+            </h2>
+            <span className="text-[0.8rem] text-learn-subtle">
+              {group.chapters.length} {group.chapters.length === 1 ? "chapter" : "chapters"}
+            </span>
+          </div>
+          <p className="mt-2 max-w-2xl text-[15px] leading-[1.55] text-learn-muted">
+            {group.part.summary}
+          </p>
+          <div className="mt-6 grid gap-6 md:grid-cols-2">
+            {group.chapters.map((lesson, index) => (
+              <Reveal key={lesson.slug} delay={index * 0.08}>
+                <LessonCard
+                  href={chapterHref("computer-vision", lesson.slug)}
+                  title={lesson.title}
+                  description={lesson.description}
+                  tags={lesson.tags}
+                  meta={`${lesson.minutes} min read`}
+                  media={<ComputerVisionLessonCover slug={lesson.slug} />}
+                />
+              </Reveal>
+            ))}
+          </div>
+        </PageSection>
+      ))}
 
       <ContributeBand />
 

@@ -77,17 +77,17 @@ export function StudentDashboard() {
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img src={avatarSrc(state.avatar)} alt="Your Koda" className="h-16 w-16 object-contain" />
           </span>
-          <div>
+          <div className="min-w-0">
             <p className="text-sm text-[var(--home-ink-quiet)]">Welcome back</p>
             <input
               value={state.name}
               onChange={(e) => actions.setName(e.target.value)}
-              placeholder="Pick a display name"
+              placeholder="Add your name"
               maxLength={DISPLAY_NAME_MAX}
               aria-label="Your display name, shown on the leaderboard"
               aria-invalid={nameIssue !== null}
               aria-describedby={nameIssue ? "display-name-issue" : undefined}
-              className="home-serif w-full max-w-[16rem] bg-transparent text-2xl outline-none placeholder:text-[var(--home-ink-quiet)] md:text-[1.75rem]"
+              className="home-serif min-w-0 w-full max-w-[16rem] bg-transparent text-xl outline-none placeholder:text-[var(--home-ink-quiet)] sm:text-2xl md:text-[1.75rem]"
             />
             {/* Said once, at the moment they are choosing: this name is not
                 private. Signed-out visitors read it on /leaderboard.
@@ -128,11 +128,12 @@ export function StudentDashboard() {
       </div>
 
       {/* Tabs */}
-      <div className="mt-6 flex flex-wrap gap-2">
+      <div className="mt-6 flex flex-wrap gap-2" role="group" aria-label="Dashboard sections">
         {TABS.map((t) => (
           <button
             key={t.id}
             type="button"
+            aria-pressed={tab === t.id}
             onClick={() => setTab(t.id)}
             className={`rounded-full px-4 py-2 text-sm font-medium transition-colors ${
               tab === t.id
@@ -377,7 +378,15 @@ export function StudentDashboard() {
 
       <div className="mt-8 flex items-center justify-between text-xs text-[var(--home-ink-quiet)]">
         <span>Everything here is saved on your device — no account needed.</span>
-        <button type="button" onClick={actions.reset} className="underline hover:text-[var(--home-ink)]">
+        <button
+          type="button"
+          onClick={() => {
+            if (window.confirm("Reset all course progress, XP, badges, and themes saved on this device?")) {
+              actions.reset();
+            }
+          }}
+          className="min-h-11 underline hover:text-[var(--home-ink)]"
+        >
           Reset my progress
         </button>
       </div>

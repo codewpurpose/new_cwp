@@ -25,9 +25,8 @@ const SOCIALS = [
 /**
  * The strip above the header: who to follow, what we have done, and one way in.
  *
- * aria-live sits on the rotating claim alone, not the whole strip — announcing
- * the social links and the join link every 2.8 seconds would make the page
- * unusable with a screen reader on.
+ * The rotating claim is intentionally not a live region. It is supporting
+ * visual proof, not time-sensitive information that should interrupt readers.
  */
 export function ProofPointStrip({ lessonCount }: ProofPointStripProps) {
   const proofPoints = [
@@ -76,7 +75,7 @@ export function ProofPointStrip({ lessonCount }: ProofPointStripProps) {
           ))}
         </div>
 
-        <p className="proof-point-centre" aria-live="polite" aria-atomic="true">
+        <p className="proof-point-centre">
           <span aria-hidden="true">✦</span>
           <span key={proofPoints[index]} className="proof-point-text">
             {proofPoints[index]}

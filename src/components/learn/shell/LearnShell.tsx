@@ -29,7 +29,7 @@ export function LearnShell({ track, aside, mobileBar, children }: LearnShellProp
     <>
       <SiteHeader />
       <div className="learn-header-scrim" aria-hidden="true" />
-      <main id="learn-content">
+      <main id="main-content">
         <div className="learn-shell">
           <aside className="learn-sidebar">
             {/* Read here, on the server, so the client sidebar receives a

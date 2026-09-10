@@ -242,7 +242,7 @@ interface ContributionsQueryData {
   } | null;
 }
 
-const CONTRIBUTION_CALENDAR_QUERY = `
+const CONTRIBUTION_DAYS_QUERY = `
   query($login: String!, $from: DateTime!, $to: DateTime!) {
     user(login: $login) {
       contributionsCollection(from: $from, to: $to) {
@@ -259,7 +259,7 @@ const CONTRIBUTION_CALENDAR_QUERY = `
   }
 `;
 
-interface ContributionCalendarQueryData {
+interface ContributionDaysQueryData {
   user: {
     contributionsCollection: {
       contributionCalendar: {
@@ -305,8 +305,10 @@ async function fetchContributionDays(
   { ok: true; contributionDays: { date: string; count: number }[] } | { ok: false; error: GithubStatsError }
 > {
   const to = new Date();
-  const from = new Date(to.getTime() - 365 * 24 * 60 * 60 * 1000);
-  const result = await githubGraphQL<ContributionCalendarQueryData>(CONTRIBUTION_CALENDAR_QUERY, {
+  const from = new Date(to);
+  from.setUTCHours(0, 0, 0, 0);
+  from.setUTCDate(from.getUTCDate() - 30);
+  const result = await githubGraphQL<ContributionDaysQueryData>(CONTRIBUTION_DAYS_QUERY, {
     login,
     from: from.toISOString(),
     to: to.toISOString(),
@@ -314,11 +316,21 @@ async function fetchContributionDays(
   if (!result.ok) return result;
   const calendar = result.data.user?.contributionsCollection.contributionCalendar;
   if (!calendar) return { ok: false, error: { kind: "not-found" } };
+
+  const countsByDate = new Map(
+    calendar.weeks.flatMap((week) =>
+      week.contributionDays.map((day) => [day.date, day.contributionCount] as const),
+    ),
+  );
+
   return {
     ok: true,
-    contributionDays: calendar.weeks.flatMap((week) =>
-      week.contributionDays.map((day) => ({ date: day.date, count: day.contributionCount })),
-    ),
+    contributionDays: Array.from({ length: 31 }, (_, index) => {
+      const date = new Date(from);
+      date.setUTCDate(date.getUTCDate() + index);
+      const key = date.toISOString().slice(0, 10);
+      return { date: key, count: countsByDate.get(key) ?? 0 };
+    }),
   };
 }
 

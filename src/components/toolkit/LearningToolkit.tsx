@@ -137,29 +137,37 @@ export function LearningToolkit() {
     <div className="grid gap-8 md:grid-cols-[minmax(0,18rem)_minmax(0,1fr)]">
       {/* Template picker */}
       <aside className="toolkit-screen flex flex-col gap-3">
-        <p className="text-[11px] font-medium uppercase tracking-[0.12em] text-[var(--home-ink-quiet)]">
-          Pick a template
-        </p>
-        {TEMPLATES.map((t) => {
-          const selected = t.id === activeId;
-          return (
-            <button
-              key={t.id}
-              type="button"
-              onClick={() => setActiveId(t.id)}
-              className={`home-card home-lift flex items-center gap-3 rounded-xl p-3 text-left transition-colors ${
-                selected ? "ring-2 ring-[var(--home-fern)]" : ""
-              }`}
-            >
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img src={t.koala} alt="" className="h-11 w-11 shrink-0 object-contain" />
-              <span className="min-w-0">
-                <span className="block text-[15px] font-medium leading-tight">{t.name}</span>
-                <span className="block truncate text-xs text-[var(--home-ink-quiet)]">{t.track}</span>
-              </span>
-            </button>
-          );
-        })}
+        <fieldset className="flex flex-col gap-3">
+          <legend className="mb-3 text-[11px] font-medium uppercase tracking-[0.12em] text-[var(--home-ink-quiet)]">
+            Pick a template
+          </legend>
+          {TEMPLATES.map((t) => {
+            const selected = t.id === activeId;
+            return (
+              <label
+                key={t.id}
+                className={`home-card home-lift flex cursor-pointer items-center gap-3 rounded-xl p-3 text-left transition-colors has-[:focus-visible]:outline-2 has-[:focus-visible]:outline-offset-2 has-[:focus-visible]:outline-[var(--home-fern)] ${
+                  selected ? "ring-2 ring-[var(--home-fern)]" : ""
+                }`}
+              >
+                <input
+                  type="radio"
+                  name="toolkit-template"
+                  value={t.id}
+                  checked={selected}
+                  onChange={() => setActiveId(t.id)}
+                  className="sr-only"
+                />
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img src={t.koala} alt="" className="h-11 w-11 shrink-0 object-contain" />
+                <span className="min-w-0">
+                  <span className="block text-[15px] font-medium leading-tight">{t.name}</span>
+                  <span className="block truncate text-xs text-[var(--home-ink-quiet)]">{t.track}</span>
+                </span>
+              </label>
+            );
+          })}
+        </fieldset>
         <p className="mt-1 text-xs leading-[1.5] text-[var(--home-ink-quiet)]">
           Your notes are saved right here in your browser — nothing is uploaded. Use{" "}
           <span className="font-medium">Save as PDF</span> to keep or print a copy.
