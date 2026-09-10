@@ -66,16 +66,22 @@ export function Whiteboard() {
 
   useEffect(() => {
     if (!saveOpen) return;
-    const saveButton = saveButtonRef.current;
     const closeOnEscape = (event: KeyboardEvent) => {
       if (event.key === "Escape" && !busy) setSaveOpen(false);
     };
     document.addEventListener("keydown", closeOnEscape);
     return () => {
       document.removeEventListener("keydown", closeOnEscape);
-      saveButton?.focus();
     };
   }, [busy, saveOpen]);
+
+  useEffect(() => {
+    if (!saveOpen) return;
+    const saveButton = saveButtonRef.current;
+    return () => {
+      saveButton?.focus();
+    };
+  }, [saveOpen]);
 
   const persist = (next: SavedBoard[]) => {
     setBoards(next);
