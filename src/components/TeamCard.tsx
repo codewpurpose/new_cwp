@@ -8,6 +8,12 @@ import { InstagramIcon, LinkedInIcon, SnapchatIcon, TikTokIcon } from "@/compone
 export interface TeamMember {
   name: string;
   role: string;
+  /** Required origin metadata shown as a compact flag badge on the card. */
+  country: {
+    name: string;
+    /** The flag emoji for the country, such as `🇺🇸`. */
+    flag: string;
+  };
   /** Optional: members without a photo yet fall back to their initials. */
   photo?: string;
   /**
@@ -83,6 +89,42 @@ function initials(name: string): string {
     .toUpperCase();
 }
 
+function TeamMemberAvatar({ member, avatar }: { member: TeamMember; avatar: string }) {
+  return (
+    <span className={`relative mx-auto block ${avatar}`}>
+      {member.photo ? (
+        // The circle is the clipping frame, so a per-member `photoClass` can
+        // scale and offset the photo inside it without spilling past the edge.
+        <span className="block aspect-square overflow-hidden rounded-full">
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            src={member.photo}
+            alt={member.name}
+            loading="lazy"
+            decoding="async"
+            className={`h-full w-full object-cover ${member.photoClass ?? ""}`}
+          />
+        </span>
+      ) : (
+        <span
+          aria-hidden="true"
+          className="flex aspect-square items-center justify-center rounded-full bg-[var(--home-pistachio)] font-semibold text-[var(--home-moss)]"
+        >
+          {initials(member.name)}
+        </span>
+      )}
+      <span
+        role="img"
+        aria-label={member.country.name}
+        title={member.country.name}
+        className="absolute right-0 top-0 flex size-5 items-center justify-center rounded-full border-2 border-[var(--home-white)] bg-[var(--home-white)] text-[11px] leading-none shadow-sm sm:size-6 sm:text-sm"
+      >
+        {member.country.flag}
+      </span>
+    </span>
+  );
+}
+
 /** Avatar sizing differs per row: founders sit two-up on phones and three-up
  *  from `sm`, while the wider team rows become four-up on desktop. `width`
  *  makes each card the flex item so a short final row stays centred. */
@@ -125,32 +167,12 @@ export function TeamCard({
         ref={openerRef}
         type="button"
         onClick={() => setOpen(true)}
-        aria-label={`About ${member.name}`}
+        aria-label={`About ${member.name}, from ${member.country.name}`}
         className="w-full cursor-pointer rounded-lg text-center focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--home-fern)] focus-visible:ring-offset-2"
       >
-      {member.photo ? (
-        // The circle is the clipping frame, so a per-member `photoClass` can
-        // scale and offset the photo inside it without spilling past the edge.
-        <span className={`mx-auto block aspect-square overflow-hidden rounded-full ${avatar}`}>
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img
-            src={member.photo}
-            alt={member.name}
-            loading="lazy"
-            decoding="async"
-            className={`h-full w-full object-cover ${member.photoClass ?? ""}`}
-          />
-        </span>
-      ) : (
-        <span
-          aria-hidden="true"
-          className={`mx-auto flex aspect-square items-center justify-center rounded-full bg-[var(--home-pistachio)] font-semibold text-[var(--home-moss)] ${avatar}`}
-        >
-          {initials(member.name)}
-        </span>
-      )}
-      <span className="mt-3 block font-medium">{member.name}</span>
-      <span className="block text-sm text-[var(--home-ink-quiet)]">{member.role}</span>
+        <TeamMemberAvatar member={member} avatar={avatar} />
+        <span className="mt-3 block font-medium">{member.name}</span>
+        <span className="block text-sm text-[var(--home-ink-quiet)]">{member.role}</span>
       </button>
       <SocialLinks member={member} />
       {open && <TeamMemberDialog member={member} onClose={closeDialog} />}

@@ -33,10 +33,16 @@ export const metadata: Metadata = {
   },
 };
 
+const UNITED_STATES = {
+  name: "United States",
+  flag: "🇺🇸",
+} satisfies TeamMember["country"];
+
 const founders: TeamMember[] = [
   {
     name: "Shreyan Mitra",
     role: "Co-founder",
+    country: UNITED_STATES,
     photo: images.team.shreyan,
     linkedin: "https://www.linkedin.com/in/shreyan-mitra-8910172b7/",
     bio: "Hey! I'm a rising senior at California High School and an aspiring research scientist. My mission is to make education free worldwide.",
@@ -44,6 +50,7 @@ const founders: TeamMember[] = [
   {
     name: "Bruhatt Rao",
     role: "Co-founder",
+    country: UNITED_STATES,
     photo: images.team.bhim,
     linkedin: "https://www.linkedin.com/in/bruhatt-rao/",
     bio: "I'm an incoming senior at California High and the founder of Holmes AI. My mission is to make education free and accessible worldwide.",
@@ -51,6 +58,7 @@ const founders: TeamMember[] = [
   {
     name: "Samanyu Goyal",
     role: "Co-founder",
+    country: UNITED_STATES,
     photo: images.team.samanyu,
     photoClass: "scale-[3] -translate-x-[50%] translate-y-[9%]",
     linkedin: "https://www.linkedin.com/in/samanyu-goyal/",
@@ -63,7 +71,8 @@ const founders: TeamMember[] = [
  *
  *  Every card opens a dialog whether or not it is filled in, so a member with
  *  no `bio` yet gets the "check back later" placeholder rather than a dead
- *  card. To finish someone's profile, add the two optional fields:
+ *  card. Every member requires a `country`; to finish someone's profile, add
+ *  the optional fields they have approved for publication:
  *
  *    bio: "First person, a few sentences.",
  *    instagram: "https://www.instagram.com/<handle>/",
@@ -74,6 +83,7 @@ const teamMembers: TeamMember[] = [
   {
     name: "Sanjay Vellore",
     role: "Director of Operations",
+    country: UNITED_STATES,
     photo: images.team.sanjay,
     linkedin: "https://www.linkedin.com/in/sanjay-vellore-6247a63b1/",
     bio: 'Hi! I\'m Sanjay Vellore, Director of Operations at Code With Purpose. I oversee sponsorships, spearhead new initiatives, and ensure our day-to-day operations run smoothly. My goal is to help scale Code With Purpose into one of the top student-led non-profits worldwide. Believing in Chamath Palihapitiya\'s vision that AI is "the most important economic leveler of our lifetime," I\'m dedicated to empowering all of you to succeed along the way.',
@@ -81,6 +91,7 @@ const teamMembers: TeamMember[] = [
   {
     name: "Naman Jain",
     role: "Director of Outreach",
+    country: UNITED_STATES,
     photo: images.team.naman,
     linkedin: "https://www.linkedin.com/in/naman-jain-9276593a5/",
     instagram: "https://www.instagram.com/def_notnaman/",
@@ -89,6 +100,7 @@ const teamMembers: TeamMember[] = [
   {
     name: "Om Anand Khuante",
     role: "Co-Director of Community",
+    country: UNITED_STATES,
     photo: images.team.om,
     linkedin: "https://www.linkedin.com/in/om-anand-khaunte/",
     bio: "Hey! I'm a robotics and AI student researcher who enjoys building cool things, learning fast, and working with my friends.",
@@ -96,6 +108,7 @@ const teamMembers: TeamMember[] = [
   {
     name: "Darsh Pande",
     role: "Co-Director of Community",
+    country: UNITED_STATES,
     photo: images.team.darsh,
     photoClass: "object-[50%_6%] scale-[1.3]",
     linkedin: "https://www.linkedin.com/in/darsh-pande-a73bb8421/",
@@ -105,6 +118,7 @@ const teamMembers: TeamMember[] = [
   {
     name: "Aakash Sanil",
     role: "Co-Social Media Lead",
+    country: UNITED_STATES,
     photo: images.team.aakash,
     photoClass: "object-[50%_20%] scale-[1.2]",
     instagram: "https://www.instagram.com/sanilaakash/",
@@ -113,6 +127,7 @@ const teamMembers: TeamMember[] = [
   {
     name: "Hannah Mauro",
     role: "Social Media & Design",
+    country: UNITED_STATES,
     photo: images.team.hannah,
     photoClass: "object-[50%_8%]",
     instagram: "https://www.instagram.com/hannah_gm.9045/",
@@ -121,12 +136,14 @@ const teamMembers: TeamMember[] = [
   {
     name: "Trey Lim",
     role: "Co-Social Media Lead & Member of Finance",
+    country: UNITED_STATES,
     photo: images.team.trey,
     bio: "Hey, I'm Trey! I'm a finance bro that enjoys creating bonds with others, researching AI, and learning with friends.",
   },
   {
     name: "Aadi Naik",
     role: "Lead Instructor",
+    country: UNITED_STATES,
     photo: images.team.aadi,
     photoClass: "object-[45%_48%] scale-[1.15]",
     instagram: "https://www.instagram.com/naik_aadi4/",
@@ -135,6 +152,7 @@ const teamMembers: TeamMember[] = [
   {
     name: "Karthik Tummala",
     role: "Lead Instructor",
+    country: UNITED_STATES,
     linkedin: "https://www.linkedin.com/in/karthik-tummala-6783233a4/",
     snapchat: "https://snapchat.com/t/0II9wX8h",
     tiktok: "https://www.tiktok.com/@ktummala88",
@@ -143,6 +161,7 @@ const teamMembers: TeamMember[] = [
   {
     name: "Sirish Aytham",
     role: "Marketing",
+    country: UNITED_STATES,
     photo: images.team.sirish,
     linkedin: "https://www.linkedin.com/in/sirish-aytham-bb74753a3/",
     bio: "Hey, I'm Sirish Aytham, Marketing Lead here at Code With Purpose, where I help create content and share opportunities with our community. I'm passionate about combining creativity and technology to encourage students to innovate, learn, and make a positive impact in their communities and the world.",
@@ -150,6 +169,7 @@ const teamMembers: TeamMember[] = [
   {
     name: "Ashwika Ashok",
     role: "Instructor & Operations",
+    country: UNITED_STATES,
     photo: images.team.ashwika,
     instagram: "https://www.instagram.com/wika_pages/",
     bio: "Hi! I'm a student researcher interested in neuroscience, psychology, and AI. I have published a paper on Aphantasia through the Teens in Health Journal and have written two articles for Empathy in Medicine. I wish to pursue a career in computational neuroscience. When I do get free time, I enjoy reading, playing volleyball, and hanging out with family and friends.",
@@ -157,6 +177,7 @@ const teamMembers: TeamMember[] = [
   {
     name: "Vetrivel Jagath",
     role: "Instructor & Design",
+    country: UNITED_STATES,
     photo: images.team.vetri,
     photoClass: "object-[48%_30%] scale-[1.75] -translate-y-[5%]",
     bio: "Hi, I'm Vetrivel Jagath, a rising freshman with a strong interest in math and medicine, and I'm really interested in helping kids learn.",
@@ -164,6 +185,7 @@ const teamMembers: TeamMember[] = [
   {
     name: "Tvisha Arora",
     role: "Instructor",
+    country: UNITED_STATES,
     photo: images.team.tvisha,
     photoClass: "object-[50%_30%] scale-[4.2] translate-y-[30%]",
     bio: "Hey I'm a student interested in business and psychology. I helped my school take initiative to start a DECA chapter. Additionally, I am programming a mental health app for students. I want to pursue a career in product management or UX design. Some of my hobbies are teaching, learning dance, colorguard, and writing in my free time.",
@@ -171,6 +193,7 @@ const teamMembers: TeamMember[] = [
   {
     name: "Vihaana Malhotra",
     role: "Instructor",
+    country: UNITED_STATES,
     photo: images.team.vihaana,
     photoClass: "object-[45%_35%] scale-[1.5] translate-x-[4%]",
     bio: "Hi! I'm Vihaana, I am interested in child psychology and neuroscience. I'm a Life Scout and former Senior Patrol Leader in Scouting America, where I focus on leadership and helping newer scouts get involved. I've served as a summer camp counselor and volunteered with Scouts, Kids Against Hunger, and elementary schools. When I'm not volunteering or in scouts, I enjoy volleyball, violin, art, and spending time with family and friends.",
@@ -178,6 +201,7 @@ const teamMembers: TeamMember[] = [
   {
     name: "Mithra Diyaa Gobinath",
     role: "Instructor",
+    country: UNITED_STATES,
     photo: images.team.mithra,
     photoClass: "object-[48%_42%] scale-[1.05] translate-y-[14%]",
     bio: "Hi! I'm Mithra, and I'm interested in robotics, AI, technology, and entrepreneurship. I love building things, trying new ideas, and learning new skills. At Code With Purpose, I'm excited to meet new people, share ideas, and learn from everyone. Outside of that, I enjoy baking, playing volleyball, and spending time with my friends and family.",
@@ -185,6 +209,7 @@ const teamMembers: TeamMember[] = [
   {
     name: "Nehha Ramesh",
     role: "Instructor & Marketing",
+    country: UNITED_STATES,
     photo: images.team.nehha,
     photoClass: "object-[50%_42%] scale-[2.5]",
     instagram: "https://www.instagram.com/00_nehha/",
