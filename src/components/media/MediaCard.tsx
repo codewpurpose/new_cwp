@@ -31,20 +31,6 @@ export function MediaCard({ item, emphasis = false }: MediaCardProps) {
             className="h-full w-full border-0"
           />
         </div>
-        <div className="flex flex-wrap items-center justify-between gap-3 border-b border-[var(--home-hairline)] px-6 py-4 md:px-7">
-          <p className="text-sm text-[var(--home-ink-soft)]">
-            Player not loading?
-          </p>
-          <a
-            href={item.url}
-            target="_blank"
-            rel="noopener noreferrer"
-            aria-label={`${item.title} — watch on YouTube`}
-            className="home-arrow-link text-sm"
-          >
-            Watch on YouTube <span className="home-arrow">→</span>
-          </a>
-        </div>
         <div className="p-6 md:p-7">
           <div className="flex flex-wrap items-center justify-between gap-x-3 gap-y-1 text-[11px] font-medium uppercase tracking-[0.1em] text-[var(--home-ink-quiet)]">
             <span>YouTube</span>
