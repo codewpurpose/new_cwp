@@ -84,7 +84,7 @@ function validateTrack(track) {
 
   // Every published chapter must have a body registered, and every authored
   // heading must have a matching anchor in that body.
-  const routeSource = readFileSync(track.route, "utf8");
+  const routeSource = readFileSync(track.route, "utf8").replace(/\r\n/g, "\n");
   // Lazy match up to "= {": the type annotation contains "=>", so a greedy
   // [^=]* would stop inside it.
   const bodyMapBlock =
@@ -134,7 +134,7 @@ function validateTrack(track) {
   if (track.coverFile) {
     let coverSource;
     try {
-      coverSource = readFileSync(track.coverFile, "utf8");
+      coverSource = readFileSync(track.coverFile, "utf8").replace(/\r\n/g, "\n");
     } catch {
       coverSource = null;
       fail(`cannot read cover component ${track.coverFile}`);
