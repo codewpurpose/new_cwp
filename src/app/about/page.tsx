@@ -154,7 +154,7 @@ const teamMembers: TeamMember[] = [
     photo: images.team.aadi,
     photoClass: "object-[45%_48%] scale-[1.15]",
     instagram: "https://www.instagram.com/naik_aadi4/",
-    bio: "Hey everyone! My name is Aadi Naik. I'm an instructor for Code With Purpose that focuses on med courses. I've been with CWP for around 5 months and it's definitely taught me many things, such as responsibility and time management. I'm deeply interested in the human body, and I wanted to become an instructor so that I could educate people on it.",
+    bio: "Hey everyone! My name is Aadi Naik. I'm an instructor for Code With Purpose that focuses on med courses. I've been with Code With Purpose for around 6 months and it's definitely taught me many things, such as responsibility and time management. I'm deeply interested in the human body, and I wanted to become an instructor so that I could educate people on it.",
   },
   {
     name: "Karthik Tummala",
@@ -163,7 +163,7 @@ const teamMembers: TeamMember[] = [
     linkedin: "https://www.linkedin.com/in/karthik-tummala-6783233a4/",
     snapchat: "https://snapchat.com/t/0II9wX8h",
     tiktok: "https://www.tiktok.com/@ktummala88",
-    bio: "I'm Karthik Tummala, Lead Instructor at Code With Purpose. For the past 4 years, I've turned code into real projects with results. I hope to spread my knowledge with CWP to kids who want to learn.",
+    bio: "I'm Karthik Tummala, Lead Instructor at Code With Purpose. For the past 4 years, I've turned code into real projects with results. I hope to spread my knowledge with Code With Purpose to kids who want to learn.",
   },
   {
     name: "Sirish Aytham",
@@ -224,12 +224,12 @@ const teamMembers: TeamMember[] = [
   },
   {
     name: "Manit Mishra",
-    role: "Director of CWP India",
+    role: "India Chapter Lead",
     country: INDIA,
     photo: images.team.manit,
     linkedin: "https://www.linkedin.com/in/manit-mishra-39363a309/",
     instagram: "https://www.instagram.com/manit.polyy/",
-    bio: "Hi! I'm Manit Mishra, Director of Code With Purpose India. I focus on leading our initiatives across India, building technical programs, and creating opportunities for students to learn by building real things. I'm passionate about systems, software, and the idea that students shouldn't have to wait for permission to start creating. My goal is to help grow CWP into a community where curiosity turns into real work, collaboration, and impact.",
+    bio: "Hi! I'm Manit Mishra, Director of Code With Purpose India. I focus on leading our initiatives across India, building technical programs, and creating opportunities for students to learn by building real things. I'm passionate about systems, software, and the idea that students shouldn't have to wait for permission to start creating. My goal is to help grow Code With Purpose into a community where curiosity turns into real work, collaboration, and impact.",
   },
 ];
 
