@@ -77,7 +77,7 @@ export const GITHUB_STATS_SYNC_PATH = "/api/github-stats/";
 
 export const CONTACT_EMAIL = "team@codewithpurpose.org";
 export const CONTACT_EMAIL_HREF = `mailto:${CONTACT_EMAIL}`;
-export const DISCORD_HREF = "https://discord.gg/W948bWbCAK";
+export const DISCORD_HREF = "https://discord.gg/8xqYFPD5fk";
 export const INSTAGRAM_HREF = "https://www.instagram.com/codewpurpose/";
 export const X_HREF = "https://x.com/codewpurpose";
 /**
