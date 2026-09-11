@@ -229,6 +229,7 @@ const teamMembers: TeamMember[] = [
     photo: images.team.manit,
     linkedin: "https://www.linkedin.com/in/manit-mishra-39363a309/",
     instagram: "https://www.instagram.com/manit.polyy/",
+    bio: "Hi! I'm Manit Mishra, Director of Code With Purpose India. I focus on leading our initiatives across India, building technical programs, and creating opportunities for students to learn by building real things. I'm passionate about systems, software, and the idea that students shouldn't have to wait for permission to start creating. My goal is to help grow CWP into a community where curiosity turns into real work, collaboration, and impact.",
   },
 ];
 
