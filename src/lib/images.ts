@@ -24,7 +24,6 @@ export const images = {
     ashwika: "/team-ashwika.jpg",
     hannah: "/team-hannah.jpeg",
     vetri: "/team-vetri.png",
-    tvisha: "/team-tvisha.png",
     vihaana: "/team-vihaana.png",
     mithra: "/team-mithra.jpeg",
     nehha: "/Nehha-team.jpeg",
