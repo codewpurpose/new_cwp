@@ -201,7 +201,8 @@ needs only Clerk (already set up) plus one more table and one more key.
    `read:user`. This is **one token for the whole app**, not per-student OAuth
    — every lookup goes through the server, and it only ever reads a username's
    public profile (plus their private-contribution count, if their GitHub
-   profile settings expose it).
+   profile settings expose it). The same server-side token powers the README
+   activity card at `/api/github-stats/embed.svg?username=<github-username>`.
 
    ```
    GITHUB_TOKEN=ghp_...
@@ -220,6 +221,8 @@ needs only Clerk (already set up) plus one more table and one more key.
 3. **Verify.** Sign in, open `/leaderboard/commits`, enter a real GitHub
    username, and click **Link**. Check **Table editor → github_stats** — a row
    keyed on your Clerk id should appear with a real `public_commits` count.
+   After deployment, open the embed URL in a browser and confirm it returns an
+   SVG before pasting the generated Markdown into a profile README.
 
 Same trust model as `profiles`/`xp`: nothing in the request body becomes a
 number in the table. `/api/github-stats` reads a username off the request,

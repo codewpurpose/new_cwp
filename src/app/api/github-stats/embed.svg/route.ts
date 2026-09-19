@@ -1,16 +1,22 @@
 import { fetchGithubContributionDays, isGithubStatsConfigured, isValidGithubUsername } from "@/lib/github/stats";
 import { renderGithubReadmeEmbed } from "@/lib/github/readme-embed";
+import { checkGithubLookupRateLimit } from "@/lib/github/rate-limit";
 
 const SUCCESS_CACHE_CONTROL = "public, max-age=3600, s-maxage=3600, stale-while-revalidate=86400";
 
-function errorResponse(message: string, status: number): Response {
+function errorResponse(message: string, status: number, retryAfterMs?: number): Response {
+  const headers = new Headers({
+    "Cache-Control": "no-store",
+    "Content-Type": "text/plain; charset=utf-8",
+    "X-Content-Type-Options": "nosniff",
+  });
+  if (retryAfterMs !== undefined) {
+    headers.set("Retry-After", String(Math.ceil(retryAfterMs / 1000)));
+  }
+
   return new Response(message, {
     status,
-    headers: {
-      "Cache-Control": "no-store",
-      "Content-Type": "text/plain; charset=utf-8",
-      "X-Content-Type-Options": "nosniff",
-    },
+    headers,
   });
 }
 
@@ -22,6 +28,11 @@ export async function GET(request: Request): Promise<Response> {
   }
   if (!isGithubStatsConfigured) {
     return errorResponse("GitHub stats are not configured on this deployment.", 503);
+  }
+
+  const rateLimit = checkGithubLookupRateLimit(request);
+  if (rateLimit.limited) {
+    return errorResponse("That's a few too many lookups. Give it an hour.", 429, rateLimit.retryAfterMs);
   }
 
   const result = await fetchGithubContributionDays(username);

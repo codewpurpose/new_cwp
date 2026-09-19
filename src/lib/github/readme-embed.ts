@@ -10,7 +10,7 @@ const CELL_GAP = 4;
 const GRID_X = 28;
 const GRID_Y = 54;
 const DAY_MS = 24 * 60 * 60 * 1000;
-const LEVEL_COLOURS = ["#f5ebdb", "#dbefdb", "#6d9b7f", "#3e7f5c", "#1e3c2c"];
+const LEVEL_COLORS = ["#f5ebdb", "#dbefdb", "#6d9b7f", "#3e7f5c", "#1e3c2c"];
 
 function escapeXml(value: string): string {
   return value
@@ -47,7 +47,7 @@ export function renderGithubReadmeEmbed(username: string, days: ContributionDay[
       const row = (firstDayOfWeek + offset) % 7;
       const x = GRID_X + column * (CELL_SIZE + CELL_GAP);
       const y = GRID_Y + row * (CELL_SIZE + CELL_GAP);
-      return `<rect x="${x}" y="${y}" width="${CELL_SIZE}" height="${CELL_SIZE}" rx="3" fill="${LEVEL_COLOURS[levelFor(day.count, maximum)]}"/>`;
+      return `<rect x="${x}" y="${y}" width="${CELL_SIZE}" height="${CELL_SIZE}" rx="3" fill="${LEVEL_COLORS[levelFor(day.count, maximum)]}"/>`;
     })
     .join("");
 
@@ -61,7 +61,7 @@ export function renderGithubReadmeEmbed(username: string, days: ContributionDay[
   <g aria-hidden="true">${cells}</g>
   <text x="${GRID_X}" y="197" fill="#6b6255" font-family="Arial, Helvetica, sans-serif" font-size="11">Less</text>
   ${[0, 1, 2, 3, 4]
-    .map((level, index) => `<rect x="${GRID_X + 32 + index * 18}" y="188" width="12" height="12" rx="3" fill="${LEVEL_COLOURS[level]}"/>`)
+    .map((level, index) => `<rect x="${GRID_X + 32 + index * 18}" y="188" width="12" height="12" rx="3" fill="${LEVEL_COLORS[level]}"/>`)
     .join("")}
   <text x="${GRID_X + 32 + 5 * 18}" y="197" fill="#6b6255" font-family="Arial, Helvetica, sans-serif" font-size="11">More</text>
   <text x="${CARD_WIDTH - GRID_X}" y="197" text-anchor="end" fill="#6b6255" font-family="Arial, Helvetica, sans-serif" font-size="11">codewithpurpose.org</text>

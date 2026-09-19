@@ -1,38 +1,13 @@
 import { auth } from "@clerk/nextjs/server";
 import { NextResponse } from "next/server";
 import { isClerkConfigured } from "@/lib/clerk";
+import { checkGithubLookupRateLimit } from "@/lib/github/rate-limit";
 import { fetchGithubStats } from "@/lib/github/stats";
 import { isValidGithubUsername } from "@/lib/github/username";
 import { checkSyncGate, upsertGithubStats } from "@/lib/supabase/github-stats";
 
-const LOOKUP_WINDOW_MS = 60 * 60 * 1000;
-const MAX_LOOKUPS_PER_WINDOW = 20;
-const lookupHits = new Map<string, number[]>();
 type GithubStatsFetchResult = Awaited<ReturnType<typeof fetchGithubStats>>;
 type GithubStatsFetchError = Extract<GithubStatsFetchResult, { ok: false }>;
-
-function clientIp(request: Request): string {
-  const forwarded = request.headers.get("x-forwarded-for");
-  return forwarded?.split(",")[0]?.trim() || request.headers.get("x-real-ip") || "unknown";
-}
-
-function lookupRateLimited(ip: string): boolean {
-  const now = Date.now();
-  const recent = (lookupHits.get(ip) ?? []).filter((time) => now - time < LOOKUP_WINDOW_MS);
-  if (recent.length >= MAX_LOOKUPS_PER_WINDOW) {
-    lookupHits.set(ip, recent);
-    return true;
-  }
-  recent.push(now);
-  lookupHits.set(ip, recent);
-
-  if (lookupHits.size > 5000) {
-    for (const [key, times] of lookupHits) {
-      if (times.every((time) => now - time >= LOOKUP_WINDOW_MS)) lookupHits.delete(key);
-    }
-  }
-  return false;
-}
 
 function githubStatsErrorResponse(result: GithubStatsFetchError) {
   switch (result.error.kind) {
@@ -59,8 +34,15 @@ export async function GET(request: Request) {
     return NextResponse.json({ error: "That doesn't look like a GitHub username." }, { status: 400 });
   }
 
-  if (lookupRateLimited(clientIp(request))) {
-    return NextResponse.json({ error: "That's a few too many lookups. Give it an hour." }, { status: 429 });
+  const rateLimit = checkGithubLookupRateLimit(request);
+  if (rateLimit.limited) {
+    return NextResponse.json(
+      { error: "That's a few too many lookups. Give it an hour." },
+      {
+        status: 429,
+        headers: { "Retry-After": String(Math.ceil(rateLimit.retryAfterMs / 1000)) },
+      },
+    );
   }
 
   const result = await fetchGithubStats(username);
