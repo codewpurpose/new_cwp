@@ -74,6 +74,8 @@ export const ACCOUNT_WELCOME_PATH = "/api/account-welcome/";
 
 /** Links or resyncs a student's GitHub username on the commits leaderboard. Same slash rule. */
 export const GITHUB_STATS_SYNC_PATH = "/api/github-stats/";
+/** Public SVG contribution card for GitHub profile README embeds. */
+export const GITHUB_STATS_EMBED_PATH = "/api/github-stats/embed.svg";
 
 export const CONTACT_EMAIL = "team@codewithpurpose.org";
 export const CONTACT_EMAIL_HREF = `mailto:${CONTACT_EMAIL}`;
