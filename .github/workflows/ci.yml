@@ -10,6 +10,9 @@ on:
 
 jobs:
   quality:
+    # Keep this check name as "quality". Branch protection requires this exact
+    # GitHub Actions check context; the "CI / quality" label is only the UI grouping.
+    name: quality
     runs-on: ubuntu-latest
     timeout-minutes: 15
 
