@@ -9,8 +9,17 @@ begin;
 create table if not exists public.github_lookup_rate_limits (
   ip                 text primary key check (length(ip) between 1 and 255),
   window_started_at  timestamptz not null,
-  request_count      integer not null check (request_count between 1 and 20)
+  -- 21 is retained as the sentinel for the first rejected request. The route
+  -- allows 20 requests and rejects the 21st without losing that state.
+  request_count      integer not null check (request_count between 1 and 21)
 );
+
+-- Keep this migration safe to rerun after the original 1..20 version shipped.
+alter table public.github_lookup_rate_limits
+  drop constraint if exists github_lookup_rate_limits_request_count_check;
+alter table public.github_lookup_rate_limits
+  add constraint github_lookup_rate_limits_request_count_check
+  check (request_count between 1 and 21);
 
 create index if not exists github_lookup_rate_limits_window_idx
   on public.github_lookup_rate_limits (window_started_at);
@@ -22,7 +31,7 @@ create or replace function public.check_github_lookup_rate_limit(p_ip text)
 returns table (allowed boolean, retry_after_seconds integer)
 language plpgsql
 security definer
-set search_path = public
+set search_path = public, pg_temp
 as $$
 declare
   v_now timestamptz := clock_timestamp();
@@ -45,18 +54,16 @@ begin
     request_count = case
       when public.github_lookup_rate_limits.window_started_at <= v_now - interval '1 hour'
         then 1
-      when public.github_lookup_rate_limits.request_count < 20
+      when public.github_lookup_rate_limits.request_count < 21
         then public.github_lookup_rate_limits.request_count + 1
       else public.github_lookup_rate_limits.request_count
     end
   returning github_lookup_rate_limits.window_started_at, github_lookup_rate_limits.request_count
   into v_window_started_at, v_request_count;
 
-  -- Keep abandoned IP keys from growing forever without requiring a cron job.
-  delete from public.github_lookup_rate_limits
-  where window_started_at < v_now - interval '24 hours'
-    and ip <> p_ip;
-
+  -- The 21st request is the first rejected request. Keeping that sentinel in
+  -- the row makes later requests return the same decision without incrementing
+  -- unboundedly.
   allowed := v_request_count <= 20;
   retry_after_seconds := case
     when allowed then 0
@@ -68,5 +75,32 @@ $$;
 
 revoke all on function public.check_github_lookup_rate_limit(text) from public, anon, authenticated;
 grant execute on function public.check_github_lookup_rate_limit(text) to service_role;
+
+-- Run this separately from the request path (for example with Supabase
+-- pg_cron) so cleanup cannot deadlock with concurrent per-IP upserts. SKIP
+-- LOCKED lets it yield cleanly when a hot row is being checked.
+create or replace function public.cleanup_github_lookup_rate_limits()
+returns integer
+language plpgsql
+security definer
+set search_path = public, pg_temp
+as $$
+declare
+  v_deleted integer;
+begin
+  delete from public.github_lookup_rate_limits
+  where ctid in (
+    select ctid
+    from public.github_lookup_rate_limits
+    where window_started_at < clock_timestamp() - interval '24 hours'
+    for update skip locked
+  );
+  get diagnostics v_deleted = row_count;
+  return v_deleted;
+end;
+$$;
+
+revoke all on function public.cleanup_github_lookup_rate_limits() from public, anon, authenticated;
+grant execute on function public.cleanup_github_lookup_rate_limits() to service_role;
 
 commit;

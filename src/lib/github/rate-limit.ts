@@ -2,8 +2,9 @@ import { getSupabaseAdmin, isSupabaseServerConfigured } from "@/lib/supabase/ser
 
 const LOOKUP_WINDOW_MS = 60 * 60 * 1000;
 const MAX_LOOKUPS_PER_WINDOW = 20;
+const DISTRIBUTED_RETRY_COOLDOWN_MS = 30 * 1000;
 const lookupHits = new Map<string, number[]>();
-let distributedRateLimitUnavailable = false;
+let distributedRateLimitRetryAt = 0;
 
 export interface GithubLookupRateLimit {
   limited: boolean;
@@ -58,19 +59,20 @@ function isDistributedDecision(value: unknown): value is { allowed: boolean; ret
 export async function checkGithubLookupRateLimit(request: Request): Promise<GithubLookupRateLimit> {
   const ip = clientIp(request);
 
-  if (isSupabaseServerConfigured && !distributedRateLimitUnavailable) {
+  if (isSupabaseServerConfigured && Date.now() >= distributedRateLimitRetryAt) {
     const supabase = getSupabaseAdmin();
     if (supabase) {
       const { data, error } = await supabase.rpc("check_github_lookup_rate_limit", { p_ip: ip });
       const decision = Array.isArray(data) ? data[0] : data;
       if (!error && isDistributedDecision(decision)) {
+        distributedRateLimitRetryAt = 0;
         return {
           limited: !decision.allowed,
           retryAfterMs: Math.max(0, decision.retry_after_seconds * 1000),
         };
       }
       if (error) {
-        distributedRateLimitUnavailable = true;
+        distributedRateLimitRetryAt = Date.now() + DISTRIBUTED_RETRY_COOLDOWN_MS;
         console.error("[cwp] github rate limiter unavailable; using local fallback:", error.message);
       }
     }

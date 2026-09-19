@@ -198,7 +198,8 @@ more key.
    [`supabase/github-rate-limit.sql`](../supabase/github-rate-limit.sql),
    **after** `schema.sql` — the first references `profiles`, and the second
    gives public GitHub lookups one atomic rate-limit budget across all app
-   instances.
+   instances. Schedule `cleanup_github_lookup_rate_limits()` daily with
+   Supabase pg_cron, or run it manually during routine maintenance.
 
 2. **Get a GitHub token.** github.com → **Settings → Developer settings →
    Personal access tokens → Tokens (classic) → Generate new token**. Scope:
