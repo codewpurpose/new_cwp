@@ -285,7 +285,7 @@ export default function AboutPage() {
       <PageSection className="border-t-[0.5px] border-[var(--home-hairline)]">
         <h2 className="home-serif text-[1.75rem] md:text-[2.25rem]">Our Team</h2>
         <p className="mt-3 max-w-2xl text-[var(--home-ink-soft)]">
-          Made by students, for students. Shreyan, Samanyu, Bruhatt, Nehha Ramesh, and
+          Made by students, for students. Shreyan, Samanyu, Bruhatt, and
           volunteers around the world building a more inclusive future.
         </p>
         {/* flex-wrap rather than a grid, so a partial final row centres itself.
