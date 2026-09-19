@@ -1,6 +1,9 @@
+import { getSupabaseAdmin, isSupabaseServerConfigured } from "@/lib/supabase/server";
+
 const LOOKUP_WINDOW_MS = 60 * 60 * 1000;
 const MAX_LOOKUPS_PER_WINDOW = 20;
 const lookupHits = new Map<string, number[]>();
+let distributedRateLimitUnavailable = false;
 
 export interface GithubLookupRateLimit {
   limited: boolean;
@@ -12,16 +15,8 @@ function clientIp(request: Request): string {
   return forwarded?.split(",")[0]?.trim() || request.headers.get("x-real-ip") || "unknown";
 }
 
-/**
- * Best-effort per-instance protection for unauthenticated GitHub lookups.
- *
- * The CDN should cache successful embeds, but the origin still needs a guard
- * for cache misses and GitHub errors. A shared store can replace this map if
- * the app moves to multiple long-lived instances.
- */
-export function checkGithubLookupRateLimit(request: Request): GithubLookupRateLimit {
+function localRateLimit(ip: string): GithubLookupRateLimit {
   const now = Date.now();
-  const ip = clientIp(request);
   const recent = (lookupHits.get(ip) ?? []).filter((time) => now - time < LOOKUP_WINDOW_MS);
 
   if (recent.length >= MAX_LOOKUPS_PER_WINDOW) {
@@ -43,4 +38,43 @@ export function checkGithubLookupRateLimit(request: Request): GithubLookupRateLi
   }
 
   return { limited: false, retryAfterMs: 0 };
+}
+
+function isDistributedDecision(value: unknown): value is { allowed: boolean; retry_after_seconds: number } {
+  if (!value || typeof value !== "object") return false;
+  const decision = value as Record<string, unknown>;
+  return typeof decision.allowed === "boolean" && typeof decision.retry_after_seconds === "number";
+}
+
+/**
+ * Distributed protection for unauthenticated GitHub lookups, with a local
+ * fallback while the Supabase function is unavailable or not yet installed.
+ *
+ * The CDN should cache successful embeds, but the origin still needs a guard
+ * for cache misses and GitHub errors. The Supabase function performs the
+ * increment atomically, so multiple app instances share the same one-hour
+ * budget. Run supabase/github-rate-limit.sql to enable that path.
+ */
+export async function checkGithubLookupRateLimit(request: Request): Promise<GithubLookupRateLimit> {
+  const ip = clientIp(request);
+
+  if (isSupabaseServerConfigured && !distributedRateLimitUnavailable) {
+    const supabase = getSupabaseAdmin();
+    if (supabase) {
+      const { data, error } = await supabase.rpc("check_github_lookup_rate_limit", { p_ip: ip });
+      const decision = Array.isArray(data) ? data[0] : data;
+      if (!error && isDistributedDecision(decision)) {
+        return {
+          limited: !decision.allowed,
+          retryAfterMs: Math.max(0, decision.retry_after_seconds * 1000),
+        };
+      }
+      if (error) {
+        distributedRateLimitUnavailable = true;
+        console.error("[cwp] github rate limiter unavailable; using local fallback:", error.message);
+      }
+    }
+  }
+
+  return localRateLimit(ip);
 }

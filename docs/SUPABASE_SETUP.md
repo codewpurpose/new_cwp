@@ -190,11 +190,15 @@ A second, optional leaderboard: signed-in students link a GitHub username, and
 `/leaderboard/commits` ranks them by real lifetime total commits (public commits
 plus private contributions) instead of
 lesson XP. Independent of the newsletter and welcome-email pieces above —
-needs only Clerk (already set up) plus one more table and one more key.
+needs only Clerk (already set up) plus two small server-side tables and one
+more key.
 
-1. **Create the table.** SQL Editor → run
-   [`supabase/github-stats.sql`](../supabase/github-stats.sql), **after**
-   `schema.sql` — it references `profiles`.
+1. **Create the tables.** SQL Editor → run
+   [`supabase/github-stats.sql`](../supabase/github-stats.sql), then
+   [`supabase/github-rate-limit.sql`](../supabase/github-rate-limit.sql),
+   **after** `schema.sql` — the first references `profiles`, and the second
+   gives public GitHub lookups one atomic rate-limit budget across all app
+   instances.
 
 2. **Get a GitHub token.** github.com → **Settings → Developer settings →
    Personal access tokens → Tokens (classic) → Generate new token**. Scope:

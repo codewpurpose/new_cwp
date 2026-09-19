@@ -30,7 +30,7 @@ export async function GET(request: Request): Promise<Response> {
     return errorResponse("GitHub stats are not configured on this deployment.", 503);
   }
 
-  const rateLimit = checkGithubLookupRateLimit(request);
+  const rateLimit = await checkGithubLookupRateLimit(request);
   if (rateLimit.limited) {
     return errorResponse("That's a few too many lookups. Give it an hour.", 429, rateLimit.retryAfterMs);
   }

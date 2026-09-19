@@ -34,7 +34,7 @@ export async function GET(request: Request) {
     return NextResponse.json({ error: "That doesn't look like a GitHub username." }, { status: 400 });
   }
 
-  const rateLimit = checkGithubLookupRateLimit(request);
+  const rateLimit = await checkGithubLookupRateLimit(request);
   if (rateLimit.limited) {
     return NextResponse.json(
       { error: "That's a few too many lookups. Give it an hour." },
