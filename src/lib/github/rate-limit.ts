@@ -83,7 +83,7 @@ export async function checkGithubLookupRateLimit(request: Request): Promise<Gith
         };
       }
       const now = Date.now();
-      if (distributedRateLimitRetryAt <= now) {
+      if (distributedRateLimitRetryAt === 0) {
         console.error(
           "[cwp] github rate limiter unavailable; using local fallback:",
           error?.message ?? "Supabase returned an invalid rate-limit response",
