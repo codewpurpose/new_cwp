@@ -103,4 +103,31 @@ $$;
 revoke all on function public.cleanup_github_lookup_rate_limits() from public, anon, authenticated;
 grant execute on function public.cleanup_github_lookup_rate_limits() to service_role;
 
+-- Supabase projects that have pg_cron enabled get maintenance automatically.
+-- Dynamic SQL keeps this migration safe on projects where the extension is not
+-- installed; the application still has its bounded local fallback there.
+do $$
+declare
+  v_job_id bigint;
+begin
+  if exists (select 1 from pg_extension where extname = 'pg_cron')
+    and to_regclass('cron.job') is not null then
+    for v_job_id in execute $schedule$
+      select jobid
+      from cron.job
+      where jobname = 'cwp-github-rate-limit-cleanup'
+    $schedule$ loop
+      perform cron.unschedule(v_job_id);
+    end loop;
+    execute $schedule$
+      select cron.schedule(
+        'cwp-github-rate-limit-cleanup',
+        '0 * * * *',
+        'select public.cleanup_github_lookup_rate_limits();'
+      )
+    $schedule$ into v_job_id;
+  end if;
+end;
+$$;
+
 commit;

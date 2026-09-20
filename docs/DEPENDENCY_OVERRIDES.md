@@ -5,6 +5,8 @@ Excalidraw whiteboard:
 
 - `lodash-es` is pinned to `4.18.1`, the first release outside the vulnerable
   `4.17.x` range reported by `npm audit`.
+- Excalidraw declares `nanoid@3.3.3`, which is below the patched `3.3.16`
+  floor, so its nested copy is pinned to `nanoid@3.3.18`.
 - Excalidraw's Mermaid adapter declares `nanoid@4.0.2`, but that version has no
   patched release. It is overridden to `nanoid@5.1.16`, which contains the
   security fixes while preserving the adapter's `nanoid` API surface.

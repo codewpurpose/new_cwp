@@ -2,6 +2,7 @@ import { getSupabaseAdmin, isSupabaseServerConfigured } from "@/lib/supabase/ser
 
 const LOOKUP_WINDOW_MS = 60 * 60 * 1000;
 const MAX_LOOKUPS_PER_WINDOW = 20;
+const MAX_LOCAL_KEYS = 5000;
 const DISTRIBUTED_RETRY_COOLDOWN_MS = 30 * 1000;
 const lookupHits = new Map<string, number[]>();
 let distributedRateLimitRetryAt = 0;
@@ -18,7 +19,17 @@ function clientIp(request: Request): string {
 
 function localRateLimit(ip: string): GithubLookupRateLimit {
   const now = Date.now();
-  const recent = (lookupHits.get(ip) ?? []).filter((time) => now - time < LOOKUP_WINDOW_MS);
+  const existing = lookupHits.get(ip);
+  const recent = (existing ?? []).filter((time) => now - time < LOOKUP_WINDOW_MS);
+
+  if (!existing && lookupHits.size >= MAX_LOCAL_KEYS) {
+    for (const [key, times] of lookupHits) {
+      if (times.every((time) => now - time >= LOOKUP_WINDOW_MS)) lookupHits.delete(key);
+    }
+    if (lookupHits.size >= MAX_LOCAL_KEYS) {
+      return { limited: true, retryAfterMs: LOOKUP_WINDOW_MS };
+    }
+  }
 
   if (recent.length >= MAX_LOOKUPS_PER_WINDOW) {
     lookupHits.set(ip, recent);
@@ -32,7 +43,7 @@ function localRateLimit(ip: string): GithubLookupRateLimit {
   recent.push(now);
   lookupHits.set(ip, recent);
 
-  if (lookupHits.size > 5000) {
+  if (lookupHits.size > MAX_LOCAL_KEYS) {
     for (const [key, times] of lookupHits) {
       if (times.every((time) => now - time >= LOOKUP_WINDOW_MS)) lookupHits.delete(key);
     }
@@ -71,10 +82,14 @@ export async function checkGithubLookupRateLimit(request: Request): Promise<Gith
           retryAfterMs: Math.max(0, decision.retry_after_seconds * 1000),
         };
       }
-      if (error) {
-        distributedRateLimitRetryAt = Date.now() + DISTRIBUTED_RETRY_COOLDOWN_MS;
-        console.error("[cwp] github rate limiter unavailable; using local fallback:", error.message);
+      const now = Date.now();
+      if (distributedRateLimitRetryAt <= now) {
+        console.error(
+          "[cwp] github rate limiter unavailable; using local fallback:",
+          error?.message ?? "Supabase returned an invalid rate-limit response",
+        );
       }
+      distributedRateLimitRetryAt = now + DISTRIBUTED_RETRY_COOLDOWN_MS;
     }
   }
 
