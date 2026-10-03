@@ -1,11 +1,12 @@
-# Homepage design
+# Website design
 
 ## Design System
 
-Read DESIGN.md before changing the marketing homepage's visual design.
-The documented system applies to the homepage only. Other routes, especially the
-learning readers, retain their existing design tokens and typography.
+Read DESIGN.md before changing the site's visual design.
+The documented palette and typography apply across routes, including the
+learning platform. Learning readers retain their specialised chart, code, and
+lesson components.
 
-The homepage's font choices, colour roles, spacing and motion behaviour are
-recorded there. Preserve the approved cartoon direction when making routine
-changes. In QA, flag differences between the homepage and DESIGN.md.
+The site's font choices, colour roles, spacing and motion behaviour are recorded
+there. Preserve the warm, playful direction while keeping information and
+navigation clear. In QA, flag differences between pages and DESIGN.md.

@@ -1,5 +1,5 @@
 import { clerkMiddleware } from "@clerk/nextjs/server";
-import { NextResponse } from "next/server";
+import { NextResponse, type NextFetchEvent, type NextRequest } from "next/server";
 
 /**
  * Attaches the Clerk session to every request. It no longer gates anything.
@@ -29,9 +29,44 @@ import { NextResponse } from "next/server";
  * Next 16 renamed the `middleware` file convention to `proxy`; Clerk still ships
  * `clerkMiddleware()`, which is just a request handler, so it drops straight in.
  */
-export const proxy = process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY
+const clerkProxy = process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY
   ? clerkMiddleware()
-  : () => NextResponse.next();
+  : undefined;
+
+/**
+ * Keep the site's trailing-slash URLs canonical without letting legacy index
+ * links pay for two redirects. Next config redirects run before this proxy, so
+ * the explicit aliases here cover the unslashed requests that reach this file.
+ */
+export function proxy(request: NextRequest, event: NextFetchEvent) {
+  const { pathname } = request.nextUrl;
+  const destination = pathname === "/learn"
+    ? "/courses/"
+    : pathname === "/blog"
+      ? "/impact/"
+      : null;
+
+  if (destination) {
+    const destinationUrl = request.nextUrl.clone();
+    destinationUrl.pathname = destination;
+    return NextResponse.redirect(destinationUrl, 308);
+  }
+
+  const isApiRequest =
+    pathname === "/api" ||
+    pathname.startsWith("/api/") ||
+    pathname === "/trpc" ||
+    pathname.startsWith("/trpc/");
+  const lastSegment = pathname.slice(pathname.lastIndexOf("/") + 1);
+  if (!isApiRequest && pathname !== "/" && !pathname.endsWith("/") && !lastSegment.includes(".")) {
+    return NextResponse.redirect(
+      new URL(`${request.nextUrl.pathname}/`, request.nextUrl),
+      308,
+    );
+  }
+
+  return clerkProxy ? clerkProxy(request, event) : NextResponse.next();
+}
 
 export const config = {
   matcher: [

@@ -4,7 +4,8 @@ import { motion } from "motion/react";
 import type { ReactNode } from "react";
 
 /**
- * Fades a block in as it scrolls into view.
+ * Adds a quiet entrance as a block scrolls into view. Content starts fully
+ * readable so it stays usable if client animation never starts.
  *
  * There is deliberately no `useReducedMotion()` branch here. That hook reads a
  * media query, so it returns false during SSR and true on a reader's machine
@@ -30,10 +31,10 @@ export function Reveal({
   return (
     <motion.div
       className={className}
-      initial={{ opacity: 0, y: 18 }}
+      initial={{ opacity: 1, y: 8 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: "-60px" }}
-      transition={{ duration: 0.7, delay, ease: [0.22, 1, 0.36, 1] }}
+      transition={{ duration: 0.42, delay: Math.min(delay, 0.12), ease: [0.22, 1, 0.36, 1] }}
     >
       {children}
     </motion.div>

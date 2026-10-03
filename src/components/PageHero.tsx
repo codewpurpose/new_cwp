@@ -1,4 +1,5 @@
 import type { ReactNode } from "react";
+import Image from "next/image";
 import { Reveal } from "@/components/Reveal";
 
 export function PageHero({
@@ -40,18 +41,18 @@ export function PageHero({
                 aria-hidden="true"
                 className="absolute -inset-2.5 rotate-[1.4deg] rounded-[24px] border-[0.5px] border-[#cde4cd] bg-[#dbefdb]/60"
               />
-              <div className="home-card relative overflow-hidden rounded-[20px]">
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img
+              <div className="home-card relative aspect-[4/3] w-full overflow-hidden rounded-[20px]">
+                <Image
                   src={image}
                   alt={imageAlt ?? ""}
                   // The hero art is the largest thing above the fold on every
                   // page that has one, so it is almost always the LCP element.
                   // Left at default priority it queues behind the fonts and the
                   // rest of the head; deliberately NOT lazy for the same reason.
-                  fetchPriority="high"
-                  decoding="async"
-                  className="aspect-[4/3] w-full object-cover"
+                  fill
+                  sizes="(max-width: 1023px) 100vw, 50vw"
+                  priority
+                  className="object-cover"
                 />
               </div>
             </div>
