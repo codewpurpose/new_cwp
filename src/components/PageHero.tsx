@@ -50,7 +50,7 @@ export function PageHero({
                   // Left at default priority it queues behind the fonts and the
                   // rest of the head; deliberately NOT lazy for the same reason.
                   fill
-                  sizes="(max-width: 1023px) 100vw, 50vw"
+                  sizes="(max-width: 767px) calc(100vw - 40px), (max-width: 1023px) calc(100vw - 80px), (max-width: 1359px) calc(50vw - 60px), 620px"
                   priority
                   className="object-cover"
                 />

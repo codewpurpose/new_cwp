@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { AnimatePresence, motion } from "motion/react";
+import { AnimatePresence, motion, useIsPresent } from "motion/react";
 import { UserButton, useUser } from "@clerk/nextjs";
 import { CwpLogo } from "@/components/icons";
 import { isClerkConfigured } from "@/lib/clerk";
@@ -45,6 +45,46 @@ const GLASS_STYLE = {
     "linear-gradient(rgba(206,206,206,0.3),rgba(206,206,206,0.3)), rgba(255,255,255,0.85)",
   border: "0.5px solid rgba(206,206,206,0.22)",
 };
+
+function MobileMenu({ onClose }: { onClose: () => void }) {
+  const isPresent = useIsPresent();
+
+  return (
+    <motion.nav
+      id="home-mobile-menu"
+      aria-label="Primary"
+      aria-hidden={!isPresent}
+      inert={!isPresent}
+      initial={{ opacity: 0, y: -8, scale: 0.99 }}
+      animate={{ opacity: 1, y: 0, scale: 1 }}
+      exit={{ opacity: 0, y: -6, scale: 0.99, pointerEvents: "none" }}
+      transition={{ duration: 0.18, ease: "easeOut" }}
+      className="absolute inset-x-0 top-full mx-4 flex origin-top flex-col rounded-xl p-2 backdrop-blur-[10px] sm:mx-5 md:mx-10 min-[1200px]:hidden"
+      style={GLASS_STYLE}
+    >
+      {NAV_LINKS.map((link) => (
+        <a
+          key={link.href}
+          href={link.href}
+          onClick={onClose}
+          className={`rounded-lg px-3 py-3.5 text-[1rem] ${link.label === "Courses" ? "learn-nav-item" : ""}`}
+        >
+          {link.label}
+        </a>
+      ))}
+      <div className="mt-2 flex justify-center">
+        <AuthAction onNavigate={onClose} />
+      </div>
+      <a
+        href={JOIN_HREF}
+        onClick={onClose}
+        className="mt-1 rounded-lg border-t-[0.5px] border-[var(--home-hairline)] px-3 py-3.5 text-[1rem]"
+      >
+        Volunteer
+      </a>
+    </motion.nav>
+  );
+}
 
 function LogoLink() {
   return (
@@ -147,37 +187,7 @@ export function SiteHeader() {
       </div>
       <AnimatePresence initial={false}>
         {menuOpen && (
-          <motion.nav
-            id="home-mobile-menu"
-            aria-label="Primary"
-            initial={{ opacity: 0, y: -8, scale: 0.99 }}
-            animate={{ opacity: 1, y: 0, scale: 1 }}
-            exit={{ opacity: 0, y: -6, scale: 0.99 }}
-            transition={{ duration: 0.18, ease: "easeOut" }}
-            className="absolute inset-x-0 top-full mx-4 flex origin-top flex-col rounded-xl p-2 backdrop-blur-[10px] sm:mx-5 md:mx-10 min-[1200px]:hidden"
-            style={GLASS_STYLE}
-          >
-            {NAV_LINKS.map((link) => (
-              <a
-                key={link.href}
-                href={link.href}
-                onClick={() => setMenuOpen(false)}
-                className={`rounded-lg px-3 py-3.5 text-[1rem] ${link.label === "Courses" ? "learn-nav-item" : ""}`}
-              >
-                {link.label}
-              </a>
-            ))}
-            <div className="mt-2 flex justify-center">
-              <AuthAction onNavigate={() => setMenuOpen(false)} />
-            </div>
-            <a
-              href={JOIN_HREF}
-              onClick={() => setMenuOpen(false)}
-              className="mt-1 rounded-lg border-t-[0.5px] border-[var(--home-hairline)] px-3 py-3.5 text-[1rem]"
-            >
-              Volunteer
-            </a>
-          </motion.nav>
+          <MobileMenu onClose={() => setMenuOpen(false)} />
         )}
       </AnimatePresence>
       </header>

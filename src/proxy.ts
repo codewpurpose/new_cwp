@@ -34,35 +34,18 @@ const clerkProxy = process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY
   : undefined;
 
 /**
- * Keep the site's trailing-slash URLs canonical without letting legacy index
- * links pay for two redirects. Next config redirects run before this proxy, so
- * the explicit aliases here cover the unslashed requests that reach this file.
+ * Keep the site's trailing-slash URLs canonical. Legacy index aliases live in
+ * next.config.ts, whose redirects run before this proxy.
  */
 export function proxy(request: NextRequest, event: NextFetchEvent) {
   const { pathname } = request.nextUrl;
-  const destination = pathname === "/learn"
-    ? "/courses/"
-    : pathname === "/blog"
-      ? "/impact/"
-      : null;
-
-  if (destination) {
-    const destinationUrl = request.nextUrl.clone();
-    destinationUrl.pathname = destination;
-    return NextResponse.redirect(destinationUrl, 308);
-  }
-
-  const isApiRequest =
-    pathname === "/api" ||
-    pathname.startsWith("/api/") ||
-    pathname === "/trpc" ||
-    pathname.startsWith("/trpc/");
   const lastSegment = pathname.slice(pathname.lastIndexOf("/") + 1);
-  if (!isApiRequest && pathname !== "/" && !pathname.endsWith("/") && !lastSegment.includes(".")) {
-    return NextResponse.redirect(
-      new URL(`${request.nextUrl.pathname}/`, request.nextUrl),
-      308,
-    );
+  if (pathname !== "/" && !pathname.endsWith("/") && !lastSegment.includes(".")) {
+    // A standard URL clone keeps the requested search and lets the explicit
+    // trailing slash survive NextURL's source-path normalization.
+    const destinationUrl = new URL(request.url);
+    destinationUrl.pathname = `${pathname}/`;
+    return NextResponse.redirect(destinationUrl, 308);
   }
 
   return clerkProxy ? clerkProxy(request, event) : NextResponse.next();

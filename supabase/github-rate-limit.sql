@@ -8,11 +8,27 @@ begin;
 
 create table if not exists public.github_lookup_rate_limits (
   ip                 text primary key check (length(ip) between 1 and 255),
+  scope              text not null default 'lookup',
   window_started_at  timestamptz not null,
   -- 21 is retained as the sentinel for the first rejected request. The route
   -- allows 20 requests and rejects the 21st without losing that state.
   request_count      integer not null check (request_count between 1 and 21)
 );
+
+-- Keep embed traffic in its own budget so shared README viewers cannot starve
+-- interactive leaderboard lookups. This also upgrades the original ip-only
+-- primary key without discarding active counters.
+alter table public.github_lookup_rate_limits
+  add column if not exists scope text not null default 'lookup';
+alter table public.github_lookup_rate_limits
+  drop constraint if exists github_lookup_rate_limits_pkey;
+alter table public.github_lookup_rate_limits
+  add constraint github_lookup_rate_limits_pkey primary key (scope, ip);
+alter table public.github_lookup_rate_limits
+  drop constraint if exists github_lookup_rate_limits_scope_check;
+alter table public.github_lookup_rate_limits
+  add constraint github_lookup_rate_limits_scope_check
+  check (scope in ('lookup', 'embed'));
 
 -- Keep this migration safe to rerun after the original 1..20 version shipped.
 alter table public.github_lookup_rate_limits
@@ -27,7 +43,9 @@ create index if not exists github_lookup_rate_limits_window_idx
 alter table public.github_lookup_rate_limits enable row level security;
 revoke all on public.github_lookup_rate_limits from public, anon, authenticated;
 
-create or replace function public.check_github_lookup_rate_limit(p_ip text)
+drop function if exists public.check_github_lookup_rate_limit(text);
+
+create or replace function public.check_github_lookup_rate_limit(p_ip text, p_scope text)
 returns table (allowed boolean, retry_after_seconds integer)
 language plpgsql
 security definer
@@ -38,13 +56,26 @@ declare
   v_window_started_at timestamptz;
   v_request_count integer;
 begin
-  if length(trim(p_ip)) = 0 or length(p_ip) > 255 then
+  if length(trim(p_ip)) = 0 or length(p_ip) > 255 or p_scope is null or p_scope not in ('lookup', 'embed') then
     raise exception 'invalid rate-limit key';
   end if;
 
-  insert into public.github_lookup_rate_limits (ip, window_started_at, request_count)
-  values (p_ip, v_now, 1)
-  on conflict (ip) do update
+  -- Cron is optional on some Supabase plans. Prune expired keys during normal
+  -- traffic as well, with a fixed per-request deletion limit so the fallback
+  -- stays bounded when an older deployment leaves a large backlog.
+  delete from public.github_lookup_rate_limits
+  where ctid in (
+    select ctid
+    from public.github_lookup_rate_limits
+    where window_started_at < v_now - interval '24 hours'
+    order by window_started_at
+    limit 1000
+    for update skip locked
+  );
+
+  insert into public.github_lookup_rate_limits (ip, scope, window_started_at, request_count)
+  values (p_ip, p_scope, v_now, 1)
+  on conflict (scope, ip) do update
   set
     window_started_at = case
       when public.github_lookup_rate_limits.window_started_at <= v_now - interval '1 hour'
@@ -73,12 +104,12 @@ begin
 end;
 $$;
 
-revoke all on function public.check_github_lookup_rate_limit(text) from public, anon, authenticated;
-grant execute on function public.check_github_lookup_rate_limit(text) to service_role;
+revoke all on function public.check_github_lookup_rate_limit(text, text) from public, anon, authenticated;
+grant execute on function public.check_github_lookup_rate_limit(text, text) to service_role;
 
--- Run this separately from the request path (for example with Supabase
--- pg_cron) so cleanup cannot deadlock with concurrent per-IP upserts. SKIP
--- LOCKED lets it yield cleanly when a hot row is being checked.
+-- Background cleanup handles idle deployments. The rate-limit function also
+-- prunes expired rows during requests for projects without pg_cron. SKIP
+-- LOCKED lets cleanup yield when a hot row is being checked.
 create or replace function public.cleanup_github_lookup_rate_limits()
 returns integer
 language plpgsql

@@ -1,7 +1,8 @@
-interface ContributionDay {
-  date: string;
-  count: number;
-}
+import {
+  contributionDateValue,
+  contributionLevel,
+  type ContributionDay,
+} from "@/lib/github/contribution-grid";
 
 const WEEKDAYS = ["", "Mon", "", "Wed", "", "Fri", ""];
 const MONTHS = [
@@ -9,18 +10,14 @@ const MONTHS = [
   "Jul", "Aug", "Sep", "Oct", "Nov", "Dec",
 ];
 
-function dateValue(date: string): Date {
-  return new Date(`${date}T00:00:00Z`);
-}
-
 function calendarWeeks(days: ContributionDay[]): ContributionDay[][] {
   const byDate = new Map(days.map((day) => [day.date, day]));
   const sorted = [...days].sort((a, b) => a.date.localeCompare(b.date));
   if (sorted.length === 0) return [];
 
-  const first = dateValue(sorted[0].date);
+  const first = contributionDateValue(sorted[0].date);
   first.setUTCDate(first.getUTCDate() - first.getUTCDay());
-  const last = dateValue(sorted[sorted.length - 1].date);
+  const last = contributionDateValue(sorted[sorted.length - 1].date);
   const weeks: ContributionDay[][] = [];
 
   for (let cursor = first; cursor <= last; cursor.setUTCDate(cursor.getUTCDate() + 7)) {
@@ -36,16 +33,11 @@ function calendarWeeks(days: ContributionDay[]): ContributionDay[][] {
   return weeks;
 }
 
-function contributionLevel(count: number, maximum: number): number {
-  if (count === 0 || maximum === 0) return 0;
-  return Math.min(4, Math.ceil((count / maximum) * 4));
-}
-
 function contributionMonthLabels(weeks: ContributionDay[][]): (string | null)[] {
   let previousMonth: number | null = null;
 
   return weeks.map((week, index) => {
-    const month = dateValue(week[0].date).getUTCMonth();
+    const month = contributionDateValue(week[0].date).getUTCMonth();
     const label = index === 0 || month !== previousMonth ? MONTHS[month] : null;
     previousMonth = month;
     return label;
@@ -59,13 +51,13 @@ export function GithubContributionCalendar({ days }: { days: ContributionDay[] }
   const maximum = Math.max(...days.map((day) => day.count), 0);
   const total = days.reduce((sum, day) => sum + day.count, 0);
   const latestDate = days.reduce(
-    (latest, day) => (dateValue(day.date) > latest ? dateValue(day.date) : latest),
-    dateValue(days[0].date),
+    (latest, day) => (contributionDateValue(day.date) > latest ? contributionDateValue(day.date) : latest),
+    contributionDateValue(days[0].date),
   );
   const lastWeekStart = new Date(latestDate);
   lastWeekStart.setUTCDate(lastWeekStart.getUTCDate() - 6);
   const lastWeek = days.reduce(
-    (sum, day) => (dateValue(day.date) >= lastWeekStart ? sum + day.count : sum),
+    (sum, day) => (contributionDateValue(day.date) >= lastWeekStart ? sum + day.count : sum),
     0,
   );
   const monthLabels = contributionMonthLabels(weeks);

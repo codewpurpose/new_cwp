@@ -1,4 +1,5 @@
 import { getSupabaseAdmin, isSupabaseServerConfigured } from "@/lib/supabase/server";
+import { githubRateLimitKey } from "@/lib/github/client-ip";
 
 const LOOKUP_WINDOW_MS = 60 * 60 * 1000;
 const MAX_LOOKUPS_PER_WINDOW = 20;
@@ -10,11 +11,6 @@ let distributedRateLimitRetryAt = 0;
 export interface GithubLookupRateLimit {
   limited: boolean;
   retryAfterMs: number;
-}
-
-function clientIp(request: Request): string {
-  const forwarded = request.headers.get("x-forwarded-for");
-  return forwarded?.split(",")[0]?.trim() || request.headers.get("x-real-ip") || "unknown";
 }
 
 function localRateLimit(ip: string): GithubLookupRateLimit {
@@ -43,12 +39,6 @@ function localRateLimit(ip: string): GithubLookupRateLimit {
   recent.push(now);
   lookupHits.set(ip, recent);
 
-  if (lookupHits.size > MAX_LOCAL_KEYS) {
-    for (const [key, times] of lookupHits) {
-      if (times.every((time) => now - time >= LOOKUP_WINDOW_MS)) lookupHits.delete(key);
-    }
-  }
-
   return { limited: false, retryAfterMs: 0 };
 }
 
@@ -67,13 +57,20 @@ function isDistributedDecision(value: unknown): value is { allowed: boolean; ret
  * increment atomically, so multiple app instances share the same one-hour
  * budget. Run supabase/github-rate-limit.sql to enable that path.
  */
-export async function checkGithubLookupRateLimit(request: Request): Promise<GithubLookupRateLimit> {
-  const ip = clientIp(request);
+export async function checkGithubLookupRateLimit(
+  request: Request,
+  scope: "lookup" | "embed" = "lookup",
+): Promise<GithubLookupRateLimit> {
+  const ip = githubRateLimitKey(request.headers, process.env.VERCEL === "1");
+  const localKey = `${scope}:${ip}`;
 
   if (isSupabaseServerConfigured && Date.now() >= distributedRateLimitRetryAt) {
     const supabase = getSupabaseAdmin();
     if (supabase) {
-      const { data, error } = await supabase.rpc("check_github_lookup_rate_limit", { p_ip: ip });
+      const { data, error } = await supabase.rpc("check_github_lookup_rate_limit", {
+        p_ip: ip,
+        p_scope: scope,
+      });
       const decision = Array.isArray(data) ? data[0] : data;
       if (!error && isDistributedDecision(decision)) {
         distributedRateLimitRetryAt = 0;
@@ -93,5 +90,5 @@ export async function checkGithubLookupRateLimit(request: Request): Promise<Gith
     }
   }
 
-  return localRateLimit(ip);
+  return localRateLimit(localKey);
 }

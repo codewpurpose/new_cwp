@@ -197,10 +197,10 @@ more key.
    [`supabase/github-stats.sql`](../supabase/github-stats.sql), then
    [`supabase/github-rate-limit.sql`](../supabase/github-rate-limit.sql),
    **after** `schema.sql` — the first references `profiles`, and the second
-   gives public GitHub lookups one atomic rate-limit budget across all app
-   instances. The migration schedules hourly cleanup automatically when
-   Supabase pg_cron is enabled; otherwise run
-   `cleanup_github_lookup_rate_limits()` manually during maintenance.
+   gives public GitHub lookups separate atomic budgets for interactive searches
+   and README embeds across all app instances. The request path prunes expired
+   keys, so pg_cron is optional; when available, the migration also schedules
+   hourly cleanup to keep idle deployments tidy.
 
 2. **Get a GitHub token.** github.com → **Settings → Developer settings →
    Personal access tokens → Tokens (classic) → Generate new token**. Scope:

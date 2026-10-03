@@ -64,5 +64,5 @@ export const TRACK_ROUTES: Record<LearnTrackId, LearnTrackRoute> = {
  * there; there is still exactly one implementation.
  */
 export function chapterHref(track: LearnTrackId, slug: string): string {
-  return `${TRACK_ROUTES[track].href}/${slug}/`;
+  return `${TRACK_ROUTES[track].href}${slug}/`;
 }

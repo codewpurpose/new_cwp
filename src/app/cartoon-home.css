@@ -16,15 +16,20 @@
 .cartoon-home h2,
 .cartoon-home .home-display,
 .cartoon-home .home-serif {
-  font-family: var(--font-playful-heading), var(--font-display), sans-serif;
+  font-family: var(--font-playful-heading), var(--font-home-serif), sans-serif;
   font-weight: 400;
   letter-spacing: -.02em;
 }
 .cartoon-home header { background: var(--home-page); }
 .cartoon-home .home-btn { border-radius: 999px; box-shadow: none; }
-.cartoon-home .home-btn-fill { background: var(--home-moss); }
-.cartoon-home .home-btn-fill:hover { background: var(--home-moss-hover); }
-.cartoon-home .proof-point-strip { background: #1e3c2c; }
+.cartoon-home .home-btn-fill {
+  background: var(--home-moss);
+  border-color: var(--home-moss);
+}
+.cartoon-home .home-btn-fill:hover {
+  background: var(--home-moss-hover);
+  border-color: var(--home-moss-hover);
+}
 .cartoon-home .home-card { border-radius: 1rem; }
 .cartoon-home a:focus-visible,
 .cartoon-home button:focus-visible {
@@ -54,13 +59,13 @@
   0%, 100% { transform: translateY(0) rotate(0); }
   50% { transform: translateY(-6px) rotate(2deg); }
 }
-@media (max-width: 680px) {
+@media (max-width: 1023px) {
   .cartoon-home .hero-message-grid { grid-template-columns: 1fr; gap: .5rem; }
   .cartoon-home .hero-message-copy h1,
   .cartoon-home .hero-message-copy > p { text-align: center; }
   .cartoon-home .hero-message-copy > p { margin-inline: auto; }
   .cartoon-home .hero-message-actions { justify-content: center; }
-  .cartoon-home .koda-greeting-button { width: 150px; height: 165px; }
+  .cartoon-home .koda-greeting-button { width: 190px; height: 205px; }
 }
 @media (prefers-reduced-motion: reduce) {
   .cartoon-home .koda-greeting-button { animation: none; }

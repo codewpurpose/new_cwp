@@ -2,7 +2,7 @@ import { auth } from "@clerk/nextjs/server";
 import { NextResponse } from "next/server";
 import { isClerkConfigured } from "@/lib/clerk";
 import { checkGithubLookupRateLimit } from "@/lib/github/rate-limit";
-import { fetchGithubStats } from "@/lib/github/stats";
+import { fetchGithubStats, isGithubStatsConfigured } from "@/lib/github/stats";
 import { isValidGithubUsername } from "@/lib/github/username";
 import { checkSyncGate, upsertGithubStats } from "@/lib/supabase/github-stats";
 
@@ -32,6 +32,9 @@ export async function GET(request: Request) {
 
   if (!isValidGithubUsername(username)) {
     return NextResponse.json({ error: "That doesn't look like a GitHub username." }, { status: 400 });
+  }
+  if (!isGithubStatsConfigured) {
+    return githubStatsErrorResponse({ ok: false, error: { kind: "unconfigured" } });
   }
 
   const rateLimit = await checkGithubLookupRateLimit(request);

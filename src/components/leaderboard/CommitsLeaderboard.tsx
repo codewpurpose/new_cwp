@@ -510,16 +510,36 @@ function PublicGithubLookup({
 
 function GithubReadmeEmbed({ username }: { username: string }) {
   const [copied, setCopied] = useState(false);
+  const [copyFailed, setCopyFailed] = useState(false);
   const embedUrl = `${SITE_URL}${GITHUB_STATS_EMBED_PATH}?username=${encodeURIComponent(username)}`;
   const markdown = `[![GitHub activity for ${username}](${embedUrl})](https://github.com/${username})`;
 
   const copyMarkdown = async () => {
     try {
-      await navigator.clipboard.writeText(markdown);
+      if (navigator.clipboard?.writeText) {
+        await navigator.clipboard.writeText(markdown);
+      } else {
+        const textarea = document.createElement("textarea");
+        textarea.value = markdown;
+        textarea.setAttribute("readonly", "");
+        textarea.style.position = "fixed";
+        textarea.style.opacity = "0";
+        document.body.appendChild(textarea);
+        let copiedToClipboard = false;
+        try {
+          textarea.select();
+          copiedToClipboard = document.execCommand("copy");
+        } finally {
+          textarea.remove();
+        }
+        if (!copiedToClipboard) throw new Error("Clipboard copy is unavailable");
+      }
       setCopied(true);
+      setCopyFailed(false);
       window.setTimeout(() => setCopied(false), 1600);
     } catch {
-      // Clipboard access can be denied; the code block remains selectable.
+      setCopied(false);
+      setCopyFailed(true);
     }
   };
 
@@ -535,14 +555,14 @@ function GithubReadmeEmbed({ username }: { username: string }) {
           </p>
         </div>
         <button type="button" onClick={copyMarkdown} className="home-btn home-btn-outline px-3 py-2 text-[13px]">
-          {copied ? "Copied" : "Copy Markdown"}
+          {copied ? "Copied" : copyFailed ? "Copy failed" : "Copy Markdown"}
         </button>
       </div>
       <pre className="mt-3 overflow-x-auto rounded-md bg-[var(--home-ink)] p-3 text-[12px] leading-5 text-[var(--home-white)]">
         <code>{markdown}</code>
       </pre>
       <span className="sr-only" aria-live="polite">
-        {copied ? "README Markdown copied." : ""}
+        {copied ? "README Markdown copied." : copyFailed ? "Couldn't copy automatically. Select the Markdown below and copy it." : ""}
       </span>
     </section>
   );
