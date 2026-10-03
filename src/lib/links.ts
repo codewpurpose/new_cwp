@@ -6,34 +6,34 @@ export const SITE_URL = "https://www.codewithpurpose.org";
  * here. The individual track indexes below still live under /learn — only the
  * old index was folded in.
  */
-export const COURSES_HREF = "/courses";
-export const LEARN_ML_HREF = "/learn/ml";
-export const LEARN_VIBECODING_HREF = "/learn/vibecoding";
-export const LEARN_PYTHON_HREF = "/learn/python";
-export const LEARN_FINANCIAL_LITERACY_HREF = "/learn/financial-literacy";
-export const LEARN_HEALTH_IN_TECH_HREF = "/learn/health-in-tech";
-export const LEARN_ROBLOX_HREF = "/learn/roblox";
+export const COURSES_HREF = "/courses/";
+export const LEARN_ML_HREF = "/learn/ml/";
+export const LEARN_VIBECODING_HREF = "/learn/vibecoding/";
+export const LEARN_PYTHON_HREF = "/learn/python/";
+export const LEARN_FINANCIAL_LITERACY_HREF = "/learn/financial-literacy/";
+export const LEARN_HEALTH_IN_TECH_HREF = "/learn/health-in-tech/";
+export const LEARN_ROBLOX_HREF = "/learn/roblox/";
 /** The track. `GITHUB_HREF` further down is this repository — not the same thing. */
-export const LEARN_GITHUB_HREF = "/learn/github";
-export const LEARN_HTML_CSS_HREF = "/learn/html-css";
-export const LEARN_COMPUTER_VISION_HREF = "/learn/computer-vision";
-export const TOOLKIT_HREF = "/toolkit";
-export const DASHBOARD_HREF = "/dashboard";
-export const LOGIN_HREF = "/login";
-export const SIGN_UP_HREF = "/sign-up";
-export const LEADERBOARD_HREF = "/leaderboard";
+export const LEARN_GITHUB_HREF = "/learn/github/";
+export const LEARN_HTML_CSS_HREF = "/learn/html-css/";
+export const LEARN_COMPUTER_VISION_HREF = "/learn/computer-vision/";
+export const TOOLKIT_HREF = "/toolkit/";
+export const DASHBOARD_HREF = "/dashboard/";
+export const LOGIN_HREF = "/login/";
+export const SIGN_UP_HREF = "/sign-up/";
+export const LEADERBOARD_HREF = "/leaderboard/";
 /** The commit-history leaderboard — a second board, ranked by real GitHub activity instead of XP. */
-export const COMMITS_LEADERBOARD_HREF = "/leaderboard/commits";
-export const MEDIA_HREF = "/media";
-export const ABOUT_HREF = "/about";
-export const JOIN_HREF = "/join";
+export const COMMITS_LEADERBOARD_HREF = "/leaderboard/commits/";
+export const MEDIA_HREF = "/media/";
+export const ABOUT_HREF = "/about/";
+export const JOIN_HREF = "/join/";
 /**
  * Impact and the blog are one page. `/blog` 308s here (next.config.ts); only
  * the individual posts still live under /blog/<slug>.
  */
-export const IMPACT_HREF = "/impact";
-export const CONTACT_HREF = "/contact";
-export const DONATE_HREF = "/donate";
+export const IMPACT_HREF = "/impact/";
+export const CONTACT_HREF = "/contact/";
+export const DONATE_HREF = "/donate/";
 export const HOME_HREF = "/";
 
 export const CONGRESS_LETTER_HREF =

@@ -31,10 +31,10 @@
   --learn-line-inverse: rgba(219, 239, 219, 0.18);
 
   /* --- text ----------------------------------------------------------- */
-  --learn-ink: #0a0e19;
+  --learn-ink: #15120c;
   --learn-ink-strong: #1e3c2c; /* moss — headings, emphasis */
-  --learn-ink-muted: #636363; /* body copy */
-  --learn-ink-subtle: #6f6f6f; /* captions — darkened to clear WCAG AA on cream */
+  --learn-ink-muted: #4f483d; /* warm body copy */
+  --learn-ink-subtle: #6b6255; /* warm captions — clears WCAG AA on cream */
   --learn-ink-on-inverse: #dbefdb;
   --learn-heading-on-inverse: #f9f9f9; /* headings on moss run brighter */
   --learn-accent: #3e7f5c; /* fern — brand fill and borders */
@@ -113,7 +113,7 @@
   /* --- focus ---------------------------------------------------------- */
   /* Matches the existing .home-btn:focus-visible convention so buttons and
    * non-button interactives ring identically. */
-  --learn-focus-ring: #0a0e19;
+  --learn-focus-ring: #15120c;
   --learn-focus-ring-inverse: #dbefdb;
   --learn-focus-ring-width: 2px;
   --learn-focus-ring-offset: 3px;

@@ -259,6 +259,34 @@
   --home-hairline: rgba(30, 60, 44, 0.1);
   --home-hairline-strong: rgba(30, 60, 44, 0.18);
 
+  /* Use the same warm light palette for Tailwind/shadcn controls on every
+     route, not only the marketing homepage. */
+  --background: var(--home-page);
+  --foreground: var(--home-ink);
+  --card: var(--home-white);
+  --card-foreground: var(--home-ink);
+  --popover: var(--home-white);
+  --popover-foreground: var(--home-ink);
+  --primary: var(--home-moss);
+  --primary-foreground: #fffbf5;
+  --secondary: var(--home-grey-400);
+  --secondary-foreground: var(--home-ink);
+  --muted: var(--home-grey-400);
+  --muted-foreground: var(--home-ink-soft);
+  --accent: var(--home-pistachio);
+  --accent-foreground: var(--home-moss-deep);
+  --border: var(--home-grey-500);
+  --input: var(--home-grey-500);
+  --ring: var(--home-fern);
+  --sidebar: var(--home-white);
+  --sidebar-foreground: var(--home-ink);
+  --sidebar-primary: var(--home-moss);
+  --sidebar-primary-foreground: #fffbf5;
+  --sidebar-accent: var(--home-grey-400);
+  --sidebar-accent-foreground: var(--home-ink);
+  --sidebar-border: var(--home-grey-500);
+  --sidebar-ring: var(--home-fern);
+
   /* Warm-tinted rather than neutral black: a grey shadow on cream reads dirty. */
   --home-shadow-sm: 0 1px 2px rgba(46, 38, 24, 0.05);
   --home-shadow-md: 0 2px 4px rgba(46, 38, 24, 0.05), 0 8px 20px rgba(46, 38, 24, 0.06);
@@ -536,6 +564,7 @@
 }
 .home-root a:not(.home-btn):not(.home-arrow-link) { text-decoration-color: var(--home-fern); }
 .home-root section, .home-root footer > div > div { border-color: var(--home-hairline); }
+.home-root .bg-white { background-color: var(--home-white); }
 /* Buttons had 10px of horizontal padding against 8px vertical, so the label
  * touched the edges, and the desktop rule *reduced* the height — buttons got
  * smaller on the roomier screen. Proper padding, a weight that separates the
