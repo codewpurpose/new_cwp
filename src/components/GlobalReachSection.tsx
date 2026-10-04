@@ -129,7 +129,7 @@ const items: ImpactItem[] = [
 function DetailContent({ detail }: { detail: ImpactDetail }) {
   return (
     <>
-      <h4 className="global-reach-detail-title">{detail.title}</h4>
+      <h3 className="global-reach-detail-title">{detail.title}</h3>
       <p className="global-reach-detail-copy">
         {detail.body}
       </p>
