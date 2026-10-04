@@ -46,6 +46,74 @@
 .cartoon-home .hero-message-copy > p { text-align: left; }
 .cartoon-home .hero-message-copy > p { margin-inline: 0; }
 .cartoon-home .hero-message-actions { justify-content: flex-start; }
+.cartoon-home .home-stats-roadmap {
+  position: relative;
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  min-height: 11.25rem;
+  margin-inline: auto;
+  padding-inline: max(1.25rem, calc((100vw - 85rem) / 2 + 2.5rem));
+  list-style: none;
+}
+.cartoon-home .home-stats-route {
+  position: absolute;
+  pointer-events: none;
+}
+.cartoon-home .home-stats-route-wide {
+  inset: 0 2.5rem;
+  display: block;
+  width: calc(100% - 5rem);
+  height: 100%;
+}
+.cartoon-home .home-stats-route-mobile { display: none; }
+.cartoon-home .home-stats-route-base {
+  fill: none;
+  stroke: #9cae7c;
+  stroke-width: 4;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+.cartoon-home .home-stats-route-center {
+  fill: none;
+  stroke: #fcf4e8;
+  stroke-width: 1.5;
+  stroke-dasharray: 1 9;
+  stroke-linecap: round;
+}
+.cartoon-home .home-stat-stop {
+  position: relative;
+  min-width: 0;
+}
+.cartoon-home .home-stat-content {
+  position: absolute;
+  inset: 0.6rem 0 auto;
+  padding-inline: 0.3rem;
+  text-align: center;
+}
+.cartoon-home .home-stat-value {
+  color: var(--home-moss);
+  font-size: clamp(1.5rem, 2.2vw, 2rem);
+  line-height: 1;
+}
+.cartoon-home .home-stat-label {
+  margin-top: 0.55rem;
+  color: var(--home-ink-soft);
+  font-size: 0.8125rem;
+  line-height: 1.25;
+  text-wrap: balance;
+}
+.cartoon-home .home-stat-marker {
+  position: absolute;
+  top: 55%;
+  left: 50%;
+  width: 0.95rem;
+  aspect-ratio: 1;
+  border: 3px solid var(--home-moss);
+  border-radius: 50%;
+  background: var(--home-page);
+  box-shadow: 0 0 0 3px rgba(252, 244, 232, 0.8);
+  transform: translate(-50%, -50%);
+}
 .cartoon-home .koda-greeting { text-align: center; }
 .cartoon-home .koda-greeting-button {
   display: block; width: 230px; height: 250px; margin-inline: auto;
@@ -66,6 +134,41 @@
   .cartoon-home .hero-message-copy > p { margin-inline: auto; }
   .cartoon-home .hero-message-actions { justify-content: center; }
   .cartoon-home .koda-greeting-button { width: 190px; height: 205px; }
+}
+@media (max-width: 767px) {
+  .cartoon-home .home-stats-roadmap {
+    grid-template-columns: 1fr;
+    min-height: 0;
+    padding: 0;
+  }
+  .cartoon-home .home-stats-route-wide { display: none; }
+  .cartoon-home .home-stats-route-mobile {
+    top: 0;
+    left: 0;
+    display: block;
+    width: 3rem;
+    height: 100%;
+  }
+  .cartoon-home .home-stat-stop {
+    display: flex;
+    min-height: 5.5rem;
+    align-items: center;
+    padding-left: 4rem;
+  }
+  .cartoon-home .home-stat-content {
+    position: static;
+    display: flex;
+    align-items: baseline;
+    gap: 0.8rem;
+    padding: 0;
+    text-align: left;
+  }
+  .cartoon-home .home-stat-value { font-size: 1.75rem; }
+  .cartoon-home .home-stat-label {
+    margin-top: 0;
+    font-size: 0.875rem;
+  }
+  .cartoon-home .home-stat-marker { left: 1.5rem; }
 }
 @media (prefers-reduced-motion: reduce) {
   .cartoon-home .koda-greeting-button { animation: none; }
