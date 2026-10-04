@@ -48,11 +48,17 @@
 .cartoon-home .hero-message-actions { justify-content: flex-start; }
 .cartoon-home .home-stats-roadmap {
   position: relative;
-  display: grid;
-  grid-template-columns: repeat(5, minmax(0, 1fr));
+  width: 100%;
+  max-width: 85rem;
   min-height: 11.25rem;
   margin-inline: auto;
-  padding-inline: max(1.25rem, calc((100vw - 85rem) / 2 + 2.5rem));
+}
+.cartoon-home .home-stats-list {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  min-height: inherit;
+  margin: 0;
+  padding-inline: 2.5rem;
   list-style: none;
 }
 .cartoon-home .home-stats-route {
@@ -246,6 +252,9 @@
 }
 @media (max-width: 767px) {
   .cartoon-home .home-stats-roadmap {
+    min-height: 0;
+  }
+  .cartoon-home .home-stats-list {
     grid-template-columns: 1fr;
     min-height: 0;
     padding: 0;

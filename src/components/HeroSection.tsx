@@ -32,7 +32,7 @@ export function HeroSection() {
         <KodaGreeting />
       </div>
 
-      <ol className="home-stats-roadmap mt-10 md:mt-14" aria-label="Impact statistics">
+      <div className="home-stats-roadmap mt-10 md:mt-14">
         <svg
           className="home-stats-route home-stats-route-wide"
           viewBox="0 0 1000 200"
@@ -51,16 +51,18 @@ export function HeroSection() {
           <path className="home-stats-route-base" d="M32 0 C48 20 16 30 32 50 S48 80 32 100 S16 130 32 150 S48 180 32 200 S16 230 32 250 S48 280 32 300 S16 330 32 350 S48 380 32 400 S16 430 32 450 S48 480 32 500" />
           <path className="home-stats-route-center" d="M32 0 C48 20 16 30 32 50 S48 80 32 100 S16 130 32 150 S48 180 32 200 S16 230 32 250 S48 280 32 300 S16 330 32 350 S48 380 32 400 S16 430 32 450 S48 480 32 500" />
         </svg>
-        {HERO_STATS.map((stat) => (
-          <li key={stat.label} className="home-stat-stop">
-            <div className="home-stat-content">
-              <p className="home-stat-value home-serif">{stat.value}</p>
-              <p className="home-stat-label">{stat.label}</p>
-            </div>
-            <span className="home-stat-marker" aria-hidden="true" />
-          </li>
-        ))}
-      </ol>
+        <ul className="home-stats-list" aria-label="Impact statistics">
+          {HERO_STATS.map((stat) => (
+            <li key={stat.label} className="home-stat-stop">
+              <div className="home-stat-content">
+                <p className="home-stat-value home-serif">{stat.value}</p>
+                <p className="home-stat-label">{stat.label}</p>
+              </div>
+              <span className="home-stat-marker" aria-hidden="true" />
+            </li>
+          ))}
+        </ul>
+      </div>
     </section>
   );
 }
