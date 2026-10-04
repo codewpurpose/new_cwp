@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { AnimatePresence, motion, useIsPresent } from "motion/react";
 import { UserButton, useUser } from "@clerk/nextjs";
+import { ChevronDown } from "lucide-react";
 import { CwpLogo } from "@/components/icons";
 import { isClerkConfigured } from "@/lib/clerk";
 import { DASHBOARD_HREF, DONATE_HREF, HOME_HREF, LOGIN_HREF, NAV_LINKS } from "@/lib/links";
@@ -131,7 +132,7 @@ export function SiteHeader() {
           <details className="group relative">
             <summary className="home-hit-expand cursor-pointer list-none rounded-md px-3 py-2 [&::-webkit-details-marker]:hidden">
               More
-              <span aria-hidden="true" className="ml-1 inline-block text-[0.7em] transition-transform group-open:rotate-180">⌄</span>
+              <ChevronDown aria-hidden="true" className="ml-1 inline-block size-4 transition-transform duration-200 group-open:rotate-180" strokeWidth={2.25} />
             </summary>
             <div
               className="absolute right-0 top-full z-20 mt-2 flex min-w-40 flex-col rounded-lg p-1 shadow-lg backdrop-blur-[10px]"
