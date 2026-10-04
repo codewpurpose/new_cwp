@@ -167,7 +167,7 @@ export function GlobalReachSection() {
                 onClick={() => setOpen(open === index ? null : index)}
                 aria-expanded={open === index}
                 aria-controls={`impact-detail-${index}`}
-                className="global-reach-button"
+                className="global-reach-button cursor-pointer"
               >
                 <span className="global-reach-icon">{item.icon}</span>
                 <span className="global-reach-label">{item.label}</span>
