@@ -5,7 +5,14 @@ import { AnimatePresence, motion, useIsPresent } from "motion/react";
 import { UserButton, useUser } from "@clerk/nextjs";
 import { CwpLogo } from "@/components/icons";
 import { isClerkConfigured } from "@/lib/clerk";
-import { DASHBOARD_HREF, DONATE_HREF, HOME_HREF, JOIN_HREF, LOGIN_HREF, NAV_LINKS } from "@/lib/links";
+import { DASHBOARD_HREF, DONATE_HREF, HOME_HREF, LOGIN_HREF, NAV_LINKS } from "@/lib/links";
+
+const PRIMARY_NAV_LINKS = NAV_LINKS.filter(({ label }) =>
+  ["Courses", "About Us", "Stories", "Join Us"].includes(label),
+);
+const MORE_NAV_LINKS = NAV_LINKS.filter(({ label }) =>
+  ["Commits", "Media", "Contact"].includes(label),
+);
 
 function LogInButton({ onNavigate }: { onNavigate?: () => void }) {
   return (
@@ -75,13 +82,6 @@ function MobileMenu({ onClose }: { onClose: () => void }) {
       <div className="mt-2 flex justify-center">
         <AuthAction onNavigate={onClose} />
       </div>
-      <a
-        href={JOIN_HREF}
-        onClick={onClose}
-        className="mt-1 rounded-lg border-t-[0.5px] border-[var(--home-hairline)] px-3 py-3.5 text-[1rem]"
-      >
-        Volunteer
-      </a>
     </motion.nav>
   );
 }
@@ -112,11 +112,8 @@ export function SiteHeader() {
         Skip to main content
       </a>
       <header className="sticky top-0 z-10">
-      {/* Flex below the desktop breakpoint, grid at and above it. The three
-          columns exist only to hold the nav pill optically centred; once the
-          pill is display:none the two 1fr tracks still claim their gaps and
-          both outer tracks still size to max-content, which is what pushed the
-          menu toggle past the right edge of a phone. */}
+      {/* Flex below desktop; the three-column grid keeps the primary navigation
+          centered without letting it collide with the wordmark or actions. */}
       <div className="mx-auto flex w-full max-w-[85rem] items-center justify-between gap-3 px-4 py-4 sm:px-5 md:px-10 min-[1200px]:grid min-[1200px]:grid-cols-[1fr_auto_1fr] min-[1200px]:gap-4 min-[1200px]:py-8">
         <div className="min-w-0 min-[1200px]:justify-self-start">
           <LogoLink />
@@ -126,35 +123,37 @@ export function SiteHeader() {
           className="home-nav-pill hidden items-center gap-1 justify-self-center rounded-lg text-[1rem] min-[1200px]:flex"
           style={GLASS_STYLE}
         >
-          {NAV_LINKS.map((link) => (
+          {PRIMARY_NAV_LINKS.map((link) => (
             <a key={link.href} href={link.href} className={`px-3 py-2 ${link.label === "Courses" ? "learn-nav-item" : ""}`}>
               {link.label}
             </a>
           ))}
+          <details className="group relative">
+            <summary className="home-hit-expand cursor-pointer list-none rounded-md px-3 py-2 [&::-webkit-details-marker]:hidden">
+              More
+              <span aria-hidden="true" className="ml-1 inline-block text-[0.7em] transition-transform group-open:rotate-180">⌄</span>
+            </summary>
+            <div
+              className="absolute right-0 top-full z-20 mt-2 flex min-w-40 flex-col rounded-lg p-1 shadow-lg backdrop-blur-[10px]"
+              style={GLASS_STYLE}
+            >
+              {MORE_NAV_LINKS.map((link) => (
+                <a key={link.href} href={link.href} className="rounded-md px-3 py-2.5 hover:bg-black/5 focus-visible:bg-black/5">
+                  {link.label}
+                </a>
+              ))}
+            </div>
+          </details>
         </nav>
         <div className="flex shrink-0 items-center gap-2 min-[1200px]:col-start-3 min-[1200px]:justify-self-end">
           <div className="hidden min-[1200px]:block">
             <AuthAction />
           </div>
-          <div className="hidden min-[1200px]:block">
-            <a href={JOIN_HREF} className="home-btn home-btn-glass whitespace-nowrap">
-              Volunteer
-            </a>
-          </div>
           <a
             href={DONATE_HREF}
             className="home-btn home-btn-compact home-btn-glass whitespace-nowrap"
           >
-            {/* "Now" is the first thing to go. The threshold is 420 rather than
-                the 360 where the wordmark comes back, because between the two
-                the full lockup and the long label together overrun the line and
-                the wordmark slides under this button.
-                One outer span so the label is a single flex item — .home-btn is
-                inline-flex with a 0.4rem gap, which would otherwise land between
-                the two words on top of the space. */}
-            <span>
-              Donate<span className="hidden min-[420px]:inline">{" "}Now</span>
-            </span>
+            Donate
           </a>
           <div className="min-[1200px]:hidden">
             <button
