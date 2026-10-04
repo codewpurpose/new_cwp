@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { SignIn, SignUp } from "@clerk/nextjs";
 import { isClerkConfigured } from "@/lib/clerk";
-import { DASHBOARD_HREF, LOGIN_HREF, LEADERBOARD_HREF } from "@/lib/links";
+import { DASHBOARD_HREF, LOGIN_HREF, LEADERBOARD_HREF, SIGN_UP_HREF } from "@/lib/links";
 
 /**
  * Clerk-powered auth card. `mode` picks sign-in vs sign-up; both give Google and
@@ -41,7 +41,7 @@ export function LoginForm({ mode = "signin" }: { mode?: "signin" | "signup" }) {
       ) : (
         <SignIn
           routing="hash"
-          signUpUrl="/sign-up"
+          signUpUrl={SIGN_UP_HREF}
           fallbackRedirectUrl={LEADERBOARD_HREF}
         />
       )}

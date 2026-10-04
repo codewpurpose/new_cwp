@@ -7,7 +7,13 @@ import { useUser } from "@clerk/nextjs";
 import { getSupabase, isSupabaseConfigured } from "@/lib/supabase/client";
 import { isClerkConfigured } from "@/lib/clerk";
 import { isValidGithubUsername } from "@/lib/github/username";
-import { DASHBOARD_HREF, GITHUB_STATS_SYNC_PATH, LOGIN_HREF } from "@/lib/links";
+import {
+  DASHBOARD_HREF,
+  GITHUB_STATS_EMBED_PATH,
+  GITHUB_STATS_SYNC_PATH,
+  LOGIN_HREF,
+  SITE_URL,
+} from "@/lib/links";
 import { CommitDistributionChart } from "@/components/leaderboard/CommitDistributionChart";
 import { GithubContributionCalendar } from "@/components/leaderboard/GithubContributionCalendar";
 
@@ -486,6 +492,7 @@ function PublicGithubLookup({
             <Stat label="Stars earned" value={String(result.totalStars)} />
           </dl>
           <GithubContributionCalendar days={result.contributionDays} />
+          <GithubReadmeEmbed username={result.profile.login} />
         </div>
       )}
 
@@ -497,6 +504,66 @@ function PublicGithubLookup({
           {message}
         </p>
       )}
+    </section>
+  );
+}
+
+function GithubReadmeEmbed({ username }: { username: string }) {
+  const [copied, setCopied] = useState(false);
+  const [copyFailed, setCopyFailed] = useState(false);
+  const embedUrl = `${SITE_URL}${GITHUB_STATS_EMBED_PATH}?username=${encodeURIComponent(username)}`;
+  const markdown = `[![GitHub activity for ${username}](${embedUrl})](https://github.com/${username})`;
+
+  const copyMarkdown = async () => {
+    try {
+      if (navigator.clipboard?.writeText) {
+        await navigator.clipboard.writeText(markdown);
+      } else {
+        const textarea = document.createElement("textarea");
+        textarea.value = markdown;
+        textarea.setAttribute("readonly", "");
+        textarea.style.position = "fixed";
+        textarea.style.opacity = "0";
+        document.body.appendChild(textarea);
+        let copiedToClipboard = false;
+        try {
+          textarea.select();
+          copiedToClipboard = document.execCommand("copy");
+        } finally {
+          textarea.remove();
+        }
+        if (!copiedToClipboard) throw new Error("Clipboard copy is unavailable");
+      }
+      setCopied(true);
+      setCopyFailed(false);
+      window.setTimeout(() => setCopied(false), 1600);
+    } catch {
+      setCopied(false);
+      setCopyFailed(true);
+    }
+  };
+
+  return (
+    <section className="mt-5 rounded-lg border-[0.5px] border-[var(--home-hairline)] bg-[var(--home-page)] p-4" aria-labelledby="github-readme-embed-title">
+      <div className="flex flex-wrap items-start justify-between gap-3">
+        <div>
+          <h3 id="github-readme-embed-title" className="text-[15px] font-medium text-[var(--home-ink)]">
+            Put it in your GitHub README
+          </h3>
+          <p className="mt-1 text-[13px] text-[var(--home-ink-soft)]">
+            Paste this Markdown into your profile README. The card refreshes about once an hour.
+          </p>
+        </div>
+        <button type="button" onClick={copyMarkdown} className="home-btn home-btn-outline px-3 py-2 text-[13px]">
+          {copied ? "Copied" : copyFailed ? "Copy failed" : "Copy Markdown"}
+        </button>
+      </div>
+      <pre className="mt-3 overflow-x-auto rounded-md bg-[var(--home-ink)] p-3 text-[12px] leading-5 text-[var(--home-white)]">
+        <code>{markdown}</code>
+      </pre>
+      <span className="sr-only" aria-live="polite">
+        {copied ? "README Markdown copied." : copyFailed ? "Couldn't copy automatically. Select the Markdown below and copy it." : ""}
+      </span>
     </section>
   );
 }

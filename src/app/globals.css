@@ -1,6 +1,7 @@
 @import "tailwindcss";
 @import "tw-animate-css";
 @import "shadcn/tailwind.css";
+@import "@radix-ui/colors/grass.css";
 
 /* Canonical /learn design tokens. Lives under public/ because the standalone
  * ML lesson documents <link> the same file — see its header comment. */
@@ -231,9 +232,9 @@
   --home-grey-900: #1f1f1f;
   --home-moss: #1e3c2c;
   --home-moss-hover: #2a5038;
-  --home-pistachio: #dbefdb;
-  --home-link-green: #397554;
-  --home-fern: #3e7f5c;
+  --home-pistachio: var(--grass-4);
+  --home-link-green: var(--grass-11);
+  --home-fern: var(--grass-11);
   /* Udemy's brand purple and its hover, used as-is. Reserved for enrolment —
    * the one action that hands the reader to another site — so the button
    * carries the mark of where it goes and never competes with the ink fill
@@ -258,6 +259,34 @@
   --home-ink-quiet: #6b6255; /* captions and labels — ~5.2:1 */
   --home-hairline: rgba(30, 60, 44, 0.1);
   --home-hairline-strong: rgba(30, 60, 44, 0.18);
+
+  /* Use the same warm light palette for Tailwind/shadcn controls on every
+     route, not only the marketing homepage. */
+  --background: var(--home-page);
+  --foreground: var(--home-ink);
+  --card: var(--home-white);
+  --card-foreground: var(--home-ink);
+  --popover: var(--home-white);
+  --popover-foreground: var(--home-ink);
+  --primary: var(--home-moss);
+  --primary-foreground: #fffbf5;
+  --secondary: var(--home-grey-400);
+  --secondary-foreground: var(--home-ink);
+  --muted: var(--home-grey-400);
+  --muted-foreground: var(--home-ink-soft);
+  --accent: var(--home-pistachio);
+  --accent-foreground: var(--home-moss-deep);
+  --border: var(--home-grey-500);
+  --input: var(--home-grey-500);
+  --ring: var(--home-fern);
+  --sidebar: var(--home-white);
+  --sidebar-foreground: var(--home-ink);
+  --sidebar-primary: var(--home-moss);
+  --sidebar-primary-foreground: #fffbf5;
+  --sidebar-accent: var(--home-grey-400);
+  --sidebar-accent-foreground: var(--home-ink);
+  --sidebar-border: var(--home-grey-500);
+  --sidebar-ring: var(--home-fern);
 
   /* Warm-tinted rather than neutral black: a grey shadow on cream reads dirty. */
   --home-shadow-sm: 0 1px 2px rgba(46, 38, 24, 0.05);
@@ -534,8 +563,21 @@
   border-color: rgba(62, 127, 92, 0.45);
   box-shadow: 0 12px 30px rgba(62, 127, 92, 0.1), var(--home-shadow-sm);
 }
+.faq-panel {
+  height: var(--accordion-panel-height);
+  overflow: hidden;
+  transition: height 240ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+.faq-panel[data-starting-style],
+.faq-panel[data-ending-style] {
+  height: 0;
+}
+@media (prefers-reduced-motion: reduce) {
+  .faq-panel { transition: none; }
+}
 .home-root a:not(.home-btn):not(.home-arrow-link) { text-decoration-color: var(--home-fern); }
 .home-root section, .home-root footer > div > div { border-color: var(--home-hairline); }
+.home-root .bg-white { background-color: var(--home-white); }
 /* Buttons had 10px of horizontal padding against 8px vertical, so the label
  * touched the edges, and the desktop rule *reduced* the height — buttons got
  * smaller on the roomier screen. Proper padding, a weight that separates the

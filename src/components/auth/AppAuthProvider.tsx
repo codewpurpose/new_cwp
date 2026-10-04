@@ -16,6 +16,20 @@ export function AppAuthProvider({ children }: { children: ReactNode }) {
       signInUrl="/login"
       signUpUrl="/sign-up"
       appearance={{ variables: { colorPrimary: "#3e7f5c" } }}
+      localization={{
+        signIn: {
+          start: {
+            actionText: "New to CodeWithPurpose?",
+            actionLink: "Create a free account",
+          },
+        },
+        signUp: {
+          start: {
+            actionText: "Already have an account?",
+            actionLink: "Sign in",
+          },
+        },
+      }}
     >
       <ClerkDataSync />
       {children}

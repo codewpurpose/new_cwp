@@ -1,6 +1,6 @@
 "use client";
 
-import { useId, useState } from "react";
+import { Accordion } from "@base-ui/react/accordion";
 import { CONTACT_HREF } from "@/lib/links";
 import { JsonLd } from "@/components/seo/JsonLd";
 import { faqJsonLd } from "@/lib/seo";
@@ -44,18 +44,10 @@ const faqs: Faq[] = [
 ];
 
 function FaqItem({ faq }: { faq: Faq }) {
-  const [open, setOpen] = useState(false);
-  const panelId = useId();
   return (
-    <div className="home-card rounded-xl">
-      <h3>
-        <button
-          type="button"
-          onClick={() => setOpen((e) => !e)}
-          aria-expanded={open}
-          aria-controls={panelId}
-          className="flex w-full cursor-pointer items-center justify-between gap-3 p-5 text-left sm:gap-4 sm:p-6 md:p-8"
-        >
+    <Accordion.Item value={faq.question} className="home-card rounded-xl">
+      <Accordion.Header className="m-0">
+        <Accordion.Trigger className="group flex w-full cursor-pointer items-center justify-between gap-3 p-5 text-left sm:gap-4 sm:p-6 md:p-8">
           <span className="text-lg leading-[1.2] md:text-xl">
             {faq.question}
           </span>
@@ -68,32 +60,20 @@ function FaqItem({ faq }: { faq: Faq }) {
             strokeWidth="1.5"
             strokeLinecap="round"
             aria-hidden="true"
-            className={`shrink-0 transition-transform duration-300 motion-reduce:transition-none ${
-              open ? "rotate-45" : ""
-            }`}
+            className="shrink-0 transition-transform duration-200 motion-reduce:transition-none group-data-[panel-open]:rotate-45"
           >
             <path d="M7 1v12M1 7h12" />
           </svg>
-        </button>
-      </h3>
-      <div
-        id={panelId}
-        aria-hidden={!open}
-        className={`grid transition-[grid-template-rows] duration-300 ease-out motion-reduce:transition-none ${
-          open ? "grid-rows-[1fr]" : "grid-rows-[0fr]"
-        }`}
-      >
+        </Accordion.Trigger>
+      </Accordion.Header>
+      <Accordion.Panel className="faq-panel">
         <div className="overflow-hidden">
-          <p
-            className={`px-5 pb-5 text-sm leading-[1.5] text-[var(--home-ink-soft)] transition-opacity duration-300 motion-reduce:transition-none sm:px-6 sm:pb-6 md:px-8 md:pb-8 md:text-[15px] ${
-              open ? "opacity-100" : "opacity-0"
-            }`}
-          >
+          <p className="px-5 pb-5 text-sm leading-[1.5] text-[var(--home-ink-soft)] sm:px-6 sm:pb-6 md:px-8 md:pb-8 md:text-[15px]">
             {faq.answer}
           </p>
         </div>
-      </div>
-    </div>
+      </Accordion.Panel>
+    </Accordion.Item>
   );
 }
 
@@ -113,11 +93,9 @@ export function FaqSection() {
             </a>
             {" and ask us anything."}
           </h2>
-          <div className="mx-auto mt-8 flex max-w-[51rem] flex-col gap-2">
-            {faqs.map((faq) => (
-              <FaqItem key={faq.question} faq={faq} />
-            ))}
-          </div>
+          <Accordion.Root multiple className="mx-auto mt-8 flex max-w-[51rem] flex-col gap-2">
+            {faqs.map((faq) => <FaqItem key={faq.question} faq={faq} />)}
+          </Accordion.Root>
           <div className="mx-auto mt-8 max-w-[51rem] rounded-xl border-[0.5px] border-[var(--home-hairline)] bg-[var(--home-page)] px-5 py-7 sm:px-6 sm:py-8 md:px-10 md:py-10">
             <h3 className="text-lg font-medium md:text-xl">Why we keep it free</h3>
             <blockquote className="mt-4 text-[15px] leading-[1.6] text-[var(--home-ink-soft)] md:text-base">

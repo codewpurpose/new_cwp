@@ -141,7 +141,7 @@ export default function ImpactPage() {
           {posts.map((post, index) => (
             <Reveal key={post.slug} delay={index * 0.08}>
               <Link
-                href={`/blog/${post.slug}`}
+                href={`/blog/${post.slug}/`}
                 className="home-card home-lift home-template-row group block overflow-hidden rounded-[20px]"
               >
                 <TopicCover variant={post.cover} className="aspect-[16/9] w-full" />

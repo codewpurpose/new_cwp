@@ -25,6 +25,9 @@ const RETIRED_ML_SLUGS = [
 
 const nextConfig: NextConfig = {
   trailingSlash: true,
+  // Canonical slashes are handled in src/proxy.ts; redirects below handle the
+  // legacy aliases before Proxy runs.
+  skipTrailingSlashRedirect: true,
   images: {
     // GitHub avatars, for the commits leaderboard (/leaderboard/commits).
     // Every other image on the site is local, so this is the one host that

@@ -13,6 +13,7 @@
 
 const GITHUB_GRAPHQL_URL = "https://api.github.com/graphql";
 const token = process.env.GITHUB_TOKEN?.trim();
+const CONTRIBUTION_WINDOW_DAYS = 30;
 
 export const isGithubStatsConfigured = Boolean(token);
 
@@ -307,7 +308,7 @@ async function fetchContributionDays(
   const to = new Date();
   const from = new Date(to);
   from.setUTCHours(0, 0, 0, 0);
-  from.setUTCDate(from.getUTCDate() - 30);
+  from.setUTCDate(from.getUTCDate() - (CONTRIBUTION_WINDOW_DAYS - 1));
   const result = await githubGraphQL<ContributionDaysQueryData>(CONTRIBUTION_DAYS_QUERY, {
     login,
     from: from.toISOString(),
@@ -325,13 +326,23 @@ async function fetchContributionDays(
 
   return {
     ok: true,
-    contributionDays: Array.from({ length: 31 }, (_, index) => {
+    contributionDays: Array.from({ length: CONTRIBUTION_WINDOW_DAYS }, (_, index) => {
       const date = new Date(from);
       date.setUTCDate(date.getUTCDate() + index);
       const key = date.toISOString().slice(0, 10);
       return { date: key, count: countsByDate.get(key) ?? 0 };
     }),
   };
+}
+
+/** Lightweight public lookup used by the cacheable README embed. */
+export async function fetchGithubContributionDays(
+  login: string,
+): Promise<
+  { ok: true; contributionDays: { date: string; count: number }[] } | { ok: false; error: GithubStatsError }
+> {
+  if (!isGithubStatsConfigured) return { ok: false, error: { kind: "unconfigured" } };
+  return fetchContributionDays(login);
 }
 
 /**

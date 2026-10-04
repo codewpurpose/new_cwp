@@ -1,3 +1,5 @@
+import "./cartoon-home.css";
+import { Fredoka } from "next/font/google";
 import { ProofPointStrip } from "@/components/ProofPointStrip";
 import { SiteHeader } from "@/components/SiteHeader";
 import { HeroSection } from "@/components/HeroSection";
@@ -14,31 +16,26 @@ import { FinalCtaSection } from "@/components/FinalCtaSection";
 import { SiteFooter } from "@/components/SiteFooter";
 import { getChapters } from "@/lib/learn-nav";
 
-/** Counted from the lesson graph, so the strip cannot claim a stale number. */
+const playfulHeadings = Fredoka({
+  variable: "--font-playful-heading",
+  weight: ["400", "500"],
+  subsets: ["latin"],
+  display: "swap",
+});
 const LESSON_COUNT = getChapters("ml").length + getChapters("vibecoding").length;
 
 export default function Home() {
   return (
-    <>
+    <div className={`cartoon-home ${playfulHeadings.variable}`}>
       <ProofPointStrip lessonCount={LESSON_COUNT} />
       <SiteHeader />
-      {/* One rhythm from .home-flow. The three wrappers below are the only
-          places a section deliberately sits closer than the rest: the marquee
-          carries its own top padding, global reach reads as part of the use
-          cases above it, and security follows on from that pair. */}
       <main id="main-content" className="home-flow">
         <HeroSection />
         <ProductSection />
-        <div className="home-flow-attach">
-          <PromptsMarquee />
-        </div>
+        <div className="home-flow-attach"><PromptsMarquee /></div>
         <UseCasesSection />
-        <div className="home-flow-attach">
-          <GlobalReachSection />
-        </div>
-        <div className="home-flow-close">
-          <SecuritySection />
-        </div>
+        <div className="home-flow-attach"><GlobalReachSection /></div>
+        <div className="home-flow-close"><SecuritySection /></div>
         <QuoteSection />
         <HowItWorksSection />
         <MediaSection />
@@ -46,6 +43,6 @@ export default function Home() {
         <FinalCtaSection />
       </main>
       <SiteFooter />
-    </>
+    </div>
   );
 }

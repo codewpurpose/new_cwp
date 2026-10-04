@@ -1,0 +1,99 @@
+/* Keep the original CWP page structure, while warming the colours and giving
+   display text a softly rounded character. Body copy keeps the site font. */
+.cartoon-home {
+  --home-page: #fcf4e8;
+  --home-white: #fffbf5;
+  --home-ink: #15120c;
+  --home-ink-soft: #4f483d;
+  --home-ink-quiet: #6b6255;
+  --home-hairline: rgba(30, 60, 44, 0.12);
+  --home-moss: #397554;
+  --home-moss-hover: #2a5038;
+  background: var(--home-page);
+  color: var(--home-ink);
+}
+.cartoon-home h1,
+.cartoon-home h2,
+.cartoon-home .home-display,
+.cartoon-home .home-serif {
+  font-family: var(--font-playful-heading), var(--font-home-serif), sans-serif;
+  font-weight: 400;
+  letter-spacing: -.02em;
+}
+.cartoon-home header { background: var(--home-page); }
+.cartoon-home .home-btn { border-radius: 999px; box-shadow: none; }
+.cartoon-home .home-btn-fill {
+  background: var(--home-moss);
+  border-color: var(--home-moss);
+}
+.cartoon-home .home-btn-fill:hover {
+  background: var(--home-moss-hover);
+  border-color: var(--home-moss-hover);
+}
+.cartoon-home .home-card { border-radius: 1rem; }
+.cartoon-home a:focus-visible,
+.cartoon-home button:focus-visible {
+  outline: 2px solid #397554;
+  outline-offset: 3px;
+}
+.cartoon-home .hero-message-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 18rem;
+  align-items: center;
+  gap: 2rem;
+}
+.cartoon-home .hero-message-copy h1,
+.cartoon-home .hero-message-copy > p { text-align: left; }
+.cartoon-home .hero-message-copy > p { margin-inline: 0; }
+.cartoon-home .hero-message-actions { justify-content: flex-start; }
+.cartoon-home .koda-greeting { text-align: center; }
+.cartoon-home .koda-greeting-button {
+  display: block; width: 230px; height: 250px; margin-inline: auto;
+  cursor: pointer; border: 0; background: transparent;
+  animation: koda-breathe 3s ease-in-out 3;
+}
+.cartoon-home .koda-greeting-art { position: relative; width: 100%; height: 100%; }
+.cartoon-home .koda-greeting-art img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: contain; }
+.cartoon-home .koda-greeting-line { margin-top: .5rem; font-size: .85rem; color: var(--home-ink-soft); }
+@keyframes koda-breathe {
+  0%, 100% { transform: translateY(0) rotate(0); }
+  50% { transform: translateY(-6px) rotate(2deg); }
+}
+@media (max-width: 1023px) {
+  .cartoon-home .hero-message-grid { grid-template-columns: 1fr; gap: .5rem; }
+  .cartoon-home .hero-message-copy h1,
+  .cartoon-home .hero-message-copy > p { text-align: center; }
+  .cartoon-home .hero-message-copy > p { margin-inline: auto; }
+  .cartoon-home .hero-message-actions { justify-content: center; }
+  .cartoon-home .koda-greeting-button { width: 190px; height: 205px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .cartoon-home .koda-greeting-button { animation: none; }
+}
+
+/* Keep the original homepage sections and interactions, but let the content
+   breathe without a white tile around every item. */
+.cartoon-home .home-card,
+.cartoon-home .home-card-accent,
+.cartoon-home .media-card-featured {
+  background: transparent;
+  border-color: transparent;
+  box-shadow: none;
+}
+.home-root:has(.cartoon-home) .koala-mascot { display: none; }
+.cartoon-home .home-lift { transition: color 180ms ease, transform 180ms ease; }
+.cartoon-home .home-lift:hover { transform: translateY(-2px); }
+@media (prefers-reduced-motion: reduce) {
+  .cartoon-home .home-lift { transition: none; }
+  .cartoon-home .home-lift:hover { transform: none; }
+}
+.cartoon-home {
+  --home-space-section: 3.5rem;
+  --home-space-section-lg: 4.5rem;
+}
+.cartoon-home .proof-point-strip {
+  background: #f5ebdb;
+  color: #2b2419;
+  font-family: var(--font-home-sans), system-ui, sans-serif;
+}
+.cartoon-home .proof-point-join { border-color: rgba(30, 60, 44, 0.28); }
