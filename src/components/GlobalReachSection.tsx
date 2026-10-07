@@ -1,6 +1,7 @@
 "use client";
 
-import { Fragment, useState, type ReactNode } from "react";
+import { useState, type ReactNode } from "react";
+import { ChevronDown } from "lucide-react";
 import { DONATE_HREF } from "@/lib/links";
 
 interface ImpactDetail {
@@ -128,119 +129,69 @@ const items: ImpactItem[] = [
 function DetailContent({ detail }: { detail: ImpactDetail }) {
   return (
     <>
-      <h4 className="pr-8 text-lg leading-[1.2] md:text-xl">{detail.title}</h4>
-      <p className="mt-4 text-[15px] leading-[1.55] text-[var(--home-ink-soft)]">
+      <h3 className="global-reach-detail-title">{detail.title}</h3>
+      <p className="global-reach-detail-copy">
         {detail.body}
       </p>
-      <div className="mt-5 border-t-[0.5px] border-[var(--home-hairline)] pt-4">
-        <p className="text-[11px] font-medium uppercase tracking-[0.12em] text-[var(--home-ink-quiet)]">
-          In the field
-        </p>
-        <p className="mt-2 text-[14px] leading-[1.55] text-[#15120c]">
-          {detail.scenario}
-        </p>
-      </div>
+      <p className="global-reach-scenario">{detail.scenario}</p>
     </>
   );
 }
 
 export function GlobalReachSection() {
   const [open, setOpen] = useState<number | null>(null);
-  const [lastIndex, setLastIndex] = useState(0);
-  const activeDetail = items[lastIndex].detail;
 
   return (
-    <div id="impact" className="mt-16 scroll-mt-28 md:mt-44 md:scroll-mt-24">
+    <section id="impact" className="global-reach-section mt-16 scroll-mt-28 md:mt-44 md:scroll-mt-24">
       <div className="mx-auto w-full max-w-[85rem] px-5 md:px-10">
-        <div className="relative flex overflow-hidden rounded-[20px] md:min-h-[760px] md:rounded-[24px]">
-          <div
-            className="absolute inset-0"
-            style={{
-              background:
-                "radial-gradient(120% 90% at 18% 22%, #2c4636 0%, transparent 55%), radial-gradient(110% 80% at 85% 75%, #20303f 0%, transparent 60%), radial-gradient(70% 60% at 60% 35%, #3a3128 0%, transparent 65%), #11161c",
-            }}
-          />
-          <div className="absolute inset-0 bg-gradient-to-r from-black/40 via-black/15 to-black/30" />
-          <div className="relative z-[1] flex w-full flex-col justify-between gap-8 p-5 sm:gap-10 sm:p-7 md:flex-row md:p-[46px]">
-            <h3 className="home-serif text-[1.75rem] leading-[1.05] text-white md:text-[2.75rem]">
-              Global reach
-            </h3>
-            <div className="flex min-w-0 w-full flex-col md:w-auto md:flex-row md:self-stretch">
-              <div className="flex min-w-0 w-full flex-col rounded-xl bg-white/95 p-2 backdrop-blur-[10px] md:w-[452px] md:max-w-none">
-                {items.map((item, index) => (
-                  <Fragment key={item.label}>
-                    <button
-                      type="button"
-                      onClick={() => {
-                        if (open === index) {
-                          setOpen(null);
-                        } else {
-                          setLastIndex(index);
-                          setOpen(index);
-                        }
-                      }}
-                      aria-expanded={open === index}
-                      aria-controls={`impact-detail impact-detail-${index}`}
-                      className={[
-                        "home-template-row group flex min-h-12 flex-1 items-center gap-3 border-t-[0.5px] border-[var(--home-hairline)] px-3 py-3.5 text-left first:border-t-0 sm:px-4 sm:py-4",
-                        open === index ? "rounded-lg bg-[#f3f3f1]" : "",
-                      ].join(" ")}
-                    >
-                      <span className="shrink-0 text-[#15120c]">
-                        {item.icon}
-                      </span>
-                      <span className="min-w-0 flex-1 text-[15px] leading-snug">{item.label}</span>
-                      <span className="home-row-arrow shrink-0 text-[#397554]">→</span>
-                    </button>
-                    <div
-                      id={`impact-detail-${index}`}
-                      className={[
-                        "home-detail min-[1200px]:hidden",
-                        open === index ? "home-detail-open" : "",
-                      ].join(" ")}
-                      aria-hidden={open !== index}
-                    >
-                      <div className="home-detail-inner">
-                        <div className="rounded-lg bg-[#f3f3f1] px-4 py-5">
-                          <DetailContent detail={item.detail} />
-                        </div>
-                      </div>
-                    </div>
-                  </Fragment>
-                ))}
-              </div>
-              <aside
-                id="impact-detail"
-                className={[
-                  "home-detail hidden shrink-0 min-[1200px]:block",
-                  open !== null ? "home-detail-open" : "",
-                ].join(" ")}
-                aria-hidden={open === null}
-              >
-                <div className="home-detail-inner">
-                  <div className="relative h-full rounded-xl bg-white/95 p-6 backdrop-blur-[10px] md:p-7">
-                    <button
-                      type="button"
-                      onClick={() => setOpen(null)}
-                      aria-label="Close detail window"
-                      className="absolute right-3 top-3 flex h-10 w-10 items-center justify-center text-xl leading-none text-[var(--home-ink-quiet)] transition-colors hover:text-[#15120c] sm:right-5 sm:top-5"
-                      tabIndex={open === null ? -1 : 0}
-                    >
-                      ×
-                    </button>
-                    <DetailContent detail={activeDetail} />
-                  </div>
-                </div>
-              </aside>
-            </div>
+        <div className="global-reach-heading">
+          <div>
+            <p className="global-reach-kicker">THE REACH OF FREE LEARNING</p>
+            <h2>Every learner deserves a way in.</h2>
+          </div>
+          <div className="global-reach-intro-copy">
+            <p>
+              Free courses, translated lessons, real mentors, and student-built
+              projects make coding feel possible wherever learners are.
+            </p>
+            <a href={DONATE_HREF} className="home-arrow-link">
+              Support our mission <span className="home-arrow">→</span>
+            </a>
           </div>
         </div>
-        <div className="mt-5 flex justify-end">
-          <a href={DONATE_HREF} className="home-arrow-link">
-            Support our mission <span className="home-arrow">→</span>
-          </a>
-        </div>
+        <ul className="global-reach-list">
+          {items.map((item, index) => (
+            <li key={item.label} className="global-reach-item">
+              <button
+                type="button"
+                onClick={() => setOpen(open === index ? null : index)}
+                aria-expanded={open === index}
+                aria-controls={`impact-detail-${index}`}
+                className="global-reach-button cursor-pointer"
+              >
+                <span className="global-reach-icon">{item.icon}</span>
+                <span className="global-reach-label">{item.label}</span>
+                <ChevronDown
+                  aria-hidden="true"
+                  className={`global-reach-chevron ${open === index ? "global-reach-chevron-open" : ""}`}
+                  size={18}
+                  strokeWidth={1.8}
+                />
+              </button>
+              <div
+                id={`impact-detail-${index}`}
+                className="global-reach-panel"
+                data-open={open === index}
+                aria-hidden={open !== index}
+              >
+                <div className="global-reach-panel-inner">
+                  <DetailContent detail={item.detail} />
+                </div>
+              </div>
+            </li>
+          ))}
+        </ul>
       </div>
-    </div>
+    </section>
   );
 }

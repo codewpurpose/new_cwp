@@ -10,12 +10,6 @@ const HERO_STATS = [
   { value: "150k+", label: "Total Students Reached" },
 ];
 
-/**
- * Three copies so the existing home-marquee keyframe (−33.333%) loops
- * in a loop, using the same approach as PromptsMarquee.
- */
-const MARQUEE_STATS = [...HERO_STATS, ...HERO_STATS, ...HERO_STATS];
-
 export function HeroSection() {
   return (
     /* overflow-x-clip: the stats marquee track is wider than the viewport by
@@ -38,27 +32,36 @@ export function HeroSection() {
         <KodaGreeting />
       </div>
 
-      <div
-        className="home-marquee home-hero-stats mt-10 md:mt-14"
-        role="group"
-        aria-label="Impact statistics"
-      >
-        <div className="home-marquee-track">
-          {MARQUEE_STATS.map((stat, index) => (
-            <div
-              key={`${stat.label}-${index}`}
-              className="home-card flex w-[8.75rem] shrink-0 flex-col justify-center rounded-xl px-3 py-5 text-center sm:w-[11rem] sm:px-4 md:w-[13rem] md:px-6 md:py-6"
-              aria-hidden={index >= HERO_STATS.length ? true : undefined}
-            >
-              <p className="home-serif text-[1.375rem] leading-none text-[#3e7f5c] sm:text-[1.5rem] md:text-[2rem]">
-                {stat.value}
-              </p>
-              <p className="mt-2 text-[12px] leading-snug text-balance text-[var(--home-ink-soft)] sm:text-[13px] md:text-sm">
-                {stat.label}
-              </p>
-            </div>
+      <div className="home-stats-roadmap mt-10 md:mt-14">
+        <svg
+          className="home-stats-route home-stats-route-wide"
+          viewBox="0 0 1000 200"
+          preserveAspectRatio="none"
+          aria-hidden="true"
+        >
+          <path className="home-stats-route-base" d="M0 110 C40 78 64 78 100 110 S164 142 200 110 S264 78 300 110 S364 142 400 110 S464 78 500 110 S564 142 600 110 S664 78 700 110 S764 142 800 110 S864 78 900 110 S964 142 1000 110" />
+          <path className="home-stats-route-center" d="M0 110 C40 78 64 78 100 110 S164 142 200 110 S264 78 300 110 S364 142 400 110 S464 78 500 110 S564 142 600 110 S664 78 700 110 S764 142 800 110 S864 78 900 110 S964 142 1000 110" />
+        </svg>
+        <svg
+          className="home-stats-route home-stats-route-mobile"
+          viewBox="0 0 64 500"
+          preserveAspectRatio="none"
+          aria-hidden="true"
+        >
+          <path className="home-stats-route-base" d="M32 0 C48 20 16 30 32 50 S48 80 32 100 S16 130 32 150 S48 180 32 200 S16 230 32 250 S48 280 32 300 S16 330 32 350 S48 380 32 400 S16 430 32 450 S48 480 32 500" />
+          <path className="home-stats-route-center" d="M32 0 C48 20 16 30 32 50 S48 80 32 100 S16 130 32 150 S48 180 32 200 S16 230 32 250 S48 280 32 300 S16 330 32 350 S48 380 32 400 S16 430 32 450 S48 480 32 500" />
+        </svg>
+        <ul className="home-stats-list" aria-label="Impact statistics">
+          {HERO_STATS.map((stat) => (
+            <li key={stat.label} className="home-stat-stop">
+              <div className="home-stat-content">
+                <p className="home-stat-value home-serif">{stat.value}</p>
+                <p className="home-stat-label">{stat.label}</p>
+              </div>
+              <span className="home-stat-marker" aria-hidden="true" />
+            </li>
           ))}
-        </div>
+        </ul>
       </div>
     </section>
   );
