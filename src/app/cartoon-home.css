@@ -248,7 +248,7 @@
   margin: 0;
   padding: 1.1rem 1.15rem;
   border: 1px solid rgba(57, 117, 84, .18);
-  border-radius: 1.25rem 1.25rem .3rem 1.25rem;
+  border-radius: 1.25rem 1.25rem 1.25rem .3rem;
   background: var(--home-white);
   box-shadow: 0 12px 28px rgba(45, 69, 50, .08);
   color: var(--home-ink-soft);
@@ -267,12 +267,12 @@
 .cartoon-home .koda-greeting-line::after {
   position: absolute;
   top: 50%;
-  right: -.42rem;
+  left: -.42rem;
   width: .78rem;
   height: .78rem;
-  transform: translateY(-50%) rotate(45deg);
+  transform: translateY(-50%) rotate(-45deg);
   border-top: 1px solid rgba(57, 117, 84, .18);
-  border-right: 1px solid rgba(57, 117, 84, .18);
+  border-left: 1px solid rgba(57, 117, 84, .18);
   background: var(--home-white);
   content: "";
 }
@@ -289,6 +289,7 @@
   .cartoon-home .koda-greeting {
     display: flex;
     flex-direction: column;
+    align-items: center;
     gap: 0;
     text-align: center;
   }
