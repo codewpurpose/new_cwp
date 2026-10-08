@@ -3,7 +3,7 @@ import { COURSES_HREF } from "@/lib/links";
 import { KodaGreeting } from "@/components/KodaGreeting";
 
 const HERO_STATS = [
-  { value: "5,000+", label: "Students Reached" },
+  { value: "6,000+", label: "Students Reached" },
   { value: "150+", label: "Countries" },
   { value: "30+", label: "Languages Taught" },
   { value: "20k", label: "Minutes of Teaching" },
