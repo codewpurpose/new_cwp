@@ -355,7 +355,7 @@ export default function AboutPage() {
           Watch our story
         </h2>
         <ScrollExpandVideo
-          src={images.promoVideo}
+          src={images.storyVideo}
           poster={images.heroStudent}
           posterAlt="A student smiling at his laptop during a CodeWithPurpose class"
           title="Watch our story"
