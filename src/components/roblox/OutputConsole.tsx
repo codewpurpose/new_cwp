@@ -41,7 +41,7 @@ const LOGS: Record<Case, { lines: Line[]; culprit: string; reading: string }> = 
     ],
     culprit: "index nil",
     reading:
-      "Something on line 6 was nil and you asked it for a field. Line 5 looked up the Humanoid with FindFirstChildWhichIsA, found none — the thing that touched the laser was not part of a character — and returned nil. Line 6 then did humanoid.Health = 0. The fix is an `if not humanoid then return end` guard between them, not a different way of writing line 6.",
+      "Something on line 6 was nil and you asked it for a field. Line 5 looked up the Humanoid with FindFirstChildWhichIsA on the model ancestor, found none — that model had no Humanoid — and returned nil. Line 6 then did humanoid.Health = 0. The fix is an `if not humanoid then return end` guard between them, not a different way of writing line 6.",
   },
   call: {
     lines: [
