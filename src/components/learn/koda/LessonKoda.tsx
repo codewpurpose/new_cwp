@@ -65,16 +65,21 @@ const TIP_EVERY_MS = 90_000;
 /* ---- collapsed preference: localStorage, read through an external store -- */
 
 const listeners = new Set<() => void>();
-/** Used when storage throws (private mode, blocked site data). */
+/** Used when storage throws (private mode, blocked site data, full quota). */
 let memoryCollapsed = false;
-let storageUnavailable = false;
+/**
+ * The last write failed, so storage may still hold an older value than the
+ * one the reader just chose. Not a permanent latch: the next successful
+ * write, or another tab saving the preference, clears it. Read failures need
+ * no flag at all; each read simply tries storage again.
+ */
+let writeFailed = false;
 
 function readCollapsed(): boolean {
-  if (storageUnavailable) return memoryCollapsed;
+  if (writeFailed) return memoryCollapsed;
   try {
     return localStorage.getItem(STORAGE_KEY) === "1";
   } catch {
-    storageUnavailable = true;
     return memoryCollapsed;
   }
 }
@@ -84,18 +89,25 @@ function writeCollapsed(value: boolean) {
   try {
     if (value) localStorage.setItem(STORAGE_KEY, "1");
     else localStorage.removeItem(STORAGE_KEY);
+    writeFailed = false;
   } catch {
-    storageUnavailable = true;
+    writeFailed = true;
   }
   listeners.forEach((listener) => listener());
 }
 
 function subscribeCollapsed(listener: () => void) {
+  // A storage event means another tab saved successfully, so storage is
+  // current again and its value wins.
+  const onStorage = (event: StorageEvent) => {
+    if (event.key === STORAGE_KEY || event.key === null) writeFailed = false;
+    listener();
+  };
   listeners.add(listener);
-  window.addEventListener("storage", listener);
+  window.addEventListener("storage", onStorage);
   return () => {
     listeners.delete(listener);
-    window.removeEventListener("storage", listener);
+    window.removeEventListener("storage", onStorage);
   };
 }
 

@@ -105,15 +105,20 @@ export default function ScrollExpandVideo({
           {pinned && (
             <motion.span
               aria-hidden="true"
-              className="home-serif absolute inset-x-0 top-[38%] block text-center text-[clamp(2rem,5vw,4.25rem)] leading-none text-[#fcf4e8]"
+              className="home-serif absolute inset-x-0 top-[38%] block text-center group-focus-visible:!opacity-0 text-[clamp(2rem,5vw,4.25rem)] leading-none text-[#fcf4e8]"
               style={{ opacity: titleOpacity, y: titleLift }}
             >
               {title}
             </motion.span>
           )}
 
+          {/* On desktop the controls fade in with scroll, so a keyboard user
+              can tab here while they are still transparent. The important
+              opacity beats the inline style while the button is focused, so
+              the play control and its ring are always visible (and the big
+              title above steps aside so the name isn't shown twice). */}
           <motion.span
-            className="absolute inset-x-0 bottom-0 flex items-end justify-between gap-4 p-5 md:p-8"
+            className="absolute inset-x-0 bottom-0 flex items-end justify-between gap-4 p-5 group-focus-visible:!opacity-100 md:p-8"
             style={pinned ? { opacity: controlsOpacity } : undefined}
           >
             <span className="flex items-center gap-4">

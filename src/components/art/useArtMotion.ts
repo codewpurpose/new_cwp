@@ -17,7 +17,9 @@ import { prefersReducedMotion } from "@/components/koda/motion";
  *    fade up. Once they finish the animations end and the element's own
  *    attributes take over again, so the result is exactly the server markup.
  *    Measurement is deferred until the shared observer says the drawing is
- *    entering view.
+ *    entering view. Drawings already on screen when the hook mounts are left
+ *    alone rather than blanked and redrawn: the server painted them finished,
+ *    so a redraw would flash finished, blank, finished.
  * 2. Idle loops. The CSS loops in globals.css (`.art-loop` and friends) run
  *    only under `prefers-reduced-motion: no-preference`. This hook sets
  *    `data-paused` on the svg while it is off screen or the tab is hidden,
@@ -36,15 +38,15 @@ const SPREAD_MS = 900;
 const EASE = "cubic-bezier(0.65, 0, 0.35, 1)";
 
 // Share viewport and tab visibility subscriptions across all inline artwork.
-const artSubscribers = new Map<Element, (visible: boolean) => void>();
+const artSubscribers = new Map<Element, (entry: IntersectionObserverEntry) => void>();
 const visibilitySubscribers = new Set<() => void>();
 let artObserver: IntersectionObserver | null = null;
 let visibilityListening = false;
 
-function observeArt(svg: SVGSVGElement, callback: (visible: boolean) => void) {
+function observeArt(svg: SVGSVGElement, callback: (entry: IntersectionObserverEntry) => void) {
   if (!artObserver) {
     artObserver = new IntersectionObserver(
-      (entries) => entries.forEach((entry) => artSubscribers.get(entry.target)?.(entry.isIntersecting)),
+      (entries) => entries.forEach((entry) => artSubscribers.get(entry.target)?.(entry)),
       { threshold: 0.01, rootMargin: "0px 0px -6% 0px" },
     );
   }
@@ -140,14 +142,24 @@ export function useArtMotion(ref: RefObject<SVGSVGElement | null>, { draw = true
     // Pause the CSS loops while off screen or in a hidden tab.
     let onScreen = false;
     let didDraw = false;
+    let firstReport = true;
     let animations: Animation[] = [];
     const sync = () => {
       if (onScreen && document.visibilityState === "visible") delete svg.dataset.paused;
       else svg.dataset.paused = "true";
     };
-    const unsubscribeObserver = observeArt(svg, (visible) => {
+    const unsubscribeObserver = observeArt(svg, (entry) => {
+      const visible = entry.isIntersecting;
       onScreen = visible;
       sync();
+      // The observer's first report describes the page as it hydrated, not a
+      // drawing scrolling in. Anything on screen then (even the sliver the
+      // observer's bottom margin ignores) has already been seen finished.
+      if (firstReport) {
+        firstReport = false;
+        const box = entry.boundingClientRect;
+        if (box.bottom > 0 && box.top < window.innerHeight) didDraw = true;
+      }
       if (visible && !didDraw && draw && !prefersReducedMotion() && typeof svg.animate === "function") {
         didDraw = true;
         animations = buildDrawOn(svg);

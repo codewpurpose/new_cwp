@@ -4,6 +4,7 @@ import { motion } from "motion/react";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { createContext, useCallback, useContext, useEffect, useRef, useState } from "react";
+import { flushSync } from "react-dom";
 
 /**
  * The step from the catalogue into a course.
@@ -72,13 +73,27 @@ export function CourseEntryProvider({ children }: { children: React.ReactNode })
     if (!active) return;
     overlayRef.current?.focus();
     const timeout = window.setTimeout(() => {
-      setEntering(null);
+      // Commit first: until the panel is gone the opener sits inside the
+      // inert wrapper, and focus() on an inert element is ignored.
+      flushSync(() => setEntering(null));
       pushed.current = false;
       returnFocus.current?.focus();
       returnFocus.current = null;
     }, 8000);
     return () => window.clearTimeout(timeout);
   }, [active]);
+
+  // The catalogue, and this provider with it, unmounts when the course page
+  // arrives. The panel held focus, so without this keyboard and screen-reader
+  // users would land on <body>. Passive cleanups run after the new page is in
+  // the DOM, so its main landmark (tabIndex -1 in both learning shells) is
+  // there to take focus.
+  useEffect(
+    () => () => {
+      if (pushed.current) document.getElementById("main-content")?.focus({ preventScroll: true });
+    },
+    [],
+  );
 
   const enter = useCallback(
     (event: React.MouseEvent<HTMLAnchorElement>, href: string, title: string) => {
