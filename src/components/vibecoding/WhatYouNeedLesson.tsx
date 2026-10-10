@@ -44,7 +44,7 @@ export function WhatYouNeedLesson() {
               label: "Git and a GitHub account",
               detail:
                 "Git records versions of your work so any change can be undone. GitHub stores those versions online.",
-              note: "This is the safety net that makes AI-generated changes safe to accept.",
+              note: "macOS may offer to install Git the first time you type git; on Windows, download it from git-scm.com. Sign up for GitHub at github.com.",
             },
           ]}
         />
@@ -126,8 +126,14 @@ git commit -m "Describe what changed"`}
         <Callout tone="success" title="Why this matters more with AI">
           When you write code by hand, you remember what you changed. When an AI edits eleven
           files in four seconds, you do not. A commit before you start means{" "}
-          <InlineCode>git restore .</InlineCode> throws away everything since — no matter how
-          confidently wrong the AI was.
+          <InlineCode>git restore .</InlineCode> throws away every change to your tracked files
+          since — no matter how confidently wrong the AI was.
+        </Callout>
+        <Callout tone="note" title="One thing restore does not touch">
+          Brand-new files the AI created are not tracked yet, so <InlineCode>git restore .</InlineCode>{" "}
+          leaves them where they are. Run <InlineCode>git status</InlineCode> afterwards: anything
+          listed under &ldquo;Untracked files&rdquo; is new, and you can delete it by hand if you
+          do not want it.
         </Callout>
       </LessonSection>
 

@@ -123,7 +123,7 @@ export function ScriptPlacement() {
       </div>
 
       <p className="mt-4 text-[13px] leading-[1.6] text-learn-muted">
-        Seven of these twelve placements do nothing. Nothing in Studio warns you about any of them — the script sits in the Explorer looking exactly like one that works, and the Output window stays empty.
+        Nine of these twelve placements start nothing on their own — only three actually run. Nothing in Studio warns you about any of them — the script sits in the Explorer looking exactly like one that works, and the Output window stays empty.
       </p>
     </figure>
   );

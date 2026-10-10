@@ -71,7 +71,7 @@ const TOOLS: Record<ToolKey, ToolSetup> = {
         label: "Move into your project first",
         detail:
           "Claude Code works on whatever folder you launch it from, so cd into the project before starting it.",
-        note: "Launching it from your home folder gives it your entire computer as context, which is slow and rarely what you want.",
+        note: "Launching it from your home folder points it at everything in that folder, which is slow, noisy, and rarely what you want.",
       },
       {
         label: "Start it and sign in",

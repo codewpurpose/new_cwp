@@ -56,9 +56,9 @@ export function PublishingYourExperienceLesson() {
         />
         <P>
           The consequence that catches people: some settings belong to the place and some to the
-          experience, and they are edited in different windows. Making a place public does not
-          make the experience public, and that is a common reason a friend gets an
-          error page from a working obby.
+          experience, and they are edited in different windows. Publishing a place does not
+          make the experience public, and that is a common reason a friend gets an error page
+          from a working obby.
         </P>
       </LessonSection>
 
@@ -163,7 +163,7 @@ export function PublishingYourExperienceLesson() {
           title="Before you publish over a live obby"
           items={[
             "Every static part is anchored — walk the whole course once in Play mode.",
-            "No script is Disabled that should not be, and no debugging print is left shouting on every touch.",
+            "No script is switched off that should be on, and no debugging print is left shouting on every touch.",
             "The spawn point is where you think it is, and a fresh player can reach the first obstacle.",
             "You have tested with two players, not one. The debounce and platform bugs in this track only appear with company.",
             "The experience is Public and the age questionnaire is complete, if you want anyone to find it.",

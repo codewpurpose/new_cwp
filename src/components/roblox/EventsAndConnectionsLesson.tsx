@@ -65,8 +65,12 @@ part.Touched:Connect(onTouch())   -- wrong: calls it now, connects the result`}
         />
         <P>
           The second version runs <Strong>onTouch</Strong> immediately, with no argument, and
-          connects whatever it returned — which is nil. Nothing is connected, the touch never
-          fires anything, and the error you got happened once at startup and scrolled away.
+          would try to connect whatever it returned. Here it never gets that far:{" "}
+          <Strong>otherPart</Strong> is nil, so <Strong>otherPart.Name</Strong> throws before
+          Connect even runs. (A function that returned nil cleanly would fail one step later,
+          with <Strong>Attempt to connect failed: Passed value is not a function</Strong>.)
+          Either way nothing is connected, touching the part does nothing, and the only evidence
+          is one red line at startup that has long since scrolled away.
         </P>
         <P>
           The anonymous form is the same thing written inline, and it is what you will see in
@@ -160,7 +164,7 @@ end)`}
       <TakeawayCard
         items={[
           "Events invert the question: the engine already knows something touched the part, so it tells you rather than you checking every frame.",
-          "Connect takes a function, not a call. Connect(onTouch()) runs it immediately and connects nil — nothing fires and nothing warns you.",
+          "Connect takes a function, not a call. Connect(onTouch()) runs it once at startup, connects nothing, and leaves one easy-to-miss error in Output.",
           "Touched hands you the other part, not a player. A player's limb has a Name and no Health.",
           "TouchEnded is less reliable than Touched — a part destroyed mid-touch may never fire it.",
           "One step onto a plate fires Touched ten to forty times, because a character is many parts and contacts jitter.",

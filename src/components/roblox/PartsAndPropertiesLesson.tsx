@@ -41,8 +41,8 @@ export function PartsAndPropertiesLesson() {
           and nothing can push it.
         </P>
         <P>
-          Every static piece of your obby should be anchored, and forgetting is a common
-          common first-day mistake. You build a beautiful floating course, press Play, and the
+          Every static piece of your obby should be anchored, and forgetting is the classic
+          first-day mistake. You build a beautiful floating course, press Play, and the
           entire thing collapses into a heap on the baseplate before you have taken a step.
         </P>
         <CodeBlock
@@ -92,6 +92,27 @@ platform.Anchored = false  -- falls, tumbles, can be pushed by a player`}
                   A trigger volume, or a decoration players walk through. Combined with{" "}
                   <Strong>Transparency = 1</Strong> this is the invisible detector every
                   checkpoint uses.
+                </P>
+              ),
+            },
+            {
+              title: "Unanchored, CanCollide on",
+              tone: "neutral",
+              children: (
+                <P>
+                  A physics prop. A crate players can shove, a ball that rolls down a ramp, a
+                  boulder that falls when something knocks it loose.
+                </P>
+              ),
+            },
+            {
+              title: "Unanchored, CanCollide off",
+              tone: "neutral",
+              children: (
+                <P>
+                  On its own it falls through the floor and out of the world. Welded to
+                  something that moves, it is decoration that rides along — a hat on a
+                  character is exactly this.
                 </P>
               ),
             },
@@ -146,10 +167,11 @@ part.Position = part.Position + Vector3.new(0, 5, 0)`}
           CFrame rather than Position, because Position alone cannot express a turn.
         </P>
         <P>
-          There is also a subtler reason to prefer it. Setting <Strong>Position</Strong> on an
-          unanchored part asks the physics engine to move it and lets the engine resolve
-          collisions on the way; setting <Strong>CFrame</Strong> places it there outright. When
-          you need a part to be somewhere exactly, CFrame is the one that obeys.
+          There is also a subtler reason to prefer it once parts are joined together. Setting{" "}
+          <Strong>Position</Strong> moves only that one part, sliding it away from anything
+          welded to it. Setting <Strong>CFrame</Strong> moves the part <em>and</em> everything
+          welded to it as one piece. That is why teleporting a player is done by setting the
+          CFrame of their HumanoidRootPart: the whole character comes along.
         </P>
         <CodeBlock
           label="Luau"
@@ -167,7 +189,7 @@ part.CFrame = CFrame.new(0, 20, 0) * CFrame.Angles(0, math.rad(45), 0)`}
           "Transparency only changes what you can see. A fully transparent part is still completely solid — that is the invisible wall.",
           "Making something vanish takes both Transparency = 1 and CanCollide = false. Setting one is the classic broken-platform bug.",
           "Position is a Vector3 and Y is up. Every height comparison later in this track reads Position.Y.",
-          "CFrame carries rotation as well as position, and places a part outright rather than asking physics to move it there.",
+          "CFrame carries rotation as well as position, and moves a part together with everything welded to it.",
         ]}
       />
     </div>

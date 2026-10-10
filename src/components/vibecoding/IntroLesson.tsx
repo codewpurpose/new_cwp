@@ -99,6 +99,11 @@ export function IntroLesson() {
             ))}
           </motion.ol>
         </AnimatePresence>
+        <p className="mt-6 text-[12px] leading-[1.5] text-learn-subtle">
+          The bar is illustrative, not a measurement. How much time you actually save depends
+          on the task, the tool, and how much of the review you do — which is most of what this
+          course is about.
+        </p>
       </div>
 
       <LessonSection id="where-the-term-comes-from" title="Where the term comes from">
