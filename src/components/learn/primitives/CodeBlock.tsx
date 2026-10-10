@@ -1,5 +1,17 @@
 import { CodeCopyButton } from "@/components/learn/primitives/CodeCopyButton";
+import { CodeRunButton, InlineRunnerSlot, RunnableCode } from "@/components/playground/RunnableCode";
 import { cn } from "@/lib/utils";
+
+/**
+ * Whether a block can be run in the browser. Only real Python source: a .py
+ * file name or a plain "Python" label. Never REPL sessions (">>>" lines are
+ * not a program) or tracebacks.
+ */
+function isRunnablePython(label: string | undefined, code: string): boolean {
+  const name = label?.trim().toLowerCase() ?? "";
+  const python = name.endsWith(".py") || name === "python";
+  return python && !/^\s*>>>/m.test(code);
+}
 
 export type CodeLineTone = "err" | "warn" | "ok" | "dim" | "accent";
 
@@ -18,6 +30,13 @@ interface CodeBlockProps {
   label?: string;
   variant?: "code" | "terminal" | "prompt";
   copyable?: boolean;
+  /**
+   * Adds a Run button that opens the code in an in-browser Python runner
+   * below the block. Inferred: on for Python code (a .py label or "Python"),
+   * off for everything else. Pass `false` for a Python excerpt that can't run
+   * on its own; `true` cannot turn it on for other languages.
+   */
+  runnable?: boolean;
   /** Per-line colour, keyed by zero-based line index. */
   lineTones?: Readonly<Record<number, CodeLineTone>>;
   className?: string;
@@ -33,13 +52,15 @@ export function CodeBlock({
   label,
   variant = "code",
   copyable = true,
+  runnable,
   lineTones,
   className,
 }: CodeBlockProps) {
   const lines = code.replace(/\n$/, "").split("\n");
   const isPrompt = variant === "prompt";
+  const canRun = variant === "code" && runnable !== false && isRunnablePython(label, code);
 
-  return (
+  const figure = (
     <figure
       className={cn(
         "mt-6 overflow-hidden rounded-learn-md",
@@ -49,7 +70,7 @@ export function CodeBlock({
         className,
       )}
     >
-      {(label || copyable) && (
+      {(label || copyable || canRun) && (
         <figcaption
           className={cn(
             "flex items-center justify-between gap-3 px-4 py-2 text-[11px] uppercase tracking-[0.08em]",
@@ -59,7 +80,10 @@ export function CodeBlock({
           )}
         >
           <span>{label ?? (variant === "terminal" ? "Terminal" : "Code")}</span>
-          {copyable && <CodeCopyButton value={code} />}
+          <span className="flex shrink-0 items-center gap-1">
+            {canRun && <CodeRunButton />}
+            {copyable && <CodeCopyButton value={code} />}
+          </span>
         </figcaption>
       )}
 
@@ -99,6 +123,17 @@ export function CodeBlock({
         </code>
       </pre>
     </figure>
+  );
+
+  if (!canRun) return figure;
+
+  // The figure above is still rendered here on the server; the provider only
+  // links the header's Run button to the runner that opens underneath.
+  return (
+    <RunnableCode code={code}>
+      {figure}
+      <InlineRunnerSlot />
+    </RunnableCode>
   );
 }
 
