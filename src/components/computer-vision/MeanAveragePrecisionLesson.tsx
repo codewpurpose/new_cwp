@@ -61,8 +61,11 @@ export function MeanAveragePrecisionLesson() {
           jagged curve to stand.
         </P>
         <P>
-          <Strong>Average precision</Strong> sidesteps the choice: instead of one threshold, take
-          the precision value at every point along the sweep and average them. It is a way of
+          <Strong>Average precision</Strong> sidesteps the choice: instead of one threshold, walk
+          down the sorted list and note the precision each time another real object is caught.
+          Add those up and divide by the number of real objects in the scene — so an object the
+          detector never found contributes zero. In the panel above that is (1 + 1 + 1 + 0.8 +
+          0.83 + 0.75) / 8 ≈ 0.67. It is a way of
           scoring the whole trade-off curve with one number instead of committing to a threshold
           nobody agreed on in advance. <Strong>Mean</Strong> average precision then averages that
           score again, across every object class the detector was tested on — one AP for
@@ -82,7 +85,7 @@ export function MeanAveragePrecisionLesson() {
         <P>
           It also treats every miss as equally costly, which is never true in practice. A detector
           that misses a parked car and one that misses a pedestrian stepping into the road produce
-          the same one-point deduction to AP, and only one of those two failures matters at
+          the same deduction from AP, and only one of those two failures matters at
           highway speed. <Strong>A single mAP number is a fair summary of overall detection
           quality and a poor guide to which failures you can actually tolerate.</Strong>
         </P>

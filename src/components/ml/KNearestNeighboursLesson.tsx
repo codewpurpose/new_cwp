@@ -71,8 +71,9 @@ export function KNearestNeighboursLesson() {
         <Callout tone="tip" title="Why the k values here are all odd">
           With two classes and an even k, a vote can tie, and then the model needs a
           tie-break rule that has nothing to do with the data. Using odd k sidesteps the problem
-          entirely. With three or more classes ties come back regardless, and most libraries
-          break them by falling back to the single nearest neighbour.
+          entirely. With three or more classes ties come back regardless, and the library then
+          settles them by a fixed rule — often simply whichever class it happens to list first —
+          which is a choice about code, not evidence from the data.
         </Callout>
       </LessonSection>
 
@@ -85,8 +86,8 @@ export function KNearestNeighboursLesson() {
           &ldquo;Nearest&rdquo; means nearest by some measurement, and the obvious measurement is
           straight-line distance. Revision hours run from 0 to 12. Previous scores run from 20 to
           100. A gap of ten points on the previous exam and a gap of ten hours of revision count
-          the same in that sum — and since the score axis is roughly eight times wider, it
-          contributes roughly eight times as much. The model is not weighing your features. Your
+          the same in that sum — and since the score axis is nearly seven times wider, a typical
+          gap along it is nearly seven times bigger, and it dominates the distance. The model is not weighing your features. Your
           units are.
         </P>
         <P>

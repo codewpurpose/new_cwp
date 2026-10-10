@@ -43,7 +43,14 @@ export function FeatureDetectorsLesson() {
           not the sharpness of the angle, is what a corner detector is actually testing for, and
           it is exactly what makes a corner locatable again in a second photo.
         </P>
+        <P>
+          An edge sits in between. Slide the window across an edge and the view changes sharply;
+          slide it along the edge and it barely changes at all. That makes an edge locatable in one
+          direction and ambiguous in the other, which is why detectors prefer corners, where no
+          direction is ambiguous.
+        </P>
         <CompareGrid
+          columns={3}
           items={[
             {
               title: "Flat patch",
@@ -52,6 +59,16 @@ export function FeatureDetectorsLesson() {
                 <P>
                   Shift the window a few pixels in any direction and the pixels underneath barely
                   change. Nothing to distinguish this position from its neighbours.
+                </P>
+              ),
+            },
+            {
+              title: "Edge",
+              tone: "neutral",
+              children: (
+                <P>
+                  Shift across the edge and the pixels change; shift along it and they do not. You
+                  can pin down one direction, never both.
                 </P>
               ),
             },

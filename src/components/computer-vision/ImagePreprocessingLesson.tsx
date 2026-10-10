@@ -69,7 +69,9 @@ export function ImagePreprocessingLesson() {
           Normalising fixes the scale rather than the content: divide every pixel by 255 to land
           in the 0–1 range, or subtract the dataset&rsquo;s mean and divide by its standard deviation
           so brightness differences between photos stop swamping the differences that actually
-          matter — edges, shapes, colour.
+          matter — edges, shapes, colour. If you use a dataset mean and standard deviation,
+          compute them from the training photos only, and reuse those same two numbers on every
+          validation, test and live image.
         </P>
       </LessonSection>
 
@@ -101,6 +103,15 @@ export function ImagePreprocessingLesson() {
         place.
       </Callout>
 
+      <Callout tone="warning" title="Two common augmentation mistakes">
+        First, an augmentation must not change the right answer. Rotate a handwritten 6 by 180
+        degrees and it becomes a 9 that is still labelled 6; flip a photo of text left to right
+        and it stops being text. Pick only the transformations your real inputs could plausibly
+        go through. Second, augment the training set only. Validation and test photos should look
+        like the real inputs the model will meet, so they get resized and normalised, never
+        randomly rotated or relit.
+      </Callout>
+
       <TakeawayCard
         items={[
           "A trained model has no fallback beyond what its training photos actually contained — it does not generalise to a case it never saw by common sense.",
@@ -109,6 +120,7 @@ export function ImagePreprocessingLesson() {
           "Augmentation manufactures variety from photos you already have, rather than requiring you to collect it, by rotating, flipping, cropping, and relighting.",
           "Independent augmentations combine: four on/off choices produce every combination of the four, not just four new images.",
           "Augmentation still only varies what you photographed — it cannot invent a pose, background, or object absent from the original set.",
+          "Only use augmentations that keep the label true, and apply them to training photos only — never to validation or test images.",
         ]}
       />
     </div>

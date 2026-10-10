@@ -166,10 +166,10 @@ export function RegularisationLesson() {
         />
         <Callout tone="warning" title="Scale first, or the penalty is not fair">
           A penalty on raw coefficient size only makes sense if the coefficients are comparable
-          in the first place. A rent measured in minutes of walk time and a rent measured in
-          square metres are not on the same scale, so an unscaled penalty punishes whichever
-          column happened to be measured in small units, for no reason connected to how much it
-          actually matters. Standardise every predictor before fitting, exactly as the widget
+          in the first place. A predictor measured in minutes of walk time and one measured in
+          square metres are not on the same scale. A column whose numbers are small needs a large
+          coefficient to have the same effect, so an unscaled penalty punishes that column hardest,
+          for no reason connected to how much it actually matters. Standardise every predictor before fitting, exactly as the widget
           above does, and fit that standardiser on the training rows only.
         </Callout>
         <Callout tone="note" title="The same idea, in different clothes">

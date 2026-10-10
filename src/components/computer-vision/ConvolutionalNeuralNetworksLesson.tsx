@@ -51,7 +51,7 @@ export function ConvolutionalNeuralNetworksLesson() {
           simply what a network with a 3×3 window and one layer of depth is capable of noticing,
           and so edges are what it converges on.
         </P>
-        <Callout tone="success" title="What changes">
+        <Callout tone="success" title="You can check this yourself">
           This is not a claim you have to take on faith. Feature visualisation techniques let you
           render exactly what pattern makes each first-layer kernel fire most strongly, and across
           published networks the result looks the same: a bank of oriented edges and colour
@@ -92,8 +92,10 @@ export function ConvolutionalNeuralNetworksLesson() {
           The second is reach. A single 3×3 kernel in the first layer only ever looks at nine
           pixels. Stack five layers of 3×3 kernels and the fifth layer&rsquo;s output at any
           position is influenced by roughly an 11×11 patch of the original image — its{" "}
-          <Strong>receptive field</Strong>. Stack thirty and that patch can cover most of the
-          photo. Depth is how a network built from small, local operations ends up seeing
+          <Strong>receptive field</Strong>. Each 3×3 layer adds two pixels to the width, so n
+          layers see a patch 2n + 1 pixels across. Real networks also shrink the grid between
+          layers with pooling or larger strides, which makes the patch grow much faster, so by
+          thirty layers it can cover most of the photo. Depth is how a network built from small, local operations ends up seeing
           something global.
         </P>
         <P>

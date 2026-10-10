@@ -59,7 +59,9 @@ export function FromPrototypeToProductionLesson() {
           A live video feed at 30 frames per second hands the model a new frame every 33
           milliseconds, whether or not it has finished with the last one. A large, highly accurate
           model that takes 200 milliseconds per frame is not a slower version of a usable system —
-          it is unusable at that frame rate, full stop, regardless of how it scored offline.
+          it cannot keep up with that frame rate, regardless of how it scored offline. The only way
+          to run it is to skip five frames in every six, and whatever happens in those gaps goes
+          unseen.
         </P>
         <P>
           This is a genuine trade-off against accuracy, not an implementation footnote to solve
@@ -108,7 +110,7 @@ export function FromPrototypeToProductionLesson() {
         items={[
           "A benchmark score is a fact about a static test set measured once; it is not a promise about a continuous, real-time production camera feed.",
           "Deployed cameras drift from what the model trained on through scratched lenses, seasonal white-balance shifts, and newer sensor generations, and the decline is usually gradual, not dramatic.",
-          "At 30 frames per second a model has roughly 33 milliseconds per frame; a 200-millisecond model is unusable at that rate regardless of its offline accuracy.",
+          "At 30 frames per second a model has roughly 33 milliseconds per frame; a 200-millisecond model can only keep up by skipping most frames, regardless of its offline accuracy.",
           "Choosing a smaller, faster, slightly less accurate model to fit the latency budget is a genuine engineering trade-off, not a footnote to accept reluctantly.",
           "Production traffic has no automatic ground truth, so monitoring means watching proxy signals — confidence-score drift, spikes in low-confidence predictions, user corrections — rather than a clean accuracy number.",
         ]}

@@ -45,9 +45,9 @@ export function DatasetBiasLesson() {
         </P>
         <P>
           This is not hypothetical. Joy Buolamwini and Timnit Gebru&rsquo;s 2018 &ldquo;Gender
-          Shades&rdquo; study tested three commercial facial-analysis systems and found error rates
-          on darker-skinned women running as high as 34%, against under 1% for lighter-skinned men
-          on the same systems. The gap was not a mysterious algorithmic quirk — it traced directly
+          Shades&rdquo; study tested three commercial systems that classify the gender of a face and
+          found error rates on darker-skinned women running as high as 34%, against under 1% for
+          lighter-skinned men on the same systems. The gap was not a mysterious algorithmic quirk — it traced directly
           back to benchmark and training datasets that were overwhelmingly lighter-skinned and
           male.
         </P>

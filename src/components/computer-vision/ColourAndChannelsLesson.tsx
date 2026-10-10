@@ -2,6 +2,7 @@ import { Callout } from "@/components/learn/primitives/Callout";
 import { CompareGrid, TakeawayCard } from "@/components/learn/primitives/Cards";
 import { InlineCode } from "@/components/learn/primitives/CodeBlock";
 import { Lead, LessonSection, P, Strong } from "@/components/learn/primitives/LessonSection";
+import { RevealCard } from "@/components/learn/primitives/RevealCard";
 
 export function ColourAndChannelsLesson() {
   return (
@@ -27,7 +28,7 @@ export function ColourAndChannelsLesson() {
           channel until you ask a specific question about a specific image.
         </P>
         <div className="mt-6 overflow-hidden rounded-learn-md border-[0.5px] border-learn-line bg-learn-chart-plot p-4">
-          <svg viewBox="0 0 320 110" className="w-full max-w-[320px]" role="img" aria-label="A sky-blue pixel with RGB value 135, 206, 235, split into its red, green and blue channel values, each shown as its own shade of grey.">
+          <svg viewBox="0 0 380 110" className="w-full max-w-[380px]" role="img" aria-label="A sky-blue pixel with RGB value 135, 206, 235, split into its red, green and blue channel values, each shown as its own shade of grey.">
             <g>
               <rect x={0} y={0} width={80} height={80} rx={8} fill="rgb(135,206,235)" />
               <text x={40} y={96} textAnchor="middle" fontSize={11} fill="var(--learn-ink-muted)">combined</text>
@@ -41,9 +42,9 @@ export function ColourAndChannelsLesson() {
               <text x={240} y={96} textAnchor="middle" fontSize={11} fill="var(--learn-ink-muted)">G = 206</text>
             </g>
             <g>
-              <rect x={300} y={0} width={20} height={80} rx={4} fill="rgb(235,235,235)" />
+              <rect x={300} y={0} width={80} height={80} rx={8} fill="rgb(235,235,235)" />
+              <text x={340} y={96} textAnchor="middle" fontSize={11} fill="var(--learn-ink-muted)">B = 235</text>
             </g>
-            <text x={310} y={96} textAnchor="middle" fontSize={9} fill="var(--learn-ink-muted)">B = 235</text>
           </svg>
         </div>
       </LessonSection>
@@ -59,9 +60,11 @@ export function ColourAndChannelsLesson() {
           <InlineCode>0.299R + 0.587G + 0.114B</InlineCode>, not a plain average of the three.
         </P>
         <P>
-          <Strong>Green gets nearly five times the weight of blue</Strong> because human vision is
-          far more sensitive to green light — your eye has more receptors tuned to that part of
-          the spectrum than to red or blue. A grayscale conversion that used equal weights would
+          <Strong>Green gets about five times the weight of blue</Strong> because human brightness
+          perception peaks in the green part of the spectrum: the cones that respond to red and to
+          green both respond strongly there, while blue-sensitive cones are comparatively few and
+          contribute little to how bright something looks. A grayscale conversion that used equal
+          weights would
           produce a technically valid image that looked wrong to every person who looked at it,
           because it would not match how brightness actually registers for a human observer.
         </P>
@@ -71,6 +74,16 @@ export function ColourAndChannelsLesson() {
           convert to the same grey. The weighting is tuned to human perception, not to the raw
           light hitting the sensor.
         </Callout>
+        <div className="mt-6">
+          <RevealCard
+            summaryTag="Try it yourself"
+            summary="Convert the sky pixel from above, R = 135, G = 206, B = 235, to grey with 0.299R + 0.587G + 0.114B. Then compare it with a plain average of the three."
+            detailTag="Answer"
+            detail="0.299 × 135 + 0.587 × 206 + 0.114 × 235 ≈ 40.4 + 120.9 + 26.8 ≈ 188. A plain average gives (135 + 206 + 235) / 3 = 192. The two are close here, but notice where the weighted grey came from: almost two-thirds of it is the green channel, even though blue is the biggest of the three numbers."
+            openLabel="Show the answer"
+            closeLabel="Hide the answer"
+          />
+        </div>
       </LessonSection>
 
       <LessonSection id="channels-that-are-not-colour" title="Channels that are not colour at all">
@@ -142,7 +155,7 @@ export function ColourAndChannelsLesson() {
       <TakeawayCard
         items={[
           "A colour pixel is not one value, it is three independent numbers for red, green and blue stacked on the same spot.",
-          "Converting to grayscale is a weighted calculation, not a loss of information for free — green typically gets close to five times the weight of blue because human vision is far more sensitive to it.",
+          "Converting to grayscale is a weighted calculation, not a plain average — green gets about five times the weight of blue because human brightness perception is most sensitive to green light.",
           "A channel does not have to carry colour: alpha carries transparency, depth carries distance, infrared carries light outside human vision.",
           "Channel order is a convention rather than a universal rule, and OpenCV's default of BGR instead of RGB is the concrete example that trips people up.",
           "Mixing up channel order does not error — it silently swaps red and blue in the displayed image, which is what makes the bug easy to miss.",

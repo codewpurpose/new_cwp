@@ -18,8 +18,8 @@ export function ClusteringLesson() {
 
       <LessonSection id="when-nobody-labelled-anything" title="When nobody labelled anything">
         <P>
-          Look back at Part 4. Train/test splitting, cross-validation, precision and recall — all
-          of it assumed somebody had already written down the right answer for every example, so
+          Look back at Parts 2 and 4. Train/test splitting, cross-validation, precision and
+          recall — all of it assumed somebody had already written down the right answer for every example, so
           the model&rsquo;s answer could be compared against it. That comparison is the entire honesty
           toolbox. Take away the right answers and every tool in it stops working, not because
           the problem got harder, but because the ingredient they all need is gone.
@@ -172,7 +172,7 @@ export function ClusteringLesson() {
 
       <TakeawayCard
         items={[
-          "Clustering has no answer key. Every honesty tool from Part 4 needed one, and none of them apply here.",
+          "Clustering has no answer key. Every honesty tool from Parts 2 and 4 needed one, and none of them apply here.",
           "k-means repeats two moves — assign to the nearest centre, move the centre to the mean — until an assign round changes nobody. It has to stop; it does not have to stop somewhere good.",
           "It minimises inertia and nothing else. A grouping that looks wrong to you can still have the lowest inertia the run ever found.",
           "k is a choice you make, not a fact the data hands you. The elbow method is a heuristic for making that choice, not a proof you made it correctly.",

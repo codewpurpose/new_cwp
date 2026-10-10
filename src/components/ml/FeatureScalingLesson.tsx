@@ -66,6 +66,13 @@ export function FeatureScalingLesson() {
           Min-max earns its place when the bounds are known and fixed, such as a pixel value
           that is always 0 to 255.
         </P>
+        <P>
+          A worked example makes both concrete. Take an income column whose training values run
+          from $18,000 to $240,000, with a mean of $60,000 and a standard deviation of $30,000.
+          An applicant earning $45,000 becomes (45,000 − 18,000) / 222,000 ≈ 0.12 under min-max,
+          and (45,000 − 60,000) / 30,000 = −0.5 under standardisation: half a standard deviation
+          below the average earner.
+        </P>
       </LessonSection>
 
       <ScaleToggle />
@@ -94,10 +101,10 @@ export function FeatureScalingLesson() {
                     entire prediction, or the entire grouping, is a distance calculation.
                   </p>
                   <p>
-                    SVMs, and anything with a gradient-based penalty on its coefficients — a
-                    column with a huge range needs a huge coefficient to matter, and the penalty
-                    punishes huge coefficients specifically, regardless of whether the size is
-                    doing real work.
+                    SVMs, and any model with a penalty on the size of its coefficients, such as
+                    ridge or lasso — a column with a tiny range needs a huge coefficient to
+                    matter, and the penalty punishes huge coefficients specifically, regardless of
+                    whether the size is doing real work.
                   </p>
                   <p>
                     PCA — it finds the directions of largest variance, and a column measured in
@@ -105,8 +112,8 @@ export function FeatureScalingLesson() {
                     not it carries more signal.
                   </p>
                   <p>
-                    Neural networks are scale-invariant in principle and slow in practice —
-                    unscaled inputs drag convergence out for far longer than it needs to take.
+                    Neural networks can in principle learn to compensate for any scale, but in
+                    practice unscaled inputs make training slow and unstable.
                   </p>
                 </>
               ),
@@ -124,8 +131,8 @@ export function FeatureScalingLesson() {
                     A split like <InlineCode>income &gt; 50,000</InlineCode> asks a yes-or-no
                     question about order, not magnitude. Multiply every income by a thousand, or
                     subtract off the mean, and the same applicants land on the same side of the
-                    same split. Any monotonic rescaling leaves a tree-based model byte-for-byte
-                    unchanged.
+                    same split. Any order-preserving rescaling moves the cut-off values but leaves
+                    every prediction exactly as it was.
                   </p>
                 </>
               ),
@@ -187,8 +194,8 @@ train, test = random_split(features_scaled, 0.33)`}
         items={[
           "Euclidean distance adds squared differences in whatever units it is handed, so a column with a wide range dominates before anybody decided it should.",
           "Min-max squashes a column onto [0, 1] and is at the mercy of a single outlier; standardisation centres on the mean and divides by the standard deviation, and shrugs one off.",
-          "k-NN, k-means, SVMs, PCA, anything with a gradient-based penalty, and neural networks all care about scale.",
-          "Decision trees and the ensembles built from them do not — a split like “income > 50,000” survives any monotonic rescaling untouched.",
+          "k-NN, k-means, SVMs, PCA, penalised models like ridge and lasso, and neural networks all care about scale.",
+          "Decision trees and the ensembles built from them do not — a split like “income > 50,000” gives the same answers after any order-preserving rescaling.",
           "Fit the scaler on the training fold only, and carry its saved numbers into the test fold. Computing them over the whole dataset leaks test information into training.",
         ]}
       />

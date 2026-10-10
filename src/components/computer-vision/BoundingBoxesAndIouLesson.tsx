@@ -1,6 +1,7 @@
 import { TakeawayCard } from "@/components/learn/primitives/Cards";
 import { Lead, LessonSection, P, Strong } from "@/components/learn/primitives/LessonSection";
 import { IouDragger } from "@/components/computer-vision/IouDragger";
+import { RevealCard } from "@/components/learn/primitives/RevealCard";
 
 export function BoundingBoxesAndIouLesson() {
   return (
@@ -40,6 +41,16 @@ export function BoundingBoxesAndIouLesson() {
           all score 0. Everything a detector actually produces lands somewhere in between, and the
           interactive below lets you watch that number move.
         </P>
+        <div className="mt-6">
+          <RevealCard
+            summaryTag="Try it yourself"
+            summary="The true box is 100 by 100 pixels. The predicted box is exactly the same size but sits 50 pixels to the right. Is it a hit at an IoU threshold of 0.5?"
+            detailTag="Answer"
+            detail="The overlap is 50 × 100 = 5,000. The union is 10,000 + 10,000 − 5,000 = 15,000. IoU = 5,000 / 15,000 ≈ 0.33, so it is a miss — even though half of the true box is covered. Sliding a box by half its width costs far more than half the IoU."
+            openLabel="Show the answer"
+            closeLabel="Hide the answer"
+          />
+        </div>
       </LessonSection>
 
       <IouDragger />
@@ -65,7 +76,7 @@ export function BoundingBoxesAndIouLesson() {
         <P>
           0.5 is the threshold you will see quoted most often, but it is a convention, not a
           property of geometry. A benchmark can and does choose differently — some standard
-          evaluations report accuracy at 0.75, a noticeably stricter bar, and some report a whole
+          evaluations report results at 0.75, a noticeably stricter bar, and some report a whole
           curve of scores across every threshold from 0.5 to 0.95 rather than commit to one.
         </P>
         <P>

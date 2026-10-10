@@ -48,6 +48,11 @@ export function NonMaxSuppressionLesson() {
           It is one dog, described twice. Suppressing the extra box loses nothing; keeping it would
           double-count the same animal in the final result.
         </P>
+        <P>
+          In practice this runs separately for each class. A box labelled &ldquo;dog&rdquo; never
+          suppresses a box labelled &ldquo;person&rdquo;, however much they overlap — someone
+          holding a puppy is two objects, not one described twice.
+        </P>
       </LessonSection>
 
       <NmsThreshold />
@@ -67,7 +72,8 @@ export function NonMaxSuppressionLesson() {
           survive, because none of them overlap each other by quite enough to trip the threshold,
           and your final output still reports several dogs where there is one.{" "}
           <Strong>There is no threshold that is safe for every photo</Strong>; it is tuned against
-          a validation set, the same way the IoU threshold in the last lesson was.
+          a validation set that looks like the scenes you expect. Crowded scenes, where real
+          objects genuinely overlap, usually want a higher threshold than sparse ones.
         </P>
       </LessonSection>
 

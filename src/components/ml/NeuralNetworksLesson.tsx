@@ -89,8 +89,9 @@ export function NeuralNetworksLesson() {
           At zero hidden units the widget above is exactly the straight-line model from the first
           section, and it shows: 62.5% on the points it trained on, 61.7% on the ones it did not
           — barely past guessing, because half of each ring sits on either side of any line you
-          could draw. One or two units bend that line slightly and buy almost nothing (69.2%,
-          then 85.0% training accuracy, with validation trailing well behind at 63.3% and 68.3%).
+          could draw. One or two units bend that line and help on the training points (69.2%,
+          then 85.0%), but validation trails well behind at 63.3% and 68.3% — the folds are not
+          yet in the right places to trace a ring.
           By three units the fold count catches up with the shape: 99.2% training accuracy, 93.3%
           held back. Five is where this particular ring stops needing help — 98.3% on data it
           never trained on, the best any width reaches here. Pushing on to eight buys nothing

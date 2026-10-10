@@ -3,6 +3,7 @@ import { TakeawayCard } from "@/components/learn/primitives/Cards";
 import { InlineCode } from "@/components/learn/primitives/CodeBlock";
 import { Lead, LessonSection, P, Strong } from "@/components/learn/primitives/LessonSection";
 import { KernelSlider } from "@/components/computer-vision/KernelSlider";
+import { RevealCard } from "@/components/learn/primitives/RevealCard";
 
 export function ConvolutionLesson() {
   return (
@@ -71,6 +72,22 @@ export function ConvolutionLesson() {
           to roughly the same value. Where the centre is a genuine anomaly, the subtraction
           exaggerates it instead of averaging it away.
         </P>
+        <div className="mt-6">
+          <RevealCard
+            summaryTag="Try it yourself"
+            summary="A 3-by-3 patch is all 10s except a bright 100 in the centre. What does the blur kernel (nine values of 1/9) write into the output? What does a sharpen kernel with 5 in the centre and −1 on the four direct neighbours write?"
+            detailTag="Answer"
+            detail="Blur: (8 × 10 + 100) / 9 = 180 / 9 = 20, so the bright spot is pulled most of the way down towards its neighbours. Sharpen: 5 × 100 − 4 × 10 = 460, so the spot is pushed further away from them. In a real image that 460 would be clipped to 255, the brightest value a pixel can hold."
+            openLabel="Show the answer"
+            closeLabel="Hide the answer"
+          />
+        </div>
+        <Callout tone="note" title="A detail you will meet in libraries">
+          Strictly, the textbook definition of convolution flips the kernel before sliding it.
+          Image libraries and neural networks almost always skip the flip — the operation they
+          run is technically called cross-correlation — and for symmetric kernels like blur and
+          sharpen the two give identical results.
+        </Callout>
         <Callout tone="success" title="One operation, a menu of behaviours">
           Edge detection, sharpening, blurring and the very first layer of a neural network&rsquo;s
           convolution are all this same slide-multiply-sum procedure. What changes between all of

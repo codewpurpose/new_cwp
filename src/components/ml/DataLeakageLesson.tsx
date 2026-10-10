@@ -1,4 +1,5 @@
 import { Callout } from "@/components/learn/primitives/Callout";
+import { InlineCode } from "@/components/learn/primitives/CodeBlock";
 import { ChecklistCard, TakeawayCard } from "@/components/learn/primitives/Cards";
 import { Lead, LessonSection, P, Strong } from "@/components/learn/primitives/LessonSection";
 import { LeakInspector } from "@/components/ml/LeakInspector";
@@ -87,8 +88,8 @@ export function DataLeakageLesson() {
         <P>
           Notice that this single careless line commits two leaks at once. It ignores time{" "}
           <em>and</em> puts the reapplications back on both sides. That is the normal case. Real
-          pipelines rarely have one clean flaw; they have a default `train_test_split` call and
-          a table nobody interrogated.
+          pipelines rarely have one clean flaw; they have a default{" "}
+          <InlineCode>train_test_split</InlineCode> call and a table nobody interrogated.
         </P>
       </LessonSection>
 

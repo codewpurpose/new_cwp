@@ -54,9 +54,8 @@ export function ObjectDetectionLesson() {
           The next idea is to run the classifier again and again, on every possible rectangle the
           image could contain — every position, every width, every height. A modest 224×224 photo
           has tens of thousands of plausible box positions at just a handful of sizes; check every
-          size at every position and you are into the millions. That is a combinatorial explosion,
-          not a plan, and it is exactly the problem the next two lessons exist to avoid solving the
-          brute-force way.
+          size at every position and you are into the hundreds of millions. That is a combinatorial
+          explosion, not a plan, and it is why real detectors take a different route.
         </P>
       </LessonSection>
 

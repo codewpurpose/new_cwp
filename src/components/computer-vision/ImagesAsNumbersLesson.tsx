@@ -35,7 +35,7 @@ export function ImagesAsNumbersLesson() {
           Click any square in the grid above and the value it shows is the entire content of that
           pixel — <Strong>one integer, from 0 to 255</Strong>, for a grayscale image. Nothing else
           is stored there. 0 is black, 255 is white, and everything between is a shade of grey with
-          no unit finer than a whole number: 255 possible steps and not one more.
+          no unit finer than a whole number: 256 possible values and not one more.
         </P>
         <P>
           A colour pixel is not one number, it is three — one each for red, green and blue,

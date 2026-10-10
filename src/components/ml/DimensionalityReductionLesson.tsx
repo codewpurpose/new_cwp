@@ -9,7 +9,7 @@ export function DimensionalityReductionLesson() {
     <div>
       <Lead>
         You would expect forty columns of data to teach a model forty times what one column
-        does. It teaches something closer to four or five times as much, once the columns start
+        does. It usually teaches far less than that, once the columns start
         repeating each other and the space between points stops meaning what you think it means.
         This lesson is about the gap between the columns you were handed and the information
         actually sitting inside them.

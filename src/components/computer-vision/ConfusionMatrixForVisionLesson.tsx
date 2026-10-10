@@ -51,18 +51,19 @@ export function ConfusionMatrixForVisionLesson() {
         title="Finding the pair that drives the error"
       >
         <P>
-          Click through the matrix above and one pair dominates. Cats, dogs and foxes are each
-          confused with something else once or twice out of fifty — noise, essentially. Wolves and
+          Click through the matrix above and one pair dominates. Cats, dogs and foxes each lose
+          only three or four photos out of fifty, scattered one or two at a time across the other
+          classes — noise, essentially. Wolves and
           coyotes are a different story: 19 wolves called coyotes, 21 coyotes called wolves, out of
           50 of each. That is 40 of the 54 total errors in the entire matrix, from one pair of
           classes out of five.
         </P>
         <P>
           That number changes what you would do next. Improving every class&rsquo;s accuracy by a
-          point each is 5 points of work for a few points of overall gain. Fixing the wolf/coyote
+          point each is five separate pieces of work for one point of overall gain. Fixing the wolf/coyote
           confusion alone — better ear and muzzle features, more training photos of exactly this
           pair side by side — recovers up to 40 of the 54 errors on its own, which would push
-          accuracy from 78.4% into the low-to-mid 90s. <Strong>The matrix tells you where to spend
+          accuracy from 78.4% to as high as 94.4%. <Strong>The matrix tells you where to spend
           the next month</Strong>, and the single number never could.
         </P>
         <Callout tone="tip" title="Where this generalises">

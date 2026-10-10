@@ -93,8 +93,8 @@ export function RandomForestsLesson() {
         </Callout>
         <P>
           Notice where the gain stops. Between 32 and 120 trees the score moves by half a point.
-          More trees never makes a forest worse — the average just gets less noisy — but the
-          returns flatten early. Practitioners pick a few hundred and stop thinking about it,
+          Past the first handful, more trees do not make a forest worse — the average just gets
+          less noisy — but the returns flatten early. Practitioners pick a few hundred and stop thinking about it,
           because the parameter that matters is how the trees are made, not how many.
         </P>
       </LessonSection>
@@ -135,7 +135,7 @@ export function RandomForestsLesson() {
           "Feature subsetting limits each split to a random handful of features, which is what stops one strong feature dominating every root.",
           "Here the forest reached 82.5% against 72.5% for one unrestricted tree and 76.0% for the best pruned one.",
           "120 trees drew a clean diagonal boundary that no individual member could express.",
-          "Returns flatten fast — most of the gain arrives by about 30 trees, and more trees never hurt.",
+          "Returns flatten fast — most of the gain arrives by about 30 trees, and past the first handful more trees do not hurt.",
           "You lose readability entirely. Feature importances tell you what mattered overall, never why one particular prediction came out as it did.",
         ]}
       />

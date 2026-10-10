@@ -22,7 +22,7 @@ export function ImageClassificationLesson() {
         </P>
         <P>
           <Strong>That narrowness is the whole design, not a limitation someone forgot to
-          fix.</Strong> Detection and segmentation, two chapters ahead, exist specifically to
+          fix.</Strong> Detection and segmentation, later in this track, exist specifically to
           answer the questions classification refuses to.
         </P>
       </LessonSection>
@@ -52,13 +52,13 @@ export function ImageClassificationLesson() {
         title="What a confident wrong answer looks like"
       >
         <P>
-          A well-known example: a model trained to tell huskies from wolves reported 97%
-          confidence on a photo of a wolf standing in a grassy field — correctly, this time,
-          identifying it as a wolf, but for the wrong reason entirely. In earlier tests the same
-          model had called wolves &ldquo;husky&rdquo; whenever the photo had snow in the
-          background, because most of its husky training photos happened to have snow in them
-          and most of its wolf photos did not. The model had learned to detect snow, not dogs,
-          and reported startling confidence while doing it.
+          A well-known demonstration from research on explaining classifiers: a model was
+          trained to tell huskies from wolves on photos where the wolves were nearly always
+          pictured against snow. It then labelled a husky standing in snow as a wolf. When the
+          researchers asked which parts of the image drove the decision, the answer was mostly
+          the snow, not the animal. The model had learned to detect snow, not wolves, and on
+          most of its test photos that shortcut happened to give the right answer — which is
+          exactly why nobody would have noticed from the accuracy alone.
         </P>
         <P>
           <Strong>A confidence score describes how sure the model is, not how right it
@@ -100,8 +100,8 @@ export function ImageClassificationLesson() {
               tone: "neutral",
               children: (
                 <P>
-                  Right if the true label is anywhere in the model&rsquo;s five best guesses. Always
-                  the higher number, and quietly a lower bar.
+                  Right if the true label is anywhere in the model&rsquo;s five best guesses. Never
+                  lower than top-1, and quietly a lower bar.
                 </P>
               ),
             },

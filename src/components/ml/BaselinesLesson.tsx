@@ -85,7 +85,7 @@ export function BaselinesLesson() {
           and commute times, carving out little regions that fit the training set and mean
           nothing. It overfits into the noise the stump was too simple to reach.
         </P>
-        <Callout tone="warning" title="87% would have sounded like a result">
+        <Callout tone="warning" title="76% would have sounded like a result">
           Run the tree on its own and you get 76.0%, on a problem where chance is about 50%.
           Written in a slide with no baseline beside it, that reads as a working model. It is a
           working model that is worse than one line of code, and only the baseline says so.
@@ -123,10 +123,11 @@ export function BaselinesLesson() {
         />
 
         <Callout tone="tip" title="Where this leaves you">
-          You have reached the end of the track. You know what a model is, how one learns, three
-          ways to build one, and — through five chapters of Part 4 — most of the ways a score can
-          lie to you. That last part is the difference between running a library and doing the
-          work, and it is not what most introductions spend their time on.
+          That is the end of the fundamentals. You know what a model is, how one learns, three
+          ways to build one, and — across Parts 2 and 4 — most of the ways a score can lie to
+          you. That last part is the difference between running a library and doing the work.
+          Parts 5 and 6 go further: learning without labels, and what the optimiser is actually
+          doing under the fit.
         </Callout>
       </LessonSection>
 

@@ -2,6 +2,7 @@ import { Callout } from "@/components/learn/primitives/Callout";
 import { TakeawayCard } from "@/components/learn/primitives/Cards";
 import { Lead, LessonSection, P, Strong } from "@/components/learn/primitives/LessonSection";
 import { TreeSplitter } from "@/components/ml/TreeSplitter";
+import { RevealCard } from "@/components/learn/primitives/RevealCard";
 
 export function DecisionTreesLesson() {
   return (
@@ -41,8 +42,10 @@ export function DecisionTreesLesson() {
         <P>
           That mess has a number. <Strong>Gini impurity</Strong> asks: if you picked a flat from
           this group at random and guessed its outcome using nothing but the group&apos;s own
-          proportions, how often would you be wrong? An even 50/50 split scores 0.5, the worst
-          possible. A group where every flat agrees scores 0.
+          proportions, how often would you be wrong? With two outcomes, an even 50/50 split
+          scores 0.5, the worst possible. A group where every flat agrees scores 0. The formula
+          is one minus the sum of each outcome&apos;s share squared, so a group that is 80/20 scores
+          1 − (0.8² + 0.2²) = 0.32.
         </P>
         <P>
           To score a candidate split, measure the impurity of both sides, weight each by how many
@@ -51,6 +54,16 @@ export function DecisionTreesLesson() {
           keeps the largest gain. On this data the winner is rent at £697, worth 0.185 — close to
           the £700 the flats were actually generated around.
         </P>
+        <div className="mt-6">
+          <RevealCard
+            summaryTag="Try it yourself"
+            summary="A parent group of 10 flats is 5 quick and 5 slow, so its Gini is 0.5. A split sends 4 quick flats left on their own, and leaves 1 quick and 5 slow on the right. What is the gain?"
+            detailTag="Answer"
+            detail="Left is pure: Gini 0. Right is 1 quick in 6: 1 − ((1/6)² + (5/6)²) = 10/36 ≈ 0.278. Weight each side by its size: 0.4 × 0 + 0.6 × 0.278 ≈ 0.167. Gain = 0.5 − 0.167 ≈ 0.333 — a very good split, because one side came out completely clean."
+            openLabel="Show the answer"
+            closeLabel="Hide the answer"
+          />
+        </div>
       </LessonSection>
 
       <TreeSplitter />

@@ -1,4 +1,5 @@
 import { Reveal } from "@/components/Reveal";
+import { RevealCard } from "@/components/learn/primitives/RevealCard";
 import { ThresholdExplorer } from "@/components/ml/ThresholdExplorer";
 
 const SCENARIOS = [
@@ -127,7 +128,7 @@ export function PrecisionRecallLesson() {
             Arranged in a grid, these four counts are called a{" "}
             <strong className="text-learn-strong">confusion matrix</strong>. It is not a thing to
             memorise — it is just these four numbers in a box. Precision and recall are each
-            built from three of them.
+            built from two of them, and they share one: the true positives.
           </p>
         </section>
       </Reveal>
@@ -235,6 +236,17 @@ export function PrecisionRecallLesson() {
             lopsidedness. Take the extreme case — precision 1.0, recall 0.0. A normal average
             reports 0.5. F1 reports 0.
           </p>
+
+          <div className="mt-6">
+            <RevealCard
+              summaryTag="Try it yourself"
+              summary="A fraud model flags 50 transactions. 40 of them really are fraud, and there were 80 frauds in the data altogether. Work out precision, recall and F1 before you open the answer."
+              detailTag="Answer"
+              detail="TP = 40, FP = 50 − 40 = 10, FN = 80 − 40 = 40. Precision = 40 / 50 = 0.8. Recall = 40 / 80 = 0.5. F1 = 2 · 0.8 · 0.5 / (0.8 + 0.5) ≈ 0.62 — below the plain average of 0.65, because the harmonic mean leans toward the weaker number."
+              openLabel="Show the answer"
+              closeLabel="Hide the answer"
+            />
+          </div>
         </section>
       </Reveal>
 
