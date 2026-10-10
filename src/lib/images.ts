@@ -28,6 +28,7 @@ export const images = {
     nehha: "/Nehha-team.jpeg",
     manit: "/manit.jpg",
     rachit: "/team-rachit.png",
+    vibhav: "/team-vibhav.jpg",
   },
   gallery: [
     { src: "/opt/IMG_2625.jpg", alt: "In the classroom" },
