@@ -139,6 +139,7 @@ export function Playground() {
     if (code !== next.code) setUndo({ code, exampleId });
     clearShareHash();
     update({ code: next.code, exampleId: next.id });
+    if (runner.isRunning) runner.stop();
     runner.clear();
     setRanCode(null);
     setNotice(message);
