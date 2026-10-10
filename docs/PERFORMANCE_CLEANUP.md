@@ -65,3 +65,32 @@ route's HTML, collect unique `<script src>` URLs, and read the corresponding fil
 under `.next/static`. Sum their raw lengths and `gzip.compress()` lengths using the
 same Python version for both builds. Restart the production server after each build
 so its cached asset manifest matches the build directory.
+
+## Follow-up: scroll and pointer frame pacing
+
+The loading improvements above do not establish smooth frame pacing. A second
+source audit found additional work happening during scrolling and pointer movement:
+
+- Inline artwork measured computed styles and path lengths, then created an animation
+  for each SVG shape on viewport entry. It also ran continuous animations inside
+  filtered SVG scenes. Artwork now stays fully drawn, with deliberate hover reactions.
+- Page hero photos read their bounding rectangle on each pointer move and updated
+  three JavaScript springs. They now use a small CSS transform on hover.
+- Glare panels animated background position with blending across large images.
+  They now use an opacity transition on a flat tint.
+- Gallery tiles animated blur on entry and changed their aspect ratio after image
+  loading, triggering column reflow and React updates. Tiles now reserve their final
+  aspect ratio, use object-cover cropping, and remain visible throughout scrolling.
+- Mascots no longer run continuous idle loops or respond to scroll velocity.
+  Their explicit greeting, tap, and pose interactions remain.
+
+These changes remove identified sources of repeated paint and main-thread work.
+No hardware refresh rate or measured FPS improvement is claimed; device-specific
+frame timing still requires a performance trace on the affected device.
+
+Follow-up validation: `npm run check` passed. The production About page was
+scrolled through and its loaded gallery retained 4:3 tile ratios. At 390px the
+About page had no horizontal overflow and a team profile opened and closed.
+At 1440px the homepage fit the viewport, retained all 15 illustrations, and
+Koda's greeting changed pose and text on tap. No browser errors were reported
+in these checks. The production preview was restarted with the updated build.

@@ -23,21 +23,16 @@ import {
  *
  * All four share one 200 × 200 canvas, one 1.5 stroke in ink, a mint wash
  * behind the subject, a sand sheet of paper under it and the offset shadow
- * from ArtSvg, so they read as a set. Each draws itself in once when scrolled
- * into view (useArtMotion), then keeps one small idle loop and one reaction
+ * from ArtSvg, so they read as a set. Each stays fully drawn with one reaction
  * to hovering its grid cell (the cell carries `art-host`; see the art block in
  * globals.css):
  *
- * - Python: the sprout sways; on hover it stretches up a little.
- * - Vibecoding: the AI's suggestion types into the editor and the tab key
- *   presses; on hover the sparkles spin.
- * - Free forever: the $0 tag swings on its string and a heart floats up; on
- *   hover the tag jingles.
- * - Students: the tassel swings; on hover the grad cap is tossed.
+ * - Python: on hover the sprout stretches up a little.
+ * - Vibecoding: on hover the sparkles spin.
+ * - Free forever: on hover the tag jingles.
+ * - Students: on hover the grad cap is tossed.
  *
- * Every loop and hover rule lives under `prefers-reduced-motion:
- * no-preference`, so with Reduce Motion on (or no JavaScript) this is the
- * finished still drawing.
+ * Hover rules respect `prefers-reduced-motion`; there are no idle loops.
  */
 
 const CLASS =

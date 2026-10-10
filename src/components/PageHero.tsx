@@ -51,8 +51,7 @@ export function PageHero({
                 aria-hidden="true"
                 className="absolute -inset-2.5 rotate-[1.4deg] rounded-[24px] border-[0.5px] border-[#cde4cd] bg-[#dbefdb]/60"
               />
-              {/* Only the photo tilts; the green card behind stays put, so the
-                  gap between them opens and closes like a lifted print. */}
+              {/* A small CSS lift keeps the photo responsive without pointer tracking. */}
               <TiltedCard className="relative">
                 <div className="home-card relative aspect-[4/3] w-full overflow-hidden rounded-[20px]">
                   <Image
@@ -109,10 +108,7 @@ export function PhotoGrid({
         ? "columns-2 md:columns-3"
         : "columns-2 md:columns-3 lg:columns-4";
 
-  // React Bits Masonry: photos keep their own portrait/landscape shape instead
-  // of all being cropped, and rise into focus as they scroll in. `aspectRatio`
-  // (added on main for the Dublin gallery) now sets the shape a tile holds
-  // until its photo loads, so the layout doesn't jump.
+  // Reserve the final tile shape before lazy photos load to prevent reflow.
   return (
     <Masonry
       photos={photos}

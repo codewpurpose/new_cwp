@@ -8,12 +8,11 @@ import { NewsletterPopup } from "@/components/newsletter/NewsletterPopup";
 import { motion } from "motion/react";
 import { KodaBurstLayer, useKodaBurst, type BurstKind } from "@/components/koda/KodaBurst";
 import { TypeLine } from "@/components/koda/TypeLine";
-import { prefersReducedMotion, useIdlePause } from "@/components/koda/motion";
+import { useIdlePause } from "@/components/koda/motion";
 import { useKodaBody } from "@/components/koda/useKodaBody";
 
 /**
- * Koda — the CodeWithPurpose koala. A floating companion that idles with a
- * gentle bob and, when tapped, cycles through every pose from the brand set
+ * Koda — the CodeWithPurpose koala. A floating companion that, when tapped, cycles through every pose from the brand set
  * with a line of on-brand encouragement. Dismissable, remembers being sent
  * away for the session, hidden on the immersive lesson reader so it never
  * covers the pager, and fully still under prefers-reduced-motion (handled in
@@ -264,20 +263,29 @@ function KoalaBase({ canOfferSignup }: { canOfferSignup: boolean }) {
   useEffect(() => {
     if (dismissed) return;
     let cheered = false;
-    const onScroll = () => {
+    let frame = 0;
+    const checkBottom = () => {
+      frame = 0;
       if (cheered) return;
       const doc = document.documentElement;
       if (doc.scrollHeight < window.innerHeight * 1.6) return;
       if (window.scrollY + window.innerHeight < doc.scrollHeight - 48) return;
       cheered = true;
+      window.removeEventListener("scroll", onScroll);
       hop(14);
       fire("sparkle");
       if (signupOpenRef.current || window.matchMedia("(max-width: 640px)").matches) return;
       setSpecial(BOTTOM_LINE);
       setBubble(true);
     };
+    const onScroll = () => {
+      if (!frame && !cheered) frame = requestAnimationFrame(checkBottom);
+    };
     window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
+    return () => {
+      window.removeEventListener("scroll", onScroll);
+      cancelAnimationFrame(frame);
+    };
   }, [dismissed, pathname, hop, fire]);
 
   /**
@@ -309,34 +317,6 @@ function KoalaBase({ canOfferSignup }: { canOfferSignup: boolean }) {
     return () => {
       document.removeEventListener("pointerover", onOver);
       document.removeEventListener("pointerout", onOut);
-    };
-  }, [dismissed]);
-
-  /**
-   * Hold on tight: a fast fling of the page makes Koda brace for a moment (a
-   * lean, styled by `data-hold` in globals.css). Reads scroll position only,
-   * toggles an attribute directly, and never re-renders.
-   */
-  useEffect(() => {
-    if (dismissed) return;
-    let lastY = window.scrollY;
-    let lastT = performance.now();
-    let release: ReturnType<typeof setTimeout> | undefined;
-    const onScroll = () => {
-      const now = performance.now();
-      const velocity = Math.abs(window.scrollY - lastY) / Math.max(now - lastT, 1);
-      lastY = window.scrollY;
-      lastT = now;
-      const root = rootRef.current;
-      if (!root || velocity < 3 || prefersReducedMotion()) return;
-      root.dataset.hold = "true";
-      clearTimeout(release);
-      release = setTimeout(() => delete root.dataset.hold, 650);
-    };
-    window.addEventListener("scroll", onScroll, { passive: true });
-    return () => {
-      window.removeEventListener("scroll", onScroll);
-      clearTimeout(release);
     };
   }, [dismissed]);
 

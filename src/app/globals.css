@@ -1140,9 +1140,7 @@
   rotate: -4deg;
 }
 .koala-idle {
-  animation:
-    koala-float 4.5s ease-in-out infinite,
-    koala-breathe 3.4s ease-in-out infinite;
+  animation: none;
 }
 .koala-img {
   width: 100%;
@@ -1751,41 +1749,8 @@
 }
 
 /* === art (illustrations agent) === */
-/* Motion for the drawn illustrations in src/components/art/ (ArtSvg and
-   everything built on it). The markup is always the finished drawing; these
-   rules only add movement, and only under `no-preference`, so Reduce Motion
-   and no-JS readers see the still art. useArtMotion sets [data-paused] on the
-   svg while it is off screen, which stops every loop inside it. Hover
-   reactions follow the whole card: `.art-host` (ProductSection's GlareHover
-   cells), `.home-lift` cards and `group` links. */
-.art-svg[data-paused] * {
-  animation-play-state: paused !important;
-}
+/* Drawings stay still during scrolling; deliberate hover reactions remain. */
 @media (prefers-reduced-motion: no-preference) {
-  .art-loop {
-    animation-duration: 4s;
-    animation-timing-function: ease-in-out;
-    animation-iteration-count: infinite;
-  }
-  .art-sway { animation-name: art-sway; animation-duration: 4.6s; }
-  .art-swing { animation-name: art-swing; animation-duration: 3.8s; }
-  .art-tassel { animation-name: art-tassel; animation-duration: 3s; }
-  .art-twinkle { animation-name: art-twinkle; animation-duration: 2.8s; }
-  .art-drift { animation-name: art-drift; animation-duration: 6s; }
-  .art-heart { animation-name: art-heart; animation-duration: 3.8s; animation-timing-function: ease-out; }
-  .art-pop { animation-name: art-pop; animation-duration: 3.2s; }
-  .art-beat { animation-name: art-beat; animation-duration: 1.8s; }
-  .art-bob { animation-name: art-bob; animation-duration: 3.4s; }
-  .art-hop { animation-name: art-hop; animation-duration: 3s; }
-  .art-wave { animation-name: art-wave; animation-duration: 2.6s; }
-  .art-orbit { animation-name: art-orbit; animation-duration: 40s; animation-timing-function: linear; }
-  .art-type,
-  .art-type-cursor,
-  .art-keypress { animation-duration: 5.6s; }
-  .art-type { animation-name: art-type; animation-timing-function: steps(13, end); }
-  .art-type-cursor { animation-name: art-type-cursor; animation-timing-function: steps(13, end); }
-  .art-keypress { animation-name: art-keypress; }
-
   .art-hover {
     transition: transform 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
   }
