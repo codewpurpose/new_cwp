@@ -32,6 +32,7 @@ export const images = {
     nehha: "/Nehha-team.jpeg",
     manit: "/manit.jpg",
     rachit: "/team-rachit.png",
+    svanik: "/team-svanik.png",
     vibhav: "/team-vibhav.jpg",
   },
   gallery: [
