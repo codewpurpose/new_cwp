@@ -215,6 +215,14 @@ const teamMembers: TeamMember[] = [
     instagram: "https://www.instagram.com/manit.polyy/",
     bio: "Hi! I'm Manit Mishra, Director of Code With Purpose India. I focus on leading our initiatives across India, building technical programs, and creating opportunities for students to learn by building real things. I'm passionate about systems, software, and the idea that students shouldn't have to wait for permission to start creating. My goal is to help grow Code With Purpose into a community where curiosity turns into real work, collaboration, and impact.",
   },
+  {
+    name: "Vibhav P",
+    role: "Lead Developer",
+    country: UNITED_STATES,
+    photo: images.team.vibhav,
+    linkedin: "https://www.linkedin.com/in/vibhav-p-387338262/",
+    bio: "Hi! I'm Vibhav, a freelance app developer working with Microsoft Azure, natural language processing, and machine learning. At CodeWithPurpose, I lead development of our website and the tools that bring free coding education to students everywhere.",
+  },
 ];
 
 export default function AboutPage() {
