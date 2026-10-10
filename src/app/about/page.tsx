@@ -142,7 +142,7 @@ const teamMembers: TeamMember[] = [
   },
   {
     name: "Svanik Thakur",
-    role: "Director of Sponsors & Partnerships",
+    role: "Sponsorship Lead",
     country: UNITED_STATES,
     photo: images.team.svanik,
     linkedin: "https://www.linkedin.com/in/svanik-thakur-0029a5372/",
