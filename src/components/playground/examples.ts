@@ -128,7 +128,7 @@ model = DecisionTreeClassifier(max_depth=3, random_state=42)
 model.fit(X_train, y_train)
 
 accuracy = accuracy_score(y_test, model.predict(X_test))
-print(f"Trained on {len(X_train)} flowers, tested on {len(X_test)} it never saw.")
+print(f"Trained on {len(X_train)} flowers, tested on {len(X_test)} flowers it never saw.")
 print(f"Accuracy on the unseen flowers: {accuracy:.0%}")
 
 # sepal length, sepal width, petal length, petal width (cm)
