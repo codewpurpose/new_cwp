@@ -1,8 +1,6 @@
 import CountUp from "@/components/reactbits/CountUp";
 import ScrollReveal from "@/components/reactbits/ScrollReveal";
-import SpotlightCard from "@/components/reactbits/SpotlightCard";
 import { COURSES_HREF, DONATE_HREF } from "@/lib/links";
-import { SPOTLIGHT_PROPS } from "@/lib/spotlight";
 import { STATS } from "@/lib/stats";
 
 const PROOF_CARDS = [
@@ -33,9 +31,9 @@ export function QuoteSection() {
         </div>
         <div className="mt-4 grid gap-2.5 md:mt-6 md:grid-cols-3">
           {PROOF_CARDS.map((card) => (
-            <SpotlightCard
+            <div
               key={card.body}
-              {...SPOTLIGHT_PROPS}
+
               className="home-card home-lift rounded-xl px-5 py-8 sm:px-8 sm:py-12"
             >
               <p className="home-serif text-[2rem] leading-none text-[#3e7f5c] md:text-[3.5rem]">
@@ -44,7 +42,7 @@ export function QuoteSection() {
               <p className="mt-3 text-sm leading-snug text-[var(--home-ink-soft)] md:text-base">
                 {card.body}
               </p>
-            </SpotlightCard>
+            </div>
           ))}
         </div>
         <div className="mt-4 flex justify-center md:mt-6">

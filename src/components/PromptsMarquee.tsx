@@ -36,15 +36,15 @@ function LocationRow({
 }) {
   return (
     <div className={reverse ? "home-marquee home-marquee-reverse" : "home-marquee"}>
-      <div className="home-marquee-track">
-        {[...items, ...items, ...items].map((item, index) => (
+      <div className="flex flex-wrap justify-center gap-2.5 px-5 md:px-10">
+        {items.map((item, index) => (
           <span
             key={index}
             className="home-card home-chip flex shrink-0 items-center gap-2.5 rounded-lg px-4 py-2.5 text-[15px] leading-none text-[var(--home-ink)]"
           >
             <span
               className="home-chip-dot"
-              style={{ animationDelay: `${(index % items.length) * 0.4}s` }}
+
             />
             {item}
           </span>
@@ -57,8 +57,8 @@ function LocationRow({
 function StatRow({ items }: { items: { value: string; label: string }[] }) {
   return (
     <div className="home-marquee">
-      <div className="home-marquee-track">
-        {[...items, ...items, ...items].map((item, index) => (
+      <div className="flex flex-wrap justify-center gap-2.5 px-5 md:px-10">
+        {items.map((item, index) => (
           <span
             key={index}
             className="home-card home-chip flex shrink-0 items-baseline gap-2 rounded-lg px-4 py-2.5 text-[15px] leading-none"

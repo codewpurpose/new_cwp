@@ -897,14 +897,14 @@
   height: 5px;
   border-radius: 9999px;
   background: var(--home-fern);
-  animation: home-chip-pulse 3.2s ease-out infinite;
+  animation: none;
 }
 .home-live-dot {
   width: 7px;
   height: 7px;
   border-radius: 9999px;
   background: var(--home-fern);
-  animation: home-chip-pulse 2s ease-out infinite;
+  animation: none;
 }
 @keyframes home-chip-pulse {
   0% {
@@ -919,10 +919,10 @@
 }
 .home-flow-dash {
   stroke-dasharray: 3 5;
-  animation: home-flow 1.4s linear infinite;
+  animation: none;
 }
 .home-blink {
-  animation: home-blink 1.1s steps(1) infinite;
+  animation: none;
 }
 @keyframes home-blink {
   50% {
@@ -930,8 +930,7 @@
   }
 }
 .cwp-cycle {
-  opacity: 0;
-  animation: cwp-cycle 9s ease-in-out infinite;
+  opacity: 1;
 }
 @keyframes cwp-cycle {
   0%,
@@ -951,7 +950,7 @@
   }
 }
 .cwp-pulse {
-  animation: home-chip-pulse 2.6s ease-out infinite;
+  animation: none;
 }
 .cwp-hero-bg {
   background-image: radial-gradient(40rem 22rem at 88% -10%, rgba(219, 239, 219, 0.6), transparent 70%),
@@ -962,7 +961,7 @@
   pointer-events: none;
 }
 .cwp-spin {
-  animation: cwp-spin 20s linear infinite;
+  animation: none;
 }
 @keyframes cwp-spin {
   to {
@@ -975,7 +974,7 @@
   }
 }
 .home-orbit {
-  animation: home-orbit 30s linear infinite;
+  animation: none;
   transform-origin: 100px 100px;
 }
 @keyframes home-orbit {
@@ -984,7 +983,7 @@
   }
 }
 .home-node {
-  animation: home-node-fill 7.2s linear infinite;
+  animation: none;
 }
 @keyframes home-node-fill {
   0%,

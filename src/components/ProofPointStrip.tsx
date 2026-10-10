@@ -1,14 +1,10 @@
-"use client";
-
 import Link from "next/link";
-import { useEffect, useState } from "react";
 import { DiscordIcon, GitHubIcon, InstagramIcon, XIcon } from "@/components/icons";
 import { DISCORD_HREF, GITHUB_HREF, INSTAGRAM_HREF, JOIN_HREF, X_HREF } from "@/lib/links";
-import { STATS, formatStat } from "@/lib/stats";
 
 interface ProofPointStripProps {
   /**
-   * Published chapters across both tracks, counted from the lesson graph by the
+   * Published chapters across all tracks, counted from the lesson graph by the
    * page that renders this. Passed in rather than imported so the curriculum
    * data stays out of the client bundle, and so the number cannot drift from
    * what /learn actually shows.
@@ -26,32 +22,9 @@ const SOCIALS = [
 /**
  * The strip above the header: who to follow, what we have done, and one way in.
  *
- * The rotating claim is intentionally not a live region. It is supporting
- * visual proof, not time-sensitive information that should interrupt readers.
+ * A stable lesson count avoids distracting rotation and timer-driven renders.
  */
 export function ProofPointStrip({ lessonCount }: ProofPointStripProps) {
-  const proofPoints = [
-    "Free forever",
-    `${formatStat(STATS.students)} students`,
-    `${formatStat(STATS.countries)} countries`,
-    `${formatStat(STATS.languages)} languages`,
-    `${lessonCount} free lessons`,
-    `${formatStat(STATS.minutes)} minutes taught`,
-    "Recognised by the U.S. House",
-    "Student-run",
-    "Open source",
-  ];
-
-  const [index, setIndex] = useState(0);
-
-  useEffect(() => {
-    const timer = window.setInterval(
-      () => setIndex((current) => (current + 1) % proofPoints.length),
-      2800,
-    );
-    return () => window.clearInterval(timer);
-  }, [proofPoints.length]);
-
   return (
     <div className="proof-point-strip">
       <div className="proof-point-inner">
@@ -77,8 +50,8 @@ export function ProofPointStrip({ lessonCount }: ProofPointStripProps) {
 
         <p className="proof-point-centre">
           <span aria-hidden="true">✦</span>
-          <span key={proofPoints[index]} className="proof-point-text">
-            {proofPoints[index]}
+          <span className="proof-point-text">
+            {`${lessonCount} free lessons`}
           </span>
           <span aria-hidden="true">✦</span>
         </p>
