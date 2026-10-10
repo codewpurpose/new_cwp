@@ -184,60 +184,6 @@ by design — every visitor can read every display name — so the sign-up asks 
 
 ---
 
-## Part D — The commits leaderboard (GitHub), ~5 min
-
-A second, optional leaderboard: signed-in students link a GitHub username, and
-`/leaderboard/commits` ranks them by real lifetime total commits (public commits
-plus private contributions) instead of
-lesson XP. Independent of the newsletter and welcome-email pieces above —
-needs only Clerk (already set up) plus two small server-side tables and one
-more key.
-
-1. **Create the tables.** SQL Editor → run
-   [`supabase/github-stats.sql`](../supabase/github-stats.sql), then
-   [`supabase/github-rate-limit.sql`](../supabase/github-rate-limit.sql),
-   **after** `schema.sql` — the first references `profiles`, and the second
-   gives public GitHub lookups separate atomic budgets for interactive searches
-   and README embeds across all app instances. The request path prunes expired
-   keys, so pg_cron is optional; when available, the migration also schedules
-   hourly cleanup to keep idle deployments tidy.
-
-2. **Get a GitHub token.** github.com → **Settings → Developer settings →
-   Personal access tokens → Tokens (classic) → Generate new token**. Scope:
-   `read:user`. This is **one token for the whole app**, not per-student OAuth
-   — every lookup goes through the server, and it only ever reads a username's
-   public profile (plus their private-contribution count, if their GitHub
-   profile settings expose it). The same server-side token powers the README
-   activity card at `/api/github-stats/embed.svg?username=<github-username>`.
-
-   ```
-   GITHUB_TOKEN=ghp_...
-   ```
-
-   Add it locally (`.env.local`) and on Vercel, same as the keys in Part C.
-   Leave it blank and the public leaderboard shell can still load, but GitHub
-   lookups and linking will remain unavailable with a server-configuration
-   message — nothing else is affected.
-
-   `NEXT_PUBLIC_*` values are bundled into the browser at build time, so add
-   or change those values before redeploying. `GITHUB_TOKEN` and
-   `SUPABASE_SERVICE_ROLE_KEY` are server values; restart or redeploy the app
-   after changing them so new server instances receive the configuration.
-
-3. **Verify.** Sign in, open `/leaderboard/commits`, enter a real GitHub
-   username, and click **Link**. Check **Table editor → github_stats** — a row
-   keyed on your Clerk id should appear with a real `public_commits` count.
-   After deployment, open the embed URL in a browser and confirm it returns an
-   SVG before pasting the generated Markdown into a profile README.
-
-Same trust model as `profiles`/`xp`: nothing in the request body becomes a
-number in the table. `/api/github-stats` reads a username off the request,
-but every stat is fetched fresh from GitHub's API server-side and written with
-the `service_role` key — there is no insert/update policy for `authenticated`
-on `github_stats` at all (see the comment atop `github-stats.sql`).
-
----
-
 ## How the pieces map
 
 | Feature | Handled by |
@@ -251,7 +197,6 @@ on `github_stats` at all (see the comment atop `github-stats.sql`).
 | Leaderboard ranking | `select … from profiles order by xp desc` |
 | Newsletter sign-ups | Supabase `subscribers`, written server-side; Resend sends the welcome |
 | Access control | Row-level security on the Clerk `sub` claim (`schema.sql`) |
-| Commits leaderboard | Supabase `github_stats` (`github-stats.sql`) + GitHub's GraphQL API, fetched server-side by `/api/github-stats` |
 
 Key files, if you need them: `src/lib/clerk.ts` (config flag),
 `src/lib/supabase/client.ts` (public/anon reads),
