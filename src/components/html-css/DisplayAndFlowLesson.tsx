@@ -98,7 +98,7 @@ ul  ol  li  form  figure  blockquote  table  hr`}
         </P>
         <LabelRows
           rows={[
-            { label: "width / height", text: "Ignored. This is the answer to \"why is my width not working\", and it is nearly always a span or an a." },
+            { label: "width / height", text: "Ignored. This is the answer to \"why is my width not working\", and it is nearly always a span or an a. The exception is a replaced element such as img or input: inline, but it does take a width and height." },
             { label: "Vertical margin", text: "Ignored. Top and bottom margins do nothing at all." },
             { label: "Vertical padding", text: "Renders — the background extends — but does not push the surrounding lines apart. It overlaps them instead." },
             { label: "Horizontal margin and padding", text: "Both respected normally." },
@@ -107,7 +107,7 @@ ul  ol  li  form  figure  blockquote  table  hr`}
         <Callout tone="note" title="The mysterious gap under an image">
           An <span className="font-[family-name:var(--learn-font-mono)]">img</span> is inline, so it
           sits on the text baseline — and the baseline leaves room for descenders, the tails of{" "}
-          <em>g</em> and <em>y</em>. That space is the four-pixel gap under an image inside a
+          <em>g</em> and <em>y</em>. That space is the few-pixel gap under an image inside a
           container. Two fixes:{" "}
           <span className="font-[family-name:var(--learn-font-mono)]">img {"{ display: block; }"}</span>{" "}
           or{" "}

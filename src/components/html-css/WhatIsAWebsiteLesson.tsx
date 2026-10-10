@@ -8,7 +8,7 @@ export function WhatIsAWebsiteLesson() {
   return (
     <div>
       <Lead>
-        Between pressing Enter and seeing a page, six things happen, and none of them are magic.
+        Between pressing Enter and seeing a page, seven things happen, and none of them are magic.
         Follow one request from your keyboard to a server on another continent and back, and see
         exactly which step you will be writing.
       </Lead>
@@ -159,7 +159,7 @@ Content-Length: 187
         </P>
         <RequestJourney />
         <P>
-          Step through that and notice how little of it is yours. You write the file in step five.
+          Step through that and notice how little of it is yours. The file the server sends in step five is the one you wrote.
           Everything before it is infrastructure you will never touch, and everything after it is the
           browser interpreting what you wrote.
         </P>

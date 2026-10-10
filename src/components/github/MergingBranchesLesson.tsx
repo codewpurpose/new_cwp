@@ -73,7 +73,7 @@ git merge fix/login           # bring the other branch into it`}
         </P>
         <P>
           Whether that is good depends on your taste. Some teams want a clean straight line; others
-          want the record that these three commits were one piece of work reviewed together. Git
+          want the record that these commits were one piece of work reviewed together. Git
           lets you insist on the record:
         </P>
         <CodeBlock
@@ -110,7 +110,8 @@ A ── B ── E ─────── M    main
           lineTones={{ 3: "ok" }}
         />
         <P>
-          <Strong>M</Strong> is a merge commit, and it is the only kind of commit with two parents.
+          <Strong>M</Strong> is a merge commit, and it is the only kind of commit with more than one
+          parent.
           It contains the combined result, it records that these two lines of development joined
           here, and Git writes its message for you.
         </P>
@@ -231,7 +232,7 @@ git branch -d fix/login      # safe delete: refuses if the work is NOT merged`}
           "Stand on main and merge the branch to publish work; stand on the branch and merge main to catch up.",
           "A fast-forward happens when the target has not moved: no commit is created, the label slides.",
           "--no-ff forces a merge commit anyway; --ff-only refuses to merge unless it can fast-forward.",
-          "A three-way merge builds a merge commit — the only commit with two parents.",
+          "A three-way merge builds a merge commit — the only kind of commit with more than one parent.",
           "The merge base is the most recent shared commit, and it is what lets Git tell an addition from a deletion.",
           "A line changed on one side is taken silently. A line changed on both sides is a conflict.",
           "git merge --abort undoes a merge in progress completely.",

@@ -18,8 +18,8 @@ export function InstallingGitLesson() {
         title="Installing Git is one command on every system"
       >
         <P>
-          Check first — you may already have it. macOS ships a Git, and most Linux distributions
-          install one by default.
+          Check first — you may already have it. macOS offers to install Apple&apos;s Git the first
+          time you type the command, and many Linux distributions include one.
         </P>
         <CodeBlock variant="terminal" code={`git --version`} />
         <P>
@@ -111,8 +111,8 @@ git config --global core.editor nano`}
           Press <span className="font-[family-name:var(--learn-font-mono)]">Esc</span>, then type{" "}
           <span className="font-[family-name:var(--learn-font-mono)]">:wq</span> and press Enter to
           save and quit, or <span className="font-[family-name:var(--learn-font-mono)]">:q!</span> to
-          quit without saving. This is one of the most-searched programming questions of
-          all time.
+          quit without saving. Being stuck here is a famously common first experience, so do
+          not feel bad about it.
         </Callout>
       </LessonSection>
 

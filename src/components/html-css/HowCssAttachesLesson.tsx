@@ -163,8 +163,9 @@ h1 {
         />
         <P>
           Note that the CSS file contains no HTML, no <Strong>&lt;style&gt;</Strong> tags, nothing
-          but rules. Putting a style tag inside a .css file is a common first-day mistake and it
-          breaks the whole file — everything after it is treated as invalid.
+          but rules. Putting a style tag inside a .css file is a common first-day mistake: the browser reads
+          the tag as part of the next selector, decides that rule is invalid, and throws it away —
+          with no error anywhere.
         </P>
         <LabelRows
           rows={[
@@ -212,7 +213,7 @@ body   { margin: 8px; }`}
         <P>
           Because these defaults differ slightly between browsers, most projects start with a{" "}
           <Strong>reset</Strong> — a few rules that normalise them. A minimal one is three
-          declarations and covers most of the pain:
+          rules and covers most of the pain:
         </P>
         <CodeBlock
           label="A reset worth starting every project with"
@@ -230,8 +231,8 @@ img {
 }`}
         />
         <Callout tone="tip" title="You do not need a library for this">
-          Normalize.css and larger resets exist and are fine. For a hand-written site, those nine
-          lines cover nearly everything they would, and you can read all of them — which matters more
+          Normalize.css and larger resets exist and are fine. For a hand-written site, those three
+          rules cover most of what you need, and you can read all of them — which matters more
           at this stage than completeness.
         </Callout>
       </LessonSection>

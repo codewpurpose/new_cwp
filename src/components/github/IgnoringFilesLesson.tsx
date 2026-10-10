@@ -23,13 +23,26 @@ export function IgnoringFilesLesson() {
         </P>
         <CodeBlock
           label=".gitignore"
-          code={`# Comments start with a hash
-node_modules/          # trailing slash: directories, at any depth
-*.log                  # no slash: matches the file name anywhere
-.env                   # a plain name, also anywhere
-build/                 # catches src/build/ as well as ./build/
-docs/*.pdf             # contains a slash, so it is anchored to the root
-!docs/manual.pdf       # a negation — re-include one file`}
+          code={`# A comment must be on its own line — a # after a pattern
+# becomes part of the pattern.
+
+# Trailing slash: directories only, at any depth
+node_modules/
+
+# No slash: matches the file name anywhere
+*.log
+
+# A plain name, also anywhere
+.env
+
+# Catches src/build/ as well as ./build/
+build/
+
+# Contains a slash, so it is anchored to the root
+docs/*.pdf
+
+# A negation: re-include one file
+!docs/manual.pdf`}
         />
         <P>
           Three rules do almost all the work, and the third one surprises everybody.
@@ -174,7 +187,7 @@ RESEND_API_KEY=`}
         </P>
         <CodeBlock
           variant="terminal"
-    code={`# Stop tracking it, but keep it on disk. The --cached flag is the important detail.
+          code={`# Stop tracking it, but keep it on disk. The --cached flag is the important detail.
 git rm --cached .env
 
 # For a directory

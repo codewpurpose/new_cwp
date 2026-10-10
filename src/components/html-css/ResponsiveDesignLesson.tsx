@@ -8,7 +8,7 @@ export function ResponsiveDesignLesson() {
   return (
     <div>
       <Lead>
-        More than half of everyone reading your page is holding it in one hand, and a page that
+        A large share of the people reading your page are holding it in one hand, and a page that
         ignores that is unusable rather than merely ugly. Drag a viewport across a breakpoint and
         watch a media query fire.
       </Lead>
@@ -32,7 +32,7 @@ export function ResponsiveDesignLesson() {
         </P>
         <LabelRows
           rows={[
-            { label: "Without it", text: "The phone renders at 980px and scales the result down. Your page appears tiny, text is unreadable, and every media query is evaluated against 980 — so none of them fire." },
+            { label: "Without it", text: "The phone renders at 980px and scales the result down. Your page appears tiny, text is unreadable, and every media query is evaluated against 980 — so your small-screen ones never fire." },
             { label: "width=device-width", text: "Use the device's real width — 390px on a typical phone. Now the CSS knows the truth." },
             { label: "initial-scale=1", text: "Start at 100% zoom rather than zoomed out." },
             { label: "user-scalable=no", text: "Never add this. It blocks pinch-to-zoom, which people with low vision rely on. It is an accessibility failure and browsers increasingly ignore it anyway." },
@@ -71,8 +71,9 @@ export function ResponsiveDesignLesson() {
           by source order, exactly as chapter 13 described.
         </P>
         <Callout tone="danger" title="Which is why min-width queries must be ordered smallest first">
-          Write the 1024 block above the 640 block and the 640 rules win at every width, because they
-          come later. There is no error and the page simply refuses to widen. This is one of the most
+          Write the 1024 block above the 640 block and the 640 rules win at every width where both
+          match, because they come later. There is no error and the page simply never reaches three
+          columns. This is one of the most
           confusing bugs in CSS and it is pure source order.
         </Callout>
         <P>
@@ -244,10 +245,10 @@ h1 { font-size: clamp(1.75rem, 5vw, 3rem); }
 
       <TakeawayCard
         items={[
-          "Without the viewport meta tag a phone renders at 980px and no media query fires. Check it first.",
+          "Without the viewport meta tag a phone renders at 980px and your small-screen media queries never fire. Check it first.",
           "Never add user-scalable=no; it blocks pinch-to-zoom for people who need it.",
           "A media query wraps rules in a condition. Matching queries are ordinary rules and resolve by the normal cascade.",
-          "min-width queries must be ordered smallest first, or later ones lose on source order and the page never widens.",
+          "min-width queries must be ordered smallest first, or the wider ones lose on source order and never take effect.",
           "prefers-reduced-motion is not optional if you animate anything.",
           "Mobile-first adds complexity as the screen grows; desktop-first has to undo it, so it accumulates rules.",
           "Pick breakpoints where your content breaks, not where a 2014 device was. Two or three is usually enough.",

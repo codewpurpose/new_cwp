@@ -91,7 +91,7 @@ export function ElementsAndTagsLesson() {
 <link rel="stylesheet" href="styles.css">`}
         />
         <P>
-          There are about fourteen in total and those six are all you will use. Note that{" "}
+          There are thirteen in total and those six are the ones you will use most. Note that{" "}
           <Strong>&lt;link&gt;</Strong> is void — it points at a stylesheet — while{" "}
           <Strong>&lt;a&gt;</Strong>, the one people call a link, wraps content and definitely
           closes.
@@ -121,8 +121,8 @@ export function ElementsAndTagsLesson() {
                   </span>{" "}
                   and{" "}
                   <span className="font-[family-name:var(--learn-font-mono)]">&lt;/br&gt;</span>.
-                  There is no content to wrap and nothing to close. Browsers ignore the stray closing
-                  tag, so it looks like it works.
+                  There is no content to wrap and nothing to close. Browsers patch over both — the
+                  stray closing tag is dropped or reinterpreted — so it looks like it works.
                 </P>
               ),
             },

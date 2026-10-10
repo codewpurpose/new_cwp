@@ -68,8 +68,8 @@ export function MergingAPullRequestLesson() {
           commits are not merged; they stay on the branch, which is usually then deleted.
         </P>
         <P>
-          This is the most popular option on GitHub by a wide margin, and the reason is worth stating
-          plainly: <Strong>every commit on main builds and passes.</Strong> Bisect becomes reliable,
+          Many teams default to this option, and the reason is worth stating plainly: with required
+          checks, <Strong>every commit on main builds and passes.</Strong> Bisect becomes reliable,
           reverting is one commit with no flags, and the log reads as a list of features rather than a
           list of afternoons.
         </P>
@@ -130,7 +130,7 @@ rows and aborted the download. Fixes #482.`}
         <LabelRows
           rows={[
             { label: "Require a pull request", text: "Direct pushes to main are rejected. This is the one that turns \"we review things\" into a fact." },
-            { label: "Require approvals", text: "One or two. Two is the standard on anything where a mistake is expensive." },
+            { label: "Require approvals", text: "One or two. Two is common on anything where a mistake is expensive." },
             { label: "Dismiss stale approvals", text: "A new push clears existing approvals. Without it, somebody can approve a small change and then push a large one." },
             { label: "Require status checks", text: "Name the checks that must be green. A check not named here can be red and the merge is still allowed." },
             { label: "Require up to date", text: "The branch must include the latest main before merging. Prevents two individually-passing pull requests from breaking main together." },
@@ -147,7 +147,7 @@ rows and aborted the download. Fixes #482.`}
         <P>
           And afterwards: <Strong>delete the branch</Strong>. GitHub offers a button and a setting to
           do it automatically, and the commits are safely in main either way. If you need it back, the
-          Restore branch button on the pull request works for months.
+          Restore branch button on the pull request brings it back.
         </P>
         <CodeBlock
           variant="terminal"

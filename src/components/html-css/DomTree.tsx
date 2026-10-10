@@ -31,7 +31,7 @@ const NODES: readonly Node[] = [
   { id: "head", depth: 1, source: "<head>", label: "head", kind: "element", note: "Information about the page. Nothing here is drawn — it is the first child of html, and a sibling of body." },
   { id: "title", depth: 2, source: "<title>My site</title>", label: "title", kind: "element", note: "A child of head, a grandchild of html. Shown in the browser tab, not on the page." },
   { id: "body", depth: 1, source: "<body>", label: "body", kind: "element", note: "Everything visible. A child of html and a SIBLING of head — the two share a parent, which is what sibling means." },
-  { id: "h1", depth: 2, source: "<h1>Hello</h1>", label: "h1", kind: "element", note: "A child of body. In CSS, `body h1` and `body > h1` both match it here — but only because it is a direct child." },
+  { id: "h1", depth: 2, source: "<h1>Hello</h1>", label: "h1", kind: "element", note: "A child of body. In CSS, `body h1` matches it, and so does `body > h1` — the second only because h1 is a direct child of body." },
   { id: "p", depth: 2, source: "<p>Some <em>text</em></p>", label: "p", kind: "element", note: "A sibling of h1. Note it has a child of its own, which is what makes this a tree rather than a list." },
   { id: "em", depth: 3, source: "  <em>text</em>", label: "em", kind: "element", note: "A child of p, a DESCENDANT of body, and not a child of body. `body > em` matches nothing; `body em` matches this. That distinction is a whole CSS chapter." },
 ];

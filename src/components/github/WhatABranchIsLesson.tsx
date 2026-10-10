@@ -24,7 +24,8 @@ export function WhatABranchIsLesson() {
 # 9f3c1a2e8b4d7f0192c5e6a8b3d4f5c6e7a8b9c0
 
 ls .git/refs/heads/
-# main    fix/login    feature/search`}
+# feature/    fix/    main
+# (a slash in a branch name becomes a folder here)`}
         />
         <P>
           One file per branch, each containing one commit hash and a newline. Forty-one bytes. That

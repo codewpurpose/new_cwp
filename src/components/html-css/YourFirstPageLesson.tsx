@@ -8,7 +8,7 @@ export function YourFirstPageLesson() {
   return (
     <div>
       <Lead>
-        You need a text editor and a browser, both of which you already have. Write six lines, save
+        You need a text editor and a browser, both of which you already have. Write eleven lines, save
         the file, double-click it, and you are a web developer — then learn the two habits that stop
         the next hundred files from being painful.
       </Lead>
@@ -174,7 +174,7 @@ my-site/
           marker="check"
           items={[
             "A folder for the site — Desktop is fine, and one folder per project from the start",
-            "index.html inside it, with the ten lines above",
+            "index.html inside it, with the eleven lines above",
             "The editor and the browser side by side, not overlapping. Half the screen each",
             "Live Server installed, or Ctrl/Cmd + R ready in the browser",
             "File extensions visible in your file manager",
@@ -199,7 +199,7 @@ my-site/
           "Word processors save formatting, not plain text. TextEdit needs Format → Make Plain Text.",
           "The .html extension is what makes a text file a web page. Turn on file extensions in Windows so you can see it.",
           "Double-clicking opens the file over file:// with no server. That is a real and normal way to build.",
-          "file:// pages cannot be shared and block a few features; a local server like Live Server removes both limits.",
+          "file:// pages cannot be shared and block a few features. A local server like Live Server lifts the feature limit; only publishing makes a page shareable.",
           "index.html is served when somebody asks for a folder, which is why URLs are shorter than paths.",
           "Lowercase, hyphenated filenames. Servers are case-sensitive and your laptop is not — that mismatch is a deploy-day bug.",
           "Save, refresh, look. If nothing changed: did you save, is it the same file, is it cached?",

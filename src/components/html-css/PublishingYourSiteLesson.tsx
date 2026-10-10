@@ -123,14 +123,14 @@ export function PublishingYourSiteLesson() {
           themselves. That matters because it used to be an annual chore with a fee.
         </P>
         <P>
-          A custom domain costs roughly £10 a year from any registrar and points at your host with
+          A custom domain is a small yearly fee from any registrar, and it points at your host with
           one DNS record. Chapter 1 explains why the change takes a while to appear everywhere.
         </P>
       </LessonSection>
 
       <LessonSection
         id="relative-paths-and-case-sensitivity-break-on-deploy"
-        title="Relative paths and case sensitivity break on deploy"
+        title="Root paths and case sensitivity break on deploy"
       >
         <P>
           Two bugs account for nearly every &quot;it worked on my laptop&quot; report, and both are
@@ -146,7 +146,7 @@ export function PublishingYourSiteLesson() {
                   macOS and Windows treat{" "}
                   <span className="font-[family-name:var(--learn-font-mono)]">Photo.JPG</span> and{" "}
                   <span className="font-[family-name:var(--learn-font-mono)]">photo.jpg</span> as the
-                  same file. Every Linux web server does not. So a mis-cased path works perfectly
+                  same file. Most Linux web servers do not. So a mis-cased path works perfectly
                   locally and 404s the instant you publish.
                 </P>
               ),
@@ -211,7 +211,7 @@ export function PublishingYourSiteLesson() {
             },
             {
               label: "Run Lighthouse on the live URL",
-            detail: "The devtools tab audits performance, accessibility, best practices, and SEO in one click. Read the accessibility and SEO sections in particular; they point to specific fixes.",
+              detail: "The devtools tab audits performance, accessibility, best practices, and SEO in one click. Read the accessibility and SEO sections in particular; they point to specific fixes.",
             },
           ]}
         />
@@ -232,11 +232,13 @@ export function PublishingYourSiteLesson() {
         />
         <CodeBlock
           label="The bits of head that are easy to forget"
-          code={`<link rel="icon" href="/favicon.ico" sizes="any">
-<link rel="icon" href="/icon.svg" type="image/svg+xml">
-<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+          code={`<!-- Relative paths, so they survive a project subfolder -->
+<link rel="icon" href="favicon.ico" sizes="any">
+<link rel="icon" href="icon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
 
-<!-- The preview card when somebody pastes your link into a chat -->
+<!-- The preview card when somebody pastes your link into a chat.
+     og:image and og:url must be full https:// addresses. -->
 <meta property="og:title" content="Priya Raman — student and maker">
 <meta property="og:description" content="Second-year student. I build small tools.">
 <meta property="og:image" content="https://example.com/og.png">

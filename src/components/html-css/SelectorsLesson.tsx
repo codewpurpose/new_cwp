@@ -169,8 +169,9 @@ h2 ~ p      { }   /* general sibling: every p after h2, same parent */`}
           <span className="font-[family-name:var(--learn-font-mono)]">
             body main section div ul li a
           </span>{" "}
-          works and is a trap: it is fragile — any structural change breaks it — it is slow to match,
-          and it has high specificity, so overriding it later is painful. A single class on the
+          works and is a trap: it is fragile — any structural change breaks it — and it ties the rule
+          to one exact structure, so anything that later wants to override it has to repeat the
+          chain. A single class on the
           anchor does the same job and survives a redesign. Two levels is plenty.
         </Callout>
       </LessonSection>
@@ -198,7 +199,7 @@ p:not(.intro)     { }                        /* every p WITHOUT that class */`}
         />
         <LabelRows
           rows={[
-            { label: ":hover", text: "The pointer is over it. Note that this does not exist on touch devices — never hide anything important behind hover alone." },
+            { label: ":hover", text: "The pointer is over it. Touch screens have no real hover — at best a tap triggers it — so never hide anything important behind hover alone." },
             { label: ":focus-visible", text: "Focused via the keyboard. Prefer this to :focus, which also fires on mouse clicks and produces outlines people find noisy." },
             { label: ":nth-child()", text: "By position. 2n is every second, odd and even work, 3 is the third exactly." },
             { label: ":not()", text: "Everything that does NOT match. Useful for \"all of them except the last\"." },
@@ -238,9 +239,9 @@ p::first-line   { font-variant: small-caps; }
           "Name classes for purpose, not appearance. .warning survives a redesign; .red becomes a lie.",
           "IDs are for link targets, labels, and JavaScript. For styling they win specificity fights you did not want to start.",
           "A space means descendant (any depth); a > means direct child. Confusing them is the top cause of a selector matching nothing.",
-          "Long descendant chains are fragile, slow, and hard to override. Two levels is plenty; a class is usually better.",
+          "Long descendant chains are fragile and tie a rule to one exact structure. Two levels is plenty; a class is usually better.",
           "Pseudo-classes match a state: :hover, :focus-visible, :nth-child(), :not().",
-          ":hover does not exist on touch devices, so never hide anything important behind it.",
+          "Touch screens have no real hover, so never hide anything important behind :hover.",
           "Never remove a focus outline without replacing it — it is how keyboard users know where they are.",
           "Pseudo-elements use :: and need a content property; their text is decoration and is not reliably announced or searchable.",
         ]}

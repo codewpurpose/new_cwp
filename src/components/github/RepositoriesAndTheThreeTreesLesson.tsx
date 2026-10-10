@@ -180,8 +180,8 @@ Untracked files:
           variant="terminal"
           code={`# Same information, one line per file, once you know the letters
 git status --short
-#  M src/auth/redirect.ts     staged modification
-#   M src/lib/users.ts        modified, not staged
+# M  src/auth/redirect.ts     left column: staged
+#  M src/lib/users.ts         right column: modified, not staged
 # ?? notes.md                 untracked`}
         />
       </LessonSection>
@@ -205,12 +205,13 @@ git status --short
           code={`git add report.md          # index now matches disk
 # ... you keep typing ...
 git status --short
-#  M report.md               staged: the version from the git add
-#   M report.md              not staged: everything you typed since`}
+# MM report.md
+#   left M:  a staged version, from the git add
+#   right M: newer edits on disk, not staged`}
         />
         <P>
-          The same file appears twice, because there are two different versions of it. The
-          fix is to <Strong>git add</Strong> again before committing. This is not a bug and it is not
+          The file carries two letters, one per column, because there are two different versions of
+          it — and in the full git status it is listed under both headings. The fix is to <Strong>git add</Strong> again before committing. This is not a bug and it is not
           a trap — it is exactly the behaviour that makes staging useful — but it is the most
           common source of &quot;I committed it and the change is not there&quot;.
         </P>
@@ -220,6 +221,25 @@ git status --short
           every commit catches the half-staged file, the stray debug print, and the accidentally
           pasted password — in that order of frequency.
         </Callout>
+        <P>
+          <Strong>Try it yourself.</Strong> Make a throwaway repository and watch one file move
+          through the three places. The comments are what each command prints.
+        </P>
+        <CodeBlock
+          variant="terminal"
+          code={`mkdir scratch && cd scratch
+git init
+echo "one" > notes.txt
+git status --short     # ?? notes.txt   untracked
+git add notes.txt
+git status --short     # A  notes.txt   staged as a new file
+echo "two" >> notes.txt
+git status --short     # AM notes.txt   staged, then changed again
+git diff --staged      # shows only the line "one"
+git add notes.txt
+git commit -m "Add notes"
+git status --short     # (nothing: all three places agree)`}
+        />
       </LessonSection>
 
       <TakeawayCard
