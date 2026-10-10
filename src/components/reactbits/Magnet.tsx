@@ -30,11 +30,16 @@ export default function Magnet({
   const [offset, setOffset] = useState({ x: 0, y: 0, active: false });
 
   useEffect(() => {
-    const canHover = window.matchMedia("(hover: hover) and (pointer: fine)").matches;
-    const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    if (!canHover || reduce) return;
+    const canHover = window.matchMedia("(hover: hover) and (pointer: fine)");
+    const reduce = window.matchMedia("(prefers-reduced-motion: reduce)");
+    const resetWhenDisabled = () => {
+      if (!canHover.matches || reduce.matches) {
+        setOffset((prev) => prev.active ? { x: 0, y: 0, active: false } : prev);
+      }
+    };
 
     const onMove = (event: PointerEvent) => {
+      if (event.pointerType === "touch" || !canHover.matches || reduce.matches) return;
       const node = ref.current;
       if (!node) return;
       const { left, top, width, height } = node.getBoundingClientRect();
@@ -52,7 +57,13 @@ export default function Magnet({
     };
 
     window.addEventListener("pointermove", onMove, { passive: true });
-    return () => window.removeEventListener("pointermove", onMove);
+    canHover.addEventListener("change", resetWhenDisabled);
+    reduce.addEventListener("change", resetWhenDisabled);
+    return () => {
+      window.removeEventListener("pointermove", onMove);
+      canHover.removeEventListener("change", resetWhenDisabled);
+      reduce.removeEventListener("change", resetWhenDisabled);
+    };
   }, [padding, strength]);
 
   return (

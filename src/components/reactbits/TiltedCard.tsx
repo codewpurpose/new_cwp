@@ -47,7 +47,13 @@ export default function TiltedCard({
     const hover = window.matchMedia("(hover: hover) and (pointer: fine)");
     const reduce = window.matchMedia("(prefers-reduced-motion: reduce)");
     const update = () => {
+      const wasEnabled = enabled.current;
       enabled.current = hover.matches && !reduce.matches;
+      if (wasEnabled && !enabled.current) {
+        rotateX.jump(0);
+        rotateY.jump(0);
+        scale.jump(1);
+      }
     };
     update();
     hover.addEventListener("change", update);
@@ -56,7 +62,7 @@ export default function TiltedCard({
       hover.removeEventListener("change", update);
       reduce.removeEventListener("change", update);
     };
-  }, []);
+  }, [rotateX, rotateY, scale]);
 
   function handleMove(event: React.PointerEvent<HTMLDivElement>) {
     if (!enabled.current || event.pointerType === "touch" || !ref.current) return;

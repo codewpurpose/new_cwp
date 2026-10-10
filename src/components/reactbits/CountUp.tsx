@@ -1,6 +1,6 @@
 "use client";
 
-import { useInView, useMotionValue, useSpring } from "motion/react";
+import { useInView, useMotionValue, useReducedMotion, useSpring } from "motion/react";
 import { useCallback, useEffect, useRef } from "react";
 
 /**
@@ -43,6 +43,7 @@ export default function CountUp({
     stiffness: 100 * (1 / duration),
   });
   const isInView = useInView(ref, { once: true, margin: "0px 0px -40px 0px" });
+  const reducedMotion = useReducedMotion();
 
   const format = useCallback(
     (value: number) => {
@@ -57,7 +58,7 @@ export default function CountUp({
 
   useEffect(() => {
     if (!isInView || !ref.current) return;
-    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    if (reducedMotion) return;
 
     ref.current.textContent = format(from);
     const unsubscribe = springValue.on("change", (latest) => {
@@ -68,14 +69,14 @@ export default function CountUp({
       clearTimeout(timeout);
       unsubscribe();
     };
-  }, [isInView, delay, format, from, motionValue, springValue, to]);
+  }, [isInView, delay, format, from, motionValue, springValue, to, reducedMotion]);
 
   return (
     <span className={className}>
       <span aria-hidden="true">
         {prefix}
         <span ref={ref} className="tabular-nums">
-          {format(to)}
+          {isInView && !reducedMotion ? format(from) : format(to)}
         </span>
         {suffix}
       </span>

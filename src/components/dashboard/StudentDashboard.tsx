@@ -2,7 +2,7 @@
 
 import { type CSSProperties, useState } from "react";
 import Link from "next/link";
-import { motion } from "motion/react";
+import { motion, useReducedMotion } from "motion/react";
 import CountUp from "@/components/reactbits/CountUp";
 import { chapterHref } from "@/lib/learn-nav";
 import { ACHIEVEMENTS, avatarSrc, levelInfo, themeById } from "@/lib/student";
@@ -22,6 +22,7 @@ const TABS: { id: Tab; label: string }[] = [
 ];
 
 function Ring({ pct }: { pct: number }) {
+  const reduceMotion = useReducedMotion();
   const r = 26;
   const c = 2 * Math.PI * r;
   return (
@@ -39,15 +40,16 @@ function Ring({ pct }: { pct: number }) {
         strokeWidth="6"
         strokeLinecap="round"
         strokeDasharray={c}
-        initial={{ strokeDashoffset: c }}
+        initial={reduceMotion ? false : { strokeDashoffset: c }}
         animate={{ strokeDashoffset: c - (c * pct) / 100 }}
-        transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1] }}
+        transition={reduceMotion ? { duration: 0 } : { duration: 0.9, ease: [0.22, 1, 0.36, 1] }}
       />
     </svg>
   );
 }
 
 export function StudentDashboard() {
+  const reduceMotion = useReducedMotion();
   const { state, loaded, derived, earned, avatars, themes, actions } = useStudent();
   const [tab, setTab] = useState<Tab>("hub");
 
@@ -129,9 +131,9 @@ export function StudentDashboard() {
             <motion.div
               className="h-full rounded-full"
               style={{ background: "var(--dash-accent)" }}
-              initial={{ width: 0 }}
+              initial={reduceMotion ? false : { width: 0 }}
               animate={{ width: `${(lvl.into / lvl.span) * 100}%` }}
-              transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
+              transition={reduceMotion ? { duration: 0 } : { duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
             />
           </div>
         </div>

@@ -28,29 +28,29 @@ export function CodeCopyButton({ value, tone = "dark" }: CodeCopyButtonProps) {
   };
 
   return (
-    <button
-      type="button"
-      onClick={copy}
-      data-copied={copied ? "true" : undefined}
-      data-tone={tone}
-      className="lr-copy learn-focusable"
-      aria-label={copied ? "Copied to clipboard" : "Copy code"}
-    >
-      {/* Both icons stay mounted and cross-fade, so the button never changes
-          width when its label flips. */}
-      <span className="lr-copy-icons" aria-hidden="true">
-        <Copy className="lr-copy-icon lr-copy-icon-idle size-3.5" />
-        <Check className="lr-copy-icon lr-copy-icon-done size-3.5" strokeWidth={3} />
-      </span>
-      <span className="lr-copy-label" aria-hidden="true">
-        <span className="lr-copy-label-idle">Copy</span>
-        <span className="lr-copy-label-done">Copied</span>
-      </span>
-      {/* Announced once per copy; the button's own name changing is not
-          reliably read while it keeps focus. */}
-      <span className="sr-only" aria-live="polite">
+    <>
+      <button
+        type="button"
+        onClick={copy}
+        data-copied={copied ? "true" : undefined}
+        data-tone={tone}
+        className="lr-copy learn-focusable"
+        aria-label="Copy code"
+      >
+        {/* Both icons stay mounted and cross-fade, so the button never changes
+            width when its label flips. */}
+        <span className="lr-copy-icons" aria-hidden="true">
+          <Copy className="lr-copy-icon lr-copy-icon-idle size-3.5" />
+          <Check className="lr-copy-icon lr-copy-icon-done size-3.5" strokeWidth={3} />
+        </span>
+        <span className="lr-copy-label" aria-hidden="true">
+          <span className="lr-copy-label-idle">Copy</span>
+          <span className="lr-copy-label-done">Copied</span>
+        </span>
+      </button>
+      <span className="sr-only" role="status" aria-live="polite">
         {copied ? "Copied to clipboard" : ""}
       </span>
-    </button>
+    </>
   );
 }

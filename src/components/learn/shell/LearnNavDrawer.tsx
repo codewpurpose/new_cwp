@@ -33,6 +33,10 @@ export function LearnNavDrawer({ track, nav, triggerLabel }: LearnNavDrawerProps
   const [open, setOpen] = useState(false);
   const progress = useTrackProgress(track);
   const total = nav.groups.reduce((sum, group) => sum + group.chapters.length, 0);
+  const completed = nav.groups.reduce(
+    (count, group) => count + group.chapters.filter((chapter) => progress?.has(chapter.slug)).length,
+    0,
+  );
 
   return (
     <Dialog.Root open={open} onOpenChange={setOpen}>
@@ -41,7 +45,7 @@ export function LearnNavDrawer({ track, nav, triggerLabel }: LearnNavDrawerProps
         <span>{triggerLabel}</span>
         {progress && (
           <span className="lr-drawer-trigger-count">
-            {progress.size}/{total}
+            {completed}/{total}
             <span className="sr-only"> complete</span>
           </span>
         )}

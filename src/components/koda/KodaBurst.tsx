@@ -32,11 +32,14 @@ function jitter(seed: number, i: number) {
 export function useKodaBurst() {
   const [bursts, setBursts] = useState<Burst[]>([]);
   const nextId = useRef(0);
-  const timers = useRef<ReturnType<typeof setTimeout>[]>([]);
+  const timers = useRef(new Set<ReturnType<typeof setTimeout>>());
 
   useEffect(() => {
     const pending = timers.current;
-    return () => pending.forEach(clearTimeout);
+    return () => {
+      pending.forEach(clearTimeout);
+      pending.clear();
+    };
   }, []);
 
   const fire = useCallback((kind: BurstKind) => {
@@ -45,9 +48,11 @@ export function useKodaBurst() {
     const id = nextId.current;
     // Keep at most a couple alive so rapid tapping never piles up.
     setBursts((list) => [...list.slice(-1), { id, kind }]);
-    timers.current.push(
-      setTimeout(() => setBursts((list) => list.filter((b) => b.id !== id)), 1700),
-    );
+    const timer = setTimeout(() => {
+      timers.current.delete(timer);
+      setBursts((list) => list.filter((b) => b.id !== id));
+    }, 1900);
+    timers.current.add(timer);
   }, []);
 
   return { bursts, fire };

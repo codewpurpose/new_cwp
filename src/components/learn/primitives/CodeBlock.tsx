@@ -95,7 +95,7 @@ export function CodeBlock({
             <span
               className={cn(
                 "truncate",
-                label && /^[^\s]+\.[a-z][a-z0-9]*$/i.test(label)
+                label && (/^[^\s]+\.[a-z][a-z0-9]*$/i.test(label) || /(?:^|\/)\.[^\s/]+$/.test(label))
                   ? "font-[family-name:var(--learn-font-mono)] normal-case tracking-normal"
                   : "uppercase tracking-[0.08em]",
               )}

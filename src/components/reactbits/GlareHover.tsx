@@ -45,8 +45,12 @@ export default function GlareHover({
   return (
     <div
       className={`relative overflow-hidden ${className}`}
-      onPointerEnter={enter}
-      onPointerLeave={leave}
+      onPointerEnter={(event) => {
+        if (event.pointerType !== "touch") enter();
+      }}
+      onPointerLeave={(event) => {
+        if (event.pointerType !== "touch") leave();
+      }}
       onFocus={enter}
       onBlur={leave}
     >

@@ -62,7 +62,7 @@ export function KodaLost() {
         onPointerEnter={(e) => {
           if (e.pointerType === "mouse") hop(10);
         }}
-        aria-label="Koda the koala, looking for the missing page. Tap to help him search."
+        aria-label="Koda the koala, looking for the missing page. Help him search."
       >
         <motion.span className="koala-layer" style={{ y: hopY }}>
           <span className="koala-layer koala-lost-tilt">

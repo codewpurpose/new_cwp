@@ -1,4 +1,4 @@
-import { ArtSvg } from "@/components/art/ArtSvg";
+import { CoverFrame } from "@/components/art/CoverFrame";
 import { VIBECODING_GLYPHS } from "@/components/vibecoding/VibecodingIcons";
 
 /**
@@ -38,17 +38,9 @@ export function VibecodingLessonCover({ slug, partId, order }: CoverProps) {
   const Glyph = VIBECODING_GLYPHS[slug];
 
   return (
-    <ArtSvg
-      viewBox={`0 0 ${W} ${H}`}
-      className="art-lift aspect-[16/9] w-full"
-      aria-hidden="true"
-      preserveAspectRatio="xMidYMid slice"
-      data-slug={slug}
-      shadow={{ dx: 1.4, dy: 1.8, opacity: 0.11 }}
+    <CoverFrame
       backdrop={
         <>
-          <rect width={W} height={H} fill="var(--learn-chart-plot)" />
-
           {/* A quiet wash keyed to the part, so a grid of cards groups visually. */}
           <circle cx={W - 26} cy={22} r={44} fill={part.wash} />
 
@@ -75,6 +67,6 @@ export function VibecodingLessonCover({ slug, partId, order }: CoverProps) {
           <Glyph />
         </g>
       )}
-    </ArtSvg>
+    </CoverFrame>
   );
 }

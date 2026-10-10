@@ -211,7 +211,7 @@ export interface SwitcherCourse {
   track: LearnTrackId;
   title: string;
   href: string;
-  chapters: number;
+  chapterSlugs: string[];
 }
 
 /** The learning space's course switcher: every on-site track, catalogue order. */
@@ -220,7 +220,7 @@ export function getSwitcherCourses(): SwitcherCourse[] {
     track: course.track,
     title: TRACK_ROUTES[course.track].title,
     href: TRACK_ROUTES[course.track].href,
-    chapters: getChapters(course.track).length,
+    chapterSlugs: getChapters(course.track).map((chapter) => chapter.slug),
   }));
 }
 

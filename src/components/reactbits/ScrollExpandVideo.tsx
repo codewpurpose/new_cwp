@@ -117,7 +117,7 @@ export default function ScrollExpandVideo({
             style={pinned ? { opacity: controlsOpacity } : undefined}
           >
             <span className="flex items-center gap-4">
-              <span className="relative flex size-16 shrink-0 items-center justify-center rounded-full bg-[#fcf4e8] text-[#1e3c2c] shadow-lg transition-transform duration-300 group-hover:scale-110 group-focus-visible:ring-4 group-focus-visible:ring-[#9fd3a8] md:size-20">
+              <span className="relative flex size-16 shrink-0 items-center justify-center rounded-full bg-[#fcf4e8] text-[#1e3c2c] shadow-lg transition-transform duration-300 group-hover:scale-110 group-focus-visible:outline group-focus-visible:outline-2 group-focus-visible:outline-offset-[-4px] group-focus-visible:outline-[#9fd3a8] md:size-20">
                 <span aria-hidden="true" className="absolute inset-0 animate-ping rounded-full bg-[#fcf4e8]/40 motion-reduce:hidden" />
                 <svg viewBox="0 0 24 24" className="relative ml-1 size-7 md:size-8" aria-hidden="true" fill="currentColor">
                   <path d="M8 5.5v13a1 1 0 0 0 1.5.86l10.5-6.5a1 1 0 0 0 0-1.72L9.5 4.64A1 1 0 0 0 8 5.5Z" />

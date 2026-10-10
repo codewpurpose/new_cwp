@@ -37,7 +37,6 @@ export function ProofPointStrip({ lessonCount }: ProofPointStripProps) {
     `${formatStat(STATS.languages)} languages`,
     `${lessonCount} free lessons`,
     `${formatStat(STATS.minutes)} minutes taught`,
-    `${formatStat(STATS.totalReached)} students reached`,
     "Recognised by the U.S. House",
     "Student-run",
     "Open source",

@@ -2633,8 +2633,10 @@
 .learnspace-row {
   transition: background-color 0.2s ease;
 }
-.learnspace-row:hover {
-  background-color: var(--home-grey-400);
+@media (hover: hover) {
+  .learnspace-row:hover {
+    background-color: var(--home-grey-400);
+  }
 }
 .learnspace-thumb {
   aspect-ratio: 16 / 9;

@@ -79,10 +79,10 @@ export default function BlurText({
     <Component
       ref={ref as never}
       className={`rb-anim ${className}`}
-      aria-label={text.replace(/\n/g, " ")}
+      {...(Component.startsWith("h") ? { "aria-label": text.replace(/\n/g, " ") } : {})}
     >
       {lines.map((line, lineIndex) => (
-        <span key={lineIndex} aria-hidden="true">
+        <span key={lineIndex} aria-hidden={Component.startsWith("h") ? true : undefined}>
           {lineIndex > 0 && (
             <>
               {" "}

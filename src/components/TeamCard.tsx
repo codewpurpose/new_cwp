@@ -165,6 +165,7 @@ export function TeamCard({
 
   return (
     <SpotlightCard
+      role="article"
       {...SPOTLIGHT_PROPS}
       spotlightSize={180}
       className={`home-card home-lift rounded-xl p-4 text-center ${width}`}

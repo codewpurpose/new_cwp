@@ -52,7 +52,7 @@ export default function BounceCards({
   arc = 0.08,
   stagger = 0.07,
   bounciness = 0.5,
-  pushDistance = 0.2,
+  pushDistance = 0.1,
   hoverScale = 1.07,
   borderColor = "#fcf4e8",
   loading,

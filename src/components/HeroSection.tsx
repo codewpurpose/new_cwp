@@ -1,6 +1,6 @@
 import { ABOUT_HREF } from "@/lib/links";
 import { COURSES_HREF } from "@/lib/links";
-import { getChapters } from "@/lib/learn-nav";
+import { chapterHref, getChapters } from "@/lib/learn-nav";
 import { TRACK_ROUTES } from "@/lib/learn-routes";
 import { KodaGreeting } from "@/components/KodaGreeting";
 import BlurText from "@/components/reactbits/BlurText";
@@ -12,7 +12,10 @@ import { IMPACT_STATS } from "@/lib/stats";
 
 /* The first Python chapter is written for complete beginners and is always
    unlocked (LessonGate), so it is the shortest path from here to learning. */
-const FIRST_LESSON_HREF = `${TRACK_ROUTES.python.href}${getChapters("python")[0].slug}/`;
+const FIRST_PYTHON_CHAPTER = getChapters("python")[0];
+const FIRST_LESSON_HREF = FIRST_PYTHON_CHAPTER
+  ? chapterHref("python", FIRST_PYTHON_CHAPTER.slug)
+  : TRACK_ROUTES.python.href;
 
 export function HeroSection() {
   return (

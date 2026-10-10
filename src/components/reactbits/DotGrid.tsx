@@ -67,6 +67,7 @@ export default function DotGrid({
     let frame: number | null = null;
     let visible = true;
     const pointer = { x: -9999, y: -9999 };
+    let pointerAt = 0;
 
     const layout = () => {
       const rect = host.getBoundingClientRect();
@@ -116,7 +117,8 @@ export default function DotGrid({
         const dx = d.ox - pointer.x;
         const dy = d.oy - pointer.y;
         const dist = Math.hypot(dx, dy);
-        const target = dist < proximity ? 1 - dist / proximity : 0;
+        const pointerIsRecent = performance.now() - pointerAt < 100;
+        const target = pointerIsRecent && dist < proximity ? 1 - dist / proximity : 0;
         d.heat += (target - d.heat) * 0.18;
         if (target > 0) {
           const push = target * target * 2.2;
@@ -130,7 +132,7 @@ export default function DotGrid({
         d.vy *= 0.78;
         d.x += d.vx;
         d.y += d.vy;
-        if (d.heat > 0.004 || Math.abs(d.vx) + Math.abs(d.vy) > 0.02 || Math.abs(d.x - d.ox) > 0.1) {
+        if (Math.abs(d.heat - target) > 0.004 || Math.abs(d.vx) + Math.abs(d.vy) > 0.02 || Math.abs(d.x - d.ox) > 0.1) {
           moving = true;
         }
       }
@@ -145,6 +147,7 @@ export default function DotGrid({
       const rect = canvas.getBoundingClientRect();
       pointer.x = event.clientX - rect.left;
       pointer.y = event.clientY - rect.top;
+      pointerAt = performance.now();
       wake();
     };
     const onLeave = () => {
@@ -156,6 +159,7 @@ export default function DotGrid({
       const rect = canvas.getBoundingClientRect();
       const px = event.clientX - rect.left;
       const py = event.clientY - rect.top;
+      pointerAt = performance.now();
       for (const d of dots) {
         const dx = d.ox - px;
         const dy = d.oy - py;

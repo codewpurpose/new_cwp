@@ -88,7 +88,9 @@ export default function ClickSpark({
         ctx.stroke();
         return true;
       });
-      frame.current = sparks.current.length ? requestAnimationFrame(tick) : null;
+      frame.current = sparks.current.length
+        ? requestAnimationFrame((next) => draw.current(next))
+        : null;
     };
   }, [duration, sparkColor, sparkRadius, sparkSize]);
 

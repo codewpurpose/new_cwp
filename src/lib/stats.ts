@@ -18,16 +18,16 @@ export const STATS = {
   countries: { to: 150, suffix: "+", label: "Countries" },
   languages: { to: 30, suffix: "+", label: "Languages Taught" },
   minutes: { to: 20, suffix: "k", label: "Minutes of Teaching" },
-  totalReached: { to: 150, suffix: "k+", label: "Total Students Reached" },
+  free: { to: 100, suffix: "%", label: "Free to learn" },
 } satisfies Record<string, ImpactStat>;
 
-/** Display order for the five-up stat rows. */
+/** Display order for the impact stat rows. */
 export const IMPACT_STATS: ImpactStat[] = [
   STATS.students,
   STATS.countries,
   STATS.languages,
   STATS.minutes,
-  STATS.totalReached,
+  STATS.free,
 ];
 
 /** "6,000+" — the figure as plain text, for strips and sentences. */

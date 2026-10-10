@@ -2,7 +2,7 @@
 
 import { motion } from "motion/react";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { createContext, useCallback, useContext, useEffect, useRef, useState } from "react";
 
 /**
@@ -22,6 +22,7 @@ interface Entering {
   href: string;
   title: string;
   clip: string;
+  fromPath: string;
 }
 
 const EnterContext = createContext<(event: React.MouseEvent<HTMLAnchorElement>, href: string, title: string) => void>(
@@ -30,8 +31,11 @@ const EnterContext = createContext<(event: React.MouseEvent<HTMLAnchorElement>, 
 
 export function CourseEntryProvider({ children }: { children: React.ReactNode }) {
   const router = useRouter();
+  const pathname = usePathname();
   const [entering, setEntering] = useState<Entering | null>(null);
   const pushed = useRef(false);
+  const overlayRef = useRef<HTMLDivElement>(null);
+  const returnFocus = useRef<HTMLAnchorElement | null>(null);
 
   // Coming back with the browser's back button can restore this page from the
   // back/forward cache with the panel still drawn over it.
@@ -59,6 +63,27 @@ export function CourseEntryProvider({ children }: { children: React.ReactNode })
     return () => window.clearTimeout(timeout);
   }, [entering, go]);
 
+  // Keep focus inside the transition and restore it if navigation stalls.
+  useEffect(() => {
+    if (!entering) return;
+    overlayRef.current?.focus();
+    const timeout = window.setTimeout(() => {
+      setEntering(null);
+      pushed.current = false;
+      returnFocus.current?.focus();
+      returnFocus.current = null;
+    }, 8000);
+    return () => window.clearTimeout(timeout);
+  }, [entering]);
+
+  // Navigation succeeded; the new route no longer needs the blocking panel.
+  useEffect(() => {
+    if (!entering || !pathname || pathname === entering.fromPath) return;
+    setEntering(null);
+    pushed.current = false;
+    returnFocus.current = null;
+  }, [entering, pathname]);
+
   const enter = useCallback(
     (event: React.MouseEvent<HTMLAnchorElement>, href: string, title: string) => {
       if (
@@ -71,6 +96,8 @@ export function CourseEntryProvider({ children }: { children: React.ReactNode })
       ) {
         return;
       }
+      if (event.currentTarget.hasAttribute("target")) return;
+      if (event.currentTarget.hasAttribute("download")) return;
       if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
 
       const source = event.currentTarget.closest("[data-course-card]") ?? event.currentTarget;
@@ -78,29 +105,39 @@ export function CourseEntryProvider({ children }: { children: React.ReactNode })
       const vw = window.innerWidth;
       const vh = window.innerHeight;
       event.preventDefault();
+      returnFocus.current = event.currentTarget;
       pushed.current = false;
       router.prefetch(href);
       setEntering({
         href,
         title,
+        fromPath: pathname ?? window.location.pathname,
         clip: `inset(${Math.max(0, rect.top)}px ${Math.max(0, vw - rect.right)}px ${Math.max(0, vh - rect.bottom)}px ${Math.max(0, rect.left)}px round 22px)`,
       });
     },
-    [router],
+    [pathname, router],
   );
 
   return (
     <EnterContext.Provider value={enter}>
-      {children}
+      <div inert={Boolean(entering)} aria-hidden={entering ? true : undefined} style={{ display: "contents" }}>
+        {children}
+      </div>
       {entering && (
         <motion.div
+          ref={overlayRef}
           className="fixed inset-0 z-[100] grid place-items-center bg-[#1e3c2c] px-6 text-center text-[#fcf4e8]"
           initial={{ clipPath: entering.clip }}
           animate={{ clipPath: "inset(0px 0px 0px 0px round 0px)" }}
           transition={{ duration: 0.48, ease: [0.65, 0, 0.35, 1] }}
           onAnimationComplete={() => go(entering.href)}
-          role="status"
-          aria-live="polite"
+          role="dialog"
+          aria-modal="true"
+          aria-labelledby="course-entry-title"
+          tabIndex={-1}
+          onKeyDown={(event) => {
+            if (event.key === "Tab") event.preventDefault();
+          }}
         >
           <motion.div
             initial={{ opacity: 0, y: 8 }}
@@ -108,7 +145,7 @@ export function CourseEntryProvider({ children }: { children: React.ReactNode })
             transition={{ duration: 0.3, delay: 0.16, ease: [0.22, 1, 0.36, 1] }}
           >
             <p className="home-mono text-[11px] uppercase tracking-[0.16em] text-[#9fd3a8]">Entering course</p>
-            <p className="home-display mt-3 text-[2rem] leading-tight md:text-[2.75rem]">{entering.title}</p>
+            <p id="course-entry-title" className="home-display mt-3 text-[2rem] leading-tight md:text-[2.75rem]">{entering.title}</p>
           </motion.div>
           {/* Only shows if the next page is slow to arrive. */}
           <motion.p

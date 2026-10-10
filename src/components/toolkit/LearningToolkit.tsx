@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { AnimatePresence, motion } from "motion/react";
+import { AnimatePresence, motion, useReducedMotion } from "motion/react";
 
 /**
  * The Learning Toolkit — note templates and guides students fill in as they
@@ -94,6 +94,7 @@ function storageKey(id: string) {
 }
 
 export function LearningToolkit() {
+  const reduceMotion = useReducedMotion();
   const [activeId, setActiveId] = useState<string>(TEMPLATES[0].id);
   const [values, setValues] = useState<Values>({});
   const loadedFor = useRef<string | null>(null);
@@ -203,7 +204,7 @@ export function LearningToolkit() {
                     className="block h-full rounded-full bg-[#3e7f5c]"
                     initial={false}
                     animate={{ width: `${(filled / active.fields.length) * 100}%` }}
-                    transition={{ type: "spring", stiffness: 260, damping: 30 }}
+                    transition={reduceMotion ? { duration: 0 } : { type: "spring", stiffness: 260, damping: 30 }}
                   />
                 </span>
               </span>

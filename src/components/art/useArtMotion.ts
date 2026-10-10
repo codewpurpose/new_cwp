@@ -10,15 +10,14 @@ import { prefersReducedMotion } from "@/components/koda/motion";
  * a reader without JavaScript, or with Reduce Motion on, keeps. Nothing here
  * changes the rendered markup; it only adds side effects after mount:
  *
- * 1. Draw-on. If the drawing is still below the fold when the page hydrates,
- *    every stroke in its `.art-scene` is measured with getTotalLength() and
+ * 1. Draw-on. When a drawing enters view, every stroke in its `.art-scene` is measured with getTotalLength() and
  *    given a paused Web Animation that dashes it out of sight (`fill:
  *    "backwards"` holds that first frame). When the drawing scrolls into view
  *    the animations play: strokes draw in back to front, then fills and text
  *    fade up. Once they finish the animations end and the element's own
  *    attributes take over again, so the result is exactly the server markup.
- *    Drawings already on screen at hydration are left alone rather than
- *    blanked and redrawn.
+ *    Measurement is deferred until the shared observer says the drawing is
+ *    entering view.
  * 2. Idle loops. The CSS loops in globals.css (`.art-loop` and friends) run
  *    only under `prefers-reduced-motion: no-preference`. This hook sets
  *    `data-paused` on the svg while it is off screen or the tab is hidden,
@@ -35,6 +34,46 @@ const DRAW_MS = 820;
 const FADE_MS = 420;
 const SPREAD_MS = 900;
 const EASE = "cubic-bezier(0.65, 0, 0.35, 1)";
+
+// Share viewport and tab visibility subscriptions across all inline artwork.
+const artSubscribers = new Map<Element, (visible: boolean) => void>();
+const visibilitySubscribers = new Set<() => void>();
+let artObserver: IntersectionObserver | null = null;
+let visibilityListening = false;
+
+function observeArt(svg: SVGSVGElement, callback: (visible: boolean) => void) {
+  if (!artObserver) {
+    artObserver = new IntersectionObserver(
+      (entries) => entries.forEach((entry) => artSubscribers.get(entry.target)?.(entry.isIntersecting)),
+      { threshold: 0.01, rootMargin: "0px 0px -6% 0px" },
+    );
+  }
+  artSubscribers.set(svg, callback);
+  artObserver.observe(svg);
+  return () => {
+    artSubscribers.delete(svg);
+    artObserver?.unobserve(svg);
+  };
+}
+
+function onDocumentVisibilityChange() {
+  visibilitySubscribers.forEach((callback) => callback());
+}
+
+function subscribeDocumentVisibility(callback: () => void) {
+  visibilitySubscribers.add(callback);
+  if (!visibilityListening) {
+    document.addEventListener("visibilitychange", onDocumentVisibilityChange);
+    visibilityListening = true;
+  }
+  return () => {
+    visibilitySubscribers.delete(callback);
+    if (visibilitySubscribers.size === 0 && visibilityListening) {
+      document.removeEventListener("visibilitychange", onDocumentVisibilityChange);
+      visibilityListening = false;
+    }
+  };
+}
 
 function buildDrawOn(svg: SVGSVGElement) {
   const scene = svg.querySelector(".art-scene");
@@ -99,40 +138,27 @@ export function useArtMotion(ref: RefObject<SVGSVGElement | null>, { draw = true
     if (!svg) return;
 
     // Pause the CSS loops while off screen or in a hidden tab.
-    let onScreen = true;
+    let onScreen = false;
+    let didDraw = false;
+    let animations: Animation[] = [];
     const sync = () => {
       if (onScreen && document.visibilityState === "visible") delete svg.dataset.paused;
       else svg.dataset.paused = "true";
     };
-    const pauser = new IntersectionObserver(([entry]) => {
-      onScreen = entry.isIntersecting;
+    const unsubscribeObserver = observeArt(svg, (visible) => {
+      onScreen = visible;
       sync();
+      if (visible && !didDraw && draw && !prefersReducedMotion() && typeof svg.animate === "function") {
+        didDraw = true;
+        animations = buildDrawOn(svg);
+        animations.forEach((animation) => animation.play());
+      }
     });
-    pauser.observe(svg);
-    document.addEventListener("visibilitychange", sync);
-
-    let animations: Animation[] = [];
-    let trigger: IntersectionObserver | null = null;
-
-    const box = svg.getBoundingClientRect();
-    const belowFold = box.top > window.innerHeight * 0.92 && box.width > 0;
-    if (draw && belowFold && !prefersReducedMotion() && typeof svg.animate === "function") {
-      animations = buildDrawOn(svg);
-      trigger = new IntersectionObserver(
-        ([entry]) => {
-          if (!entry.isIntersecting) return;
-          animations.forEach((animation) => animation.play());
-          trigger?.disconnect();
-        },
-        { threshold: 0.3, rootMargin: "0px 0px -6% 0px" }
-      );
-      trigger.observe(svg);
-    }
+    const unsubscribeVisibility = subscribeDocumentVisibility(sync);
 
     return () => {
-      pauser.disconnect();
-      trigger?.disconnect();
-      document.removeEventListener("visibilitychange", sync);
+      unsubscribeObserver();
+      unsubscribeVisibility();
       animations.forEach((animation) => animation.cancel());
     };
   }, [ref, draw]);

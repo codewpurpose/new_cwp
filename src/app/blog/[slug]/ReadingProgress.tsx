@@ -1,6 +1,6 @@
 "use client";
 
-import { motion, useMotionValue, useSpring } from "motion/react";
+import { motion, useMotionValue, useReducedMotion, useSpring } from "motion/react";
 import { useEffect } from "react";
 
 /**
@@ -16,6 +16,7 @@ import { useEffect } from "react";
 export function ReadingProgress({ targetId }: { targetId: string }) {
   const progress = useMotionValue(0);
   const scaleX = useSpring(progress, { stiffness: 260, damping: 40, restDelta: 0.001 });
+  const reducedMotion = useReducedMotion();
 
   useEffect(() => {
     const target = document.getElementById(targetId);
@@ -48,7 +49,7 @@ export function ReadingProgress({ targetId }: { targetId: string }) {
     <motion.div
       aria-hidden="true"
       className="pointer-events-none fixed inset-x-0 top-0 z-[60] h-[3px] origin-left bg-[#3e7f5c]"
-      style={{ scaleX }}
+      style={{ scaleX: reducedMotion ? progress : scaleX }}
     />
   );
 }

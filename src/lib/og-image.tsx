@@ -1,6 +1,7 @@
 import { readFile } from "node:fs/promises";
 import path from "node:path";
 import { ImageResponse } from "next/og";
+import { STATS, formatStat } from "@/lib/stats";
 
 /**
  * Branded link-preview cards for the pages that set their own `openGraph`.
@@ -18,6 +19,7 @@ import { ImageResponse } from "next/og";
  */
 export const OG_SIZE = { width: 1200, height: 630 };
 export const OG_CONTENT_TYPE = "image/png";
+const COUNTRIES_LABEL = `${formatStat(STATS.countries)} countries`;
 
 async function kodaDataUri(): Promise<string> {
   const file = await readFile(path.join(process.cwd(), "public/koala/koala-wave.png"));
@@ -94,7 +96,7 @@ export async function ogImage({ eyebrow, title }: { eyebrow: string; title: stri
               fontWeight: 600,
             }}
           >
-            Free coding education · 150+ countries
+            Free coding education · {COUNTRIES_LABEL}
           </div>
         </div>
 

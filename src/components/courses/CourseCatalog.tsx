@@ -160,7 +160,7 @@ export function CourseCatalog({
       <p className="sr-only" aria-live="polite">
         Showing {visible.length} of {items.length} courses
       </p>
-      <motion.ul layout className="mt-8 grid gap-6 md:grid-cols-2 xl:grid-cols-3">
+      <motion.ul layout className="relative mt-8 grid gap-6 md:grid-cols-2 xl:grid-cols-3">
         <AnimatePresence mode="popLayout" initial={false}>
           {visible.map((item) => (
             <motion.li

@@ -8,7 +8,7 @@ import { NewsletterPopup } from "@/components/newsletter/NewsletterPopup";
 import { motion } from "motion/react";
 import { KodaBurstLayer, useKodaBurst, type BurstKind } from "@/components/koda/KodaBurst";
 import { TypeLine } from "@/components/koda/TypeLine";
-import { prefersReducedMotion } from "@/components/koda/motion";
+import { prefersReducedMotion, useIdlePause } from "@/components/koda/motion";
 import { useKodaBody } from "@/components/koda/useKodaBody";
 
 /**
@@ -112,7 +112,9 @@ const PAGE_LINES: Record<string, { line: string; pose: string }> = {
 
 function pageGreeting(pathname: string | null) {
   const section = (pathname ?? "").split("/").filter(Boolean)[0] ?? "";
-  const entry = PAGE_LINES[section];
+  const entry = Object.prototype.hasOwnProperty.call(PAGE_LINES, section)
+    ? PAGE_LINES[section]
+    : undefined;
   return entry
     ? { line: entry.line, index: poseIndex(entry.pose) }
     : { line: POSES[0].line, index: 0 };
@@ -160,6 +162,8 @@ function KoalaWithAuth() {
 }
 
 function KoalaBase({ canOfferSignup }: { canOfferSignup: boolean }) {
+  const idleRef = useRef<HTMLSpanElement>(null);
+  useIdlePause(idleRef);
   const pathname = usePathname();
   const [index, setIndex] = useState(() => pageGreeting(pathname).index);
   /** True until the first tap on this page: the bubble shows the page's line. */
@@ -536,7 +540,7 @@ function KoalaBase({ canOfferSignup }: { canOfferSignup: boolean }) {
             the hover hop, the CSS idle float/breath, then the tap squash. */}
         <span className="koala-layer koala-peek-in">
           <motion.span className="koala-layer koala-hop" style={{ y: hopY }}>
-            <span className="koala-layer koala-idle">
+            <span ref={idleRef} className="koala-layer koala-idle">
               <motion.span ref={scope} className="koala-layer koala-squash">
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img

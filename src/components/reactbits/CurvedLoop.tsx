@@ -48,6 +48,13 @@ export default function CurvedLoop({
     measure();
     // The display face may swap in after first paint and change the width.
     void document.fonts?.ready.then(measure);
+    window.addEventListener("resize", measure);
+    const resizeObserver = wrapRef.current ? new ResizeObserver(measure) : null;
+    if (wrapRef.current) resizeObserver?.observe(wrapRef.current);
+    return () => {
+      window.removeEventListener("resize", measure);
+      resizeObserver?.disconnect();
+    };
   }, [unit]);
 
   const repeats = spacing ? Math.ceil(1800 / spacing) + 2 : 4;
@@ -64,15 +71,16 @@ export default function CurvedLoop({
   };
 
   useEffect(() => {
-    if (!spacing || window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    if (!spacing) return;
     let frame: number | null = null;
     let visible = false;
+    const reduce = window.matchMedia("(prefers-reduced-motion: reduce)");
     const step = () => {
       if (!drag.current.active) apply(offset.current + direction.current * speed);
       frame = requestAnimationFrame(step);
     };
     const update = () => {
-      const run = visible && document.visibilityState === "visible";
+      const run = visible && document.visibilityState === "visible" && !reduce.matches;
       if (run && frame === null) frame = requestAnimationFrame(step);
       if (!run && frame !== null) {
         cancelAnimationFrame(frame);
@@ -85,9 +93,11 @@ export default function CurvedLoop({
     });
     if (wrapRef.current) observer.observe(wrapRef.current);
     document.addEventListener("visibilitychange", update);
+    reduce.addEventListener("change", update);
     return () => {
       observer.disconnect();
       document.removeEventListener("visibilitychange", update);
+      reduce.removeEventListener("change", update);
       if (frame !== null) cancelAnimationFrame(frame);
     };
     // `apply` only closes over `spacing`, which is already a dependency.

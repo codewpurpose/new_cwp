@@ -44,7 +44,9 @@ export default function Shuffle({
 
   useEffect(() => {
     const node = ref.current;
-    if (!node || window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    if (!node) return;
+    node.textContent = text;
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
     const chars = Array.from(text);
     let raf = 0;
     let start = 0;
@@ -76,7 +78,6 @@ export default function Shuffle({
       observer.disconnect();
       clearTimeout(timer);
       cancelAnimationFrame(raf);
-      node.textContent = text;
     };
   }, [text, duration, delay]);
 

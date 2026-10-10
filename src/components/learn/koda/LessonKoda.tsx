@@ -67,11 +67,14 @@ const TIP_EVERY_MS = 90_000;
 const listeners = new Set<() => void>();
 /** Used when storage throws (private mode, blocked site data). */
 let memoryCollapsed = false;
+let storageUnavailable = false;
 
 function readCollapsed(): boolean {
+  if (storageUnavailable) return memoryCollapsed;
   try {
     return localStorage.getItem(STORAGE_KEY) === "1";
   } catch {
+    storageUnavailable = true;
     return memoryCollapsed;
   }
 }
@@ -82,7 +85,7 @@ function writeCollapsed(value: boolean) {
     if (value) localStorage.setItem(STORAGE_KEY, "1");
     else localStorage.removeItem(STORAGE_KEY);
   } catch {
-    /* private mode: the in-memory value still holds for this visit */
+    storageUnavailable = true;
   }
   listeners.forEach((listener) => listener());
 }

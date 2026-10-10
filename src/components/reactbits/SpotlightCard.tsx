@@ -238,10 +238,18 @@ const SpotlightCard = ({
     wakeRef.current = wake;
 
     const onMove = (event: PointerEvent) => {
+      const inside = root.contains(event.target as Node | null);
+      if (!state.visible && !inside && state.presence === 0) return;
+      const rect = root.getBoundingClientRect();
+      const x = event.clientX - rect.left;
+      const y = event.clientY - rect.top;
+      const gap = Math.hypot(Math.max(0, -x, x - rect.width), Math.max(0, -y, y - rect.height));
+      const near = inside || (settingsRef.current.proximity > 0 && gap < settingsRef.current.proximity);
+      if (!near && state.presence === 0) return;
       pointer.x = event.clientX;
       pointer.y = event.clientY;
       pointer.active = true;
-      if (state.presence > 0 || settingsRef.current.proximity > 0 || root.contains(event.target as Node | null)) wake();
+      wake();
     };
     const onOut = (event: PointerEvent) => {
       if (event.relatedTarget) return;
@@ -266,8 +274,7 @@ const SpotlightCard = ({
       focus = event.target;
       wake();
     };
-    const onFocusOut = (event: FocusEvent) => {
-      if (root.contains(event.relatedTarget as Node | null)) return;
+    const onFocusOut = () => {
       focus = null;
       wake();
     };

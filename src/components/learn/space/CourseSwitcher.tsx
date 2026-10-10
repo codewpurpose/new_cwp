@@ -48,7 +48,8 @@ export function CourseSwitcher({
               Switch course
             </p>
             {courses.map((course) => {
-              const done = progress[course.track]?.length ?? 0;
+              const completed = new Set(progress[course.track] ?? []);
+              const done = course.chapterSlugs.filter((slug) => completed.has(slug)).length;
               const isCurrent = course.track === current;
               return (
                 <Menu.LinkItem
@@ -58,7 +59,7 @@ export function CourseSwitcher({
                   className="flex items-center gap-3 rounded-xl px-3 py-2 text-[14px] outline-none data-[highlighted]:bg-[#dbefdb]/70 aria-[current=page]:font-semibold"
                 >
                   <Ring
-                    value={course.chapters ? Math.min(done, course.chapters) / course.chapters : 0}
+                    value={course.chapterSlugs.length ? done / course.chapterSlugs.length : 0}
                     size={18}
                     stroke={2.5}
                     track="var(--home-grey-500)"
@@ -66,7 +67,7 @@ export function CourseSwitcher({
                   />
                   <span className="min-w-0 flex-1 truncate">{course.title}</span>
                   <span className="home-mono shrink-0 text-[11px] tabular-nums text-[var(--home-ink-quiet)]">
-                    {done > 0 ? `${Math.min(done, course.chapters)}/${course.chapters}` : `${course.chapters} ch`}
+                    {done > 0 ? `${done}/${course.chapterSlugs.length}` : `${course.chapterSlugs.length} ch`}
                   </span>
                 </Menu.LinkItem>
               );
