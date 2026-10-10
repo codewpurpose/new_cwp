@@ -149,7 +149,7 @@ const teamMembers: TeamMember[] = [
   },
   {
     name: "Rachit Panchal",
-    role: "Lead of Sponsorships",
+    role: "Sponsorship Lead",
     country: UNITED_STATES,
     photo: images.team.rachit,
     linkedin: "https://www.linkedin.com/in/rachit-panchal-1800b4409/?isSelfProfile=true",
