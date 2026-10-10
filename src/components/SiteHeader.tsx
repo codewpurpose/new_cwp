@@ -12,7 +12,7 @@ const PRIMARY_NAV_LINKS = NAV_LINKS.filter(({ label }) =>
   ["Courses", "About Us", "Stories", "Join Us"].includes(label),
 );
 const MORE_NAV_LINKS = NAV_LINKS.filter(({ label }) =>
-  ["Commits", "Media", "Contact"].includes(label),
+  ["AI Resources", "Code Playground", "Commits", "Media", "Contact"].includes(label),
 );
 
 function LogInButton({ onNavigate }: { onNavigate?: () => void }) {
