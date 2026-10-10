@@ -1,4 +1,5 @@
 "use client";
+import "@/components/playground/tools.css";
 
 import { createContext, useContext, useId, useState, type ReactNode } from "react";
 import dynamic from "next/dynamic";

@@ -1,4 +1,5 @@
 "use client";
+import "@/components/playground/tools.css";
 
 import { useEffect, useId, useRef, useState } from "react";
 import Image from "next/image";
