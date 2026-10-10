@@ -20,12 +20,12 @@ import { CONGRESS_LETTER_HREF, DONATE_HREF, SUBSTACK_EMBED_SRC } from "@/lib/lin
 export const metadata: Metadata = {
   title: "Impact & Stories",
   description:
-    "5,000+ students across 150+ countries, and the stories behind the numbers.",
+    "6,000+ students across 150+ countries, and the stories behind the numbers.",
   alternates: { canonical: "/impact/" },
   openGraph: {
     title: "Impact & Stories | CodeWithPurpose",
     description:
-      "5,000+ students across 150+ countries, and the stories behind the numbers.",
+      "6,000+ students across 150+ countries, and the stories behind the numbers.",
     url: "/impact/",
     type: "website",
   },
@@ -33,12 +33,12 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Impact & Stories | CodeWithPurpose",
     description:
-      "5,000+ students across 150+ countries, and the stories behind the numbers.",
+      "6,000+ students across 150+ countries, and the stories behind the numbers.",
   },
 };
 
 const stats = [
-  { value: "5,000+", label: "Students Reached" },
+  { value: "6,000+", label: "Students Reached" },
   { value: "150+", label: "Countries" },
   { value: "30+", label: "Languages Taught" },
   { value: "20k", label: "Minutes of Teaching" },
@@ -92,6 +92,22 @@ export default function ImpactPage() {
         </p>
         <div className="mt-8">
           <PhotoGrid photos={images.gallery} columns={4} />
+        </div>
+        <div className="mt-14 border-t-[0.5px] border-[var(--home-hairline)] pt-10">
+          <h3 className="home-serif text-[1.5rem] md:text-[1.875rem]">
+            At the Dublin hackathon
+          </h3>
+          <p className="mt-3 max-w-2xl text-[var(--home-ink-soft)]">
+            CodeWithPurpose sponsored this hackathon, giving student teams space
+            to explore ideas, build with code, and work side by side.
+          </p>
+          <div className="mt-8">
+            <PhotoGrid
+              photos={images.dublinHackathon}
+              columns={3}
+              aspectRatio="4/3"
+            />
+          </div>
         </div>
       </PageSection>
 
