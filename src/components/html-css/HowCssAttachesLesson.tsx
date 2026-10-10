@@ -165,7 +165,7 @@ h1 {
           Note that the CSS file contains no HTML, no <Strong>&lt;style&gt;</Strong> tags, nothing
           but rules. Putting a style tag inside a .css file is a common first-day mistake: the browser reads
           the tag as part of the next selector, decides that rule is invalid, and throws it away —
-          with no error anywhere.
+          and developer tools may report a stylesheet parsing error.
         </P>
         <LabelRows
           rows={[
