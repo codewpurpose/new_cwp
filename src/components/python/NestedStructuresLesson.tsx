@@ -182,7 +182,7 @@ print(first_member["badges"][1].upper())`}
           "Read an access path left to right: each bracket takes what you are holding and asks it for exactly one thing.",
           "The bracket you write follows from what you are holding — a quoted name for a dictionary, an integer for a list.",
           "Nested loops mirror the shape of nested data. Name the loop variables after what they hold, not after the collection.",
-          "KeyError, IndexError, and TypeError each name a different way a path can run out, and each quotes the thing that was missing.",
+          "KeyError, IndexError, and TypeError each name a different way a path can run out — and a KeyError quotes the exact key that was missing.",
           "Python creates a key you assign to, never one you read through. Build each level before filling the one below it.",
           "You have nested too deep when you cannot say what a level holds without checking. Name an intermediate variable, or promote the shape to a class.",
         ]}

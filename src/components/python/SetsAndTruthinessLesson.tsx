@@ -33,8 +33,8 @@ export function SetsAndTruthinessLesson() {
               <Strong>{'""'}</Strong> — the empty string, and only the empty string.
             </>,
             <>
-              <Strong>[]</Strong>, <Strong>{"{}"}</Strong>, and <Strong>set()</Strong> — an
-              empty list, dictionary, or set.
+              <Strong>[]</Strong>, <Strong>{"{}"}</Strong>, <Strong>()</Strong>, and{" "}
+              <Strong>set()</Strong> — an empty list, dictionary, tuple, or set.
             </>,
             <>
               <Strong>None</Strong> — Python&apos;s stand-in for &quot;no value at all&quot;.

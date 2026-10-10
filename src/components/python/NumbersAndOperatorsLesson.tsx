@@ -129,8 +129,9 @@ export function NumbersAndOperatorsLesson() {
           <Strong>{"0.1 + 0.2 == 0.3"}</Strong> is <Strong>False</Strong>. Round both sides to
           a sensible number of decimal places before comparing —{" "}
           <Strong>{"round(0.1 + 0.2, 2) == 0.3"}</Strong> is <Strong>True</Strong> — or check
-          that the difference between them is smaller than a tiny tolerance, instead of
-          checking for exact equality.
+          that the difference between them is smaller than a tiny tolerance — which is what{" "}
+          <Strong>math.isclose(0.1 + 0.2, 0.3)</Strong> does for you — instead of checking
+          for exact equality.
         </Callout>
       </LessonSection>
 

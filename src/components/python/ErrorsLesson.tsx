@@ -63,7 +63,10 @@ def price_for(item):
     return CATALOGUE[item]
 
 def total(cart):
-    return sum(price_for(item) for item in cart)
+    running = 0
+    for item in cart:
+        running += price_for(item)
+    return running
 
 total(["bread", "eggs", "kombucha"])`}
         />
@@ -71,22 +74,23 @@ total(["bread", "eggs", "kombucha"])`}
           label="Terminal"
           variant="terminal"
           code={`Traceback (most recent call last):
-  File "shop.py", line 9, in <module>
+  File "shop.py", line 12, in <module>
     total(["bread", "eggs", "kombucha"])
-  File "shop.py", line 6, in total
-    return sum(price_for(item) for item in cart)
-  File "shop.py", line 3, in price_for
+  File "shop.py", line 9, in total
+    running += price_for(item)
+               ^^^^^^^^^^^^^^^
+  File "shop.py", line 4, in price_for
     return CATALOGUE[item]
            ~~~~~~~~~^^^^^^
 KeyError: 'kombucha'`}
-          lineTones={{ 8: "err", 5: "accent" }}
+          lineTones={{ 9: "err", 6: "accent" }}
         />
         <P>
           Start at the bottom: <Strong>KeyError: &apos;kombucha&apos;</Strong>. Move up one
           frame: the crash happened inside <Strong>price_for</Strong>, on the line that looks
           up <Strong>CATALOGUE[item]</Strong>. Move up again: <Strong>price_for</Strong> was
-          called from <Strong>total</Strong>, which was itself called from line 9, at the
-          bottom of the file. Reading top to bottom instead tells you the same thing backwards
+          called from line 9 inside <Strong>total</Strong>, which was itself called from line
+          12, at the bottom of the file. Reading top to bottom instead tells you the same thing backwards
           — you would wade through two frames you do not need yet before reaching the one line
           that actually matters.
         </P>

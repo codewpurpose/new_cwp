@@ -67,8 +67,9 @@ for student in students:
         <P>
           You pass <Strong>list</Strong>, not <Strong>list()</Strong> — the type itself, so the
           dictionary can call it fresh for each new key. Passing <Strong>list()</Strong> would
-          hand over one already-built list, and every key would end up sharing it, which is the
-          aliasing trap from the previous chapter in one of its least obvious costumes.
+          hand over one already-built empty list instead of something callable, and{" "}
+          <Strong>defaultdict</Strong> refuses it outright with{" "}
+          <Strong>TypeError: first argument must be callable or None</Strong>.
         </P>
         <Callout tone="warning" title="Reading a key creates it">
           This is the surprise. <Strong>by_track[&quot;chemistry&quot;]</Strong> on a{" "}

@@ -163,8 +163,9 @@ by_name["Amara"]["chapters"]   # one hash, no scan`}
         <P>
           Everything above describes how the work grows, not how long it takes. On small
           collections a list frequently beats a set outright, because building the set costs
-          more than the scan it saves — and &quot;small&quot; here can mean a few hundred items,
-          not a few.
+          more than the scan it saves — especially when you only look something up once or
+          twice. Where the crossover sits depends on your data and how many lookups you do,
+          which is exactly why you measure.
         </P>
         <P>
           The standard library will tell you rather than leave you guessing.

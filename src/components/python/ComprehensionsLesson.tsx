@@ -144,7 +144,9 @@ for row in rows:
           outer loop — <Strong>for row in rows</Strong> — comes first, then the inner one —{" "}
           <Strong>for value in row</Strong>. Reverse them and Python raises a{" "}
           <Strong>NameError</Strong>, because row has to exist before{" "}
-          <Strong>for value in row</Strong> makes sense.
+          <Strong>for value in row</Strong> makes sense — or, worse, if a{" "}
+          <Strong>row</Strong> is still lying around from an earlier loop, it quietly loops
+          over that stale row and hands back the wrong list.
         </P>
         <Callout tone="warning" title="Two levels is usually the ceiling">
           A single nested comprehension for flattening is common and reads fine. Three levels,

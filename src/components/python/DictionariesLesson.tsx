@@ -2,6 +2,7 @@ import { Lead, LessonSection, P, Strong } from "@/components/learn/primitives/Le
 import { Callout } from "@/components/learn/primitives/Callout";
 import { CodeBlock } from "@/components/learn/primitives/CodeBlock";
 import { CompareGrid, LabelRows, TakeawayCard } from "@/components/learn/primitives/Cards";
+import { RevealCard } from "@/components/learn/primitives/RevealCard";
 import { DictBuilder } from "@/components/python/DictBuilder";
 
 export function DictionariesLesson() {
@@ -60,7 +61,9 @@ export function DictionariesLesson() {
         </P>
         <P>
           Strings, numbers, and tuples qualify, because none of them can be edited in place.
-          A tuple of coordinates makes a perfectly good key for exactly that reason.
+          A tuple of coordinates makes a perfectly good key for exactly that reason — as long
+          as everything inside the tuple is immutable too. A tuple holding a list is still
+          unhashable.
         </P>
         <CodeBlock
           label="Terminal"
@@ -127,6 +130,29 @@ KeyError: 'fig'`}
           <Strong>.get()</Strong> in that situation does not fix the bug — it just moves the
           failure somewhere harder to find.
         </P>
+        <CodeBlock
+          label="predict.py"
+          code={`stock = {"apple": 3}
+stock["apple"] += 2
+stock["pear"] = stock.get("pear", 0) + 1
+print(stock)`}
+        />
+        <RevealCard
+          summaryTag="Try it yourself"
+          summary="Predict the final dictionary before you reveal it."
+          detailTag="Answer"
+          detail={
+            <>
+              <Strong>{"{'apple': 5, 'pear': 1}"}</Strong>. The existing key is overwritten with
+              its new total, and <Strong>{'stock.get("pear", 0)'}</Strong> supplies a starting 0
+              for the key that did not exist yet. Writing{" "}
+              <Strong>{'stock["pear"] += 1'}</Strong> instead would have raised{" "}
+              <Strong>{"KeyError: 'pear'"}</Strong>.
+            </>
+          }
+          openLabel="Reveal the answer"
+          closeLabel="Hide the answer"
+        />
       </LessonSection>
 
       <LessonSection id="walking-a-dictionarys-keys-values-and-items" title="Walking a dictionary's keys, values, and items">

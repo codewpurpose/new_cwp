@@ -138,7 +138,7 @@ TypeError: unsupported operand type(s) for +: 'int' and 'str'`}
           lineTones={{ 6: "err" }}
         />
         <P>
-          One of the four prices was typed as text — <Strong>{"\"20\""}</Strong> instead of{" "}
+          One of the two prices was typed as text — <Strong>{"\"20\""}</Strong> instead of{" "}
           <Strong>20</Strong> — probably because it came from a form field or a spreadsheet
           column that nobody checked. Nothing about the program looked wrong until Python
           tried to add an int and a string together and had no idea how.

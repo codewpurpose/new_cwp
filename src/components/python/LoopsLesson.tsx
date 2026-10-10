@@ -2,6 +2,7 @@ import { Lead, LessonSection, P, Strong } from "@/components/learn/primitives/Le
 import { Callout } from "@/components/learn/primitives/Callout";
 import { CodeBlock } from "@/components/learn/primitives/CodeBlock";
 import { TakeawayCard } from "@/components/learn/primitives/Cards";
+import { RevealCard } from "@/components/learn/primitives/RevealCard";
 import { StepList } from "@/components/learn/primitives/StepList";
 import { LoopStepper } from "@/components/python/LoopStepper";
 
@@ -173,6 +174,30 @@ found an odd one: 9`}
           which is precisely the condition you would otherwise track with a separate flag
           variable.
         </P>
+        <CodeBlock
+          label="predict.py"
+          code={`total = 0
+for n in [1, 2, 3, 4, 5, 6]:
+    if n == 5:
+        break
+    if n % 2 == 0:
+        continue
+    total += n
+print(total)`}
+        />
+        <RevealCard
+          summaryTag="Try it yourself"
+          summary="Predict what this prints before you reveal it."
+          detailTag="Answer"
+          detail={
+            <>
+              <Strong>4</Strong>. The loop adds 1, skips 2 with continue, adds 3, skips 4, then
+              hits break at 5 — so 6 is never even looked at, and only 1 + 3 was added.
+            </>
+          }
+          openLabel="Reveal the answer"
+          closeLabel="Hide the answer"
+        />
       </LessonSection>
 
       <LessonSection id="the-loop-variable-outlives-the-loop" title="The loop variable is still there after the loop ends">

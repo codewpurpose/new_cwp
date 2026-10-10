@@ -25,7 +25,8 @@ export function FilesAndPathsLesson() {
           <Strong>{'open("notes.txt", "w")'}</Strong> creates the file if it does not exist yet, or
           empties it if it does — the <Strong>&quot;w&quot;</Strong> means write mode.{" "}
           <Strong>write()</Strong> returns the number of characters written, which is easy to
-          ignore and easy to forget you are ignoring.
+          ignore and easy to forget you are ignoring. To add to the end of an existing file
+          instead of wiping it, open it with <Strong>&quot;a&quot;</Strong>, append mode.
         </P>
         <Callout tone="warning" title="The step that is easy to skip">
           Nothing is guaranteed to actually reach the disk until <Strong>close()</Strong> runs.
@@ -169,8 +170,9 @@ b'\\x89PNG\\r\\n\\x1a\\n'`}
               tone: "caution",
               children: (
                 <>
-                  <Strong>{'"data" + "/" + "notes.txt"'}</Strong> hardcodes a forward slash,
-                  which is wrong on Windows, and breaks the moment a folder name changes.
+                  <Strong>{'"data" + "/" + "notes.txt"'}</Strong> glues the separator in by
+                  hand. Doubled or missing slashes creep in as soon as the pieces come from
+                  variables, and the result is a plain string with no path methods at all.
                 </>
               ),
             },
@@ -204,6 +206,13 @@ PosixPath('/Users/you/project/notes.txt')
 >>> Path("notes.txt").exists()
 True`}
         />
+        <P>
+          When a data file lives next to your script, build its path from the script&apos;s
+          own location instead of the folder you happened to run it from.{" "}
+          <Strong>__file__</Strong> is the path of the current <Strong>.py</Strong> file, so{" "}
+          <Strong>{'Path(__file__).parent / "notes.txt"'}</Strong> finds the same file no
+          matter where the program is started.
+        </P>
         <Callout tone="tip" title="Why Path is worth reaching for">
           <Strong>pathlib.Path</Strong> builds and checks paths without string-gluing slashes
           by hand — <Strong>resolve()</Strong> shows exactly which file a relative path points

@@ -83,9 +83,12 @@ export function ClassesAndObjectsLesson() {
 True`}
         />
         <Callout tone="success" title="Why this beats a dictionary here">
-          <Strong>{'{"name": "Ada", "grade": 92}'}</Strong> holds the same data, but a typo
-          like <Strong>{'student["gade"]'}</Strong> fails silently at the point of use. A class
-          gives every instance the same fixed shape and lets you attach behaviour, like{" "}
+          <Strong>{'{"name": "Ada", "grade": 92}'}</Strong> holds the same data, but nothing
+          guarantees the next dictionary has the same keys, and a typo when writing —{" "}
+          <Strong>{'student["gade"] = 95'}</Strong> — quietly adds a second key instead of
+          updating the grade. A class&apos;s <Strong>__init__</Strong> requires every field
+          for every instance, an editor can flag <Strong>ada.gade</Strong> as an attribute
+          that was never defined, and you can attach behaviour, like{" "}
           <Strong>passed()</Strong>, directly to the data it acts on.
         </Callout>
         <P>

@@ -75,6 +75,7 @@ StopIteration`}
 112`}
         />
         <P>
+          The exact byte counts vary between Python versions, but the gap never closes.
           That is not a rounding difference — it is the difference between a container that
           already holds a million pointers and an object that holds only the instruction for
           how to make the next number, plus a note on where it stopped. The list has to exist
@@ -144,7 +145,8 @@ StopIteration`}
 
       <LessonSection id="how-a-huge-file-fits-in-constant-memory" title="How a huge file fits in constant memory">
         <P>
-          An open file is an iterator, the same as the list example above — <Strong>for line
+          An open file is an iterator, like the one <Strong>iter(numbers)</Strong> handed back
+          at the start of this chapter — <Strong>for line
           in f:</Strong> calls <Strong>next()</Strong> on it once per line, and each call reads
           only as far as the next newline character before handing that one line back.
         </P>

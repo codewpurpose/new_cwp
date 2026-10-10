@@ -149,7 +149,8 @@ if __name__ == "__main__":
         <P>
           A <Strong>package</Strong> is just a folder of modules, with one marker file,{" "}
           <Strong>__init__.py</Strong>, that tells Python to treat the folder as a single
-          importable unit rather than an ordinary directory.
+          importable unit rather than an ordinary directory. The file can be completely
+          empty; its presence is the signal.
         </P>
         <CodeBlock
           label="Terminal"
@@ -170,11 +171,18 @@ if __name__ == "__main__":
         <P>
           <Strong>import shapes</Strong> works because Python searches a specific list of
           locations, in order, called <Strong>sys.path</Strong>: the folder the running script
-          lives in first, then any installed packages, then the standard library. That is also
+          lives in first, then the standard library, then installed third-party packages. That is also
           why a typo like <Strong>import shpaes</Strong> fails immediately with{" "}
           <Strong>ModuleNotFoundError</Strong> instead of finding something similar — the
           search is exact, not fuzzy.
         </P>
+        <Callout tone="warning" title="Do not name your file after a module you import">
+          Because the script&apos;s own folder is searched first, a file you saved as{" "}
+          <Strong>random.py</Strong> or <Strong>json.py</Strong> hides the standard-library
+          module of the same name. <Strong>import random</Strong> then imports your file,
+          and <Strong>random.randint</Strong> fails with an <Strong>AttributeError</Strong>{" "}
+          that seems to make no sense. Renaming your file fixes it.
+        </Callout>
         <P>
           Inside a package, an import can be written two ways. An{" "}
           <Strong>absolute import</Strong> spells out the full path from the top of the
@@ -198,7 +206,7 @@ from .shapes import area_of_circle`}
         </P>
         <Callout tone="warning" title="A relative import outside a package">
           Run a file containing <Strong>{"from .shapes import area_of_circle"}</Strong>{" "}
-          directly with <Strong>python angles.py</Strong> and it fails with{" "}
+          directly with <Strong>python3 angles.py</Strong> and it fails with{" "}
           <Strong>ImportError: attempted relative import with no known parent package</Strong>.
           Relative imports only resolve inside a package that was itself imported, not a file
           executed on its own.
@@ -210,7 +218,7 @@ from .shapes import area_of_circle`}
           "A module is one file; a package is a folder of modules with an __init__.py; a library is the general word for published code that might be shipped as either.",
           "A module's file runs top to bottom exactly once per program, the first time it is imported, then the result is cached.",
           'if __name__ == "__main__": guards code so it only runs when the file is executed directly, not when something else imports it — __name__ is just an ordinary variable Python sets differently depending on how the file started.',
-          "Python searches sys.path, in order, to resolve an import — the running script's own folder first, then installed packages, then the standard library.",
+          "Python searches sys.path, in order, to resolve an import — the running script's own folder first, then the standard library, then installed packages — so a file named random.py can hide the real random module.",
           "A relative import (from .shapes import ...) only works inside a package; a plain script run directly needs an absolute one.",
         ]}
       />

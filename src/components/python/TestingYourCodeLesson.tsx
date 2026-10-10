@@ -44,14 +44,14 @@ AssertionError`}
         </P>
         <P>
           <Strong>pytest</Strong> is what turns a scattering of asserts into a suite you run
-          with one command. It looks for files named <Strong>test_*.py</Strong> and functions
+          with one command (<Strong>-v</Strong> asks it to list each test by name). It looks for files named <Strong>test_*.py</Strong> and functions
           inside them named <Strong>test_*</Strong>, runs every one it finds, and reports which
           passed and which raised — no test runner of your own to write.
         </P>
         <CodeBlock
           label="Terminal"
           variant="terminal"
-          code={`$ pytest
+          code={`$ pytest -v
 test_largest.py::test_returns_the_maximum_value PASSED
 test_largest.py::test_empty_list_returns_none PASSED
 
@@ -139,7 +139,7 @@ test_largest.py::test_empty_list_returns_none PASSED
           />
           <RevealCard
             summaryTag="Case 3"
-            summary="assert largest([]) == None"
+            summary="assert largest([]) is None"
             detailTag="Verdict"
             detail={
               <>
@@ -222,7 +222,7 @@ def test_average_of_sample_scores(sample_scores):
         </P>
         <Callout tone="warning" title="Coverage answers a narrower question than it sounds like it does">
           <Strong>{'assert largest([3, 1, 4]) == largest([3, 1, 4])'}</Strong> from earlier
-          runs every line inside <Strong>largest</Strong> — it counts as full coverage, while
+          can run every line inside <Strong>largest</Strong> — it counts toward full coverage, while
           proving nothing about whether the function is correct. A coverage percentage answers
           &quot;did we run this line,&quot; never &quot;did we check the right values against
           it.&quot; A green number is a floor worth having, not a ceiling worth trusting.

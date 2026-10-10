@@ -81,7 +81,9 @@ export function JsonAndApisLesson() {
           reads directly from it, which matters because it is the difference between{" "}
           <Strong>{'json.load(f)'}</Strong> and the far more common mistake,{" "}
           <Strong>{'json.loads(f)'}</Strong>, which fails: <Strong>loads</Strong> expects text,
-          and a file object is not text, it is something you read text from.
+          and a file object is not text, it is something you read text from. The error says
+          so in its own words: <Strong>the JSON object must be str, bytes or bytearray, not
+          TextIOWrapper</Strong>.
         </P>
         <CodeBlock
           label="Terminal"
@@ -175,7 +177,7 @@ else:
         items={[
           "JSON is a text format, not Python or JavaScript specifically — it's the shared shape most web APIs speak.",
           "JSON's object, array, string, number, true/false, and null map onto Python's dict, list, str, int or float, True/False, and None, in that order.",
-          "json.loads parses a string you already have; json.load reads directly from an open file — mixing them up is a common, silent bug.",
+          "json.loads parses a string you already have; json.load reads directly from an open file — passing a file to json.loads fails with a TypeError that is easy to misread.",
           "Checking response.status_code before calling .json() catches a failed request where it actually failed, instead of as a confusing JSONDecodeError later.",
           "A timeout keeps one dead connection from hanging your whole program forever, and an API key belongs in an environment variable, never typed into a file you commit.",
         ]}

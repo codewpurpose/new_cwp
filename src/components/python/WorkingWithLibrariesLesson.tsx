@@ -53,12 +53,12 @@ Successfully installed requests-2.31.0`}
         <CodeBlock
           label="Terminal"
           variant="terminal"
-          code={`$ python -m venv .venv
+          code={`$ python3 -m venv .venv
 $ source .venv/bin/activate
 (.venv) $ pip install requests`}
         />
         <P>
-          <Strong>python -m venv .venv</Strong> creates an isolated folder with its own copy of
+          <Strong>python3 -m venv .venv</Strong> creates an isolated folder with its own copy of
           Python and its own package list.{" "}
           <Strong>source .venv/bin/activate</Strong> switches the current terminal to use that
           copy, so anything installed afterward stays scoped to this one project. The{" "}

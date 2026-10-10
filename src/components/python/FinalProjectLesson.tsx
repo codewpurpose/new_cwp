@@ -177,7 +177,10 @@ def word_counts(text):
           returns{" "}
           <Strong>{"{'the': 2, 'cat': 2, 'calm': 1, 'sat': 1, 'ran': 1, 'fast': 1}"}</Strong> —
           six keys instead of seven, and <Strong>&apos;cat&apos;</Strong> correctly counted
-          twice. It is a genuine improvement, and also a reminder that &quot;finished&quot;
+          twice. One edge to watch: a &quot;word&quot; made only of punctuation, like a lone{" "}
+          <Strong>-</Strong>, strips down to an empty string and gets counted under the key{" "}
+          <Strong>&apos;&apos;</Strong>. Adding <Strong>if word:</Strong> before the count
+          line skips it. It is a genuine improvement, and also a reminder that &quot;finished&quot;
           for a real program is a judgement call, not a fixed line: the version without this
           fix was complete enough to call done a section ago, and this version is more correct
           without either one being the objectively right answer for every use.
@@ -187,7 +190,9 @@ def word_counts(text):
           the most common word. <Strong>{"max(counts, key=counts.get)"}</Strong> finds
           the key whose value is largest without writing a loop yourself — the same{" "}
           <Strong>key=</Strong> argument idea the sorting built-ins in Python use throughout
-          the standard library.
+          the standard library. On an empty dictionary it raises <Strong>ValueError</Strong>,
+          exactly as the records chapter warned, so pass <Strong>default=None</Strong> if
+          empty input is allowed.
         </P>
         <Callout tone="tip" title="Reach for this before writing your own loop">
           Whenever the plan is &quot;find the biggest thing by some rule,&quot; check first
@@ -202,7 +207,7 @@ def word_counts(text):
         <P>
           Nothing about this program is specific to counting words — the same shape, a loop
           filling a dictionary, is the core of a shopping cart total, a vote tally, or a log
-          file summary. The twenty-four chapters behind this one are not separate tools; they
+          file summary. The thirty chapters behind this one are not separate tools; they
           are the vocabulary this one program was written in.
         </P>
         <P>
