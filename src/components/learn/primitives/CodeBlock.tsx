@@ -1,6 +1,5 @@
 import { FileCode, MessageCircle, Terminal } from "lucide-react";
 import { CodeCopyButton } from "@/components/learn/primitives/CodeCopyButton";
-import { CodeRunButton, InlineRunnerSlot, RunnableCode } from "@/components/playground/RunnableCode";
 import { cn } from "@/lib/utils";
 
 /** Language tag inferred from a file-name label, e.g. "grades.py" -> "Python". */
@@ -31,16 +30,6 @@ function languageOf(label: string | undefined): string | null {
   return match ? (LANGUAGE_BY_EXTENSION[match[1].toLowerCase()] ?? null) : null;
 }
 
-/**
- * Whether a block can be run in the browser. Only real Python source: a .py
- * file name or a plain "Python" label. Never terminal blocks, REPL sessions
- * (">>>" lines are not a program), or tracebacks.
- */
-function isRunnablePython(label: string | undefined, code: string): boolean {
-  const python = languageOf(label) === "Python" || label?.trim().toLowerCase() === "python";
-  return python && !/^\s*>>>/m.test(code);
-}
-
 export type CodeLineTone = "err" | "warn" | "ok" | "dim" | "accent";
 
 const LINE_TONE: Record<CodeLineTone, string> = {
@@ -58,13 +47,6 @@ interface CodeBlockProps {
   label?: string;
   variant?: "code" | "terminal" | "prompt";
   copyable?: boolean;
-  /**
-   * Adds a Run button that opens the code in an in-browser Python runner
-   * below the block. Inferred: on for Python code (a .py label or "Python"),
-   * off for everything else. Pass `false` for a Python excerpt that can't run
-   * on its own; `true` cannot turn it on for other languages.
-   */
-  runnable?: boolean;
   /** Per-line colour, keyed by zero-based line index. */
   lineTones?: Readonly<Record<number, CodeLineTone>>;
   className?: string;
@@ -80,7 +62,6 @@ export function CodeBlock({
   label,
   variant = "code",
   copyable = true,
-  runnable,
   lineTones,
   className,
 }: CodeBlockProps) {
@@ -88,9 +69,8 @@ export function CodeBlock({
   const isPrompt = variant === "prompt";
   const language = variant === "code" ? languageOf(label) : null;
   const HeaderIcon = variant === "terminal" ? Terminal : isPrompt ? MessageCircle : FileCode;
-  const canRun = variant === "code" && runnable !== false && isRunnablePython(label, code);
 
-  const figure = (
+  return (
     <figure
       className={cn(
         "lr-code mt-6 overflow-hidden rounded-learn-md",
@@ -100,7 +80,7 @@ export function CodeBlock({
         className,
       )}
     >
-      {(label || copyable || canRun) && (
+      {(label || copyable) && (
         <figcaption
           className={cn(
             "flex min-h-11 items-center justify-between gap-3 py-1 pl-4 pr-1.5 text-[11.5px]",
@@ -126,10 +106,7 @@ export function CodeBlock({
               <span className="lr-code-lang">{language}</span>
             )}
           </span>
-          <span className="flex shrink-0 items-center">
-            {canRun && <CodeRunButton />}
-            {copyable && <CodeCopyButton value={code} tone={isPrompt ? "light" : "dark"} />}
-          </span>
+          {copyable && <CodeCopyButton value={code} tone={isPrompt ? "light" : "dark"} />}
         </figcaption>
       )}
 
@@ -169,17 +146,6 @@ export function CodeBlock({
         </code>
       </pre>
     </figure>
-  );
-
-  if (!canRun) return figure;
-
-  // The figure above is still rendered here on the server; the provider only
-  // links the header's Run button to the runner that opens underneath.
-  return (
-    <RunnableCode code={code}>
-      {figure}
-      <InlineRunnerSlot />
-    </RunnableCode>
   );
 }
 

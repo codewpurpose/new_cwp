@@ -18,10 +18,6 @@ export const LEARN_GITHUB_HREF = "/learn/github/";
 export const LEARN_HTML_CSS_HREF = "/learn/html-css/";
 export const LEARN_COMPUTER_VISION_HREF = "/learn/computer-vision/";
 export const TOOLKIT_HREF = "/toolkit/";
-/** Hub for learning to code with AI assistants responsibly. */
-export const AI_RESOURCES_HREF = "/resources/ai-coding/";
-/** In-browser code playground. */
-export const PLAYGROUND_HREF = "/playground/";
 export const DASHBOARD_HREF = "/dashboard/";
 export const LOGIN_HREF = "/login/";
 export const SIGN_UP_HREF = "/sign-up/";
@@ -134,6 +130,4 @@ export const NAV_LINKS = [
   { label: "Join Us", href: JOIN_HREF },
   { label: "Stories", href: IMPACT_HREF },
   { label: "Contact", href: CONTACT_HREF },
-  { label: "AI Resources", href: AI_RESOURCES_HREF },
-  { label: "Code Playground", href: PLAYGROUND_HREF },
 ] as const;

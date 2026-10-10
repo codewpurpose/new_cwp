@@ -243,7 +243,7 @@ const teamMembers: TeamMember[] = [
     country: UNITED_STATES,
     photo: images.team.vibhav,
     linkedin: "https://www.linkedin.com/in/vibhav-p-387338262/",
-    bio: "Hi! I'm Vibhav, a freelance app developer working with Microsoft Azure, natural language processing, and machine learning. At CodeWithPurpose, I build our website features, our AI-coding resources, and the code playground where you can run Python and ML code right in your browser. I also make the reels we post about our free resources.",
+    bio: "Hi! I'm Vibhav, a freelance app developer working with Microsoft Azure, natural language processing, and machine learning. At CodeWithPurpose, I lead development of our website and the tools that bring free coding education to students everywhere.",
   },
 ];
 
