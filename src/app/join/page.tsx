@@ -5,8 +5,6 @@ import { PageShell } from "@/components/PageShell";
 import { Reveal } from "@/components/Reveal";
 import BlurText from "@/components/reactbits/BlurText";
 import Magnet from "@/components/reactbits/Magnet";
-import SpotlightCard from "@/components/reactbits/SpotlightCard";
-import { SPOTLIGHT_PROPS } from "@/lib/spotlight";
 import { images } from "@/lib/images";
 import {
   CONTACT_EMAIL,
@@ -79,15 +77,15 @@ export default function JoinPage() {
         <div className="grid gap-4 md:grid-cols-2">
           {roles.map((role, index) => (
             <Reveal key={role.title} delay={index * 0.06} className="h-full">
-              <SpotlightCard
-                {...SPOTLIGHT_PROPS}
+              <div
+
                 className="home-card home-lift h-full rounded-xl p-6 md:p-8"
               >
                 <h2 className="text-xl">{role.title}</h2>
                 <p className="mt-3 text-[15px] leading-[1.55] text-[var(--home-ink-soft)]">
                   {role.body}
                 </p>
-              </SpotlightCard>
+              </div>
             </Reveal>
           ))}
         </div>

@@ -47,7 +47,7 @@ export function UseCasesSection() {
                         </div>
                         <div className="text-[10px] leading-snug text-[var(--home-ink)] md:text-[12px]">What can I build with Python?</div>
                         <div className="cwp-cycle mt-auto rounded-md bg-[#dbefdb] p-2 text-[10px] leading-snug text-[var(--home-ink)] md:p-2.5 md:text-[12px]" style={{ animationDelay: "4.5s" }}>
-                          Your own quiz app. Lesson 3 shows you how.
+                          Start with a small project, like your own quiz app.
                         </div>
                       </div>
                     </div>
@@ -197,7 +197,7 @@ export function UseCasesSection() {
                         </ArtSvg>
                       </div>
                       <div className="text-center text-[8px] leading-tight text-[var(--home-ink-soft)] md:text-[10px]">
-                        Honored by the U.S.
+                        Honoured by the U.S.
                         <br />
                         House of Representatives
                       </div>
@@ -206,9 +206,9 @@ export function UseCasesSection() {
                 </div>
               </div>
               <div className="order-1 flex min-w-0 flex-col justify-center p-5 sm:p-6 md:order-none md:p-10 lg:p-12">
-                <h3 className="max-w-[20ch] text-[1.25rem] leading-[1.1] sm:text-[1.375rem] md:text-[1.875rem]">Recognized for leadership and service</h3>
+                <h3 className="max-w-[20ch] text-[1.25rem] leading-[1.1] sm:text-[1.375rem] md:text-[1.875rem]">Recognised for leadership and service</h3>
                 <p className="mt-4 max-w-[34rem] text-[15px] leading-[1.5] text-[var(--home-ink-soft)] md:text-base">
-                  Recognized by the U.S. House of Representatives, we work every
+                  Recognised by the U.S. House of Representatives, we work every
                   day to prove that student-led education can reach the highest
                   standards of service to students.
                 </p>

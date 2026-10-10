@@ -75,8 +75,8 @@ export const CATALOG: CatalogCourse[] = [
     cover: "python",
     topic: "code",
     enrol: [
-      { href: PYTHON_COURSE_HREF, label: "Enroll Part 1" },
-      { href: PYTHON_PART_2_COURSE_HREF, label: "Enroll Part 2" },
+      { href: PYTHON_COURSE_HREF, label: "Enrol Part 1" },
+      { href: PYTHON_PART_2_COURSE_HREF, label: "Enrol Part 2" },
     ],
   },
   {
@@ -87,7 +87,7 @@ export const CATALOG: CatalogCourse[] = [
       "The two languages every website is made of, and the fastest thing in programming to see working — save a file, refresh, it changed. Twenty-four chapters take you from your first line of markup through semantic HTML, the cascade, the box model, flexbox and grid, to a real page you build by hand and publish. No framework, no build step.",
     cover: "htmlcss",
     topic: "code",
-    enrol: [{ href: HTML_CSS_COURSE_HREF, label: "Enroll Free" }],
+    enrol: [{ href: HTML_CSS_COURSE_HREF, label: "Enrol Free" }],
   },
   {
     track: "github",
@@ -97,7 +97,7 @@ export const CATALOG: CatalogCourse[] = [
       "The tool every developer uses every day, and the platform every project lives on. Twenty-one chapters take you from your first commit through branches, merge conflicts, and rebasing, to pull requests, code review, and your first contribution to somebody else's open-source project.",
     cover: "github",
     topic: "code",
-    enrol: [{ href: GITHUB_COURSE_HREF, label: "Enroll Free" }],
+    enrol: [{ href: GITHUB_COURSE_HREF, label: "Enrol Free" }],
   },
   {
     track: "roblox",
@@ -107,7 +107,7 @@ export const CATALOG: CatalogCourse[] = [
       "Build a real obby and publish it, so other people can actually play what you made. You'll write Luau for lasers, disappearing platforms, and one-way floors — and learn why each of them breaks the moment a second player joins.",
     cover: "roblox",
     topic: "code",
-    enrol: [{ href: ROBLOX_COURSE_HREF, label: "Enroll Free" }],
+    enrol: [{ href: ROBLOX_COURSE_HREF, label: "Enrol Free" }],
   },
   {
     track: "vibecoding",
@@ -118,8 +118,8 @@ export const CATALOG: CatalogCourse[] = [
     cover: "vibecoding",
     topic: "ai",
     enrol: [
-      { href: VIBECODING_COURSE_HREF, label: "Enroll Part 1" },
-      { href: VIBECODING_PART_2_COURSE_HREF, label: "Enroll Part 2" },
+      { href: VIBECODING_COURSE_HREF, label: "Enrol Part 1" },
+      { href: VIBECODING_PART_2_COURSE_HREF, label: "Enrol Part 2" },
     ],
   },
   {
@@ -131,8 +131,8 @@ export const CATALOG: CatalogCourse[] = [
     cover: "ml1",
     topic: "ai",
     enrol: [
-      { href: ML_PART_1_COURSE_HREF, label: "Enroll Part 1" },
-      { href: ML_PART_2_COURSE_HREF, label: "Enroll Part 2" },
+      { href: ML_PART_1_COURSE_HREF, label: "Enrol Part 1" },
+      { href: ML_PART_2_COURSE_HREF, label: "Enrol Part 2" },
     ],
   },
   {
@@ -143,7 +143,7 @@ export const CATALOG: CatalogCourse[] = [
       "The money skills every student should have: budgeting, saving, credit, and investing, taught simply and without the jargon.",
     cover: "finance",
     topic: "life",
-    enrol: [{ href: FINANCIAL_LITERACY_COURSE_HREF, label: "Enroll Free" }],
+    enrol: [{ href: FINANCIAL_LITERACY_COURSE_HREF, label: "Enrol Free" }],
   },
   {
     track: "health-in-tech",
@@ -153,7 +153,7 @@ export const CATALOG: CatalogCourse[] = [
       "Learn how technology is used with medical data, digital health services, and healthcare careers.",
     cover: "health",
     topic: "life",
-    enrol: [{ href: HEALTH_IN_TECH_COURSE_HREF, label: "Enroll Free" }],
+    enrol: [{ href: HEALTH_IN_TECH_COURSE_HREF, label: "Enrol Free" }],
   },
   {
     track: "computer-vision",
@@ -163,7 +163,7 @@ export const CATALOG: CatalogCourse[] = [
       "Learn how models use pixels and edges to classify images and detect objects. The course covers ideas used in tools such as face unlock and driver-assistance systems.",
     cover: "computervision",
     topic: "ai",
-    enrol: [{ href: COMPUTER_VISION_COURSE_HREF, label: "Enroll Free" }],
+    enrol: [{ href: COMPUTER_VISION_COURSE_HREF, label: "Enrol Free" }],
   },
 ];
 

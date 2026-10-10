@@ -63,7 +63,7 @@ export function SiteFooter() {
                   accessible for everyone, everywhere.
                 </p>
                 <p className="text-xs text-[var(--home-ink-soft)]">
-                  Recognized by the U.S. House of Representatives
+                  Recognised by the U.S. House of Representatives
                 </p>
               </a>
             </div>

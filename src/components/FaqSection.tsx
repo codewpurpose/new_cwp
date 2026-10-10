@@ -24,7 +24,7 @@ const faqs: Faq[] = [
   {
     question: "How do I start learning?",
     answer:
-      "Pick a course and go. Python for Complete Beginners and Vibecoding 101 are both great starting points. Sign up with your email, enroll on Udemy at no cost, and you'll be writing code today.",
+      "Open Courses and choose a beginner track. You can read our interactive lessons without an account. Create a free account to sync your progress, or choose a free Udemy course if you prefer video lessons.",
   },
   {
     question: "How can I volunteer or join the team?",
@@ -37,9 +37,9 @@ const faqs: Faq[] = [
       "Straight to students. Donations fund workshops, new lessons, and outreach to underserved communities, and they keep every single course free for learners everywhere.",
   },
   {
-    question: "How is CodeWithPurpose recognized?",
+    question: "How is CodeWithPurpose recognised?",
     answer:
-      "We're recognized by the U.S. House of Representatives for tremendous leadership and service to our community. Representative Mark DeSaulnier formally recognized our work in March 2026.",
+      "We're recognised by the U.S. House of Representatives for tremendous leadership and service to our community. Representative Mark DeSaulnier formally recognised our work in March 2026.",
   },
 ];
 
@@ -83,8 +83,11 @@ export function FaqSection() {
       <JsonLd data={faqJsonLd(faqs)} />
       <section>
         <div className="mx-auto w-full max-w-[85rem] px-5 md:px-10">
-          <h2 className="text-center text-[15px] leading-snug md:text-lg">
-            {"What students and families usually ask. Still have a question? "}
+          <h2 className="home-serif text-center text-2xl md:text-3xl">
+            What students and families usually ask
+          </h2>
+          <p className="mt-3 text-center text-[15px] leading-snug text-[var(--home-ink-soft)]">
+            {"Still have a question? "}
             <a
               href={CONTACT_HREF}
               className="text-[#397554] underline-offset-2 hover:underline"
@@ -92,7 +95,7 @@ export function FaqSection() {
               Contact us
             </a>
             {" and ask us anything."}
-          </h2>
+          </p>
           <Accordion.Root multiple className="mx-auto mt-8 flex max-w-[51rem] flex-col gap-2">
             {faqs.map((faq) => <FaqItem key={faq.question} faq={faq} />)}
           </Accordion.Root>

@@ -15,6 +15,8 @@ import { FaqSection } from "@/components/FaqSection";
 import { FinalCtaSection } from "@/components/FinalCtaSection";
 import { SiteFooter } from "@/components/SiteFooter";
 import { getChapters } from "@/lib/learn-nav";
+import { TRACK_ROUTES } from "@/lib/learn-routes";
+import type { LearnTrackId } from "@/lib/learn-types";
 
 const playfulHeadings = Fredoka({
   variable: "--font-playful-heading",
@@ -22,7 +24,7 @@ const playfulHeadings = Fredoka({
   subsets: ["latin"],
   display: "swap",
 });
-const LESSON_COUNT = getChapters("ml").length + getChapters("vibecoding").length;
+const LESSON_COUNT = (Object.keys(TRACK_ROUTES) as LearnTrackId[]).reduce((total, track) => total + getChapters(track).length, 0);
 
 export default function Home() {
   return (

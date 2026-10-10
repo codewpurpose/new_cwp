@@ -268,10 +268,10 @@ export default function AboutPage() {
         <div className="grid gap-10 lg:grid-cols-2 lg:items-center">
           <Reveal>
             <h2 className="home-serif text-[1.75rem] md:text-[2.5rem]">
-              Recognized by the U.S. House of Representatives
+              Recognised by the U.S. House of Representatives
             </h2>
             <p className="mt-4 text-[15px] leading-[1.6] text-[var(--home-ink-soft)] md:text-base">
-              Representative Mark DeSaulnier recognized CodeWithPurpose for
+              Representative Mark DeSaulnier recognised CodeWithPurpose for
               tremendous leadership and service to our community. We work every
               day to reach students in 150+ countries, from rural villages in
               India to classrooms in Nigeria.

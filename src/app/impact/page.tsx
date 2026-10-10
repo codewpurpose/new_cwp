@@ -6,8 +6,6 @@ import { Reveal } from "@/components/Reveal";
 import CountUp from "@/components/reactbits/CountUp";
 import GlareHover from "@/components/reactbits/GlareHover";
 import Magnet from "@/components/reactbits/Magnet";
-import SpotlightCard from "@/components/reactbits/SpotlightCard";
-import { SPOTLIGHT_PROPS } from "@/lib/spotlight";
 import { IMPACT_STATS } from "@/lib/stats";
 import { TopicCover } from "@/components/TopicCover";
 import { images } from "@/lib/images";
@@ -67,8 +65,8 @@ export default function ImpactPage() {
               delay={index * 0.07}
               className="h-full max-sm:last:col-span-2 max-sm:last:w-full max-sm:last:max-w-[calc(50%-0.375rem)] max-sm:last:justify-self-center"
             >
-              <SpotlightCard
-                {...SPOTLIGHT_PROPS}
+              <div
+
                 className="home-card home-lift h-full rounded-xl px-3 py-6 text-center sm:px-4 sm:py-8 md:px-6"
               >
                 <p className="home-serif text-[1.75rem] leading-none text-[#3e7f5c] sm:text-[2rem] md:text-[2.75rem]">
@@ -77,7 +75,7 @@ export default function ImpactPage() {
                 <p className="mt-2 text-[13px] leading-snug text-[var(--home-ink-soft)] sm:mt-3 sm:text-sm">
                   {stat.label}
                 </p>
-              </SpotlightCard>
+              </div>
             </Reveal>
           ))}
         </div>
@@ -129,11 +127,11 @@ export default function ImpactPage() {
               Congressional Recognition · 2026
             </p>
             <h2 className="home-serif mt-4 text-[1.75rem] md:text-[2.25rem]">
-              Recognized by Congress
+              Recognised by Congress
             </h2>
             <p className="mt-4 text-[var(--home-ink-soft)]">
               Representative Mark DeSaulnier of the U.S. House of Representatives
-              formally recognized our work bringing free coding education to
+              formally recognised our work bringing free coding education to
               students who might not otherwise have access.
             </p>
             <Magnet className="mt-6">

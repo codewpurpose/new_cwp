@@ -3,7 +3,7 @@
  *
  * Split out of `student.ts` on purpose. Building `COURSES` means reading the
  * whole lesson graph, and anything importing that pulls every chapter of all
- * five tracks into its bundle. Only the dashboard renders a course checklist,
+ * nine tracks into its bundle. Only the dashboard renders a course checklist,
  * so only the dashboard should pay for one — the sidebar, chapter gate, quiz,
  * and leaderboard import `student.ts` alone and stay small.
  *
@@ -15,7 +15,7 @@ import { getChapters, getTrack } from "@/lib/learn-nav";
 import type { LearnTrackId } from "@/lib/learn-types";
 import type { Derived, StudentState } from "@/lib/student";
 
-/** The eight on-site tracks, in the order they appear on the dashboard. */
+/** The nine on-site tracks, in the order they appear on the dashboard. */
 const TRACK_IDS: LearnTrackId[] = [
   "python",
   "html-css",
@@ -23,6 +23,7 @@ const TRACK_IDS: LearnTrackId[] = [
   "roblox",
   "financial-literacy",
   "health-in-tech",
+  "computer-vision",
   "ml",
   "vibecoding",
 ];
@@ -52,7 +53,7 @@ export function derive(state: StudentState): Derived {
   let coursesStarted = 0;
   let coursesDone = 0;
   for (const c of COURSES) {
-    const done = (state.progress[c.id] || []).length;
+    const { done } = courseProgress(state, c);
     completed += done;
     if (done > 0) coursesStarted += 1;
     if (done >= c.chapters.length && c.chapters.length > 0) coursesDone += 1;
@@ -66,7 +67,8 @@ export function derive(state: StudentState): Derived {
 }
 
 export function courseProgress(state: StudentState, course: Course) {
-  const done = (state.progress[course.id] || []).length;
+  const completed = new Set(state.progress[course.id] || []);
+  const done = course.chapters.filter((chapter) => completed.has(chapter.slug)).length;
   const total = course.chapters.length;
   return { done, total, pct: total ? Math.round((done / total) * 100) : 0 };
 }

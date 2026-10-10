@@ -4,8 +4,6 @@ import { PageSection } from "@/components/PageHero";
 import { PageShell } from "@/components/PageShell";
 import { Reveal } from "@/components/Reveal";
 import ScrollReveal from "@/components/reactbits/ScrollReveal";
-import SpotlightCard from "@/components/reactbits/SpotlightCard";
-import { SPOTLIGHT_PROPS } from "@/lib/spotlight";
 import { images } from "@/lib/images";
 import { CONTACT_HREF, COURSES_HREF, HCB_DONATE_EMBED_SRC } from "@/lib/links";
 
@@ -110,15 +108,15 @@ export default function DonatePage() {
         <div className="grid gap-4 md:grid-cols-2">
           {impactAreas.map((area, index) => (
             <Reveal key={area.title} delay={index * 0.06} className="h-full">
-              <SpotlightCard
-                {...SPOTLIGHT_PROPS}
+              <div
+
                 className="home-card home-lift h-full rounded-xl p-6 md:p-8"
               >
                 <h2 className="text-xl">{area.title}</h2>
                 <p className="mt-3 text-[15px] leading-[1.55] text-[var(--home-ink-soft)]">
                   {area.body}
                 </p>
-              </SpotlightCard>
+              </div>
             </Reveal>
           ))}
         </div>

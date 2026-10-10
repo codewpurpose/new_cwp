@@ -18,8 +18,8 @@ export default function DashboardPage() {
   return (
     <PageShell>
       <PageHero
-        title="Your learning, leveled up"
-        description="Tick off chapters as you go, earn XP and badges, and unlock your own Koda. It all saves on your device — no sign-up, still completely free."
+        title="Your learning, levelled up"
+        description="Pass lesson quick checks to complete chapters, earn XP and badges, and unlock your own Koda. It all saves on your device — no sign-up, still completely free."
         image={images.codingLaptop}
         imageAlt="A student tracking their coding progress"
       >

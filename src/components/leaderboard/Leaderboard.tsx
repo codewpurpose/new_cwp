@@ -9,8 +9,6 @@ import { isClerkConfigured } from "@/lib/clerk";
 import { avatarSrc, levelInfo } from "@/lib/student";
 import { DASHBOARD_HREF, LOGIN_HREF } from "@/lib/links";
 import { AnimatedListItem } from "@/components/reactbits/AnimatedList";
-import SpotlightCard from "@/components/reactbits/SpotlightCard";
-import { SPOTLIGHT_PROPS } from "@/lib/spotlight";
 
 interface Row {
   id: string;
@@ -22,7 +20,7 @@ interface Row {
 /** Shown until both Clerk and Supabase are configured. */
 function ComingSoon() {
   return (
-    <SpotlightCard {...SPOTLIGHT_PROPS} className="home-card mx-auto max-w-xl p-8 text-center">
+    <div  className="home-card mx-auto max-w-xl p-8 text-center">
       <h2 className="font-serif text-2xl">The leaderboard is almost here</h2>
       <p className="mt-3 text-[15px] text-[var(--home-ink-soft)]">
         Ranking students against each other needs accounts switched on. Until then,
@@ -32,7 +30,7 @@ function ComingSoon() {
       <Link href={DASHBOARD_HREF} className="home-btn home-btn-fill mt-6 inline-flex">
         Go to My Progress
       </Link>
-    </SpotlightCard>
+    </div>
   );
 }
 

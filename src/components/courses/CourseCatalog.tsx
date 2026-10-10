@@ -1,13 +1,10 @@
 "use client";
 
-import { AnimatePresence, motion } from "motion/react";
 import { useMemo, useState, type ReactNode } from "react";
 import CountUp from "@/components/reactbits/CountUp";
-import SpotlightCard from "@/components/reactbits/SpotlightCard";
 import { CourseEntryProvider, CourseLink } from "@/components/courses/CourseEntry";
 import type { Enrolment, OutlineChapter, TopicId, TrackStats } from "@/components/courses/catalog";
 import { summarise, useProgressMap, type TrackProgress } from "@/components/learn/space/progress";
-import { SPOTLIGHT_PROPS } from "@/lib/spotlight";
 import type { LearnTrackId } from "@/lib/learn-types";
 
 export interface CatalogItem {
@@ -26,8 +23,6 @@ export interface CatalogItem {
 }
 
 type Filter = "all" | TopicId;
-
-const EASE = [0.22, 1, 0.36, 1] as const;
 
 /**
  * The catalogue: a "pick up where you left off" row, topic filters, and the
@@ -93,21 +88,18 @@ export function CourseCatalog({
           </p>
         </div>
         {/* The server always sends the suggestions. When saved progress turns up
-            after mount the row is swapped for it and fades in; the server's
+            after mount the row is swapped for it; the server's
             copy never starts transparent, so it reads without JavaScript. */}
-        <motion.ul
+        <ul
             key={hasProgress ? "continue" : "start"}
             className="learnspace-scroll mt-5 grid auto-cols-[minmax(17.5rem,1fr)] grid-flow-col gap-4 overflow-x-auto pb-2 md:auto-cols-[minmax(20rem,calc((100%-2rem)/3))]"
-            initial={hasProgress ? { opacity: 0, y: 6 } : false}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.32, ease: EASE }}
           >
             {rowItems.map((item) => (
               <li key={item.track} className="snap-start">
                 <ContinueCard item={item} progress={progress[item.track]} suggestion={!hasProgress} />
               </li>
             ))}
-          </motion.ul>
+          </ul>
       </div>
 
       {/* ---- Filters ------------------------------------------------------ */}
@@ -132,18 +124,12 @@ export function CourseCatalog({
                 key={option.id}
                 type="button"
                 aria-pressed={active}
+                aria-label={`${option.label} (${option.count} courses)`}
                 onClick={() => setFilter(option.id)}
                 className={`learn-focusable relative shrink-0 rounded-full px-4 py-2 text-[13.5px] font-medium transition-colors ${
-                  active ? "text-[#fcf4e8]" : "text-[var(--home-ink-soft)] hover:text-[#15120c]"
+                  active ? "bg-[#1e3c2c] text-[#fcf4e8]" : "text-[var(--home-ink-soft)] hover:text-[#15120c]"
                 }`}
               >
-                {active && (
-                  <motion.span
-                    layoutId="courses-filter-pill"
-                    className="absolute inset-0 rounded-full bg-[#1e3c2c]"
-                    transition={{ type: "spring", stiffness: 420, damping: 36 }}
-                  />
-                )}
                 <span className="relative">
                   {option.label}
                   <span className={`home-mono ml-1.5 text-[11px] ${active ? "text-[#9fd3a8]" : "text-[var(--home-ink-quiet)]"}`}>
@@ -160,23 +146,16 @@ export function CourseCatalog({
       <p className="sr-only" aria-live="polite">
         Showing {visible.length} of {items.length} courses
       </p>
-      <motion.ul layout className="relative mt-8 grid gap-6 md:grid-cols-2 xl:grid-cols-3">
-        <AnimatePresence mode="popLayout" initial={false}>
+      <ul className="relative mt-8 grid gap-6 md:grid-cols-2 xl:grid-cols-3">
           {visible.map((item) => (
-            <motion.li
+            <li
               key={item.track}
-              layout
-              initial={{ opacity: 0, scale: 0.97 }}
-              animate={{ opacity: 1, scale: 1 }}
-              exit={{ opacity: 0, scale: 0.97 }}
-              transition={{ duration: 0.32, ease: EASE }}
               className="h-full"
             >
               <CourseCard item={item} progress={progress[item.track]} />
-            </motion.li>
+            </li>
           ))}
-        </AnimatePresence>
-      </motion.ul>
+      </ul>
     </CourseEntryProvider>
   );
 }
@@ -253,8 +232,8 @@ function CourseCard({ item, progress }: { item: CatalogItem; progress: TrackProg
   const levelSummary = levelKeys.map((k) => `${stats.levels[k]} ${k}`).join(", ");
 
   return (
-    <SpotlightCard
-      {...SPOTLIGHT_PROPS}
+    <div
+
       data-course-card=""
       className="home-card group flex h-full flex-col rounded-[22px] bg-[#fffbf5] transition-shadow hover:shadow-[var(--home-shadow-lg)]"
     >
@@ -353,6 +332,6 @@ function CourseCard({ item, progress }: { item: CatalogItem; progress: TrackProg
           </p>
         </div>
       </div>
-    </SpotlightCard>
+    </div>
   );
 }
