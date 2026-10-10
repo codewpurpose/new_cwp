@@ -77,7 +77,7 @@ export function ConvolutionLesson() {
             summaryTag="Try it yourself"
             summary="A 3-by-3 patch is all 10s except a bright 100 in the centre. What does the blur kernel (nine values of 1/9) write into the output? What does a sharpen kernel with 5 in the centre and −1 on the four direct neighbours write?"
             detailTag="Answer"
-            detail="Blur: (8 × 10 + 100) / 9 = 180 / 9 = 20, so the bright spot is pulled most of the way down towards its neighbours. Sharpen: 5 × 100 − 4 × 10 = 460, so the spot is pushed further away from them. In a real image that 460 would be clipped to 255, the brightest value a pixel can hold."
+            detail="Blur: (8 × 10 + 100) / 9 = 180 / 9 = 20, so the bright spot is pulled most of the way down towards its neighbours. Sharpen: 5 × 100 − 4 × 10 = 460, so the spot is pushed further away from them. If stored as an 8-bit pixel, that output would be clipped to 255, the brightest value it can hold."
             openLabel="Show the answer"
             closeLabel="Hide the answer"
           />
