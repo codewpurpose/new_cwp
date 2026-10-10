@@ -14,7 +14,7 @@ export interface ImpactStat {
 }
 
 export const STATS = {
-  students: { to: 5000, suffix: "+", label: "Students Reached" },
+  students: { to: 6000, suffix: "+", label: "Students Reached" },
   countries: { to: 150, suffix: "+", label: "Countries" },
   languages: { to: 30, suffix: "+", label: "Languages Taught" },
   minutes: { to: 20, suffix: "k", label: "Minutes of Teaching" },
@@ -30,7 +30,7 @@ export const IMPACT_STATS: ImpactStat[] = [
   STATS.totalReached,
 ];
 
-/** "5,000+" — the figure as plain text, for strips and sentences. */
+/** "6,000+" — the figure as plain text, for strips and sentences. */
 export function formatStat(stat: ImpactStat): string {
   return `${stat.to.toLocaleString("en-US")}${stat.suffix}`;
 }

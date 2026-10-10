@@ -96,9 +96,11 @@ export function PageSection({
 export function PhotoGrid({
   photos,
   columns = 4,
+  aspectRatio = "4/3",
 }: {
   photos: readonly { src: string; alt: string }[];
   columns?: 2 | 3 | 4;
+  aspectRatio?: "4/3" | "3/4";
 }) {
   const colClass =
     columns === 2
@@ -108,6 +110,14 @@ export function PhotoGrid({
         : "columns-2 md:columns-3 lg:columns-4";
 
   // React Bits Masonry: photos keep their own portrait/landscape shape instead
-  // of all being cropped to 4:3, and rise into focus as they scroll in.
-  return <Masonry photos={photos} className={colClass} />;
+  // of all being cropped, and rise into focus as they scroll in. `aspectRatio`
+  // (added on main for the Dublin gallery) now sets the shape a tile holds
+  // until its photo loads, so the layout doesn't jump.
+  return (
+    <Masonry
+      photos={photos}
+      className={colClass}
+      fallbackRatio={aspectRatio === "3/4" ? "3 / 4" : "4 / 3"}
+    />
+  );
 }

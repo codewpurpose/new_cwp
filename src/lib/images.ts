@@ -27,6 +27,7 @@ export const images = {
     mithra: "/team-mithra.jpeg",
     nehha: "/Nehha-team.jpeg",
     manit: "/manit.jpg",
+    rachit: "/team-rachit.png",
     vibhav: "/team-vibhav.jpg",
   },
   gallery: [
@@ -42,5 +43,31 @@ export const images = {
     { src: "/opt/IMG_2622.jpg", alt: "Workshop session" },
     { src: "/opt/IMG_2630.jpg", alt: "Coding at laptops" },
     { src: "/opt/IMG_3652.jpg", alt: "Advanced Python workshop" },
+  ],
+  dublinHackathon: [
+    {
+      src: "/opt/dublin-hackathon-teams.jpg",
+      alt: "Students collaborate around a laptop at the Dublin hackathon",
+    },
+    {
+      src: "/opt/dublin-hackathon-pair.jpg",
+      alt: "Two students work side by side on their laptops at the Dublin hackathon",
+    },
+    {
+      src: "/opt/dublin-hackathon-builder.jpg",
+      alt: "A student works on a laptop during the Dublin hackathon",
+    },
+    {
+      src: "/opt/dublin-hackathon-candid.jpg",
+      alt: "A student reacts with delight during the Dublin hackathon",
+    },
+    {
+      src: "/opt/dublin-hackathon-whiteboard.jpg",
+      alt: "Two students sketch out an idea together at the Dublin hackathon",
+    },
+    {
+      src: "/opt/dublin-hackathon-banner.jpg",
+      alt: "A student stands beside a CodeWithPurpose banner at the Dublin hackathon",
+    },
   ],
 } as const;

@@ -36,10 +36,13 @@ const DEFAULT_RATIO = "3 / 4";
 export default function Masonry({
   photos,
   className = "",
+  fallbackRatio = DEFAULT_RATIO,
 }: {
   photos: readonly { src: string; alt: string }[];
   /** Column classes, e.g. `columns-2 md:columns-3`. */
   className?: string;
+  /** Shape each tile holds until its photo loads and reports its own. */
+  fallbackRatio?: string;
 }) {
   const ref = useRef<HTMLDivElement>(null);
   const [ratios, setRatios] = useState<Record<string, string>>({});
@@ -130,7 +133,7 @@ export default function Masonry({
             decoding="async"
             onLoad={(event) => measure(event.currentTarget, photo.src)}
             className="block w-full object-cover"
-            style={{ aspectRatio: ratios[photo.src] ?? DEFAULT_RATIO }}
+            style={{ aspectRatio: ratios[photo.src] ?? fallbackRatio }}
           />
         </div>
       ))}

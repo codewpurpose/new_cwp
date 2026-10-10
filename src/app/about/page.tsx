@@ -153,6 +153,15 @@ const teamMembers: TeamMember[] = [
     bio: "Hey, I'm Trey! I'm a finance bro that enjoys creating bonds with others, researching AI, and learning with friends.",
   },
   {
+    name: "Rachit Panchal",
+    role: "Sponsorship Lead",
+    country: UNITED_STATES,
+    photo: images.team.rachit,
+    linkedin: "https://www.linkedin.com/in/rachit-panchal-1800b4409/?isSelfProfile=true",
+    instagram: "https://www.instagram.com/rachit_panchal10/?hl=en",
+    bio: "Hey! I'm Rachit Panchal, Lead of Sponsorships at Code With Purpose. I'm into AI and computer science, entrepreneurship, and finance, and I'm VP of my school's Hacking & Coding Club, President of the Finance Club, and a founder of Dublin HacX. I joined CWP to help get sponsors on board so we can keep making coding education free for everyone.",
+  },
+  {
     name: "Aadi Naik",
     role: "Lead Instructor",
     country: UNITED_STATES,
@@ -226,7 +235,7 @@ const teamMembers: TeamMember[] = [
     country: UNITED_STATES,
     photo: images.team.vibhav,
     linkedin: "https://www.linkedin.com/in/vibhav-p-387338262/",
-    bio: "Hi! I'm Vibhav, a freelance app developer working with Microsoft Azure, natural language processing, and machine learning. At Code With Purpose, I lead development of our website and the tools that bring free coding education to students everywhere.",
+    bio: "Hi! I'm Vibhav, a freelance app developer working with Microsoft Azure, natural language processing, and machine learning. At CodeWithPurpose, I lead development of our website and the tools that bring free coding education to students everywhere.",
   },
 ];
 

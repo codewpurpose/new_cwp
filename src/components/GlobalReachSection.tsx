@@ -85,7 +85,7 @@ const items: ImpactItem[] = [
       title: "Students in 150+ countries",
       body: "Students use CodeWithPurpose from San Francisco, Lagos, Bangalore, São Paulo, and many other places.",
       scenario:
-        "5,000+ students across 150 countries can learn with us for free.",
+        "6,000+ students across 150 countries can learn with us for free.",
     },
   },
   {

@@ -26,7 +26,7 @@ export function FinalCtaSection() {
       <div className="mx-auto w-full max-w-[85rem] px-5 md:px-10 text-center">
         <BlurText
           as="h2"
-          text="Join 5,000+ students across 150 countries already learning with us."
+          text="Join 6,000+ students across 150+ countries already learning with us."
           delay={45}
           className="home-serif mx-auto max-w-4xl text-[1.75rem] leading-[1.08] text-balance md:text-[2.5rem]"
         />
