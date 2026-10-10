@@ -217,12 +217,11 @@ const teamMembers: TeamMember[] = [
   },
   {
     name: "Vibhav P",
-    role: "Developer",
+    role: "Developer & Media",
     country: UNITED_STATES,
     photo: images.team.vibhav,
-    photoClass: "scale-[1.04]",
     linkedin: "https://www.linkedin.com/in/vibhav-p-387338262/",
-    bio: "Hi! I'm Vibhav, a freelance app developer working with Microsoft Azure, natural language processing, and machine learning. I'm excited to help build the tools that make free coding education reach more students.",
+    bio: "Hi! I'm Vibhav, a freelance app developer working with Microsoft Azure, natural language processing, and machine learning. At Code With Purpose, I help build the site and create media to spread our message to students everywhere.",
   },
 ];
 
