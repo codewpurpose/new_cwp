@@ -260,7 +260,7 @@ UnicodeDecodeError: 'ascii' codec can't decode byte 0xc3 in position 3: ordinal 
       <TakeawayCard
         items={[
           "A string is indexed like any sequence, counting starts at 0, and negative indices count backwards from the end.",
-          "A slice text[start:end] never includes the character at end — for positions inside the string, its length is end minus start.",
+          "A slice text[start:end] never includes the character at end — when 0 <= start <= end <= len(text), its length is end minus start.",
           "An f-string fills {expression} holes directly in the text, and a format spec like :.2f controls how the value is displayed.",
           "Strings are immutable. Every method that looks like it edits one, such as .strip() or .replace(), returns a new string instead.",
           "A file is bytes, not text. Pass encoding=\"utf-8\" explicitly when opening one, or the default can differ by operating system.",
