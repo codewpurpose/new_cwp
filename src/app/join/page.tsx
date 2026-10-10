@@ -3,6 +3,10 @@ import Link from "next/link";
 import { PageHero, PageSection } from "@/components/PageHero";
 import { PageShell } from "@/components/PageShell";
 import { Reveal } from "@/components/Reveal";
+import BlurText from "@/components/reactbits/BlurText";
+import Magnet from "@/components/reactbits/Magnet";
+import SpotlightCard from "@/components/reactbits/SpotlightCard";
+import { SPOTLIGHT_PROPS } from "@/lib/spotlight";
 import { images } from "@/lib/images";
 import {
   CONTACT_EMAIL,
@@ -61,9 +65,11 @@ export default function JoinPage() {
       >
         {/* The form is on this page now, so this scrolls to it rather than
             opening a tab. An in-page jump keeps the back button meaningful. */}
-        <a href="#apply" className="home-btn home-btn-fill">
-          Sign Up
-        </a>
+        <Magnet>
+          <a href="#apply" className="home-btn home-btn-fill">
+            Sign Up
+          </a>
+        </Magnet>
         <Link href={COURSES_HREF} className="home-btn home-btn-outline">
           See Our Courses
         </Link>
@@ -72,13 +78,16 @@ export default function JoinPage() {
       <PageSection>
         <div className="grid gap-4 md:grid-cols-2">
           {roles.map((role, index) => (
-            <Reveal key={role.title} delay={(index % 2) * 0.08}>
-              <div className="home-card home-lift h-full rounded-xl p-6 md:p-8">
+            <Reveal key={role.title} delay={index * 0.06} className="h-full">
+              <SpotlightCard
+                {...SPOTLIGHT_PROPS}
+                className="home-card home-lift h-full rounded-xl p-6 md:p-8"
+              >
                 <h2 className="text-xl">{role.title}</h2>
                 <p className="mt-3 text-[15px] leading-[1.55] text-[var(--home-ink-soft)]">
                   {role.body}
                 </p>
-              </div>
+              </SpotlightCard>
             </Reveal>
           ))}
         </div>
@@ -100,9 +109,11 @@ export default function JoinPage() {
         className="scroll-mt-24 border-t-[0.5px] border-[var(--home-hairline)] bg-[#1e3c2c] text-[#dbefdb]"
       >
         <div className="mx-auto max-w-3xl text-center">
-          <h2 className="home-serif text-[1.75rem] text-[#f9f9f9] md:text-[2.25rem]">
-            Ready to get involved?
-          </h2>
+          <BlurText
+            as="h2"
+            text="Ready to get involved?"
+            className="home-serif text-[1.75rem] text-[#f9f9f9] md:text-[2.25rem]"
+          />
           <p className="mt-4 text-[#dbefdb]/90">
             Answer four short questions and we&apos;ll let you know about
             workshops, webinars, and ways to help as they come up. It usually

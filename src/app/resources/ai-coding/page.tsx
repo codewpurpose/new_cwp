@@ -4,6 +4,10 @@ import { ArrowUpRight } from "lucide-react";
 import { PageHero, PageSection } from "@/components/PageHero";
 import { PageShell } from "@/components/PageShell";
 import { Reveal } from "@/components/Reveal";
+import BlurText from "@/components/reactbits/BlurText";
+import GlareHover from "@/components/reactbits/GlareHover";
+import Magnet from "@/components/reactbits/Magnet";
+import SpotlightCard from "@/components/reactbits/SpotlightCard";
 import { CopyPromptButton } from "@/components/resources/CopyPromptButton";
 import {
   AI_TOOLS,
@@ -13,6 +17,7 @@ import {
   WORKFLOW_STEPS,
 } from "@/components/resources/ai-coding-content";
 import { DISCORD_HREF, JOIN_HREF, LEARN_VIBECODING_HREF, PLAYGROUND_HREF } from "@/lib/links";
+import { SPOTLIGHT_PROPS } from "@/lib/spotlight";
 
 const TITLE = "AI-Coding Resources";
 const DESCRIPTION =
@@ -88,7 +93,10 @@ export default function AiCodingResourcesPage() {
           {AI_TOOLS.map((tool, i) => (
             <li key={tool.name} className="flex">
               <Reveal delay={(i % 3) * 0.05} className="flex w-full">
-                <div className="home-card home-lift flex w-full flex-col rounded-[20px] p-6">
+                <SpotlightCard
+                  {...SPOTLIGHT_PROPS}
+                  className="home-card flex w-full flex-col rounded-[20px] p-6"
+                >
                   <h3 className="home-serif text-[1.375rem]">{tool.name}</h3>
                   <p className="mt-2 text-[15px] leading-[1.55] text-[var(--home-ink)]">{tool.description}</p>
                   <p className="mt-3 text-sm leading-[1.55] text-[var(--home-ink-soft)]">
@@ -103,7 +111,7 @@ export default function AiCodingResourcesPage() {
                       </ExternalLink>
                     )}
                   </div>
-                </div>
+                </SpotlightCard>
               </Reveal>
             </li>
           ))}
@@ -125,7 +133,7 @@ export default function AiCodingResourcesPage() {
           {PROMPT_TEMPLATES.map((item, i) => (
             <li key={item.title} className="flex">
               <Reveal delay={(i % 2) * 0.05} className="flex w-full">
-                <div className="home-card home-lift flex w-full flex-col rounded-[20px] p-6">
+                <GlareHover className="home-card flex w-full flex-col rounded-[20px] p-6">
                   <div className="flex items-start justify-between gap-4">
                     <div>
                       <h3 className="text-[1.0625rem] font-semibold leading-[1.3]">{item.title}</h3>
@@ -138,7 +146,7 @@ export default function AiCodingResourcesPage() {
                   <pre className="home-mono mt-4 whitespace-pre-wrap break-words rounded-xl border-[0.5px] border-[var(--home-hairline)] bg-[var(--home-page)] p-4 text-[13px] leading-[1.6] text-[var(--home-ink)]">
                     {item.prompt}
                   </pre>
-                </div>
+                </GlareHover>
               </Reveal>
             </li>
           ))}
@@ -221,17 +229,22 @@ export default function AiCodingResourcesPage() {
       {/* Closing CTA */}
       <section className="border-t-[0.5px] border-[var(--home-hairline)] py-16 md:py-28">
         <div className="mx-auto w-full max-w-[85rem] px-5 text-center md:px-10">
-          <h2 className="home-serif mx-auto max-w-3xl text-[1.75rem] leading-[1.08] text-balance md:text-[2.5rem]">
-            Ready to build something with AI?
-          </h2>
+          <BlurText
+            as="h2"
+            text="Ready to build something with AI?"
+            delay={45}
+            className="home-serif mx-auto max-w-3xl text-[1.75rem] leading-[1.08] text-balance md:text-[2.5rem]"
+          />
           <p className="mx-auto mt-4 max-w-xl text-[15px] leading-[1.6] text-[var(--home-ink-soft)] md:text-base">
             Our free Vibe Coding course walks you through building real projects with AI, one step at a
             time. Questions along the way? Ask the community.
           </p>
           <div className="mt-8 flex flex-wrap items-center justify-center gap-2">
-            <Link href={LEARN_VIBECODING_HREF} className="home-btn home-btn-fill">
-              Start the Vibe Coding course
-            </Link>
+            <Magnet>
+              <Link href={LEARN_VIBECODING_HREF} className="home-btn home-btn-fill">
+                Start the Vibe Coding course
+              </Link>
+            </Magnet>
             <a href={DISCORD_HREF} target="_blank" rel="noreferrer" className="home-btn home-btn-outline">
               Join our Discord
               <span className="sr-only"> (opens in a new tab)</span>

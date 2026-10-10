@@ -4,6 +4,8 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import { createPortal } from "react-dom";
 import { X } from "lucide-react";
 import { InstagramIcon, LinkedInIcon, SnapchatIcon, TikTokIcon } from "@/components/icons";
+import SpotlightCard from "@/components/reactbits/SpotlightCard";
+import { SPOTLIGHT_PROPS } from "@/lib/spotlight";
 
 export interface TeamMember {
   name: string;
@@ -162,7 +164,12 @@ export function TeamCard({
   }, [closeDialog, open]);
 
   return (
-    <article className={`home-card home-lift rounded-xl p-4 text-center ${width}`}>
+    <SpotlightCard
+      role="article"
+      {...SPOTLIGHT_PROPS}
+      spotlightSize={180}
+      className={`home-card home-lift rounded-xl p-4 text-center ${width}`}
+    >
       <button
         ref={openerRef}
         type="button"
@@ -176,7 +183,7 @@ export function TeamCard({
       </button>
       <SocialLinks member={member} />
       {open && <TeamMemberDialog member={member} onClose={closeDialog} />}
-    </article>
+    </SpotlightCard>
   );
 }
 

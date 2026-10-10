@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { PageShell } from "@/components/PageShell";
 import { Reveal } from "@/components/Reveal";
+import BlurText from "@/components/reactbits/BlurText";
 import { PlaygroundIsland } from "@/components/playground/PlaygroundIsland";
 import { PYODIDE_VERSION } from "@/components/playground/protocol";
 import { LEARN_ML_HREF, LEARN_PYTHON_HREF } from "@/lib/links";
@@ -55,9 +56,11 @@ export default function PlaygroundPage() {
             <p className="font-[family-name:var(--learn-font-mono)] text-[0.8125rem] font-medium uppercase tracking-[0.12em] text-[var(--home-link-green)]">
               Code playground
             </p>
-            <h1 className="home-display mt-3 text-[2rem] leading-[1.05] tracking-[-0.02em] md:text-[2.75rem] lg:text-[3.25rem]">
-              Run real Python, right here
-            </h1>
+            <BlurText
+              as="h1"
+              text="Run real Python, right here"
+              className="home-display mt-3 text-[2rem] leading-[1.05] tracking-[-0.02em] md:text-[2.75rem] lg:text-[3.25rem]"
+            />
             <p className="mt-4 max-w-2xl text-lg leading-[1.5] text-[var(--home-ink-soft)]">
               Pick a starter or write your own, then press Run. Python, NumPy, pandas,
               scikit-learn and matplotlib all work, for free, with no sign-up, and your

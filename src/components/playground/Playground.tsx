@@ -1,9 +1,9 @@
 "use client";
-import "@/components/playground/tools.css";
 
 import { useEffect, useId, useRef, useState } from "react";
 import Image from "next/image";
 import { Check, Copy, Link2, Play, RotateCcw, Square, Undo2 } from "lucide-react";
+import { TypeLine } from "@/components/koda/TypeLine";
 import { CodeEditor } from "./CodeEditor";
 import { DEFAULT_EXAMPLE, EXAMPLES, exampleById, type Example } from "./examples";
 import { FigureGallery, OutputConsole, StatusPill, isBusy } from "./OutputConsole";
@@ -274,7 +274,7 @@ export function Playground() {
         />
         <p className="min-w-0 flex-1 rounded-2xl rounded-bl-sm border-[0.5px] border-[var(--home-hairline-strong)] bg-[var(--home-white)] px-4 py-2.5 text-[0.9375rem] leading-[1.45] text-[var(--home-ink-soft)] shadow-[var(--home-shadow-sm)]">
           <span className="font-semibold text-[var(--home-moss)]">Koda: </span>
-          {line}
+          <TypeLine text={line} live={false} />
           {undo && notice && (
             <button
               type="button"

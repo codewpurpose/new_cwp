@@ -127,6 +127,12 @@ export default function RootLayout({
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationJsonLd) }}
         />
+        {/* React Bits text effects server-render their starting frame
+            (blurred, transparent). Without JavaScript nothing would ever move
+            them on, so show the finished text instead. */}
+        <noscript>
+          <style>{".rb-anim, .rb-anim * { opacity: 1 !important; filter: none !important; transform: none !important; }"}</style>
+        </noscript>
         {isClerkConfigured ? <AppAuthProvider>{body}</AppAuthProvider> : body}
       </body>
     </html>

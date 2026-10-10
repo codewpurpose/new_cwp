@@ -8,6 +8,10 @@ export const images = {
   pythonCourse: "/python-course.png",
   vibecodingCourse: "/vibecoding-course.png",
   promoVideo: "/promo.mp4",
+  /** The 38s photo film on /about, rendered with Remotion from the team's own
+   *  photos. It replaced promo.mp4 there; that file is kept for anything still
+   *  linking to it. */
+  storyVideo: "/story.mp4",
   team: {
     shreyan: "/team-shreyan.jpg",
     samanyu: "/team-samanyu.jpg",

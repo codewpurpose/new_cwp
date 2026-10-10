@@ -1,5 +1,4 @@
 "use client";
-import "@/components/playground/tools.css";
 
 import { AnimatePresence, motion } from "motion/react";
 import { useEffect, useRef, useState } from "react";

@@ -1,15 +1,43 @@
+import { FileCode, MessageCircle, Terminal } from "lucide-react";
 import { CodeCopyButton } from "@/components/learn/primitives/CodeCopyButton";
 import { CodeRunButton, InlineRunnerSlot, RunnableCode } from "@/components/playground/RunnableCode";
 import { cn } from "@/lib/utils";
 
+/** Language tag inferred from a file-name label, e.g. "grades.py" -> "Python". */
+const LANGUAGE_BY_EXTENSION: Record<string, string> = {
+  py: "Python",
+  js: "JavaScript",
+  mjs: "JavaScript",
+  jsx: "JSX",
+  ts: "TypeScript",
+  tsx: "TSX",
+  html: "HTML",
+  css: "CSS",
+  json: "JSON",
+  lua: "Luau",
+  luau: "Luau",
+  md: "Markdown",
+  sh: "Shell",
+  yml: "YAML",
+  yaml: "YAML",
+  sql: "SQL",
+  csv: "CSV",
+  toml: "TOML",
+  txt: "Text",
+};
+
+function languageOf(label: string | undefined): string | null {
+  const match = label?.match(/\.([a-z0-9]+)$/i);
+  return match ? (LANGUAGE_BY_EXTENSION[match[1].toLowerCase()] ?? null) : null;
+}
+
 /**
  * Whether a block can be run in the browser. Only real Python source: a .py
- * file name or a plain "Python" label. Never REPL sessions (">>>" lines are
- * not a program) or tracebacks.
+ * file name or a plain "Python" label. Never terminal blocks, REPL sessions
+ * (">>>" lines are not a program), or tracebacks.
  */
 function isRunnablePython(label: string | undefined, code: string): boolean {
-  const name = label?.trim().toLowerCase() ?? "";
-  const python = name.endsWith(".py") || name === "python";
+  const python = languageOf(label) === "Python" || label?.trim().toLowerCase() === "python";
   return python && !/^\s*>>>/m.test(code);
 }
 
@@ -58,31 +86,49 @@ export function CodeBlock({
 }: CodeBlockProps) {
   const lines = code.replace(/\n$/, "").split("\n");
   const isPrompt = variant === "prompt";
+  const language = variant === "code" ? languageOf(label) : null;
+  const HeaderIcon = variant === "terminal" ? Terminal : isPrompt ? MessageCircle : FileCode;
   const canRun = variant === "code" && runnable !== false && isRunnablePython(label, code);
 
   const figure = (
     <figure
       className={cn(
-        "mt-6 overflow-hidden rounded-learn-md",
+        "lr-code mt-6 overflow-hidden rounded-learn-md",
         isPrompt
           ? "border-[0.5px] border-learn-line bg-learn-surface"
-          : "bg-learn-code-bg",
+          : "bg-learn-code-bg shadow-[0_1px_0_rgba(21,18,12,0.04),0_8px_24px_-16px_rgba(21,18,12,0.35)]",
         className,
       )}
     >
       {(label || copyable || canRun) && (
         <figcaption
           className={cn(
-            "flex items-center justify-between gap-3 px-4 py-2 text-[11px] uppercase tracking-[0.08em]",
+            "flex min-h-11 items-center justify-between gap-3 py-1 pl-4 pr-1.5 text-[11.5px]",
             isPrompt
               ? "border-b-[0.5px] border-learn-line text-learn-subtle"
               : "border-b border-learn-code-line text-learn-code-dim",
           )}
         >
-          <span>{label ?? (variant === "terminal" ? "Terminal" : "Code")}</span>
-          <span className="flex shrink-0 items-center gap-1">
+          <span className="flex min-w-0 items-center gap-2">
+            <HeaderIcon className="size-3.5 shrink-0 opacity-80" aria-hidden="true" />
+            {/* File names keep their case; generic labels stay small caps. */}
+            <span
+              className={cn(
+                "truncate",
+                label && (/^[^\s]+\.[a-z][a-z0-9]*$/i.test(label) || /(?:^|\/)\.[^\s/]+$/.test(label))
+                  ? "font-[family-name:var(--learn-font-mono)] normal-case tracking-normal"
+                  : "uppercase tracking-[0.08em]",
+              )}
+            >
+              {label ?? (variant === "terminal" ? "Terminal" : isPrompt ? "Prompt" : "Code")}
+            </span>
+            {language && (
+              <span className="lr-code-lang">{language}</span>
+            )}
+          </span>
+          <span className="flex shrink-0 items-center">
             {canRun && <CodeRunButton />}
-            {copyable && <CodeCopyButton value={code} />}
+            {copyable && <CodeCopyButton value={code} tone={isPrompt ? "light" : "dark"} />}
           </span>
         </figcaption>
       )}
