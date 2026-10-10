@@ -38,9 +38,9 @@
 }
 .cartoon-home .hero-message-grid {
   display: grid;
-  grid-template-columns: minmax(0, 1fr) 18rem;
+  grid-template-columns: minmax(0, 1fr) 26rem;
   align-items: center;
-  gap: 2rem;
+  gap: 1.5rem;
 }
 .cartoon-home .hero-message-copy h1,
 .cartoon-home .hero-message-copy > p { text-align: left; }
@@ -229,26 +229,77 @@
   .cartoon-home .global-reach-chevron,
   .cartoon-home .global-reach-panel { transition: none; }
 }
-.cartoon-home .koda-greeting { text-align: center; }
+.cartoon-home .koda-greeting {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(11rem, 13rem);
+  align-items: center;
+  gap: .75rem;
+  text-align: left;
+}
 .cartoon-home .koda-greeting-button {
-  display: block; width: 230px; height: 250px; margin-inline: auto;
+  display: block; width: 100%; height: 290px; margin-inline: auto;
   cursor: pointer; border: 0; background: transparent;
   animation: koda-breathe 3s ease-in-out 3;
 }
 .cartoon-home .koda-greeting-art { position: relative; width: 100%; height: 100%; }
 .cartoon-home .koda-greeting-art img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: contain; }
-.cartoon-home .koda-greeting-line { margin-top: .5rem; font-size: .85rem; color: var(--home-ink-soft); }
+.cartoon-home .koda-greeting-line {
+  position: relative;
+  margin: 0;
+  padding: 1.1rem 1.15rem;
+  border: 1px solid rgba(57, 117, 84, .18);
+  border-radius: 1.25rem 1.25rem 1.25rem .3rem;
+  background: var(--home-white);
+  box-shadow: 0 12px 28px rgba(45, 69, 50, .08);
+  color: var(--home-ink-soft);
+  font-size: .95rem;
+  line-height: 1.5;
+}
+.cartoon-home .koda-greeting-line::before {
+  display: block;
+  margin-bottom: .5rem;
+  color: var(--home-moss);
+  content: "A NOTE FROM KODA";
+  font-size: .62rem;
+  font-weight: 700;
+  letter-spacing: .14em;
+}
+.cartoon-home .koda-greeting-line::after {
+  position: absolute;
+  top: 50%;
+  left: -.42rem;
+  width: .78rem;
+  height: .78rem;
+  transform: translateY(-50%) rotate(-45deg);
+  border-top: 1px solid rgba(57, 117, 84, .18);
+  border-left: 1px solid rgba(57, 117, 84, .18);
+  background: var(--home-white);
+  content: "";
+}
 @keyframes koda-breathe {
   0%, 100% { transform: translateY(0) rotate(0); }
   50% { transform: translateY(-6px) rotate(2deg); }
 }
-@media (max-width: 1023px) {
+@media (max-width: 1199px) {
   .cartoon-home .hero-message-grid { grid-template-columns: 1fr; gap: .5rem; }
   .cartoon-home .hero-message-copy h1,
   .cartoon-home .hero-message-copy > p { text-align: center; }
   .cartoon-home .hero-message-copy > p { margin-inline: auto; }
   .cartoon-home .hero-message-actions { justify-content: center; }
+  .cartoon-home .koda-greeting {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0;
+    text-align: center;
+  }
   .cartoon-home .koda-greeting-button { width: 190px; height: 205px; }
+  .cartoon-home .koda-greeting-line {
+    width: min(18rem, 100%);
+    margin-top: .25rem;
+    text-align: center;
+  }
+  .cartoon-home .koda-greeting-line::after { display: none; }
 }
 @media (max-width: 767px) {
   .cartoon-home .home-stats-roadmap {
