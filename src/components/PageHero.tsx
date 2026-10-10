@@ -82,9 +82,11 @@ export function PageSection({
 export function PhotoGrid({
   photos,
   columns = 4,
+  aspectRatio = "4/3",
 }: {
   photos: readonly { src: string; alt: string }[];
   columns?: 2 | 3 | 4;
+  aspectRatio?: "4/3" | "3/4";
 }) {
   const colClass =
     columns === 2
@@ -92,6 +94,7 @@ export function PhotoGrid({
       : columns === 3
         ? "md:grid-cols-3"
         : "md:grid-cols-2 lg:grid-cols-4";
+  const aspectClass = aspectRatio === "3/4" ? "aspect-[3/4]" : "aspect-[4/3]";
 
   return (
     <div className={`grid grid-cols-2 gap-2.5 ${colClass}`}>
@@ -106,7 +109,7 @@ export function PhotoGrid({
             alt={photo.alt}
             loading="lazy"
             decoding="async"
-            className="aspect-[4/3] w-full object-cover"
+            className={`${aspectClass} w-full object-cover`}
           />
         </div>
       ))}
