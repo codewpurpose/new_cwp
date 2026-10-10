@@ -148,6 +148,15 @@ const teamMembers: TeamMember[] = [
     bio: "Hey, I'm Trey! I'm a finance bro that enjoys creating bonds with others, researching AI, and learning with friends.",
   },
   {
+    name: "Rachit Panchal",
+    role: "Lead of Sponsorships",
+    country: UNITED_STATES,
+    photo: images.team.rachit,
+    linkedin: "https://www.linkedin.com/in/rachit-panchal-1800b4409/?isSelfProfile=true",
+    instagram: "https://www.instagram.com/rachit_panchal10/?hl=en",
+    bio: "Hey! I'm Rachit Panchal, Lead of Sponsorships at Code With Purpose. I'm into AI and computer science, entrepreneurship, and finance, and I'm VP of my school's Hacking & Coding Club, President of the Finance Club, and a founder of Dublin HacX. I joined CWP to help get sponsors on board so we can keep making coding education free for everyone.",
+  },
+  {
     name: "Aadi Naik",
     role: "Lead Instructor",
     country: UNITED_STATES,
