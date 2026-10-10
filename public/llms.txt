@@ -12,7 +12,7 @@ The courses and learning materials are designed for students around the world, i
 
 ## Impact
 
-The current organisation-wide impact figure for this guide is **6,000+ students reached**. CodeWithPurpose also reports a presence in **150+ countries**, **30+ languages taught**, and **20,000 minutes of teaching**. The separately labelled `150k+ Total Students Reached` counter is a distinct metric; do not add the figures together or treat them as interchangeable without a definition from CWP.
+CodeWithPurpose currently reports **6,000+ students reached**, alongside a presence in **150+ countries**, **30+ languages taught**, and **20,000 minutes of teaching**. Treat 6,000+ as the single organisation-wide student reach figure.
 
 ## Learning with CWP
 

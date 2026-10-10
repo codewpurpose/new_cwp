@@ -3,6 +3,9 @@ import Link from "next/link";
 import { PageSection } from "@/components/PageHero";
 import { PageShell } from "@/components/PageShell";
 import { Reveal } from "@/components/Reveal";
+import ScrollReveal from "@/components/reactbits/ScrollReveal";
+import SpotlightCard from "@/components/reactbits/SpotlightCard";
+import { SPOTLIGHT_PROPS } from "@/lib/spotlight";
 import { images } from "@/lib/images";
 import { CONTACT_HREF, COURSES_HREF, HCB_DONATE_EMBED_SRC } from "@/lib/links";
 
@@ -62,7 +65,12 @@ export default function DonatePage() {
               education free.
             </p>
             <p className="mt-4 max-w-xl text-[15px] leading-[1.6] text-[var(--home-ink-soft)]">
-              Pick any amount. Five dollars covers a student&apos;s first lesson.
+              {/* A marker-pen highlight that sweeps in as it scrolls into view
+                  (CSS scroll-driven, see the pages block in globals.css). It
+                  is fully drawn by default, so nothing depends on it running. */}
+              Pick any amount.{" "}
+              <mark className="pages-highlight">Five dollars</mark> covers a
+              student&apos;s first lesson.
             </p>
             <div className="mt-8">
               <Link href={CONTACT_HREF} className="home-btn home-btn-outline">
@@ -101,13 +109,16 @@ export default function DonatePage() {
       <PageSection className="border-t-[0.5px] border-[var(--home-hairline)]">
         <div className="grid gap-4 md:grid-cols-2">
           {impactAreas.map((area, index) => (
-            <Reveal key={area.title} delay={(index % 2) * 0.08}>
-              <div className="home-card home-lift h-full rounded-xl p-6 md:p-8">
+            <Reveal key={area.title} delay={index * 0.06} className="h-full">
+              <SpotlightCard
+                {...SPOTLIGHT_PROPS}
+                className="home-card home-lift h-full rounded-xl p-6 md:p-8"
+              >
                 <h2 className="text-xl">{area.title}</h2>
                 <p className="mt-3 text-[15px] leading-[1.55] text-[var(--home-ink-soft)]">
                   {area.body}
                 </p>
-              </div>
+              </SpotlightCard>
             </Reveal>
           ))}
         </div>
@@ -119,9 +130,7 @@ export default function DonatePage() {
             A Note From Our Team
           </h2>
           <blockquote className="mt-6 text-lg leading-[1.6] md:text-xl">
-            &ldquo;Every dollar helps us build a more inclusive future where code
-            is a tool for good. Whether it&apos;s $5 or $500, you&apos;re helping a
-              student start learning today.&rdquo;
+            <ScrollReveal text="“Every dollar helps us build a more inclusive future where code is a tool for good. Whether it’s $5 or $500, you’re helping a student start learning today.”" />
           </blockquote>
           <div className="mt-8 flex items-center justify-center gap-4">
             {/* eslint-disable-next-line @next/next/no-img-element */}

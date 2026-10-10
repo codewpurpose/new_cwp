@@ -1,3 +1,5 @@
+import { CoverFrame } from "@/components/art/CoverFrame";
+
 /**
  * Card art for the Computer Vision track.
  *
@@ -10,22 +12,13 @@ interface CoverProps {
   slug: string;
 }
 
-const W = 160;
-const H = 90;
 
-function Frame({ children }: { children: React.ReactNode }) {
-  return (
-    <svg
-      viewBox={`0 0 ${W} ${H}`}
-      className="aspect-[16/9] w-full"
-      aria-hidden="true"
-      preserveAspectRatio="xMidYMid slice"
-    >
-      <rect width={W} height={H} fill="var(--learn-chart-plot)" />
-      {children}
-    </svg>
-  );
-}
+/**
+ * Every cover draws into the shared CoverFrame, which adds the soft wash, the
+ * layered-paper shadow, the draw-on when the card scrolls into view and the
+ * lift on hover. See src/components/art/CoverFrame.tsx.
+ */
+const Frame = CoverFrame;
 
 function grid(cols: number, rows: number, x0: number, y0: number, cell: number) {
   return Array.from({ length: cols * rows }, (_, i) => ({

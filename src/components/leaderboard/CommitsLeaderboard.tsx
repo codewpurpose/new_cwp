@@ -16,6 +16,9 @@ import {
 } from "@/lib/links";
 import { CommitDistributionChart } from "@/components/leaderboard/CommitDistributionChart";
 import { GithubContributionCalendar } from "@/components/leaderboard/GithubContributionCalendar";
+import { AnimatedListItem } from "@/components/reactbits/AnimatedList";
+import SpotlightCard from "@/components/reactbits/SpotlightCard";
+import { SPOTLIGHT_PROPS } from "@/lib/spotlight";
 
 interface Row {
   user_id: string;
@@ -111,7 +114,7 @@ function readRetryAfterMs(body: unknown): number | null {
 
 function ComingSoon() {
   return (
-    <div className="home-card mx-auto max-w-xl p-8 text-center">
+    <SpotlightCard {...SPOTLIGHT_PROPS} className="home-card mx-auto max-w-xl p-8 text-center">
       <h2 className="font-serif text-2xl">The commits leaderboard is almost here</h2>
       <p className="mt-3 text-[15px] text-[var(--home-ink-soft)]">
         Ranking students by their real GitHub commit history is not available in this deployment yet.
@@ -120,7 +123,7 @@ function ComingSoon() {
       <Link href={DASHBOARD_HREF} className="home-btn home-btn-fill mt-6 inline-flex">
         Go to My Progress
       </Link>
-    </div>
+    </SpotlightCard>
   );
 }
 
@@ -240,8 +243,9 @@ function CommitsLeaderboardLive() {
                 const expanded = expandedId === row.user_id;
                 const total = totalCommitCount(row);
                 return (
-                  <li
+                  <AnimatedListItem
                     key={row.user_id}
+                    index={i}
                     className={`home-card rounded-2xl p-3 sm:p-4 ${me ? "ring-2 ring-[var(--home-moss)]" : ""}`}
                   >
                     <button
@@ -301,7 +305,7 @@ function CommitsLeaderboardLive() {
                         </p>
                       </div>
                     )}
-                  </li>
+                  </AnimatedListItem>
                 );
               })}
             </ol>

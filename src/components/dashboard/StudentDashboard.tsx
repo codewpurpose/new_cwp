@@ -2,6 +2,8 @@
 
 import { type CSSProperties, useState } from "react";
 import Link from "next/link";
+import { motion, useReducedMotion } from "motion/react";
+import CountUp from "@/components/reactbits/CountUp";
 import { chapterHref } from "@/lib/learn-nav";
 import { ACHIEVEMENTS, avatarSrc, levelInfo, themeById } from "@/lib/student";
 import { COURSES, TOTAL_CHAPTERS, courseProgress } from "@/lib/student-courses";
@@ -20,12 +22,16 @@ const TABS: { id: Tab; label: string }[] = [
 ];
 
 function Ring({ pct }: { pct: number }) {
+  const reduceMotion = useReducedMotion();
   const r = 26;
   const c = 2 * Math.PI * r;
   return (
     <svg viewBox="0 0 64 64" className="h-16 w-16 shrink-0 -rotate-90">
       <circle cx="32" cy="32" r={r} fill="none" stroke="var(--home-hairline)" strokeWidth="6" />
-      <circle
+      {/* Draws itself round to the real figure when it first appears. The
+          dashboard only renders on the client, so there is no server frame
+          for this to disagree with. */}
+      <motion.circle
         cx="32"
         cy="32"
         r={r}
@@ -34,13 +40,16 @@ function Ring({ pct }: { pct: number }) {
         strokeWidth="6"
         strokeLinecap="round"
         strokeDasharray={c}
-        strokeDashoffset={c - (c * pct) / 100}
+        initial={reduceMotion ? false : { strokeDashoffset: c }}
+        animate={{ strokeDashoffset: c - (c * pct) / 100 }}
+        transition={reduceMotion ? { duration: 0 } : { duration: 0.9, ease: [0.22, 1, 0.36, 1] }}
       />
     </svg>
   );
 }
 
 export function StudentDashboard() {
+  const reduceMotion = useReducedMotion();
   const { state, loaded, derived, earned, avatars, themes, actions } = useStudent();
   const [tab, setTab] = useState<Tab>("hub");
 
@@ -115,13 +124,16 @@ export function StudentDashboard() {
               Level {lvl.level}
             </span>
             <span className="text-[var(--home-ink-quiet)]">
-              {lvl.into}/{lvl.span} XP · {state.xp} total
+              {lvl.into}/{lvl.span} XP · <CountUp to={state.xp} duration={1} /> total
             </span>
           </div>
           <div className="mt-2 h-3 overflow-hidden rounded-full bg-[var(--home-grey-450)]">
-            <div
-              className="h-full rounded-full transition-[width] duration-500"
-              style={{ width: `${(lvl.into / lvl.span) * 100}%`, background: "var(--dash-accent)" }}
+            <motion.div
+              className="h-full rounded-full"
+              style={{ background: "var(--dash-accent)" }}
+              initial={reduceMotion ? false : { width: 0 }}
+              animate={{ width: `${(lvl.into / lvl.span) * 100}%` }}
+              transition={reduceMotion ? { duration: 0 } : { duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
             />
           </div>
         </div>
@@ -135,25 +147,42 @@ export function StudentDashboard() {
             type="button"
             aria-pressed={tab === t.id}
             onClick={() => setTab(t.id)}
-            className={`rounded-full px-4 py-2 text-sm font-medium transition-colors ${
+            className={`relative isolate rounded-full px-4 py-2 text-sm font-medium transition-colors ${
               tab === t.id
                 ? "text-white"
                 : "home-card text-[var(--home-ink-soft)] hover:text-[var(--home-ink)]"
             }`}
-            style={tab === t.id ? { background: "var(--dash-accent)" } : undefined}
           >
+            {/* One pill that slides between tabs instead of blinking. */}
+            {tab === t.id && (
+              <motion.span
+                layoutId="dash-tab-pill"
+                aria-hidden="true"
+                className="absolute inset-0 -z-10 rounded-full"
+                style={{ background: "var(--dash-accent)" }}
+                transition={{ type: "spring", stiffness: 480, damping: 36 }}
+              />
+            )}
             {t.label}
           </button>
         ))}
       </div>
 
-      <div className="mt-6">
+      <motion.div
+        key={tab}
+        className="mt-6"
+        initial={{ opacity: 0, y: 8 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.24, ease: [0.22, 1, 0.36, 1] }}
+      >
         {tab === "hub" && (
           <div className="grid gap-5 md:grid-cols-2">
             <div className="home-card flex items-center gap-4 rounded-2xl p-6">
               <Ring pct={derived.overallPct} />
               <div>
-                <p className="text-2xl font-semibold">{derived.overallPct}%</p>
+                <p className="text-2xl font-semibold">
+                <CountUp to={derived.overallPct} suffix="%" duration={1} />
+              </p>
                 <p className="text-sm text-[var(--home-ink-soft)]">
                   {derived.completed} of {TOTAL_CHAPTERS} chapters done
                 </p>
@@ -374,7 +403,7 @@ export function StudentDashboard() {
             <Whiteboard />
           </div>
         )}
-      </div>
+      </motion.div>
 
       <div className="mt-8 flex items-center justify-between text-xs text-[var(--home-ink-quiet)]">
         <span>Everything here is saved on your device — no account needed.</span>

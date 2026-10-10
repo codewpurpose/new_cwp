@@ -1,3 +1,5 @@
+import { CoverFrame } from "@/components/art/CoverFrame";
+
 /**
  * Card art for the Git and GitHub track.
  *
@@ -11,8 +13,6 @@ interface CoverProps {
   slug: string;
 }
 
-const W = 160;
-const H = 90;
 const INK = "var(--learn-ink)";
 const MUTED = "var(--learn-ink-subtle)";
 const ACCENT = "var(--learn-accent)";
@@ -20,19 +20,12 @@ const HIGHLIGHT = "var(--learn-chart-highlight)";
 const DANGER = "var(--learn-outcome-fn)";
 const INDIGO = "var(--learn-series-3)";
 
-function Frame({ children }: { children: React.ReactNode }) {
-  return (
-    <svg
-      viewBox={`0 0 ${W} ${H}`}
-      className="aspect-[16/9] w-full"
-      aria-hidden="true"
-      preserveAspectRatio="xMidYMid slice"
-    >
-      <rect width={W} height={H} fill="var(--learn-chart-plot)" />
-      {children}
-    </svg>
-  );
-}
+/**
+ * Every cover draws into the shared CoverFrame, which adds the soft wash, the
+ * layered-paper shadow, the draw-on when the card scrolls into view and the
+ * lift on hover. See src/components/art/CoverFrame.tsx.
+ */
+const Frame = CoverFrame;
 
 /** A row of commit dots joined left to right — the motif the track keeps reusing. */
 function Chain({ y, xs, fill = ACCENT, r = 6 }: { y: number; xs: number[]; fill?: string; r?: number }) {

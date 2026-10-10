@@ -1,3 +1,5 @@
+import { CoverFrame } from "@/components/art/CoverFrame";
+
 /**
  * Card art for the HTML and CSS track.
  *
@@ -11,8 +13,6 @@ interface CoverProps {
   slug: string;
 }
 
-const W = 160;
-const H = 90;
 const INK = "var(--learn-ink)";
 const MUTED = "var(--learn-ink-subtle)";
 const ACCENT = "var(--learn-accent)";
@@ -21,19 +21,12 @@ const DANGER = "var(--learn-outcome-fn)";
 const INDIGO = "var(--learn-series-3)";
 const OCHRE = "var(--learn-series-4)";
 
-function Frame({ children }: { children: React.ReactNode }) {
-  return (
-    <svg
-      viewBox={`0 0 ${W} ${H}`}
-      className="aspect-[16/9] w-full"
-      aria-hidden="true"
-      preserveAspectRatio="xMidYMid slice"
-    >
-      <rect width={W} height={H} fill="var(--learn-chart-plot)" />
-      {children}
-    </svg>
-  );
-}
+/**
+ * Every cover draws into the shared CoverFrame, which adds the soft wash, the
+ * layered-paper shadow, the draw-on when the card scrolls into view and the
+ * lift on hover. See src/components/art/CoverFrame.tsx.
+ */
+const Frame = CoverFrame;
 
 /** A browser chrome outline, reused by several covers. */
 function Window({ x = 24, y = 18, w = 112, h = 54, children }: {

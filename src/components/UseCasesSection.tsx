@@ -1,3 +1,10 @@
+import { ArtSvg } from "@/components/art/ArtSvg";
+
+/*
+ * The small drawn marks in these mock screens (the globe, the seed on day one,
+ * the recognition star, the tick) use ArtSvg, so they draw in when the section
+ * scrolls into view and share the illustrations' offset shadow and idle loops.
+ */
 export function UseCasesSection() {
   return (
     <div id="about" className="scroll-mt-24">
@@ -53,7 +60,13 @@ export function UseCasesSection() {
                       </svg>
                     </div>
                     <div className="mx-auto mb-4 flex items-center gap-2 rounded-lg border-[0.5px] border-[#cecece] bg-white px-3 py-2 md:mb-6">
-                      <div className="h-3.5 w-3.5 shrink-0 rounded-[4px] bg-[#1e3c2c]"></div>
+                      <ArtSvg viewBox="0 0 16 16" width="16" height="16" fill="none" aria-hidden="true" className="shrink-0 overflow-visible" shadow={{ dx: 1, dy: 1, color: "#3e7f5c", opacity: 0.3 }}>
+                        <g className="art-loop art-orbit" style={{ transformOrigin: "8px 8px" }}>
+                          <circle cx="8" cy="8" r="6.5" fill="#dbefdb" stroke="#1e3c2c" strokeWidth="1.1" />
+                          <ellipse cx="8" cy="8" rx="2.6" ry="6.5" stroke="#1e3c2c" strokeWidth="1" />
+                          <path d="M1.5 8h13" stroke="#1e3c2c" strokeWidth="1" />
+                        </g>
+                      </ArtSvg>
                       <div>
                         <div className="text-[9px] font-medium leading-tight text-[var(--home-ink)] md:text-[11px]">Lesson shared worldwide</div>
                         <div className="text-[8px] leading-tight text-[var(--home-ink-quiet)] md:text-[10px]">Python Basics · taught in 30+ languages</div>
@@ -103,9 +116,9 @@ export function UseCasesSection() {
                       <div className="flex items-center justify-between gap-2">
                         <div className="truncate text-[9px] font-medium text-[var(--home-ink)] md:text-[12px]">Maya&apos;s first program</div>
                         <div className="cwp-pulse flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-[#dbefdb]">
-                          <svg width="10" height="10" viewBox="0 0 10 10" fill="none" aria-hidden="true">
+                          <ArtSvg width="10" height="10" viewBox="0 0 10 10" fill="none" aria-hidden="true" shadow={false}>
                             <path d="M2 5.2 4.2 7.4 8 3" stroke="#1e3c2c" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round"></path>
-                          </svg>
+                          </ArtSvg>
                         </div>
                       </div>
                       <div className="mt-1 space-y-1.5 text-[9px] leading-snug md:text-[11px]">
@@ -147,7 +160,16 @@ export function UseCasesSection() {
                   </div>
                   <div className="flex min-h-0 flex-1 items-center justify-center gap-2.5 px-4 py-6 md:gap-4 md:px-6 md:py-0">
                     <div className="flex flex-col items-center gap-1.5">
-                      <div className="h-9 w-9 rounded-full border-[0.5px] border-dashed border-[var(--home-ink-quiet)] bg-[var(--home-hairline)] opacity-40 md:h-11 md:w-11"></div>
+                      <ArtSvg viewBox="0 0 44 44" fill="none" aria-hidden="true" className="h-9 w-9 overflow-visible md:h-11 md:w-11" shadow={{ dx: 1.5, dy: 1.5, opacity: 0.1 }}>
+                        {/* A seed in a pot of soil: day one, before anything has sprouted. */}
+                        <circle cx="22" cy="22" r="21" fill="#fcf4e8" stroke="#cfc5b4" strokeWidth="1" strokeDasharray="1.5 3.5" strokeLinecap="round" />
+                        <path d="M12 26h20l-3 10H15Z" fill="#efe2cc" stroke="#15120c" strokeWidth="1.2" strokeLinejoin="round" />
+                        <path d="M10.5 26h23" stroke="#15120c" strokeWidth="1.2" strokeLinecap="round" />
+                        <g className="art-loop art-bob">
+                          <ellipse cx="22" cy="21" rx="3.2" ry="4.2" fill="#dbefdb" stroke="#15120c" strokeWidth="1.1" transform="rotate(-20 22 21)" />
+                          <path d="M21 19.5c.8 1 1.4 2.2 1.6 3.4" stroke="#3e7f5c" strokeWidth="0.9" strokeLinecap="round" />
+                        </g>
+                      </ArtSvg>
                       <div className="text-center text-[8px] leading-tight text-[var(--home-ink-quiet)] md:text-[10px]">
                         Day one,
                         <br />
@@ -168,9 +190,11 @@ export function UseCasesSection() {
                     <div className="flex flex-col items-center gap-1.5">
                       <div className="cwp-pulse relative flex h-9 w-9 items-center justify-center rounded-full border-[0.5px] border-[#1e3c2c] bg-[#dbefdb] md:h-11 md:w-11">
                         <div className="cwp-spin absolute -inset-1.5 rounded-full border-[0.5px] border-dashed border-[#3e7f5c]"></div>
-                        <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true">
-                          <path d="M7 1.5l1.6 3.4 3.7.5-2.7 2.6.7 3.7L7 9.9 3.7 11.7l.7-3.7L1.7 5.4l3.7-.5L7 1.5Z" stroke="#1e3c2c" strokeWidth="1" strokeLinejoin="round"></path>
-                        </svg>
+                        <ArtSvg width="16" height="16" viewBox="0 0 14 14" fill="none" aria-hidden="true" className="overflow-visible" shadow={{ dx: 0.8, dy: 0.8, color: "#3e7f5c", opacity: 0.35 }}>
+                          <g className="art-loop art-pop" style={{ transformOrigin: "7px 7px" }}>
+                            <path d="M7 1.5l1.6 3.4 3.7.5-2.7 2.6.7 3.7L7 9.9 3.7 11.7l.7-3.7L1.7 5.4l3.7-.5L7 1.5Z" fill="#ffffff" stroke="#1e3c2c" strokeWidth="1" strokeLinejoin="round"></path>
+                          </g>
+                        </ArtSvg>
                       </div>
                       <div className="text-center text-[8px] leading-tight text-[var(--home-ink-soft)] md:text-[10px]">
                         Honored by the U.S.

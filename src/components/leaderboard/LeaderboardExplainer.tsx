@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { Reveal } from "@/components/Reveal";
 import {
   COMMITS_LEADERBOARD_HREF,
   LEADERBOARD_HREF,
@@ -28,62 +29,68 @@ export function LeaderboardExplainer({
         </p>
       </div>
 
+      {/* The two cards settle in one after the other. */}
       <div className="mt-6 grid gap-3 md:grid-cols-2">
-        <div
-          className={`rounded-xl border p-4 md:p-5 ${
-            current === "xp"
-              ? "border-[var(--home-fern)] bg-[#f3f8f1]"
-              : "border-[var(--home-hairline)] bg-[var(--home-page)]"
-          }`}
-        >
-          <p className="text-sm font-semibold text-[var(--home-ink)]">
-            Course XP
-          </p>
-          <p className="mt-2 text-sm leading-6 text-[var(--home-ink-soft)]">
-            Pass lesson quick checks to earn XP, level up, and track course
-            progress. This is the score used for badges and the XP leaderboard.
-          </p>
-          {current === "xp" ? (
-            <p className="mt-4 text-sm font-medium text-[var(--home-link-green)]">
-              You are viewing the XP leaderboard.
+        <Reveal className="h-full">
+          <div
+            className={`h-full rounded-xl border p-4 md:p-5 ${
+              current === "xp"
+                ? "border-[var(--home-fern)] bg-[#f3f8f1]"
+                : "border-[var(--home-hairline)] bg-[var(--home-page)]"
+            }`}
+          >
+            <p className="text-sm font-semibold text-[var(--home-ink)]">
+              Course XP
             </p>
-          ) : (
-            <Link
-              href={LEADERBOARD_HREF}
-              className="home-arrow-link mt-4 inline-flex text-sm font-medium"
-            >
-              View XP leaderboard
-            </Link>
-          )}
-        </div>
+            <p className="mt-2 text-sm leading-6 text-[var(--home-ink-soft)]">
+              Pass lesson quick checks to earn XP, level up, and track course
+              progress. This is the score used for badges and the XP leaderboard.
+            </p>
+            {current === "xp" ? (
+              <p className="mt-4 text-sm font-medium text-[var(--home-link-green)]">
+                You are viewing the XP leaderboard.
+              </p>
+            ) : (
+              <Link
+                href={LEADERBOARD_HREF}
+                className="home-arrow-link mt-4 inline-flex text-sm font-medium"
+              >
+                View XP leaderboard
+              </Link>
+            )}
+          </div>
 
-        <div
-          className={`rounded-xl border p-4 md:p-5 ${
-            current === "commits"
-              ? "border-[var(--home-fern)] bg-[#f3f8f1]"
-              : "border-[var(--home-hairline)] bg-[var(--home-page)]"
-          }`}
-        >
-          <p className="text-sm font-semibold text-[var(--home-ink)]">
-            GitHub commits
-          </p>
-          <p className="mt-2 text-sm leading-6 text-[var(--home-ink-soft)]">
-            Look up or link a GitHub account to show commit history. GitHub
-            activity does not add XP, change your level, or unlock lessons.
-          </p>
-          {current === "commits" ? (
-            <p className="mt-4 text-sm font-medium text-[var(--home-link-green)]">
-              You are viewing the commits leaderboard.
+        </Reveal>
+
+        <Reveal delay={0.08} className="h-full">
+          <div
+            className={`h-full rounded-xl border p-4 md:p-5 ${
+              current === "commits"
+                ? "border-[var(--home-fern)] bg-[#f3f8f1]"
+                : "border-[var(--home-hairline)] bg-[var(--home-page)]"
+            }`}
+          >
+            <p className="text-sm font-semibold text-[var(--home-ink)]">
+              GitHub commits
             </p>
-          ) : (
-            <Link
-              href={COMMITS_LEADERBOARD_HREF}
-              className="home-arrow-link mt-4 inline-flex text-sm font-medium"
-            >
-              View commits leaderboard
-            </Link>
-          )}
-        </div>
+            <p className="mt-2 text-sm leading-6 text-[var(--home-ink-soft)]">
+              Look up or link a GitHub account to show commit history. GitHub
+              activity does not add XP, change your level, or unlock lessons.
+            </p>
+            {current === "commits" ? (
+              <p className="mt-4 text-sm font-medium text-[var(--home-link-green)]">
+                You are viewing the commits leaderboard.
+              </p>
+            ) : (
+              <Link
+                href={COMMITS_LEADERBOARD_HREF}
+                className="home-arrow-link mt-4 inline-flex text-sm font-medium"
+              >
+                View commits leaderboard
+              </Link>
+            )}
+          </div>
+        </Reveal>
       </div>
     </div>
   );

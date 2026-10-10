@@ -23,7 +23,6 @@ const ROW_THREE: { value: string; label: string }[] = [
   { value: "150+", label: "countries" },
   { value: "30+", label: "languages taught" },
   { value: "20k", label: "minutes of teaching" },
-  { value: "150k+", label: "students reached" },
   { value: "Free", label: "forever" },
   { value: "100%", label: "student-run nonprofit" },
 ];

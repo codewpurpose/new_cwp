@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 import { DiscordIcon, GitHubIcon, InstagramIcon, XIcon } from "@/components/icons";
 import { DISCORD_HREF, GITHUB_HREF, INSTAGRAM_HREF, JOIN_HREF, X_HREF } from "@/lib/links";
+import { STATS, formatStat } from "@/lib/stats";
 
 interface ProofPointStripProps {
   /**
@@ -31,12 +32,11 @@ const SOCIALS = [
 export function ProofPointStrip({ lessonCount }: ProofPointStripProps) {
   const proofPoints = [
     "Free forever",
-    "6,000+ students",
-    "150+ countries",
-    "30+ languages",
+    `${formatStat(STATS.students)} students`,
+    `${formatStat(STATS.countries)} countries`,
+    `${formatStat(STATS.languages)} languages`,
     `${lessonCount} free lessons`,
-    "20k minutes taught",
-    "150k+ students reached",
+    `${formatStat(STATS.minutes)} minutes taught`,
     "Recognised by the U.S. House",
     "Student-run",
     "Open source",

@@ -1101,17 +1101,49 @@
   flex: none;
   min-height: 0;
   border: 0;
+  padding: 0;
   background: transparent;
   cursor: pointer;
-  animation: koala-float 4.5s ease-in-out infinite;
+  /* The idle float moved to .koala-idle below. While it lived here it owned
+     this element's `transform`, which silently cancelled the hover and press
+     transforms on the same element. */
   transition: transform 0.2s ease;
-  will-change: transform;
 }
 .koala-btn:hover {
-  transform: scale(1.06) rotate(-2deg);
+  transform: scale(1.04);
 }
 .koala-btn:active {
-  transform: scale(0.96);
+  transform: scale(0.95);
+}
+/*
+ * Koda's motion layers, outermost first. Each owns one kind of movement so
+ * nothing fights over a single `transform`:
+ *   .koala-peek-in — the one-off entrance: peeks up from the corner and waves
+ *   .koala-hop     — hover hop (motion value) and hover lean (CSS rotate)
+ *   .koala-idle    — the endless float and breath (individual transform
+ *                    properties, so the two loops run at different rates)
+ *   .koala-squash  — squash-and-stretch on tap (motion)
+ * All pivot on Koda's feet.
+ */
+.koala-layer {
+  position: absolute;
+  inset: 0;
+  display: block;
+  transform-origin: 50% 100%;
+}
+.koala-peek-in {
+  animation: koala-peek-in 1.25s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+.koala-hop {
+  transition: rotate 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+.koala-btn:hover .koala-hop {
+  rotate: -4deg;
+}
+.koala-idle {
+  animation:
+    koala-float 4.5s ease-in-out infinite,
+    koala-breathe 3.4s ease-in-out infinite;
 }
 .koala-img {
   width: 100%;
@@ -1123,7 +1155,27 @@
   object-position: center bottom;
   display: block;
   filter: drop-shadow(0 8px 14px rgba(21, 18, 12, 0.18));
-  animation: koala-pop 0.42s ease-out;
+  transform-origin: 50% 100%;
+  transition: rotate 0.22s ease, translate 0.22s ease;
+}
+/* Peeking at a primary button the mouse is over (data-peek, KoalaMascot).
+   Declared before "hold on" so a fling still wins while both are set. */
+.koala-mascot[data-peek] .koala-img {
+  rotate: -10deg;
+  translate: -6px -3px;
+}
+/* Napping after a minute idle: the float and breath slow right down. */
+.koala-mascot[data-napping] .koala-idle {
+  animation-duration: 9s, 6.8s;
+}
+/* The 404 page brings its own, bigger Koda (koda/KodaLost.tsx). */
+.home-root:has(.koala-lost) .koala-mascot {
+  display: none;
+}
+/* "Hold on!" — set briefly by KoalaMascot when the page is flung past. */
+.koala-mascot[data-hold] .koala-img {
+  rotate: -8deg;
+  translate: 0 4px;
 }
 .koala-bubble {
   position: relative;
@@ -1136,7 +1188,10 @@
   font-size: 0.85rem;
   line-height: 1.4;
   color: var(--home-ink);
-  animation: koala-bubble-in 0.28s ease-out;
+  /* Pops from its tail (the square bottom-right corner), with a little
+     overshoot, as if Koda had just said it. */
+  transform-origin: 100% 100%;
+  animation: koala-bubble-pop 0.45s cubic-bezier(0.34, 1.56, 0.64, 1);
 }
 .koala-bubble-text {
   margin: 0;
@@ -1228,23 +1283,191 @@
   color: var(--home-ink);
 }
 @keyframes koala-float {
-  0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(-9px); }
+  0%, 100% { translate: 0 0; }
+  50% { translate: 0 -8px; }
 }
-@keyframes koala-pop {
-  0% { transform: scale(0.7) translateY(10px); opacity: 0; }
-  55% { transform: scale(1.08); opacity: 1; }
-  100% { transform: scale(1); }
+@keyframes koala-breathe {
+  0%, 100% { scale: 1 1; }
+  50% { scale: 0.985 1.025; }
+}
+@keyframes koala-peek-in {
+  0% { translate: 0 115%; rotate: 8deg; }
+  42% { translate: 0 -5%; rotate: -2deg; }
+  52% { translate: 0 0; rotate: 0deg; }
+  64% { rotate: -7deg; }
+  76% { rotate: 6deg; }
+  88% { rotate: -3deg; }
+  100% { translate: 0 0; rotate: 0deg; }
 }
 @keyframes koala-bubble-in {
   from { opacity: 0; transform: translateY(6px) scale(0.96); }
   to { opacity: 1; transform: translateY(0) scale(1); }
 }
+@keyframes koala-bubble-pop {
+  from { opacity: 0; transform: translateY(6px) scale(0.55); }
+  60% { opacity: 1; }
+  to { opacity: 1; transform: translateY(0) scale(1); }
+}
+/* Pausing the idle loops when the tab is hidden or Koda is off screen. */
+/* Big, puzzled Koda on the 404 page (koda/KodaLost.tsx). */
+.koala-lost {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.75rem;
+}
+.koala-lost-bubble {
+  position: relative;
+  max-width: 17rem;
+  border-radius: 16px;
+  background: #fff;
+  border: 0.5px solid var(--home-hairline-strong);
+  box-shadow: 0 10px 30px rgba(21, 18, 12, 0.12);
+  padding: 0.7rem 1rem;
+  font-size: 0.95rem;
+  line-height: 1.4;
+  color: var(--home-ink);
+  text-align: left;
+}
+/* The bubble's tail, pointing down at Koda. */
+.koala-lost-bubble::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  bottom: -7px;
+  width: 14px;
+  height: 14px;
+  background: #fff;
+  border-right: 0.5px solid var(--home-hairline-strong);
+  border-bottom: 0.5px solid var(--home-hairline-strong);
+  transform: translateX(-50%) rotate(45deg);
+}
+.koala-lost-btn {
+  position: relative;
+  width: clamp(190px, 52vw, 260px);
+  aspect-ratio: 500 / 560;
+  border: 0;
+  padding: 0;
+  background: transparent;
+  cursor: pointer;
+  border-radius: 24px;
+}
+.koala-lost-btn:focus-visible {
+  outline: 2px solid var(--home-fern);
+  outline-offset: 6px;
+}
+.koala-lost-btn .koala-img {
+  filter: drop-shadow(0 12px 20px rgba(21, 18, 12, 0.14));
+}
+/* "Where did it go?" — a slow head tilt from side to side. */
+.koala-lost-tilt {
+  animation: koala-lost-tilt 3.6s ease-in-out infinite;
+}
+.koala-lost-q {
+  position: absolute;
+  font-family: var(--font-home-serif), Georgia, serif;
+  font-weight: 600;
+  color: var(--home-fern);
+  pointer-events: none;
+  animation: koala-lost-q 2.8s ease-in-out infinite;
+}
+.koala-lost-q1 { top: 2%; right: 4%; font-size: 2rem; }
+.koala-lost-q2 { top: 16%; right: -6%; font-size: 1.35rem; animation-delay: 0.6s; }
+.koala-lost-q3 { top: 6%; left: 2%; font-size: 1.5rem; animation-delay: 1.2s; }
+@keyframes koala-lost-tilt {
+  0%, 100% { rotate: -5deg; }
+  50% { rotate: 6deg; }
+}
+@keyframes koala-lost-q {
+  0%, 100% { translate: 0 0; opacity: 0.35; }
+  50% { translate: 0 -8px; opacity: 1; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .koala-lost-tilt,
+  .koala-lost-q { animation: none; }
+}
+.koala-idle[data-paused],
+.koda-idle[data-paused] {
+  animation-play-state: paused;
+}
 @media (prefers-reduced-motion: reduce) {
   .koala-btn { animation: none; }
-  .koala-img { animation: none; }
+  .koala-peek-in,
+  .koala-idle { animation: none; }
+  .koala-img { animation: none; transition: none; }
   .koala-bubble { animation: none; }
-  .koala-btn:hover { transform: none; }
+  .koala-btn:hover,
+  .koala-btn:active { transform: none; }
+  .koala-btn:hover .koala-hop { rotate: none; }
+  .koala-mascot[data-hold] .koala-img { rotate: none; translate: none; }
+  .koala-mascot[data-peek] .koala-img { rotate: none; translate: none; }
+}
+
+/* Koda's pose bursts (koda/KodaBurst.tsx), shared by the hero and the corner
+   mascot. Decorative only: never takes pointer events. */
+.koda-burst-layer {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  pointer-events: none;
+}
+.koda-burst-origin {
+  position: absolute;
+  width: 0;
+  height: 0;
+}
+.koda-burst-particle {
+  position: absolute;
+  left: 0;
+  top: 0;
+  display: block;
+  line-height: 1;
+  white-space: nowrap;
+  /* Centres the particle on its origin; composes with motion's transform. */
+  translate: -50% -50%;
+  will-change: transform, opacity;
+}
+.koda-burst-particle svg {
+  display: block;
+}
+.koda-burst-z {
+  font-family: var(--font-home-sans), system-ui, sans-serif;
+  font-weight: 700;
+  color: #1e3c2c;
+}
+.koda-burst-code {
+  font-family: var(--font-home-mono), ui-monospace, monospace;
+  font-weight: 600;
+  color: #3e7f5c;
+}
+@media (prefers-reduced-motion: reduce) {
+  .koda-burst-layer { display: none; }
+}
+
+/* Koda's typed speech (koda/TypeLine.tsx). The untyped remainder keeps its
+   space so the line never reflows; its ::before is the blinking caret, placed
+   at its static position so it adds no box of its own. */
+.koda-type-rest {
+  visibility: hidden;
+}
+.koda-type-rest::before {
+  content: "";
+  position: absolute;
+  visibility: visible;
+  width: 2px;
+  height: 1.05em;
+  margin-top: 0.12em;
+  margin-left: 1px;
+  border-radius: 1px;
+  background: currentColor;
+  opacity: 0.55;
+  animation: koda-caret 0.9s steps(1) infinite;
+}
+@keyframes koda-caret {
+  50% { opacity: 0; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .koda-type-rest::before { animation: none; }
 }
 
 /* Koda's newsletter card. Shares the bubble's shape language — same corner
@@ -1527,3 +1750,962 @@
 .layer-raw {
   font-family: initial;
 }
+
+/* === art (illustrations agent) === */
+/* Motion for the drawn illustrations in src/components/art/ (ArtSvg and
+   everything built on it). The markup is always the finished drawing; these
+   rules only add movement, and only under `no-preference`, so Reduce Motion
+   and no-JS readers see the still art. useArtMotion sets [data-paused] on the
+   svg while it is off screen, which stops every loop inside it. Hover
+   reactions follow the whole card: `.art-host` (ProductSection's GlareHover
+   cells), `.home-lift` cards and `group` links. */
+.art-svg[data-paused] * {
+  animation-play-state: paused !important;
+}
+@media (prefers-reduced-motion: no-preference) {
+  .art-loop {
+    animation-duration: 4s;
+    animation-timing-function: ease-in-out;
+    animation-iteration-count: infinite;
+  }
+  .art-sway { animation-name: art-sway; animation-duration: 4.6s; }
+  .art-swing { animation-name: art-swing; animation-duration: 3.8s; }
+  .art-tassel { animation-name: art-tassel; animation-duration: 3s; }
+  .art-twinkle { animation-name: art-twinkle; animation-duration: 2.8s; }
+  .art-drift { animation-name: art-drift; animation-duration: 6s; }
+  .art-heart { animation-name: art-heart; animation-duration: 3.8s; animation-timing-function: ease-out; }
+  .art-pop { animation-name: art-pop; animation-duration: 3.2s; }
+  .art-beat { animation-name: art-beat; animation-duration: 1.8s; }
+  .art-bob { animation-name: art-bob; animation-duration: 3.4s; }
+  .art-hop { animation-name: art-hop; animation-duration: 3s; }
+  .art-wave { animation-name: art-wave; animation-duration: 2.6s; }
+  .art-orbit { animation-name: art-orbit; animation-duration: 40s; animation-timing-function: linear; }
+  .art-type,
+  .art-type-cursor,
+  .art-keypress { animation-duration: 5.6s; }
+  .art-type { animation-name: art-type; animation-timing-function: steps(13, end); }
+  .art-type-cursor { animation-name: art-type-cursor; animation-timing-function: steps(13, end); }
+  .art-keypress { animation-name: art-keypress; }
+
+  .art-hover {
+    transition: transform 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+  }
+  .art-lift > .art-scene {
+    transform-origin: 50% 55%;
+    transition: transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+  }
+  :is(.art-host, .home-lift, .group):is(:hover, :focus-within) .art-lift > .art-scene {
+    transform: translateY(-1.2%) scale(1.035);
+  }
+  :is(.art-host, .home-lift, .group):is(:hover, :focus-within) .art-grow {
+    transform: scale(1.1);
+  }
+  :is(.art-host, .home-lift, .group):is(:hover, :focus-within) .art-spin {
+    transform: rotate(90deg) scale(1.2);
+  }
+  :is(.art-host, .home-lift, .group):is(:hover, :focus-within) .art-jingle {
+    animation: art-jingle 0.95s ease-out;
+  }
+  :is(.art-host, .home-lift, .group):is(:hover, :focus-within) .art-toss {
+    animation: art-toss 1.15s cubic-bezier(0.3, 0.7, 0.4, 1);
+  }
+  .art-icon > .art-scene {
+    transform-origin: 50% 50%;
+    transition: transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+  }
+  .global-reach-button:is(:hover, :focus-visible) .art-icon > .art-scene {
+    transform: rotate(-8deg) scale(1.12);
+  }
+}
+@keyframes art-sway {
+  0%, 100% { transform: rotate(-3deg); }
+  50% { transform: rotate(3.5deg); }
+}
+@keyframes art-swing {
+  0%, 100% { transform: rotate(-6deg); }
+  50% { transform: rotate(6deg); }
+}
+@keyframes art-tassel {
+  0%, 100% { transform: rotate(-7deg); }
+  50% { transform: rotate(8deg); }
+}
+@keyframes art-twinkle {
+  0%, 100% { transform: scale(1) rotate(0deg); }
+  50% { transform: scale(0.55) rotate(45deg); }
+}
+@keyframes art-drift {
+  0%, 100% { transform: translate(0, 0); }
+  50% { transform: translate(1.5px, -2.5px); }
+}
+@keyframes art-heart {
+  0% { transform: translateY(8px) scale(0.5); opacity: 0; }
+  20% { transform: translateY(0) scale(1); opacity: 1; }
+  70% { transform: translateY(-14px) scale(1); opacity: 1; }
+  100% { transform: translateY(-24px) scale(0.9); opacity: 0; }
+}
+@keyframes art-pop {
+  0%, 78%, 100% { transform: scale(1); }
+  86% { transform: scale(1.14); }
+  92% { transform: scale(0.97); }
+}
+@keyframes art-beat {
+  0%, 40%, 100% { transform: scale(1); }
+  10% { transform: scale(1.06); }
+  22% { transform: scale(1.01); }
+  30% { transform: scale(1.04); }
+}
+@keyframes art-bob {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-3px); }
+}
+@keyframes art-hop {
+  0%, 60%, 100% { transform: translateY(0); }
+  70% { transform: translateY(-10px); }
+  80% { transform: translateY(0); }
+  86% { transform: translateY(-3px); }
+  92% { transform: translateY(0); }
+}
+@keyframes art-wave {
+  0%, 100% { transform: scaleX(1) skewY(0deg); }
+  50% { transform: scaleX(0.86) skewY(5deg); }
+}
+@keyframes art-orbit {
+  to { transform: rotate(1turn); }
+}
+/* The suggestion types in, holds, then is backspaced away. */
+@keyframes art-type {
+  0%, 12% { transform: scaleX(0); }
+  48%, 86% { transform: scaleX(1); }
+  96%, 100% { transform: scaleX(0); }
+}
+@keyframes art-type-cursor {
+  0%, 12% { transform: translateX(-59px); }
+  48%, 86% { transform: translateX(0); }
+  96%, 100% { transform: translateX(-59px); }
+}
+@keyframes art-keypress {
+  0%, 46%, 56%, 100% { transform: translateY(0); }
+  50% { transform: translateY(2.5px); }
+}
+@keyframes art-jingle {
+  0% { transform: rotate(0deg); }
+  18% { transform: rotate(14deg); }
+  38% { transform: rotate(-10deg); }
+  58% { transform: rotate(6deg); }
+  78% { transform: rotate(-3deg); }
+  100% { transform: rotate(0deg); }
+}
+@keyframes art-toss {
+  0% { transform: translate(0, 0) rotate(0deg); }
+  38% { transform: translate(5px, -32px) rotate(-160deg); }
+  62% { transform: translate(2px, -36px) rotate(-300deg); }
+  84% { transform: translate(0, 2px) rotate(-360deg); }
+  92% { transform: translate(0, -2px) rotate(-360deg); }
+  100% { transform: translate(0, 0) rotate(-360deg); }
+}
+/* === end art === */
+
+/* === pages (pages agent) === */
+/* Donate: a marker-pen highlight on the suggested amount. Fully drawn by
+   default; where scroll-driven animation is supported it sweeps in as the line
+   enters the viewport, and Reduce Motion leaves it drawn and still. */
+.pages-highlight {
+  background: linear-gradient(transparent 58%, #dbefdb 58%, #dbefdb 92%, transparent 92%) no-repeat;
+  background-size: 100% 100%;
+  color: inherit;
+  font-weight: 600;
+  padding: 0 0.1em;
+}
+@supports (animation-timeline: view()) {
+  @media (prefers-reduced-motion: no-preference) {
+    .pages-highlight {
+      animation: pages-highlight linear both;
+      animation-timeline: view();
+      animation-range: entry 60% cover 40%;
+    }
+  }
+}
+@keyframes pages-highlight {
+  from { background-size: 0% 100%; }
+  to { background-size: 100% 100%; }
+}
+
+/* Media: a soft "on air" ripple around the status dot. */
+.pages-pulse-dot {
+  position: relative;
+}
+.pages-pulse-dot::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: inherit;
+  animation: pages-pulse 2.4s cubic-bezier(0.22, 1, 0.36, 1) infinite;
+}
+@keyframes pages-pulse {
+  0% { transform: scale(1); opacity: 0.55; }
+  70%, 100% { transform: scale(2.8); opacity: 0; }
+}
+
+/* Contact: the copy-address button and its success state. */
+.pages-copy-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  min-height: 40px;
+  padding: 0.45rem 0.95rem;
+  border-radius: 999px;
+  border: 0.5px solid var(--home-hairline-strong);
+  background: var(--home-page);
+  color: var(--home-ink-soft);
+  font-size: 0.85rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background 0.18s ease, color 0.18s ease, border-color 0.18s ease, box-shadow 0.18s ease;
+}
+.pages-copy-btn:hover {
+  color: var(--home-ink);
+  border-color: var(--home-fern);
+}
+.pages-copy-btn:focus-visible {
+  outline: none;
+  border-color: #3e7f5c;
+  box-shadow: 0 0 0 3px #fcf4e8, 0 0 0 5px #3e7f5c;
+}
+.pages-copy-btn[data-state="copied"] {
+  background: #dbefdb;
+  border-color: #3e7f5c;
+  color: #1e3c2c;
+}
+
+/* Toolkit: the picked template's Koda gives a little hop. */
+.pages-toolkit-pick[data-selected] img {
+  animation: pages-hop 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+@keyframes pages-hop {
+  0%, 100% { transform: translateY(0); }
+  40% { transform: translateY(-6px) rotate(-4deg); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pages-pulse-dot::after { animation: none; opacity: 0; }
+  .pages-toolkit-pick[data-selected] img { animation: none; }
+}
+/* === end pages === */
+
+/* === lesson reader (reader agent) === */
+/* Chrome for the chapter reader: reading progress, track progress, the
+   docked study-buddy Koda, quiz states and the chapter-complete card, code
+   and callout polish, and the mobile drawer. Lesson text itself is never
+   hidden or faded here; everything below is decoration or controls. */
+
+/* Reading progress: a 3px line across the top of the viewport. */
+.lr-progress {
+  position: fixed;
+  inset: 0 0 auto 0;
+  height: 3px;
+  z-index: 40;
+  pointer-events: none;
+}
+.lr-progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, #3e7f5c, #1e3c2c);
+  border-radius: 0 3px 3px 0;
+  transform: scaleX(0);
+  transform-origin: 0 50%;
+  transition: transform 0.12s linear;
+}
+
+.lr-confetti {
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 70;
+  pointer-events: none;
+}
+
+/* Section rhythm: a small numbered eyebrow above each LessonSection title.
+   The `/ ""` alternative text keeps the number out of the heading's
+   accessible name (and out of the TOC's sense of it). */
+.learn-prose {
+  counter-reset: lr-section;
+  text-rendering: optimizeLegibility;
+}
+.learn-prose ::selection {
+  background: #dbefdb;
+  color: #15120c;
+}
+.lr-section {
+  counter-increment: lr-section;
+}
+.lr-section-title::before {
+  content: counter(lr-section, decimal-leading-zero);
+  content: counter(lr-section, decimal-leading-zero) / "";
+  display: block;
+  margin-bottom: 0.55rem;
+  font-family: var(--learn-font-mono);
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  color: var(--learn-accent-text);
+}
+
+/* Table of contents: a soft wash behind the section you are in. */
+.learn-toc-link {
+  border-radius: 0 6px 6px 0;
+  transition: color 0.2s ease, border-color 0.2s ease, background-color 0.2s ease;
+}
+.learn-toc-link[aria-current="location"] {
+  background: linear-gradient(90deg, rgba(62, 127, 92, 0.1), rgba(62, 127, 92, 0));
+}
+
+/* Track progress, top of the sidebar and the drawer. */
+.lr-track-progress {
+  margin: 0 0 1.4rem;
+  padding: 0.75rem 0.85rem 0.8rem;
+  border: 0.5px solid var(--learn-line);
+  border-radius: var(--learn-radius-md);
+  background: var(--learn-surface);
+}
+.lr-track-progress-text {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 0.5rem;
+  font-size: 0.78rem;
+  color: var(--learn-ink-muted);
+}
+.lr-track-progress-text strong {
+  font-weight: 700;
+  color: var(--learn-ink-strong);
+}
+.lr-track-progress-pct {
+  font-family: var(--learn-font-mono);
+  font-size: 0.72rem;
+  font-weight: 600;
+  color: var(--learn-accent-text);
+}
+.lr-meter {
+  margin-top: 0.5rem;
+  height: 6px;
+  border-radius: 999px;
+  background: var(--learn-surface-sunken);
+  overflow: hidden;
+}
+.lr-meter-fill {
+  display: block;
+  height: 100%;
+  border-radius: inherit;
+  background: linear-gradient(90deg, #3e7f5c, #1e3c2c);
+  transform-origin: 0 50%;
+  transition: transform 0.6s var(--learn-ease);
+}
+.lr-nav-done {
+  display: inline-grid;
+  place-items: center;
+  flex: none;
+  width: 16px;
+  height: 16px;
+  border-radius: 999px;
+  background: #3e7f5c;
+  color: #fffbf5;
+}
+
+/* Koda, docked at the foot of the sidebar rail. Sticky to the rail's bottom
+   edge, with a paper fade so chapter links scroll out underneath it. */
+.lr-koda-slot {
+  position: sticky;
+  bottom: -2rem;
+  z-index: 1;
+  margin-top: 0.5rem;
+  padding: 1.5rem 0 2rem;
+  background: linear-gradient(to bottom, rgba(252, 244, 232, 0), var(--learn-paper) 1.5rem);
+}
+.lr-koda-slot:empty {
+  display: none;
+}
+.lr-koda {
+  display: flex;
+  align-items: flex-end;
+  gap: 0.55rem;
+}
+.lr-koda-talk {
+  display: flex;
+  flex: 1;
+  min-width: 0;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.15rem;
+}
+.lr-koda-bubble {
+  position: relative;
+  width: 100%;
+  margin: 0;
+  padding: 0.55rem 0.75rem 0.6rem;
+  border: 0.5px solid var(--learn-line);
+  border-radius: 14px 14px 14px 4px;
+  background: var(--learn-surface);
+  box-shadow: 0 8px 20px -14px rgba(21, 18, 12, 0.4);
+  font-size: 0.78rem;
+  line-height: 1.45;
+  color: var(--learn-ink-muted);
+}
+.lr-koda-bubble::after {
+  content: "";
+  position: absolute;
+  left: -5px;
+  bottom: 12px;
+  width: 9px;
+  height: 9px;
+  background: var(--learn-surface);
+  border-left: 0.5px solid var(--learn-line);
+  border-bottom: 0.5px solid var(--learn-line);
+  transform: rotate(45deg);
+}
+.lr-koda-name {
+  display: block;
+  margin-bottom: 1px;
+  font-size: 0.64rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--learn-accent-text);
+}
+.lr-koda-art {
+  position: relative;
+  display: block;
+  flex: none;
+  width: 54px;
+  height: 58px;
+  margin-bottom: 1.6rem;
+  padding: 0;
+  border: 0;
+  background: none;
+  cursor: pointer;
+}
+.lr-koda-layer {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+.lr-koda-squash {
+  transform-origin: 50% 100%;
+}
+.lr-koda-img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  object-position: 50% 100%;
+  user-select: none;
+  filter: drop-shadow(0 4px 6px rgba(21, 18, 12, 0.12));
+}
+.lr-koda-hide,
+.lr-koda-pill {
+  display: inline-flex;
+  align-items: center;
+  border-radius: 999px;
+  cursor: pointer;
+  transition: background-color 0.2s ease, border-color 0.2s ease, color 0.2s ease;
+}
+.lr-koda-hide {
+  gap: 0.25rem;
+  min-height: 28px;
+  padding: 0.2rem 0.55rem;
+  font-size: 0.74rem;
+  color: var(--learn-ink-subtle);
+}
+.lr-koda-hide:hover {
+  background: var(--learn-surface-sunken);
+  color: var(--learn-ink-strong);
+}
+.lr-koda-pill {
+  gap: 0.45rem;
+  min-height: 40px;
+  padding: 0.25rem 0.85rem 0.25rem 0.35rem;
+  border: 0.5px solid var(--learn-line);
+  background: var(--learn-surface);
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: var(--learn-ink-strong);
+}
+.lr-koda-pill:hover {
+  border-color: var(--learn-accent);
+}
+.lr-koda-pill-img {
+  width: 28px;
+  height: 30px;
+  object-fit: contain;
+}
+
+/* Chapter header */
+.lr-done-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  padding: 0.25rem 0.65rem;
+  border-radius: 999px;
+  background: #1e3c2c;
+  color: #dbefdb;
+  font-weight: 600;
+}
+
+/* Quiz */
+.lr-kicker {
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--learn-accent-text);
+}
+.lr-quiz-count {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 0.75rem;
+  color: var(--learn-ink-subtle);
+}
+.lr-quiz-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 999px;
+  border: 1px solid var(--learn-line-strong);
+  background: transparent;
+  transition: background-color 0.2s ease, border-color 0.2s ease, transform 0.2s var(--learn-ease);
+}
+.lr-quiz-dot[data-on="true"] {
+  background: #3e7f5c;
+  border-color: #3e7f5c;
+  transform: scale(1.1);
+}
+.lr-quiz-num {
+  display: inline-grid;
+  place-items: center;
+  flex: none;
+  width: 1.5rem;
+  height: 1.5rem;
+  margin-top: -1px;
+  border-radius: 999px;
+  background: var(--learn-surface-quiet);
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--learn-ink-strong);
+}
+.lr-quiz-retry {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.75rem 1rem;
+  padding: 0.85rem 1rem;
+  border: 0.5px solid var(--learn-warning-line);
+  border-radius: var(--learn-radius-lg);
+  background: #fdf6ea;
+}
+.lr-quiz-retry-koda {
+  width: 46px;
+  height: auto;
+  flex: none;
+  align-self: flex-start;
+}
+.lr-celebrate {
+  display: flex;
+  align-items: center;
+  gap: 1.1rem;
+  padding: 1.1rem 1.25rem;
+  border: 0.5px solid var(--learn-success-line);
+  border-radius: var(--learn-radius-xl);
+  background: linear-gradient(135deg, #dbefdb 0%, #f2f8f2 55%, #fffbf5 100%);
+}
+.lr-celebrate-koda {
+  display: block;
+  flex: none;
+  width: 84px;
+}
+.lr-celebrate-koda img {
+  display: block;
+  width: 100%;
+  height: auto;
+  filter: drop-shadow(0 6px 8px rgba(21, 18, 12, 0.14));
+}
+@media (max-width: 479px) {
+  .lr-celebrate {
+    align-items: flex-start;
+    gap: 0.85rem;
+    padding: 1rem;
+  }
+  .lr-celebrate-koda {
+    width: 60px;
+  }
+}
+.lr-next-cta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  width: 100%;
+  max-width: 26rem;
+  min-height: 52px;
+  padding: 0.6rem 1.1rem 0.6rem 1.25rem;
+  border-radius: 14px;
+  background: #1e3c2c;
+  color: #f9f9f9;
+  font-size: 0.98rem;
+  font-weight: 600;
+  text-decoration: none;
+  box-shadow: 0 10px 24px -14px rgba(30, 60, 44, 0.8);
+  transition: transform 0.2s var(--learn-ease), box-shadow 0.2s ease;
+}
+.lr-next-cta:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 14px 28px -14px rgba(30, 60, 44, 0.85);
+}
+.lr-next-cta-arrow {
+  transition: transform 0.2s var(--learn-ease);
+}
+.lr-next-cta:hover .lr-next-cta-arrow {
+  transform: translateX(3px);
+}
+
+/* Code blocks: copy button and language tag */
+.lr-copy {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  min-height: 44px;
+  padding: 0 0.75rem;
+  border-radius: var(--learn-radius-sm);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--learn-code-dim);
+  transition: color 0.2s ease, background-color 0.2s ease;
+}
+.lr-copy:hover {
+  color: var(--learn-code-fg);
+  background: rgba(219, 239, 219, 0.08);
+}
+.lr-copy[data-tone="light"] {
+  color: var(--learn-ink-subtle);
+}
+.lr-copy[data-tone="light"]:hover {
+  color: var(--learn-ink-strong);
+  background: var(--learn-surface-sunken);
+}
+.lr-copy[data-copied="true"] {
+  color: var(--learn-code-ok);
+}
+.lr-copy[data-tone="light"][data-copied="true"] {
+  color: var(--learn-accent-text);
+}
+.lr-copy-icons,
+.lr-copy-label {
+  display: inline-grid;
+}
+.lr-copy-icon,
+.lr-copy-label > span {
+  grid-area: 1 / 1;
+  transition: opacity 0.18s ease, transform 0.25s var(--learn-ease);
+}
+.lr-copy-label > span {
+  text-align: left;
+}
+.lr-copy-icon-done,
+.lr-copy-label-done {
+  opacity: 0;
+  transform: scale(0.6);
+}
+.lr-copy[data-copied="true"] .lr-copy-icon-idle,
+.lr-copy[data-copied="true"] .lr-copy-label-idle {
+  opacity: 0;
+  transform: scale(0.6);
+}
+.lr-copy[data-copied="true"] .lr-copy-icon-done,
+.lr-copy[data-copied="true"] .lr-copy-label-done {
+  opacity: 1;
+  transform: none;
+}
+.lr-code-lang {
+  flex: none;
+  padding: 1px 7px;
+  border-radius: 999px;
+  background: rgba(219, 239, 219, 0.1);
+  color: var(--learn-code-ok);
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+/* Callouts: a tone-coloured rule down the left edge. */
+.lr-callout {
+  border-left: 3px solid var(--lr-callout-rule, var(--learn-line-strong));
+}
+
+/* Mobile chapter bar and drawer */
+.lr-mobile-track {
+  display: block;
+  font-size: 0.66rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--learn-accent-text);
+}
+.lr-drawer-trigger {
+  display: inline-flex;
+  flex: none;
+  align-items: center;
+  gap: 0.45rem;
+  min-height: 44px;
+  padding: 0 0.6rem 0 0.9rem;
+  border: 0.5px solid var(--learn-line-strong);
+  border-radius: 999px;
+  background: var(--learn-surface);
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: var(--learn-ink-strong);
+  transition: border-color 0.2s ease, transform 0.15s ease;
+}
+.lr-drawer-trigger:active {
+  transform: scale(0.97);
+}
+.lr-drawer-trigger-count {
+  padding: 0.15rem 0.5rem;
+  border-radius: 999px;
+  background: var(--learn-surface-quiet);
+  font-family: var(--learn-font-mono);
+  font-size: 0.7rem;
+  color: var(--learn-ink-strong);
+}
+.lr-drawer-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 50;
+  background: rgba(21, 18, 12, 0.38);
+  backdrop-filter: blur(2px);
+  transition: opacity 0.25s ease;
+}
+.lr-drawer-backdrop[data-starting-style],
+.lr-drawer-backdrop[data-ending-style] {
+  opacity: 0;
+}
+.lr-drawer {
+  position: fixed;
+  inset: 0 auto 0 0;
+  z-index: 50;
+  display: flex;
+  flex-direction: column;
+  width: min(22rem, 88vw);
+  border-right: 0.5px solid var(--learn-line);
+  border-radius: 0 22px 22px 0;
+  background: var(--learn-paper);
+  box-shadow: 18px 0 40px -24px rgba(21, 18, 12, 0.5);
+  transition: transform 0.34s var(--learn-ease);
+  outline: none;
+}
+.lr-drawer[data-starting-style],
+.lr-drawer[data-ending-style] {
+  transform: translateX(-100%);
+}
+.lr-drawer[data-ending-style] {
+  transition-duration: 0.22s;
+}
+.lr-drawer-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  padding: max(1rem, env(safe-area-inset-top)) 0.75rem 0.85rem 1.25rem;
+  border-bottom: 0.5px solid var(--learn-line);
+}
+.lr-drawer-close {
+  display: inline-grid;
+  place-items: center;
+  flex: none;
+  width: 44px;
+  height: 44px;
+  border-radius: 999px;
+  color: var(--learn-ink-strong);
+  transition: background-color 0.2s ease;
+}
+.lr-drawer-close:hover,
+.lr-drawer-close:active {
+  background: var(--learn-surface-sunken);
+}
+.lr-drawer-body {
+  flex: 1;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  padding: 1rem 1.25rem max(2rem, env(safe-area-inset-bottom));
+}
+/* 44px tap targets in the drawer. */
+.lr-drawer-body .learn-nav-link {
+  display: flex;
+  align-items: center;
+  min-height: 44px;
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .lr-progress-fill,
+  .lr-meter-fill,
+  .lr-quiz-dot,
+  .lr-next-cta,
+  .lr-next-cta-arrow,
+  .lr-copy-icon,
+  .lr-copy-label > span,
+  .lr-drawer,
+  .lr-drawer-backdrop,
+  .lr-drawer-trigger {
+    transition: none;
+  }
+  .lr-next-cta:hover,
+  .lr-next-cta:hover .lr-next-cta-arrow,
+  .lr-drawer-trigger:active {
+    transform: none;
+  }
+}
+/* === end lesson reader === */
+
+/* === courses (courses agent) === */
+/* Catalogue (/courses) and the learning space (/learn/<track>/ course homes). */
+.courses-fan-card {
+  transform: translate(calc(-50% + var(--fan-x, 0px)), calc(-50% + var(--fan-y, 0px))) rotate(var(--fan-r, 0deg));
+  transition: transform 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.courses-fan-card:hover {
+  transform: translate(calc(-50% + var(--fan-x, 0px)), calc(-50% + var(--fan-y, 0px) - 6px)) rotate(var(--fan-r, 0deg));
+}
+.learnspace-scroll {
+  scroll-snap-type: x mandatory;
+  scrollbar-width: thin;
+  scrollbar-color: var(--home-grey-500) transparent;
+}
+.learnspace-noscrollbar {
+  scrollbar-width: none;
+}
+.learnspace-noscrollbar::-webkit-scrollbar {
+  display: none;
+}
+.learnspace-bar-fill {
+  transform-origin: left center;
+  transition: transform 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.learnspace-ring-fill {
+  transition: stroke-dashoffset 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* Learning space bar: mark only below desktop, the full lockup from lg. */
+.learnspace-logo {
+  --cwp-logo-h: 22px;
+}
+.learnspace-logo .cwp-logo-word {
+  display: none;
+}
+@media (min-width: 1024px) {
+  .learnspace-logo .cwp-logo-word {
+    display: inline;
+  }
+}
+.learnspace-logo-foot {
+  --cwp-logo-h: 22px;
+}
+
+/* Arrival: the page settles in under the moss bar the catalogue's transition
+   handed over to. CSS-only, so it also runs without JavaScript. */
+@keyframes learnspace-enter {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+.learnspace-enter {
+  animation: learnspace-enter 0.45s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+/* Syllabus rows */
+.learnspace-row {
+  transition: background-color 0.2s ease;
+}
+@media (hover: hover) {
+  .learnspace-row:hover {
+    background-color: var(--home-grey-400);
+  }
+}
+.learnspace-thumb {
+  aspect-ratio: 16 / 9;
+  background: #f2f2f2;
+}
+.learnspace-thumb > svg,
+.learnspace-thumb > img,
+.learnspace-thumb > div {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+.learnspace-status {
+  display: grid;
+  place-items: center;
+  width: 2rem;
+  height: 2rem;
+  border-radius: 999px;
+  border: 1px solid var(--home-grey-500);
+  background: #fffbf5;
+  font-family: var(--font-home-mono), ui-monospace, monospace;
+  font-size: 12px;
+  color: var(--home-ink-soft);
+  transition: background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease;
+}
+.learnspace-status[data-state="done"] {
+  background: #3e7f5c;
+  border-color: #3e7f5c;
+  color: #fcf4e8;
+}
+.learnspace-status[data-state="next"] {
+  background: #1e3c2c;
+  border-color: #1e3c2c;
+  color: #fcf4e8;
+  box-shadow: 0 0 0 4px rgba(62, 127, 92, 0.18);
+}
+.learnspace-status[data-state="locked"] {
+  border-style: dashed;
+  color: var(--home-ink-quiet);
+  background: transparent;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .learnspace-enter {
+    animation: none;
+  }
+  .courses-fan-card,
+  .learnspace-bar-fill,
+  .learnspace-ring-fill,
+  .learnspace-status,
+  .learnspace-row {
+    transition: none;
+  }
+}
+/* === end courses === */
+
+/* === lesson reader in the learning space (lead) ===
+   Chapters wear the learning space's 56px moss bar instead of SiteHeader, so
+   the sticky rails and anchor scroll padding use that height at every width.
+   Set on <html> via :has() because scroll-padding-top is read from the root. */
+html:has(.learnspace-reader) {
+  --learn-header-h: 56px;
+}
+/* The reading bar would vanish against the moss bar, so it rides just under
+   it, in leaf green on the paper. */
+.learnspace-reader .lr-progress {
+  top: var(--learn-header-h);
+}
+.learnspace-reader .lr-progress-fill {
+  background: linear-gradient(90deg, #9fd3a8, #3e7f5c);
+}
+/* === end lesson reader in the learning space === */

@@ -237,12 +237,32 @@
   text-align: left;
 }
 .cartoon-home .koda-greeting-button {
-  display: block; width: 100%; height: 290px; margin-inline: auto;
-  cursor: pointer; border: 0; background: transparent;
-  animation: koda-breathe 3s ease-in-out 3;
+  /* main's side-by-side layout (Koda beside his speech bubble) with this
+     branch's motion layers inside; the layers are absolutely positioned, so
+     the button just needs a size. */
+  position: relative; display: block; width: 100%; max-width: 260px; height: 290px;
+  margin-inline: auto; padding: 0; cursor: pointer; border: 0; background: transparent;
 }
-.cartoon-home .koda-greeting-art { position: relative; width: 100%; height: 100%; }
-.cartoon-home .koda-greeting-art img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: contain; }
+/* Motion layers (see KodaGreeting.tsx): tilt + hop, CSS idle, tap squash.
+   All rest at identity, so Koda is fully visible before any script runs. */
+.cartoon-home .koda-layer { position: absolute; inset: 0; display: block; transform-origin: 50% 100%; }
+.cartoon-home .koda-idle {
+  /* Three loops at unrelated rates — float, breath, and a rare head tilt —
+     on separate transform properties, so the idle never looks like a loop. */
+  animation:
+    koda-float 4.2s ease-in-out infinite,
+    koda-breathe 3.3s ease-in-out infinite,
+    koda-head-tilt 9.5s ease-in-out 2s infinite;
+}
+/* Set by useIdlePause when Koda is off screen or the tab is hidden. Repeated
+   here because the shorthand above would otherwise reset the play state. */
+.cartoon-home .koda-idle[data-paused] { animation-play-state: paused; }
+.cartoon-home .koda-greeting-art { animation: koda-hello 0.95s cubic-bezier(0.34, 1.4, 0.64, 1) 0.25s; }
+.cartoon-home .koda-greeting-art img {
+  position: absolute; inset: 0; width: 100%; height: 100%; object-fit: contain;
+  object-position: center bottom;
+}
+.cartoon-home .koda-greeting-art img:not([data-active]) { visibility: hidden; }
 .cartoon-home .koda-greeting-line {
   position: relative;
   margin: 0;
@@ -276,9 +296,25 @@
   background: var(--home-white);
   content: "";
 }
+@keyframes koda-float {
+  0%, 100% { translate: 0 0; }
+  50% { translate: 0 -6px; }
+}
 @keyframes koda-breathe {
-  0%, 100% { transform: translateY(0) rotate(0); }
-  50% { transform: translateY(-6px) rotate(2deg); }
+  0%, 100% { scale: 1 1; }
+  50% { scale: 0.99 1.02; }
+}
+@keyframes koda-head-tilt {
+  0%, 60%, 84%, 100% { rotate: 0deg; }
+  66% { rotate: -3.5deg; }
+  76% { rotate: 2deg; }
+}
+@keyframes koda-hello {
+  0% { translate: 0 0; rotate: 0deg; }
+  30% { translate: 0 -12px; rotate: -5deg; }
+  55% { translate: 0 0; rotate: 4deg; }
+  75% { rotate: -2deg; }
+  100% { translate: 0 0; rotate: 0deg; }
 }
 @media (max-width: 1199px) {
   .cartoon-home .hero-message-grid { grid-template-columns: 1fr; gap: .5rem; }
@@ -340,7 +376,8 @@
   .cartoon-home .home-stat-marker { left: 1.5rem; }
 }
 @media (prefers-reduced-motion: reduce) {
-  .cartoon-home .koda-greeting-button { animation: none; }
+  .cartoon-home .koda-idle,
+  .cartoon-home .koda-greeting-art { animation: none; }
 }
 
 /* Keep the original homepage sections and interactions, but let the content

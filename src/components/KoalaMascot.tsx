@@ -5,6 +5,11 @@ import { usePathname } from "next/navigation";
 import { useUser } from "@clerk/nextjs";
 import { isClerkConfigured } from "@/lib/clerk";
 import { NewsletterPopup } from "@/components/newsletter/NewsletterPopup";
+import { motion } from "motion/react";
+import { KodaBurstLayer, useKodaBurst, type BurstKind } from "@/components/koda/KodaBurst";
+import { TypeLine } from "@/components/koda/TypeLine";
+import { prefersReducedMotion, useIdlePause } from "@/components/koda/motion";
+import { useKodaBody } from "@/components/koda/useKodaBody";
 
 /**
  * Koda — the CodeWithPurpose koala. A floating companion that idles with a
@@ -27,6 +32,25 @@ import { NewsletterPopup } from "@/components/newsletter/NewsletterPopup";
  * ask has been settled without a sign-up, which keeps the popup one tap away
  * without going back to hijacking every tap. It is deliberately not shown to
  * people who already subscribed: they answered, and asking again is nagging.
+ *
+ * Motion, React Bits style (all transform-only, all skipped under reduced
+ * motion — CSS loops via media queries, JS reactions inside their handlers):
+ * Koda peeks up from the corner with a wave, floats and breathes while idle,
+ * hops and leans on hover, squash-and-stretches into each new pose with a small
+ * themed burst, types his lines out, braces when the page is flung past, and
+ * does a happy wiggle when the reader comes back to the tab after a while.
+ *
+ * Page-aware, too. Each route opens with its own short line and a pose to
+ * match (`PAGE_LINES` below), so Koda reads as part of the page he's on rather
+ * than a sticker on top of it. Around that:
+ * - reaching the bottom of a long page earns a hop and a sparkle (and, where
+ *   the bubble sits in the margin, a "made it" line);
+ * - hovering a primary call to action with a mouse makes him lean over to
+ *   peek at it (`data-peek`, CSS only, so touch never triggers it);
+ * - after a minute with no input at all he dozes off on the sleep pose with
+ *   the odd drifting "z", and wakes with a hop on the next interaction;
+ * - the 404 page has its own big, puzzled Koda (koda/KodaLost.tsx), and this
+ *   one steps aside there via a `:has(.koala-lost)` rule in globals.css.
  */
 
 interface Pose {
@@ -40,19 +64,66 @@ interface Pose {
    */
   w: number;
   h: number;
+  /** The little celebration that plays as Koda lands in this pose. */
+  burst: BurstKind;
 }
 
 // Ordered as a little arc: a hello, then Koda showing off the rest of the set.
 const POSES: Pose[] = [
-  { src: "/koala/koala-wave.png", line: "Hi, I'm Koda! Give me a tap 🐨", w: 523, h: 560 },
-  { src: "/koala/koala-heart.png", line: "We teach coding for free — made with a lot of love.", w: 507, h: 560 },
-  { src: "/koala/koala-read.png", line: "Psst… every one of our lessons is free. Go have a peek!", w: 464, h: 560 },
-  { src: "/koala/koala-branch.png", line: "Every expert was once a total beginner. Promise.", w: 530, h: 560 },
-  { src: "/koala/koala-hang.png", line: "Stuck on a bug? Hang in there. 🌿", w: 505, h: 560 },
-  { src: "/koala/koala-climb.png", line: "Learning's just a curve you climb one branch at a time.", w: 539, h: 560 },
-  { src: "/koala/koala-tree.png", line: "6,000+ students across 150+ countries. Wild, right?", w: 440, h: 560 },
-  { src: "/koala/koala-sleep.png", line: "Even koalas nap after 20k minutes of teaching. 💤", w: 560, h: 355 },
+  { src: "/koala/koala-wave.png", line: "Hi, I'm Koda! Give me a tap 🐨", w: 523, h: 560, burst: "sparkle" },
+  { src: "/koala/koala-heart.png", line: "We teach coding for free — made with a lot of love.", w: 507, h: 560, burst: "heart" },
+  { src: "/koala/koala-read.png", line: "Psst… every one of our lessons is free. Go have a peek!", w: 464, h: 560, burst: "code" },
+  { src: "/koala/koala-branch.png", line: "Every expert was once a total beginner. Promise.", w: 530, h: 560, burst: "leaf" },
+  { src: "/koala/koala-hang.png", line: "Stuck on a bug? Hang in there. 🌿", w: 505, h: 560, burst: "leaf" },
+  { src: "/koala/koala-climb.png", line: "Learning's just a curve you climb one branch at a time.", w: 539, h: 560, burst: "leaf" },
+  { src: "/koala/koala-tree.png", line: "6,000+ students across 150+ countries. Wild, right?", w: 440, h: 560, burst: "leaf" },
+  { src: "/koala/koala-sleep.png", line: "Even koalas nap after 20k minutes of teaching. 💤", w: 560, h: 355, burst: "zzz" },
 ];
+
+/** Index into POSES by file name, so reordering the carousel stays safe. */
+function poseIndex(file: string) {
+  return Math.max(
+    0,
+    POSES.findIndex((p) => p.src.endsWith(file)),
+  );
+}
+
+/**
+ * The line (and pose) each section of the site opens with. Short and plain:
+ * no promises and no figures, since these sit beside the page's own copy.
+ * Keyed by the first path segment; anything unlisted gets the default hello.
+ */
+const PAGE_LINES: Record<string, { line: string; pose: string }> = {
+  donate: { line: "Every bit keeps courses free 💚", pose: "koala-heart.png" },
+  join: { line: "We'd love your help!", pose: "koala-wave.png" },
+  courses: { line: "Pick something fun to learn?", pose: "koala-read.png" },
+  learn: { line: "Pick something fun to learn?", pose: "koala-read.png" },
+  contact: { line: "Say hi — we read everything.", pose: "koala-wave.png" },
+  blog: { line: "Enjoy the story!", pose: "koala-read.png" },
+  impact: { line: "The stories behind the numbers 🌏", pose: "koala-tree.png" },
+  about: { line: "Meet the students behind the lessons!", pose: "koala-heart.png" },
+  media: { line: "Pull up a seat — videos live here 🎬", pose: "koala-wave.png" },
+  leaderboard: { line: "A little friendly competition 🏆", pose: "koala-climb.png" },
+  dashboard: { line: "Your progress lives here 🌿", pose: "koala-climb.png" },
+  toolkit: { line: "Grab a template and jot it down ✏️", pose: "koala-read.png" },
+  login: { line: "Welcome — glad you're here!", pose: "koala-wave.png" },
+  "sign-up": { line: "Welcome — glad you're here!", pose: "koala-wave.png" },
+};
+
+function pageGreeting(pathname: string | null) {
+  const section = (pathname ?? "").split("/").filter(Boolean)[0] ?? "";
+  const entry = Object.prototype.hasOwnProperty.call(PAGE_LINES, section)
+    ? PAGE_LINES[section]
+    : undefined;
+  return entry
+    ? { line: entry.line, index: poseIndex(entry.pose) }
+    : { line: POSES[0].line, index: 0 };
+}
+
+const SLEEP_POSE = poseIndex("koala-sleep.png");
+const BOTTOM_LINE = "You made it to the bottom! 🎉";
+/** How long without any input before Koda dozes off. */
+const NAP_AFTER_MS = 60_000;
 
 const STORAGE_KEY = "cwp-koala-dismissed";
 const SUBSCRIBED_KEY = "cwp-newsletter-v1";
@@ -91,8 +162,14 @@ function KoalaWithAuth() {
 }
 
 function KoalaBase({ canOfferSignup }: { canOfferSignup: boolean }) {
+  const idleRef = useRef<HTMLSpanElement>(null);
+  useIdlePause(idleRef);
   const pathname = usePathname();
-  const [index, setIndex] = useState(0);
+  const [index, setIndex] = useState(() => pageGreeting(pathname).index);
+  /** True until the first tap on this page: the bubble shows the page's line. */
+  const [greeting, setGreeting] = useState(true);
+  const [route, setRoute] = useState(pathname);
+  const [napping, setNapping] = useState(false);
   const [bubble, setBubble] = useState(false);
   const [taps, setTaps] = useState(0);
   const [special, setSpecial] = useState<string | null>(null);
@@ -107,6 +184,176 @@ function KoalaBase({ canOfferSignup }: { canOfferSignup: boolean }) {
    * should be able to change their mind.
    */
   const [subscribed, setSubscribed] = useState(true);
+  const rootRef = useRef<HTMLDivElement>(null);
+  const { scope, hopY, squash, hop, wiggle } = useKodaBody();
+  const { bursts, fire } = useKodaBurst();
+
+  /**
+   * A new page: switch to its pose and line and say it. Adjusting state while
+   * rendering (rather than in an effect) is React's documented pattern for
+   * "reset when a value changes" and avoids painting the old page's line for a
+   * frame. Client navigations only — the first page is covered by the
+   * initial state above.
+   */
+  if (route !== pathname) {
+    setRoute(pathname);
+    setIndex(pageGreeting(pathname).index);
+    setGreeting(true);
+    setSpecial(null);
+    setNapping(false);
+    if (!signupOpen) setBubble(true);
+  }
+
+  // Mirrors for the window listeners below, which must not re-subscribe on
+  // every render just to read the latest value.
+  const nappingRef = useRef(false);
+  const signupOpenRef = useRef(false);
+  useEffect(() => {
+    nappingRef.current = napping;
+    signupOpenRef.current = signupOpen;
+  }, [napping, signupOpen]);
+
+  /**
+   * Nap after a minute with no input, wake on the next one. Any pointer, key,
+   * touch or scroll counts as activity; the check runs every few seconds and
+   * only while the tab is visible, so coming back to a tab never finds Koda
+   * asleep the instant it appears. While napping a "z" drifts up now and then
+   * (skipped under Reduce Motion, like every burst).
+   */
+  useEffect(() => {
+    if (dismissed) return;
+    let lastActive = Date.now();
+    const onActivity = () => {
+      lastActive = Date.now();
+      if (!nappingRef.current) return;
+      nappingRef.current = false;
+      setNapping(false);
+      hop(12);
+    };
+    const onVisibility = () => {
+      if (document.visibilityState === "visible") lastActive = Date.now();
+    };
+    const tick = setInterval(() => {
+      if (document.visibilityState !== "visible") return;
+      if (nappingRef.current) {
+        fire("zzz");
+        return;
+      }
+      if (signupOpenRef.current || Date.now() - lastActive < NAP_AFTER_MS) return;
+      nappingRef.current = true;
+      setNapping(true);
+      setBubble(false);
+      fire("zzz");
+    }, 5000);
+    const events = ["pointerdown", "pointermove", "keydown", "touchstart", "scroll", "wheel"] as const;
+    for (const type of events) window.addEventListener(type, onActivity, { passive: true });
+    document.addEventListener("visibilitychange", onVisibility);
+    return () => {
+      clearInterval(tick);
+      for (const type of events) window.removeEventListener(type, onActivity);
+      document.removeEventListener("visibilitychange", onVisibility);
+    };
+  }, [dismissed, hop, fire]);
+
+  /**
+   * Made it to the end: a hop and a sparkle, once per page, and only on pages
+   * long enough for that to mean something. The line only joins in on wider
+   * screens, where the bubble sits in the margin instead of over the footer.
+   */
+  useEffect(() => {
+    if (dismissed) return;
+    let cheered = false;
+    const onScroll = () => {
+      if (cheered) return;
+      const doc = document.documentElement;
+      if (doc.scrollHeight < window.innerHeight * 1.6) return;
+      if (window.scrollY + window.innerHeight < doc.scrollHeight - 48) return;
+      cheered = true;
+      hop(14);
+      fire("sparkle");
+      if (signupOpenRef.current || window.matchMedia("(max-width: 640px)").matches) return;
+      setSpecial(BOTTOM_LINE);
+      setBubble(true);
+    };
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, [dismissed, pathname, hop, fire]);
+
+  /**
+   * Peek at the page's main button: while a mouse is over a filled call to
+   * action, Koda leans over towards it. Toggles `data-peek` on the root and
+   * leaves the rest to CSS (which drops it under Reduce Motion). Touch and pen
+   * are ignored, so a tap on a phone never sets it and leaves it stuck.
+   */
+  useEffect(() => {
+    if (dismissed) return;
+    const CTA = ".home-btn-fill, .home-btn-moss";
+    const ctaFrom = (target: EventTarget | null) =>
+      target instanceof Element ? target.closest(CTA) : null;
+    const onOver = (e: PointerEvent) => {
+      const root = rootRef.current;
+      const cta = ctaFrom(e.target);
+      if (!root || e.pointerType !== "mouse" || !cta || root.contains(cta)) return;
+      root.dataset.peek = "true";
+    };
+    const onOut = (e: PointerEvent) => {
+      const root = rootRef.current;
+      const cta = ctaFrom(e.target);
+      if (!root || !cta) return;
+      if (e.relatedTarget instanceof Node && cta.contains(e.relatedTarget)) return;
+      delete root.dataset.peek;
+    };
+    document.addEventListener("pointerover", onOver, { passive: true });
+    document.addEventListener("pointerout", onOut, { passive: true });
+    return () => {
+      document.removeEventListener("pointerover", onOver);
+      document.removeEventListener("pointerout", onOut);
+    };
+  }, [dismissed]);
+
+  /**
+   * Hold on tight: a fast fling of the page makes Koda brace for a moment (a
+   * lean, styled by `data-hold` in globals.css). Reads scroll position only,
+   * toggles an attribute directly, and never re-renders.
+   */
+  useEffect(() => {
+    if (dismissed) return;
+    let lastY = window.scrollY;
+    let lastT = performance.now();
+    let release: ReturnType<typeof setTimeout> | undefined;
+    const onScroll = () => {
+      const now = performance.now();
+      const velocity = Math.abs(window.scrollY - lastY) / Math.max(now - lastT, 1);
+      lastY = window.scrollY;
+      lastT = now;
+      const root = rootRef.current;
+      if (!root || velocity < 3 || prefersReducedMotion()) return;
+      root.dataset.hold = "true";
+      clearTimeout(release);
+      release = setTimeout(() => delete root.dataset.hold, 650);
+    };
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => {
+      window.removeEventListener("scroll", onScroll);
+      clearTimeout(release);
+    };
+  }, [dismissed]);
+
+  // Welcome back: after a proper break from the tab (20s+), a hop and a wiggle.
+  useEffect(() => {
+    if (dismissed) return;
+    let hiddenAt = 0;
+    const onVisibility = () => {
+      if (document.visibilityState === "hidden") {
+        hiddenAt = Date.now();
+      } else if (hiddenAt && Date.now() - hiddenAt > 20000) {
+        hop(12);
+        wiggle();
+      }
+    };
+    document.addEventListener("visibilitychange", onVisibility);
+    return () => document.removeEventListener("visibilitychange", onVisibility);
+  }, [dismissed, hop, wiggle]);
 
   // Only show once we've confirmed the visitor hasn't sent Koda away this
   // session. Storage can't be read during SSR, so this reads it on mount
@@ -124,16 +371,14 @@ function KoalaBase({ canOfferSignup }: { canOfferSignup: boolean }) {
   /**
    * Decode every pose once, up front.
    *
-   * The <img> below is keyed on `index`, and that is deliberate: a keyed
-   * remount is what replays the koala-pop animation on each tap. The cost is
-   * that every tap mounts a brand-new element with no bitmap attached, and
-   * `decoding="async"` explicitly permits the browser to paint that empty
-   * element before the image is ready. Since koala-pop starts at opacity 0,
-   * the two together produced a visible blank frame on every single tap.
+   * The <img> below swaps its `src` on every tap, in the same frame as the
+   * squash-and-stretch starts. It used to be keyed and remounted to replay a
+   * CSS pop from opacity 0, which flashed a blank frame whenever the bitmap was
+   * not ready; the squash now carries the transition and the element stays.
    *
    * Decoding all eight poses on mount means the next pose's bitmap is already
-   * in memory when the remount happens, so the new element paints with content
-   * in the same frame React commits it.
+   * in memory when the swap happens, so it paints with content in the same
+   * frame React commits it.
    */
   useEffect(() => {
     for (const p of POSES) {
@@ -151,6 +396,16 @@ function KoalaBase({ canOfferSignup }: { canOfferSignup: boolean }) {
     const t = setTimeout(() => setBubble(true), 1400);
     return () => clearTimeout(t);
   }, [dismissed]);
+
+  // On phones the bubble sits over page content (the Courses hero image, for
+  // one), so it says its line and then tucks away. Tapping Koda brings it
+  // back, and each tap restarts the clock. Wider screens keep it, since there
+  // it sits in the margin.
+  useEffect(() => {
+    if (!bubble || !window.matchMedia("(max-width: 640px)").matches) return;
+    const t = setTimeout(() => setBubble(false), 6000);
+    return () => clearTimeout(t);
+  }, [bubble, taps, pathname]);
 
   const handOffTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
   const clearHandOff = () => {
@@ -183,12 +438,14 @@ function KoalaBase({ canOfferSignup }: { canOfferSignup: boolean }) {
     clearHandOff();
     handOffTimer.current = setTimeout(() => {
       setSignupOpen(false);
+      setGreeting(false);
       setIndex(THANKS_POSE);
       setSpecial(THANKS_LINE);
       setBubble(true);
+      fire("heart");
       handOffTimer.current = null;
     }, 2400);
-  }, []);
+  }, [fire]);
 
   // The immersive lesson reader (/learn/<track>/<slug>) has its own bottom
   // pager and mobile bar — keep Koda out of the way there.
@@ -196,7 +453,8 @@ function KoalaBase({ canOfferSignup }: { canOfferSignup: boolean }) {
   const isLessonReader = segments[0] === "learn" && segments.length >= 3;
   if (dismissed || isLessonReader) return null;
 
-  const pose = POSES[index];
+  const pose = POSES[napping ? SLEEP_POSE : index];
+  const line = special ?? (greeting ? pageGreeting(pathname).line : pose.line);
   const shouldAskForEmail = canOfferSignup && !signupSettled;
   /**
    * The way back in. Offered only once the first ask is behind us — before
@@ -217,9 +475,13 @@ function KoalaBase({ canOfferSignup }: { canOfferSignup: boolean }) {
       return;
     }
     const t = taps + 1;
+    const next = (index + 1) % POSES.length;
+    setGreeting(false);
     setTaps(t);
-    setIndex((i) => (i + 1) % POSES.length);
+    setIndex(next);
     setBubble(true);
+    squash();
+    fire(POSES[next].burst);
     // Hidden reward for the persistent: a rare line every seventh tap.
     setSpecial(t % 7 === 0 ? "Okay okay — you really like me, huh? 🐨💚" : null);
   };
@@ -234,7 +496,7 @@ function KoalaBase({ canOfferSignup }: { canOfferSignup: boolean }) {
   };
 
   return (
-    <div className="koala-mascot">
+    <div className="koala-mascot" ref={rootRef} data-napping={napping ? "true" : undefined}>
       {signupOpen && (
         <NewsletterPopup onClose={closeSignup} onSubscribed={onSubscribed} />
       )}
@@ -243,10 +505,12 @@ function KoalaBase({ canOfferSignup }: { canOfferSignup: boolean }) {
         <div className="koala-bubble">
           {/* The live region wraps the LINE only. With the button inside it,
               every pose change re-announced the action alongside the new line,
-              which is noise on a control that has not changed. */}
-          <p className="koala-bubble-text" role="status" aria-live="polite">
-            <span className="koala-bubble-name">Koda</span>
-            {special ?? pose.line}
+              which is noise on a control that has not changed. The region
+              itself is TypeLine's visually hidden copy of the full line, so it
+              is announced once rather than letter by letter as it types. */}
+          <p className="koala-bubble-text">
+            <span className="koala-bubble-name" aria-hidden="true">Koda</span>
+            <TypeLine text={line} animateOnMount srPrefix="Koda: " speed={18} />
           </p>
 
           {canReopenSignup && (
@@ -262,6 +526,9 @@ function KoalaBase({ canOfferSignup }: { canOfferSignup: boolean }) {
         type="button"
         className="koala-btn"
         onClick={onTap}
+        onPointerEnter={(e) => {
+          if (e.pointerType === "mouse") hop();
+        }}
         aria-expanded={shouldAskForEmail ? signupOpen : undefined}
         aria-label={
           shouldAskForEmail
@@ -269,20 +536,30 @@ function KoalaBase({ canOfferSignup }: { canOfferSignup: boolean }) {
             : "Koda the koala — tap for a little encouragement"
         }
       >
-        {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img
-          key={index}
-          className="koala-img"
-          src={pose.src}
-          alt="Koda, the CodeWithPurpose koala"
-          width={pose.w}
-          height={pose.h}
-          draggable={false}
-          /* Not "async": this element is remounted on every tap, and async
-             decoding is permission to paint it before the bitmap arrives. The
-             preload effect above means there is nothing to wait for. */
-          decoding="sync"
-        />
+        {/* Layers, so each motion owns its own transform: the peek-in entrance,
+            the hover hop, the CSS idle float/breath, then the tap squash. */}
+        <span className="koala-layer koala-peek-in">
+          <motion.span className="koala-layer koala-hop" style={{ y: hopY }}>
+            <span ref={idleRef} className="koala-layer koala-idle">
+              <motion.span ref={scope} className="koala-layer koala-squash">
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img
+                  className="koala-img"
+                  src={pose.src}
+                  alt="Koda, the CodeWithPurpose koala"
+                  width={pose.w}
+                  height={pose.h}
+                  draggable={false}
+                  /* Not "async": async decoding is permission to paint the swapped
+                     source before its bitmap arrives. The preload effect above means
+                     there is nothing to wait for. */
+                  decoding="sync"
+                />
+              </motion.span>
+            </span>
+          </motion.span>
+          <KodaBurstLayer bursts={bursts} spread={0.7} />
+        </span>
       </button>
 
       <button

@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { useAnimate } from "motion/react";
 import { Search } from "lucide-react";
 import { MediaGrid } from "@/components/media/MediaCard";
 import type { MediaItem, MediaPlatform } from "@/lib/media-types";
@@ -23,6 +24,17 @@ function matchesSearch(item: MediaItem, search: string): boolean {
 export function MediaLibrary({ items }: { items: readonly MediaItem[] }) {
   const [filter, setFilter] = useState<MediaFilter>("all");
   const [search, setSearch] = useState("");
+  const [gridScope, animate] = useAnimate<HTMLDivElement>();
+
+  /** A quick fade-up of the result set, played from the filter's own click. */
+  const showResults = () => {
+    if (!gridScope.current) return;
+    animate(
+      gridScope.current,
+      { opacity: [0.25, 1], y: [10, 0] },
+      { duration: 0.32, ease: [0.22, 1, 0.36, 1] },
+    );
+  };
   const availableFilters = FILTERS.filter(
     (option) => option.value === "all" || items.some((item) => item.platform === option.value),
   );
@@ -64,7 +76,10 @@ export function MediaLibrary({ items }: { items: readonly MediaItem[] }) {
                     className={`home-btn ${
                       isActive ? "home-btn-fill" : "home-btn-outline"
                     }`}
-                    onClick={() => setFilter(option.value)}
+                    onClick={() => {
+                      if (option.value !== filter) showResults();
+                      setFilter(option.value);
+                    }}
                   >
                     {option.label}
                     <span
@@ -113,6 +128,7 @@ export function MediaLibrary({ items }: { items: readonly MediaItem[] }) {
               type="button"
               className="home-arrow-link text-sm"
               onClick={() => {
+                showResults();
                 setFilter("all");
                 setSearch("");
               }}
@@ -123,7 +139,11 @@ export function MediaLibrary({ items }: { items: readonly MediaItem[] }) {
         </div>
       </div>
 
-      <div className="mt-8">
+      {/* The results settle in when a platform filter is picked (see
+          `showResults`). The grid is animated in place rather than remounted,
+          so embedded players are never reloaded, and it is never drawn
+          transparent on the server. */}
+      <div ref={gridScope} className="mt-8">
         <MediaGrid
           items={filteredItems}
           layout="library"
