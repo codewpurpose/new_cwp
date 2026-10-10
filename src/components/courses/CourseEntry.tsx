@@ -33,6 +33,10 @@ export function CourseEntryProvider({ children }: { children: React.ReactNode })
   const router = useRouter();
   const pathname = usePathname();
   const [entering, setEntering] = useState<Entering | null>(null);
+  // The panel only blocks while we're still on the page it was opened from.
+  // Once the route changes it drops away on its own: deriving this, rather
+  // than clearing `entering` in an effect, avoids a cascading render.
+  const active = entering && (!pathname || pathname === entering.fromPath) ? entering : null;
   const pushed = useRef(false);
   const overlayRef = useRef<HTMLDivElement>(null);
   const returnFocus = useRef<HTMLAnchorElement | null>(null);
@@ -58,14 +62,14 @@ export function CourseEntryProvider({ children }: { children: React.ReactNode })
 
   // Safety net in case the animation's completion callback never fires.
   useEffect(() => {
-    if (!entering) return;
-    const timeout = window.setTimeout(() => go(entering.href), 900);
+    if (!active) return;
+    const timeout = window.setTimeout(() => go(active.href), 900);
     return () => window.clearTimeout(timeout);
-  }, [entering, go]);
+  }, [active, go]);
 
   // Keep focus inside the transition and restore it if navigation stalls.
   useEffect(() => {
-    if (!entering) return;
+    if (!active) return;
     overlayRef.current?.focus();
     const timeout = window.setTimeout(() => {
       setEntering(null);
@@ -74,15 +78,7 @@ export function CourseEntryProvider({ children }: { children: React.ReactNode })
       returnFocus.current = null;
     }, 8000);
     return () => window.clearTimeout(timeout);
-  }, [entering]);
-
-  // Navigation succeeded; the new route no longer needs the blocking panel.
-  useEffect(() => {
-    if (!entering || !pathname || pathname === entering.fromPath) return;
-    setEntering(null);
-    pushed.current = false;
-    returnFocus.current = null;
-  }, [entering, pathname]);
+  }, [active]);
 
   const enter = useCallback(
     (event: React.MouseEvent<HTMLAnchorElement>, href: string, title: string) => {
@@ -120,17 +116,17 @@ export function CourseEntryProvider({ children }: { children: React.ReactNode })
 
   return (
     <EnterContext.Provider value={enter}>
-      <div inert={Boolean(entering)} aria-hidden={entering ? true : undefined} style={{ display: "contents" }}>
+      <div inert={Boolean(active)} aria-hidden={active ? true : undefined} style={{ display: "contents" }}>
         {children}
       </div>
-      {entering && (
+      {active && (
         <motion.div
           ref={overlayRef}
           className="fixed inset-0 z-[100] grid place-items-center bg-[#1e3c2c] px-6 text-center text-[#fcf4e8]"
-          initial={{ clipPath: entering.clip }}
+          initial={{ clipPath: active.clip }}
           animate={{ clipPath: "inset(0px 0px 0px 0px round 0px)" }}
           transition={{ duration: 0.48, ease: [0.65, 0, 0.35, 1] }}
-          onAnimationComplete={() => go(entering.href)}
+          onAnimationComplete={() => go(active.href)}
           role="dialog"
           aria-modal="true"
           aria-labelledby="course-entry-title"
@@ -145,7 +141,7 @@ export function CourseEntryProvider({ children }: { children: React.ReactNode })
             transition={{ duration: 0.3, delay: 0.16, ease: [0.22, 1, 0.36, 1] }}
           >
             <p className="home-mono text-[11px] uppercase tracking-[0.16em] text-[#9fd3a8]">Entering course</p>
-            <p id="course-entry-title" className="home-display mt-3 text-[2rem] leading-tight md:text-[2.75rem]">{entering.title}</p>
+            <p id="course-entry-title" className="home-display mt-3 text-[2rem] leading-tight md:text-[2.75rem]">{active.title}</p>
           </motion.div>
           {/* Only shows if the next page is slow to arrive. */}
           <motion.p
