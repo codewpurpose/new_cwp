@@ -223,7 +223,7 @@ git status --short
         </Callout>
         <P>
           <Strong>Try it yourself.</Strong> Make a throwaway repository and watch one file move
-          through the three places. The comments are what each command prints.
+          through the three places. The comments show the expected output from the status and diff commands.
         </P>
         <CodeBlock
           variant="terminal"
