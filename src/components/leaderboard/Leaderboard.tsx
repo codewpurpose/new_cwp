@@ -8,6 +8,9 @@ import { getSupabase, isSupabaseConfigured } from "@/lib/supabase/client";
 import { isClerkConfigured } from "@/lib/clerk";
 import { avatarSrc, levelInfo } from "@/lib/student";
 import { DASHBOARD_HREF, LOGIN_HREF } from "@/lib/links";
+import { AnimatedListItem } from "@/components/reactbits/AnimatedList";
+import SpotlightCard from "@/components/reactbits/SpotlightCard";
+import { SPOTLIGHT_PROPS } from "@/lib/spotlight";
 
 interface Row {
   id: string;
@@ -19,7 +22,7 @@ interface Row {
 /** Shown until both Clerk and Supabase are configured. */
 function ComingSoon() {
   return (
-    <div className="home-card mx-auto max-w-xl p-8 text-center">
+    <SpotlightCard {...SPOTLIGHT_PROPS} className="home-card mx-auto max-w-xl p-8 text-center">
       <h2 className="font-serif text-2xl">The leaderboard is almost here</h2>
       <p className="mt-3 text-[15px] text-[var(--home-ink-soft)]">
         Ranking students against each other needs accounts switched on. Until then,
@@ -29,7 +32,7 @@ function ComingSoon() {
       <Link href={DASHBOARD_HREF} className="home-btn home-btn-fill mt-6 inline-flex">
         Go to My Progress
       </Link>
-    </div>
+    </SpotlightCard>
   );
 }
 
@@ -96,12 +99,16 @@ function LeaderboardLive() {
           No one&apos;s on the board yet — be the first.
         </p>
       ) : (
+        // Rows pop in one after another and glide to their new place if the
+        // ranking changes (AnimatedListItem). They are fetched on the client,
+        // so nothing server-rendered starts transparent.
         <ol className="flex flex-col gap-2">
           {rows.map((row, i) => {
             const me = user?.id === row.id;
             return (
-              <li
+              <AnimatedListItem
                 key={row.id}
+                index={i}
                 className={`home-card flex items-center gap-4 p-3 ${
                   me ? "ring-2 ring-[var(--home-moss)]" : ""
                 }`}
@@ -126,7 +133,7 @@ function LeaderboardLive() {
                 <span className="w-20 shrink-0 text-right font-medium tabular-nums">
                   {row.xp} XP
                 </span>
-              </li>
+              </AnimatedListItem>
             );
           })}
         </ol>

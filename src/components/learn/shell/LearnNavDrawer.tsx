@@ -2,7 +2,9 @@
 
 import { useState } from "react";
 import { Dialog } from "@base-ui/react/dialog";
+import { List, X } from "lucide-react";
 import { LearnSidebar } from "@/components/learn/shell/LearnSidebar";
+import { useTrackProgress } from "@/components/learn/reader/useTrackProgress";
 import type { LearnNavData, LearnTrackId } from "@/lib/learn-types";
 
 interface LearnNavDrawerProps {
@@ -23,36 +25,51 @@ interface LearnNavDrawerProps {
  *
  * The panel renders the same LearnSidebar as the desktop rail — one navigation
  * implementation, two presentations.
+ *
+ * The slide, backdrop fade and app-like chrome are in the reader block of
+ * globals.css (`.lr-drawer*`), so they can share the reduced-motion rule.
  */
 export function LearnNavDrawer({ track, nav, triggerLabel }: LearnNavDrawerProps) {
   const [open, setOpen] = useState(false);
+  const progress = useTrackProgress(track);
+  const total = nav.groups.reduce((sum, group) => sum + group.chapters.length, 0);
 
   return (
     <Dialog.Root open={open} onOpenChange={setOpen}>
-      <Dialog.Trigger className="home-btn home-btn-outline learn-focusable !py-1.5 !text-[0.8rem]">
-        {triggerLabel}
+      <Dialog.Trigger className="lr-drawer-trigger learn-focusable">
+        <List className="size-4" aria-hidden="true" />
+        <span>{triggerLabel}</span>
+        {progress && (
+          <span className="lr-drawer-trigger-count">
+            {progress.size}/{total}
+            <span className="sr-only"> complete</span>
+          </span>
+        )}
       </Dialog.Trigger>
 
       <Dialog.Portal>
-        <Dialog.Backdrop className="fixed inset-0 z-50 bg-[rgba(10,14,25,0.35)] backdrop-blur-[2px] data-[ending-style]:opacity-0 data-[starting-style]:opacity-0 motion-safe:transition-opacity motion-safe:duration-200" />
-        <Dialog.Popup
-          className="fixed inset-y-0 left-0 z-50 flex w-[min(20rem,85vw)] flex-col overflow-y-auto border-r border-learn-line bg-learn-paper p-6 shadow-xl data-[ending-style]:-translate-x-full data-[starting-style]:-translate-x-full motion-safe:transition-transform motion-safe:duration-300"
-        >
-          <div className="mb-4 flex items-center justify-between gap-4">
-            <Dialog.Title className="home-serif text-lg text-learn-strong">
-              {nav.trackTitle}
-            </Dialog.Title>
-            <Dialog.Close className="home-btn home-btn-outline learn-focusable !py-1.5 !text-[0.8rem]">
-              Close
+        <Dialog.Backdrop className="lr-drawer-backdrop" />
+        <Dialog.Popup className="lr-drawer">
+          <div className="lr-drawer-head">
+            <div className="min-w-0">
+              <p className="learn-nav-heading !mb-0.5">Chapters</p>
+              <Dialog.Title className="home-serif truncate text-lg text-learn-strong">
+                {nav.trackTitle}
+              </Dialog.Title>
+            </div>
+            <Dialog.Close className="lr-drawer-close learn-focusable" aria-label="Close chapters">
+              <X className="size-5" aria-hidden="true" />
             </Dialog.Close>
           </div>
 
-          <LearnSidebar
-            track={track}
-            nav={nav}
-            variant="drawer"
-            onNavigate={() => setOpen(false)}
-          />
+          <div className="lr-drawer-body">
+            <LearnSidebar
+              track={track}
+              nav={nav}
+              variant="drawer"
+              onNavigate={() => setOpen(false)}
+            />
+          </div>
         </Dialog.Popup>
       </Dialog.Portal>
     </Dialog.Root>

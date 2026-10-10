@@ -2,7 +2,12 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { PageHero, PageSection, PhotoGrid } from "@/components/PageHero";
 import { PageShell } from "@/components/PageShell";
+import { Reveal } from "@/components/Reveal";
 import { TeamCard, type TeamMember } from "@/components/TeamCard";
+import GlareHover from "@/components/reactbits/GlareHover";
+import Magnet from "@/components/reactbits/Magnet";
+import ScrollExpandVideo from "@/components/reactbits/ScrollExpandVideo";
+import ScrollReveal from "@/components/reactbits/ScrollReveal";
 import { images } from "@/lib/images";
 import {
   CONGRESS_LETTER_HREF,
@@ -244,7 +249,7 @@ export default function AboutPage() {
 
       <PageSection id="mission">
         <div className="grid gap-10 lg:grid-cols-2 lg:items-center">
-          <div>
+          <Reveal>
             <h2 className="home-serif text-[1.75rem] md:text-[2.5rem]">
               Recognized by the U.S. House of Representatives
             </h2>
@@ -254,8 +259,9 @@ export default function AboutPage() {
               day to reach students in 150+ countries, from rural villages in
               India to classrooms in Nigeria.
             </p>
+            {/* The quote brightens word by word as it scrolls up the page. */}
             <blockquote className="mt-6 border-l-2 border-[#397554] pl-4 text-lg italic text-[var(--home-ink)]">
-              &ldquo;Tremendous leadership and service to your community.&rdquo;
+              <ScrollReveal text="“Tremendous leadership and service to your community.”" />
             </blockquote>
             <p className="mt-2 text-sm text-[var(--home-ink-quiet)]">
               Representative Mark DeSaulnier · March 4, 2026
@@ -268,17 +274,19 @@ export default function AboutPage() {
             >
               Read the letter <span className="home-arrow">→</span>
             </a>
-          </div>
-          <div className="home-card overflow-hidden rounded-[20px]">
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img
-              src={images.congressLetter}
-              alt="Letter from Representative Mark DeSaulnier recognizing CodeWithPurpose"
-              loading="lazy"
-              decoding="async"
-              className="aspect-[1002/1304] w-full object-cover"
-            />
-          </div>
+          </Reveal>
+          <Reveal delay={0.1}>
+            <GlareHover className="home-card rounded-[20px]">
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
+                src={images.congressLetter}
+                alt="Letter from Representative Mark DeSaulnier recognizing CodeWithPurpose"
+                loading="lazy"
+                decoding="async"
+                className="aspect-[1002/1304] w-full object-cover"
+              />
+            </GlareHover>
+          </Reveal>
         </div>
       </PageSection>
 
@@ -325,9 +333,11 @@ export default function AboutPage() {
               and tell us what you&rsquo;d like to work on.
             </p>
           </div>
-          <a href={CONTACT_EMAIL_HREF} className="home-btn home-btn-moss shrink-0">
-            Join Us
-          </a>
+          <Magnet className="shrink-0">
+            <a href={CONTACT_EMAIL_HREF} className="home-btn home-btn-moss">
+              Join Us
+            </a>
+          </Magnet>
         </div>
       </PageSection>
 
@@ -335,23 +345,22 @@ export default function AboutPage() {
         <h2 className="home-serif text-[1.75rem] md:text-[2.25rem]">
           Watch our story
         </h2>
-        <div className="mt-6 home-card overflow-hidden rounded-[20px]">
-          <video
-            src={images.promoVideo}
-            controls
-            playsInline
-            preload="metadata"
-            className="aspect-video w-full bg-black"
-            poster={images.heroStudent}
-          />
-        </div>
+        <ScrollExpandVideo
+          src={images.promoVideo}
+          poster={images.heroStudent}
+          posterAlt="A student smiling at his laptop during a CodeWithPurpose class"
+          title="Watch our story"
+          caption="How a few students started teaching code for free"
+        />
         <div className="mt-10 md:mt-16">
           <PhotoGrid photos={images.gallery.slice(0, 6)} columns={3} />
         </div>
         <div className="mt-10 flex flex-wrap gap-2">
-          <Link href={DONATE_HREF} className="home-btn home-btn-moss">
-            Support Our Mission
-          </Link>
+          <Magnet>
+            <Link href={DONATE_HREF} className="home-btn home-btn-moss">
+              Support Our Mission
+            </Link>
+          </Magnet>
         </div>
       </PageSection>
     </PageShell>

@@ -3,6 +3,31 @@
 import { useState, type ReactNode } from "react";
 import { ChevronDown } from "lucide-react";
 import { DONATE_HREF } from "@/lib/links";
+import { ArtSvg } from "@/components/art/ArtSvg";
+
+/**
+ * The list's small line icons, drawn like the site's other illustrations: a
+ * mint fill, a leaf-green offset print shadow, a draw-on when the list scrolls
+ * into view, and a little tilt when the row is hovered (see the art block in
+ * globals.css). Decorative; the label beside each one carries the meaning.
+ */
+function Icon({ children, ...rest }: { children: ReactNode; strokeLinecap?: "round"; strokeLinejoin?: "round" }) {
+  return (
+    <ArtSvg
+      width="22"
+      height="22"
+      viewBox="0 0 20 20"
+      fill="none"
+      aria-hidden="true"
+      className="art-icon overflow-visible"
+      shadow={{ dx: 1.3, dy: 1.3, color: "#3e7f5c", opacity: 0.3 }}
+    >
+      <g stroke="currentColor" strokeWidth="1.4" {...rest}>
+        {children}
+      </g>
+    </ArtSvg>
+  );
+}
 
 interface ImpactDetail {
   title: string;
@@ -20,9 +45,9 @@ const items: ImpactItem[] = [
   {
     label: "Free courses",
     icon: (
-      <svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" strokeWidth="1.4" aria-hidden="true">
+      <Icon>
         <path d="M2 10c0-1.6 1.4-2.8 3.2-2.8 3 0 6.6 5.6 9.6 5.6 1.8 0 3.2-1.2 3.2-2.8s-1.4-2.8-3.2-2.8c-3 0-6.6 5.6-9.6 5.6C3.4 12.8 2 11.6 2 10Z" strokeLinejoin="round" />
-      </svg>
+      </Icon>
     ),
     detail: {
       title: "Education without a fee",
@@ -34,11 +59,11 @@ const items: ImpactItem[] = [
   {
     label: "Student-run nonprofit",
     icon: (
-      <svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" strokeWidth="1.4" aria-hidden="true">
-        <path d="M10 3.5 2.5 7 10 10.5 17.5 7 10 3.5Z" strokeLinejoin="round" />
+      <Icon>
+        <path d="M10 3.5 2.5 7 10 10.5 17.5 7 10 3.5Z" strokeLinejoin="round" fill="#dbefdb" />
         <path d="M5.5 9v3c0 1.4 2 2.5 4.5 2.5s4.5-1.1 4.5-2.5V9" />
         <path d="M17.5 7v4.5" strokeLinecap="round" />
-      </svg>
+      </Icon>
     ),
     detail: {
       title: "Made by students, for students",
@@ -50,11 +75,11 @@ const items: ImpactItem[] = [
   {
     label: "Global reach",
     icon: (
-      <svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" strokeWidth="1.4" aria-hidden="true">
-        <circle cx="10" cy="10" r="7.5" />
+      <Icon>
+        <circle cx="10" cy="10" r="7.5" fill="#dbefdb" />
         <ellipse cx="10" cy="10" rx="3.2" ry="7.5" />
         <path d="M2.5 10h15" />
-      </svg>
+      </Icon>
     ),
     detail: {
       title: "Students in 150+ countries",
@@ -66,11 +91,11 @@ const items: ImpactItem[] = [
   {
     label: "Congressional recognition",
     icon: (
-      <svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" strokeWidth="1.4" strokeLinejoin="round" aria-hidden="true">
-        <path d="M10 3 3 7.5h14L10 3Z" />
+      <Icon strokeLinejoin="round">
+        <path d="M10 3 3 7.5h14L10 3Z" fill="#dbefdb" />
         <path d="M5 10v4.5M8.33 10v4.5M11.67 10v4.5M15 10v4.5" strokeLinecap="round" />
         <path d="M3 17h14" strokeLinecap="round" />
-      </svg>
+      </Icon>
     ),
     detail: {
       title: "Recognized by Congress",
@@ -82,11 +107,11 @@ const items: ImpactItem[] = [
   {
     label: "Real projects, real skills",
     icon: (
-      <svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+      <Icon strokeLinecap="round" strokeLinejoin="round">
         <path d="M6.5 6.5 3 10l3.5 3.5" />
         <path d="M13.5 6.5 17 10l-3.5 3.5" />
         <path d="M11.5 4.5l-3 11" />
-      </svg>
+      </Icon>
     ),
     detail: {
       title: "Build projects from the start",
@@ -98,9 +123,9 @@ const items: ImpactItem[] = [
   {
     label: "Volunteer-powered",
     icon: (
-      <svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" strokeWidth="1.4" strokeLinejoin="round" aria-hidden="true">
-        <path d="M10 16.5s-6.5-3.8-6.5-8.2C3.5 5.9 5.4 4.5 7.3 4.5c1.1 0 2.1.5 2.7 1.4.6-.9 1.6-1.4 2.7-1.4 1.9 0 3.8 1.4 3.8 3.8 0 4.4-6.5 8.2-6.5 8.2Z" />
-      </svg>
+      <Icon strokeLinejoin="round">
+        <path d="M10 16.5s-6.5-3.8-6.5-8.2C3.5 5.9 5.4 4.5 7.3 4.5c1.1 0 2.1.5 2.7 1.4.6-.9 1.6-1.4 2.7-1.4 1.9 0 3.8 1.4 3.8 3.8 0 4.4-6.5 8.2-6.5 8.2Z" fill="#dbefdb" />
+      </Icon>
     ),
     detail: {
       title: "Volunteers who teach",
@@ -112,10 +137,10 @@ const items: ImpactItem[] = [
   {
     label: "30+ languages taught",
     icon: (
-      <svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" strokeWidth="1.4" strokeLinejoin="round" aria-hidden="true">
-        <path d="M3 3.5h9V9H7.5L5 11.5V9H3V3.5Z" />
+      <Icon strokeLinejoin="round">
+        <path d="M3 3.5h9V9H7.5L5 11.5V9H3V3.5Z" fill="#dbefdb" />
         <path d="M17 16.5H8V11h4.5L15 8.5V11h2v5.5Z" />
-      </svg>
+      </Icon>
     ),
     detail: {
       title: "Education that crosses borders",

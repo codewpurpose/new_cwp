@@ -1,6 +1,12 @@
 import type { ReactNode } from "react";
 import Image from "next/image";
 import { Reveal } from "@/components/Reveal";
+import BlurText from "@/components/reactbits/BlurText";
+import Masonry from "@/components/reactbits/Masonry";
+import TiltedCard from "@/components/reactbits/TiltedCard";
+
+const HERO_TITLE_CLASS =
+  "home-display text-[2rem] leading-[1.05] tracking-[-0.02em] md:text-[2.75rem] lg:text-[3.25rem]";
 
 export function PageHero({
   title,
@@ -24,9 +30,13 @@ export function PageHero({
         }`}
       >
         <Reveal>
-          <h1 className="home-display text-[2rem] leading-[1.05] tracking-[-0.02em] md:text-[2.75rem] lg:text-[3.25rem]">
-            {title}
-          </h1>
+          {/* Plain-string titles get the React Bits word reveal; a few pages
+              pass markup (links, line breaks), which stays a static heading. */}
+          {typeof title === "string" ? (
+            <BlurText as="h1" text={title} className={HERO_TITLE_CLASS} />
+          ) : (
+            <h1 className={HERO_TITLE_CLASS}>{title}</h1>
+          )}
           {description && (
             <p className="mt-5 max-w-xl text-lg leading-[1.5] text-[var(--home-ink-soft)]">
               {description}
@@ -41,20 +51,24 @@ export function PageHero({
                 aria-hidden="true"
                 className="absolute -inset-2.5 rotate-[1.4deg] rounded-[24px] border-[0.5px] border-[#cde4cd] bg-[#dbefdb]/60"
               />
-              <div className="home-card relative aspect-[4/3] w-full overflow-hidden rounded-[20px]">
-                <Image
-                  src={image}
-                  alt={imageAlt ?? ""}
-                  // The hero art is the largest thing above the fold on every
-                  // page that has one, so it is almost always the LCP element.
-                  // Left at default priority it queues behind the fonts and the
-                  // rest of the head; deliberately NOT lazy for the same reason.
-                  fill
-                  sizes="(max-width: 767px) calc(100vw - 40px), (max-width: 1023px) calc(100vw - 80px), (max-width: 1359px) calc(50vw - 60px), 620px"
-                  priority
-                  className="object-cover"
-                />
-              </div>
+              {/* Only the photo tilts; the green card behind stays put, so the
+                  gap between them opens and closes like a lifted print. */}
+              <TiltedCard className="relative">
+                <div className="home-card relative aspect-[4/3] w-full overflow-hidden rounded-[20px]">
+                  <Image
+                    src={image}
+                    alt={imageAlt ?? ""}
+                    // The hero art is the largest thing above the fold on every
+                    // page that has one, so it is almost always the LCP element.
+                    // Left at default priority it queues behind the fonts and the
+                    // rest of the head; deliberately NOT lazy for the same reason.
+                    fill
+                    sizes="(max-width: 767px) calc(100vw - 40px), (max-width: 1023px) calc(100vw - 80px), (max-width: 1359px) calc(50vw - 60px), 620px"
+                    priority
+                    className="object-cover"
+                  />
+                </div>
+              </TiltedCard>
             </div>
           </Reveal>
         )}
@@ -88,28 +102,12 @@ export function PhotoGrid({
 }) {
   const colClass =
     columns === 2
-      ? "grid-cols-2"
+      ? "columns-2"
       : columns === 3
-        ? "md:grid-cols-3"
-        : "md:grid-cols-2 lg:grid-cols-4";
+        ? "columns-2 md:columns-3"
+        : "columns-2 md:columns-3 lg:columns-4";
 
-  return (
-    <div className={`grid grid-cols-2 gap-2.5 ${colClass}`}>
-      {photos.map((photo) => (
-        <div
-          key={photo.src}
-          className="home-card home-lift overflow-hidden rounded-xl"
-        >
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img
-            src={photo.src}
-            alt={photo.alt}
-            loading="lazy"
-            decoding="async"
-            className="aspect-[4/3] w-full object-cover"
-          />
-        </div>
-      ))}
-    </div>
-  );
+  // React Bits Masonry: photos keep their own portrait/landscape shape instead
+  // of all being cropped to 4:3, and rise into focus as they scroll in.
+  return <Masonry photos={photos} className={colClass} />;
 }

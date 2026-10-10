@@ -1,3 +1,4 @@
+import { ArtSvg } from "@/components/art/ArtSvg";
 import { VIBECODING_GLYPHS } from "@/components/vibecoding/VibecodingIcons";
 
 /**
@@ -6,7 +7,8 @@ import { VIBECODING_GLYPHS } from "@/components/vibecoding/VibecodingIcons";
  * Each chapter gets its own glyph, coloured by the part it belongs to and
  * numbered by its position in the curriculum. So a card tells you three things
  * at a glance: what it is about, which part it sits in, and how far through you
- * are. Inline SVG from the design tokens — no binary assets.
+ * are. Inline SVG from the design tokens — no binary assets. ArtSvg adds the
+ * shared layered-paper shadow, draw-on and hover lift (see art/CoverFrame).
  */
 
 interface CoverProps {
@@ -36,18 +38,35 @@ export function VibecodingLessonCover({ slug, partId, order }: CoverProps) {
   const Glyph = VIBECODING_GLYPHS[slug];
 
   return (
-    <svg
+    <ArtSvg
       viewBox={`0 0 ${W} ${H}`}
-      className="aspect-[16/9] w-full"
+      className="art-lift aspect-[16/9] w-full"
       aria-hidden="true"
       preserveAspectRatio="xMidYMid slice"
       data-slug={slug}
+      shadow={{ dx: 1.4, dy: 1.8, opacity: 0.11 }}
+      backdrop={
+        <>
+          <rect width={W} height={H} fill="var(--learn-chart-plot)" />
+
+          {/* A quiet wash keyed to the part, so a grid of cards groups visually. */}
+          <circle cx={W - 26} cy={22} r={44} fill={part.wash} />
+
+          <text
+            x={W - 16}
+            y={H - 14}
+            textAnchor="end"
+            fontSize={28}
+            fontWeight={700}
+            fill={part.colour}
+            opacity={0.32}
+            className="font-[family-name:var(--learn-font-sans)]"
+          >
+            {order}
+          </text>
+        </>
+      }
     >
-      <rect width={W} height={H} fill="var(--learn-chart-plot)" />
-
-      {/* A quiet wash keyed to the part, so a grid of cards groups visually. */}
-      <circle cx={W - 26} cy={22} r={44} fill={part.wash} />
-
       {Glyph && (
         <g
           transform={`translate(${W / 2 - 14}, ${H / 2}) scale(0.82)`}
@@ -56,19 +75,6 @@ export function VibecodingLessonCover({ slug, partId, order }: CoverProps) {
           <Glyph />
         </g>
       )}
-
-      <text
-        x={W - 16}
-        y={H - 14}
-        textAnchor="end"
-        fontSize={28}
-        fontWeight={700}
-        fill={part.colour}
-        opacity={0.32}
-        className="font-[family-name:var(--learn-font-sans)]"
-      >
-        {order}
-      </text>
-    </svg>
+    </ArtSvg>
   );
 }

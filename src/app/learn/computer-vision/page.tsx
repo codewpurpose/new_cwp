@@ -1,21 +1,13 @@
 import type { Metadata } from "next";
 import { JsonLd } from "@/components/seo/JsonLd";
 import { courseJsonLd, breadcrumbJsonLd } from "@/lib/seo";
-import Link from "next/link";
-import { PageHero, PageSection } from "@/components/PageHero";
 import { ContributeBand } from "@/components/learn/cards/ContributeBand";
 import { CtaBand } from "@/components/learn/cards/CtaBand";
-import { LessonCard } from "@/components/learn/cards/LessonCard";
+import { CourseHome } from "@/components/learn/space/CourseHome";
+import { LearnSpaceShell } from "@/components/learn/space/LearnSpaceShell";
 import { ComputerVisionLessonCover } from "@/components/computer-vision/ComputerVisionLessonCover";
-import { PageShell } from "@/components/PageShell";
-import { Reveal } from "@/components/Reveal";
-import { images } from "@/lib/images";
-import {
-  COMPUTER_VISION_COURSE_HREF,
-  COURSES_HREF,
-  LEARN_ML_HREF,
-} from "@/lib/links";
-import { chapterHref, getChapters, getPartsWithChapters } from "@/lib/learn-nav";
+import { COMPUTER_VISION_COURSE_HREF, LEARN_ML_HREF } from "@/lib/links";
+import { chapterHref, getChapters } from "@/lib/learn-nav";
 
 export const metadata: Metadata = {
   title: "Computer Vision",
@@ -26,7 +18,6 @@ export const metadata: Metadata = {
 
 export default function LearnComputerVisionPage() {
   const lessons = getChapters("computer-vision");
-  const parts = getPartsWithChapters("computer-vision");
   // Published chapters come back in reading order, so this is lesson one. It is
   // read defensively because a track with nothing published is a valid state
   // for the validator, and a missing chapter must not take the build down.
@@ -36,79 +27,37 @@ export default function LearnComputerVisionPage() {
     <>
       <JsonLd data={courseJsonLd({ name: String(metadata.title), description: String(metadata.description), path: "/learn/computer-vision/" })} />
       <JsonLd data={breadcrumbJsonLd([{ name: "Home", path: "/" }, { name: "Courses", path: "/courses/" }, { name: String(metadata.title), path: "/learn/computer-vision/" }])} />
-      <PageShell>
-      <PageHero
-        title="Computer vision, made visual"
-        description="CodeWithPurpose lessons that explain how a machine turns a photo into a label, a box, or a mask — through live demos and clear visuals. Click any topic to explore, no setup required."
-        image={images.codingLaptop}
-        imageAlt="Student exploring computer vision with CodeWithPurpose"
-      >
-        <Link href={COURSES_HREF} className="home-btn home-btn-outline">
-          All Courses
-        </Link>
-        <a
-          href={COMPUTER_VISION_COURSE_HREF}
-          target="_blank"
-          rel="noreferrer"
-          className="home-btn home-btn-violet"
-        >
-          Udemy CV Course
-        </a>
-      </PageHero>
+      <LearnSpaceShell track="computer-vision">
+        <CourseHome
+          track="computer-vision"
+          title="Computer vision, made visual"
+          description="CodeWithPurpose lessons that explain how a machine turns a photo into a label, a box, or a mask — through live demos and clear visuals. Click any topic to explore, no setup required."
+          udemy={{ href: COMPUTER_VISION_COURSE_HREF, label: "Udemy CV Course" }}
+          chapterMedia={(chapter) => <ComputerVisionLessonCover slug={chapter.slug} />}
+        />
 
-      {parts.map((group, groupIndex) => (
-        <PageSection key={group.part.id} className={groupIndex > 0 ? "!pt-0" : undefined}>
-          <div className="flex flex-wrap items-baseline gap-3">
-            <h2 className="home-serif text-[1.5rem] text-learn-strong md:text-[1.9rem]">
-              <span className="text-learn-accent-text">{group.part.number}.</span>{" "}
-              {group.part.title}
-            </h2>
-            <span className="text-[0.8rem] text-learn-subtle">
-              {group.chapters.length} {group.chapters.length === 1 ? "chapter" : "chapters"}
-            </span>
-          </div>
-          <p className="mt-2 max-w-2xl text-[15px] leading-[1.55] text-learn-muted">
-            {group.part.summary}
-          </p>
-          <div className="mt-6 grid gap-6 md:grid-cols-2">
-            {group.chapters.map((lesson, index) => (
-              <Reveal key={lesson.slug} delay={index * 0.08}>
-                <LessonCard
-                  href={chapterHref("computer-vision", lesson.slug)}
-                  title={lesson.title}
-                  description={lesson.description}
-                  tags={lesson.tags}
-                  meta={`${lesson.minutes} min read`}
-                  media={<ComputerVisionLessonCover slug={lesson.slug} />}
-                />
-              </Reveal>
-            ))}
-          </div>
-        </PageSection>
-      ))}
+        <ContributeBand />
 
-      <ContributeBand />
-
-      {/* The band promises more CV, so its actions stay inside /learn. Sending
-          the strongest action to /courses was what closed the exploration
-          cycle; /courses is reachable from the nav on every page anyway. */}
-      <CtaBand
-        title="Keep building your computer vision foundation"
-        body="These lessons are part of CodeWithPurpose's free learning library — built by students, for students, everywhere."
-        actions={[
-          ...(firstLesson
-            ? ([
-                {
-                  href: chapterHref("computer-vision", firstLesson.slug),
-                  label: "Start the first lesson",
-                  variant: "primary",
-                },
-              ] as const)
-            : []),
-          { href: LEARN_ML_HREF, label: "Try Machine Learning", variant: "secondary" },
-        ]}
-      />
-      </PageShell>
+        {/* The band promises more CV, so its actions stay inside /learn. Sending
+            the strongest action to /courses was what closed the exploration
+            cycle; /courses is reachable from the nav on every page anyway. */}
+        <CtaBand
+          title="Keep building your computer vision foundation"
+          body="These lessons are part of CodeWithPurpose's free learning library — built by students, for students, everywhere."
+          actions={[
+            ...(firstLesson
+              ? ([
+                  {
+                    href: chapterHref("computer-vision", firstLesson.slug),
+                    label: "Start the first lesson",
+                    variant: "primary",
+                  },
+                ] as const)
+              : []),
+            { href: LEARN_ML_HREF, label: "Try Machine Learning", variant: "secondary" },
+          ]}
+        />
+      </LearnSpaceShell>
     </>
   );
 }
