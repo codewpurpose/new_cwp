@@ -132,7 +132,7 @@ export function FeatureScalingLesson() {
                     question about order, not magnitude. Multiply every income by a thousand, or
                     subtract off the mean, and the same applicants land on the same side of the
                     same split. Any order-preserving rescaling moves the cut-off values but leaves
-                    every prediction exactly as it was.
+                    the same training examples on each side of the split.
                   </p>
                 </>
               ),
