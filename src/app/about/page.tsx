@@ -141,11 +141,12 @@ const teamMembers: TeamMember[] = [
     bio: "Hi! I assist with media at Code With Purpose. I'm a student researcher interested in neuroscience and abnormal/forensic psychiatry, and have worked with professors from BU and Harvard on research into Parkinson's Disease as well as behavioral economics and neuroscience more broadly. In the future I hope to pursue a career in forensic psychiatry. In my free time I enjoy hanging out with my friends, family, and dogs, playing the violin and guitar, playing volleyball, and dancing.",
   },
   {
-    name: "Trey Lim",
-    role: "Co-Social Media Lead & Member of Finance",
+    name: "Svanik Thakur",
+    role: "Sponsorship Lead",
     country: UNITED_STATES,
-    photo: images.team.trey,
-    bio: "Hey, I'm Trey! I'm a finance bro that enjoys creating bonds with others, researching AI, and learning with friends.",
+    photo: images.team.svanik,
+    linkedin: "https://www.linkedin.com/in/svanik-thakur-0029a5372/",
+    instagram: "https://www.instagram.com/svanikt13/",
   },
   {
     name: "Rachit Panchal",
@@ -155,6 +156,13 @@ const teamMembers: TeamMember[] = [
     linkedin: "https://www.linkedin.com/in/rachit-panchal-1800b4409/?isSelfProfile=true",
     instagram: "https://www.instagram.com/rachit_panchal10/?hl=en",
     bio: "Hey! I'm Rachit Panchal, Lead of Sponsorships at Code With Purpose. I'm into AI and computer science, entrepreneurship, and finance, and I'm VP of my school's Hacking & Coding Club, President of the Finance Club, and a founder of Dublin HacX. I joined CWP to help get sponsors on board so we can keep making coding education free for everyone.",
+  },
+  {
+    name: "Trey Lim",
+    role: "Co-Social Media Lead & Member of Finance",
+    country: UNITED_STATES,
+    photo: images.team.trey,
+    bio: "Hey, I'm Trey! I'm a finance bro that enjoys creating bonds with others, researching AI, and learning with friends.",
   },
   {
     name: "Aadi Naik",
