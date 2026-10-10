@@ -2,10 +2,9 @@
 
 import { useCallback, useEffect, useRef, useState } from "react";
 import { createPortal } from "react-dom";
+import Image from "next/image";
 import { X } from "lucide-react";
 import { InstagramIcon, LinkedInIcon, SnapchatIcon, TikTokIcon } from "@/components/icons";
-import SpotlightCard from "@/components/reactbits/SpotlightCard";
-import { SPOTLIGHT_PROPS } from "@/lib/spotlight";
 
 export interface TeamMember {
   name: string;
@@ -98,9 +97,11 @@ function TeamMemberAvatar({ member, avatar }: { member: TeamMember; avatar: stri
         // The circle is the clipping frame, so a per-member `photoClass` can
         // scale and offset the photo inside it without spilling past the edge.
         <span className="block aspect-square overflow-hidden rounded-full">
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img
+          <Image
             src={member.photo}
+            width={320}
+            height={320}
+            sizes="(max-width: 640px) 128px, 192px"
             alt={member.name}
             loading="lazy"
             decoding="async"
@@ -164,10 +165,8 @@ export function TeamCard({
   }, [closeDialog, open]);
 
   return (
-    <SpotlightCard
+    <div
       role="article"
-      {...SPOTLIGHT_PROPS}
-      spotlightSize={180}
       className={`home-card home-lift rounded-xl p-4 text-center ${width}`}
     >
       <button
@@ -183,7 +182,7 @@ export function TeamCard({
       </button>
       <SocialLinks member={member} />
       {open && <TeamMemberDialog member={member} onClose={closeDialog} />}
-    </SpotlightCard>
+    </div>
   );
 }
 
@@ -249,9 +248,11 @@ function TeamMemberDialog({
 
         {member.photo ? (
           <div className="mx-auto aspect-square w-24 overflow-hidden rounded-full">
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img
+              <Image
               src={member.photo}
+            width={320}
+            height={320}
+            sizes="(max-width: 640px) 128px, 192px"
               alt={member.name}
               decoding="async"
               className={`h-full w-full object-cover ${member.photoClass ?? ""}`}

@@ -185,6 +185,7 @@ function KoalaBase({ canOfferSignup }: { canOfferSignup: boolean }) {
    */
   const [subscribed, setSubscribed] = useState(true);
   const rootRef = useRef<HTMLDivElement>(null);
+  const loadingPose = useRef(false);
   const { scope, hopY, squash, hop, wiggle } = useKodaBody();
   const { bursts, fire } = useKodaBurst();
 
@@ -368,28 +369,6 @@ function KoalaBase({ canOfferSignup }: { canOfferSignup: boolean }) {
     /* eslint-enable react-hooks/set-state-in-effect */
   }, []);
 
-  /**
-   * Decode every pose once, up front.
-   *
-   * The <img> below swaps its `src` on every tap, in the same frame as the
-   * squash-and-stretch starts. It used to be keyed and remounted to replay a
-   * CSS pop from opacity 0, which flashed a blank frame whenever the bitmap was
-   * not ready; the squash now carries the transition and the element stays.
-   *
-   * Decoding all eight poses on mount means the next pose's bitmap is already
-   * in memory when the swap happens, so it paints with content in the same
-   * frame React commits it.
-   */
-  useEffect(() => {
-    for (const p of POSES) {
-      const img = new Image();
-      img.src = p.src;
-      // A pose that refuses to decode simply behaves as it did before; there
-      // is nothing useful to do about it here.
-      void img.decode?.().catch(() => {});
-    }
-  }, []);
-
   // Wave hello shortly after arriving (deferred inside a timer).
   useEffect(() => {
     if (dismissed) return;
@@ -468,14 +447,20 @@ function KoalaBase({ canOfferSignup }: { canOfferSignup: boolean }) {
     setBubble(false);
   };
 
-  const onTap = () => {
+  const onTap = async () => {
     if (shouldAskForEmail) {
       setSignupOpen(true);
       setBubble(false);
       return;
     }
+    if (loadingPose.current) return;
+    loadingPose.current = true;
     const t = taps + 1;
     const next = (index + 1) % POSES.length;
+    // Decode only the requested pose; keep the current image visible while it loads.
+    const image = new Image();
+    image.src = POSES[next].src;
+    try { await image.decode(); } catch { return; } finally { loadingPose.current = false; }
     setGreeting(false);
     setTaps(t);
     setIndex(next);
@@ -550,9 +535,7 @@ function KoalaBase({ canOfferSignup }: { canOfferSignup: boolean }) {
                   width={pose.w}
                   height={pose.h}
                   draggable={false}
-                  /* Not "async": async decoding is permission to paint the swapped
-                     source before its bitmap arrives. The preload effect above means
-                     there is nothing to wait for. */
+                  /* The requested pose is decoded before changing the source. */
                   decoding="sync"
                 />
               </motion.span>

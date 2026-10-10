@@ -10,7 +10,12 @@ import { COURSES, TOTAL_CHAPTERS, courseProgress } from "@/lib/student-courses";
 import { DISPLAY_NAME_MAX, displayNameIssue } from "@/lib/display-name";
 import { TOOLKIT_HREF } from "@/lib/links";
 import { useStudent } from "@/components/dashboard/useStudent";
-import { Whiteboard } from "@/components/dashboard/Whiteboard";
+import dynamic from "next/dynamic";
+
+const Whiteboard = dynamic(
+  () => import("@/components/dashboard/Whiteboard").then((module) => module.Whiteboard),
+  { loading: () => <p role="status">Loading your whiteboard…</p>, ssr: false },
+);
 
 type Tab = "hub" | "courses" | "rewards" | "badges" | "whiteboard";
 const TABS: { id: Tab; label: string }[] = [
@@ -66,7 +71,7 @@ export function StudentDashboard() {
   let resume: { title: string; href: string } | null = null;
   for (const c of COURSES) {
     const done = state.progress[c.id] || [];
-    if (done.length === 0 || done.length >= c.chapters.length) continue;
+    if (done.length === 0 || courseProgress(state, c).done >= c.chapters.length) continue;
     const next = c.chapters.find((ch) => !done.includes(ch.slug));
     if (next) {
       resume = { title: `${next.title} · ${c.title}`, href: chapterHref(c.id, next.slug) };
@@ -214,7 +219,7 @@ export function StudentDashboard() {
               <div className="home-card rounded-2xl p-6 md:col-span-2">
                 <p className="text-lg font-medium">Start a course to build your streak 🐨</p>
                 <p className="mt-1 text-sm text-[var(--home-ink-soft)]">
-                  Head to <span className="font-medium">My Courses</span> and tick off your first chapter.
+                  Head to <span className="font-medium">My Courses</span> and pass your first lesson quick check.
                 </p>
               </div>
             )}

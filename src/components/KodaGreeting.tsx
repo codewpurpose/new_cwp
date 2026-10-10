@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useRef, useState } from "react";
 import Image from "next/image";
 import { motion, useMotionValue, useSpring } from "motion/react";
 import ClickSpark from "@/components/reactbits/ClickSpark";
@@ -34,8 +34,7 @@ const TILT = 10;
  */
 export function KodaGreeting() {
   const [index, setIndex] = useState(0);
-  // The other poses are mounted (hidden) shortly after load so a tap swaps to
-  // an already-decoded image instead of flashing an empty box.
+  // Load alternate poses only after someone interacts with Koda.
   const [warm, setWarm] = useState(false);
   const idleRef = useRef<HTMLSpanElement>(null);
   const { scope, hopY, squash, hop } = useKodaBody();
@@ -44,11 +43,6 @@ export function KodaGreeting() {
 
   const rotateX = useSpring(useMotionValue(0), { stiffness: 220, damping: 18 });
   const rotateY = useSpring(useMotionValue(0), { stiffness: 220, damping: 18 });
-
-  useEffect(() => {
-    const timer = setTimeout(() => setWarm(true), 1200);
-    return () => clearTimeout(timer);
-  }, []);
 
   const current = index % poses.length;
   const pose = poses[current];
@@ -106,6 +100,7 @@ export function KodaGreeting() {
                       data-active={i === current ? "true" : undefined}
                       width={p.width}
                       height={p.height}
+                      sizes="(min-width: 1200px) 320px, 220px"
                       priority={i === 0}
                       loading={i === 0 ? undefined : "eager"}
                       draggable={false}
