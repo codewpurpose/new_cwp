@@ -28,12 +28,6 @@ const nextConfig: NextConfig = {
   // Canonical slashes are handled in src/proxy.ts; redirects below handle the
   // legacy aliases before Proxy runs.
   skipTrailingSlashRedirect: true,
-  images: {
-    // GitHub avatars, for the commits leaderboard (/leaderboard/commits).
-    // Every other image on the site is local, so this is the one host that
-    // needs an explicit allow.
-    remotePatterns: [{ protocol: "https", hostname: "avatars.githubusercontent.com" }],
-  },
   async redirects() {
     return [
       ...RETIRED_ML_SLUGS.map((slug) => ({

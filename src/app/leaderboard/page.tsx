@@ -5,7 +5,7 @@ import { PageShell } from "@/components/PageShell";
 import { Leaderboard } from "@/components/leaderboard/Leaderboard";
 import { LeaderboardExplainer } from "@/components/leaderboard/LeaderboardExplainer";
 import { images } from "@/lib/images";
-import { COMMITS_LEADERBOARD_HREF, COURSES_HREF } from "@/lib/links";
+import { COURSES_HREF } from "@/lib/links";
 
 export const metadata: Metadata = {
   title: "Leaderboard",
@@ -27,14 +27,11 @@ export default function LeaderboardPage() {
         <Link href={COURSES_HREF} className="home-btn home-btn-outline">
           Browse Courses
         </Link>
-        <Link href={COMMITS_LEADERBOARD_HREF} className="home-btn home-btn-outline">
-          Commits Leaderboard
-        </Link>
       </PageHero>
 
       <PageSection>
         <div className="mb-6">
-          <LeaderboardExplainer current="xp" />
+          <LeaderboardExplainer />
         </div>
         <Leaderboard />
       </PageSection>

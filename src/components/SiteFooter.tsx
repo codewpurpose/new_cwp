@@ -4,7 +4,6 @@ import { FooterNewsletter } from "@/components/newsletter/FooterNewsletter";
 import {
   ABOUT_HREF,
   CONTACT_HREF,
-  COMMITS_LEADERBOARD_HREF,
   COURSES_HREF,
   DASHBOARD_HREF,
   DISCORD_HREF,
@@ -101,11 +100,6 @@ export function SiteFooter() {
                     <li>
                       <a href={LEADERBOARD_HREF} className="home-footer-link">
                         Leaderboard
-                      </a>
-                    </li>
-                    <li>
-                      <a href={COMMITS_LEADERBOARD_HREF} className="home-footer-link">
-                        Commits Leaderboard
                       </a>
                     </li>
                     <li>
