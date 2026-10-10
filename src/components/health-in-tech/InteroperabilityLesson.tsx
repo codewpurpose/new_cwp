@@ -143,8 +143,8 @@ export function InteroperabilityLesson() {
         </P>
         <Callout tone="note" title="This is exactly what the next chapter covers">
           That shared standard already exists and has a name — FHIR. The next chapter walks
-          through what it actually looks like as data, and why it took decades to catch on even
-          after it existed.
+          through what it actually looks like as data, and why shared standards took decades to
+          catch on even after they existed.
         </Callout>
       </LessonSection>
 

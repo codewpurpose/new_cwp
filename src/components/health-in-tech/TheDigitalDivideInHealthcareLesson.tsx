@@ -36,8 +36,10 @@ export function TheDigitalDivideInHealthcareLesson() {
 
       <LessonSection id="who-gets-left-out-by-that-assumption" title="Who gets left out by that assumption">
         <P>
-          The gap is not evenly spread. Compare access across a few different groups below — the
-          difference between the best-connected and least-connected group is not a rounding error,
+          The gap is not evenly spread. Compare access across a few different groups in the
+          illustrative chart below — the figures are simulated to show the shape of the gap, not
+          taken from a specific survey — and notice that the difference between the
+          best-connected and least-connected group is not a rounding error,
           it is the difference between a product that works for someone and one that quietly does
           not.
         </P>

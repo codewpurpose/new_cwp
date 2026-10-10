@@ -76,8 +76,9 @@ export function RemoteCareAcrossBordersLesson() {
           This shows up within a single country too, not just between them. Inside the United
           States, a physician has historically needed a licence in the state where the patient
           is sitting during the call, not just the state where the doctor practises day to day —
-          a handful of states have built compacts to ease this for specific groups of
-          clinicians, but no equivalent system exists for most international consultations.
+          many states have joined licensure compacts that make it faster for eligible clinicians
+          to get the extra licences they need, but no equivalent system exists for most
+          international consultations.
           Some useful cross-border care happens in a legal grey zone that both
           doctor and patient are trusting will never actually get tested.
         </P>

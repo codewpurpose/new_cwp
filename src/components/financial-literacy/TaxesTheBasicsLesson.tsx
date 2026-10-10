@@ -18,12 +18,15 @@ export function TaxesTheBasicsLesson() {
       <LessonSection id="a-tax-bracket-only-taxes-the-income-inside-it" title="A tax bracket only taxes the income inside it">
         <P>
           The US uses a <Strong>marginal</Strong> tax system: income is sliced into bands, and each
-          band is taxed only at its own rate. Someone earning $60,000 doesn&apos;t pay one rate on
-          the full amount — the first slice is taxed at 10%, the next slice at 12%, and so on, only
+          band is taxed only at its own rate. Someone with $60,000 of taxable income — what&apos;s
+          left after deductions like the standard deduction — doesn&apos;t pay one rate on the
+          full amount — the first slice is taxed at 10%, the next slice at 12%, and so on, only
           up to wherever their income actually stops.
         </P>
         <P>
-          Run the actual numbers for that $60,000. The first $11,600 is taxed at 10%, which is
+          Run the actual numbers for that $60,000, using the 2024 single-filer brackets (the
+          thresholds are adjusted for inflation every year, so check the current ones). The first
+          $11,600 is taxed at 10%, which is
           $1,160. The next $35,550, up to $47,150, is taxed at 12%, which is $4,266. The remaining
           $12,850, up to the full $60,000, is taxed at 22%, which is $2,827. Add the three slices
           together — $1,160 plus $4,266 plus $2,827 — and the total tax bill is $8,253, not the
@@ -99,6 +102,11 @@ export function TaxesTheBasicsLesson() {
           some benefit with its own separate income cutoff out of reach, which is a real
           consideration, but a completely different mechanism from the tax bracket itself.
         </P>
+        <Callout tone="tip" title="Try it yourself">
+          Set the slider above to $45,000, then to $50,000. Only the $2,850 that crossed $47,150
+          moves into the 22% bracket; the tax on that slice rises from 12% to 22%, an extra $285.
+          The other $47,150 is taxed exactly as before, which is why take-home pay still goes up.
+        </Callout>
         <Callout tone="note" title="Where this actually gets confusing">
           Some tax credits and government benefits do phase out above certain income thresholds,
           and that can offset a raise&apos;s value. That&apos;s a separate, real

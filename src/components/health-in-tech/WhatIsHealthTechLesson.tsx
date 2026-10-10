@@ -77,9 +77,10 @@ export function WhatIsHealthTechLesson() {
           touched health tech before you sat in the waiting room.
         </P>
         <P>
-          Checked your step count or resting heart rate on a phone or watch? Roughly a third of
-          adults in the US now own a wearable that tracks something health-adjacent, and a
-          meaningful share of those readings get shown to an actual clinician at some point.
+          Checked your step count or resting heart rate on a phone or watch? Wearables that track
+          something health-adjacent are now an everyday purchase, and some of those readings end
+          up in front of an actual clinician — shown at an appointment, or fed into a monitoring
+          programme.
         </P>
         <P>
           Had a video call with a doctor instead of driving to a clinic? Telehealth visits
@@ -160,8 +161,8 @@ export function WhatIsHealthTechLesson() {
         <P>
           Skip a stage and the others stop making sense. Bias in a diagnosis model (Part 4)
           is only dangerous because that model&apos;s output reaches a real patient through an
-          app or a doctor&apos;s screen (Part 5) built on a record that was supposed to be
-          protected the whole way through (Part 2). Treat health tech as one system and every
+          app or a doctor&apos;s screen (Part 5), built on a record (Part 2) that was supposed to
+          be protected the whole way through (Part 6). Treat health tech as one system and every
           later chapter has somewhere to attach to.
         </P>
       </LessonSection>

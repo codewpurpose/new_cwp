@@ -116,9 +116,9 @@ export function RiskAndDiversificationLesson() {
         </P>
         <P>
           <Strong>Systematic risk</Strong> — also called market risk — is the part that hits
-          nearly everything at once: a recession, a spike in interest rates, a war, a pandemic. In
-          2008, broad stock indices fell by roughly half across nearly every industry and nearly
-          every country simultaneously. Owning twenty companies instead of one did nothing to
+          nearly everything at once: a recession, a spike in interest rates, a war, a pandemic. In the
+          2007–2009 financial crisis, broad stock indices fell by roughly half from peak to trough,
+          across nearly every industry and nearly every country at once. Owning twenty companies instead of one did nothing to
           soften that, because the source of the risk was never any individual company to begin
           with.
         </P>

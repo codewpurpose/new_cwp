@@ -18,8 +18,8 @@ export function RetirementAccountsLesson() {
           individually) are both containers, not investments. Inside either one, you still choose
           stocks, bonds, or funds — the same building blocks from two chapters ago. What the
           container adds is a tax rule: a traditional account reduces your taxable income now and
-          taxes withdrawals in retirement; a Roth account is taxed now and withdrawals are entirely
-          tax-free later.
+          taxes withdrawals in retirement; a Roth account is taxed now and qualified withdrawals in
+          retirement are entirely tax-free.
         </P>
         <P>
           Nothing about that mechanism is uniquely American, even though the names are. Whatever
@@ -37,8 +37,9 @@ export function RetirementAccountsLesson() {
           <Strong>traditional</Strong> account and the full $100 goes in — no tax paid now — but
           withdrawals in retirement get taxed as ordinary income at whatever rate applies then.
           Contribute it to a <Strong>Roth</Strong> account instead and you pay the 22% first,
-          landing about $78 in the account, but every dollar it grows into later comes out
-          completely untaxed.
+          landing about $78 in the account, but every dollar it grows into comes out completely
+          untaxed in retirement, as long as the account&apos;s rules for qualified withdrawals are
+          met.
         </P>
         <P>
           If your tax rate is identical at contribution and at withdrawal, the two options land in
@@ -66,8 +67,8 @@ export function RetirementAccountsLesson() {
               tone: "neutral",
               children: (
                 <P>
-                  Contribution is taxed now, so less of it lands in the account. Withdrawals in
-                  retirement are entirely tax-free. Favours a tax rate later that is the same or
+                  Contribution is taxed now, so less of it lands in the account. Qualified
+                  withdrawals in retirement are entirely tax-free. Favours a tax rate later that is the same or
                   higher than now.
                 </P>
               ),

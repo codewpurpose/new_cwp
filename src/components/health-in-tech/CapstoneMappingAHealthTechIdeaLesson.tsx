@@ -89,18 +89,19 @@ export function CapstoneMappingAHealthTechIdeaLesson() {
         detail={
           <>
             <Strong>Data:</Strong> a short daily symptom check — breathlessness, swelling,
-            weight — plus whatever vitals a home blood-pressure cuff already reports.{" "}
-            <Strong>Where it lives:</Strong> the vitals come from a consumer wearable,
-            wellness-grade under Part 3&apos;s distinction, not medical-grade; the symptom
-            answers are typed in by hand. <Strong>Who sees it:</Strong> the patient sees their
+            weight — plus whatever a home blood-pressure cuff already reports.{" "}
+            <Strong>Where it lives:</Strong> the blood pressure and weight come from a cuff and a
+            scale the patient already owns at home — consumer devices, so under Part 3&apos;s
+            distinction their numbers are trends to watch, not measurements to diagnose from; the
+            symptom answers are typed in by hand. <Strong>Who sees it:</Strong> the patient sees their
             own trend; a nurse on the discharging team sees flagged entries only, not the full
             daily log; nobody else does without the patient&apos;s consent.{" "}
             <Strong>AI and the human:</Strong> a model flags an entry as worth a nurse&apos;s
             attention; it never contacts emergency services or changes medication on its own — a
             nurse decides what happens next, every time.{" "}
             <Strong>Who gets left out:</Strong> a patient without a smartphone or reliable data
-            plan, handled here with a weekly automated phone call covering the same three
-            questions, read out loud instead of tapped in.
+            plan, handled here with a daily automated phone call covering the same three
+            questions, read out loud and answered on the keypad instead of tapped in.
           </>
         }
         footnote="Notice that every answer above is a specific fact, not a description of how good the idea sounds. That's what makes it checkable against the list below."
@@ -136,7 +137,7 @@ export function CapstoneMappingAHealthTechIdeaLesson() {
         title="What this track was actually teaching you to notice"
       >
         <P>
-          Twenty-four chapters ago, this track opened with a claim: health tech is not four
+          Twenty-four chapters ago, this track opened with a claim: health tech is not six
           separate topics, it is one connected system, and every part of it changes shape the
           moment it touches an actual patient. The exercise you just ran is the proof of that
           claim, not a summary of it. You didn&apos;t just sketch an app — you touched every

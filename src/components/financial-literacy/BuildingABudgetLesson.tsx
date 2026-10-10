@@ -100,6 +100,13 @@ export function BuildingABudgetLesson() {
           &ldquo;Spend less&rdquo; is not a plan. The fix is always a specific category, cut by a
           specific amount, this month — not a vague resolution to be more careful in general.
         </Callout>
+        <Callout tone="tip" title="Try it yourself">
+          Press &ldquo;Try a 50/30/20 split&rdquo; in the allocator, which lands exactly on{" "}
+          {formatCurrency(0)} unassigned. Now raise Housing by {formatCurrency(400)}, the way a
+          rent increase would. Before touching any other slider, decide which categories give up
+          that {formatCurrency(400)} and by how much each — then move them and check the total
+          lands back on {formatCurrency(0)}.
+        </Callout>
       </LessonSection>
 
       <LessonSection id="the-four-steps-to-a-first-real-budget" title="The four steps to a first real budget">

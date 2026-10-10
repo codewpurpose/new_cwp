@@ -42,8 +42,9 @@ export function TheLimitsOfConsumerHealthDataLesson() {
           largest study of a wearable&apos;s irregular-rhythm alert enrolled more than 419,000
           participants, but the population skewed young and healthy, and atrial fibrillation is
           rare in exactly that group. Of the small number who got a notification and then wore a
-          real clinical-grade ECG patch to check it, only about a third were actually confirmed
-          to have the condition.
+          real clinical-grade ECG patch to check it, only about a third had atrial fibrillation
+          show up on the patch — partly because the condition can come and go, and partly
+          because some alerts were simply false alarms.
         </P>
         <CompareGrid
           items={[
@@ -69,8 +70,8 @@ export function TheLimitsOfConsumerHealthDataLesson() {
                     Tested on a specific, mostly young and healthy population, where the
                     condition is uncommon to begin with.
                   </P>
-                  <P>Roughly two out of three people who followed up on an alert did not
-                    actually have the condition.</P>
+                  <P>Roughly two out of three people who followed up on an alert showed no
+                    sign of the condition on the confirmation patch.</P>
                 </>
               ),
             },
@@ -162,7 +163,7 @@ export function TheLimitsOfConsumerHealthDataLesson() {
             },
             {
               label: "Most of those follow-ups find nothing, at a real cost in money and time",
-              detail: "The false alarm rate from the last section compounds here: most flagged readings were never the condition to begin with.",
+              detail: "The confirmation gap from the last section compounds here: most flagged readings don't turn out to be the condition.",
             },
           ]}
         />
@@ -195,7 +196,7 @@ export function TheLimitsOfConsumerHealthDataLesson() {
       <TakeawayCard
         items={[
           "A wearable's alert is an estimate tuned to flag anything unusual, not a diagnosis of a specific condition.",
-          "An accuracy claim describes performance on the population and protocol the validation study actually used — in the largest such study of an irregular-rhythm alert, about two-thirds of people who followed up did not have the condition.",
+          "An accuracy claim describes performance on the population and protocol the validation study actually used — in the largest such study of an irregular-rhythm alert, about two-thirds of people who followed up showed no sign of the condition on the confirmation patch.",
           "A consumer device can only ever see what its specific sensor measures — a heart attack in progress, cancer, and internal bleeding all sit entirely outside that reach.",
           "Thousands of readings a year make a statistical outlier inevitable, and chasing every one of them carries a real cost in anxiety, unnecessary appointments, and money.",
           "A pattern that repeats across days, not a single reading, is what actually justifies booking a real appointment.",
