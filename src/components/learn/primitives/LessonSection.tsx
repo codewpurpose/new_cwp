@@ -19,11 +19,13 @@ interface LessonSectionProps {
  */
 export function LessonSection({ id, title, children, delay }: LessonSectionProps) {
   return (
-    <Reveal delay={delay} className="mt-12">
+    <Reveal delay={delay} className="lr-section mt-14 md:mt-16">
       <section>
+        {/* The small "01" above each title is a CSS counter (globals.css reader
+            block), so it needs no prop and cannot drift from the order. */}
         <h2
           id={id}
-          className="home-serif text-[1.5rem] text-learn-strong md:text-[1.9rem]"
+          className="lr-section-title home-serif text-balance text-[1.55rem] leading-[1.18] tracking-[-0.01em] text-learn-strong md:text-[1.95rem]"
         >
           {title}
         </h2>
@@ -35,12 +37,14 @@ export function LessonSection({ id, title, children, delay }: LessonSectionProps
 
 /** Body paragraph with the standard measure and colour. */
 export function P({ children }: { children: React.ReactNode }) {
-  return <p className="mt-4 text-[15px] leading-[1.6] text-learn-muted">{children}</p>;
+  return <p className="mt-5 text-pretty text-[16px] leading-[1.75] text-learn-muted">{children}</p>;
 }
 
 /** Lead paragraph that opens a chapter. */
 export function Lead({ children }: { children: React.ReactNode }) {
-  return <p className="text-[15px] leading-[1.6] text-learn-muted">{children}</p>;
+  return (
+    <p className="text-pretty text-[17.5px] leading-[1.7] text-learn-ink/80 md:text-[18.5px]">{children}</p>
+  );
 }
 
 /** Inline emphasis in the moss ink. */

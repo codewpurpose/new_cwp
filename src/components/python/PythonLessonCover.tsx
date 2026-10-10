@@ -1,3 +1,5 @@
+import { CoverFrame } from "@/components/art/CoverFrame";
+
 /**
  * Card art for the Python track.
  *
@@ -11,33 +13,31 @@ interface CoverProps {
   slug: string;
 }
 
-const W = 160;
-const H = 90;
 const INK = "var(--learn-ink)";
 const MUTED = "var(--learn-ink-subtle)";
 const ACCENT = "var(--learn-accent)";
 const HIGHLIGHT = "var(--learn-chart-highlight)";
+/** The chart highlight is a translucent tint, which vanished on the dark terminal. */
+const PROMPT = "#bfe0bd";
 
-function Frame({ children }: { children: React.ReactNode }) {
-  return (
-    <svg
-      viewBox={`0 0 ${W} ${H}`}
-      className="aspect-[16/9] w-full"
-      aria-hidden="true"
-      preserveAspectRatio="xMidYMid slice"
-    >
-      <rect width={W} height={H} fill="var(--learn-chart-plot)" />
-      {children}
-    </svg>
-  );
-}
+/**
+ * Every cover draws into the shared CoverFrame, which adds the soft wash, the
+ * layered-paper shadow, the draw-on when the card scrolls into view and the
+ * lift on hover. See src/components/art/CoverFrame.tsx.
+ */
+const Frame = CoverFrame;
 
 function WhatIsPythonCover() {
   return (
     <Frame>
-      <path d="M56 30 L36 45 L56 60" fill="none" stroke={INK} strokeWidth={2.4} strokeLinecap="round" strokeLinejoin="round" />
-      <path d="M104 30 L124 45 L104 60" fill="none" stroke={INK} strokeWidth={2.4} strokeLinecap="round" strokeLinejoin="round" />
-      <path d="M72 66 L88 24" stroke={ACCENT} strokeWidth={2.4} strokeLinecap="round" />
+      {/* A small editor card, the brackets on it, and a sprout: code that grows. */}
+      <rect x={34} y={20} width={92} height={54} rx={8} fill="var(--learn-surface)" stroke={INK} strokeWidth={1.3} />
+      <path d="M58 34 L46 47 L58 60" fill="none" stroke={INK} strokeWidth={2.4} strokeLinecap="round" strokeLinejoin="round" />
+      <path d="M102 34 L114 47 L102 60" fill="none" stroke={INK} strokeWidth={2.4} strokeLinecap="round" strokeLinejoin="round" />
+      <path d="M73 62 L87 32" stroke={ACCENT} strokeWidth={2.4} strokeLinecap="round" />
+      <path d="M118 20 C118 14 117 10 119 6" fill="none" stroke={ACCENT} strokeWidth={1.4} strokeLinecap="round" />
+      <path d="M118.5 13 C116 9 112 8 108 9 C109 13 114 15 118.5 13 Z" fill={HIGHLIGHT} stroke={INK} strokeWidth={1} />
+      <path d="M119 9 C121 5 125 4 129 5 C128 9 123 11 119 9 Z" fill={HIGHLIGHT} stroke={INK} strokeWidth={1} />
     </Frame>
   );
 }
@@ -46,8 +46,8 @@ function SettingUpCover() {
   return (
     <Frame>
       <rect x={30} y={22} width={100} height={46} rx={6} fill="var(--learn-code-bg)" stroke={INK} strokeWidth={1.4} />
-      <text x={40} y={45} fontSize={13} fontFamily="var(--learn-font-mono)" fill={HIGHLIGHT}>{">>>"}</text>
-      <rect className="home-blink" x={64} y={35} width={7} height={13} fill={HIGHLIGHT} />
+      <text x={40} y={45} fontSize={13} fontFamily="var(--learn-font-mono)" fill={PROMPT}>{">>>"}</text>
+      <rect className="home-blink" x={64} y={35} width={7} height={13} fill={PROMPT} />
     </Frame>
   );
 }
@@ -69,8 +69,25 @@ function VariablesCover() {
 function NumbersCover() {
   return (
     <Frame>
-      <text x={80} y={55} textAnchor="middle" fontSize={26} fontFamily="var(--learn-font-mono)" fontWeight={700} fill={INK}>
-        7 // 2
+      {/* Keycaps for 7 // 2, and the answer chip. */}
+      {[
+        { x: 22, t: "7" },
+        { x: 50, t: "//" },
+        { x: 78, t: "2" },
+      ].map(({ x, t }) => (
+        <g key={x}>
+          <rect x={x} y={34} width={24} height={24} rx={5} fill="var(--learn-surface)" stroke={INK} strokeWidth={1.3} />
+          <text x={x + 12} y={51} textAnchor="middle" fontSize={12} fontFamily="var(--learn-font-mono)" fontWeight={700} fill={INK}>
+            {t}
+          </text>
+        </g>
+      ))}
+      <text x={110} y={51} textAnchor="middle" fontSize={12} fontFamily="var(--learn-font-mono)" fill={MUTED}>
+        =
+      </text>
+      <rect x={118} y={32} width={26} height={28} rx={6} fill={HIGHLIGHT} stroke={ACCENT} strokeWidth={1.6} />
+      <text x={131} y={51} textAnchor="middle" fontSize={13} fontFamily="var(--learn-font-mono)" fontWeight={700} fill={INK}>
+        3
       </text>
     </Frame>
   );
@@ -79,9 +96,19 @@ function NumbersCover() {
 function StringsCover() {
   return (
     <Frame>
-      <text x={80} y={58} textAnchor="middle" fontSize={30} fontFamily="var(--learn-font-mono)" fill={ACCENT}>
+      {/* A string, then the same text as beads on a thread: a sequence of characters. */}
+      <text x={80} y={38} textAnchor="middle" fontSize={22} fontFamily="var(--learn-font-mono)" fill={ACCENT}>
         &ldquo;abc&rdquo;
       </text>
+      <path d="M44 62 H52 M68 62 H72 M88 62 H92 M108 62 H116" stroke={MUTED} strokeWidth={1.2} strokeLinecap="round" />
+      {["a", "b", "c"].map((ch, i) => (
+        <g key={ch}>
+          <circle cx={60 + i * 20} cy={62} r={8} fill={i === 0 ? HIGHLIGHT : "var(--learn-surface)"} stroke={INK} strokeWidth={1.3} />
+          <text x={60 + i * 20} y={65.5} textAnchor="middle" fontSize={9} fontFamily="var(--learn-font-mono)" fill={INK}>
+            {ch}
+          </text>
+        </g>
+      ))}
     </Frame>
   );
 }
@@ -89,8 +116,19 @@ function StringsCover() {
 function ListsAndTuplesCover() {
   return (
     <Frame>
-      <text x={44} y={58} textAnchor="middle" fontSize={30} fontFamily="var(--learn-font-mono)" fontWeight={700} fill={INK}>[ ]</text>
-      <text x={116} y={58} textAnchor="middle" fontSize={30} fontFamily="var(--learn-font-mono)" fontWeight={700} fill={MUTED}>( )</text>
+      {/* A list holds boxes you can change; a tuple's are sealed. */}
+      <text x={20} y={55} fontSize={26} fontFamily="var(--learn-font-mono)" fontWeight={700} fill={INK}>[</text>
+      <text x={62} y={55} fontSize={26} fontFamily="var(--learn-font-mono)" fontWeight={700} fill={INK}>]</text>
+      {[0, 1].map((i) => (
+        <rect key={i} x={37 + i * 13} y={38} width={10} height={12} rx={2} fill={i === 0 ? HIGHLIGHT : "var(--learn-surface)"} stroke={INK} strokeWidth={1.2} />
+      ))}
+      <text x={92} y={55} fontSize={26} fontFamily="var(--learn-font-mono)" fontWeight={700} fill={MUTED}>(</text>
+      <text x={134} y={55} fontSize={26} fontFamily="var(--learn-font-mono)" fontWeight={700} fill={MUTED}>)</text>
+      {[0, 1].map((i) => (
+        <rect key={i} x={109 + i * 13} y={38} width={10} height={12} rx={2} fill="var(--learn-surface)" stroke={MUTED} strokeWidth={1.2} />
+      ))}
+      <path d="M117 64 v-3 a3 3 0 0 1 6 0 v3" fill="none" stroke={MUTED} strokeWidth={1.1} />
+      <rect x={115} y={64} width={10} height={8} rx={1.5} fill="var(--learn-surface)" stroke={MUTED} strokeWidth={1.1} />
     </Frame>
   );
 }
@@ -98,9 +136,17 @@ function ListsAndTuplesCover() {
 function DictionariesCover() {
   return (
     <Frame>
-      <text x={80} y={58} textAnchor="middle" fontSize={30} fontFamily="var(--learn-font-mono)" fontWeight={700} fill={INK}>
-        {"{ }"}
-      </text>
+      {/* Braces around key → value pairs. */}
+      <text x={26} y={58} fontSize={30} fontFamily="var(--learn-font-mono)" fontWeight={700} fill={INK}>{"{"}</text>
+      <text x={118} y={58} fontSize={30} fontFamily="var(--learn-font-mono)" fontWeight={700} fill={INK}>{"}"}</text>
+      {[30, 48].map((y, i) => (
+        <g key={y}>
+          <rect x={48} y={y} width={26} height={12} rx={6} fill={HIGHLIGHT} stroke={INK} strokeWidth={1.2} />
+          <path d={`M78 ${y + 6} H88`} stroke={ACCENT} strokeWidth={1.4} strokeLinecap="round" />
+          <path d={`M85 ${y + 3} L88 ${y + 6} L85 ${y + 9}`} fill="none" stroke={ACCENT} strokeWidth={1.4} strokeLinecap="round" strokeLinejoin="round" />
+          <rect x={92} y={y} width={22} height={12} rx={2.5} fill="var(--learn-surface)" stroke={INK} strokeWidth={1.2} opacity={i === 1 ? 0.85 : 1} />
+        </g>
+      ))}
     </Frame>
   );
 }

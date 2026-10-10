@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import { AnimatePresence, motion, useReducedMotion } from "motion/react";
 
 /**
  * The Learning Toolkit — note templates and guides students fill in as they
@@ -93,6 +94,7 @@ function storageKey(id: string) {
 }
 
 export function LearningToolkit() {
+  const reduceMotion = useReducedMotion();
   const [activeId, setActiveId] = useState<string>(TEMPLATES[0].id);
   const [values, setValues] = useState<Values>({});
   const loadedFor = useRef<string | null>(null);
@@ -146,7 +148,8 @@ export function LearningToolkit() {
             return (
               <label
                 key={t.id}
-                className={`home-card home-lift flex cursor-pointer items-center gap-3 rounded-xl p-3 text-left transition-colors has-[:focus-visible]:outline-2 has-[:focus-visible]:outline-offset-2 has-[:focus-visible]:outline-[var(--home-fern)] ${
+                data-selected={selected ? "true" : undefined}
+                className={`pages-toolkit-pick home-card home-lift flex cursor-pointer items-center gap-3 rounded-xl p-3 text-left transition-colors has-[:focus-visible]:outline-2 has-[:focus-visible]:outline-offset-2 has-[:focus-visible]:outline-[var(--home-fern)] ${
                   selected ? "ring-2 ring-[var(--home-fern)]" : ""
                 }`}
               >
@@ -176,45 +179,68 @@ export function LearningToolkit() {
 
       {/* Editable note */}
       <section className="toolkit-screen home-card rounded-2xl p-6 md:p-8">
-        <div className="flex flex-wrap items-start justify-between gap-4">
-          <div>
-            <h2 className="home-serif text-2xl md:text-[1.75rem]">{active.name}</h2>
-            <p className="mt-1 text-[15px] text-[var(--home-ink-soft)]">{active.blurb}</p>
-          </div>
-          <span className="rounded-full bg-[var(--home-pistachio)] px-3 py-1 text-xs font-medium text-[var(--home-moss)]">
-            {filled}/{active.fields.length} filled
-          </span>
-        </div>
-
-        <div className="mt-6 flex flex-col gap-5">
-          {active.fields.map((f) => (
-            <label key={f.k} className="block">
-              <span className="text-sm font-medium">{f.label}</span>
-              {f.hint && (
-                <span className="ml-2 text-xs text-[var(--home-ink-quiet)]">{f.hint}</span>
-              )}
-              <textarea
-                value={values[f.k] || ""}
-                onChange={(e) => update(f.k, e.target.value)}
-                rows={2}
-                className="mt-1.5 w-full resize-y rounded-lg border-[0.5px] border-[var(--home-hairline)] bg-white/70 px-3 py-2 text-[15px] leading-[1.5] outline-none focus:border-[var(--home-fern)] focus:ring-2 focus:ring-[#dbefdb]"
-              />
-            </label>
-          ))}
-        </div>
-
-        <div className="mt-7 flex flex-wrap gap-2">
-          <button
-            type="button"
-            onClick={() => window.print()}
-            className="home-btn home-btn-fill"
+        {/* Switching templates cross-fades the note. `initial={false}` keeps
+            the first, server-rendered template fully drawn. */}
+        <AnimatePresence mode="wait" initial={false}>
+          <motion.div
+            key={active.id}
+            initial={{ opacity: 0, y: 8 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -4 }}
+            transition={{ duration: 0.2, ease: [0.22, 1, 0.36, 1] }}
           >
-            Save as PDF
-          </button>
-          <button type="button" onClick={clear} className="home-btn home-btn-outline">
-            Clear
-          </button>
-        </div>
+            <div className="flex flex-wrap items-start justify-between gap-4">
+              <div>
+                <h2 className="home-serif text-2xl md:text-[1.75rem]">{active.name}</h2>
+                <p className="mt-1 text-[15px] text-[var(--home-ink-soft)]">{active.blurb}</p>
+              </div>
+              <span className="flex flex-col items-end gap-1.5">
+                <span className="rounded-full bg-[var(--home-pistachio)] px-3 py-1 text-xs font-medium text-[var(--home-moss)]">
+                  {filled}/{active.fields.length} filled
+                </span>
+                {/* The same count as a little bar that fills as you write. */}
+                <span aria-hidden="true" className="block h-1 w-20 overflow-hidden rounded-full bg-[var(--home-grey-450)]">
+                  <motion.span
+                    className="block h-full rounded-full bg-[#3e7f5c]"
+                    initial={false}
+                    animate={{ width: `${(filled / active.fields.length) * 100}%` }}
+                    transition={reduceMotion ? { duration: 0 } : { type: "spring", stiffness: 260, damping: 30 }}
+                  />
+                </span>
+              </span>
+            </div>
+
+            <div className="mt-6 flex flex-col gap-5">
+              {active.fields.map((f) => (
+                <label key={f.k} className="block">
+                  <span className="text-sm font-medium">{f.label}</span>
+                  {f.hint && (
+                    <span className="ml-2 text-xs text-[var(--home-ink-quiet)]">{f.hint}</span>
+                  )}
+                  <textarea
+                    value={values[f.k] || ""}
+                    onChange={(e) => update(f.k, e.target.value)}
+                    rows={2}
+                    className="mt-1.5 w-full resize-y rounded-lg border-[0.5px] border-[var(--home-hairline)] bg-white/70 px-3 py-2 text-[15px] leading-[1.5] outline-none focus:border-[var(--home-fern)] focus:ring-2 focus:ring-[#dbefdb]"
+                  />
+                </label>
+              ))}
+            </div>
+
+            <div className="mt-7 flex flex-wrap gap-2">
+              <button
+                type="button"
+                onClick={() => window.print()}
+                className="home-btn home-btn-fill"
+              >
+                Save as PDF
+              </button>
+              <button type="button" onClick={clear} className="home-btn home-btn-outline">
+                Clear
+              </button>
+            </div>
+          </motion.div>
+        </AnimatePresence>
       </section>
 
       {/* Print-only clean rendering (off-screen normally; the browser print

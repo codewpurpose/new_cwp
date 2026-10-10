@@ -7,6 +7,7 @@ import { TopicCover } from "@/components/TopicCover";
 // "All stories" now points at /impact, where the blog index was merged.
 import { IMPACT_HREF, SUBSTACK_EMBED_SRC } from "@/lib/links";
 import { getPost, posts } from "@/lib/posts";
+import { ReadingProgress } from "./ReadingProgress";
 
 export function generateStaticParams() {
   return posts.map((post) => ({ slug: post.slug }));
@@ -44,6 +45,7 @@ export default async function BlogPostPage({
 
   return (
     <PageShell>
+      <ReadingProgress targetId="post-body" />
       <article className="relative overflow-hidden border-b-[0.5px] border-[var(--home-hairline)] bg-[var(--home-page)] pb-16 pt-10 md:pb-24 md:pt-16">
         <div aria-hidden="true" className="cwp-hero-bg absolute inset-0" />
         <div className="relative mx-auto w-full max-w-[46rem] px-5 md:px-0">
@@ -66,17 +68,18 @@ export default async function BlogPostPage({
               <TopicCover variant={post.cover} className="aspect-[16/9] w-full" />
             </div>
           </Reveal>
-          <Reveal delay={0.2}>
-            <div className="mt-10 space-y-6">
-              {post.body.map((paragraph) => (
-                <p
-                  key={paragraph.slice(0, 32)}
-                  className="text-[17px] leading-[1.75] text-[var(--home-ink)]"
-                >
+          {/* Each paragraph settles in as it reaches the viewport. Reveal keeps
+              the text fully opaque throughout, so reading never waits on it. */}
+          <div id="post-body" className="mt-10 space-y-6">
+            {post.body.map((paragraph) => (
+              <Reveal key={paragraph.slice(0, 32)}>
+                <p className="text-[17px] leading-[1.75] text-[var(--home-ink)]">
                   {paragraph}
                 </p>
-              ))}
-            </div>
+              </Reveal>
+            ))}
+          </div>
+          <Reveal>
             <p className="mt-10 border-t-[0.5px] border-[var(--home-hairline)] pt-6 text-sm text-[var(--home-ink-quiet)]">
               Written by the CodeWithPurpose team
             </p>

@@ -3,6 +3,9 @@ import { FaqSection } from "@/components/FaqSection";
 import { PageHero, PageSection } from "@/components/PageHero";
 import { PageShell } from "@/components/PageShell";
 import { Reveal } from "@/components/Reveal";
+import SpotlightCard from "@/components/reactbits/SpotlightCard";
+import { SPOTLIGHT_PROPS } from "@/lib/spotlight";
+import { CopyEmailButton } from "./CopyEmailButton";
 import { CONTACT_EMAIL, CONTACT_EMAIL_HREF } from "@/lib/links";
 
 export const metadata: Metadata = {
@@ -32,7 +35,11 @@ export default function ContactPage() {
 
       <PageSection>
         <Reveal>
-          <div className="home-card mx-auto max-w-2xl rounded-[20px] p-8 text-center md:p-12">
+          <SpotlightCard
+            {...SPOTLIGHT_PROPS}
+            spotlightSize={320}
+            className="home-card mx-auto max-w-2xl rounded-[20px] p-8 text-center md:p-12"
+          >
             <h2 className="home-serif text-[1.625rem] md:text-[2rem]">
               Email us anything
             </h2>
@@ -42,11 +49,14 @@ export default function ContactPage() {
             >
               {CONTACT_EMAIL}
             </a>
+            <div className="mt-4 flex justify-center">
+              <CopyEmailButton email={CONTACT_EMAIL} />
+            </div>
             <p className="mx-auto mt-4 max-w-md text-[15px] leading-[1.6] text-[var(--home-ink-soft)]">
               Questions, suggestions, or partnership ideas are welcome. A member
               of the team will read your message.
             </p>
-          </div>
+          </SpotlightCard>
         </Reveal>
       </PageSection>
 
