@@ -36,6 +36,8 @@ export function KodaGreeting() {
   const [index, setIndex] = useState(0);
   // Load alternate poses only after someone interacts with Koda.
   const [warm, setWarm] = useState(false);
+  const pendingPose = useRef<number | null>(null);
+  const readyPoses = useRef<boolean[]>([]);
   const idleRef = useRef<HTMLSpanElement>(null);
   const { scope, hopY, squash, hop } = useKodaBody();
   const { bursts, fire } = useKodaBurst();
@@ -66,12 +68,21 @@ export function KodaGreeting() {
     if (event.pointerType === "mouse") hop();
   };
 
-  const onClick = () => {
-    const next = (index + 1) % poses.length;
-    setWarm(true);
+  const showPose = (next: number) => {
+    pendingPose.current = null;
     setIndex(next);
     squash();
     fire(poses[next].burst);
+  };
+
+  const onClick = () => {
+    if (pendingPose.current !== null) return;
+    const next = (index + 1) % poses.length;
+    // Next Image calls onLoad after decoding the actual optimised candidate.
+    // Keep the current pose visible until that candidate is ready.
+    pendingPose.current = next;
+    setWarm(true);
+    if (readyPoses.current[next]) showPose(next);
   };
 
   return (
@@ -100,9 +111,16 @@ export function KodaGreeting() {
                       data-active={i === current ? "true" : undefined}
                       width={p.width}
                       height={p.height}
-                      sizes="(min-width: 1200px) 320px, 220px"
+                      sizes="(min-width: 1200px) 260px, 190px"
                       priority={i === 0}
                       loading={i === 0 ? undefined : "eager"}
+                      onLoad={() => {
+                        readyPoses.current[i] = true;
+                        if (pendingPose.current === i) showPose(i);
+                      }}
+                      onError={() => {
+                        if (pendingPose.current === i) pendingPose.current = null;
+                      }}
                       draggable={false}
                     />
                   ) : null,

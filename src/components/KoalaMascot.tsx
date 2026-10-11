@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useLayoutEffect, useRef, useState } from "react";
 import { usePathname } from "next/navigation";
 import { useUser } from "@clerk/nextjs";
 import { isClerkConfigured } from "@/lib/clerk";
@@ -185,6 +185,15 @@ function KoalaBase({ canOfferSignup }: { canOfferSignup: boolean }) {
   const [subscribed, setSubscribed] = useState(true);
   const rootRef = useRef<HTMLDivElement>(null);
   const loadingPose = useRef(false);
+  const poseGeneration = useRef(0);
+  useLayoutEffect(() => {
+    poseGeneration.current += 1;
+    loadingPose.current = false;
+    return () => {
+      // Invalidate decodes on navigation and unmount, including A → B → A.
+      poseGeneration.current += 1;
+    };
+  }, [pathname]);
   const { scope, hopY, squash, hop, wiggle } = useKodaBody();
   const { bursts, fire } = useKodaBurst();
 
@@ -435,12 +444,29 @@ function KoalaBase({ canOfferSignup }: { canOfferSignup: boolean }) {
     }
     if (loadingPose.current) return;
     loadingPose.current = true;
+    const generation = poseGeneration.current;
     const t = taps + 1;
     const next = (index + 1) % POSES.length;
     // Decode only the requested pose; keep the current image visible while it loads.
     const image = new Image();
     image.src = POSES[next].src;
-    try { await image.decode(); } catch { return; } finally { loadingPose.current = false; }
+    try {
+      if (typeof image.decode === "function") {
+        await image.decode();
+      } else if (!image.complete) {
+        await new Promise<void>((resolve, reject) => {
+          image.onload = () => resolve();
+          image.onerror = () => reject(new Error("Koda pose failed to load"));
+        });
+      }
+      if (!image.naturalWidth) return;
+    } catch {
+      return;
+    } finally {
+      // An old request must not unlock a newer route's pending request.
+      if (generation === poseGeneration.current) loadingPose.current = false;
+    }
+    if (generation !== poseGeneration.current) return;
     setGreeting(false);
     setTaps(t);
     setIndex(next);
@@ -452,6 +478,8 @@ function KoalaBase({ canOfferSignup }: { canOfferSignup: boolean }) {
   };
 
   const dismiss = () => {
+    poseGeneration.current += 1;
+    loadingPose.current = false;
     setDismissed(true);
     try {
       sessionStorage.setItem(STORAGE_KEY, "1");
