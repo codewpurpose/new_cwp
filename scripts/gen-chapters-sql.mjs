@@ -7,14 +7,15 @@
  * `progress` rows are written by the browser. Row-level security proves the row
  * belongs to the student writing it, and proves nothing whatsoever about the
  * chapter named in it — so without an allowlist, a signed-in student can insert
- * ten thousand rows for chapters that do not exist and, now that XP is counted
- * from those rows, arrive at any total they like. With one, the ceiling is the
- * real curriculum: every chapter completed, once each.
+ * ten thousand rows for chapters that do not exist. Once the current allowlist
+ * has been applied, it prevents new completion rows for chapters outside that
+ * published curriculum snapshot. It does not remove older rows for retired
+ * chapters.
  *
  * That does not make progress *verified* — someone can still claim a chapter
  * they skimmed, which is indistinguishable from reading it quickly and is not
- * worth defending against. It makes progress *bounded*, which is the property
- * the leaderboard actually needs.
+ * worth defending against. It keeps new stale or invented chapter slugs out of
+ * a learner's completion history.
  *
  * Generated rather than hand-written because it has to track the lesson graph,
  * and a stale allowlist silently drops a new chapter's completions on the floor.

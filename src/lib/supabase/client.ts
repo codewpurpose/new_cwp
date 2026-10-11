@@ -2,7 +2,7 @@ import { createClient, type SupabaseClient } from "@supabase/supabase-js";
 
 /**
  * Supabase is optional. The whole student experience works local-first with no
- * backend; accounts, cross-device sync, and the leaderboard only switch on once
+ * backend; accounts and cross-device course progress sync only switch on once
  * a project exists and its two public keys are in the environment.
  *
  * We only ever read the anon (publishable) key here. The service_role secret

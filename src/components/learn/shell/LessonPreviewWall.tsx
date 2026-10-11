@@ -22,8 +22,8 @@ import { LOGIN_HREF, SIGN_UP_HREF } from "@/lib/links";
  * HTML. Anyone who opens devtools, disables CSS, or reads the page source can
  * read the chapter, and no amount of client-side blurring changes that. It is an
  * invitation with a visual cost, not access control. That is the right trade for
- * a nonprofit whose entire argument is that the material is free: the account
- * buys cross-device sync and the leaderboard. The only data protected server-side
+ * a nonprofit whose entire argument is that the material is free: an account
+ * lets course progress follow the learner between devices. The only data protected server-side
  * is a student's own progress, by row-level security.
  *
  * If a chapter ever must NOT be readable signed-out, this component cannot do
@@ -71,9 +71,8 @@ function PreviewWall({ children }: { children: React.ReactNode }) {
       <div className="rounded-learn-xl border-[0.5px] border-learn-line bg-learn-surface p-8 text-center md:p-10">
         <h2 className="text-lg text-learn-strong md:text-xl">Make a free account to read on</h2>
         <p className="mx-auto mt-2 max-w-md text-[14px] leading-relaxed text-learn-muted">
-          Every chapter is free — an account is how your progress, XP, and streak
-          follow you from your laptop to your phone, and how you show up on the
-          leaderboard. No payment, no trial.
+          Every chapter is free — an account lets your course progress follow you
+          from your laptop to your phone. No payment, no trial.
         </p>
         <div className="mt-6 flex flex-wrap items-center justify-center gap-3">
           <Link

@@ -5,7 +5,7 @@ import type { ReactNode } from "react";
 import { ClerkDataSync } from "@/lib/supabase/with-clerk";
 
 /**
- * Wraps the app in Clerk and keeps the leaderboard profile in sync. Only mounted
+ * Wraps the app in Clerk and keeps course completion in sync. Only mounted
  * when Clerk is configured (see the root layout) — without keys the tree renders
  * bare and the whole site stays local-first.
  */

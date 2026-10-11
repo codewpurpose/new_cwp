@@ -6,7 +6,7 @@ import { LoginForm } from "@/components/auth/LoginForm";
 export const metadata: Metadata = {
   title: "Log in",
   description:
-    "Sign in to CodeWithPurpose to sync your course progress across devices and compete on the student leaderboard.",
+    "Sign in to CodeWithPurpose to keep your course progress in sync across devices.",
   alternates: { canonical: "/login/" },
   robots: { index: false, follow: true },
 };

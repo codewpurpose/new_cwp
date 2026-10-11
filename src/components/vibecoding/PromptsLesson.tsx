@@ -30,7 +30,7 @@ const EXAMPLES: PromptExample[] = [
   {
     vague: "Add a login feature",
     specific:
-      "Add email/password login using our existing users table. On success, redirect to /dashboard. On failure, show \"Invalid email or password\" under the form.",
+      "Add email/password login using our existing users table. On success, redirect to /courses/. On failure, show \"Invalid email or password\" under the form.",
     why: "Naming the data source and both outcomes (success and failure) means the AI does not have to invent the missing half.",
   },
   {
