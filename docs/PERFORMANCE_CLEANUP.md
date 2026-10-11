@@ -94,3 +94,22 @@ About page had no horizontal overflow and a team profile opened and closed.
 At 1440px the homepage fit the viewport, retained all 15 illustrations, and
 Koda's greeting changed pose and text on tap. No browser errors were reported
 in these checks. The production preview was restarted with the updated build.
+
+## PR review corrections
+
+All nine review findings were valid. Gallery tiles now use committed intrinsic
+image dimensions rather than fixed crop ratios: portrait photos remain uncropped
+and reserve their natural height before loading, without client measurements.
+Avatar and hero mascot `sizes` now match their actual responsive slots.
+
+The hero mascot keeps its current pose until Next Image's decoded `onLoad` for
+the optimised next pose. The floating mascot invalidates pending pose updates on
+route changes and unmount, and falls back to image loading when `decode()` is absent.
+The stale marquee comment, track animation CSS, and chip fade mask were removed.
+The FAQ now accurately describes the free account needed to read interactive lessons.
+
+Validation: `npm run check` passed. Browser checks confirmed intrinsic gallery
+width/height attributes, a successful first hero tap, corrected FAQ content, and
+no horizontal overflow at 390px. No browser errors in the checked flow. Legacy
+browser decode fallback and navigation cancellation were checked in code, not
+with a simulated browser environment.

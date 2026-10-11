@@ -833,40 +833,6 @@
     transform: none;
   }
 }
-.home-marquee {
-  overflow: hidden;
-  mask: linear-gradient(90deg, transparent, #000 12% 88%, transparent);
-}
-@media (max-width: 639px) {
-  /* Soften the fade on phones so more of each chip/card stays readable. */
-  .home-marquee {
-    mask: linear-gradient(90deg, transparent, #000 6% 94%, transparent);
-  }
-}
-.home-marquee-track {
-  display: flex;
-  gap: 0.625rem;
-  width: max-content;
-  animation: home-marquee 48s linear infinite;
-}
-.home-marquee-reverse .home-marquee-track {
-  animation-direction: reverse;
-}
-.home-marquee:hover .home-marquee-track {
-  animation-play-state: paused;
-}
-@keyframes home-marquee {
-  0% {
-    transform: translateX(0);
-  }
-  to {
-    /* One copy of three: the track renders items ×3, so translating by a third
-       lands exactly on the next copy for a continuous loop. Three copies (not two)
-       keep every row overflowing the viewport at all times, so neither the
-       forward nor the reverse row ever starts with an empty gap on one side. */
-    transform: translateX(-33.3333%);
-  }
-}
 .home-marquee-stack {
   position: relative;
 }
@@ -1038,7 +1004,6 @@
   .home-chip-dot,
   .home-flow-dash,
   .home-live-dot,
-  .home-marquee-track,
   .home-node,
   .home-orbit {
     animation: none;

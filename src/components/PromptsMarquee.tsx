@@ -29,13 +29,11 @@ const ROW_THREE: { value: string; label: string }[] = [
 
 function LocationRow({
   items,
-  reverse = false,
 }: {
   items: string[];
-  reverse?: boolean;
 }) {
   return (
-    <div className={reverse ? "home-marquee home-marquee-reverse" : "home-marquee"}>
+    <div>
       <div className="flex flex-wrap justify-center gap-2.5 px-5 md:px-10">
         {items.map((item, index) => (
           <span
@@ -56,7 +54,7 @@ function LocationRow({
 
 function StatRow({ items }: { items: { value: string; label: string }[] }) {
   return (
-    <div className="home-marquee">
+    <div>
       <div className="flex flex-wrap justify-center gap-2.5 px-5 md:px-10">
         {items.map((item, index) => (
           <span
@@ -83,11 +81,11 @@ export function PromptsMarquee() {
           Students on every corner of the Earth
         </p>
       </div>
-      {/* overflow-x-clip: each row's track is intentionally wider than the
-          viewport; clip the stack so phones never pick up a page-level scroll. */}
+      {/* Chips wrap to fit the viewport. Clip the decorative dot backdrop
+          so it cannot introduce horizontal scrolling on phones. */}
       <div className="home-marquee-stack mt-6 flex flex-col gap-2.5 overflow-x-clip">
         <LocationRow items={ROW_ONE} />
-        <LocationRow items={ROW_TWO} reverse />
+        <LocationRow items={ROW_TWO} />
         <StatRow items={ROW_THREE} />
       </div>
     </section>

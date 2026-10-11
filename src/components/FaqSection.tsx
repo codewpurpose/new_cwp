@@ -24,7 +24,7 @@ const faqs: Faq[] = [
   {
     question: "How do I start learning?",
     answer:
-      "Open Courses and choose a beginner track. You can read our interactive lessons without an account. Create a free account to sync your progress, or choose a free Udemy course if you prefer video lessons.",
+      "Open Courses and choose a beginner track. Create a free account to read our interactive lessons and sync your progress, or choose a free Udemy course if you prefer video lessons.",
   },
   {
     question: "How can I volunteer or join the team?",
