@@ -70,8 +70,10 @@ export function getQuiz(track: LearnTrackId, slug: string): Quiz | null {
     // so the right answer isn't always in the position it was written in.
     const rand = mulberry32(seedFrom(`${track}/${slug}/authored`));
     const questions: QuizQuestion[] = authored.map((item) => {
-      const correct = item.options[item.answer];
-      const options = shuffled([...item.options], rand);
+      const written: readonly string[] = item.options;
+      // AuthoredQuestion's tuple types already keep `answer` in range.
+      const correct = written[item.answer] ?? written[0];
+      const options = shuffled([...written], rand);
       return { q: item.q, options, answer: options.indexOf(correct) };
     });
     return { questions, passMark: Math.max(1, Math.ceil(questions.length * 0.67)) };
