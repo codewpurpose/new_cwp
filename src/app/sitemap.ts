@@ -23,6 +23,8 @@ export default function sitemap(): MetadataRoute.Sitemap {
     "/contact",
     "/donate",
     "/media",
+    "/resources/ai-coding",
+    "/playground",
     "/learn/ml",
     "/learn/vibecoding",
     "/learn/python",
