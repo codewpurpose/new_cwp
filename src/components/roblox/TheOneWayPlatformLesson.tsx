@@ -51,7 +51,7 @@ return root.Position.Y > topSurface`}
         </P>
         <P>
           Compare the <Strong>HumanoidRootPart</Strong> instead. It sits at the centre of the
-          character, roughly two studs above their feet, so it is unambiguously above the
+          character, a few studs above their feet, so it is unambiguously above the
           platform when standing on it and unambiguously below when jumping up through.
         </P>
         <CodeBlock
@@ -111,9 +111,10 @@ end)`}
           category, and you configure which groups collide with which.
         </P>
         <P>
-          Put the platform in one group, put each player&apos;s character in a group of their
-          own, and then turning collision on or off for one player is a change to that
-          player&apos;s group rather than to the platform.
+          Put the platform in one group, and make a second group whose members pass through
+          it. Turning collision off for one player is then a matter of moving{" "}
+          <em>that player&apos;s character</em> into the second group — a change to the player,
+          not to the platform.
         </P>
         <CodeBlock
           label="Luau"
@@ -145,8 +146,9 @@ end`}
         <P>
           Two details that bite. You must set the group on <em>every</em> BasePart of the
           character, not the model — a model has no <Strong>CollisionGroup</Strong>. And
-          registering a group that already exists throws, so a script that runs more than once
-          needs to check first or be somewhere that only runs once.
+          register the groups once, from a single server Script, rather than from every
+          platform&apos;s script; if you are not sure whether a group exists yet,{" "}
+          <Strong>PhysicsService:IsCollisionGroupRegistered(name)</Strong> will tell you.
         </P>
       </LessonSection>
 
@@ -203,7 +205,7 @@ end`}
           "With two players the last Touched event wins, and someone standing on the platform falls through a floor that was solid a frame ago.",
           "This is a shape of bug, not a fact about platforms: per-player state written into a property the part owns always breaks on the second player.",
           "Collision groups fix it properly by giving each player their own collision, so one player passing through changes nothing for anyone else.",
-          "Set the group on every BasePart of the character — a Model has no CollisionGroup — and registering an existing group throws.",
+          "Set the group on every BasePart of the character — a Model has no CollisionGroup — and register each group once, from one server Script.",
           "Shipping the simple version is a legitimate choice. Not knowing which version you shipped is not.",
         ]}
       />

@@ -2,18 +2,11 @@ import Link from "next/link";
 import type { LearnChapter, LearnTrackId } from "@/lib/learn-types";
 import {
   chapterHref,
-  getPosition,
   getPositionLabel,
   getPrerequisites,
   getTrack,
 } from "@/lib/learn-nav";
 import { ChapterDoneBadge } from "@/components/learn/reader/ChapterDoneBadge";
-
-const LEVEL_LABEL: Record<LearnChapter["level"], string> = {
-  beginner: "Beginner",
-  intermediate: "Intermediate",
-  advanced: "Advanced",
-};
 
 interface LearnChapterHeaderProps {
   track: LearnTrackId;
@@ -23,7 +16,6 @@ interface LearnChapterHeaderProps {
 export function LearnChapterHeader({ track, chapter }: LearnChapterHeaderProps) {
   const trackMeta = getTrack(track);
   const prerequisites = getPrerequisites(track, chapter.slug);
-  const position = getPosition(track, chapter.slug);
 
   return (
     <header className="learn-measure">
@@ -44,20 +36,9 @@ export function LearnChapterHeader({ track, chapter }: LearnChapterHeaderProps) 
       </p>
 
       <div className="mt-6 flex flex-wrap items-center gap-2 text-[0.78rem] text-learn-subtle">
-        <span className="rounded-full bg-learn-quiet px-2.5 py-1 font-medium uppercase tracking-[0.06em] text-learn-strong">
-          {LEVEL_LABEL[chapter.level]}
-        </span>
-        {/* Track-wide position; the eyebrow above gives the within-part one. */}
-        {position && position.partTotal > 1 && (
-          <span className="rounded-full border-[0.5px] border-learn-line bg-learn-surface px-2.5 py-1 font-medium text-learn-muted">
-            Chapter {position.indexInTrack} of {position.total}
-          </span>
-        )}
         <ChapterDoneBadge track={track} slug={chapter.slug} />
-        <span className="ml-1">{chapter.minutes} min read</span>
         {chapter.lastReviewed && (
           <>
-            <span aria-hidden="true">·</span>
             {/* Tooling and pricing chapters go stale fast, so say when they
                 were last checked rather than letting readers guess. */}
             <span>

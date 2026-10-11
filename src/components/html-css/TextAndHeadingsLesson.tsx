@@ -93,8 +93,8 @@ export function TextAndHeadingsLesson() {
         title="A paragraph is a block, and whitespace is not"
       >
         <P>
-          HTML collapses whitespace on the first page you build:
-          any run of spaces, tabs, and newlines becomes a single space.
+          HTML collapses whitespace, and it surprises almost everyone on their first page: any run
+          of spaces, tabs, and newlines becomes a single space.
         </P>
         <CodeBlock
           label="What you write"
@@ -236,7 +236,7 @@ renders as:  Use the <p> element for paragraphs.`}
           "HTML collapses all whitespace to a single space. Blank lines and repeated spaces do nothing.",
           "Spacing comes from block elements and CSS margin, never from <br> or pressing Enter.",
           "strong is importance, em is stress emphasis; b and i are conventional appearance with no added meaning.",
-          "blockquote, code, time, abbr and cite all say something a span would not.",
+          "blockquote, q, code, time, abbr and s all say something a span would not.",
           "Write &lt; &gt; &amp; as entities. With utf-8 everything else can be typed directly.",
           "Comments are ignored by the browser and fully visible in view source.",
         ]}

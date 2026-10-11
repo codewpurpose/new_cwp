@@ -5,10 +5,10 @@ import { Reveal } from "@/components/Reveal";
 import BlurText from "@/components/reactbits/BlurText";
 import { PlaygroundIsland } from "@/components/playground/PlaygroundIsland";
 import { PYODIDE_VERSION } from "@/components/playground/protocol";
-import { LEARN_ML_HREF, LEARN_PYTHON_HREF } from "@/lib/links";
+import { LEARN_ML_HREF, LEARN_PYTHON_HREF, PROJECTS_HREF } from "@/lib/links";
 
 const DESCRIPTION =
-  "Write and run real Python, NumPy, pandas, scikit-learn and matplotlib in your browser. Free, no sign-up, and your code never leaves your device.";
+  "Write and run real Python, NumPy, pandas, scikit-learn and matplotlib in your browser, or drag blocks together to train a machine-learning model. Free, no sign-up, and your code never leaves your device.";
 
 export const metadata: Metadata = {
   title: "Code Playground",
@@ -37,12 +37,12 @@ const HOW_IT_WORKS = [
     body: "There is no server and no account. Your code is saved in this browser only, and Share packs it into the link itself, after the #, which browsers never send to a server.",
   },
   {
-    title: "Libraries load when you import them",
-    body: "The first Run downloads Python (about 10 MB). Importing numpy, pandas, scikit-learn or matplotlib fetches that library the first time; after that your browser keeps a copy.",
+    title: "The ML builder writes real code",
+    body: "Each block you drag in becomes a commented section of ordinary scikit-learn code, shown beside the pipeline. Open it in the editor whenever you want to change it by hand.",
   },
   {
-    title: "A few honest limits",
-    body: "Runs stop after 30 seconds. input() reads from an answer box you fill in before running, because the page can't pause Python mid-run. There's no internet access or access to files on your computer from inside Python.",
+    title: "Good to know",
+    body: "The first Run downloads Python (about 10 MB), and big libraries load the first time you import them; after that your browser keeps a copy. Runs stop after 30 seconds, input() reads from an answer box you fill in first, and Python here has no internet access.",
   },
 ] as const;
 
@@ -62,9 +62,20 @@ export default function PlaygroundPage() {
               className="home-display mt-3 text-[2rem] leading-[1.05] tracking-[-0.02em] md:text-[2.75rem] lg:text-[3.25rem]"
             />
             <p className="mt-4 max-w-2xl text-lg leading-[1.5] text-[var(--home-ink-soft)]">
-              Pick a starter or write your own, then press Run. Python, NumPy, pandas,
-              scikit-learn and matplotlib all work, for free, with no sign-up, and your
+              Pick a starter or write your own, then press Run. Or open the ML builder
+              and drag blocks together to train a real model. Free, no sign-up, and your
               code never leaves this page.
+            </p>
+            <p className="mt-3 text-[0.9375rem] text-[var(--home-ink-soft)]">
+              Building a web page instead?{" "}
+              <Link href="/playground/web/" className="font-medium text-[var(--home-link-green)] underline underline-offset-2">
+                Open the HTML &amp; CSS editor
+              </Link>
+              , or pick a guided{" "}
+              <Link href={PROJECTS_HREF} className="font-medium text-[var(--home-link-green)] underline underline-offset-2">
+                project
+              </Link>
+              .
             </p>
           </Reveal>
 

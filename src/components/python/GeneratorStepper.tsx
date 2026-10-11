@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 
-const VALUES = [1, 1, 2, 3, 5, 8];
+const VALUES = [1, 1, 2, 3, 5, 8, 13];
 
 export function GeneratorStepper() {
   const [pulled, setPulled] = useState(0);

@@ -1,4 +1,6 @@
 import { Reveal } from "@/components/Reveal";
+import { CodeBlock } from "@/components/learn/primitives/CodeBlock";
+import { RevealCard } from "@/components/learn/primitives/RevealCard";
 import { ThresholdExplorer } from "@/components/ml/ThresholdExplorer";
 
 const SCENARIOS = [
@@ -127,7 +129,7 @@ export function PrecisionRecallLesson() {
             Arranged in a grid, these four counts are called a{" "}
             <strong className="text-learn-strong">confusion matrix</strong>. It is not a thing to
             memorise — it is just these four numbers in a box. Precision and recall are each
-            built from three of them.
+            built from two of them, and they share one: the true positives.
           </p>
         </section>
       </Reveal>
@@ -234,6 +236,49 @@ export function PrecisionRecallLesson() {
             The harmonic mean is dragged toward the smaller of the two numbers, so it punishes
             lopsidedness. Take the extreme case — precision 1.0, recall 0.0. A normal average
             reports 0.5. F1 reports 0.
+          </p>
+
+          <div className="mt-6">
+            <RevealCard
+              summaryTag="Try it yourself"
+              summary="A fraud model flags 50 transactions. 40 of them really are fraud, and there were 80 frauds in the data altogether. Work out precision, recall and F1 before you open the answer."
+              detailTag="Answer"
+              detail="TP = 40, FP = 50 − 40 = 10, FN = 80 − 40 = 40. Precision = 40 / 50 = 0.8. Recall = 40 / 80 = 0.5. F1 = 2 · 0.8 · 0.5 / (0.8 + 0.5) ≈ 0.62 — below the plain average of 0.65, because the harmonic mean leans toward the weaker number."
+              openLabel="Show the answer"
+              closeLabel="Hide the answer"
+            />
+          </div>
+          <p className="mt-4 text-[15px] leading-[1.6] text-learn-muted">
+            Now with a thousand made-up transactions and a model&rsquo;s confidence score for
+            each. Choose a threshold, count the four boxes, and build precision, recall and F1
+            from them by hand.
+          </p>
+          <CodeBlock
+            label="threshold.py"
+            code={`import numpy as np
+from sklearn.metrics import confusion_matrix, precision_score, recall_score
+
+rng = np.random.default_rng(3)
+fraud = rng.random(1000) < 0.1      # about 100 real frauds in 1,000
+# The model's confidence: higher for fraud on average, but the two overlap.
+score = np.where(fraud, rng.normal(0.65, 0.15, 1000), rng.normal(0.35, 0.15, 1000))
+
+threshold = 0.5   # try 0.3, then 0.7
+flagged = score >= threshold
+
+tn, fp, fn, tp = confusion_matrix(fraud, flagged).ravel()
+print(f"TP {tp}   FP {fp}   FN {fn}   TN {tn}")
+
+precision = tp / (tp + fp)
+recall = tp / (tp + fn)
+f1 = 2 * precision * recall / (precision + recall)
+print(f"precision {precision:.2f}   recall {recall:.2f}   F1 {f1:.2f}")
+print(f"sklearn agrees: {precision_score(fraud, flagged):.2f}, {recall_score(fraud, flagged):.2f}")`}
+          />
+          <p className="mt-4 text-[15px] leading-[1.6] text-learn-muted">
+            At 0.5 it finds 87 of the 102 frauds (recall 0.85) while 142 legitimate transactions
+            get flagged too (precision 0.38). Set the threshold to 0.3 and recall reaches 0.99
+            as precision drops to 0.15; at 0.7 precision rises to 0.89 and recall falls to 0.48.
           </p>
         </section>
       </Reveal>

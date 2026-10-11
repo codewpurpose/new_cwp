@@ -25,9 +25,9 @@ export function HealthAppsAndPatientEngagementLesson() {
           store with good reviews.
         </P>
         <P>
-          The numbers are blunt. Something close to a quarter of people who download a health
-          app never open it a second time at all, and by the two-week mark most of the people
-          who did have already stopped. By three months, ongoing daily use is the exception
+          The pattern is blunt. A sizeable share of people who download a health app never open
+          it a second time at all, and within the first couple of weeks most of the rest have
+          drifted away. By three months, ongoing daily use is the exception
           rather than the rule for anything that stands alone — a wellness app someone
           downloaded on their own after a symptom worried them at 2 a.m., say, with nobody and
           nothing else pulling them back to it.
@@ -164,7 +164,7 @@ export function HealthAppsAndPatientEngagementLesson() {
 
       <TakeawayCard
         items={[
-          "Most people who download a health app stop using it within weeks — something close to a quarter never open it a second time at all, and sustained daily use is the exception without a clinical relationship behind it.",
+          "Most people who download a health app stop using it within weeks — a sizeable share never open it a second time at all, and sustained daily use is the exception without a clinical relationship behind it.",
           "Reducing friction — seconds to log something, not a multi-step form — drives more real engagement than adding features usually does, and apps tied to a clinician or insurer hold on to patients far longer than ones downloaded alone.",
           "Engagement and outcome are different questions with different dashboards. A rising open rate proves people are using the app, not that the condition it claims to manage is any better controlled.",
           "Most consumer wellness apps face no requirement to prove they work before reaching an app store, which is exactly how a five-star, million-download app and a useless one can look identical from the outside.",

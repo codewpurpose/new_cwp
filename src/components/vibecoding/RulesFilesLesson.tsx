@@ -20,7 +20,7 @@ export function RulesFilesLesson() {
           label="Where each tool looks"
           code={`AGENTS.md        an emerging cross-tool convention
 CLAUDE.md        Claude Code
-.cursorrules     Cursor
+.cursor/rules/   Cursor (older projects: .cursorrules)
 .github/copilot-instructions.md    GitHub Copilot`}
         />
         <P>

@@ -19,7 +19,7 @@ export function IndexFundsAndTimeInMarketLesson() {
           An <Strong>index fund</Strong> doesn&apos;t try to pick winning companies — it simply
           buys all of them, in proportion to a benchmark like the S&amp;P 500, and holds them.
           There&apos;s no manager guessing which stock outperforms; the fund&apos;s return is just
-          whatever the whole market did, minus a very small fee.
+          whatever its index did, minus a very small fee.
         </P>
         <P>
           The alternative is an <Strong>actively managed</Strong> fund, where a manager and a
@@ -75,8 +75,9 @@ export function IndexFundsAndTimeInMarketLesson() {
         />
         <P>
           That gap is the whole argument. Independent scorecards that track this every year
-          consistently find that over any 15-year stretch, somewhere around 85% of actively
-          managed US large-cap funds fail to beat the S&amp;P 500 itself — not because their
+          consistently find that over 15-year stretches, a large majority of actively managed US
+          large-cap funds — in recent scorecards, well over 80% — fail to beat the S&amp;P 500
+          itself — not because their
           managers are bad at picking stocks, but because the fee and turnover drag is a cost the
           index fund never has to pay back.
         </P>
@@ -84,7 +85,7 @@ export function IndexFundsAndTimeInMarketLesson() {
           summaryTag="A fair question"
           summary="Doesn't that mean some active funds do beat the index — so why not just find one of those?"
           detailTag="The catch"
-          detail="Some do, in any given year. The problem is picking one in advance, and having it keep winning. Studies that track the same funds forward find almost no persistence — this year's top-quartile active fund has close to a coin-flip's chance of being top-quartile again next year. Fund rankings you see are also usually built from funds that survived long enough to still exist, quietly dropping the ones that closed after underperforming, which flatters the average further."
+          detail="Some do, in any given year. The problem is picking one in advance, and having it keep winning. Studies that track the same funds forward find almost no persistence — this year's top-quartile active fund has about the one-in-four chance of staying top-quartile next year that luck alone would predict, and often less. Fund rankings you see are also usually built from funds that survived long enough to still exist, quietly dropping the ones that closed after underperforming, which flatters the average further."
           footnote="Picking the market's best day in advance and picking next decade's best fund in advance are the same problem wearing different clothes."
         />
       </LessonSection>
@@ -98,12 +99,12 @@ export function IndexFundsAndTimeInMarketLesson() {
           already stepped out.
         </P>
         <P>
-          A 1% annual fee sounds trivial, and by itself it is easy to wave off. Compounded over 30
-          years at a hypothetical 7% average market return, though, the difference between paying
-          it and not turns $10,000 into roughly $57,000 instead of roughly $76,000 — nearly
-          $19,000 gone to a percentage point most people never look at on a statement. Trying to
-          beat the market and merely matching it after fees produces a worse outcome than simply
-          buying the market outright.
+          Walk through what dodging a crash actually requires. Sell after the market has already
+          dropped, and the first decision locked in part of the loss. To come out ahead, you then
+          have to buy back in <Strong>below</Strong> the price you sold at — but rebounds usually
+          start while the news still looks bad, so the moment that finally feels safe to re-enter
+          tends to arrive at a higher price. A few missed weeks of recovery can erase everything
+          the exit was meant to save, and the next toggle shows how few days that takes.
         </P>
       </LessonSection>
 
@@ -135,7 +136,7 @@ export function IndexFundsAndTimeInMarketLesson() {
           "An index fund buys the entire market in proportion to a benchmark, rather than trying to pick individual winners.",
           "Before fees, the average active investor's return must equal the index return exactly, because active and passive money together make up the whole market.",
           "Active funds typically charge several times an index fund's fee and trade more often, which is a cost an index fund almost never pays.",
-          "Around 85% of actively managed large-cap funds fail to beat the S&P 500 over a 15-year stretch, and this year's winning fund rarely stays a winner.",
+          "Well over 80% of actively managed US large-cap funds fail to beat the S&P 500 over 15-year stretches, and this year's winning fund rarely stays a winner.",
           "The market's best days cluster right alongside its worst ones, so trying to dodge the bad days tends to mean missing the good ones too.",
         ]}
       />

@@ -51,8 +51,18 @@ const CURVE: readonly CurvePoint[] = Array.from({ length: DETECTIONS.length + 1 
   };
 });
 
+/**
+ * Standard (non-interpolated) average precision: the precision at each rank
+ * where a correct detection is added, summed and divided by the number of
+ * real objects. Objects that were never detected contribute zero, so the two
+ * missed objects pull AP down — averaging precision over every cut-off,
+ * correct or not, would ignore them.
+ */
 const AVERAGE_PRECISION =
-  CURVE.slice(1).reduce((sum, point) => sum + (point.precision ?? 0), 0) / DETECTIONS.length;
+  CURVE.slice(1).reduce(
+    (sum, point, index) => (DETECTIONS[index].correct ? sum + (point.precision ?? 0) : sum),
+    0,
+  ) / TOTAL_GROUND_TRUTH;
 
 /** The recall ceiling: even flagging every detection never recovers the two
  *  ground-truth objects nothing was ever proposed for. */

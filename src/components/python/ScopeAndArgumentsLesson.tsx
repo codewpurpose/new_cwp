@@ -1,8 +1,9 @@
 import { Lead, LessonSection, P, Strong } from "@/components/learn/primitives/LessonSection";
 import { Callout } from "@/components/learn/primitives/Callout";
-import { CodeBlock } from "@/components/learn/primitives/CodeBlock";
+import { CodeBlock, InlineCode } from "@/components/learn/primitives/CodeBlock";
 import { RevealCard } from "@/components/learn/primitives/RevealCard";
 import { LabelRows, TakeawayCard } from "@/components/learn/primitives/Cards";
+import { TryIt } from "@/components/python/TryIt";
 
 export function ScopeAndArgumentsLesson() {
   return (
@@ -60,18 +61,18 @@ NameError: name 'total' is not defined`}
             },
           ]}
         />
-        <CodeBlock
-          label="Terminal"
-          variant="terminal"
-          code={`>>> value = "global"
->>> def outer():
-...     value = "enclosing"
-...     def inner():
-...         print(value)
-...     inner()
-...
->>> outer()
-enclosing`}
+        <TryIt
+          label="legb.py"
+          code={`value = "global"
+
+def outer():
+    value = "enclosing"
+    def inner():
+        print(value)
+    inner()
+
+outer()`}
+          prompt={<>Delete the line <InlineCode>{'value = "enclosing"'}</InlineCode> and run it again.</>}
         />
         <P>
           <Strong>inner()</Strong> has no local <Strong>value</Strong> of its own, so Python
@@ -196,16 +197,15 @@ UnboundLocalError: cannot access local variable 'count'`}
           caller has — not a copy of it. What the function does with that reference determines
           whether the caller ever notices.
         </P>
-        <CodeBlock
-          label="Terminal"
-          variant="terminal"
-          code={`>>> def add_score(scores):
-...     scores.append(100)
-...
->>> my_scores = [88, 91]
->>> add_score(my_scores)
->>> my_scores
-[88, 91, 100]`}
+        <TryIt
+          label="add_score.py"
+          code={`def add_score(scores):
+    scores.append(100)
+
+my_scores = [88, 91]
+add_score(my_scores)
+print(my_scores)`}
+          prompt={<>Change the body to <InlineCode>scores = scores + [100]</InlineCode> and run it again.</>}
         />
         <P>
           <Strong>scores</Strong> inside the function and <Strong>my_scores</Strong> outside it

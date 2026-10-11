@@ -24,7 +24,7 @@ export default function LearnFinancialLiteracyPage() {
         <CourseHome
           track="financial-literacy"
           title="Money skills, from your first budget to your first plan"
-          description="CodeWithPurpose lessons that turn personal finance into a set of skills you actually use, not jargon you look up. Twenty-four chapters, no experience required."
+          description="CodeWithPurpose lessons that turn personal finance into a set of skills you actually use, not jargon you look up. No experience required."
           udemy={{ href: FINANCIAL_LITERACY_COURSE_HREF, label: "Udemy Financial Literacy Course" }}
           chapterMedia={(chapter) => <FinancialLiteracyLessonCover slug={chapter.slug} />}
         />

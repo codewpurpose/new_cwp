@@ -1,5 +1,5 @@
 import { Callout } from "@/components/learn/primitives/Callout";
-import { CodeBlock } from "@/components/learn/primitives/CodeBlock";
+import { CodeBlock, InlineCode } from "@/components/learn/primitives/CodeBlock";
 import { TakeawayCard } from "@/components/learn/primitives/Cards";
 import { Lead, LessonSection, P, Strong } from "@/components/learn/primitives/LessonSection";
 import { RuleStacker } from "@/components/ml/RuleStacker";
@@ -83,6 +83,33 @@ export function WhatIsMlLesson() {
           there are two numbers to find. That is all it is — the next lessons take
           that apart step by step.
         </Callout>
+        <P>
+          Here is the voting rule from the top of the page again, except this time nobody writes
+          it. The model gets ten example people, their ages, and whether each one could vote,
+          and has to find the rule itself.
+        </P>
+        <CodeBlock
+          label="learned_rule.py"
+          code={`from sklearn.tree import DecisionTreeClassifier, export_text
+
+# Examples instead of a rule: ages, and whether that person could vote.
+# (Everyone here is registered, so age is the only thing that matters.)
+ages = [[12], [15], [16], [17], [18], [19], [25], [40], [67], [80]]
+could_vote = [0, 0, 0, 0, 1, 1, 1, 1, 1, 1]
+
+model = DecisionTreeClassifier(max_depth=1).fit(ages, could_vote)
+print(export_text(model, feature_names=["age"]))
+
+# Nobody told it "18". It put the cut halfway between the
+# closest examples it saw: 17 (no) and 18 (yes).
+print(model.predict([[17], [18], [30]]))`}
+        />
+        <P>
+          It prints <InlineCode>age &lt;= 17.50</InlineCode>: close to the real rule, and found
+          only because the examples happened to include a 17-year-old and an 18-year-old. Delete
+          the 17 from both lists and run it again, and the cut moves. That is the trade in
+          miniature: the learned rule is only as good as the examples it saw.
+        </P>
       </LessonSection>
 
       <LessonSection id="what-this-costs-you" title="What this costs you" delay={0.05}>

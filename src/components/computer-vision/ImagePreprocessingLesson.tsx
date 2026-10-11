@@ -2,6 +2,7 @@ import { Callout } from "@/components/learn/primitives/Callout";
 import { TakeawayCard } from "@/components/learn/primitives/Cards";
 import { Lead, LessonSection, P, Strong } from "@/components/learn/primitives/LessonSection";
 import { AugmentationPreview } from "@/components/computer-vision/AugmentationPreview";
+import { CodeBlock } from "@/components/learn/primitives/CodeBlock";
 
 export function ImagePreprocessingLesson() {
   return (
@@ -69,7 +70,9 @@ export function ImagePreprocessingLesson() {
           Normalising fixes the scale rather than the content: divide every pixel by 255 to land
           in the 0–1 range, or subtract the dataset&rsquo;s mean and divide by its standard deviation
           so brightness differences between photos stop swamping the differences that actually
-          matter — edges, shapes, colour.
+          matter — edges, shapes, colour. If you use a dataset mean and standard deviation,
+          compute them from the training photos only, and reuse those same two numbers on every
+          validation, test and live image.
         </P>
       </LessonSection>
 
@@ -101,6 +104,45 @@ export function ImagePreprocessingLesson() {
         place.
       </Callout>
 
+      <Callout tone="warning" title="Two common augmentation mistakes">
+        First, an augmentation must not change the right answer. Rotate a handwritten 6 by 180
+        degrees and it becomes a 9 that is still labelled 6; flip a photo of text left to right
+        and it stops being text. Pick only the transformations your real inputs could plausibly
+        go through. Second, augment the training set only. Validation and test photos should look
+        like the real inputs the model will meet, so they get resized and normalised, never
+        randomly rotated or relit.
+      </Callout>
+      <P>
+        Both halves of that in one run. Normalising uses numbers from the training photos only,
+        and then a 6 from the test set is rotated by 180 degrees.
+      </P>
+      <CodeBlock
+        label="rotate_a_six.py"
+        code={`import numpy as np
+from sklearn.datasets import load_digits
+from sklearn.model_selection import train_test_split
+from sklearn.neighbors import KNeighborsClassifier
+
+images, labels = load_digits(return_X_y=True)
+X_train, X_test, y_train, y_test = train_test_split(
+    images, labels, test_size=0.3, random_state=0)
+
+# Normalise with numbers computed from the training photos only.
+mean, std = X_train.mean(), X_train.std()
+model = KNeighborsClassifier(3).fit((X_train - mean) / std, y_train)
+print(f"test accuracy: {model.score((X_test - mean) / std, y_test):.0%}")
+
+# An augmentation that changes the right answer: rotate a 6 by 180 degrees.
+six = X_test[y_test == 6][0].reshape(8, 8)
+for name, image in [("as drawn", six), ("rotated 180", np.rot90(six, 2))]:
+    guess = model.predict(((image.reshape(1, -1)) - mean) / std)[0]
+    print(f"a 6, {name:12} -> the model says {guess}")`}
+      />
+      <P>
+        The model reads the 6 correctly, and calls the rotated one a 9. If that rotation were
+        used as augmentation, the training set would be full of 9s labelled 6.
+      </P>
+
       <TakeawayCard
         items={[
           "A trained model has no fallback beyond what its training photos actually contained — it does not generalise to a case it never saw by common sense.",
@@ -109,6 +151,7 @@ export function ImagePreprocessingLesson() {
           "Augmentation manufactures variety from photos you already have, rather than requiring you to collect it, by rotating, flipping, cropping, and relighting.",
           "Independent augmentations combine: four on/off choices produce every combination of the four, not just four new images.",
           "Augmentation still only varies what you photographed — it cannot invent a pose, background, or object absent from the original set.",
+          "Only use augmentations that keep the label true, and apply them to training photos only — never to validation or test images.",
         ]}
       />
     </div>

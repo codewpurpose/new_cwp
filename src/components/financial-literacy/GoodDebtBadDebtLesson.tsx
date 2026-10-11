@@ -27,9 +27,9 @@ export function GoodDebtBadDebtLesson() {
         <P>
           Run the numbers on a concrete case. A $40,000 nursing degree, financed at 6% over ten
           years, costs roughly $444 a month and about $13,300 in total interest. If that degree
-          moves your income from $32,000 a year to $58,000, the raise pays the entire loan
-          payment inside the first four months of the first year, every year, for as long as
-          you hold the job. The debt bought a permanently higher earning line, not a thing that
+          moves your income from $32,000 a year to $58,000, the $26,000 raise covers a full
+          year of loan payments — about $5,300 — in roughly the first three months of every
+          year, before tax, for as long as you hold the job. The debt bought a permanently higher earning line, not a thing that
           sits on a shelf losing value.
         </P>
         <P>
@@ -73,8 +73,8 @@ export function GoodDebtBadDebtLesson() {
           a purchase with nothing left to show for it except the balance.
         </P>
         <P>
-          Put a number on it. A new car bought with a $30,000 loan typically loses{" "}
-          {formatPercent(20)} of its value the moment it leaves the lot and roughly{" "}
+          Put a number on it. A new car bought with a $30,000 loan commonly loses
+          around {formatPercent(20)} of its value in its first year and roughly{" "}
           {formatPercent(50)} within five years — meaning the loan balance can outpace the
           car&apos;s resale value for years at a stretch. A $3,000 vacation charged to a card at
           {" "}{formatPercent(22)} APR and paid off at $100 a month takes 44 months — three and a

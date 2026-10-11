@@ -15,9 +15,10 @@ const random = mulberry32(20260401);
 
 const BASE_SIGNAL: readonly number[] = Array.from({ length: SAMPLE_COUNT }, (_, i) => {
   // Two stacked sine terms approximate a pulse: a slow rise-and-fall dressed
-  // with a sharper secondary bump, roughly like a real PPG waveform.
+  // with a sharper secondary bump at twice the frequency, so every one of the
+  // four beats repeats the same shape, roughly like a real PPG waveform.
   const t = (i / SAMPLE_COUNT) * Math.PI * 2 * 4;
-  return Math.sin(t) * 0.6 + Math.sin(t * 2.3) * 0.25;
+  return Math.sin(t) * 0.6 + Math.sin(t * 2 + 0.8) * 0.25;
 });
 
 const RAW_SIGNAL: readonly number[] = BASE_SIGNAL.map((v) => v + (random() - 0.5) * 0.9);

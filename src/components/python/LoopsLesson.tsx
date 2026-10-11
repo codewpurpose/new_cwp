@@ -2,8 +2,10 @@ import { Lead, LessonSection, P, Strong } from "@/components/learn/primitives/Le
 import { Callout } from "@/components/learn/primitives/Callout";
 import { CodeBlock } from "@/components/learn/primitives/CodeBlock";
 import { TakeawayCard } from "@/components/learn/primitives/Cards";
+import { RevealCard } from "@/components/learn/primitives/RevealCard";
 import { StepList } from "@/components/learn/primitives/StepList";
 import { LoopStepper } from "@/components/python/LoopStepper";
+import { TryIt } from "@/components/python/TryIt";
 
 export function LoopsLesson() {
   return (
@@ -85,16 +87,14 @@ range(0, 5)
           counter. <Strong>zip()</Strong> pairs them up directly, one item from each per
           iteration.
         </P>
-        <CodeBlock
-          label="Terminal"
-          variant="terminal"
-          code={`>>> names = ["Ada", "Grace", "Alan"]
->>> scores = [98, 91, 87]
->>> for name, score in zip(names, scores):
-...     print(f"{name}: {score}")
-Ada: 98
-Grace: 91
-Alan: 87`}
+        <TryIt
+          label="pairs.py"
+          code={`names = ["Ada", "Grace", "Alan"]
+scores = [98, 91, 87]
+
+for name, score in zip(names, scores):
+    print(f"{name}: {score}")`}
+          prompt="Add a fourth name with no matching score, and run it again."
         />
         <P>
           If the two collections are different lengths, <Strong>zip()</Strong> stops as soon
@@ -152,17 +152,15 @@ Alan: 87`}
             },
           ]}
         />
-        <CodeBlock
-          label="Terminal"
-          variant="terminal"
-          code={`>>> for n in [2, 4, 6, 9, 10]:
-...     if n % 2 != 0:
-...         print(f"found an odd one: {n}")
-...         break
-... else:
-...     print("every number was even")
-found an odd one: 9`}
-          lineTones={{ 6: "accent" }}
+        <TryIt
+          label="find_odd.py"
+          code={`for n in [2, 4, 6, 9, 10]:
+    if n % 2 != 0:
+        print(f"found an odd one: {n}")
+        break
+else:
+    print("every number was even")`}
+          prompt={<>Change the 9 to an 8 and run it again.</>}
         />
         <P>
           Change the list to all-even numbers and the loop finishes without ever hitting{" "}
@@ -173,6 +171,30 @@ found an odd one: 9`}
           which is precisely the condition you would otherwise track with a separate flag
           variable.
         </P>
+        <CodeBlock
+          label="predict.py"
+          code={`total = 0
+for n in [1, 2, 3, 4, 5, 6]:
+    if n == 5:
+        break
+    if n % 2 == 0:
+        continue
+    total += n
+print(total)`}
+        />
+        <RevealCard
+          summaryTag="Try it yourself"
+          summary="Predict what this prints before you reveal it."
+          detailTag="Answer"
+          detail={
+            <>
+              <Strong>4</Strong>. The loop adds 1, skips 2 with continue, adds 3, skips 4, then
+              hits break at 5 — so 6 is never even looked at, and only 1 + 3 was added.
+            </>
+          }
+          openLabel="Reveal the answer"
+          closeLabel="Hide the answer"
+        />
       </LessonSection>
 
       <LessonSection id="the-loop-variable-outlives-the-loop" title="The loop variable is still there after the loop ends">

@@ -1,8 +1,9 @@
 import { Lead, LessonSection, P, Strong } from "@/components/learn/primitives/LessonSection";
 import { Callout } from "@/components/learn/primitives/Callout";
-import { CodeBlock } from "@/components/learn/primitives/CodeBlock";
+import { CodeBlock, InlineCode } from "@/components/learn/primitives/CodeBlock";
 import { CompareGrid, TakeawayCard } from "@/components/learn/primitives/Cards";
 import { RecordTable } from "@/components/python/RecordTable";
+import { TryIt } from "@/components/python/TryIt";
 
 export function RecordsAndTablesLesson() {
   return (
@@ -25,6 +26,7 @@ export function RecordsAndTablesLesson() {
 
 # The same thing as a tuple. Technically fine, practically hostile:
 student = ("Amara", "python", 18)`}
+          runnable={false}
         />
         <P>
           Both hold three values. Only one of them still makes sense in six months, when{" "}
@@ -52,6 +54,7 @@ student = ("Amara", "python", 18)`}
     {"name": "Ben", "track": "ml", "chapters": 6, "minutes": 71},
     {"name": "Chidi", "track": "python", "chapters": 24, "minutes": 231},
 ]`}
+          runnable={false}
         />
         <P>
           This shape is worth recognising on sight, because it is what almost every API hands
@@ -68,15 +71,25 @@ student = ("Amara", "python", 18)`}
           matches. Python asks the question of each row instead, and the comprehension you
           already know is the whole mechanism.
         </P>
-        <CodeBlock
-          label="Python"
-          code={`finished = [s for s in students if s["chapters"] >= 18]
+        <TryIt
+          label="filter_rows.py"
+          code={`students = [
+    {"name": "Amara", "track": "python", "chapters": 18, "minutes": 164},
+    {"name": "Ben", "track": "ml", "chapters": 6, "minutes": 71},
+    {"name": "Chidi", "track": "python", "chapters": 24, "minutes": 231},
+]
+
+finished = [s for s in students if s["chapters"] >= 18]
 
 # Two conditions read exactly as they sound:
 python_finishers = [
     s for s in students
     if s["track"] == "python" and s["chapters"] >= 18
-]`}
+]
+
+print([s["name"] for s in finished])
+print([s["name"] for s in python_finishers])`}
+          prompt="Lower both thresholds from 18 to 5 and run it again."
         />
         <P>
           No index, no counter, and no chance of stopping one row early. What comes back is a
@@ -92,12 +105,22 @@ python_finishers = [
           rows are never taken apart, which is why the same one-liner works no matter how many
           columns a record has.
         </P>
-        <CodeBlock
-          label="Python"
-          code={`by_minutes = sorted(students, key=lambda s: s["minutes"], reverse=True)
+        <TryIt
+          label="sort_rows.py"
+          code={`students = [
+    {"name": "Amara", "track": "python", "chapters": 18, "minutes": 164},
+    {"name": "Ben", "track": "ml", "chapters": 6, "minutes": 71},
+    {"name": "Chidi", "track": "python", "chapters": 24, "minutes": 231},
+]
+
+by_minutes = sorted(students, key=lambda s: s["minutes"], reverse=True)
 
 # Two columns at once: track first, then most chapters within each track.
-ranked = sorted(students, key=lambda s: (s["track"], -s["chapters"]))`}
+ranked = sorted(students, key=lambda s: (s["track"], -s["chapters"]))
+
+print([s["name"] for s in by_minutes])
+print([s["name"] for s in ranked])`}
+          prompt={<>Remove the minus sign in front of <InlineCode>{'s["chapters"]'}</InlineCode> and run it again.</>}
         />
         <P>
           Returning a tuple from the key sorts by the first element, then breaks ties with the
@@ -119,6 +142,7 @@ longest = max(students, key=lambda s: s["minutes"])
 
 print(longest["name"])
 # Chidi`}
+          runnable={false}
         />
         <Callout tone="warning" title="max on an empty table raises">
           <Strong>max()</Strong> and <Strong>min()</Strong> have nothing to return when the

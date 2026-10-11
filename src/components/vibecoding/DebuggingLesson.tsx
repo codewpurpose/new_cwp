@@ -18,7 +18,7 @@ const CRASH_STEPS: DebugStep[] = [
     label: "1. Hit the error",
     render: () => (
       <div className="rounded-xl bg-learn-code-bg p-4 font-mono text-[13px] leading-[1.6] text-learn-code-err">
-        <p>TypeError: Cannot read properties of undefined</p>
+        <p>TypeError: Cannot read properties of undefined (reading &apos;trim&apos;)</p>
         <p className="text-learn-code-dim">at handleSubmit (Form.jsx:24:19)</p>
       </div>
     ),
@@ -29,7 +29,7 @@ const CRASH_STEPS: DebugStep[] = [
       <div className="rounded-xl bg-learn-sunken p-4 text-[14px] leading-[1.5] text-learn-strong">
         &ldquo;I&apos;m getting{" "}
         <span className="font-mono">
-          TypeError: Cannot read properties of undefined
+          TypeError: Cannot read properties of undefined (reading &apos;trim&apos;)
         </span>{" "}
         in Form.jsx line 24, inside handleSubmit, right when the user clicks
         Submit with an empty field. Here&apos;s the function: ...&rdquo;
@@ -68,8 +68,8 @@ const LOGIC_STEPS: DebugStep[] = [
     render: () => (
       <div className="rounded-xl bg-learn-code-bg p-4 font-mono text-[13px] leading-[1.6] text-learn-code-warn">
         <p>Page 1: items 1-10</p>
-        <p>Page 2: items 1-10 (again!)</p>
-        <p className="text-learn-code-dim">No crash, no error, just wrong data</p>
+        <p>Page 2: (empty)</p>
+        <p className="text-learn-code-dim">No crash, no error, just a blank page</p>
       </div>
     ),
   },
@@ -77,9 +77,10 @@ const LOGIC_STEPS: DebugStep[] = [
     label: "2. Hand it to the AI",
     render: () => (
       <div className="rounded-xl bg-learn-sunken p-4 text-[14px] leading-[1.5] text-learn-strong">
-        &ldquo;My paginated list shows the exact same items on every page.
-        Page 2 should start at item 11, but it shows items 1-10 again. Here&apos;s
-        my slicing code: <span className="font-mono">items.slice(page * pageSize, pageSize)</span>&rdquo;
+        &ldquo;My paginated list works on page 1, but page 2 and every page after it
+        are empty. Page 2 should show items 11-20. Pages start at 1 and pageSize is 10.
+        Here&apos;s my slicing code:{" "}
+        <span className="font-mono">items.slice((page - 1) * pageSize, pageSize)</span>&rdquo;
       </div>
     ),
   },
@@ -89,8 +90,8 @@ const LOGIC_STEPS: DebugStep[] = [
       <div className="rounded-xl bg-learn-quiet p-4 text-[14px] leading-[1.5] text-learn-strong">
         &ldquo;The second argument to{" "}
         <span className="font-mono">.slice()</span> is an end index, not a
-        count, so you&apos;re always slicing up to{" "}
-        <span className="font-mono">pageSize</span>. You want{" "}
+        count. On page 2 you are slicing from index 10 up to index 10, which is
+        nothing. You want{" "}
         <span className="font-mono">
           items.slice((page - 1) * pageSize, page * pageSize)
         </span>

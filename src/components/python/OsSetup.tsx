@@ -30,7 +30,7 @@ py`,
   browser: {
     label: "No install",
     code: `# Open python.org/shell, or any site offering a Python REPL.
-# You get the same interpreter, running on a server instead of your machine.`,
+# You get the same language, running on a server or in the browser itself.`,
   },
 };
 
@@ -44,8 +44,9 @@ export function OsSetup() {
         Check what you already have
       </figcaption>
       <p className="mt-2 text-[15px] leading-[1.6] text-learn-strong">
-        Most Mac and Linux machines ship with Python already installed. Pick what you are
-        sitting at.
+        Most Linux machines ship with Python already installed. On a Mac, the first{" "}
+        <code>python3</code> may offer to install Apple&apos;s command-line developer tools,
+        which include it. Pick what you are sitting at.
       </p>
 
       <div className="mt-4">

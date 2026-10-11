@@ -50,7 +50,7 @@ export function OpportunityCostChart() {
             id={priceId}
             type="range"
             min={200}
-            max={10000}
+            max={40000}
             step={100}
             value={price}
             onChange={(event) => setPrice(Number(event.target.value))}

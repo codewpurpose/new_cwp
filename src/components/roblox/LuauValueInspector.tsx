@@ -62,10 +62,10 @@ const VALUES: readonly Value[] = [
     note: "True. An empty table is a real table, so this never tells you whether it has anything in it — use #t == 0 for that.",
   },
   {
-    literal: "workspace.Missing",
+    literal: 'workspace:FindFirstChild("Missing")',
     type: "nil",
     truthy: false,
-    note: "An object that is not there evaluates to nil, which is false. That is what makes `if part then` the standard guard before touching one.",
+    note: "FindFirstChild returns nil for an object that is not there, and nil is false. That is what makes `if part then` the standard guard before touching one. (Writing workspace.Missing instead would not give you nil — it stops the script with an error.)",
   },
 ];
 

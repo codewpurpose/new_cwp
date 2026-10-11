@@ -88,8 +88,9 @@ export function OverfittingInVisionLesson() {
           being a defence against the actual signal in the photo.</Strong>
         </P>
         <Callout tone="warning" title="There is a sweet spot, not a rule">
-          &ldquo;More augmentation is always better&rdquo; is false in exactly the way &ldquo;more
-          training data is always better&rdquo; usually is not. Past the point where validation
+          More real training data rarely hurts. More augmentation can, because every extra unit
+          of strength moves the images further from anything the model will really see. Past the
+          point where validation
           accuracy peaks, every additional unit of augmentation strength is pure cost. Find that
           peak on validation data specifically — not on training accuracy, which will look
           fine right up until the augmentation is destroying the images.

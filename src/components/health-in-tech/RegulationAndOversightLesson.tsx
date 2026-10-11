@@ -56,8 +56,8 @@ export function RegulationAndOversightLesson() {
               tone: "neutral",
               children: (
                 <>
-                  <P>Bandages, tongue depressors, most step-counting wellness trackers.</P>
-                  <P>General controls only. No premarket review required at all.</P>
+                  <P>Bandages, tongue depressors, manual stethoscopes.</P>
+                  <P>General controls only. Most are exempt from premarket review.</P>
                 </>
               ),
             },
@@ -171,11 +171,13 @@ export function RegulationAndOversightLesson() {
           deployed — what regulators call an adaptive algorithm. The version reviewed on
           approval day and the version actually running in a hospital eighteen months later can
           behave differently, and neither the original clearance nor a patient trusting the
-          device particularly knows how differently. Regulators have started publishing draft
-          frameworks for exactly this problem, mostly built around requiring a company to
-          pre-specify the boundaries an algorithm is allowed to drift within rather than
-          freezing it entirely — but there is no settled, universally adopted answer yet. It is
-          one of the open questions in this entire field.
+          device particularly knows how differently. The FDA&apos;s answer so far is a{" "}
+          <Strong>predetermined change control plan</Strong>: the company specifies up front which
+          kinds of updates it intends to make and exactly how it will test each one, and that plan
+          is reviewed along with the device. That handles planned, bounded changes. A model that
+          keeps learning on its own in the field is a harder case, and there is no settled,
+          universally adopted answer for it yet. It is one of the open questions in this entire
+          field.
         </P>
       </LessonSection>
 
@@ -202,7 +204,7 @@ export function RegulationAndOversightLesson() {
       <TakeawayCard
         items={[
           "A regulator like the FDA reviews software that makes a medical claim — diagnosing, treating, or preventing disease — before it can reach patients; a wellness app that makes no such claim typically falls outside that review entirely.",
-          "Risk class, not sophistication, decides how much evidence a product needs — Class I needs almost none, Class III needs a full clinical trial, and most software as a medical device sits in the moderate-risk middle.",
+          "Risk class, not sophistication, decides how much evidence a product needs — most Class I devices skip premarket review, Class III generally needs original clinical data, and most software as a medical device sits in the moderate-risk middle.",
           "Most moderate-risk devices take a shortcut, showing they're substantially equivalent to an already-cleared predicate rather than proving safety and effectiveness from first principles — a chain that can drift a long way from the last device anyone actually tested.",
           "Regulated approval requires proving safety and effectiveness before launch, not iterating live in public the way a typical consumer app does.",
           "A model that keeps learning after approval breaks the assumption every pathway above is built on — the version reviewed and the version running in a hospital a year later can differ, with no fully settled answer yet for how to regulate that.",

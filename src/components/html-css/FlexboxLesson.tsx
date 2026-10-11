@@ -2,7 +2,9 @@ import { Lead, LessonSection, P, Strong } from "@/components/learn/primitives/Le
 import { Callout } from "@/components/learn/primitives/Callout";
 import { CodeBlock } from "@/components/learn/primitives/CodeBlock";
 import { CompareGrid, LabelRows, TakeawayCard } from "@/components/learn/primitives/Cards";
+import { RevealCard } from "@/components/learn/primitives/RevealCard";
 import { FlexPlayground } from "@/components/html-css/FlexPlayground";
+import { WebPlayground } from "@/components/webplay/WebPlayground";
 
 export function FlexboxLesson() {
   return (
@@ -94,6 +96,15 @@ flex-direction: column-reverse;  /* bottom to top                     */`}
           main axis is whatever flex-direction says. Toggle direction in the widget above and watch
           them swap.
         </Callout>
+        <RevealCard
+          summaryTag="Try it yourself"
+          summary=".sidebar { display: flex; flex-direction: column; } — you want every item centred left to right. Which property do you set?"
+          detailTag="The answer"
+          detail="align-items: center. In a column, the main axis runs top to bottom, so left to right is the cross axis — and the cross axis belongs to align-items. justify-content: center would move the whole stack to the vertical middle instead."
+          footnote="Name the axis first, then pick the property. It works for every direction."
+          openLabel="Check your answer"
+          closeLabel="Hide the answer"
+        />
       </LessonSection>
 
       <LessonSection id="justify-content-runs-along-the-main-axis" title="justify-content runs along the main axis">
@@ -119,6 +130,33 @@ flex-direction: column-reverse;  /* bottom to top                     */`}
   align-items: center;
 }
 /* <header class="header"><a>Logo</a><nav>…</nav></header> */`}
+        />
+        <P>
+          <Strong>Try it:</Strong> change <Strong>space-between</Strong> to <Strong>center</Strong>,
+          then <Strong>space-evenly</Strong>. Then add <Strong>flex-direction: column</Strong> and
+          notice that justify-content now works top to bottom.
+        </P>
+        <WebPlayground
+          title="Try it: justify-content"
+          height={260}
+          initialHtml={`<header class="header">
+  <a href="#">Logo</a>
+  <a href="#">Lessons</a>
+  <a href="#">About</a>
+</header>`}
+          initialCss={`.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  min-height: 160px;
+  padding: 0 16px;
+  background: #dbefdb;
+  font-family: system-ui, sans-serif;
+}
+
+.header a {
+  color: #1e3c2c;
+}`}
         />
       </LessonSection>
 

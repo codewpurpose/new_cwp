@@ -127,8 +127,12 @@ export function WhatMedicalAiIsActuallyDoingTodayLesson() {
       <LessonSection id="the-two-places-its-still-mostly-hype" title="The two places it's still mostly hype">
         <P>
           <Strong>Fully autonomous diagnosis</Strong> — a model that receives your symptoms and
-          returns a confident, unsupervised verdict with no clinician in the loop — is essentially
-          not deployed anywhere serious today, for reasons the next chapter covers directly.
+          returns a confident, unsupervised verdict with no clinician in the loop — is barely
+          deployed today. The rare exceptions are tightly scoped screening tasks: the best-known
+          is an FDA-authorised system that checks retinal photos for diabetic eye disease without
+          a specialist reading the image, and even its output is a decision about whether to
+          refer the patient to an eye specialist, not a treatment plan. The next chapter covers
+          why the boundary sits there.
         </P>
         <P>
           <Strong>Predicting rare, highly individual outcomes</Strong> from limited data, the kind
@@ -148,7 +152,7 @@ export function WhatMedicalAiIsActuallyDoingTodayLesson() {
           "Medical AI's real advantage is exposure at scale — millions of training examples against one career's worth of cases — not a deeper kind of reasoning.",
           "Imaging review, triage worklists, and narrowing drug candidates are three places it is deployed today, always with a clinician reviewing the output.",
           "The highest-volume use isn't diagnostic at all — it's turning conversations into notes, notes into billing codes, and calendars into fuller schedules.",
-          "Fully autonomous diagnosis with no clinician in the loop is essentially not deployed anywhere serious, despite the headlines it generates.",
+          "Fully autonomous diagnosis with no clinician in the loop is barely deployed outside a few tightly scoped screening tasks, despite the headlines it generates.",
           "A model that looks brilliant on data resembling its training set can quietly get worse on data that doesn't — the subject the next few chapters take on directly.",
         ]}
       />

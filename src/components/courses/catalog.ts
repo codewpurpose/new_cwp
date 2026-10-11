@@ -84,7 +84,7 @@ export const CATALOG: CatalogCourse[] = [
     title: "Master HTML and CSS",
     tags: ["New", "Start Here"],
     description:
-      "The two languages every website is made of, and the fastest thing in programming to see working — save a file, refresh, it changed. Twenty-four chapters take you from your first line of markup through semantic HTML, the cascade, the box model, flexbox and grid, to a real page you build by hand and publish. No framework, no build step.",
+      "The two languages every website is made of, and the fastest thing in programming to see working — save a file, refresh, it changed. The lessons take you from your first line of markup through semantic HTML, the cascade, the box model, flexbox and grid, to a real page you build by hand and publish. No framework, no build step.",
     cover: "htmlcss",
     topic: "code",
     enrol: [{ href: HTML_CSS_COURSE_HREF, label: "Enrol Free" }],
@@ -94,7 +94,7 @@ export const CATALOG: CatalogCourse[] = [
     title: "Learn Git and GitHub",
     tags: ["New", "Essential"],
     description:
-      "The tool every developer uses every day, and the platform every project lives on. Twenty-one chapters take you from your first commit through branches, merge conflicts, and rebasing, to pull requests, code review, and your first contribution to somebody else's open-source project.",
+      "The tool every developer uses every day, and the platform every project lives on. The lessons take you from your first commit through branches, merge conflicts, and rebasing, to pull requests, code review, and your first contribution to somebody else's open-source project.",
     cover: "github",
     topic: "code",
     enrol: [{ href: GITHUB_COURSE_HREF, label: "Enrol Free" }],

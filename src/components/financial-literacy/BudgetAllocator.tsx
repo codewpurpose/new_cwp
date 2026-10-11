@@ -18,7 +18,7 @@ const CATEGORIES: readonly Category[] = [
   { key: "housing", label: "Housing", min: 0, max: 2000, step: 25 },
   { key: "food", label: "Food", min: 0, max: 800, step: 25 },
   { key: "transportation", label: "Transportation", min: 0, max: 600, step: 25 },
-  { key: "fun", label: "Fun", min: 0, max: 600, step: 25 },
+  { key: "fun", label: "Fun", min: 0, max: 1200, step: 25 },
   { key: "savings", label: "Savings", min: 0, max: 1200, step: 25 },
 ];
 
@@ -30,12 +30,16 @@ const DEFAULTS: Record<string, number> = {
   savings: 400,
 };
 
-/** Roughly a 50/30/20 split across these five categories, rounded to the nearest $25. */
+/**
+ * A 50/30/20 split of $3,200: $1,600 of needs (housing, food, transportation),
+ * $950 of wants, and $650 of savings — rounded to the nearest $25, so the
+ * shares land at 50%, ~30%, and ~20%.
+ */
 const FIFTY_THIRTY_TWENTY: Record<string, number> = {
-  housing: 1200,
-  food: 375,
-  transportation: 225,
-  fun: 750,
+  housing: 1100,
+  food: 300,
+  transportation: 200,
+  fun: 950,
   savings: 650,
 };
 

@@ -3,6 +3,7 @@ import { Callout } from "@/components/learn/primitives/Callout";
 import { CodeBlock } from "@/components/learn/primitives/CodeBlock";
 import { CompareGrid, TakeawayCard } from "@/components/learn/primitives/Cards";
 import { GeneratorStepper } from "@/components/python/GeneratorStepper";
+import { TryIt } from "@/components/python/TryIt";
 
 export function IteratorsAndGeneratorsLesson() {
   return (
@@ -75,6 +76,7 @@ StopIteration`}
 112`}
         />
         <P>
+          The exact byte counts vary between Python versions, but the gap never closes.
           That is not a rounding difference — it is the difference between a container that
           already holds a million pointers and an object that holds only the instruction for
           how to make the next number, plus a note on where it stopped. The list has to exist
@@ -124,6 +126,21 @@ StopIteration`}
           the function had never stopped running — the only thing that actually stopped is
           your access to the rest of the body, until you ask for more.
         </P>
+        <TryIt
+          label="fibonacci.py"
+          code={`def fibonacci_below(limit):
+    a, b = 1, 1
+    while a < limit:
+        yield a
+        a, b = b, a + b
+
+gen = fibonacci_below(20)
+print(next(gen))
+print(next(gen))
+print(next(gen))
+print(list(gen))`}
+          prompt="Raise the limit to 100 and run it again."
+        />
       </LessonSection>
 
       <GeneratorStepper />
@@ -144,7 +161,8 @@ StopIteration`}
 
       <LessonSection id="how-a-huge-file-fits-in-constant-memory" title="How a huge file fits in constant memory">
         <P>
-          An open file is an iterator, the same as the list example above — <Strong>for line
+          An open file is an iterator, like the one <Strong>iter(numbers)</Strong> handed back
+          at the start of this chapter — <Strong>for line
           in f:</Strong> calls <Strong>next()</Strong> on it once per line, and each call reads
           only as far as the next newline character before handing that one line back.
         </P>
@@ -158,6 +176,7 @@ StopIteration`}
             if "ERROR" in line:
                 total += 1
     return total`}
+          runnable={false}
         />
         <P>
           This runs in the same, small, constant amount of memory whether{" "}
@@ -210,15 +229,12 @@ StopIteration`}
       </LessonSection>
 
       <LessonSection id="a-generator-you-can-only-drain-once" title="A generator you can only drain once">
-        <CodeBlock
-          label="Terminal"
-          variant="terminal"
-          lineTones={{ 2: "ok", 4: "err" }}
-          code={`>>> squares = (n * n for n in range(5))
->>> list(squares)
-[0, 1, 4, 9, 16]
->>> list(squares)
-[]`}
+        <TryIt
+          label="drain.py"
+          code={`squares = (n * n for n in range(5))
+print(list(squares))
+print(list(squares))`}
+          prompt="Swap the round brackets on line 1 for square ones and run it again."
         />
         <P>
           A generator does not reset once it is exhausted. The second{" "}

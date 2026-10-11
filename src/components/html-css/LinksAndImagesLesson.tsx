@@ -38,7 +38,7 @@ export function LinksAndImagesLesson() {
         </P>
         <LabelRows
           rows={[
-            { label: "target", text: 'target="_blank" opens in a new tab. Add rel="noopener" with it — without that, the new page gets a reference back to yours and can redirect it.' },
+            { label: "target", text: 'target="_blank" opens in a new tab. Add rel="noopener" with it — without that, the new page can get a reference back to yours and redirect it. Current browsers apply noopener by default, but writing it costs nothing and covers older ones.' },
             { label: "download", text: "Downloads rather than navigates. Give it a value to rename the file on the way down." },
             { label: "#id", text: "Jumps to the element with that id on this page. Never touches the network." },
             { label: "rel", text: 'Describes the relationship. rel="noopener noreferrer" on external new-tab links; rel="nofollow" to tell search engines not to pass ranking.' },
@@ -198,9 +198,9 @@ export function LinksAndImagesLesson() {
         />
         <P>
           Those are the image&apos;s real pixel dimensions and they are not a display size. The
-          browser uses the <em>ratio</em> to reserve the right shape, then your CSS scales it. This
-          is the modern advice and it reverses guidance from about 2015. Older tutorials say the
-          opposite because browsers used to handle images differently.
+          browser uses the <em>ratio</em> to reserve the right shape, then your CSS scales it. Some
+          older tutorials say to leave the dimensions off; that advice dates from before browsers
+          used them this way, and it no longer applies.
         </P>
         <CodeBlock
           label="The one CSS rule every page needs"
@@ -210,7 +210,7 @@ export function LinksAndImagesLesson() {
 }`}
         />
         <P>
-          Without those two lines an 4000-pixel photo blows out your layout on a phone and produces
+          Without those two lines a 4,000-pixel photo blows out your layout on a phone and produces
           horizontal scrolling. Three more image rules matter:
         </P>
         <LabelRows

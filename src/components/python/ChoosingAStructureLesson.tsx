@@ -1,8 +1,9 @@
 import { Lead, LessonSection, P, Strong } from "@/components/learn/primitives/LessonSection";
 import { Callout } from "@/components/learn/primitives/Callout";
-import { CodeBlock } from "@/components/learn/primitives/CodeBlock";
+import { CodeBlock, InlineCode } from "@/components/learn/primitives/CodeBlock";
 import { ChecklistCard, LabelRows, TakeawayCard } from "@/components/learn/primitives/Cards";
 import { MembershipCost } from "@/components/python/MembershipCost";
+import { TryIt } from "@/components/python/TryIt";
 
 export function ChoosingAStructureLesson() {
   return (
@@ -57,6 +58,7 @@ export function ChoosingAStructureLesson() {
 
 "chidi" in names    # 3 comparisons — found at the end
 "dara" in names     # 3 comparisons — never found`}
+          runnable={false}
         />
         <P>
           At three items this is irrelevant. The trouble is that the code does not change as the
@@ -91,6 +93,7 @@ allowed = {"amara", "ben", "chidi"}
 if name in allowed:
     ...`}
           lineTones={{ 6: "ok" }}
+          runnable={false}
         />
         <Callout tone="tip" title="Build it once, outside the loop">
           <Strong>{"if name in set(allowed)"}</Strong> inside a loop rebuilds the entire set on
@@ -151,11 +154,18 @@ TypeError: unhashable type: 'list'
           repeatedly to find a student by name is a dictionary keyed by name that has not been
           written yet, and the conversion is a single comprehension.
         </P>
-        <CodeBlock
-          label="Python"
-          code={`by_name = {s["name"]: s for s in students}
+        <TryIt
+          label="by_name.py"
+          code={`students = [
+    {"name": "Amara", "chapters": 18},
+    {"name": "Ben", "chapters": 6},
+    {"name": "Chidi", "chapters": 24},
+]
 
-by_name["Amara"]["chapters"]   # one hash, no scan`}
+by_name = {s["name"]: s for s in students}
+
+print(by_name["Amara"]["chapters"])   # one hash, no scan`}
+          prompt="Look up Chidi instead, then try a name that is not in the table."
         />
       </LessonSection>
 
@@ -163,17 +173,27 @@ by_name["Amara"]["chapters"]   # one hash, no scan`}
         <P>
           Everything above describes how the work grows, not how long it takes. On small
           collections a list frequently beats a set outright, because building the set costs
-          more than the scan it saves — and &quot;small&quot; here can mean a few hundred items,
-          not a few.
+          more than the scan it saves — especially when you only look something up once or
+          twice. Where the crossover sits depends on your data and how many lookups you do,
+          which is exactly why you measure.
         </P>
         <P>
           The standard library will tell you rather than leave you guessing.
         </P>
-        <CodeBlock
-          label="Python"
+        <TryIt
+          label="measure.py"
           code={`import timeit
 
-timeit.timeit('"dara" in names', globals=globals(), number=100000)`}
+names_list = [f"student{i}" for i in range(10_000)]
+names_set = set(names_list)
+
+# Time taken to ask the same question 5,000 times.
+list_time = timeit.timeit(lambda: "dara" in names_list, number=5000)
+set_time = timeit.timeit(lambda: "dara" in names_set, number=5000)
+
+print(f"list: {list_time:.4f} seconds")
+print(f"set:  {set_time:.4f} seconds")`}
+          prompt={<>Change <InlineCode>range(10_000)</InlineCode> to <InlineCode>range(10)</InlineCode> and compare the two times again.</>}
         />
         <Callout tone="note" title="The honest order of operations">
           Write the version that reads most clearly. If it turns out to be slow, measure to find

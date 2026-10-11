@@ -60,7 +60,7 @@ export function ChoosingAWorkflowLesson() {
 
       <LessonSection id="github-flow-is-one-long-lived-branch" title="GitHub Flow is one long-lived branch">
         <P>
-          The simplest model that supports review, and by a wide margin the most common on GitHub. One
+          The simplest model that supports review, and a very common one on GitHub. One
           permanent branch — main, always deployable — and short-lived branches off it.
         </P>
         <StepList
@@ -152,9 +152,9 @@ return <LegacyCheckout />;`}
           <Strong>develop</Strong> branch, in particular, is pure overhead when main is deployed the
           moment something merges.
         </P>
-        <Callout tone="warning" title="Git Flow is the most cargo-culted diagram in software">
-          It was adopted almost universally on the strength of one very clear illustration, by an
-          enormous number of teams who ship continuously and have no supported old versions. If you
+        <Callout tone="warning" title="Git Flow is often adopted for its diagram alone">
+          It was adopted widely on the strength of one very clear illustration, including by many
+          teams who ship continuously and have no supported old versions. If you
           are using it, be able to say which of its branches solves a problem you actually have. If
           the answer is none, you are paying for machinery in exchange for nothing.
         </Callout>

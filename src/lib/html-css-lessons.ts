@@ -74,7 +74,7 @@ export const HTML_CSS_CHAPTERS: readonly LearnChapter[] = [
     order: 1,
     title: "What Sits Between a URL and a Page",
     description:
-      "Between pressing Enter and seeing a page, six things happen, and none of them are magic. Follow one request from your keyboard to a server on another continent and back, and see exactly which step you will be writing.",
+      "Between pressing Enter and seeing a page, seven things happen, and none of them are magic. Follow one request from your keyboard to a server on another continent and back, and see exactly which step you will be writing.",
     level: "beginner",
     minutes: 9,
     prerequisites: [],
@@ -114,7 +114,7 @@ export const HTML_CSS_CHAPTERS: readonly LearnChapter[] = [
     order: 3,
     title: "One File, One Browser, Nothing Installed",
     description:
-      "You need a text editor and a browser, both of which you already have. Write six lines, save the file, double-click it, and you are a web developer — then learn the two habits that stop the next hundred files from being painful.",
+      "You need a text editor and a browser, both of which you already have. Write eleven lines, save the file, double-click it, and you are a web developer — then learn the two habits that stop the next hundred files from being painful.",
     level: "beginner",
     minutes: 9,
     prerequisites: [],
@@ -154,7 +154,7 @@ export const HTML_CSS_CHAPTERS: readonly LearnChapter[] = [
     order: 5,
     title: "The Skeleton Every Page Has",
     description:
-      "Every page on the internet starts with the same eight lines, and each one is doing a job you can name. Then see the same markup as a tree, because that is what the browser turns it into and what CSS selects from.",
+      "Every page on the internet starts with the same dozen lines, and each one is doing a job you can name. Then see the same markup as a tree, because that is what the browser turns it into and what CSS selects from.",
     level: "beginner",
     minutes: 11,
     prerequisites: [],
@@ -334,7 +334,7 @@ export const HTML_CSS_CHAPTERS: readonly LearnChapter[] = [
     order: 14,
     title: "Every Element Is a Box With Four Layers",
     description:
-      "Set an element to 300 pixels wide, add padding, and measure it: it is 340. That one behaviour has confused every person who has ever learned CSS, and one line of code fixes it permanently.",
+      "Set an element to 300 pixels wide, add 20 pixels of padding, and measure it: it is 340. That one behaviour has confused every person who has ever learned CSS, and one line of code fixes it permanently.",
     level: "intermediate",
     minutes: 12,
     prerequisites: ["how-css-attaches"],
@@ -434,7 +434,7 @@ export const HTML_CSS_CHAPTERS: readonly LearnChapter[] = [
     order: 19,
     title: "One Page, Every Screen",
     description:
-      "More than half of everyone reading your page is holding it in one hand, and a page that ignores that is unusable rather than merely ugly. Drag a viewport across a breakpoint and watch a media query fire.",
+      "A large share of the people reading your page are holding it in one hand, and a page that ignores that is unusable rather than merely ugly. Drag a viewport across a breakpoint and watch a media query fire.",
     level: "intermediate",
     minutes: 12,
     prerequisites: ["flexbox"],
@@ -480,7 +480,7 @@ export const HTML_CSS_CHAPTERS: readonly LearnChapter[] = [
     prerequisites: ["marking-up-the-page", "grid"],
     tags: ["Project"],
     headings: [
-      { id: "a-three-line-reset-before-anything-else", text: "A three-line reset before anything else", level: 2 },
+      { id: "a-three-line-reset-before-anything-else", text: "A short reset comes before anything else", level: 2 },
       { id: "custom-properties-are-your-design-decisions", text: "Custom properties are your design decisions", level: 2 },
       { id: "typography-and-measure-come-before-colour", text: "Typography and measure come before colour", level: 2 },
       { id: "layout-with-grid-outside-and-flex-inside", text: "Layout with grid outside and flex inside", level: 2 },
@@ -544,7 +544,7 @@ export const HTML_CSS_CHAPTERS: readonly LearnChapter[] = [
       { id: "a-static-site-needs-no-server-you-manage", text: "A static site needs no server you manage", level: 2 },
       { id: "github-pages-is-a-repository-with-a-switch", text: "GitHub Pages is a repository with a switch", level: 2 },
       { id: "netlify-and-vercel-take-a-dragged-folder", text: "Netlify and Vercel take a dragged folder", level: 2 },
-      { id: "relative-paths-and-case-sensitivity-break-on-deploy", text: "Relative paths and case sensitivity break on deploy", level: 2 },
+      { id: "relative-paths-and-case-sensitivity-break-on-deploy", text: "Root paths and case sensitivity break on deploy", level: 2 },
       { id: "three-checks-before-you-send-the-link", text: "Three checks before you send the link", level: 2 },
     ],
     status: "published",

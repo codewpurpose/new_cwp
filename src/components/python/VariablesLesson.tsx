@@ -1,6 +1,7 @@
 import { Lead, LessonSection, P, Strong } from "@/components/learn/primitives/LessonSection";
 import { Callout } from "@/components/learn/primitives/Callout";
-import { CodeBlock } from "@/components/learn/primitives/CodeBlock";
+import { CodeBlock, InlineCode } from "@/components/learn/primitives/CodeBlock";
+import { TryIt } from "@/components/python/TryIt";
 import { CompareGrid, TakeawayCard } from "@/components/learn/primitives/Cards";
 import { NamePointer } from "@/components/python/NamePointer";
 
@@ -19,12 +20,13 @@ export function VariablesLesson() {
         <P>
           Run this, and predict the output before you check it:
         </P>
-        <CodeBlock
+        <TryIt
           label="pointer.py"
           code={`a = [1, 2, 3]
 b = a
 b.append(4)
 print(a)`}
+          prompt={<>After you check, change line 2 to <InlineCode>b = a.copy()</InlineCode> and run it again.</>}
         />
         <P>
           If a variable were a box, <Strong>a</Strong> would still read{" "}

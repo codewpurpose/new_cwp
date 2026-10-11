@@ -89,14 +89,44 @@ export function NeuralNetworksLesson() {
           At zero hidden units the widget above is exactly the straight-line model from the first
           section, and it shows: 62.5% on the points it trained on, 61.7% on the ones it did not
           — barely past guessing, because half of each ring sits on either side of any line you
-          could draw. One or two units bend that line slightly and buy almost nothing (69.2%,
-          then 85.0% training accuracy, with validation trailing well behind at 63.3% and 68.3%).
+          could draw. One or two units bend that line and help on the training points (69.2%,
+          then 85.0%), but validation trails well behind at 63.3% and 68.3% — the folds are not
+          yet in the right places to trace a ring.
           By three units the fold count catches up with the shape: 99.2% training accuracy, 93.3%
           held back. Five is where this particular ring stops needing help — 98.3% on data it
           never trained on, the best any width reaches here. Pushing on to eight buys nothing
           further: training accuracy tops out at 100%, and validation sits exactly where it sat
           at five. The extra capacity is not fitting the ring any better. It is chasing individual
           training points that happened to land where they did.
+        </P>
+        <P>
+          The same two rings, generated fresh, with scikit-learn&rsquo;s small neural network
+          and one hidden layer of ReLU units.
+        </P>
+        <CodeBlock
+          label="rings.py"
+          code={`from sklearn.datasets import make_circles
+from sklearn.linear_model import LogisticRegression
+from sklearn.model_selection import train_test_split
+from sklearn.neural_network import MLPClassifier
+
+# An inner ring and an outer ring: no straight line separates them.
+X, y = make_circles(n_samples=400, noise=0.1, factor=0.4, random_state=0)
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.3, random_state=0)
+
+line = LogisticRegression().fit(X_train, y_train)
+print(f"one weighted sum (a straight line): {line.score(X_test, y_test):.0%}")
+
+for hidden in [1, 2, 3, 8]:   # number of ReLU units in one hidden layer
+    net = MLPClassifier(hidden_layer_sizes=(hidden,), activation="relu",
+                        solver="lbfgs", max_iter=2000, random_state=0)
+    net.fit(X_train, y_train)
+    print(f"{hidden} hidden unit(s): {net.score(X_test, y_test):.0%}")`}
+        />
+        <P>
+          A straight line scores 42%, no better than guessing, and so does one hidden unit. Two
+          units reach 64%, three reach 99%, and eight score 96% on the held-back points: more
+          width did not help here.
         </P>
         <P>
           That is <Strong>width</Strong> — more units in the same layer, each one a fresh fold

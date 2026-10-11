@@ -81,10 +81,12 @@ export function PrivacyAndHipaaBasicsLesson() {
         <P>
           An emergency room doctor at a hospital you have never visited before can request your
           records from your regular clinic in the middle of treating you, without a new consent
-          form, because that request falls inside treatment. The one blanket document you sign —
-          the Notice of Privacy Practices, usually on a clipboard at a first visit — is what
-          covers all three going forward. Anything outside TPO, like selling PHI to a
-          marketer, needs the patient&apos;s specific authorisation instead.
+          form, because that request falls inside treatment. The document usually handed to you on
+          a clipboard at a first visit — the <Strong>Notice of Privacy Practices</Strong> — is not
+          what grants that permission; the law already does. The notice explains how the practice
+          uses your information, and the signature it asks for typically just confirms you
+          received it. Anything outside TPO, like selling PHI to a marketer, needs the
+          patient&apos;s specific authorisation instead.
         </P>
       </LessonSection>
 
@@ -190,7 +192,7 @@ export function PrivacyAndHipaaBasicsLesson() {
         items={[
           "HIPAA protects Protected Health Information handled by covered entities and their business associates — not every piece of health-adjacent data everywhere.",
           "PHI is defined by eighteen specific identifiers attached to health data, including a catch-all for any other unique identifying code — strip all eighteen and the legal category can disappear.",
-          "Treatment, payment, and healthcare operations need no fresh authorisation each time; one signed notice at the first visit covers all three going forward.",
+          "Treatment, payment, and healthcare operations need no fresh authorisation each time — the law permits them directly, and the Notice of Privacy Practices just tells you how they're used.",
           "A business associate can only touch PHI under a signed agreement obligating it to safeguard the data and report its own breaches — sharing without one is a compliance failure regardless of actual security.",
           "De-identified data is a legal category, not a guarantee of anonymity — ZIP code, birth date, and sex alone re-identify most Americans once cross-referenced against an outside dataset.",
         ]}

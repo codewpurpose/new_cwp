@@ -72,16 +72,15 @@ export function DrugDiscoveryAndAiLesson() {
         <P>
           Both are real, and both are also two of the narrowest stages in the pipeline above —
           which is exactly why the improvement doesn&apos;t show up as a shorter overall timeline
-          yet. Be precise about which tool did which job before crediting AI with the whole
-          pipeline.
+          yet. Before crediting AI with a whole new drug, ask which stage it actually sped up.
         </P>
       </LessonSection>
 
       <LessonSection id="what-alphafold-actually-solved" title="What AlphaFold actually solved">
         <P>
-          DeepMind&apos;s AlphaFold is a well-known example of AI in this space, and
-          be exact about what it did, because the popular version of the story
-          credits it with more than it delivered. Predicting the three-dimensional shape a protein
+          DeepMind&apos;s AlphaFold is a well-known example of AI in this space, and it is
+          worth being exact about what it did, because the popular version of the story credits
+          it with more than it delivered. Predicting the three-dimensional shape a protein
           folds into, from nothing but the sequence of amino acids that make it up, was an open
           problem biologists had chased for decades. Solving it well enough to compete with a
           physical lab measurement was a scientific breakthrough, and the resulting
@@ -101,8 +100,8 @@ export function DrugDiscoveryAndAiLesson() {
               children: (
                 <P>
                   Given a protein&apos;s sequence, predicting the shape it physically folds into —
-                  to an accuracy that rivals a lab measurement, for the vast majority of proteins
-                  ever catalogued.
+                  often to an accuracy that rivals a lab measurement, with a confidence score
+                  attached to show where a prediction is less reliable.
                 </P>
               ),
             },

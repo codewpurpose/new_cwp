@@ -67,6 +67,12 @@ export function CompoundInterestLesson() {
           your head — a 401(k) match, a savings APY, a credit card APR — nothing beats it for
           speed.
         </P>
+        <Callout tone="tip" title="Try it yourself">
+          A high-yield savings account pays 4.5% APY. Roughly how long until a deposit doubles?
+          72 ÷ 4.5 = 16 years. Now flip it: a store card charges 29% APR. 72 ÷ 29 is about 2.5
+          years — an unpaid balance on that card doubles six times faster than the savings
+          account grows.
+        </Callout>
       </LessonSection>
 
       <LessonSection id="the-same-monthly-amount-ten-years-earlier" title="The same monthly amount, ten years earlier">
@@ -161,8 +167,8 @@ export function CompoundInterestLesson() {
           card balance at 24% APR, compounding monthly with no payments and no new charges,
           doesn&apos;t grow by {formatCurrency(1200)} a year the way simple interest would suggest.
           It doubles. Run the rule of 72 the other direction: 72 ÷ 24 is 3. Left completely
-          alone, that {formatCurrency(5000)} becomes {formatCurrency(10000)} in exactly three
-          years — the identical mechanism that turned a decade of savings into an extra{" "}
+          alone, that {formatCurrency(5000)} passes {formatCurrency(10000)} in about three years
+          — 35 months, worked out exactly — the identical mechanism that turned a decade of savings into an extra{" "}
           {formatCurrency(280968)}, now running against you.
         </P>
         <P>
@@ -179,7 +185,7 @@ export function CompoundInterestLesson() {
           "Dividing 72 by an interest rate gives a doubling time accurate to a few months either way — at 7% that's about 10.3 years, close enough to plan around without a calculator.",
           `${formatCurrency(200)} a month at 7% starting ten years earlier is worth ${formatCurrency(280968)} more at the finish line than starting late, even though the early saver only contributed ${formatCurrency(24000)} more.`,
           "The first five to ten years of a compounding plan barely move the balance beyond what was contributed — growth only overtakes contributions somewhere between year ten and year twenty, which is exactly when most people give up on it.",
-          `The same mechanism runs in reverse on debt — a ${formatCurrency(5000)} balance at 24% APR, left untouched, doubles in three years, because compounding doesn't care which direction it's working.`,
+          `The same mechanism runs in reverse on debt — a ${formatCurrency(5000)} balance at 24% APR, left untouched, doubles in about three years, because compounding doesn't care which direction it's working.`,
         ]}
       />
     </div>

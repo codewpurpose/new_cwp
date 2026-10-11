@@ -60,8 +60,9 @@ export function BigPurchasesAndOpportunityCostLesson() {
           staying in it.
         </P>
         <P>
-          Run that same $28,000 through the chart at a ten-year horizon instead of five, and the
-          number it could have become dwarfs the total cost of ownership above. That&apos;s the
+          Run that same $28,000 through the chart at a ten-year horizon and it grows to about
+          $55,000 at a 7% average return — more than the car&apos;s entire five-year cost of
+          ownership above. That&apos;s the
           full picture a car purchase actually represents: the sticker price, the recurring costs
           of keeping it running, and whatever all of that money would have grown into if it had
           gone into an index fund instead.

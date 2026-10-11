@@ -2,6 +2,7 @@ import { Callout } from "@/components/learn/primitives/Callout";
 import { TakeawayCard } from "@/components/learn/primitives/Cards";
 import { Lead, LessonSection, P, Strong } from "@/components/learn/primitives/LessonSection";
 import { ConfusionGrid } from "@/components/computer-vision/ConfusionGrid";
+import { CodeBlock } from "@/components/learn/primitives/CodeBlock";
 
 export function ConfusionMatrixForVisionLesson() {
   return (
@@ -51,18 +52,19 @@ export function ConfusionMatrixForVisionLesson() {
         title="Finding the pair that drives the error"
       >
         <P>
-          Click through the matrix above and one pair dominates. Cats, dogs and foxes are each
-          confused with something else once or twice out of fifty — noise, essentially. Wolves and
+          Click through the matrix above and one pair dominates. Cats, dogs and foxes each lose
+          only three or four photos out of fifty, scattered one or two at a time across the other
+          classes — noise, essentially. Wolves and
           coyotes are a different story: 19 wolves called coyotes, 21 coyotes called wolves, out of
           50 of each. That is 40 of the 54 total errors in the entire matrix, from one pair of
           classes out of five.
         </P>
         <P>
           That number changes what you would do next. Improving every class&rsquo;s accuracy by a
-          point each is 5 points of work for a few points of overall gain. Fixing the wolf/coyote
+          point each is five separate pieces of work for one point of overall gain. Fixing the wolf/coyote
           confusion alone — better ear and muzzle features, more training photos of exactly this
           pair side by side — recovers up to 40 of the 54 errors on its own, which would push
-          accuracy from 78.4% into the low-to-mid 90s. <Strong>The matrix tells you where to spend
+          accuracy from 78.4% to as high as 94.4%. <Strong>The matrix tells you where to spend
           the next month</Strong>, and the single number never could.
         </P>
         <Callout tone="tip" title="Where this generalises">
@@ -72,6 +74,40 @@ export function ConfusionMatrixForVisionLesson() {
           confusion is almost always a small number of visually or semantically similar classes,
           not a uniform smear.
         </Callout>
+        <P>
+          Try it on real images: a deliberately weak digit classifier, then the off-diagonal
+          cells sorted by count.
+        </P>
+        <CodeBlock
+          label="confusions.py"
+          code={`import numpy as np
+from sklearn.datasets import load_digits
+from sklearn.metrics import confusion_matrix
+from sklearn.model_selection import train_test_split
+from sklearn.neighbors import KNeighborsClassifier
+
+X, y = load_digits(return_X_y=True)
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.5, random_state=0)
+# A deliberately weak model: one neighbour, trained on only 60 images.
+model = KNeighborsClassifier(1).fit(X_train[:60], y_train[:60])
+predicted = model.predict(X_test)
+
+print(f"accuracy: {np.mean(predicted == y_test):.1%}")
+matrix = confusion_matrix(y_test, predicted)
+print(matrix)                       # rows: true digit, columns: predicted digit
+
+mistakes = matrix.copy()
+np.fill_diagonal(mistakes, 0)       # keep only the errors
+for _ in range(3):
+    true, said = np.unravel_index(mistakes.argmax(), mistakes.shape)
+    print(f"{mistakes[true, said]} photos of a {true} were called a {said}")
+    mistakes[true, said] = 0`}
+        />
+        <P>
+          Overall it scores 84.4%. The biggest single error is 21 eights called ones, then 16
+          threes called nines. Change the 60 training images to 300 and see which confusions
+          survive.
+        </P>
       </LessonSection>
 
       <LessonSection

@@ -2,6 +2,7 @@ import { Callout } from "@/components/learn/primitives/Callout";
 import { TakeawayCard } from "@/components/learn/primitives/Cards";
 import { Lead, LessonSection, P, Strong } from "@/components/learn/primitives/LessonSection";
 import { ThresholdCurve } from "@/components/computer-vision/ThresholdCurve";
+import { CodeBlock } from "@/components/learn/primitives/CodeBlock";
 
 export function MeanAveragePrecisionLesson() {
   return (
@@ -61,13 +62,42 @@ export function MeanAveragePrecisionLesson() {
           jagged curve to stand.
         </P>
         <P>
-          <Strong>Average precision</Strong> sidesteps the choice: instead of one threshold, take
-          the precision value at every point along the sweep and average them. It is a way of
+          <Strong>Average precision</Strong> sidesteps the choice: instead of one threshold, walk
+          down the sorted list and note the precision each time another real object is caught.
+          Add those up and divide by the number of real objects in the scene — so an object the
+          detector never found contributes zero. In the panel above that is (1 + 1 + 1 + 0.8 +
+          0.83 + 0.75) / 8 ≈ 0.67. It is a way of
           scoring the whole trade-off curve with one number instead of committing to a threshold
           nobody agreed on in advance. <Strong>Mean</Strong> average precision then averages that
           score again, across every object class the detector was tested on — one AP for
           &ldquo;pedestrian&rdquo;, one for &ldquo;bicycle&rdquo;, one for &ldquo;traffic
           light&rdquo;, meaned into the single number that gets reported.
+        </P>
+        <P>
+          The panel&rsquo;s ten detections, walked down by hand.
+        </P>
+        <CodeBlock
+          label="average_precision.py"
+          code={`# Ten detections sorted by confidence, each already marked correct or not
+# by an IoU check. There were 8 real objects; 2 were never found at all.
+correct = [True, True, True, False, True, True, False, True, False, False]
+real_objects = 8
+
+hits = 0
+precisions_at_hits = []
+for rank, is_hit in enumerate(correct, start=1):
+    if is_hit:
+        hits += 1
+        precision = hits / rank
+        precisions_at_hits.append(precision)
+        print(f"rank {rank:2}: hit,  precision {precision:.2f}, recall {hits / real_objects:.3f}")
+
+ap = sum(precisions_at_hits) / real_objects   # a missed object adds 0
+print(f"average precision: {ap:.2f}")`}
+        />
+        <P>
+          It prints the same 0.67. Flip one of the last two detections to True and see how much
+          a single late hit is worth.
         </P>
       </LessonSection>
 
@@ -82,7 +112,7 @@ export function MeanAveragePrecisionLesson() {
         <P>
           It also treats every miss as equally costly, which is never true in practice. A detector
           that misses a parked car and one that misses a pedestrian stepping into the road produce
-          the same one-point deduction to AP, and only one of those two failures matters at
+          the same deduction from AP, and only one of those two failures matters at
           highway speed. <Strong>A single mAP number is a fair summary of overall detection
           quality and a poor guide to which failures you can actually tolerate.</Strong>
         </P>

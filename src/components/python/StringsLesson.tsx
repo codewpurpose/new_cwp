@@ -64,6 +64,32 @@ export function StringsLesson() {
           A slice, <Strong>text[start:end]</Strong>, pulls out a whole range at once. The part
           everyone gets wrong at least once: <Strong>end</Strong> is not included.
         </P>
+        <CodeBlock
+          label="Terminal"
+          variant="terminal"
+          code={`>>> word = "python"
+>>> word[0:2]
+'py'
+>>> word[2:6]
+'thon'
+>>> word[:3]
+'pyt'
+>>> word[-3:]
+'hon'`}
+        />
+        <P>
+          <Strong>word[0:2]</Strong> stops <em>before</em> position 2, so it hands back two
+          characters, not three. Leave out <Strong>start</Strong> and the slice begins at the
+          front; leave out <Strong>end</Strong> and it runs to the finish. Because the end is
+          excluded, <Strong>word[:3] + word[3:]</Strong> always rebuilds the whole string with
+          nothing doubled and nothing lost.
+        </P>
+        <Callout tone="tip" title="Try it yourself">
+          Before you look at the widget below, predict what <Strong>text[4:8]</Strong> gives
+          for <Strong>&quot;codewithpurpose&quot;</Strong>, counting from 0. The widget starts
+          on exactly that slice, so you can check straight away — and the answer is four
+          characters long, because 8 minus 4 is 4.
+        </Callout>
       </LessonSection>
 
       <StringSlicer />
@@ -234,7 +260,7 @@ UnicodeDecodeError: 'ascii' codec can't decode byte 0xc3 in position 3: ordinal 
       <TakeawayCard
         items={[
           "A string is indexed like any sequence, counting starts at 0, and negative indices count backwards from the end.",
-          "A slice text[start:end] never includes the character at end — its length is always end minus start.",
+          "A slice text[start:end] never includes the character at end — when 0 <= start <= end <= len(text), its length is end minus start.",
           "An f-string fills {expression} holes directly in the text, and a format spec like :.2f controls how the value is displayed.",
           "Strings are immutable. Every method that looks like it edits one, such as .strip() or .replace(), returns a new string instead.",
           "A file is bytes, not text. Pass encoding=\"utf-8\" explicitly when opening one, or the default can differ by operating system.",

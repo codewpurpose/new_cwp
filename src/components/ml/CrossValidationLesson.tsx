@@ -1,5 +1,6 @@
 import { Callout } from "@/components/learn/primitives/Callout";
 import { TakeawayCard } from "@/components/learn/primitives/Cards";
+import { CodeBlock, InlineCode } from "@/components/learn/primitives/CodeBlock";
 import { Lead, LessonSection, P, Strong } from "@/components/learn/primitives/LessonSection";
 import { FoldRotator } from "@/components/ml/FoldRotator";
 
@@ -62,6 +63,31 @@ export function CrossValidationLesson() {
           average never touches: <Strong>how much does this score depend on luck?</Strong> A
           model scoring 4.31 give or take 0.1 and a model scoring 4.31 give or take 2.2 are not
           the same result, and only one of them is worth defending.
+        </P>
+        <P>
+          Here are five folds on a small dataset bundled with scikit-learn: 178 wines, 13
+          chemical measurements each, and three grape varieties to tell apart.
+        </P>
+        <CodeBlock
+          label="five_folds.py"
+          code={`import numpy as np
+from sklearn.datasets import load_wine
+from sklearn.model_selection import KFold, cross_val_score
+from sklearn.tree import DecisionTreeClassifier
+
+X, y = load_wine(return_X_y=True)   # 178 wines, 13 chemical measurements, 3 grape types
+model = DecisionTreeClassifier(max_depth=3, random_state=0)
+
+folds = KFold(n_splits=5, shuffle=True, random_state=0)   # try n_splits=10
+scores = cross_val_score(model, X, y, cv=folds)
+
+print("each fold:", np.round(scores, 2))
+print(f"average {scores.mean():.2f}, spread {scores.min():.2f} to {scores.max():.2f}")`}
+        />
+        <P>
+          The folds score between 0.83 and 0.97, averaging 0.93. Set{" "}
+          <InlineCode>n_splits</InlineCode> to 10 and the average barely moves while the spread
+          widens to 0.72 to 1.00: smaller folds mean noisier individual scores.
         </P>
         <P>
           The bottom panel makes the payoff concrete. Repeat the whole experiment forty times with

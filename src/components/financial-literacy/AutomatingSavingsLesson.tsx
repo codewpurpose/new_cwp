@@ -35,17 +35,17 @@ export function AutomatingSavingsLesson() {
       <LessonSection id="why-willpower-loses-to-automation" title="Why willpower loses to automation">
         <P>
           Manual saving asks you to make the same disciplined decision, correctly, roughly thirty
-          times a month, forever. Automation asks you to make it once. Every study of habit
-          formation says the same thing in different words: a system that removes a repeated
-          decision beats a system that relies on repeating it correctly.
+          times a month, forever. Automation asks you to make it once. Research on habits
+          keeps pointing the same way: a system that removes a repeated decision tends to beat a
+          system that relies on repeating it correctly.
         </P>
         <P>
           This isn&apos;t a character judgement. A decision made under willpower has to win
           against every other pull on that same balance — a card declined at the register, a
           friend&apos;s birthday, a bad week where a takeout order feels earned. An automated
           transfer never has to win an argument, because by the time the argument would start, the
-          money has already left. Willpower is a finite resource spent once per decision.
-          Automation spends it once, total.
+          money has already left. Willpower has to show up again for every decision. Automation
+          needs it once, on the day you set the transfer up.
         </P>
       </LessonSection>
 
@@ -87,10 +87,10 @@ export function AutomatingSavingsLesson() {
                     day and it can fire against a balance that hasn&apos;t caught up yet.
                   </P>
                   <P>
-                    The result is a bounced transfer and, on many accounts, an overdraft fee
-                    averaging around {formatCurrency(35)} — on a {formatCurrency(50)} automatic
-                    transfer, that&apos;s a 70% penalty for the automation working exactly as
-                    configured.
+                    The result is a bounced transfer and, at banks that still charge one, an
+                    overdraft fee that can run around {formatCurrency(35)} — on a{" "}
+                    {formatCurrency(50)} automatic transfer, that&apos;s a 70% penalty for the
+                    automation working exactly as configured.
                   </P>
                 </>
               ),

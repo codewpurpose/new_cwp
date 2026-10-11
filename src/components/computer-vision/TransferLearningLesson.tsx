@@ -69,6 +69,14 @@ export function TransferLearningLesson() {
           up to the last, doing the seeing; the head is the final layer, doing the naming.
           Transfer learning keeps the body and swaps the head.
         </Callout>
+        <P>
+          Freezing everything is the cautious end of a dial. With a few thousand photos rather
+          than a few hundred, a common next step is <Strong>fine-tuning</Strong>: once the new
+          head has trained, unfreeze the last few layers of the body as well and keep training
+          with a small learning rate, so the later, more specific features can adjust to your
+          images without wiping out what the early layers already know. With very little data,
+          leave the body frozen; there is not enough to adjust it without overfitting.
+        </P>
       </LessonSection>
 
       <LessonSection

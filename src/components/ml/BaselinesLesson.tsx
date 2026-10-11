@@ -1,5 +1,6 @@
 import { Callout } from "@/components/learn/primitives/Callout";
 import { ChecklistCard, TakeawayCard } from "@/components/learn/primitives/Cards";
+import { CodeBlock } from "@/components/learn/primitives/CodeBlock";
 import { Lead, LessonSection, P, Strong } from "@/components/learn/primitives/LessonSection";
 import { BaselineBoard } from "@/components/ml/BaselineBoard";
 
@@ -85,11 +86,49 @@ export function BaselinesLesson() {
           and commute times, carving out little regions that fit the training set and mean
           nothing. It overfits into the noise the stump was too simple to reach.
         </P>
-        <Callout tone="warning" title="87% would have sounded like a result">
+        <Callout tone="warning" title="76% would have sounded like a result">
           Run the tree on its own and you get 76.0%, on a problem where chance is about 50%.
           Written in a slide with no baseline beside it, that reads as a working model. It is a
           working model that is worse than one line of code, and only the baseline says so.
         </Callout>
+        <P>
+          The same race on fresh data: one column that matters, five that do not, and two of
+          scikit-learn&rsquo;s ready-made dummy models as the floor.
+        </P>
+        <CodeBlock
+          label="baselines.py"
+          code={`import numpy as np
+from sklearn.dummy import DummyClassifier
+from sklearn.model_selection import train_test_split
+from sklearn.neighbors import KNeighborsClassifier
+from sklearn.pipeline import make_pipeline
+from sklearn.preprocessing import StandardScaler
+from sklearn.tree import DecisionTreeClassifier
+
+rng = np.random.default_rng(7)
+n = 500
+revised = rng.uniform(0, 16, n)
+passed = revised + rng.normal(0, 2, n) > 8
+noise = rng.normal(size=(n, 5))        # sleep, commute, siblings, height, shoe size
+X = np.column_stack([revised, noise])  # only column 0 matters
+X_train, X_test, y_train, y_test = train_test_split(X, passed, test_size=0.3, random_state=0)
+
+models = {
+    "majority class": DummyClassifier(strategy="most_frequent"),
+    "random at the right rate": DummyClassifier(strategy="stratified", random_state=0),
+    "one rule (a stump)": DecisionTreeClassifier(max_depth=1),
+    "5 nearest neighbours": make_pipeline(StandardScaler(), KNeighborsClassifier(5)),
+    "depth-6 tree": DecisionTreeClassifier(max_depth=6, random_state=0),
+}
+for name, model in models.items():
+    model.fit(X_train, y_train)
+    print(f"{name:26} {model.score(X_test, y_test):.1%}")`}
+        />
+        <P>
+          The majority rule scores 54.7% and guessing at the right rate 48.7%. The stump gets
+          89.3%. The neighbour vote (88.0%) and the depth-6 tree (87.3%) come close but do not
+          beat it.
+        </P>
       </LessonSection>
 
       <LessonSection id="when-the-baseline-wins" title="When the baseline wins">
@@ -123,10 +162,11 @@ export function BaselinesLesson() {
         />
 
         <Callout tone="tip" title="Where this leaves you">
-          You have reached the end of the track. You know what a model is, how one learns, three
-          ways to build one, and — through five chapters of Part 4 — most of the ways a score can
-          lie to you. That last part is the difference between running a library and doing the
-          work, and it is not what most introductions spend their time on.
+          That is the end of the fundamentals. You know what a model is, how one learns, three
+          ways to build one, and — across Parts 2 and 4 — most of the ways a score can lie to
+          you. That last part is the difference between running a library and doing the work.
+          Parts 5 and 6 go further: learning without labels, and what the optimiser is actually
+          doing under the fit.
         </Callout>
       </LessonSection>
 

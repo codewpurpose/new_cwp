@@ -2,6 +2,7 @@ import { Lead, LessonSection, P, Strong } from "@/components/learn/primitives/Le
 import { Callout } from "@/components/learn/primitives/Callout";
 import { CodeBlock } from "@/components/learn/primitives/CodeBlock";
 import { CompareGrid, LabelRows, TakeawayCard } from "@/components/learn/primitives/Cards";
+import { RevealCard } from "@/components/learn/primitives/RevealCard";
 import { StepList } from "@/components/learn/primitives/StepList";
 import { SpecificityScorer } from "@/components/html-css/SpecificityScorer";
 
@@ -122,6 +123,15 @@ nav ul li a            0-0-4
           practical reason inline styles are hard to work with: nothing in your stylesheet can
           override one except <Strong>!important</Strong>.
         </P>
+        <RevealCard
+          summaryTag="Try it yourself"
+          summary="nav#main a { color: navy; } is written first, and .menu .item a:hover { color: red; } comes later. Hovering a link inside both, which colour wins?"
+          detailTag="The answer"
+          detail="Navy. nav#main a scores 1-0-2 (one ID, two types) and .menu .item a:hover scores 0-3-1 (two classes, a pseudo-class, one type). The first column decides it: one ID beats any number of classes, so the later rule never gets to use source order."
+          footnote="Count the columns before you look at the order — that habit alone resolves most cascade puzzles."
+          openLabel="Check your answer"
+          closeLabel="Hide the answer"
+        />
       </LessonSection>
 
       <LessonSection id="source-order-only-breaks-an-exact-tie" title="Source order only breaks an exact tie">
@@ -255,7 +265,7 @@ nav ul li a            0-0-4
           "One ID beats any number of classes; one class beats any number of element names.",
           "An inline style attribute outranks all three columns.",
           "Inheritance is not the cascade: it passes text properties down to elements no rule targeted.",
-          "Text properties inherit; box properties do not. Form controls inherit nothing until you write font: inherit.",
+          "Text properties inherit; box properties do not. Form controls do not inherit your font until you write font: inherit.",
           "A rule always beats an inherited value, which is why links ignore body's colour.",
           "!important buys a fix now and an escalation later. Devtools shows you which rule actually won.",
         ]}

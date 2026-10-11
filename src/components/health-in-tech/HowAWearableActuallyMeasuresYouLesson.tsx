@@ -83,14 +83,15 @@ export function HowAWearableActuallyMeasuresYouLesson() {
           a wearable produces. It is not the only one.
         </P>
         <P>
-          Melanin absorbs green light more strongly than lighter, less pigmented skin does,
+          Darker, more melanin-rich skin absorbs more green light than lighter skin does,
           which means less light reaches the blood vessels and less of it returns to the
           photodiode — a weaker signal sitting under the same amount of motion and ambient
           noise. A tattoo directly over the sensor compounds the same problem: ink absorbs
           light too, regardless of skin tone underneath it, and can degrade the reading further
-          still. Neither effect is a hypothetical edge case — it is a real accuracy gap that
-          contributed to a 2021 FDA safety communication warning that pulse oximeter readings
-          can be less accurate on patients with darker skin pigmentation.
+          still. Neither effect is a hypothetical edge case. The same light-absorption problem in pulse
+          oximeters, which use red and infrared light rather than green, led to a 2021 FDA
+          safety communication warning that their readings can be less accurate on patients with
+          darker skin pigmentation.
         </P>
         <Callout tone="warning" title="A quieter signal is not a smaller problem">
           Manufacturers have responded by adding more LEDs at different wavelengths and more

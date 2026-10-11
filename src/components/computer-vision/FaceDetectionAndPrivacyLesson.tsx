@@ -55,9 +55,12 @@ export function FaceDetectionAndPrivacyLesson() {
         title="Error rates that are not even across faces"
       >
         <P>
-          The previous chapter&rsquo;s Gender Shades findings apply directly here, and soberly: that
+          The Gender Shades findings from the dataset bias chapter apply here, and soberly: that
           research measured commercial facial-analysis error rates as high as 34% for darker-skinned
-          women against under 1% for lighter-skinned men, on systems already deployed commercially.
+          women against under 1% for lighter-skinned men, on systems already sold commercially.
+          Gender Shades tested gender classification rather than identity matching, but the U.S.
+          government&rsquo;s own testing of face recognition algorithms in 2019 also found error
+          rates that varied across demographic groups for many of the systems it evaluated.
           A wrongful match from a recognition system is not an abstract inconvenience — it can mean
           being stopped, questioned, or investigated for something you did not do.
         </P>
@@ -71,19 +74,19 @@ export function FaceDetectionAndPrivacyLesson() {
 
       <LessonSection id="rules-that-exist-because-of-this" title="Rules that exist because of this">
         <P>
-          None of this stayed theoretical. Several cities and police departments in the United
-          States have restricted or banned police use of facial recognition outright, after
-          documented wrongful arrests traced back to recognition errors. A number of large
-          companies paused or ended sales of facial recognition to law enforcement following the
-          same evidence.
+          None of this stayed theoretical. Several U.S. cities have restricted or banned police
+          use of facial recognition outright, and documented wrongful arrests traced back to false
+          matches have since strengthened the case for limits. In 2020, amid public scrutiny that
+          included independent audits of uneven error rates, a number of large companies paused or
+          ended sales of facial recognition to police.
         </P>
         <ChecklistCard
           title="Rules already on the books"
           items={[
-            "The EU's GDPR classes biometric data used to uniquely identify a person, including facial recognition templates, as a special category requiring explicit consent and a lawful basis.",
-            "The EU AI Act specifically restricts real-time remote biometric identification in public spaces by law enforcement, treating it as high-risk rather than routine.",
-            "Multiple U.S. cities and states have banned or restricted government use of facial recognition following documented wrongful-arrest cases.",
-            "Several major vendors halted sales of facial recognition to police departments after independent audits confirmed uneven error rates across demographic groups.",
+            "The EU's GDPR classes biometric data used to uniquely identify a person, including facial recognition templates, as a special category that may only be processed under specific conditions, such as explicit consent.",
+            "The EU AI Act prohibits real-time remote biometric identification in publicly accessible spaces for law enforcement, apart from a short list of narrow exceptions.",
+            "Multiple U.S. cities and states have banned or restricted government use of facial recognition.",
+            "Several major vendors paused or ended sales of facial recognition to police departments in 2020, amid scrutiny that included audits of uneven error rates.",
           ]}
         />
         <Callout tone="note" title="Not a hypothetical concern">
@@ -97,8 +100,8 @@ export function FaceDetectionAndPrivacyLesson() {
         items={[
           "Face detection answers 'is there a face here'; face recognition additionally matches that face against a known identity — two different technical steps routinely described as one.",
           "Unlocking your own phone is recognition you consented to, for a database of one; a public camera matching strangers against a database they never joined is the same technology under an opposite consent situation.",
-          "Documented research found facial-recognition error rates far higher for darker-skinned women than for lighter-skinned men, meaning the harm of a wrongful match falls unevenly.",
-          "Real, documented wrongful arrests led multiple cities and companies to restrict or end police use of facial recognition.",
+          "Documented research found facial-analysis error rates far higher for darker-skinned women than for lighter-skinned men, so the harm of a wrong answer falls unevenly.",
+          "Multiple cities and companies have restricted or ended police use of facial recognition, and documented wrongful arrests from false matches have strengthened the case for limits.",
           "The EU's GDPR and AI Act specifically single out biometric identification for stricter rules — this is already shaped policy, not a hypothetical concern.",
         ]}
       />

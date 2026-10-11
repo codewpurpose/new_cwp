@@ -3,6 +3,7 @@ import { Callout } from "@/components/learn/primitives/Callout";
 import { CodeBlock } from "@/components/learn/primitives/CodeBlock";
 import { CompareGrid, LabelRows, TakeawayCard } from "@/components/learn/primitives/Cards";
 import { ElementAnatomy } from "@/components/html-css/ElementAnatomy";
+import { WebPlayground } from "@/components/webplay/WebPlayground";
 
 export function ElementsAndTagsLesson() {
   return (
@@ -91,7 +92,7 @@ export function ElementsAndTagsLesson() {
 <link rel="stylesheet" href="styles.css">`}
         />
         <P>
-          There are about fourteen in total and those six are all you will use. Note that{" "}
+          There are thirteen in total and those six are the ones you will use most. Note that{" "}
           <Strong>&lt;link&gt;</Strong> is void — it points at a stylesheet — while{" "}
           <Strong>&lt;a&gt;</Strong>, the one people call a link, wraps content and definitely
           closes.
@@ -121,8 +122,8 @@ export function ElementsAndTagsLesson() {
                   </span>{" "}
                   and{" "}
                   <span className="font-[family-name:var(--learn-font-mono)]">&lt;/br&gt;</span>.
-                  There is no content to wrap and nothing to close. Browsers ignore the stray closing
-                  tag, so it looks like it works.
+                  There is no content to wrap and nothing to close. Browsers patch over both — the
+                  stray closing tag is dropped or reinterpreted — so it looks like it works.
                 </P>
               ),
             },
@@ -158,6 +159,26 @@ export function ElementsAndTagsLesson() {
   <h2>A post</h2>
   <p>
     Some text with a <a href="/more">link</a> in it.
+  </p>
+  <ul>
+    <li>First</li>
+    <li>Second</li>
+  </ul>
+</article>`}
+        />
+        <P>
+          <Strong>Try it:</Strong> change the <Strong>h2</Strong> to an <Strong>h1</Strong>, wrap a
+          word in <Strong>&lt;em&gt;</Strong>, and add a third list item. Then delete one closing tag
+          and see what the browser decides you meant.
+        </P>
+        <WebPlayground
+          title="Try it: elements"
+          height={260}
+          initialHtml={`<article>
+  <h2>A post</h2>
+  <p>
+    Some text with a <a href="#">link</a> in it,
+    and one <strong>important</strong> word.
   </p>
   <ul>
     <li>First</li>

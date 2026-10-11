@@ -252,7 +252,7 @@ component.`}
           "Name the file, the current behaviour, and the expected behaviour. Missing any of the three means the AI guesses.",
           "Saying what must NOT change is as useful as saying what should.",
           "A prompt that would not brief a human will not brief a model either.",
-          "If the reply is wrong twice in a row, the prompt is the problem, not the model.",
+          "If the reply is wrong twice in a row, look at the prompt before you blame the model — the prompt is usually missing something.",
           "Leaving a part out rarely errors loudly. It just costs you the follow-up messages you didn't budget for.",
         ]}
       />

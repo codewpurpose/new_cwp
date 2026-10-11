@@ -1,9 +1,10 @@
 import { Lead, LessonSection, P, Strong } from "@/components/learn/primitives/LessonSection";
 import { Callout } from "@/components/learn/primitives/Callout";
-import { CodeBlock } from "@/components/learn/primitives/CodeBlock";
+import { CodeBlock, InlineCode } from "@/components/learn/primitives/CodeBlock";
 import { ChecklistCard, CompareGrid, LabelRows, TakeawayCard } from "@/components/learn/primitives/Cards";
 import { StepList } from "@/components/learn/primitives/StepList";
 import { RevealCard } from "@/components/learn/primitives/RevealCard";
+import { TryIt } from "@/components/python/TryIt";
 
 export function FinalProjectLesson() {
   return (
@@ -98,6 +99,7 @@ export function FinalProjectLesson() {
     for word in text.split():
         counts[word] = counts.get(word, 0) + 1
     return counts`}
+          runnable={false}
         />
         <P>
           <Strong>counts.get(word, 0)</Strong> returns the running total if{" "}
@@ -132,6 +134,7 @@ export function FinalProjectLesson() {
 
 def test_empty_string_returns_empty_dict():
     assert word_counts("") == {}`}
+          runnable={false}
         />
       </LessonSection>
 
@@ -159,7 +162,7 @@ def test_empty_string_returns_empty_dict():
           <Strong>str.strip(string.punctuation)</Strong> to remove punctuation from the edges
           of each word before it becomes a key.
         </P>
-        <CodeBlock
+        <TryIt
           label="word_count.py"
           lineTones={{ 4: "accent", 5: "accent" }}
           code={`import string
@@ -169,7 +172,10 @@ def word_counts(text):
     for word in text.lower().split():
         word = word.strip(string.punctuation)
         counts[word] = counts.get(word, 0) + 1
-    return counts`}
+    return counts
+
+print(word_counts("The cat, calm, sat. The cat ran fast."))`}
+          prompt={<>Add a lone <InlineCode>-</InlineCode> between two words of the sentence and see which key appears.</>}
         />
         <P>
           With that change,{" "}
@@ -177,7 +183,10 @@ def word_counts(text):
           returns{" "}
           <Strong>{"{'the': 2, 'cat': 2, 'calm': 1, 'sat': 1, 'ran': 1, 'fast': 1}"}</Strong> —
           six keys instead of seven, and <Strong>&apos;cat&apos;</Strong> correctly counted
-          twice. It is a genuine improvement, and also a reminder that &quot;finished&quot;
+          twice. One edge to watch: a &quot;word&quot; made only of punctuation, like a lone{" "}
+          <Strong>-</Strong>, strips down to an empty string and gets counted under the key{" "}
+          <Strong>&apos;&apos;</Strong>. Adding <Strong>if word:</Strong> before the count
+          line skips it. It is a genuine improvement, and also a reminder that &quot;finished&quot;
           for a real program is a judgement call, not a fixed line: the version without this
           fix was complete enough to call done a section ago, and this version is more correct
           without either one being the objectively right answer for every use.
@@ -187,8 +196,18 @@ def word_counts(text):
           the most common word. <Strong>{"max(counts, key=counts.get)"}</Strong> finds
           the key whose value is largest without writing a loop yourself — the same{" "}
           <Strong>key=</Strong> argument idea the sorting built-ins in Python use throughout
-          the standard library.
+          the standard library. On an empty dictionary it raises <Strong>ValueError</Strong>,
+          exactly as the records chapter warned, so pass <Strong>default=None</Strong> if
+          empty input is allowed.
         </P>
+        <TryIt
+          label="most_common.py"
+          code={`counts = {"the": 3, "cat": 2, "sat": 1, "ran": 1}
+
+print(max(counts, key=counts.get))
+print(max({}, key=counts.get, default=None))`}
+          prompt={<>Give <InlineCode>{'"cat"'}</InlineCode> a count of 5 and run it again.</>}
+        />
         <Callout tone="tip" title="Reach for this before writing your own loop">
           Whenever the plan is &quot;find the biggest thing by some rule,&quot; check first
           whether <Strong>max(..., key=...)</Strong> or <Strong>sorted(..., key=...)</Strong>{" "}
@@ -202,7 +221,7 @@ def word_counts(text):
         <P>
           Nothing about this program is specific to counting words — the same shape, a loop
           filling a dictionary, is the core of a shopping cart total, a vote tally, or a log
-          file summary. The twenty-four chapters behind this one are not separate tools; they
+          file summary. The thirty chapters behind this one are not separate tools; they
           are the vocabulary this one program was written in.
         </P>
         <P>

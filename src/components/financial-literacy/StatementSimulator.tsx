@@ -101,7 +101,7 @@ export function StatementSimulator() {
         </div>
         <p className="mt-3 text-[13px] leading-[1.5]">
           {choice === "full"
-            ? `Paid in full before the due date, so the ${formatPercent(APR, 2)} APR never applies — this purchase ends up costing exactly its sticker price.`
+            ? `Paid in full before the due date, so the ${formatPercent(APR, 2)} APR never applies — these purchases end up costing exactly their sticker prices.`
             : `Paying only the ${formatCurrency(MIN_PAYMENT)} minimum leaves ${formatCurrency(remaining)} carrying over, and ${formatPercent(APR, 2)} APR adds ${formatCurrency(interest)} in interest before next month's statement even opens.`}
         </p>
       </div>

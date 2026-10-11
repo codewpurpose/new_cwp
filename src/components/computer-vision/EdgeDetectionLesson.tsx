@@ -2,6 +2,7 @@ import { Callout } from "@/components/learn/primitives/Callout";
 import { TakeawayCard } from "@/components/learn/primitives/Cards";
 import { Lead, LessonSection, P, Strong } from "@/components/learn/primitives/LessonSection";
 import { EdgeThreshold } from "@/components/computer-vision/EdgeThreshold";
+import { CodeBlock } from "@/components/learn/primitives/CodeBlock";
 
 export function EdgeDetectionLesson() {
   return (
@@ -40,6 +41,34 @@ export function EdgeDetectionLesson() {
           answer. The key step in edge detection is one more step:{" "}
           <Strong>pick a cutoff, and call anything above it an edge.</Strong> That single
           decision — a threshold — is what turns a field of slopes into a clean line drawing.
+        </P>
+        <P>
+          Here it is on a tiny wall with a darker doorway, plus a little sensor noise. Each
+          pixel is compared with its right neighbour and the one below.
+        </P>
+        <CodeBlock
+          label="edges.py"
+          code={`import numpy as np
+
+# A wall (value 120) with a darker doorway (value 40), plus a little sensor noise.
+rng = np.random.default_rng(0)
+image = np.full((6, 9), 120.0)
+image[1:, 3:6] = 40
+image += rng.normal(0, 3, image.shape)
+
+# Compare each pixel with its right neighbour and with the one below.
+right = np.abs(np.diff(image, axis=1))[:-1, :]
+below = np.abs(np.diff(image, axis=0))[:, :-1]
+slope = right + below
+print(slope.round().astype(int))
+
+threshold = 40   # try 5, then 100
+print((slope > threshold).astype(int))   # 1 marks an edge`}
+        />
+        <P>
+          Inside the wall and the doorway the slope stays under 20; along the door frame it
+          jumps past 75. A threshold of 40 keeps just the frame. Drop it to 5 and the noise
+          starts drawing lines of its own.
         </P>
       </LessonSection>
 

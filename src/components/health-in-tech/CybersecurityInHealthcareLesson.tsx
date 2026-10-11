@@ -21,9 +21,8 @@ export function CybersecurityInHealthcareLesson() {
           Ransomware works by locking an organisation out of its own systems until it pays.
           That threat only has teeth if the organisation cannot simply wait it out — and a
           hospital, unlike almost any other kind of business, cannot pause patient care for a
-          week while IT rebuilds servers from backup. Attackers know this. It is exactly why
-          healthcare gets targeted disproportionately relative to how much money actually flows
-          through it.
+          week while IT rebuilds servers from backup. Attackers know this, and it is exactly why
+          healthcare is such an attractive target.
         </P>
         <P>
           The way in is rarely a sophisticated exploit. It is a phishing email, and clinical
@@ -45,11 +44,13 @@ export function CybersecurityInHealthcareLesson() {
         <P>
           Patch a laptop and the update finishes in minutes. Patch an MRI machine, and a
           hospital often cannot do it at all. Medical imaging and monitoring equipment routinely
-          runs for fifteen to twenty years, frequently on an operating system its vendor stopped
-          supporting long ago, because changing the software of a certified medical device can
-          trigger a fresh regulatory review before it is allowed back into service. Updating it
-          is not the routine, low-stakes patch it would be on an ordinary office computer — it is
-          closer to re-certifying the device from scratch.
+          stays in service for well over a decade, frequently on an operating system that stopped
+          getting security updates long ago. The hospital usually isn&apos;t allowed to patch it
+          on its own: the device maker controls the software, has to test every change against
+          the device&apos;s validated, cleared configuration before releasing it, and may stop
+          supporting older models entirely. US regulators have said routine security patches
+          generally don&apos;t need a fresh review — but a fix nobody ships is a fix the hospital
+          never gets.
         </P>
         <P>
           The result is a building full of machines nobody can safely update, sitting on the
@@ -147,7 +148,7 @@ export function CybersecurityInHealthcareLesson() {
         items={[
           "Hospitals are a disproportionate ransomware target because they cannot pause patient care to wait out an attack the way most businesses can.",
           "Attackers targeting healthcare aim at urgency, not carelessness — clinical staff working under time pressure are primed to act fast on anything marked urgent, which is exactly the instinct phishing depends on.",
-          "Legacy imaging and monitoring equipment often can't be patched at all, because changing a certified medical device's software can trigger a fresh regulatory review, leaving networks full of machines nobody can safely update.",
+          "Legacy imaging and monitoring equipment often can't be patched by the hospital at all — the device maker controls and validates every software change, and may stop supporting older models — leaving networks full of machines nobody can safely update.",
           "Staff training, network segmentation, and offline tested backups stop most of these attacks before they start, and none of the three are exotic or expensive relative to a single ransom payment.",
           "The real cost of hospital downtime isn't a dollar figure — it's a diverted ambulance and a delayed diagnosis, neither of which gets undone once the systems come back online.",
         ]}

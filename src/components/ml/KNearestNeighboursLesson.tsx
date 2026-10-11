@@ -1,5 +1,6 @@
 import { Callout } from "@/components/learn/primitives/Callout";
 import { TakeawayCard } from "@/components/learn/primitives/Cards";
+import { CodeBlock } from "@/components/learn/primitives/CodeBlock";
 import { Lead, LessonSection, P, Strong } from "@/components/learn/primitives/LessonSection";
 import { NeighbourVote } from "@/components/ml/NeighbourVote";
 
@@ -71,8 +72,9 @@ export function KNearestNeighboursLesson() {
         <Callout tone="tip" title="Why the k values here are all odd">
           With two classes and an even k, a vote can tie, and then the model needs a
           tie-break rule that has nothing to do with the data. Using odd k sidesteps the problem
-          entirely. With three or more classes ties come back regardless, and most libraries
-          break them by falling back to the single nearest neighbour.
+          entirely. With three or more classes ties come back regardless, and the library then
+          settles them by a fixed rule — often simply whichever class it happens to list first —
+          which is a choice about code, not evidence from the data.
         </Callout>
       </LessonSection>
 
@@ -85,9 +87,10 @@ export function KNearestNeighboursLesson() {
           &ldquo;Nearest&rdquo; means nearest by some measurement, and the obvious measurement is
           straight-line distance. Revision hours run from 0 to 12. Previous scores run from 20 to
           100. A gap of ten points on the previous exam and a gap of ten hours of revision count
-          the same in that sum — and since the score axis is roughly eight times wider, it
-          contributes roughly eight times as much. The model is not weighing your features. Your
-          units are.
+          the same in that sum. In this class, two students typically sit about 19 points apart
+          on previous score but under 4 hours apart on revision, so the score gap is about five
+          times bigger, and it dominates the distance. The model is not weighing your features.
+          Your units are.
         </P>
         <P>
           Select <Strong>Coasting on a good record</Strong>: two hours of revision, a previous
@@ -110,6 +113,39 @@ export function KNearestNeighboursLesson() {
           underperforms — and because the code still runs and still reports a number, nothing
           announces the mistake.
         </Callout>
+        <P>
+          Run the same comparison on a fresh class of 120 generated students: once in raw units,
+          once with both features squashed onto 0 to 1.
+        </P>
+        <CodeBlock
+          label="neighbours.py"
+          code={`import numpy as np
+from sklearn.model_selection import train_test_split
+from sklearn.neighbors import KNeighborsClassifier
+
+rng = np.random.default_rng(4)
+n = 120
+hours = rng.uniform(0, 12, n)        # what actually predicts passing
+previous = rng.uniform(20, 100, n)   # weakly useful, numerically huge
+passed = hours * 7 + (previous - 60) * 0.2 + rng.normal(0, 6, n) > 42
+
+X_raw = np.column_stack([hours, previous])
+X_scaled = np.column_stack([hours / 12, (previous - 20) / 80])   # both onto 0-1
+
+for k in [1, 3, 7, 15, 31]:   # try your own k (odd, so votes cannot tie)
+    scores = []
+    for X in [X_raw, X_scaled]:
+        X_train, X_test, y_train, y_test = train_test_split(
+            X, passed, test_size=0.3, random_state=0)
+        model = KNeighborsClassifier(n_neighbors=k).fit(X_train, y_train)
+        scores.append(model.score(X_test, y_test))
+    print(f"k={k:2}   raw units {scores[0]:.0%}   scaled 0-1 {scores[1]:.0%}")`}
+        />
+        <P>
+          At k = 1 and 3 the two are close. From k = 7 the raw version falls apart, to 67%, then
+          58% and 56%, because a bigger vote reaches further and in raw units further means
+          along the score axis. The scaled version holds at 92% to 94%.
+        </P>
         <P>
           One caution that will matter later: work out the scaling from the training data alone.
           If you compute the minimum and maximum across the whole dataset before splitting, the

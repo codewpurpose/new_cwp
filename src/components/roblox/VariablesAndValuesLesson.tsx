@@ -2,6 +2,7 @@ import { Lead, LessonSection, P, Strong } from "@/components/learn/primitives/Le
 import { Callout } from "@/components/learn/primitives/Callout";
 import { CodeBlock } from "@/components/learn/primitives/CodeBlock";
 import { LabelRows, TakeawayCard } from "@/components/learn/primitives/Cards";
+import { RevealCard } from "@/components/learn/primitives/RevealCard";
 import { LuauValueInspector } from "@/components/roblox/LuauValueInspector";
 
 export function VariablesAndValuesLesson() {
@@ -17,9 +18,9 @@ export function VariablesAndValuesLesson() {
         <P>
           Write <Strong>health = 100</Strong> in Luau and it works. Write{" "}
           <Strong>local health = 100</Strong> and it also works, and the second one is right.
-          Without <Strong>local</Strong>, the name becomes global — visible to every other
-          piece of code in that script, kept alive for as long as the script is, and slower to
-          read every single time.
+          Without <Strong>local</Strong>, the name becomes global — visible to every function
+          anywhere in that script, kept alive for as long as the script is, and slower to read
+          every single time.
         </P>
         <CodeBlock
           label="Luau"
@@ -30,9 +31,32 @@ count = 0                        -- global: works, and you did not mean it`}
           lineTones={{ 3: "warn" }}
         />
         <P>
-          The practical damage is collisions. Two scripts that both forget{" "}
-          <Strong>local</Strong> on a variable called <Strong>count</Strong> are now sharing
-          one number, and each will see it change for reasons that are nowhere in its own code.
+          The practical damage is collisions inside your own script. A helper function that
+          forgets <Strong>local</Strong> on its own <Strong>count</Strong> is now writing to the
+          same <Strong>count</Strong> as the rest of the script, and the number changes for
+          reasons that are nowhere near the line you are staring at.
+        </P>
+        <CodeBlock
+          label="Luau"
+          code={`count = 0                -- meant as the script's touch counter
+
+local function tallyCoins(coins)
+    count = 0                -- meant as a fresh counter, and it is not
+    for _ in coins do
+        count += 1
+    end
+    return count
+end
+
+tallyCoins({ "a", "b", "c" })
+print(count)                 --> 3, and the touch counter is gone`}
+          lineTones={{ 3: "warn", 11: "err" }}
+        />
+        <P>
+          Each script does get its own set of globals, so two separate scripts will not trample
+          each other this way. That is little comfort: a long script with a few helper
+          functions is exactly where this bites. Studio&apos;s Script Analysis window flags some
+          suspicious globals, but not every one — the habit is the real protection.
         </P>
         <Callout tone="tip" title="A rule with no exceptions worth learning">
           Put <Strong>local</Strong> in front of every variable you declare. There are
@@ -49,7 +73,7 @@ count = 0                        -- global: works, and you did not mean it`}
             { label: "number", text: "One numeric type. 3 and 3.5 are both numbers; there is no separate integer." },
             { label: "string", text: "Text, in double or single quotes. Joined with two dots, not a plus." },
             { label: "boolean", text: "true or false. The properties you toggle in Studio are these." },
-            { label: "nil", text: "Nothing here. What you get from a lookup that found no object." },
+            { label: "nil", text: "Nothing here. What FindFirstChild returns when it finds no object." },
             { label: "table", text: "The only container. Acts as a list, a dictionary, or both at once." },
             { label: "Instance", text: "An object in the tree — a Part, a Script, a Humanoid. Roblox's own addition." },
           ]}
@@ -77,8 +101,9 @@ local target: BasePart? = nil   -- the ? means "or nil", and is honest`}
       <LessonSection id="nil-is-a-value-and-it-spreads" title="nil is a value, and it spreads">
         <P>
           <Strong>nil</Strong> is not an error and not an absence of a variable. It is a
-          value meaning &quot;there is nothing here&quot;, and it is what you get from any
-          lookup that failed.
+          value meaning &quot;there is nothing here&quot;, and it is what you get back from{" "}
+          <Strong>FindFirstChild</Strong> and every other lookup that is allowed to come up
+          empty.
         </P>
         <P>
           The trouble is that nil travels. A part that was not found is nil; storing it in a
@@ -129,6 +154,26 @@ platform.CanCollide = false  --> attempt to index nil with 'CanCollide'`}
         guard appears in nearly every script in the rest of this track.
       </P>
 
+      <RevealCard
+        summaryTag="Try it yourself"
+        summary={
+          <>
+            Predict what this prints before you open the answer:{" "}
+            <Strong>{'local coins = 0  if coins then print("has coins") else print("broke") end'}</Strong>
+          </>
+        }
+        detailTag="Answer"
+        detail={
+          <>
+            It prints <Strong>has coins</Strong>. The value is 0, and 0 is true in Luau, so the
+            first branch runs. To ask the question you meant, write{" "}
+            <Strong>if coins &gt; 0 then</Strong>.
+          </>
+        }
+        openLabel="Show the answer"
+        closeLabel="Hide the answer"
+      />
+
       <LessonSection id="joining-strings-with-two-dots" title="Joining strings with two dots">
         <P>
           Luau joins strings with <Strong>..</Strong>, not <Strong>+</Strong>. A plus between
@@ -156,7 +201,7 @@ print("Welcome,", name)        --> Welcome, Amara`}
 
       <TakeawayCard
         items={[
-          "Put local in front of every variable. Without it the name is global, shared with every other script, and collides silently.",
+          "Put local in front of every variable. Without it the name is global to the whole script, so any function can overwrite it silently.",
           "Use typeof() rather than type() — the old one reports every Roblox object as \"userdata\".",
           "Luau has one number type. 3 and 3.5 are both numbers.",
           "nil is a value meaning nothing is here, and it travels: the crash lands wherever it is finally used, not where the lookup failed.",

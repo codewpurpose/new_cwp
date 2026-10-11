@@ -11,9 +11,9 @@ import { ABOUT_HREF, CONTACT_HREF, COURSES_HREF, GITHUB_HREF, HOME_HREF } from "
  * The learning space: what a course looks like once you've walked into it.
  *
  * The marketing site's header, nav and footer are deliberately absent. In their
- * place is one compact moss bar that only knows about this course — its name,
+ * place is one light, mint bar that only knows about this course — its name,
  * how far you are through it, the other courses, and the way back out. The
- * moss is the same colour the catalogue's entry transition fills the screen
+ * mint is the same colour the catalogue's entry transition fills the screen
  * with, so arriving here reads as one continuous movement.
  *
  * Server component. The only client pieces are the progress islands (which
@@ -62,23 +62,23 @@ export function LearnSpaceBar({ track }: { track: LearnTrackId }) {
   const route = TRACK_ROUTES[track];
   const courses = getSwitcherCourses();
   return (
-    <header className="learnspace-bar sticky top-0 z-30 bg-[#1e3c2c] text-[#fcf4e8]">
+    <header className="learnspace-bar sticky top-0 z-30 bg-[#e9f6e9]/95 text-[#1e3c2c] shadow-[inset_0_-1px_0_var(--grass-6)] backdrop-blur-sm">
       <div className="mx-auto flex h-14 w-full max-w-[85rem] items-center gap-3 px-4 md:px-10">
         <a
           href={HOME_HREF}
           aria-label="CodeWithPurpose home"
           className="learn-focusable flex shrink-0 items-center rounded-md"
         >
-          <CwpLogo className="learnspace-logo !text-[#fcf4e8]" />
+          <CwpLogo className="learnspace-logo !text-[#1e3c2c]" />
         </a>
 
-        <span aria-hidden="true" className="h-6 w-px shrink-0 bg-[#fcf4e8]/20" />
+        <span aria-hidden="true" className="h-6 w-px shrink-0 bg-[#1e3c2c]/15" />
 
         <div className="min-w-0 flex-1 leading-tight">
-          <p className="home-mono text-[10px] uppercase tracking-[0.14em] text-[#9fd3a8]">
+          <p className="home-mono text-[10px] uppercase tracking-[0.14em] text-[#2f6b4c]">
             Course
           </p>
-          <p className="home-serif truncate text-[15px] md:text-[17px]">{route.title}</p>
+          <p className="home-serif truncate text-[15px] text-[#15120c] md:text-[17px]">{route.title}</p>
         </div>
 
         <HeaderProgress />
@@ -87,7 +87,7 @@ export function LearnSpaceBar({ track }: { track: LearnTrackId }) {
 
         <a
           href={HOME_HREF}
-          className="learn-focusable inline-flex h-9 shrink-0 items-center gap-1.5 rounded-full bg-[#fcf4e8] px-3 text-[13px] font-medium text-[#1e3c2c] transition-colors hover:bg-white"
+          className="learn-focusable inline-flex h-9 shrink-0 items-center gap-1.5 rounded-full border-[0.5px] border-[#1e3c2c]/20 bg-[#fffbf5] px-3 text-[13px] font-medium text-[#1e3c2c] transition-colors hover:bg-white"
           aria-label="Back to site"
         >
           <svg viewBox="0 0 16 16" className="h-4 w-4" aria-hidden="true" fill="none">

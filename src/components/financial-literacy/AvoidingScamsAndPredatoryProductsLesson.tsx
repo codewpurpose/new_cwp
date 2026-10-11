@@ -42,10 +42,11 @@ export function AvoidingScamsAndPredatoryProductsLesson() {
           Do the arithmetic once and the number stops sounding abstract. Borrow {formatCurrency(300)}{" "}
           for two weeks at a typical $15-per-$100 fee, and the fee alone is {formatCurrency(45)} —
           which annualizes to roughly 391% APR, because a fee sized for two weeks gets multiplied
-          out across a full year. Miss the deadline and roll it over three times, which is
-          common, and that same {formatCurrency(300)} loan has cost {formatCurrency(135)} in fees
-          in six weeks — more than a normal personal loan would charge in interest over an entire
-          year, on a fraction of the balance.
+          out across a full year. Miss the deadline and roll it over twice, which is common,
+          and that same {formatCurrency(300)} loan has cost {formatCurrency(135)} in fees in six
+          weeks — with the original {formatCurrency(300)} still owed in full. That is more than a
+          normal personal loan would charge in interest over an entire year, on a fraction of the
+          balance.
         </P>
       </LessonSection>
 
@@ -98,8 +99,8 @@ export function AvoidingScamsAndPredatoryProductsLesson() {
           ]}
         />
         <P>
-          None of these are new scams wearing new clothes so much as the exact same four tells
-          from the first section, run through a medium that makes them faster to send, harder to
+          None of these are new scams so much as the same tells from the first section and the
+          checklist below, run through a medium that makes them faster to send, harder to
           trace, and easier to send to thousands of people at once at zero marginal cost. The
           checklist below catches the online versions exactly as well as it catches the phone
           call.
@@ -130,8 +131,8 @@ export function AvoidingScamsAndPredatoryProductsLesson() {
       <TakeawayCard
         items={[
           "Urgency and secrecy are the two clearest tells of a predatory offer — legitimate deals survive being slept on and a second opinion.",
-          "Payday loans are structured around short repayment windows and rollover fees that assume most borrowers can't repay on time — one $300 loan rolled over three times can cost $135 in fees alone.",
-          "Rent-to-own routinely costs two to three times an item's retail price, and the advance-fee pattern always asks for money before you've received anything.",
+          "Payday loans are structured around short repayment windows and rollover fees that assume most borrowers can't repay on time — one $300 loan rolled over twice can cost $135 in fees alone, with the $300 still owed.",
+          "Rent-to-own can cost several times an item's retail price — $3,120 for a $900 sofa in this chapter's example — and the advance-fee pattern always asks for money before you've received anything.",
           "A rate that isn't stated as a clear, comparable APR is a red flag by itself, whatever else the offer promises.",
           "Online scams use the same urgency-and-secrecy playbook as phone and door-to-door ones — the medium changed, the tells didn't.",
         ]}

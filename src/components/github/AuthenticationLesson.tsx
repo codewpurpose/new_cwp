@@ -237,7 +237,7 @@ security delete-internet-password -s github.com`}
             "Read the error properly — \"Authentication failed\" after August 2021 means no password support, not a typo",
             "git remote -v — are you on https:// or git@? The fix is different for each",
             "For SSH: ssh -T git@github.com. It tells you your username if the key works",
-            "For HTTPS: has the token expired? Ninety-day tokens expire on day ninety-one, silently",
+            "For HTTPS: has the token expired? A ninety-day token stops working on day ninety-one, and the push just fails",
             "Clear the cached credential, so the next attempt actually asks rather than replaying the old value",
             "On a company repository: is the token or key authorised for the SAML organisation?",
           ]}

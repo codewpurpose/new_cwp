@@ -77,7 +77,7 @@ export function BuildingYourFinancialPlanLesson() {
             },
             {
               label: "Day 5 — check credit and cards",
-              detail: "Pull your credit report for errors, and confirm autopay is on for at least the statement balance on every card.",
+              detail: "Pull your credit report for errors, and confirm autopay is on for every card — ideally for the full statement balance, and never for less than the minimum.",
             },
             {
               label: "Day 6 — name one goal per horizon",

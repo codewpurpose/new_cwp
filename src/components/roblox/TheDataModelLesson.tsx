@@ -82,7 +82,7 @@ part.Size = Vector3.new(8, 1, 8)
 
 part.Parent = workspace
 -- Now it is in the game.`}
-          lineTones={{ 2: "dim", 5: "ok" }}
+          lineTones={{ 4: "ok" }}
         />
         <P>
           Setting <Strong>Parent</Strong> last is a real convention and not a stylistic one.
@@ -159,6 +159,17 @@ local baseplate = workspace.Baseplate`}
           one of them without telling you there were others. It is not random, but it is not
           something you should rely on either.
         </P>
+        <P>
+          And when a name is simply wrong, a dot lookup does not quietly hand back nothing. It
+          stops the script with an error that names exactly what it could not find and where it
+          looked — which is the next thing to learn to read.
+        </P>
+        <CodeBlock
+          label="Luau"
+          code={`local laser = workspace.Obby.Lazer   -- typo
+--> Lazer is not a valid member of Model "Workspace.Obby"`}
+          lineTones={{ 1: "err" }}
+        />
         <Callout tone="tip" title="Name things after what they do">
           <Strong>Laser</Strong>, <Strong>DropPlatform</Strong>,{" "}
           <Strong>CheckpointThree</Strong>. Not <Strong>Part</Strong>,{" "}

@@ -43,12 +43,20 @@ export function TheCostOfCarryingABalanceLesson() {
           reason.
         </P>
         <P>
-          There is a second, quieter mechanic working against you: because the minimum is a{" "}
-          <em>percentage</em> of the balance, it shrinks along with the balance. A balance that
-          starts at {formatCurrency(1000)} might carry a minimum near {formatCurrency(35)}. Once
-          interest has eaten away at the progress and the balance is down to {formatCurrency(700)},
-          the minimum recalculates too — smaller, at the same percentage — which is part of why the
-          final stretch of a minimum-only payoff takes so much longer than the first stretch.
+          There is a second, quieter mechanic working against you on larger balances: because the
+          minimum is a <em>percentage</em> of the balance, it shrinks along with the balance. At
+          2%, a {formatCurrency(5000)} balance carries a {formatCurrency(100)} minimum; by the time
+          it&apos;s down to {formatCurrency(3000)}, the minimum has recalculated to{" "}
+          {formatCurrency(60)}. Every step of progress makes the next required payment smaller,
+          which is exactly why a minimum-only payoff drags on.
+        </P>
+        <P>
+          On the {formatCurrency(1000)} balance in the chart below, the{" "}
+          {formatCurrency(25)} floor is what sets the minimum instead (2% of{" "}
+          {formatCurrency(1000)} is only {formatCurrency(20)}). Work out the first month:{" "}
+          {formatPercent(22.99, 2)} ÷ 12 is about {formatPercent(1.92, 2)}, so roughly{" "}
+          {formatCurrency(19.16, 2)} of interest accrues. Of the {formatCurrency(25)} payment, only
+          about {formatCurrency(5.84, 2)} actually reduces what you owe.
         </P>
       </LessonSection>
 

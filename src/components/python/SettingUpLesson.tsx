@@ -4,6 +4,7 @@ import { CodeBlock } from "@/components/learn/primitives/CodeBlock";
 import { LabelRows, TakeawayCard } from "@/components/learn/primitives/Cards";
 import { StepList } from "@/components/learn/primitives/StepList";
 import { OsSetup } from "@/components/python/OsSetup";
+import { TryIt } from "@/components/python/TryIt";
 
 export function SettingUpLesson() {
   return (
@@ -85,9 +86,10 @@ export function SettingUpLesson() {
           Save a few lines in a file named <Strong>hello.py</Strong>, and run the file itself
           rather than typing its contents by hand:
         </P>
-        <CodeBlock
+        <TryIt
           label="hello.py"
           code={`print("Hello, world!")`}
+          prompt="You can also run it right here. Change the message, add a second print line, and run it again."
         />
         <CodeBlock label="Terminal" variant="terminal" code={`python3 hello.py
 Hello, world!`} />

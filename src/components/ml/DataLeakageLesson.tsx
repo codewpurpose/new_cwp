@@ -1,4 +1,5 @@
 import { Callout } from "@/components/learn/primitives/Callout";
+import { CodeBlock, InlineCode } from "@/components/learn/primitives/CodeBlock";
 import { ChecklistCard, TakeawayCard } from "@/components/learn/primitives/Cards";
 import { Lead, LessonSection, P, Strong } from "@/components/learn/primitives/LessonSection";
 import { LeakInspector } from "@/components/ml/LeakInspector";
@@ -87,8 +88,8 @@ export function DataLeakageLesson() {
         <P>
           Notice that this single careless line commits two leaks at once. It ignores time{" "}
           <em>and</em> puts the reapplications back on both sides. That is the normal case. Real
-          pipelines rarely have one clean flaw; they have a default `train_test_split` call and
-          a table nobody interrogated.
+          pipelines rarely have one clean flaw; they have a default{" "}
+          <InlineCode>train_test_split</InlineCode> call and a table nobody interrogated.
         </P>
       </LessonSection>
 
@@ -117,6 +118,40 @@ export function DataLeakageLesson() {
           object rather than in a line above the split — but a beginner who is worrying about
           their scaler while their table has three rows per customer is worrying about the wrong
           end.
+        </P>
+        <P>
+          Not every whole-dataset step is that harmless. Choosing columns is the one that bites.
+          Below are 5,000 columns of pure noise and labels decided by a coin flip, so there is
+          nothing to learn and the honest score is about 50%.
+        </P>
+        <CodeBlock
+          label="selection_leak.py"
+          code={`import numpy as np
+from sklearn.feature_selection import SelectKBest, f_classif
+from sklearn.linear_model import LogisticRegression
+from sklearn.model_selection import cross_val_score
+from sklearn.pipeline import make_pipeline
+
+rng = np.random.default_rng(0)
+X = rng.normal(size=(100, 5000))   # 5,000 columns of pure noise
+y = rng.integers(0, 2, 100)        # coin-flip labels: nothing to learn
+
+# Leaky: pick the 20 columns that best match y using ALL rows, then cross-validate.
+best = SelectKBest(f_classif, k=20).fit(X, y)
+leaky = cross_val_score(LogisticRegression(), best.transform(X), y, cv=5).mean()
+
+# Honest: the selection step is refitted inside each fold, on training rows only.
+honest = cross_val_score(
+    make_pipeline(SelectKBest(f_classif, k=20), LogisticRegression()), X, y, cv=5).mean()
+
+print(f"select, then split: {leaky:.0%}")
+print(f"split, then select: {honest:.0%}")`}
+        />
+        <P>
+          Pick the twenty best-looking columns using every row and the cross-validated score
+          comes out at 85%. Do the picking inside each fold, on training rows only, and it drops
+          to 48%. The leaky version did not find a pattern: it chose the columns that happened
+          to match the test rows&rsquo; coin flips.
         </P>
         <Callout tone="tip" title="The question that catches most of it">
           Ask where each column comes from and who fills it in. Most target leakage is obvious

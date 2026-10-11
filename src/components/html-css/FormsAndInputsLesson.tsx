@@ -160,7 +160,7 @@ export function FormsAndInputsLesson() {
           <span className="font-[family-name:var(--learn-font-mono)]">&lt;button&gt;</span> with no
           type is{" "}
           <span className="font-[family-name:var(--learn-font-mono)]">type=&quot;submit&quot;</span>.
-          So a &quot;Add another&quot; button submits the form and reloads the page, which looks like
+          So an &quot;Add another&quot; button submits the form and reloads the page, which looks like
           the form randomly resetting itself. Always write{" "}
           <span className="font-[family-name:var(--learn-font-mono)]">type=&quot;button&quot;</span>{" "}
           on anything that is not the submit.

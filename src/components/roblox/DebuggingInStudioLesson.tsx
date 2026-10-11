@@ -89,28 +89,36 @@ print("Platform script armed on", platform:GetFullName())`}
         </P>
         <CodeBlock
           label="Luau"
-          code={`Workspace.Obby.Laser.KillScript:5: attempt to index nil with 'Humanoid'`}
+          code={`Workspace.Obby.Laser.KillScript:6: attempt to index nil with 'Health'`}
           lineTones={{ 0: "err" }}
         />
         <P>
-          Read it in three pieces. The path and number say <em>where</em>: line 5 of KillScript,
+          Read it in three pieces. The path and number say <em>where</em>: line 6 of KillScript,
           inside the Laser. <Strong>attempt to index nil</Strong> says <em>what</em>: something
-          was nil and you asked it for a child. And <Strong>&apos;Humanoid&apos;</Strong> is the
+          was nil and you asked it for a field. And <Strong>&apos;Health&apos;</Strong> is the
           name you asked for.
         </P>
+        <CodeBlock
+          label="KillScript, lines 4–6"
+          code={`local character = otherPart:FindFirstAncestorOfClass("Model")
+local humanoid = character:FindFirstChildWhichIsA("Humanoid")
+humanoid.Health = 0`}
+          lineTones={{ 1: "warn", 2: "err" }}
+        />
         <P>
-          The trap is that <Strong>Humanoid</Strong> is not the thing that was missing. It is
-          the thing you wanted <em>from</em> the thing that was missing. In{" "}
-          <Strong>otherPart.Parent.Humanoid</Strong>, the nil is{" "}
-          <Strong>otherPart.Parent</Strong> — and once you read it that way, the fix is obvious
-          and it is a guard, not a spelling correction.
+          The trap is that <Strong>Health</Strong> is not the thing that was missing. It is the
+          thing you wanted <em>from</em> the thing that was missing. The nil is{" "}
+          <Strong>humanoid</Strong>, because the part that touched the laser belonged to a model
+          with no Humanoid in it — and once you read it that way, the fix is obvious and it is a
+          guard, not a spelling correction.
         </P>
         <ChecklistCard
           marker="arrow"
-          title="Three errors and what each means"
+          title="Four messages and what each means"
           items={[
             "attempt to index nil with 'X' — the expression to the left of .X was nil. Guard it.",
-            "attempt to call a nil value — you put () after something that is not a function. Almost always a misspelled method name.",
+            "X is not a valid member of Y — a dot lookup found no child or property called X inside Y. Check the spelling and the Explorer.",
+            "attempt to call a nil value — you put () after something that is not a function. Usually a misspelled function name on a table or module.",
             "Infinite yield possible on 'WaitForChild(\"X\")' — a warning, not an error. The script is still waiting, and X probably has a typo.",
           ]}
         />
@@ -127,8 +135,9 @@ print("Platform script armed on", platform:GetFullName())`}
         </P>
         <P>
           Click the gutter to the left of a line number to set a breakpoint. When execution
-          reaches it the game pauses, and the <Strong>Watch</Strong> window shows you every
-          variable in scope at that instant — not the ones you thought to print.
+          reaches it the game pauses, and the Variables tab of the <Strong>Watch</Strong> window
+          shows you every variable in scope at that instant — not only the ones you thought to
+          print.
         </P>
         <CodeBlock
           label="Luau"
@@ -167,9 +176,9 @@ end)`}
             "Is the Output window open, and filtered so your message could appear?",
             "Are you looking at the right side — client or server?",
             "Did the print at the top of the script run at all? If not, the problem is placement, not logic.",
-            "Is the script's parent a container that starts that class? Seven common placements start nothing.",
+            "Is the script's parent a container that starts that class? Nine of the twelve placements from the scripting chapter start nothing.",
             "Is the part named what the script thinks it is named?",
-            "Is the script Disabled? It is a property, it is easy to set by accident, and it produces perfect silence.",
+            "Is the script switched off? Its Enabled checkbox in Properties is easy to untick by accident, and a disabled script produces perfect silence.",
           ]}
         />
       </LessonSection>
@@ -180,11 +189,11 @@ end)`}
           "print is information, warn is a problem you survived, error stops the thread. Use the right one and your logs stay readable.",
           "assert(condition, message) states an assumption in one line instead of letting a nil proceed quietly.",
           "attempt to index nil with 'X' means the expression LEFT of .X was nil. X itself is spelled fine.",
-          "attempt to call a nil value is almost always a misspelled method name.",
+          "attempt to call a nil value usually means a misspelled function name. 'X is not a valid member of Y' means a dot lookup found nothing called X.",
           "'Infinite yield possible' is a warning, not an error — the script is still waiting, and the name probably has a typo.",
           "Breakpoints show every variable in scope, not only the ones you thought to print — but pausing inside a physics event distorts the physics.",
           "Client and server have separate Output. Checking the wrong side is a common cause of 'it printed nothing'.",
-          "A Disabled script produces perfect silence. Check the property before rewriting the logic.",
+          "A disabled script (Enabled unticked) produces perfect silence. Check the property before rewriting the logic.",
         ]}
       />
     </div>

@@ -1,5 +1,6 @@
 import { Callout } from "@/components/learn/primitives/Callout";
 import { LabelRows, TakeawayCard } from "@/components/learn/primitives/Cards";
+import { CodeBlock } from "@/components/learn/primitives/CodeBlock";
 import { Lead, LessonSection, P, Strong } from "@/components/learn/primitives/LessonSection";
 import { FeatureBlender } from "@/components/ml/FeatureBlender";
 
@@ -69,6 +70,40 @@ export function FeaturesAndLabelsLesson() {
           learning it was where the actual work happened. Modern systems can sometimes discover
           combinations like this themselves, which is a large part of why they are impressive —
           but somebody still chose what to measure in the first place.
+        </P>
+        <P>
+          The same experiment in code. Each column gets the single best cut a one-question
+          decision tree can find, and then so does an invented column that mixes the two.
+        </P>
+        <CodeBlock
+          label="invented_feature.py"
+          code={`import numpy as np
+from sklearn.tree import DecisionTreeClassifier
+
+rng = np.random.default_rng(0)
+n = 400
+minutes = rng.uniform(15, 45, n)
+oven = rng.uniform(160, 240, n)
+
+# A loaf is cooked when time and heat together cross a line:
+# roughly thirty minutes at 200 degrees, with a little noise.
+heat_dose = minutes / 30 + oven / 200
+cooked = heat_dose + rng.normal(0, 0.05, n) > 2
+
+def best_cut_accuracy(feature):
+    # A depth-1 tree finds the single best cut on one column.
+    stump = DecisionTreeClassifier(max_depth=1).fit(feature.reshape(-1, 1), cooked)
+    return stump.score(feature.reshape(-1, 1), cooked)
+
+print("minutes alone:   ", round(best_cut_accuracy(minutes), 2))
+print("oven alone:      ", round(best_cut_accuracy(oven), 2))
+print("invented feature:", round(best_cut_accuracy(heat_dose), 2))`}
+        />
+        <P>
+          Minutes alone gets about 91%, oven temperature alone about 59%, and the invented
+          feature 97%. One honest caveat: this data was generated from that exact mix, so here
+          the invented feature wins by construction. With real loaves you would not know the
+          recipe, and finding a good mix is the work.
         </P>
         <Callout tone="warning" title="Labels are a decision too, and a costlier one">
           Every label in this dataset means a person cut a loaf open and made a judgement.

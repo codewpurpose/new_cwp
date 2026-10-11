@@ -17,7 +17,8 @@ export function VisionInSelfDrivingCarsLesson() {
         title="A decision with no time to double-check"
       >
         <P>
-          A car moving at highway speed covers roughly 30 metres every second. Convert that to
+          A car moving at highway speed — about 110 km/h — covers roughly 30 metres every
+          second. Convert that to
           something more concrete: a vision pipeline that takes 200 milliseconds to decide
           &ldquo;object ahead, brake&rdquo; has already let the car travel about 6 metres before
           the decision even exists, before the brakes have engaged at all.
@@ -39,10 +40,10 @@ export function VisionInSelfDrivingCarsLesson() {
           it is measuring the same thing your eyes measure: visible light bouncing off surfaces.
         </P>
         <P>
-          That is why no production self-driving system trusts a camera by itself. Radar keeps
+          That is why most self-driving systems do not trust a camera by itself. Radar keeps
           working in rain, fog and darkness that would blind a camera, and measures distance and
           closing speed directly and precisely — but it is weak at telling you what kind of object
-          it found, a plastic bag and a small dog can look similar to it. Lidar gives precise 3D
+          it found, and a stationary car and an overhead sign can be hard for it to tell apart. Lidar gives precise 3D
           distance to every surface it hits regardless of lighting, at real hardware cost, and can
           struggle with dark or reflective surfaces that absorb or scatter its laser pulses.
         </P>
@@ -118,8 +119,8 @@ export function VisionInSelfDrivingCarsLesson() {
 
       <TakeawayCard
         items={[
-          "At highway speed a car covers roughly 28 metres per second, so every millisecond of vision-pipeline latency is subtracted directly from the stopping distance left when a decision is finally made.",
-          "A camera alone fails in direct glare, heavy rain and darkness, which is why production systems pair it with radar (reliable in poor visibility, weak at object type) and often lidar (precise distance, expensive, weak on some surfaces).",
+          "At highway speed a car covers roughly 30 metres per second, so every millisecond of vision-pipeline latency is subtracted directly from the stopping distance left when a decision is finally made.",
+          "A camera alone fails in direct glare, heavy rain and darkness, which is why most systems pair it with radar (reliable in poor visibility, weak at object type) and often lidar (precise distance, expensive, weak on some surfaces).",
           "Sensor fusion has to decide which sensor to believe when they disagree; naive averaging of a correct reading and an incorrect one produces a new, confidently wrong number.",
           "Production systems generally trust each sensor for the measurement it is best suited to — radar's distance over a camera's depth guess, a camera's classification over radar's — rather than averaging everything.",
           "Unfamiliar objects, contradictory construction-zone markings, and weather that degrades every sensor at once remain real, documented failure cases, not solved problems.",

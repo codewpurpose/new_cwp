@@ -53,8 +53,8 @@ export function Ring({
   value,
   size = 32,
   stroke = 3,
-  track = "rgba(252, 244, 232, 0.22)",
-  fill = "#9fd3a8",
+  track = "rgba(30, 60, 44, 0.14)",
+  fill = "#3e7f5c",
   className = "",
 }: {
   value: number;
@@ -100,8 +100,8 @@ export function HeaderProgress() {
   return (
     <div className="flex items-center gap-2" role="img" aria-label={`${count} of ${total} chapters complete`}>
       <Ring value={total ? count / total : 0} size={28} stroke={3} />
-      <span className="home-mono hidden min-w-[3.5ch] text-[12px] tabular-nums text-[#fcf4e8]/85 sm:inline" aria-hidden="true">
-        {count}/{total}
+      <span className="home-mono hidden min-w-[3.5ch] text-[12px] tabular-nums text-[#1e3c2c] sm:inline" aria-hidden="true">
+        {count > 0 ? `${count}/${total}` : ""}
       </span>
     </div>
   );
@@ -134,9 +134,9 @@ export function ContinueButton({ className = "" }: { className?: string }) {
 
 /**
  * The panel under the course art. Two fixed lines of text in a fixed-height
- * box, so "Not started yet" and "7 of 31 complete" occupy the same space.
+ * box, so "Ready when you are" and "7 of 31 complete" occupy the same space.
  */
-export function ProgressPanel({ durationLabel }: { durationLabel: string }) {
+export function ProgressPanel() {
   const { count, total, next, started, finished } = useTrackProgress();
   const pct = total ? Math.round((count / total) * 100) : 0;
   return (
@@ -159,14 +159,14 @@ export function ProgressPanel({ durationLabel }: { durationLabel: string }) {
             ? "Course complete"
             : started
               ? `${count} of ${total} chapters complete`
-              : "Not started yet"}
+              : "Ready when you are"}
         </p>
         <p className="mt-1 line-clamp-2 text-[13.5px] leading-snug text-[var(--home-ink-quiet)]">
           {finished
             ? "Every quick check passed. Revisit any chapter below."
             : started && next
               ? `Up next: ${next.title}`
-              : `${total} chapters, about ${durationLabel} of reading. Your progress saves on this device.`}
+              : "Go at your own pace. Your progress saves on this device."}
         </p>
       </div>
     </div>
@@ -218,14 +218,13 @@ export function NextUpHighlight({ slug }: { slug: string }) {
   );
 }
 
-/** "2 of 5 done" beside a part heading; the plain chapter count until then. */
+/** "2 of 5 done" beside a part heading once the reader has begun it; nothing before. */
 export function PartProgress({ slugs }: { slugs: readonly string[] }) {
-  const { done, started } = useTrackProgress();
+  const { done } = useTrackProgress();
   const count = slugs.filter((slug) => done.has(slug)).length;
-  const label = slugs.length === 1 ? "chapter" : "chapters";
   return (
-    <span className="home-mono text-[12px] tabular-nums text-[var(--home-ink-quiet)]">
-      {started ? `${count} of ${slugs.length} done` : `${slugs.length} ${label}`}
+    <span className="home-mono text-[12px] tabular-nums text-[#2f6b4c]">
+      {count > 0 ? `${count} of ${slugs.length} done` : ""}
     </span>
   );
 }

@@ -1,5 +1,6 @@
 import { Callout } from "@/components/learn/primitives/Callout";
 import { CompareGrid, TakeawayCard } from "@/components/learn/primitives/Cards";
+import { CodeBlock } from "@/components/learn/primitives/CodeBlock";
 import { Lead, LessonSection, P, Strong } from "@/components/learn/primitives/LessonSection";
 
 export function DatasetBiasLesson() {
@@ -45,9 +46,9 @@ export function DatasetBiasLesson() {
         </P>
         <P>
           This is not hypothetical. Joy Buolamwini and Timnit Gebru&rsquo;s 2018 &ldquo;Gender
-          Shades&rdquo; study tested three commercial facial-analysis systems and found error rates
-          on darker-skinned women running as high as 34%, against under 1% for lighter-skinned men
-          on the same systems. The gap was not a mysterious algorithmic quirk — it traced directly
+          Shades&rdquo; study tested three commercial systems that classify the gender of a face and
+          found error rates on darker-skinned women running as high as 34%, against under 1% for
+          lighter-skinned men on the same systems. The gap was not a mysterious algorithmic quirk — it traced directly
           back to benchmark and training datasets that were overwhelmingly lighter-skinned and
           male.
         </P>
@@ -85,6 +86,29 @@ export function DatasetBiasLesson() {
           whatever the deployment context makes relevant — and report each one, not just the
           blended average. It is unglamorous and it is the only method that reliably surfaces a
           gap an overall score is mathematically built to hide.
+        </P>
+        <P>
+          A generated test set where one group makes up about 4% of the photos and the model is
+          much worse on it. One overall number, then the same results grouped.
+        </P>
+        <CodeBlock
+          label="subgroups.py"
+          code={`import numpy as np
+import pandas as pd
+
+rng = np.random.default_rng(0)
+# A test set where one group is only 4% of the photos.
+group = np.where(rng.random(5000) < 0.04, "under-represented", "well-represented")
+error_rate = np.where(group == "well-represented", 0.03, 0.25)
+correct = rng.random(5000) > error_rate
+
+results = pd.DataFrame({"group": group, "correct": correct})
+print(f"overall accuracy: {results.correct.mean():.1%}")
+print(results.groupby("group").correct.agg(["mean", "count"]).round(3))`}
+        />
+        <P>
+          Overall accuracy is 96.4%. Grouped, it is 97.1% for the well-represented photos and
+          79.1% for the rest.
         </P>
         <CompareGrid
           items={[

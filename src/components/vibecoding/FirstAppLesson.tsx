@@ -38,7 +38,9 @@ npm run dev`}
         </P>
         <Callout tone="success" title="Commit before you change anything">
           A clean starting snapshot means any mess you or the AI make is one command away from
-          being undone. In a second terminal:{" "}
+          being undone. The generator usually makes that first commit for you — check in a
+          second terminal with <InlineCode>git log --oneline</InlineCode>. If there is no commit
+          yet, or you have already changed something, make one:{" "}
           <InlineCode>git add . && git commit -m &quot;Fresh scaffold&quot;</InlineCode>
         </Callout>
       </LessonSection>
@@ -141,11 +143,12 @@ instead of an empty list.`}
           building software, not evidence you did something wrong.
         </P>
         <P>
-          A likely spot for it here: click delete before you have added a habit, or click it on
-          the last one left, and if the delete handler was written without checking the list is
-          still there, you will see something like{" "}
+          A likely spot for it here: delete the last habit in the list, and if some generated
+          line still reads <InlineCode>habits[0].name</InlineCode> — for a heading, say — there
+          is no first habit any more. You will see something like{" "}
           <InlineCode>TypeError: Cannot read properties of undefined (reading &apos;name&apos;)</InlineCode>{" "}
-          in the terminal and a blank page in the browser. That is not a mysterious AI failure —
+          in the browser, in the Next.js error overlay or the developer console, rather than in
+          the terminal. That is not a mysterious AI failure —
           it is an ordinary bug, the kind you would write yourself, and the fix is the same
           either way: read the message, find the line it names, fix the one thing it says is
           wrong.
@@ -158,7 +161,7 @@ instead of an empty list.`}
           variant="prompt"
           label="Prompt"
           code={`I added the delete button and now the page is blank.
-Here is the full error from the terminal:
+Here is the full error from the browser:
 
 [paste the whole error here]`}
         />
@@ -194,8 +197,9 @@ export default function Home() {
   const doneCount = habits.filter((h) => h.done).length;
 
   function addHabit() {
-    if (!name.trim()) return;
-    setHabits([...habits, { name, done: false }]);
+    const trimmed = name.trim();
+    if (!trimmed) return;
+    setHabits([...habits, { name: trimmed, done: false }]);
     setName("");
   }
 

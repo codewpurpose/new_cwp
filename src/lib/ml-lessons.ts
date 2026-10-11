@@ -240,7 +240,7 @@ export const ML_CHAPTERS: readonly LearnChapter[] = [
     order: 10,
     title: "Random Forests",
     description:
-      "One deep tree memorises its training data. Two hundred of them, each deliberately handicapped, do not. Add trees one at a time and watch the boundary settle down.",
+      "One deep tree memorises its training data. A forest of them, each deliberately handicapped, does not. Add trees one at a time and watch the boundary settle down.",
     level: "intermediate",
     minutes: 12,
     prerequisites: ["decision-trees"],

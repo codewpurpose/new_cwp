@@ -1,7 +1,8 @@
 import { Lead, LessonSection, P, Strong } from "@/components/learn/primitives/LessonSection";
-import { CodeBlock } from "@/components/learn/primitives/CodeBlock";
+import { CodeBlock, InlineCode } from "@/components/learn/primitives/CodeBlock";
 import { CompareGrid, TakeawayCard } from "@/components/learn/primitives/Cards";
 import { Callout } from "@/components/learn/primitives/Callout";
+import { TryIt } from "@/components/python/TryIt";
 
 export function InheritanceLesson() {
   return (
@@ -82,18 +83,24 @@ True`}
           Animal directly, which matters more once a program has several levels of
           inheritance.
         </P>
-        <CodeBlock
-          label="Terminal"
-          variant="terminal"
-          code={`>>> class Dog(Animal):
-...     def describe(self):
-...         base = super().describe()
-...         return f"{base}, specifically a dog"
-...
->>> rex = Dog("Rex")
->>> rex.describe()
-'Rex is an animal, specifically a dog'`}
-          lineTones={{ 2: "accent" }}
+        <TryIt
+          label="animals.py"
+          code={`class Animal:
+    def __init__(self, name):
+        self.name = name
+
+    def describe(self):
+        return f"{self.name} is an animal"
+
+class Dog(Animal):
+    def describe(self):
+        base = super().describe()
+        return f"{base}, specifically a dog"
+
+print(Animal("Tom").describe())
+print(Dog("Rex").describe())`}
+          lineTones={{ 9: "accent" }}
+          prompt={<>Add a <InlineCode>Cat</InlineCode> subclass with its own <InlineCode>describe()</InlineCode>, and print one.</>}
         />
         <P>
           <Strong>__init__</Strong> is the most common place to reach for super(): a child
@@ -157,21 +164,21 @@ True`}
             },
           ]}
         />
-        <CodeBlock
-          label="Terminal"
-          variant="terminal"
-          code={`>>> class Engine:
-...     def start(self):
-...         return "vroom"
-...
->>> class Car:
-...     def __init__(self):
-...         self.engine = Engine()
-...     def start(self):
-...         return self.engine.start()
-...
->>> Car().start()
-'vroom'`}
+        <TryIt
+          label="car.py"
+          code={`class Engine:
+    def start(self):
+        return "vroom"
+
+class Car:
+    def __init__(self):
+        self.engine = Engine()
+
+    def start(self):
+        return self.engine.start()
+
+print(Car().start())`}
+          prompt={<>Write an <InlineCode>ElectricEngine</InlineCode> whose <InlineCode>start()</InlineCode> returns something quieter, and give the car one.</>}
         />
         <P>
           <Strong>Car</Strong> does not inherit from Engine — it holds one, stored as an

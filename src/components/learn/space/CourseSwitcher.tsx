@@ -27,7 +27,7 @@ export function CourseSwitcher({
   return (
     <Menu.Root>
       <Menu.Trigger
-        className="learn-focusable inline-flex h-9 items-center gap-1.5 rounded-full border border-[#fcf4e8]/25 px-3 text-[13px] font-medium text-[#fcf4e8] transition-colors hover:bg-[#fcf4e8]/10 data-[popup-open]:bg-[#fcf4e8]/15"
+        className="learn-focusable inline-flex h-9 items-center gap-1.5 rounded-full border-[0.5px] border-[#1e3c2c]/20 px-3 text-[13px] font-medium text-[#1e3c2c] transition-colors hover:bg-[#fffbf5]/70 data-[popup-open]:bg-[#fffbf5]"
         aria-label="Switch course"
       >
         <svg viewBox="0 0 16 16" className="h-4 w-4" aria-hidden="true" fill="none">
@@ -66,9 +66,11 @@ export function CourseSwitcher({
                     fill="#3e7f5c"
                   />
                   <span className="min-w-0 flex-1 truncate">{course.title}</span>
-                  <span className="home-mono shrink-0 text-[11px] tabular-nums text-[var(--home-ink-quiet)]">
-                    {done > 0 ? `${done}/${course.chapterSlugs.length}` : `${course.chapterSlugs.length} ch`}
-                  </span>
+                  {done > 0 && (
+                    <span className="home-mono shrink-0 text-[11px] tabular-nums text-[var(--home-ink-quiet)]">
+                      {done}/{course.chapterSlugs.length}
+                    </span>
+                  )}
                 </Menu.LinkItem>
               );
             })}

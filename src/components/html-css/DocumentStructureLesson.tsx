@@ -8,7 +8,7 @@ export function DocumentStructureLesson() {
   return (
     <div>
       <Lead>
-        Every page on the internet starts with the same eight lines, and each one is doing a job you
+        Every page on the internet starts with the same dozen lines, and each one is doing a job you
         can name. Then see the same markup as a tree, because that is what the browser turns it into
         and what CSS selects from.
       </Lead>
@@ -99,7 +99,7 @@ export function DocumentStructureLesson() {
             },
             {
               label: "viewport",
-              text: "Without this, a phone renders your page at 980 pixels wide and zooms out, so everything is tiny and no CSS media query ever fires. Chapter 19 explains how to make the layout respond.",
+              text: "Without this, a phone renders your page at 980 pixels wide and zooms out, so everything is tiny and your small-screen media queries never fire. Chapter 19 explains how to make the layout respond.",
             },
             {
               label: "title",
@@ -176,7 +176,7 @@ export function DocumentStructureLesson() {
           "html has exactly two children: head, which is about the page, and body, which is the page.",
           "lang on html tells screen readers how to pronounce your words.",
           "charset utf-8 goes first, before anything the browser has to decode.",
-          "The viewport meta tag is what makes a phone render your page at its real width — without it no media query fires.",
+          "The viewport meta tag is what makes a phone render your page at its real width — without it your small-screen media queries never fire.",
           "title is the tab, the bookmark, and the search headline. Specific first, site name second.",
           "The browser turns your markup into a tree called the DOM. Your indentation is ignored.",
           "Parent, child, descendant, sibling, ancestor — these are CSS selector vocabulary, not jargon.",

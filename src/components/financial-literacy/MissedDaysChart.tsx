@@ -152,7 +152,8 @@ export function MissedDaysChart() {
       </div>
       <p className="mt-4 text-[13px] leading-[1.5] text-learn-muted">
         {DAYS_REMOVED} days out of {TOTAL_DAYS.toString()} trading days — a tiny fraction of the
-        whole period — account for the entire gap between these two numbers.
+        whole period — account for the entire gap between these two numbers. The daily returns
+        here are simulated to resemble a broad index fund, not taken from real market history.
       </p>
     </figure>
   );

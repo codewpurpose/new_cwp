@@ -3,13 +3,14 @@ import { LabelRows, TakeawayCard } from "@/components/learn/primitives/Cards";
 import { CodeBlock, InlineCode } from "@/components/learn/primitives/CodeBlock";
 import { Lead, LessonSection, P, Strong } from "@/components/learn/primitives/LessonSection";
 import { DescentStepper } from "@/components/ml/DescentStepper";
+import { RevealCard } from "@/components/learn/primitives/RevealCard";
 
 export function GradientDescentLesson() {
   return (
     <div>
       <Lead>
-        You just found the bottom of a bowl by hand — one slider, thirty-six trips, an eyeball
-        for which direction felt better. That worked because there was exactly one number to
+        Back in chapter three you found the bottom of a bowl by hand — one slider, thirty-six
+        trips, an eyeball for which direction felt better. That worked because there was exactly one number to
         move. This lesson is about the moment there is more than one, and why the search has to
         change shape entirely once eyeballing it stops being an option.
       </Lead>
@@ -17,7 +18,7 @@ export function GradientDescentLesson() {
       <LessonSection id="why-you-cannot-try-everything" title="Why you cannot just try everything">
         <P>
           Try every value of one number at a resolution of a hundred steps and that is a hundred
-          tries — an afternoon, and more or less what the last lesson&rsquo;s bowl already was: a
+          tries — an afternoon, and more or less what chapter three&rsquo;s bowl already was: a
           curve you could have plotted point by point and read the bottom off with your eyes.
         </P>
         <P>
@@ -27,7 +28,8 @@ export function GradientDescentLesson() {
           the tenth power tries. A small neural network has on the order of a million numbers to
           set, which puts the count at a hundred raised to the millionth power — a figure with no
           name worth learning, because the point is not the size of the number, it is that grid
-          search does not slow down as parameters increase. It stops being an option at all.
+          search does not merely slow down as parameters increase. It stops being an option at
+          all.
         </P>
         <P>
           The shape of the search has to change. Instead of trying values, you need a way to be
@@ -44,10 +46,10 @@ export function GradientDescentLesson() {
           are standing, nothing more, and nothing about the rest of the curve required.
         </P>
         <P>
-          The last lesson&rsquo;s widget already computed this every time you dragged its slider.
-          A badge told you which way to nudge the number, and that badge was reading the{" "}
+          Chapter three&rsquo;s widget already computed this every time you dragged its slider.
+          Its &ldquo;which way is downhill?&rdquo; panel told you which way to nudge the number, and that panel was reading the{" "}
           <em>sign</em> of the derivative — positive or negative, downhill left or downhill
-          right. Gradient descent is that badge with nobody left to read it: the sign alone
+          right. Gradient descent is that panel with nobody left to read it: the sign alone
           chooses a direction, and once there is more than one number to move, the same idea
           applied to all of them at once gets a new name, the <Strong>gradient</Strong>.
         </P>
@@ -63,8 +65,21 @@ export function GradientDescentLesson() {
           line, once each, every step.
         </P>
         <P>
-          Set a rate below and press <InlineCode>Step</InlineCode>. Nobody is dragging anything
-          this time — watch what the loop does on its own.
+          Before you try the widget, run one step by hand.
+        </P>
+        <div className="mt-6">
+          <RevealCard
+            summaryTag="Try it yourself"
+            summary="A parameter sits at 5. The gradient there is 4 — error rises if the parameter goes up. With a rate of 0.1, where does one step land? And with a rate of 1?"
+            detailTag="Answer"
+            detail="At rate 0.1: 5 − 0.1 × 4 = 4.6, a small move in the downhill direction. At rate 1: 5 − 1 × 4 = 1, the same direction but ten times further — far enough that it may already have jumped past the bottom. The gradient chose the direction both times; only the rate decided how far."
+            openLabel="Show the answer"
+            closeLabel="Hide the answer"
+          />
+        </div>
+        <P>
+          Now set a rate below and press <InlineCode>Step</InlineCode>. Nobody is dragging
+          anything this time — watch what the loop does on its own.
         </P>
       </LessonSection>
 
@@ -76,7 +91,9 @@ export function GradientDescentLesson() {
           suggests. At <Strong>0.001</Strong> the direction is right every single step and the
           pace is not: after fifty steps the parameter has crept from 0.5 to 4.54, a little over
           half the distance to the target of 7.8, with the error still sitting at 85.37 against a
-          floor of 0.4. Fifty more steps would close less than half of what is left.
+          floor of 0.4. Each step closes the same small fraction of whatever gap remains, so
+          fifty more steps would close only about the same share again — the gap shrinks, but
+          never in a hurry.
         </P>
         <P>
           At <Strong>0.03</Strong> the same loop reaches 7.761 — within the widget&rsquo;s own
@@ -89,6 +106,37 @@ export function GradientDescentLesson() {
           at &minus;97.61. The error that started at 426.72 is 88,893.92 by then and still
           climbing. At <Strong>1.02</Strong> one step is enough — the parameter jumps from 0.5 to
           119.64 and the error goes from 426.72 to 100,058.73 before a second step is ever taken.
+        </P>
+        <P>
+          Here is the loop with two numbers instead of one: a slope and a starting height,
+          fitted to fifty generated points whose true values are 3 and 1.
+        </P>
+        <CodeBlock
+          label="descent.py"
+          code={`import numpy as np
+
+rng = np.random.default_rng(0)
+x = rng.uniform(-2, 2, 50)
+y = 3 * x + 1 + rng.normal(0, 0.5, 50)   # the true slope is 3, the true start is 1
+
+slope, start = 0.0, 0.0
+rate = 0.1   # try 0.01, 0.5 and 0.8
+
+for step in range(1, 41):
+    miss = (slope * x + start) - y
+    # The gradient of the mean squared error, one entry per number.
+    grad_slope = 2 * np.mean(miss * x)
+    grad_start = 2 * np.mean(miss)
+    slope -= rate * grad_slope              # new = old - rate x gradient
+    start -= rate * grad_start
+    if step in (1, 2, 5, 10, 20, 40):
+        print(f"step {step:2}: slope {slope:8.3f}  start {start:8.3f}"
+              f"  error {np.mean(miss ** 2):10.3f}")`}
+        />
+        <P>
+          At 0.1 it reaches a slope of 3.065 and a start of 1.010 within twenty steps. Try 0.01
+          and after forty steps it is still crawling. Try 0.8 and every step overshoots further
+          than the last until the numbers run away.
         </P>
         <Callout tone="warning" title="This is not a rendering bug">
           The widget does not stop those numbers from growing, and it will not clamp a diverging
@@ -124,9 +172,9 @@ export function GradientDescentLesson() {
           card, never handed the wheel.
         </P>
         <P>
-          You will meet five more words attached to this exact loop before the next chapter is
-          through. Each one changes a single part of it and none of them replace the update rule
-          above:
+          You will meet five more words attached to this exact loop as soon as you read about
+          training real models. Each one changes a single part of it and none of them replace the
+          update rule above:
         </P>
         <LabelRows
           rows={[
@@ -153,9 +201,10 @@ export function GradientDescentLesson() {
           ]}
         />
         <P>
-          Every one of those is a variation on the four-word line you already have. The next
-          lesson stacks that same loop underneath something with vastly more numbers to move — a
-          neural network — and the loop itself does not change. Only the size of the bowl does.
+          Every one of those is a variation on the one-line rule you already have. Two chapters
+          from now, the neural networks lesson stacks that same loop underneath something with
+          vastly more numbers to move, and the loop itself does not change. Only the size of the
+          bowl does.
         </P>
       </LessonSection>
 

@@ -115,8 +115,9 @@ local humanoid = ObbyUtil.getHumanoid(somePart)`}
         <Callout tone="note" title="Which to use while learning">
           Leave it on Legacy and use the containers. The placement rules are what every
           tutorial, every free model, and every person you ask for help will assume — learning
-          them first means you can read other people&apos;s work. RunContext explains why a script
-          running somewhere &quot;impossible&quot; does not run.
+          them first means you can read other people&apos;s work. And when you do meet a script
+          running somewhere that should be &quot;impossible&quot;, check its RunContext first —
+          that is usually the explanation.
         </Callout>
       </LessonSection>
 
@@ -128,9 +129,9 @@ local humanoid = ObbyUtil.getHumanoid(somePart)`}
         </P>
         <CodeBlock
           label="Luau"
-          code={`print("KillScript loaded on", workspace.Obby.Laser:GetFullName())
+          code={`local laser = script.Parent
+print("KillScript loaded on", laser:GetFullName())
 
-local laser = script.Parent
 laser.Touched:Connect(function(otherPart)
     print("touched by", otherPart.Name)
 end)`}
@@ -154,7 +155,7 @@ end)`}
           "A script inside a part travels with that part when you duplicate it, which is how one laser becomes six.",
           "Script runs on the server, LocalScript on one player's machine, ModuleScript only when something requires it.",
           "A ModuleScript must end with return. Without one it hands back nil, and the error appears in the caller rather than the module.",
-          "Seven of the twelve common class-and-parent combinations do nothing at all, and Studio warns you about none of them.",
+          "Nine of the twelve class-and-parent combinations above start nothing on their own, and Studio warns you about none of them.",
           "RunContext on modern Scripts can override the placement rules. Leave it on Legacy while learning, so other people's tutorials still apply.",
           "Put a print at the top of every script. Silence means it never ran; that is a different bug from an event that never fired.",
           "print(obj:GetFullName()) tells you which of six identical copies is talking.",

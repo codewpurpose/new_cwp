@@ -13,7 +13,7 @@ export function StylingThePageLesson() {
         markup changes at all.
       </Lead>
 
-      <LessonSection id="a-three-line-reset-before-anything-else" title="A three-line reset before anything else">
+      <LessonSection id="a-three-line-reset-before-anything-else" title="A short reset comes before anything else">
         <P>
           The order of these five passes matters more than any individual rule in them. Each one
           settles decisions the next one depends on.
@@ -110,7 +110,7 @@ input, textarea, select, button {
             { label: "Overridable", text: "Redeclare any of these inside a media query or a class and everything using it changes." },
           ]}
         />
-        <Callout tone="success" title="This is what makes dark mode about eight lines">
+        <Callout tone="success" title="This is what makes dark mode about ten lines">
           Because every colour is read through a token, switching the whole page means redeclaring
           the tokens. No rule elsewhere in the file changes at all.
         </Callout>
@@ -123,9 +123,15 @@ input, textarea, select, button {
     --surface:   hsl(150 18% 10%);
     --raised:    hsl(150 14% 14%);
     --line:      hsl(150 10% 22%);
+    --accent-ink: hsl(150 40% 70%);  /* links must stay readable on dark */
   }
 }`}
         />
+        <P>
+          One token moves in the opposite direction: <Strong>--accent-ink</Strong> is the link
+          colour, and a dark green that reads well on a pale page disappears on a dark one, so it
+          flips to a light green. Check every token you use for text, not just the obvious ones.
+        </P>
       </LessonSection>
 
       <LessonSection
@@ -323,7 +329,7 @@ section { padding-block: var(--space-5); }
   border-radius: var(--radius);
   transition: background 150ms ease;
 }
-.btn:hover { background: var(--accent-ink); }
+.btn:hover { background: var(--accent-ink); color: var(--surface); }
 
 .project {
   transition: border-color 150ms ease, transform 150ms ease;
@@ -362,7 +368,7 @@ footer ul {
             "The skip link appears on the first Tab press and works",
             "Every colour pair passes 4.5:1 — chapter 22 has the checker",
             "Turn CSS off entirely: is it still the readable document from chapter 20?",
-            "Turn on prefers-reduced-motion in your OS: does the card lift stop?",
+            "Turn on reduced motion in your OS: does the card lift now happen instantly instead of animating?",
             "Validate the HTML again — styling should not have changed it, but check",
           ]}
         />

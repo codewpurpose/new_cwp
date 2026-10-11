@@ -2,13 +2,15 @@ import { Lead, LessonSection, P, Strong } from "@/components/learn/primitives/Le
 import { Callout } from "@/components/learn/primitives/Callout";
 import { CodeBlock } from "@/components/learn/primitives/CodeBlock";
 import { CompareGrid, LabelRows, TakeawayCard } from "@/components/learn/primitives/Cards";
+import { RevealCard } from "@/components/learn/primitives/RevealCard";
 import { BoxModelExplorer } from "@/components/html-css/BoxModelExplorer";
+import { WebPlayground } from "@/components/webplay/WebPlayground";
 
 export function TheBoxModelLesson() {
   return (
     <div>
       <Lead>
-        Set an element to 300 pixels wide, add padding, and measure it: it is 340. That one behaviour
+        Set an element to 300 pixels wide, add 20 pixels of padding, and measure it: it is 340. That one behaviour
         has confused every person who has ever learned CSS, and one line of code fixes it
         permanently.
       </Lead>
@@ -129,6 +131,33 @@ Actual space on screen:
           ]}
         />
         <P>
+          <Strong>Try it:</Strong> both boxes below say <Strong>width: 240px</Strong>. Change the
+          padding to <Strong>40px</Strong> and watch which one grows, then add 
+          <Strong>box-sizing: border-box</Strong> to the first.
+        </P>
+        <WebPlayground
+          title="Try it: box-sizing"
+          height={280}
+          initialHtml={`<div class="box content">content-box</div>
+<div class="box border">border-box</div>`}
+          initialCss={`.box {
+  width: 240px;
+  padding: 20px;
+  border: 4px solid #3e7f5c;
+  margin-bottom: 12px;
+  background: #dbefdb;
+  font-family: system-ui, sans-serif;
+}
+
+.content {
+  box-sizing: content-box; /* the default */
+}
+
+.border {
+  box-sizing: border-box;
+}`}
+        />
+        <P>
           There is no downside and essentially every real project starts with it. It is not the
           default only because changing a default would have broken a large part of the existing web
           — the specification could not fix it retroactively, so you fix it in two lines.
@@ -140,6 +169,15 @@ Actual space on screen:
           <span className="font-[family-name:var(--learn-font-mono)]">*::before, *::after</span> are
           in the selector too.
         </Callout>
+        <RevealCard
+          summaryTag="Try it yourself"
+          summary=".btn { width: 200px; padding: 12px 24px; border: 2px solid; } — how wide is it on screen with the default box-sizing, and with border-box?"
+          detailTag="The answer"
+          detail="Default (content-box): 200 + 48 of horizontal padding (24 + 24) + 4 of border (2 + 2) = 252px. With border-box: exactly 200px, leaving 148px for the content. Only the left and right values count towards width — the 12px top and bottom padding change the height."
+          footnote="The second value in a two-value padding is left and right, which is the one that changes the width."
+          openLabel="Check your answer"
+          closeLabel="Hide the answer"
+        />
       </LessonSection>
 
       <LessonSection
@@ -173,7 +211,8 @@ Gap between them: 30px, not 50px.`}
         />
         <P>
           The escaping-child case is the one that produces a genuine bug report. Anything that
-          establishes a new formatting context stops it — padding, a border, or the modern one-liner:
+          separates the two margins stops it — padding or a border on the parent — or the modern
+          one-liner, which gives the parent its own formatting context:
         </P>
         <CodeBlock
           label="Three ways to stop margins escaping"

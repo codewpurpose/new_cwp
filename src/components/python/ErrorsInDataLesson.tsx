@@ -1,8 +1,9 @@
 import { Lead, LessonSection, P, Strong } from "@/components/learn/primitives/LessonSection";
 import { Callout } from "@/components/learn/primitives/Callout";
-import { CodeBlock } from "@/components/learn/primitives/CodeBlock";
+import { CodeBlock, InlineCode } from "@/components/learn/primitives/CodeBlock";
 import { LabelRows, TakeawayCard } from "@/components/learn/primitives/Cards";
 import { LookupSafety } from "@/components/python/LookupSafety";
+import { TryIt } from "@/components/python/TryIt";
 
 export function ErrorsInDataLesson() {
   return (
@@ -51,14 +52,15 @@ export function ErrorsInDataLesson() {
           raise when the answer is no. With one argument it hands back{" "}
           <Strong>None</Strong>; with two, whatever you nominated.
         </P>
-        <CodeBlock
-          label="Python"
+        <TryIt
+          label="lookups.py"
           code={`scores = {"amara": 18, "ben": 6}
 
-scores["dara"]         # KeyError: 'dara'
-scores.get("dara")     # None
-scores.get("dara", 0)  # 0`}
-          lineTones={{ 2: "err", 3: "warn", 4: "ok" }}
+print(scores.get("dara"))     # None
+print(scores.get("dara", 0))  # 0
+print(scores["dara"])         # KeyError: 'dara'`}
+          lineTones={{ 2: "warn", 3: "ok", 4: "err" }}
+          prompt={<>Add <InlineCode>{'"dara": 11'}</InlineCode> to the dictionary and run it again.</>}
         />
       </LessonSection>
 
@@ -70,14 +72,21 @@ scores.get("dara", 0)  # 0`}
           and writes the default into the dictionary if the key was missing — which is exactly
           what building a grouping needs.
         </P>
-        <CodeBlock
-          label="Python"
-          code={`by_track = {}
+        <TryIt
+          label="group_tracks.py"
+          code={`students = [
+    {"name": "Amara", "track": "python"},
+    {"name": "Ben", "track": "ml"},
+    {"name": "Chidi", "track": "python"},
+]
+
+by_track = {}
 
 for student in students:
     by_track.setdefault(student["track"], []).append(student["name"])
 
-# {'python': ['Amara', 'Chidi'], 'ml': ['Ben']}`}
+print(by_track)`}
+          prompt="Add a fourth student on a track nobody else is on, and run it again."
         />
         <P>
           The first student on each track finds no list, so <Strong>setdefault</Strong> puts an
@@ -107,6 +116,7 @@ try:
     total += scores["dara"]
 except KeyError:
     pass`}
+          runnable={false}
         />
         <P>
           The second is the more Pythonic of the two, and not merely by convention. The first
@@ -143,6 +153,7 @@ try:
 except KeyError:
     total += 0`}
           lineTones={{ 3: "err", 4: "err" }}
+          runnable={false}
         />
         <P>
           The second version still crashes if <Strong>scores</Strong> turns out to be{" "}
@@ -162,6 +173,7 @@ except KeyError:
           code={`minutes = record.get("minutes")   # missing key → None, no complaint
 average = minutes / chapters      # TypeError, forty lines later`}
           lineTones={{ 1: "err" }}
+          runnable={false}
         />
         <P>
           The <Strong>TypeError</Strong> names the division, which is the one line in the

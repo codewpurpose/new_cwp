@@ -344,7 +344,7 @@ export const FINANCIAL_LITERACY_CHAPTERS: readonly LearnChapter[] = [
     order: 15,
     title: "Insurance Basics",
     description:
-      "Insurance trades a small, certain cost today for protection against a large, uncertain one later. A premium, a deductible, and a payout are the only three pieces you actually need to compare any policy.",
+      "Insurance trades a small, certain cost today for protection against a large, uncertain one later. The premium, the deductible, and the policy's limits decide what it actually costs you in a bad year: health plans may set an out-of-pocket maximum, while other policies use coverage limits.",
     level: "intermediate",
     minutes: 8,
     prerequisites: [],

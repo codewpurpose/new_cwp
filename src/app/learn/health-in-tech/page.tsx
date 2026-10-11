@@ -24,7 +24,7 @@ export default function LearnHealthInTechPage() {
         <CourseHome
           track="health-in-tech"
           title="Where healthcare meets technology, chapter by chapter"
-          description="CodeWithPurpose lessons that turn health tech into a subject you actually understand, not headlines you half-follow. Twenty-four chapters, no medical or coding background required."
+          description="CodeWithPurpose lessons that turn health tech into a subject you actually understand, not headlines you half-follow. No medical or coding background required."
           udemy={{ href: HEALTH_IN_TECH_COURSE_HREF, label: "Udemy Health in Tech Course" }}
           chapterMedia={(chapter) => <HealthInTechLessonCover slug={chapter.slug} />}
         />

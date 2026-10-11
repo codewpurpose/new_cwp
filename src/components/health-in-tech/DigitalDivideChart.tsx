@@ -57,7 +57,8 @@ export function DigitalDivideChart() {
   return (
     <figure className="learn-card mt-8 overflow-hidden rounded-learn-xl p-5 md:p-7">
       <figcaption className="text-[13px] uppercase tracking-[0.08em] text-learn-muted">
-        Share of households with both broadband and a personal device
+        Share of households with both broadband and a personal device — illustrative, simulated
+        figures
       </figcaption>
 
       <div className="mt-5 overflow-x-auto">

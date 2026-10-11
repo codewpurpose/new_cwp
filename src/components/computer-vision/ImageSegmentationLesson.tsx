@@ -1,4 +1,5 @@
 import { TakeawayCard } from "@/components/learn/primitives/Cards";
+import { CodeBlock } from "@/components/learn/primitives/CodeBlock";
 import { Lead, LessonSection, P, Strong } from "@/components/learn/primitives/LessonSection";
 
 export function ImageSegmentationLesson() {
@@ -62,6 +63,37 @@ export function ImageSegmentationLesson() {
             a photo is sky needs only semantic
           </Strong>
           .
+        </P>
+        <P>
+          A small semantic mask with two round dogs. First, how much of a box around one of them
+          is not dog; then, counting the dogs by finding connected blobs.
+        </P>
+        <CodeBlock
+          label="masks.py"
+          code={`import numpy as np
+from scipy import ndimage
+
+# A 20x20 semantic mask: 1 = dog, 0 = background. Two round dogs.
+rows, cols = np.mgrid[0:20, 0:20]
+dog_a = (rows - 6) ** 2 + (cols - 5) ** 2 <= 16
+dog_b = (rows - 12) ** 2 + (cols - 14) ** 2 <= 16
+mask = dog_a | dog_b
+for row in mask:
+    print("".join("#" if dog else "." for dog in row))
+
+# How much of dog A's bounding box is not dog?
+r, c = np.where(dog_a)
+box = mask[r.min():r.max() + 1, c.min():c.max() + 1]
+print(f"box around dog A: {box.size} pixels, {box.size - dog_a.sum()} of them background")
+
+# Semantic labels say "dog" but not how many. Count the separate blobs.
+_, count = ndimage.label(mask)
+print("separate dogs found:", count)
+# Try centring dog_b at (8, 11) instead: the dogs touch and become one blob.`}
+        />
+        <P>
+          32 of the 81 pixels in the box are background. The blob count finds two dogs, but only
+          while they do not touch. Move them together and the same mask reports one.
         </P>
       </LessonSection>
 

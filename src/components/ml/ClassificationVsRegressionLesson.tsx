@@ -1,5 +1,6 @@
 import { Callout } from "@/components/learn/primitives/Callout";
 import { CompareGrid, TakeawayCard } from "@/components/learn/primitives/Cards";
+import { CodeBlock } from "@/components/learn/primitives/CodeBlock";
 import { Lead, LessonSection, P, Strong } from "@/components/learn/primitives/LessonSection";
 import { BucketDial } from "@/components/ml/BucketDial";
 
@@ -79,6 +80,35 @@ export function ClassificationVsRegressionLesson() {
           <Strong>meaningless to compare across differently-shaped questions</Strong>. Ninety
           percent on a two-category problem may be worse than thirty on a twenty-category one.
         </Callout>
+        <P>
+          Try it with your own numbers. One regression model predicts delivery minutes; then the
+          very same predictions are rounded into 2, 5 and 20 equal-width buckets and scored as
+          categories.
+        </P>
+        <CodeBlock
+          label="buckets.py"
+          code={`import numpy as np
+from sklearn.linear_model import LinearRegression
+
+rng = np.random.default_rng(2)
+km = rng.uniform(1, 15, 300)
+minutes = 10 + 3 * km + rng.normal(0, 6, 300)    # delivery time
+
+model = LinearRegression().fit(km.reshape(-1, 1), minutes)
+predicted = model.predict(km.reshape(-1, 1))
+print(f"average miss: {np.mean(np.abs(predicted - minutes)):.1f} minutes")
+
+# Now round the same predictions into equal-width buckets and
+# score them as categories instead.
+for buckets in [2, 5, 20]:
+    edges = np.linspace(minutes.min(), minutes.max(), buckets + 1)[1:-1]
+    right = np.digitize(predicted, edges) == np.digitize(minutes, edges)
+    print(f"{buckets:2} buckets: accuracy {right.mean():.0%}")`}
+        />
+        <P>
+          The average miss is 4.7 minutes, and accuracy falls from 88% to 60% to 19% as the
+          buckets narrow. The predictions never changed. Only the question did.
+        </P>
       </LessonSection>
 
       <LessonSection id="choosing-the-shape" title="Choosing the shape of your answer" delay={0.05}>

@@ -7,8 +7,8 @@ import { SegmentedControl } from "@/components/learn/primitives/SegmentedControl
  * The Output window, with three errors a first obby actually produces.
  *
  * The lines are written out rather than generated, because the teaching is in
- * their exact wording — "attempt to index nil with 'Humanoid'" names the thing
- * that was missing, and a paraphrase would lose the one word a reader needs to
+ * their exact wording — "attempt to index nil with 'Health'" names the thing
+ * you asked the nil for, and a paraphrase would lose the one word a reader needs to
  * learn to look for.
  */
 
@@ -32,16 +32,16 @@ const LOGS: Record<Case, { lines: Line[]; culprit: string; reading: string }> = 
     lines: [
       { text: "  Laser armed", tone: "out" },
       {
-        text: "  Workspace.Obby.Laser.KillScript:5: attempt to index nil with 'Humanoid'",
+        text: "  Workspace.Obby.Laser.KillScript:6: attempt to index nil with 'Health'",
         tone: "err",
       },
       { text: "  Stack Begin", tone: "info" },
-      { text: "  Script 'Workspace.Obby.Laser.KillScript', Line 5", tone: "info" },
+      { text: "  Script 'Workspace.Obby.Laser.KillScript', Line 6", tone: "info" },
       { text: "  Stack End", tone: "info" },
     ],
     culprit: "index nil",
     reading:
-      "Something on line 5 was nil and you asked it for a child. Almost always hit.Parent came back as something without the child you wanted — a falling brick, or a hat. The fix is the `if humanoid then` guard, not a different way of writing line 5.",
+      "Something on line 6 was nil and you asked it for a field. Line 5 looked up the Humanoid with FindFirstChildWhichIsA on the model ancestor, found none — that model had no Humanoid — and returned nil. Line 6 then did humanoid.Health = 0. The fix is an `if not humanoid then return end` guard between them, not a different way of writing line 6.",
   },
   call: {
     lines: [
@@ -52,7 +52,7 @@ const LOGS: Record<Case, { lines: Line[]; culprit: string; reading: string }> = 
     ],
     culprit: "call a nil",
     reading:
-      "You used () on something that is not a function. Nine times in ten it is a spelling mistake in a method name — Luau looked up `part:Destory()`, found nothing, and then tried to call the nothing it found.",
+      "You used () on something that is not a function. Usually it is a spelling mistake in a function name — `ObbyUtil.getHumaniod(part)` looked up a field the module's table does not have, got nil, and then tried to call the nil. (A misspelled method on a Roblox object, like `part:Destory()`, fails differently: 'Destory is not a valid member of Part'.)",
   },
   clean: {
     lines: [

@@ -197,8 +197,8 @@ body:
           </span>{" "}
           can set{" "}
           <span className="font-[family-name:var(--learn-font-mono)]">blank_issues_enabled: false</span>{" "}
-          and add links to Discussions, the docs, or a chat. Most projects find that half their issue
-          volume was questions, and pointing those somewhere better helps both sides.
+          and add links to Discussions, the docs, or a chat. On many projects a large share of issues turn
+          out to be questions, and pointing those somewhere better helps both sides.
         </Callout>
       </LessonSection>
 

@@ -115,7 +115,7 @@ return Response.json(order);`}
         <CodeBlock
           label="Ownership checked"
           code={`const order = await db.orders.findById(params.id);
-if (order.userId !== session.user.id) {
+if (!order || order.userId !== session.user.id) {
   return new Response("Not found", { status: 404 });
 }
 return Response.json(order);`}

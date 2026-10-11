@@ -50,7 +50,8 @@ export function DevtoolsLesson() {
       >
         <P>
           With an element selected, the Styles panel on the right lists every rule that matched it —
-          in cascade order, most specific first, with the file and line number each came from.
+          in cascade order, with the winning rules at the top and the file and line number each came
+          from.
         </P>
         <CodeBlock
           label="Roughly what you see"
@@ -74,7 +75,7 @@ Inherited from section
     color: var(--ink);`}
         />
         <P>
-          Three things in that list explain most of the panel&apos;s behaviour.
+          Four things in that list explain most of the panel&apos;s behaviour.
         </P>
         <LabelRows
           rows={[
@@ -121,7 +122,7 @@ Inherited from section
         <LabelRows
           rows={[
             { label: "Overridden", text: "A more specific rule won. The winner is somewhere above it in the same list." },
-            { label: "Invalid property or value", text: "Shown with a warning icon rather than a strike. A typo, or a value the property does not accept." },
+            { label: "Invalid property or value", text: "Struck through as well, but with a warning icon beside it. A typo, or a value the property does not accept." },
             { label: "Does not apply", text: "Valid, matched, and meaningless for this element — width on an inline element from chapter 16. Devtools often does NOT flag this one, which is why chapter 16 exists." },
           ]}
         />

@@ -7,9 +7,9 @@ export function InstancesAndPropertiesLesson() {
   return (
     <div>
       <Lead>
-        script.Parent works beautifully until somebody renames a part, and then it fails with a
-        message about indexing nil. Compare the four ways to find an object and see which of
-        them survive a part that has not loaded yet.
+        workspace.Obby.Laser works beautifully until somebody renames a part, and then the
+        script stops dead on that line. Compare the four ways to find an object and see which of
+        them survive a part that is missing, renamed, or has not loaded yet.
       </Lead>
 
       <LessonSection id="script-parent-is-the-shortest-path" title="script.Parent is the shortest path, and the most fragile">
@@ -46,30 +46,43 @@ end)`}
         </P>
         <P>
           So the expression is only as reliable as the names in it. If <Strong>Laser</Strong>{" "}
-          has been renamed, is inside a folder now, or has not loaded yet, that dot returns nil
-          — and the <em>next</em> dot is the one that throws.
+          has been renamed, is inside a folder now, or has not loaded yet, that dot does not
+          quietly come back empty. It throws on the spot and the script stops.
         </P>
         <CodeBlock
           label="Luau"
           code={`workspace.Obby.Laser.Transparency = 0.5
 
 -- If Obby exists but Laser does not:
---> attempt to index nil with 'Transparency'
--- The error names Transparency. The missing thing is Laser.`}
+--> Laser is not a valid member of Model "Workspace.Obby"`}
           lineTones={{ 3: "err" }}
         />
-        <Callout tone="warning" title="The error always names the wrong step">
-          Luau reports the property you tried to reach <em>through</em> the nil, never the
-          lookup that produced it. Read it as &quot;the thing to the left of this was
-          nil&quot; and you will find the bug immediately instead of staring at a property that
-          is spelled perfectly.
+        <P>
+          That message is precise: it names the child it could not find and the exact object it
+          looked inside. The harder error is the one you get when a lookup that is{" "}
+          <em>allowed</em> to fail hands you nil, you store it, and you use it a line later.
+        </P>
+        <CodeBlock
+          label="Luau"
+          code={`local laser = workspace.Obby:FindFirstChild("Laser")  -- nil, no error
+laser.Transparency = 0.5
+--> attempt to index nil with 'Transparency'`}
+          lineTones={{ 0: "warn", 2: "err" }}
+        />
+        <Callout tone="warning" title="This error names the wrong step">
+          &quot;attempt to index nil&quot; reports the property you tried to reach{" "}
+          <em>through</em> the nil, never the lookup that produced it. Read it as &quot;the
+          thing to the left of this was nil&quot; and you will find the bug immediately instead
+          of staring at a property that is spelled perfectly.
         </Callout>
       </LessonSection>
 
       <LessonSection id="findfirstchild-asks-without-crashing" title="FindFirstChild asks without crashing">
         <P>
           <Strong>FindFirstChild</Strong> does the same search and returns nil instead of
-          throwing. That single difference is what lets you check before you act.
+          throwing. That single difference is what lets you check before you act — and the
+          check is not optional, because skipping it just moves the crash down a line, as you
+          saw above.
         </P>
         <CodeBlock
           label="Luau"
@@ -192,8 +205,8 @@ part.Material = Enum.Material.Neon`}
         items={[
           "script refers to the script itself, so script.Parent is the object it lives inside — and duplicating that object copies a working script with it.",
           "Chained script.Parent.Parent encodes your Explorer layout into the code. Reorganising the tree silently changes what it means.",
-          "Dot notation is a fresh search by name every time the line runs, not a stored path.",
-          "The nil error always names the step after the one that failed. Read it as 'the thing to the left was nil'.",
+          "Dot notation is a fresh search by name every time the line runs, not a stored path. A missing child throws 'X is not a valid member of Y' on the spot.",
+          "'attempt to index nil' names the step after the one that failed. Read it as 'the thing to the left was nil'.",
           "FindFirstChild returns nil instead of throwing, which is what lets you check before acting. Warn in the else branch.",
           "FindFirstChildWhichIsA searches by class; FindFirstAncestorOfClass searches upward. Both matter for the killbrick.",
           "WaitForChild yields until the object replicates in. 'Infinite yield possible' after five seconds is a warning, not an error, and usually means a typo.",

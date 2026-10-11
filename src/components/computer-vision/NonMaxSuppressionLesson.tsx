@@ -1,6 +1,7 @@
 import { TakeawayCard } from "@/components/learn/primitives/Cards";
 import { Lead, LessonSection, P, Strong } from "@/components/learn/primitives/LessonSection";
 import { NmsThreshold } from "@/components/computer-vision/NmsThreshold";
+import { CodeBlock } from "@/components/learn/primitives/CodeBlock";
 
 export function NonMaxSuppressionLesson() {
   return (
@@ -48,6 +49,11 @@ export function NonMaxSuppressionLesson() {
           It is one dog, described twice. Suppressing the extra box loses nothing; keeping it would
           double-count the same animal in the final result.
         </P>
+        <P>
+          In practice this runs separately for each class. A box labelled &ldquo;dog&rdquo; never
+          suppresses a box labelled &ldquo;person&rdquo;, however much they overlap — someone
+          holding a puppy is two objects, not one described twice.
+        </P>
       </LessonSection>
 
       <NmsThreshold />
@@ -67,7 +73,43 @@ export function NonMaxSuppressionLesson() {
           survive, because none of them overlap each other by quite enough to trip the threshold,
           and your final output still reports several dogs where there is one.{" "}
           <Strong>There is no threshold that is safe for every photo</Strong>; it is tuned against
-          a validation set, the same way the IoU threshold in the last lesson was.
+          a validation set that looks like the scenes you expect. Crowded scenes, where real
+          objects genuinely overlap, usually want a higher threshold than sparse ones.
+        </P>
+        <P>
+          The six boxes from the interactive, run through the algorithm at three thresholds. All
+          of them are labelled dog, so every box is compared with every kept box.
+        </P>
+        <CodeBlock
+          label="nms.py"
+          code={`def iou(a, b):
+    ix = max(0, min(a[2], b[2]) - max(a[0], b[0]))
+    iy = max(0, min(a[3], b[3]) - max(a[1], b[1]))
+    inter = ix * iy
+    union = (a[2] - a[0]) * (a[3] - a[1]) + (b[2] - b[0]) * (b[3] - b[1]) - inter
+    return inter / union
+
+# (left, top, right, bottom, confidence), all labelled "dog".
+# Five boxes crowd one dog; box f sits on a second dog nearby.
+boxes = {
+    "a": (60, 60, 200, 160, 0.95), "b": (68, 58, 208, 158, 0.91),
+    "c": (55, 66, 195, 166, 0.88), "d": (72, 70, 212, 170, 0.82),
+    "e": (50, 50, 190, 150, 0.77), "f": (130, 100, 270, 200, 0.85),
+}
+
+def nms(boxes, threshold):
+    kept = []
+    for name in sorted(boxes, key=lambda n: boxes[n][4], reverse=True):
+        if all(iou(boxes[name], boxes[k]) <= threshold for k in kept):
+            kept.append(name)
+    return kept
+
+for threshold in [0.1, 0.5, 0.9]:   # try your own
+    print(f"threshold {threshold}: kept {nms(boxes, threshold)}")`}
+        />
+        <P>
+          At 0.5 it keeps a and f, one box per dog. At 0.1 the second dog&rsquo;s box f is
+          swallowed by a, and at 0.9 all six survive.
         </P>
       </LessonSection>
 

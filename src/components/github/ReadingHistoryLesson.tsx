@@ -108,7 +108,7 @@ git log -S "loadUser"`}
             { label: "git diff", text: "Working tree against the index. What you have changed and NOT staged. Silent if everything is staged." },
             { label: "--staged", text: "Index against HEAD. Exactly what your next commit will contain. Read this before every commit." },
             { label: "HEAD", text: "Working tree against the last commit. Everything you have done since, staged or not." },
-            { label: "a..b", text: "Any two commits, branches, or tags. git diff main..fix/login shows what the branch adds." },
+            { label: "a..b", text: "Any two commits, branches, or tags, compared tip to tip. git diff main..fix/login is the same as git diff main fix/login." },
           ]}
         />
         <CodeBlock
@@ -116,7 +116,7 @@ git log -S "loadUser"`}
           code={`git diff                          # unstaged changes only
 git diff --staged                 # what you are about to commit
 git diff HEAD                     # everything since the last commit
-git diff main..fix/login          # what the branch changes
+git diff main..fix/login          # tip of main against tip of the branch
 git diff main...fix/login         # what the branch ADDS, ignoring what main did meanwhile
 git diff HEAD~3 HEAD -- src/      # three commits ago to now, one directory`}
         />

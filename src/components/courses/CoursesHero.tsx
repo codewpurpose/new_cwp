@@ -21,13 +21,13 @@ export function CoursesHero({
   fan: readonly [TopicCoverVariant, TopicCoverVariant, TopicCoverVariant];
 }) {
   const stats = [
-    { value: courses, label: "interactive courses" },
-    { value: chapters, label: "chapters to work through" },
+    { value: courses, label: "courses" },
+    { value: chapters, label: "free interactive chapters" },
     { value: enrolments, label: "full courses on Udemy" },
   ];
 
   return (
-    <section className="relative overflow-hidden border-b-[0.5px] border-[var(--home-hairline)] bg-[var(--home-page)]">
+    <section className="relative overflow-hidden border-b-[0.5px] border-[var(--grass-5)] bg-[linear-gradient(180deg,#e9f6e9_0%,#f3f9f0_55%,var(--home-page)_100%)]">
       <div aria-hidden="true" className="cwp-hero-bg absolute inset-0" />
       <div className="relative mx-auto grid w-full max-w-[85rem] items-center gap-12 px-5 pt-12 pb-14 md:px-10 md:pt-20 md:pb-20 lg:grid-cols-[minmax(0,1.15fr)_minmax(0,1fr)]">
         <div className="min-w-0">

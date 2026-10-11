@@ -116,7 +116,7 @@ wait(1)
 
 -- The scheduler-aware version. Resumes on the next frame after the time is up.
 task.wait(1)`}
-          lineTones={{ 2: "dim", 3: "warn" }}
+          lineTones={{ 2: "warn" }}
         />
         <P>
           Use <Strong>task.wait</Strong>. Every example in this track does. You will still meet{" "}
