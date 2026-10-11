@@ -168,7 +168,7 @@ part.Position = part.Position + Vector3.new(0, 5, 0)`}
         </P>
         <P>
           There is also a subtler reason to prefer it once parts are joined together. Setting{" "}
-          <Strong>Position</Strong> sets a part's location without changing its rotation, while{" "}
+          <Strong>Position</Strong> sets a part&apos;s location without changing its rotation, while{" "}
           <Strong>CFrame</Strong> sets both. Setting either on a part in a welded assembly
           moves the assembly together. To teleport a player, set the CFrame of their
           HumanoidRootPart so the whole character moves with it.
