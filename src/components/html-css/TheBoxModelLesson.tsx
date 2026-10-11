@@ -4,6 +4,7 @@ import { CodeBlock } from "@/components/learn/primitives/CodeBlock";
 import { CompareGrid, LabelRows, TakeawayCard } from "@/components/learn/primitives/Cards";
 import { RevealCard } from "@/components/learn/primitives/RevealCard";
 import { BoxModelExplorer } from "@/components/html-css/BoxModelExplorer";
+import { WebPlayground } from "@/components/webplay/WebPlayground";
 
 export function TheBoxModelLesson() {
   return (
@@ -128,6 +129,33 @@ Actual space on screen:
               ),
             },
           ]}
+        />
+        <P>
+          <Strong>Try it:</Strong> both boxes below say <Strong>width: 240px</Strong>. Change the
+          padding to <Strong>40px</Strong> and watch which one grows, then add 
+          <Strong>box-sizing: border-box</Strong> to the first.
+        </P>
+        <WebPlayground
+          title="Try it: box-sizing"
+          height={280}
+          initialHtml={`<div class="box content">content-box</div>
+<div class="box border">border-box</div>`}
+          initialCss={`.box {
+  width: 240px;
+  padding: 20px;
+  border: 4px solid #3e7f5c;
+  margin-bottom: 12px;
+  background: #dbefdb;
+  font-family: system-ui, sans-serif;
+}
+
+.content {
+  box-sizing: content-box; /* the default */
+}
+
+.border {
+  box-sizing: border-box;
+}`}
         />
         <P>
           There is no downside and essentially every real project starts with it. It is not the

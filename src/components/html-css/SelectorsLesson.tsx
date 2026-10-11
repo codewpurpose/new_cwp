@@ -3,6 +3,7 @@ import { Callout } from "@/components/learn/primitives/Callout";
 import { CodeBlock } from "@/components/learn/primitives/CodeBlock";
 import { CompareGrid, LabelRows, TakeawayCard } from "@/components/learn/primitives/Cards";
 import { SelectorPlayground } from "@/components/html-css/SelectorPlayground";
+import { WebPlayground } from "@/components/webplay/WebPlayground";
 
 export function SelectorsLesson() {
   return (
@@ -165,14 +166,36 @@ h2 ~ p      { }   /* general sibling: every p after h2, same parent */`}
   </ul>
 </nav>`}
         />
+        <P>
+          <Strong>Try it:</Strong> the rule below uses <Strong>nav &gt; a</Strong>, so nothing turns
+          green. Replace the <Strong>&gt;</Strong> with a space and watch every link change.
+        </P>
+        <WebPlayground
+          title="Try it: combinators"
+          height={240}
+          initialHtml={`<nav>
+  <ul>
+    <li><a href="#">Home</a></li>
+    <li><a href="#">Lessons</a></li>
+    <li><a href="#">About</a></li>
+  </ul>
+</nav>
+<p>A <a href="#">link outside the nav</a> keeps its default colour either way.</p>`}
+          initialCss={`nav > a {
+  color: #3e7f5c;
+  font-weight: 700;
+}`}
+        />
         <Callout tone="note" title="Do not chain descendants for the sake of it">
           <span className="font-[family-name:var(--learn-font-mono)]">
             body main section div ul li a
           </span>{" "}
-          works and is a trap: it is fragile — any structural change breaks it — and it ties the rule
-          to one exact structure, so anything that later wants to override it has to repeat the
-          chain. A single class on the
-          anchor does the same job and survives a redesign. Two levels is plenty.
+          works and is a trap. It only matches while every one of those ancestors stays in the markup,
+          in that order (extra wrappers in between are fine), so removing one can silently break it. And seven type selectors give it
+          more specificity than a short rule such as{" "}
+          <span className="font-[family-name:var(--learn-font-mono)]">nav a</span>, so a later change
+          written that way loses and you have to reach for a class or another long chain. A single class on the anchor does the same job, is
+          easy to override, and survives a redesign. Two levels is plenty.
         </Callout>
       </LessonSection>
 
@@ -239,7 +262,7 @@ p::first-line   { font-variant: small-caps; }
           "Name classes for purpose, not appearance. .warning survives a redesign; .red becomes a lie.",
           "IDs are for link targets, labels, and JavaScript. For styling they win specificity fights you did not want to start.",
           "A space means descendant (any depth); a > means direct child. Confusing them is the top cause of a selector matching nothing.",
-          "Long descendant chains are fragile and tie a rule to one exact structure. Two levels is plenty; a class is usually better.",
+          "Long descendant chains break when an ancestor in the list moves, and their high specificity makes them hard to override. Two levels is plenty; a class is usually better.",
           "Pseudo-classes match a state: :hover, :focus-visible, :nth-child(), :not().",
           "Touch screens have no real hover, so never hide anything important behind :hover.",
           "Never remove a focus outline without replacing it — it is how keyboard users know where they are.",

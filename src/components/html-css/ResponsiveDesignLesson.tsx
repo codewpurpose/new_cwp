@@ -3,6 +3,7 @@ import { Callout } from "@/components/learn/primitives/Callout";
 import { CodeBlock } from "@/components/learn/primitives/CodeBlock";
 import { CompareGrid, LabelRows, TakeawayCard } from "@/components/learn/primitives/Cards";
 import { ViewportSim } from "@/components/html-css/ViewportSim";
+import { WebPlayground } from "@/components/webplay/WebPlayground";
 
 export function ResponsiveDesignLesson() {
   return (
@@ -147,6 +148,39 @@ export function ResponsiveDesignLesson() {
 @media (max-width: 899px) {
   .layout  { display: block; }
   .sidebar { display: none; }
+}`}
+        />
+        <P>
+          <Strong>Try it:</Strong> this preview is only as wide as the lesson column. Change 
+          <Strong>min-width: 400px</Strong> to <Strong>1000px</Strong> and you get the single-column
+          base styles; set it to <Strong>200px</Strong> and you get two columns, whatever your screen.
+        </P>
+        <WebPlayground
+          title="Try it: a breakpoint"
+          height={260}
+          initialHtml={`<div class="layout">
+  <aside class="sidebar">Sidebar</aside>
+  <main class="main">Main content</main>
+</div>`}
+          initialCss={`/* Base styles: the phone layout */
+.layout {
+  display: grid;
+  gap: 12px;
+  font-family: system-ui, sans-serif;
+}
+
+.sidebar,
+.main {
+  padding: 24px;
+  border-radius: 12px;
+  background: #dbefdb;
+}
+
+/* Wider screens: add a sidebar column */
+@media (min-width: 400px) {
+  .layout {
+    grid-template-columns: 140px 1fr;
+  }
 }`}
         />
         <P>

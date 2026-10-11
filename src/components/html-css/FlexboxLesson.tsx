@@ -4,6 +4,7 @@ import { CodeBlock } from "@/components/learn/primitives/CodeBlock";
 import { CompareGrid, LabelRows, TakeawayCard } from "@/components/learn/primitives/Cards";
 import { RevealCard } from "@/components/learn/primitives/RevealCard";
 import { FlexPlayground } from "@/components/html-css/FlexPlayground";
+import { WebPlayground } from "@/components/webplay/WebPlayground";
 
 export function FlexboxLesson() {
   return (
@@ -129,6 +130,33 @@ flex-direction: column-reverse;  /* bottom to top                     */`}
   align-items: center;
 }
 /* <header class="header"><a>Logo</a><nav>…</nav></header> */`}
+        />
+        <P>
+          <Strong>Try it:</Strong> change <Strong>space-between</Strong> to <Strong>center</Strong>,
+          then <Strong>space-evenly</Strong>. Then add <Strong>flex-direction: column</Strong> and
+          notice that justify-content now works top to bottom.
+        </P>
+        <WebPlayground
+          title="Try it: justify-content"
+          height={260}
+          initialHtml={`<header class="header">
+  <a href="#">Logo</a>
+  <a href="#">Lessons</a>
+  <a href="#">About</a>
+</header>`}
+          initialCss={`.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  min-height: 160px;
+  padding: 0 16px;
+  background: #dbefdb;
+  font-family: system-ui, sans-serif;
+}
+
+.header a {
+  color: #1e3c2c;
+}`}
         />
       </LessonSection>
 

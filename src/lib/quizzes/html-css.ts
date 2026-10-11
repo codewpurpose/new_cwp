@@ -892,7 +892,7 @@ export const QUIZZES: Record<string, readonly AuthoredQuestion[]> = {
     {
       q: "Why open the published URL in a private window before sharing it?",
       options: [
-        "So nothing is served from your cache and you see what visitors see",
+        "It avoids your normal profile's cookies and cache, so you see closer to what a new visitor sees",
         "So the site loads with JavaScript turned off automatically",
         "So GitHub Pages republishes the site from scratch",
         "So the browser checks the HTML against the validator",

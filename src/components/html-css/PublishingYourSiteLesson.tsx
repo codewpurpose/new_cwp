@@ -203,7 +203,7 @@ export function PublishingYourSiteLesson() {
           steps={[
             {
               label: "Open the published URL, not localhost",
-              detail: "In a private window, so nothing is served from your cache. Click every link, load every image, submit the form. This is where a mis-cased path shows up.",
+              detail: "In a private window, which avoids your normal profile's cookies and cache. Click every link, load every image, submit the form. This is where a mis-cased path shows up.",
             },
             {
               label: "Open it on an actual phone",

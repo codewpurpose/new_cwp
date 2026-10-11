@@ -2,6 +2,7 @@ import { Lead, LessonSection, P, Strong } from "@/components/learn/primitives/Le
 import { Callout } from "@/components/learn/primitives/Callout";
 import { CodeBlock } from "@/components/learn/primitives/CodeBlock";
 import { ChecklistCard, CompareGrid, LabelRows, TakeawayCard } from "@/components/learn/primitives/Cards";
+import { WebPlayground } from "@/components/webplay/WebPlayground";
 
 export function ColourAndTypographyLesson() {
   return (
@@ -22,7 +23,7 @@ export function ColourAndTypographyLesson() {
           difference is which one you can read and adjust.
         </P>
         <CodeBlock
-          label="One green, four ways"
+          label="Three exact formats plus a close keyword"
           code={`color: seagreen;                      /* 1. keyword — close, not exact */
 color: #3e7f5c;                       /* 2. hex        */
 color: rgb(62 127 92);                /* 3. rgb        */
@@ -199,6 +200,49 @@ h1   { font-size: 40px; }                      /* 40px text, 60px lines — corr
           black-on-white text with no other styling at all, a page reads as considered. This is the
           most important rule in the chapter, and it is not a matter of taste.
         </Callout>
+        <P>
+          <Strong>Try it:</Strong> set <Strong>line-height</Strong> to <Strong>1</Strong>, then back
+          to <Strong>1.6</Strong>. Change <Strong>max-width</Strong> to <Strong>30ch</Strong>, then
+          change the font size and watch the measure follow.
+        </P>
+        <WebPlayground
+          title="Try it: readable text"
+          height={300}
+          initialHtml={`<article class="prose">
+  <h1>Why line length matters</h1>
+  <p>
+    Long lines make your eyes travel a long way back to the start of the
+    next one, and it is easy to land on the wrong line. Short lines break
+    the rhythm of reading. Somewhere in between is comfortable.
+  </p>
+  <p>
+    Spacing between lines matters just as much: too tight and the lines
+    blur together, too loose and they stop feeling like one paragraph.
+  </p>
+</article>`}
+          initialCss={`:root {
+  --ink: hsl(150 34% 18%);
+  --accent: hsl(150 34% 37%);
+}
+
+body {
+  font-family: Georgia, "Times New Roman", serif;
+  color: var(--ink);
+  padding: 8px;
+}
+
+.prose {
+  max-width: 65ch;
+  font-size: 1rem;
+  line-height: 1.6;
+}
+
+h1 {
+  color: var(--accent);
+  font-size: 1.5rem;
+  line-height: 1.2;
+}`}
+        />
       </LessonSection>
 
       <LessonSection
