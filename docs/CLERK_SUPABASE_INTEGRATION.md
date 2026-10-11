@@ -1,5 +1,10 @@
 # Clerk + Supabase, without Supabase Auth
 
+> **Historical reference:** the website no longer has a public leaderboard or
+> profile editor. The current app only syncs private course completions; use
+> [`SUPABASE_SETUP.md`](SUPABASE_SETUP.md) for the supported setup. Do not apply
+> the public profile policies or leaderboard examples below.
+
 A portable write-up of the pattern: **Clerk owns identity, Supabase owns data**, and
 Supabase's row-level security reads the Clerk user id straight out of Clerk's JWT.
 No Supabase Auth, no user-mirroring webhook, no `auth.users` table.

@@ -1,11 +1,21 @@
 "use client";
 
-import { ClerkProvider } from "@clerk/nextjs";
+import { ClerkProvider, useUser } from "@clerk/nextjs";
+import dynamic from "next/dynamic";
 import type { ReactNode } from "react";
-import { ClerkDataSync } from "@/lib/supabase/with-clerk";
+
+const ClerkDataSync = dynamic(
+  () => import("@/lib/supabase/with-clerk").then((module) => module.ClerkDataSync),
+  { ssr: false },
+);
+
+function SignedInDataSync() {
+  const { isSignedIn } = useUser();
+  return isSignedIn ? <ClerkDataSync /> : null;
+}
 
 /**
- * Wraps the app in Clerk and keeps the leaderboard profile in sync. Only mounted
+ * Wraps the app in Clerk and keeps course completion in sync. Only mounted
  * when Clerk is configured (see the root layout) — without keys the tree renders
  * bare and the whole site stays local-first.
  */
@@ -31,7 +41,7 @@ export function AppAuthProvider({ children }: { children: ReactNode }) {
         },
       }}
     >
-      <ClerkDataSync />
+      <SignedInDataSync />
       {children}
     </ClerkProvider>
   );

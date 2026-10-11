@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import { Archivo, Fraunces, Spline_Sans_Mono } from "next/font/google";
-import { KoalaEasterEggs } from "@/components/KoalaEasterEggs";
-import { KoalaMascot } from "@/components/KoalaMascot";
+import { DeferredMascot } from "@/components/DeferredMascot";
 import { MotionProvider } from "@/components/MotionProvider";
 import { AppAuthProvider } from "@/components/auth/AppAuthProvider";
 import { isClerkConfigured } from "@/lib/clerk";
@@ -113,8 +112,7 @@ export default function RootLayout({
   const body = (
     <>
       <MotionProvider>{children}</MotionProvider>
-      <KoalaMascot />
-      <KoalaEasterEggs />
+      <DeferredMascot />
     </>
   );
 

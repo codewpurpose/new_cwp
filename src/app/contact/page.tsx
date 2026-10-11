@@ -3,8 +3,6 @@ import { FaqSection } from "@/components/FaqSection";
 import { PageHero, PageSection } from "@/components/PageHero";
 import { PageShell } from "@/components/PageShell";
 import { Reveal } from "@/components/Reveal";
-import SpotlightCard from "@/components/reactbits/SpotlightCard";
-import { SPOTLIGHT_PROPS } from "@/lib/spotlight";
 import { CopyEmailButton } from "./CopyEmailButton";
 import { CONTACT_EMAIL, CONTACT_EMAIL_HREF } from "@/lib/links";
 
@@ -35,9 +33,7 @@ export default function ContactPage() {
 
       <PageSection>
         <Reveal>
-          <SpotlightCard
-            {...SPOTLIGHT_PROPS}
-            spotlightSize={320}
+          <div
             className="home-card mx-auto max-w-2xl rounded-[20px] p-8 text-center md:p-12"
           >
             <h2 className="home-serif text-[1.625rem] md:text-[2rem]">
@@ -56,7 +52,7 @@ export default function ContactPage() {
               Questions, suggestions, or partnership ideas are welcome. A member
               of the team will read your message.
             </p>
-          </SpotlightCard>
+          </div>
         </Reveal>
       </PageSection>
 

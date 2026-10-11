@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useLayoutEffect, useRef, useState } from "react";
 import { usePathname } from "next/navigation";
 import { useUser } from "@clerk/nextjs";
 import { isClerkConfigured } from "@/lib/clerk";
@@ -8,12 +8,11 @@ import { NewsletterPopup } from "@/components/newsletter/NewsletterPopup";
 import { motion } from "motion/react";
 import { KodaBurstLayer, useKodaBurst, type BurstKind } from "@/components/koda/KodaBurst";
 import { TypeLine } from "@/components/koda/TypeLine";
-import { prefersReducedMotion, useIdlePause } from "@/components/koda/motion";
+import { useIdlePause } from "@/components/koda/motion";
 import { useKodaBody } from "@/components/koda/useKodaBody";
 
 /**
- * Koda — the CodeWithPurpose koala. A floating companion that idles with a
- * gentle bob and, when tapped, cycles through every pose from the brand set
+ * Koda — the CodeWithPurpose koala. A floating companion that, when tapped, cycles through every pose from the brand set
  * with a line of on-brand encouragement. Dismissable, remembers being sent
  * away for the session, hidden on the immersive lesson reader so it never
  * covers the pager, and fully still under prefers-reduced-motion (handled in
@@ -103,9 +102,6 @@ const PAGE_LINES: Record<string, { line: string; pose: string }> = {
   impact: { line: "The stories behind the numbers 🌏", pose: "koala-tree.png" },
   about: { line: "Meet the students behind the lessons!", pose: "koala-heart.png" },
   media: { line: "Pull up a seat — videos live here 🎬", pose: "koala-wave.png" },
-  leaderboard: { line: "A little friendly competition 🏆", pose: "koala-climb.png" },
-  dashboard: { line: "Your progress lives here 🌿", pose: "koala-climb.png" },
-  toolkit: { line: "Grab a template and jot it down ✏️", pose: "koala-read.png" },
   login: { line: "Welcome — glad you're here!", pose: "koala-wave.png" },
   "sign-up": { line: "Welcome — glad you're here!", pose: "koala-wave.png" },
 };
@@ -185,6 +181,16 @@ function KoalaBase({ canOfferSignup }: { canOfferSignup: boolean }) {
    */
   const [subscribed, setSubscribed] = useState(true);
   const rootRef = useRef<HTMLDivElement>(null);
+  const loadingPose = useRef(false);
+  const poseGeneration = useRef(0);
+  useLayoutEffect(() => {
+    poseGeneration.current += 1;
+    loadingPose.current = false;
+    return () => {
+      // Invalidate decodes on navigation and unmount, including A → B → A.
+      poseGeneration.current += 1;
+    };
+  }, [pathname]);
   const { scope, hopY, squash, hop, wiggle } = useKodaBody();
   const { bursts, fire } = useKodaBurst();
 
@@ -263,20 +269,29 @@ function KoalaBase({ canOfferSignup }: { canOfferSignup: boolean }) {
   useEffect(() => {
     if (dismissed) return;
     let cheered = false;
-    const onScroll = () => {
+    let frame = 0;
+    const checkBottom = () => {
+      frame = 0;
       if (cheered) return;
       const doc = document.documentElement;
       if (doc.scrollHeight < window.innerHeight * 1.6) return;
       if (window.scrollY + window.innerHeight < doc.scrollHeight - 48) return;
       cheered = true;
+      window.removeEventListener("scroll", onScroll);
       hop(14);
       fire("sparkle");
       if (signupOpenRef.current || window.matchMedia("(max-width: 640px)").matches) return;
       setSpecial(BOTTOM_LINE);
       setBubble(true);
     };
+    const onScroll = () => {
+      if (!frame && !cheered) frame = requestAnimationFrame(checkBottom);
+    };
     window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
+    return () => {
+      window.removeEventListener("scroll", onScroll);
+      cancelAnimationFrame(frame);
+    };
   }, [dismissed, pathname, hop, fire]);
 
   /**
@@ -311,34 +326,6 @@ function KoalaBase({ canOfferSignup }: { canOfferSignup: boolean }) {
     };
   }, [dismissed]);
 
-  /**
-   * Hold on tight: a fast fling of the page makes Koda brace for a moment (a
-   * lean, styled by `data-hold` in globals.css). Reads scroll position only,
-   * toggles an attribute directly, and never re-renders.
-   */
-  useEffect(() => {
-    if (dismissed) return;
-    let lastY = window.scrollY;
-    let lastT = performance.now();
-    let release: ReturnType<typeof setTimeout> | undefined;
-    const onScroll = () => {
-      const now = performance.now();
-      const velocity = Math.abs(window.scrollY - lastY) / Math.max(now - lastT, 1);
-      lastY = window.scrollY;
-      lastT = now;
-      const root = rootRef.current;
-      if (!root || velocity < 3 || prefersReducedMotion()) return;
-      root.dataset.hold = "true";
-      clearTimeout(release);
-      release = setTimeout(() => delete root.dataset.hold, 650);
-    };
-    window.addEventListener("scroll", onScroll, { passive: true });
-    return () => {
-      window.removeEventListener("scroll", onScroll);
-      clearTimeout(release);
-    };
-  }, [dismissed]);
-
   // Welcome back: after a proper break from the tab (20s+), a hop and a wiggle.
   useEffect(() => {
     if (dismissed) return;
@@ -366,28 +353,6 @@ function KoalaBase({ canOfferSignup }: { canOfferSignup: boolean }) {
       setSubscribed(false);
     }
     /* eslint-enable react-hooks/set-state-in-effect */
-  }, []);
-
-  /**
-   * Decode every pose once, up front.
-   *
-   * The <img> below swaps its `src` on every tap, in the same frame as the
-   * squash-and-stretch starts. It used to be keyed and remounted to replay a
-   * CSS pop from opacity 0, which flashed a blank frame whenever the bitmap was
-   * not ready; the squash now carries the transition and the element stays.
-   *
-   * Decoding all eight poses on mount means the next pose's bitmap is already
-   * in memory when the swap happens, so it paints with content in the same
-   * frame React commits it.
-   */
-  useEffect(() => {
-    for (const p of POSES) {
-      const img = new Image();
-      img.src = p.src;
-      // A pose that refuses to decode simply behaves as it did before; there
-      // is nothing useful to do about it here.
-      void img.decode?.().catch(() => {});
-    }
   }, []);
 
   // Wave hello shortly after arriving (deferred inside a timer).
@@ -468,14 +433,37 @@ function KoalaBase({ canOfferSignup }: { canOfferSignup: boolean }) {
     setBubble(false);
   };
 
-  const onTap = () => {
+  const onTap = async () => {
     if (shouldAskForEmail) {
       setSignupOpen(true);
       setBubble(false);
       return;
     }
+    if (loadingPose.current) return;
+    loadingPose.current = true;
+    const generation = poseGeneration.current;
     const t = taps + 1;
     const next = (index + 1) % POSES.length;
+    // Decode only the requested pose; keep the current image visible while it loads.
+    const image = new Image();
+    image.src = POSES[next].src;
+    try {
+      if (typeof image.decode === "function") {
+        await image.decode();
+      } else if (!image.complete) {
+        await new Promise<void>((resolve, reject) => {
+          image.onload = () => resolve();
+          image.onerror = () => reject(new Error("Koda pose failed to load"));
+        });
+      }
+      if (!image.naturalWidth) return;
+    } catch {
+      return;
+    } finally {
+      // An old request must not unlock a newer route's pending request.
+      if (generation === poseGeneration.current) loadingPose.current = false;
+    }
+    if (generation !== poseGeneration.current) return;
     setGreeting(false);
     setTaps(t);
     setIndex(next);
@@ -487,6 +475,8 @@ function KoalaBase({ canOfferSignup }: { canOfferSignup: boolean }) {
   };
 
   const dismiss = () => {
+    poseGeneration.current += 1;
+    loadingPose.current = false;
     setDismissed(true);
     try {
       sessionStorage.setItem(STORAGE_KEY, "1");
@@ -550,9 +540,7 @@ function KoalaBase({ canOfferSignup }: { canOfferSignup: boolean }) {
                   width={pose.w}
                   height={pose.h}
                   draggable={false}
-                  /* Not "async": async decoding is permission to paint the swapped
-                     source before its bitmap arrives. The preload effect above means
-                     there is nothing to wait for. */
+                  /* The requested pose is decoded before changing the source. */
                   decoding="sync"
                 />
               </motion.span>

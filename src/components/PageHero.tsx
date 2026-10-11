@@ -51,8 +51,7 @@ export function PageHero({
                 aria-hidden="true"
                 className="absolute -inset-2.5 rotate-[1.4deg] rounded-[24px] border-[0.5px] border-[#cde4cd] bg-[#dbefdb]/60"
               />
-              {/* Only the photo tilts; the green card behind stays put, so the
-                  gap between them opens and closes like a lifted print. */}
+              {/* A small CSS lift keeps the photo responsive without pointer tracking. */}
               <TiltedCard className="relative">
                 <div className="home-card relative aspect-[4/3] w-full overflow-hidden rounded-[20px]">
                   <Image
@@ -96,11 +95,9 @@ export function PageSection({
 export function PhotoGrid({
   photos,
   columns = 4,
-  aspectRatio = "4/3",
 }: {
-  photos: readonly { src: string; alt: string }[];
+  photos: readonly { src: string; alt: string; width: number; height: number }[];
   columns?: 2 | 3 | 4;
-  aspectRatio?: "4/3" | "3/4";
 }) {
   const colClass =
     columns === 2
@@ -109,15 +106,11 @@ export function PhotoGrid({
         ? "columns-2 md:columns-3"
         : "columns-2 md:columns-3 lg:columns-4";
 
-  // React Bits Masonry: photos keep their own portrait/landscape shape instead
-  // of all being cropped, and rise into focus as they scroll in. `aspectRatio`
-  // (added on main for the Dublin gallery) now sets the shape a tile holds
-  // until its photo loads, so the layout doesn't jump.
+  // Intrinsic dimensions reserve each photo’s natural shape before it loads.
   return (
     <Masonry
       photos={photos}
       className={colClass}
-      fallbackRatio={aspectRatio === "3/4" ? "3 / 4" : "4 / 3"}
     />
   );
 }

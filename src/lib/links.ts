@@ -17,15 +17,12 @@ export const LEARN_ROBLOX_HREF = "/learn/roblox/";
 export const LEARN_GITHUB_HREF = "/learn/github/";
 export const LEARN_HTML_CSS_HREF = "/learn/html-css/";
 export const LEARN_COMPUTER_VISION_HREF = "/learn/computer-vision/";
-export const TOOLKIT_HREF = "/toolkit/";
 /** Hub for learning to code with AI assistants responsibly. */
 export const AI_RESOURCES_HREF = "/resources/ai-coding/";
 /** In-browser code playground. */
 export const PLAYGROUND_HREF = "/playground/";
-export const DASHBOARD_HREF = "/dashboard/";
 export const LOGIN_HREF = "/login/";
 export const SIGN_UP_HREF = "/sign-up/";
-export const LEADERBOARD_HREF = "/leaderboard/";
 export const MEDIA_HREF = "/media/";
 export const ABOUT_HREF = "/about/";
 export const JOIN_HREF = "/join/";
