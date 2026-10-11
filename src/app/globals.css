@@ -1617,66 +1617,6 @@
   .koala-spin-layer img { animation: koala-toast 1.8s ease-in-out forwards; }
 }
 
-/* --------------------------------------------------------------------------
- * Learning Toolkit — print / Save-as-PDF isolation. The filled note lives
- * off-screen normally; the browser print dialog reveals only it.
- * ---------------------------------------------------------------------- */
-.toolkit-printable {
-  position: fixed;
-  left: -9999px;
-  top: 0;
-  width: 700px;
-  color: #15120c;
-}
-.toolkit-printable h1 {
-  font-family: var(--font-heading, serif);
-  font-size: 26px;
-  margin: 0 0 2px;
-}
-.toolkit-printable__track {
-  font-size: 12px;
-  color: #6b6255;
-  margin: 0 0 20px;
-}
-.toolkit-printable__row {
-  margin-bottom: 16px;
-  border-bottom: 1px solid #e7ddcd;
-  padding-bottom: 10px;
-}
-.toolkit-printable dt {
-  font-size: 13px;
-  font-weight: 700;
-  margin-bottom: 4px;
-}
-.toolkit-printable dd {
-  margin: 0;
-  font-size: 15px;
-  line-height: 1.55;
-  white-space: pre-wrap;
-  min-height: 1.2em;
-}
-.toolkit-printable__foot {
-  margin-top: 24px;
-  font-size: 11px;
-  color: #9a8f7d;
-}
-@media print {
-  body * {
-    visibility: hidden;
-  }
-  .toolkit-printable,
-  .toolkit-printable * {
-    visibility: visible;
-  }
-  .toolkit-printable {
-    position: absolute;
-    left: 0;
-    top: 0;
-    width: 100%;
-    padding: 8px 16px;
-  }
-}
-
 /* ---------------------------------------------------------------------------
  * .layer-raw — a subtree rendered with the BROWSER's stylesheet, not ours.
  *
@@ -1907,18 +1847,8 @@
   color: #1e3c2c;
 }
 
-/* Toolkit: the picked template's Koda gives a little hop. */
-.pages-toolkit-pick[data-selected] img {
-  animation: pages-hop 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
-}
-@keyframes pages-hop {
-  0%, 100% { transform: translateY(0); }
-  40% { transform: translateY(-6px) rotate(-4deg); }
-}
-
 @media (prefers-reduced-motion: reduce) {
   .pages-pulse-dot::after { animation: none; opacity: 0; }
-  .pages-toolkit-pick[data-selected] img { animation: none; }
 }
 /* === end pages === */
 

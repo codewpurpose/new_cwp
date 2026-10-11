@@ -3,12 +3,12 @@
 import Link from "next/link";
 import { SignIn, SignUp } from "@clerk/nextjs";
 import { isClerkConfigured } from "@/lib/clerk";
-import { DASHBOARD_HREF, LOGIN_HREF, LEADERBOARD_HREF, SIGN_UP_HREF } from "@/lib/links";
+import { COURSES_HREF, LOGIN_HREF, SIGN_UP_HREF } from "@/lib/links";
 
 /**
  * Clerk-powered auth card. `mode` picks sign-in vs sign-up; both give Google and
  * email/password with no extra wiring. Before Clerk is configured we show an
- * honest "coming soon" card and point at the local-first dashboard.
+ * honest "coming soon" card and point at the free courses.
  */
 export function LoginForm({ mode = "signin" }: { mode?: "signin" | "signup" }) {
   if (!isClerkConfigured) {
@@ -20,11 +20,10 @@ export function LoginForm({ mode = "signin" }: { mode?: "signin" | "signup" }) {
         <p className="mt-3 text-[15px] text-[var(--home-ink-soft)]">
           {mode === "signup" ? "Account creation" : "Sign-in"} isn&apos;t switched on yet.
           Good news: you don&apos;t need it to start.
-          Everything you learn — XP, streak, badges, unlocked Kodas — saves right on
-          this device, completely free.
+          Your course completions save on this device, completely free.
         </p>
-        <Link href={DASHBOARD_HREF} className="home-btn home-btn-fill mt-6 inline-flex">
-          Go to My Progress
+        <Link href={COURSES_HREF} className="home-btn home-btn-fill mt-6 inline-flex">
+          Browse free courses
         </Link>
       </div>
     );
@@ -36,13 +35,13 @@ export function LoginForm({ mode = "signin" }: { mode?: "signin" | "signup" }) {
         <SignUp
           routing="hash"
           signInUrl={LOGIN_HREF}
-          fallbackRedirectUrl={DASHBOARD_HREF}
+          fallbackRedirectUrl={COURSES_HREF}
         />
       ) : (
         <SignIn
           routing="hash"
           signUpUrl={SIGN_UP_HREF}
-          fallbackRedirectUrl={LEADERBOARD_HREF}
+          fallbackRedirectUrl={COURSES_HREF}
         />
       )}
     </div>

@@ -27,7 +27,7 @@ export function renderAccountWelcome(
 ): RenderedEmail {
   return renderEmail({
     subject: "Your CodeWithPurpose account is ready",
-    preheader: "Your progress now follows you between devices. Here's where to start.",
+    preheader: "Your course progress can follow you between devices. Here's where to start.",
     heading: greeting(firstName),
     siteUrl: `${SITE_URL}/`,
     logoUrl: `${SITE_URL}/codewp-logo.png`,
@@ -49,21 +49,17 @@ export function renderAccountWelcome(
         kind: "text",
         text: "Everything here is free. No paywall, no trial, no upsell at chapter three — that isn't a launch offer, it's the entire point.",
       },
-      { kind: "button", label: "Open your dashboard →", href: `${SITE_URL}/dashboard/` },
+      { kind: "button", label: "Explore the courses →", href: `${SITE_URL}/courses/` },
       { kind: "divider" },
       {
         kind: "callout",
         title: "What the account changes",
-        text: "Your progress now saves to your account instead of one browser, so you can start a chapter on a laptop and finish it on a phone. Completions are verified by the quick check at the end of each chapter, they earn XP, and XP is what places you on the leaderboard.",
+        text: "Your completed chapters can now follow your account between devices, so you can start learning on a laptop and pick up on a phone.",
       },
       { kind: "divider" },
       { kind: "eyebrow", text: "123 chapters, five tracks" },
       { kind: "links", items: TRACK_LINKS },
       { kind: "divider" },
-      {
-        kind: "text",
-        text: `See where you stand on [the leaderboard](${SITE_URL}/leaderboard/) once you've finished your first chapter — it ranks on XP, and everyone starts at zero.`,
-      },
       {
         kind: "text",
         text: "Stuck on something, or spotted a mistake in a lesson? Reply to this email — a student on the team reads every one.",

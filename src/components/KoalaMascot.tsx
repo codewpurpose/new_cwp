@@ -102,9 +102,6 @@ const PAGE_LINES: Record<string, { line: string; pose: string }> = {
   impact: { line: "The stories behind the numbers 🌏", pose: "koala-tree.png" },
   about: { line: "Meet the students behind the lessons!", pose: "koala-heart.png" },
   media: { line: "Pull up a seat — videos live here 🎬", pose: "koala-wave.png" },
-  leaderboard: { line: "A little friendly competition 🏆", pose: "koala-climb.png" },
-  dashboard: { line: "Your progress lives here 🌿", pose: "koala-climb.png" },
-  toolkit: { line: "Grab a template and jot it down ✏️", pose: "koala-read.png" },
   login: { line: "Welcome — glad you're here!", pose: "koala-wave.png" },
   "sign-up": { line: "Welcome — glad you're here!", pose: "koala-wave.png" },
 };
