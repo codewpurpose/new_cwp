@@ -3,6 +3,7 @@ import { CwpLogo, DiscordIcon, GitHubIcon, InstagramIcon, XIcon } from "@/compon
 import { FooterNewsletter } from "@/components/newsletter/FooterNewsletter";
 import {
   ABOUT_HREF,
+  AI_RESOURCES_HREF,
   CONTACT_HREF,
   COURSES_HREF,
   DASHBOARD_HREF,
@@ -18,6 +19,7 @@ import {
   LEARN_PYTHON_HREF,
   LEARN_VIBECODING_HREF,
   MEDIA_HREF,
+  PLAYGROUND_HREF,
   TOOLKIT_HREF,
   X_HREF,
 } from "@/lib/links";
@@ -105,6 +107,16 @@ export function SiteFooter() {
                     <li>
                       <a href={TOOLKIT_HREF} className="home-footer-link">
                         Learning Toolkit
+                      </a>
+                    </li>
+                    <li>
+                      <a href={AI_RESOURCES_HREF} className="home-footer-link">
+                        AI Resources
+                      </a>
+                    </li>
+                    <li>
+                      <a href={PLAYGROUND_HREF} className="home-footer-link">
+                        Code Playground
                       </a>
                     </li>
                     <li>
