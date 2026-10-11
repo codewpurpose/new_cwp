@@ -7,7 +7,6 @@ import { Reveal } from "@/components/Reveal";
 import BlurText from "@/components/reactbits/BlurText";
 import GlareHover from "@/components/reactbits/GlareHover";
 import Magnet from "@/components/reactbits/Magnet";
-import SpotlightCard from "@/components/reactbits/SpotlightCard";
 import { CopyPromptButton } from "@/components/resources/CopyPromptButton";
 import {
   AI_TOOLS,
@@ -17,7 +16,6 @@ import {
   WORKFLOW_STEPS,
 } from "@/components/resources/ai-coding-content";
 import { DISCORD_HREF, JOIN_HREF, LEARN_VIBECODING_HREF, PLAYGROUND_HREF } from "@/lib/links";
-import { SPOTLIGHT_PROPS } from "@/lib/spotlight";
 
 const TITLE = "AI-Coding Resources";
 const DESCRIPTION =
@@ -93,8 +91,7 @@ export default function AiCodingResourcesPage() {
           {AI_TOOLS.map((tool, i) => (
             <li key={tool.name} className="flex">
               <Reveal delay={(i % 3) * 0.05} className="flex w-full">
-                <SpotlightCard
-                  {...SPOTLIGHT_PROPS}
+                <div
                   className="home-card flex w-full flex-col rounded-[20px] p-6"
                 >
                   <h3 className="home-serif text-[1.375rem]">{tool.name}</h3>
@@ -111,7 +108,7 @@ export default function AiCodingResourcesPage() {
                       </ExternalLink>
                     )}
                   </div>
-                </SpotlightCard>
+                </div>
               </Reveal>
             </li>
           ))}
