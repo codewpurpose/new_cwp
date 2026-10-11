@@ -1,5 +1,6 @@
 import { Callout } from "@/components/learn/primitives/Callout";
 import { TakeawayCard } from "@/components/learn/primitives/Cards";
+import { CodeBlock } from "@/components/learn/primitives/CodeBlock";
 import { Lead, LessonSection, P, Strong } from "@/components/learn/primitives/LessonSection";
 import { ForestVote } from "@/components/ml/ForestVote";
 
@@ -92,10 +93,41 @@ export function RandomForestsLesson() {
           builds a forest of two.
         </Callout>
         <P>
-          Notice where the gain stops. Between 32 and 120 trees the score moves by half a point.
-          Past the first handful, more trees do not make a forest worse — the average just gets
-          less noisy — but the returns flatten early. Practitioners pick a few hundred and stop thinking about it,
-          because the parameter that matters is how the trees are made, not how many.
+          Notice where the gain stops. Between 32 and 120 trees the score only wobbles within a
+          point: 82% at 32, 81% at 50, back to 82.5% at 120. Adding trees does not make a forest
+          systematically worse. The vote just gets less noisy, and on a test set this small a
+          single flat or two changing sides moves the score up or down a little. But the returns
+          flatten early. Practitioners pick a few hundred and stop thinking about it, because the
+          parameter that matters is how the trees are made, not how many.
+        </P>
+        <P>
+          Try it on a different dataset. One unrestricted tree first, then forests of increasing
+          size.
+        </P>
+        <CodeBlock
+          label="forest.py"
+          code={`from sklearn.datasets import make_classification
+from sklearn.ensemble import RandomForestClassifier
+from sklearn.model_selection import train_test_split
+from sklearn.tree import DecisionTreeClassifier
+
+X, y = make_classification(n_samples=600, n_features=8, n_informative=4,
+                           flip_y=0.1, random_state=2)
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.3, random_state=0)
+
+tree = DecisionTreeClassifier(random_state=0).fit(X_train, y_train)
+print(f"one unrestricted tree: {tree.score(X_test, y_test):.1%}")
+
+for n_trees in [1, 5, 25, 100, 200]:
+    forest = RandomForestClassifier(n_estimators=n_trees, random_state=0)
+    forest.fit(X_train, y_train)
+    print(f"forest of {n_trees:3} trees:  {forest.score(X_test, y_test):.1%}")`}
+        />
+        <P>
+          The single tree scores 72.8%. A forest of one tree does worse, 60.6%, because that
+          lone tree was trained on a bootstrap sample with a limited choice of features at each
+          split. By 25 trees the forest reaches 80.6%, and after that the score only wobbles:
+          80.0% at 100 and 79.4% at 200.
         </P>
       </LessonSection>
 
@@ -135,7 +167,7 @@ export function RandomForestsLesson() {
           "Feature subsetting limits each split to a random handful of features, which is what stops one strong feature dominating every root.",
           "Here the forest reached 82.5% against 72.5% for one unrestricted tree and 76.0% for the best pruned one.",
           "120 trees drew a clean diagonal boundary that no individual member could express.",
-          "Returns flatten fast — most of the gain arrives by about 30 trees, and past the first handful more trees do not hurt.",
+          "Returns flatten fast. Most of the gain arrives by about 30 trees; after that the score only wobbles by a point or so, with no trend downwards.",
           "You lose readability entirely. Feature importances tell you what mattered overall, never why one particular prediction came out as it did.",
         ]}
       />

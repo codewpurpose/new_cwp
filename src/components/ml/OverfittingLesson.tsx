@@ -1,5 +1,6 @@
 import { Callout } from "@/components/learn/primitives/Callout";
 import { CompareGrid, TakeawayCard } from "@/components/learn/primitives/Cards";
+import { CodeBlock } from "@/components/learn/primitives/CodeBlock";
 import { Lead, LessonSection, P, Strong } from "@/components/learn/primitives/LessonSection";
 import { DegreeDial } from "@/components/ml/DegreeDial";
 
@@ -76,6 +77,38 @@ export function OverfittingLesson() {
           Notice the dashed line — the real pattern the model never gets to see. At three bends
           the fitted curve sits close to it. At twelve it is chasing individual dots and has
           wandered off the truth entirely, in places predicting scores that could not exist.
+        </P>
+        <P>
+          Here is the slider as a loop: fifteen students to fit, two hundred new ones to test
+          on, and polynomial curves with more and more bends.
+        </P>
+        <CodeBlock
+          label="bends.py"
+          code={`import numpy as np
+from numpy.polynomial import Polynomial
+
+rng = np.random.default_rng(5)
+
+def students(n):
+    hours = rng.uniform(0, 10, n)
+    score = 40 + 8 * hours - 0.4 * hours ** 2 + rng.normal(0, 5, n)
+    return hours, score
+
+train_x, train_y = students(15)    # what the model studies
+test_x, test_y = students(200)     # people it has never seen
+
+def error(curve, x, y):
+    return np.mean((curve(x) - y) ** 2)
+
+for bends in [0, 1, 2, 5, 9, 12]:
+    curve = Polynomial.fit(train_x, train_y, deg=bends)
+    print(f"degree {bends:2}:  training error {error(curve, train_x, train_y):7.1f}"
+          f"   test error {error(curve, test_x, test_y):9.1f}")`}
+        />
+        <P>
+          Training error falls at every step, from 195 down to 3.7. Test error bottoms out at
+          degree 2, which is the shape the data was generated from, and by degree 12 it has
+          exploded past 22,000. Same students, same code; only the number of bends changed.
         </P>
       </LessonSection>
 

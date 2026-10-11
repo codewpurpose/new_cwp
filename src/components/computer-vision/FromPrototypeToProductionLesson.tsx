@@ -1,5 +1,6 @@
 import { Callout } from "@/components/learn/primitives/Callout";
 import { ChecklistCard, TakeawayCard } from "@/components/learn/primitives/Cards";
+import { CodeBlock } from "@/components/learn/primitives/CodeBlock";
 import { Lead, LessonSection, P, Strong } from "@/components/learn/primitives/LessonSection";
 
 export function FromPrototypeToProductionLesson() {
@@ -57,23 +58,59 @@ export function FromPrototypeToProductionLesson() {
       >
         <P>
           A live video feed at 30 frames per second hands the model a new frame every 33
-          milliseconds, whether or not it has finished with the last one. A large, highly accurate
-          model that takes 200 milliseconds per frame is not a slower version of a usable system —
-          it cannot keep up with that frame rate, regardless of how it scored offline. The only way
-          to run it is to skip five frames in every six, and whatever happens in those gaps goes
-          unseen.
+          milliseconds, whether or not it has finished with the last one. Take a large, highly
+          accurate model that needs 200 milliseconds per frame, running on a single worker. That
+          worker cannot keep up with the frame rate, regardless of how the model scored offline:
+          it has to skip five frames in every six, and whatever happens in those gaps goes unseen.
+        </P>
+        <P>
+          Two numbers are tangled together here. <Strong>Throughput</Strong> is how many frames
+          per second the system can get through; <Strong>latency</Strong> is how long any one
+          frame waits for its answer. Running six or seven copies of the model side by side, each
+          taking every sixth or seventh frame, can bring throughput back up to 30 frames per
+          second, at the cost of that much more hardware. It does nothing for latency. Every
+          answer still arrives at least 200 milliseconds after its frame, which for a robot arm
+          or a car can already be too late.
+        </P>
+        <P>
+          A three-second simulation of a 30 fps feed and a 200 ms model, with one worker and
+          then seven.
+        </P>
+        <CodeBlock
+          label="workers.py"
+          code={`frame_gap = 1000 / 30     # ms between frames at 30 fps
+inference = 200           # ms per frame, on one worker
+frames = 90               # three seconds of video
+
+for workers in [1, 7]:    # try 3 or 5
+    free_at = [0.0] * workers          # when each worker can next start
+    processed = 0
+    for i in range(frames):
+        arrives = i * frame_gap
+        w = min(range(workers), key=lambda j: free_at[j])
+        if free_at[w] > arrives:       # every worker is busy, so this frame is skipped
+            continue
+        free_at[w] = arrives + inference
+        processed += 1
+    print(f"{workers} worker(s): {processed} of {frames} frames processed, "
+          f"each answer {inference} ms after its frame")`}
+        />
+        <P>
+          One worker processes 15 of the 90 frames. Seven process all 90. Either way, every
+          answer arrives 200 ms after its frame.
         </P>
         <P>
           This is a genuine trade-off against accuracy, not an implementation footnote to solve
-          later. A smaller, faster, slightly less accurate model that keeps up with 33 milliseconds
-          per frame is often the only real option; a bigger model that cannot keep up does not get
-          partial credit for its offline score.
+          later. A smaller, faster, slightly less accurate model that fits inside 33 milliseconds
+          per frame on the hardware you actually have is often the only real option; a bigger model
+          that cannot keep up does not get partial credit for its offline score.
         </P>
         <Callout tone="tip" title="The budget, concretely">
           33ms per frame at 30fps. 16.7ms at 60fps. If inference plus preprocessing plus any
-          post-processing does not fit inside that number, the system falls behind the incoming
-          feed — it does not just run a little slower, it starts processing frames that are already
-          stale.
+          post-processing does not fit inside that number on one worker, that worker falls behind
+          the incoming feed — it does not just run a little slower, it starts processing frames
+          that are already stale. More workers can share the frames out, but none of them makes a
+          single answer arrive sooner.
         </Callout>
       </LessonSection>
 
@@ -110,7 +147,7 @@ export function FromPrototypeToProductionLesson() {
         items={[
           "A benchmark score is a fact about a static test set measured once; it is not a promise about a continuous, real-time production camera feed.",
           "Deployed cameras drift from what the model trained on through scratched lenses, seasonal white-balance shifts, and newer sensor generations, and the decline is usually gradual, not dramatic.",
-          "At 30 frames per second a model has roughly 33 milliseconds per frame; a 200-millisecond model can only keep up by skipping most frames, regardless of its offline accuracy.",
+          "At 30 frames per second a single worker has roughly 33 milliseconds per frame; a 200-millisecond model on one worker can only keep up by skipping most frames. Parallel workers can restore throughput, but each answer still arrives 200 milliseconds late.",
           "Choosing a smaller, faster, slightly less accurate model to fit the latency budget is a genuine engineering trade-off, not a footnote to accept reluctantly.",
           "Production traffic has no automatic ground truth, so monitoring means watching proxy signals — confidence-score drift, spikes in low-confidence predictions, user corrections — rather than a clean accuracy number.",
         ]}

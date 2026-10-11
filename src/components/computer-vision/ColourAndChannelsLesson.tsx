@@ -1,6 +1,6 @@
 import { Callout } from "@/components/learn/primitives/Callout";
 import { CompareGrid, TakeawayCard } from "@/components/learn/primitives/Cards";
-import { InlineCode } from "@/components/learn/primitives/CodeBlock";
+import { CodeBlock, InlineCode } from "@/components/learn/primitives/CodeBlock";
 import { Lead, LessonSection, P, Strong } from "@/components/learn/primitives/LessonSection";
 import { RevealCard } from "@/components/learn/primitives/RevealCard";
 
@@ -150,6 +150,45 @@ export function ColourAndChannelsLesson() {
           one. It is a common bug, not a hypothetical: forgetting one{" "}
           <InlineCode>cv2.cvtColor(img, cv2.COLOR_BGR2RGB)</InlineCode> call is enough to cause it.
         </Callout>
+        <P>
+          A two-pixel image, a sky and a leaf, pulled apart into channels, turned grey, and then
+          read in the wrong channel order.
+        </P>
+        <CodeBlock
+          label="channels.py"
+          code={`import numpy as np
+
+# A 1-by-2 colour image: a sky pixel and a leaf pixel. Shape is (rows, columns, channels).
+image = np.array([[[135, 206, 235], [60, 140, 70]]], dtype=np.uint8)
+print("shape:", image.shape)
+
+red, green, blue = image[..., 0], image[..., 1], image[..., 2]
+print("red channel:  ", red)
+print("green channel:", green)
+print("blue channel: ", blue)
+
+weighted = 0.299 * red + 0.587 * green + 0.114 * blue
+average = image.mean(axis=2)
+print("weighted grey:", weighted.round())
+print("plain average:", average.round())
+
+# The silent bug: a library that stores BGR hands you the channels reversed.
+swapped = image[..., ::-1]
+print("read as RGB by mistake:", swapped.tolist())
+
+import matplotlib.pyplot as plt
+fig, axes = plt.subplots(1, 2, figsize=(4, 2))
+for ax, picture, title in zip(axes, [image, swapped], ["RGB", "BGR read as RGB"]):
+    ax.imshow(picture)
+    ax.set_title(title)
+    ax.axis("off")
+plt.show()`}
+        />
+        <P>
+          The weighted grey for the sky is 188, as in the exercise above. Reversed, the sky
+          becomes 235, 206, 135, a pale orange, while the leaf barely changes, because its red
+          and blue were close to begin with.
+        </P>
       </LessonSection>
 
       <TakeawayCard

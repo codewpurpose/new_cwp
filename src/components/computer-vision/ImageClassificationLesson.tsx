@@ -1,5 +1,6 @@
 import { Callout } from "@/components/learn/primitives/Callout";
 import { CompareGrid, TakeawayCard } from "@/components/learn/primitives/Cards";
+import { CodeBlock } from "@/components/learn/primitives/CodeBlock";
 import { Lead, LessonSection, P, Strong } from "@/components/learn/primitives/LessonSection";
 
 export function ImageClassificationLesson() {
@@ -85,6 +86,39 @@ export function ImageClassificationLesson() {
           comparing two models, because the gap between them tends to be largest on exactly the
           fine-grained categories — breeds of dog, species of bird — where the correct answer and
           the model&rsquo;s honest second guess are easy to confuse.
+        </P>
+        <P>
+          Four photos, six classes, and a model&rsquo;s probabilities for each. Rank the guesses
+          and score them both ways.
+        </P>
+        <CodeBlock
+          label="top_k.py"
+          code={`import numpy as np
+
+classes = ["husky", "wolf", "malamute", "fox", "coyote", "cat"]
+# The model's probabilities for four photos (one row each).
+probs = np.array([
+    [0.50, 0.30, 0.10, 0.05, 0.04, 0.01],
+    [0.35, 0.40, 0.15, 0.04, 0.05, 0.01],
+    [0.20, 0.10, 0.60, 0.04, 0.05, 0.01],
+    [0.05, 0.40, 0.03, 0.02, 0.30, 0.20],
+])
+truth = ["husky", "husky", "husky", "cat"]
+
+k = 3   # benchmarks usually report k=5; this model only knows 6 classes
+for row, answer in zip(probs, truth):
+    ranked = [classes[i] for i in np.argsort(row)[::-1]]
+    print(f"truth {answer:6} top-1 {ranked[0]:9} top-{k} {ranked[:k]}")
+
+top1 = np.mean([classes[np.argmax(row)] == t for row, t in zip(probs, truth)])
+topk = np.mean([t in [classes[i] for i in np.argsort(row)[::-1][:k]]
+                for row, t in zip(probs, truth)])
+print(f"top-1 accuracy {top1:.0%}, top-{k} accuracy {topk:.0%}")`}
+        />
+        <P>
+          Only the first photo&rsquo;s best guess is right, so top-1 accuracy is 25%. Every
+          correct answer is somewhere in the top three, so top-3 accuracy is 100%. Same model,
+          same probabilities.
         </P>
         <CompareGrid
           items={[

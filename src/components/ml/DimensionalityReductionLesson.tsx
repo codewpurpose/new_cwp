@@ -1,5 +1,6 @@
 import { Callout } from "@/components/learn/primitives/Callout";
 import { CompareGrid, TakeawayCard } from "@/components/learn/primitives/Cards";
+import { CodeBlock } from "@/components/learn/primitives/CodeBlock";
 import { Lead, LessonSection, P, Strong } from "@/components/learn/primitives/LessonSection";
 import { StepList } from "@/components/learn/primitives/StepList";
 import { ProjectionDial } from "@/components/ml/ProjectionDial";
@@ -107,6 +108,28 @@ export function DimensionalityReductionLesson() {
           With two columns nobody bothers choosing how many components to keep — you use one or
           you use both. With forty, the choice is real, and it is normally made by looking at a
           single curve rather than inspecting each direction by hand.
+        </P>
+        <P>
+          Here is that curve, as numbers, for a real 64-column dataset: scikit-learn&rsquo;s
+          8-by-8 images of handwritten digits, one column per pixel.
+        </P>
+        <CodeBlock
+          label="components.py"
+          code={`import numpy as np
+from sklearn.datasets import load_digits
+from sklearn.decomposition import PCA
+
+X, _ = load_digits(return_X_y=True)   # 1,797 handwritten digits, 8x8 = 64 pixel columns
+pca = PCA().fit(X)
+kept = np.cumsum(pca.explained_variance_ratio_)
+
+for n in [1, 2, 5, 10, 20, 30, 64]:
+    print(f"{n:2} components keep {kept[n - 1]:.0%} of the variance")`}
+        />
+        <P>
+          Two components keep 29% of the variance, ten keep 74%, and twenty keep 89%. Thirty
+          components, under half the columns, keep 96%. Where you stop depends on what you need
+          the result for.
         </P>
         <StepList
           steps={[

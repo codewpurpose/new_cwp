@@ -1,5 +1,6 @@
 import { Callout } from "@/components/learn/primitives/Callout";
 import { ChecklistCard, TakeawayCard } from "@/components/learn/primitives/Cards";
+import { CodeBlock } from "@/components/learn/primitives/CodeBlock";
 import { Lead, LessonSection, P, Strong } from "@/components/learn/primitives/LessonSection";
 import { StepList } from "@/components/learn/primitives/StepList";
 import { DriftMonitor } from "@/components/ml/DriftMonitor";
@@ -107,6 +108,36 @@ export function FromNotebookToProductionLesson() {
           since a sudden shift in how often it says yes is informative even blind. The flag rate,
           if there is a downstream action attached to a prediction. Latency and error rates,
           because a model that times out is a model that is wrong for every request it drops.
+        </P>
+        <P>
+          Checking an input needs nothing but the inputs. This uses a different drift score from
+          the panel above, the Kolmogorov–Smirnov statistic, which measures how far apart two
+          distributions are.
+        </P>
+        <CodeBlock
+          label="input_drift.py"
+          code={`import numpy as np
+from scipy.stats import ks_2samp
+
+rng = np.random.default_rng(2)
+# Monthly price paid by customers in the training window.
+training = rng.normal(30, 6, 2000)
+
+months = {
+    "month 1 (same people)": rng.normal(30, 6, 500),
+    "month 2 (same people)": rng.normal(30, 6, 500),
+    "month 3 (after a price rise)": rng.normal(36, 6, 500),
+}
+for name, live in months.items():
+    # Compares the two distributions. No labels needed, so it works on day one.
+    result = ks_2samp(training, live)
+    flag = "  <- inputs have moved" if result.pvalue < 0.01 else ""
+    print(f"{name:30} KS statistic {result.statistic:.2f}{flag}")`}
+        />
+        <P>
+          The two ordinary months score 0.05 and 0.06. The month after the price rise scores
+          0.44 and gets flagged. A check like this only catches input drift: if the inputs stay
+          the same and the right answers change, it sees nothing.
         </P>
         <P>
           And you keep the baseline from chapter fourteen running, permanently, in parallel. It

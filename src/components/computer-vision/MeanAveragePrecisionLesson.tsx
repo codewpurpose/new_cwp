@@ -2,6 +2,7 @@ import { Callout } from "@/components/learn/primitives/Callout";
 import { TakeawayCard } from "@/components/learn/primitives/Cards";
 import { Lead, LessonSection, P, Strong } from "@/components/learn/primitives/LessonSection";
 import { ThresholdCurve } from "@/components/computer-vision/ThresholdCurve";
+import { CodeBlock } from "@/components/learn/primitives/CodeBlock";
 
 export function MeanAveragePrecisionLesson() {
   return (
@@ -71,6 +72,32 @@ export function MeanAveragePrecisionLesson() {
           score again, across every object class the detector was tested on — one AP for
           &ldquo;pedestrian&rdquo;, one for &ldquo;bicycle&rdquo;, one for &ldquo;traffic
           light&rdquo;, meaned into the single number that gets reported.
+        </P>
+        <P>
+          The panel&rsquo;s ten detections, walked down by hand.
+        </P>
+        <CodeBlock
+          label="average_precision.py"
+          code={`# Ten detections sorted by confidence, each already marked correct or not
+# by an IoU check. There were 8 real objects; 2 were never found at all.
+correct = [True, True, True, False, True, True, False, True, False, False]
+real_objects = 8
+
+hits = 0
+precisions_at_hits = []
+for rank, is_hit in enumerate(correct, start=1):
+    if is_hit:
+        hits += 1
+        precision = hits / rank
+        precisions_at_hits.append(precision)
+        print(f"rank {rank:2}: hit,  precision {precision:.2f}, recall {hits / real_objects:.3f}")
+
+ap = sum(precisions_at_hits) / real_objects   # a missed object adds 0
+print(f"average precision: {ap:.2f}")`}
+        />
+        <P>
+          It prints the same 0.67. Flip one of the last two detections to True and see how much
+          a single late hit is worth.
         </P>
       </LessonSection>
 

@@ -1,5 +1,5 @@
 import { Callout } from "@/components/learn/primitives/Callout";
-import { CodeBlock } from "@/components/learn/primitives/CodeBlock";
+import { CodeBlock, InlineCode } from "@/components/learn/primitives/CodeBlock";
 import { CompareGrid, TakeawayCard } from "@/components/learn/primitives/Cards";
 import { StepList } from "@/components/learn/primitives/StepList";
 import { Lead, LessonSection, P, Strong } from "@/components/learn/primitives/LessonSection";
@@ -95,6 +95,35 @@ export function RegularisationLesson() {
             },
           ]}
         />
+        <P>
+          Fit both penalties to forty rows and eight columns, where only the first three columns
+          carry any real signal.
+        </P>
+        <CodeBlock
+          label="penalties.py"
+          code={`import numpy as np
+from sklearn.linear_model import Lasso, LinearRegression, Ridge
+from sklearn.preprocessing import StandardScaler
+
+rng = np.random.default_rng(1)
+X = rng.normal(size=(40, 8))                       # 8 columns, only 40 rows
+y = 4 * X[:, 0] - 3 * X[:, 1] + 2 * X[:, 2] + rng.normal(0, 2, 40)
+X = StandardScaler().fit_transform(X)              # scale first, so the penalty is fair
+
+def show(name, model):
+    coef = model.fit(X, y).coef_
+    print(f"{name:11}", np.round(coef, 2) + 0.0, " exactly zero:", np.sum(coef == 0))
+
+show("no penalty", LinearRegression())
+show("ridge (L2)", Ridge(alpha=20))    # try alpha=2 and alpha=100
+show("lasso (L1)", Lasso(alpha=0.5))   # try alpha=0.1 and alpha=2`}
+        />
+        <P>
+          Ridge shrinks every coefficient and sets none of them to exactly zero; the one that
+          prints as <InlineCode>0.</InlineCode> is merely tiny, as the count confirms. Lasso keeps
+          the three real columns, sets four of the five noise columns to exactly zero, and leaves
+          one at 0.2. Raise either <InlineCode>alpha</InlineCode> and both get stricter.
+        </P>
         <P>
           There is a compromise between the two — <Strong>elastic net</Strong>, which penalises
           with a blend of both sums at once — for when you want some sparsity without betting

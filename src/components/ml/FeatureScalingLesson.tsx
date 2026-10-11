@@ -131,8 +131,14 @@ export function FeatureScalingLesson() {
                     A split like <InlineCode>income &gt; 50,000</InlineCode> asks a yes-or-no
                     question about order, not magnitude. Multiply every income by a thousand, or
                     subtract off the mean, and the same applicants land on the same side of the
-                    same split. Any order-preserving rescaling moves the cut-off values but leaves
-                    every prediction exactly as it was.
+                    same split. Retrain after a rescaling like that — any stretch or shift — and
+                    the cut-offs move to match, leaving every prediction exactly as it was.
+                  </p>
+                  <p>
+                    A curved but order-preserving transform, such as taking the log of income,
+                    is slightly different. Each split still separates the same training rows,
+                    but the cut-off can land at a different point in the gap between two training
+                    values, so a new applicant who falls inside that gap can switch sides.
                   </p>
                 </>
               ),
@@ -145,6 +151,44 @@ export function FeatureScalingLesson() {
           some cut-off&rdquo;, it does not — order survives scaling even though the numbers
           themselves do not.
         </Callout>
+        <P>
+          Check both halves of that on generated loan data. The same k-NN and the same tree are
+          trained twice, once in raw units and once standardised.
+        </P>
+        <CodeBlock
+          label="scale_or_not.py"
+          code={`import numpy as np
+from sklearn.model_selection import train_test_split
+from sklearn.neighbors import KNeighborsClassifier
+from sklearn.pipeline import make_pipeline
+from sklearn.preprocessing import StandardScaler
+from sklearn.tree import DecisionTreeClassifier
+
+rng = np.random.default_rng(8)
+n = 400
+history = rng.uniform(2, 30, n)            # years of credit history
+income = rng.uniform(18_000, 240_000, n)   # dollars a year
+approved = history / 28 + (income - 18_000) / 222_000 * 0.3 + rng.normal(0, 0.1, n) > 0.6
+
+X = np.column_stack([history, income])
+X_train, X_test, y_train, y_test = train_test_split(X, approved, test_size=0.3, random_state=0)
+
+models = {
+    "k-NN, raw units": KNeighborsClassifier(5),
+    # The pipeline fits the scaler on the training rows only.
+    "k-NN, standardised": make_pipeline(StandardScaler(), KNeighborsClassifier(5)),
+    "tree, raw units": DecisionTreeClassifier(max_depth=3, random_state=0),
+    "tree, standardised": make_pipeline(StandardScaler(),
+                                        DecisionTreeClassifier(max_depth=3, random_state=0)),
+}
+for name, model in models.items():
+    model.fit(X_train, y_train)
+    print(f"{name:20} {model.score(X_test, y_test):.1%}")`}
+        />
+        <P>
+          k-NN goes from 61.7% in raw units to 90.8% once standardised. The tree scores 93.3%
+          both times: stretching and shifting a column only moves its cut-offs.
+        </P>
       </LessonSection>
 
       <LessonSection id="scaling-belongs-inside-the-split" title="Scaling belongs inside the split">
@@ -198,7 +242,7 @@ train, test = random_split(features_scaled, 0.33)`}
           "Euclidean distance adds squared differences in whatever units it is handed, so a column with a wide range dominates before anybody decided it should.",
           "Min-max squashes a column onto [0, 1] and is at the mercy of a single outlier; standardisation centres on the mean and divides by the standard deviation, and shrugs one off.",
           "k-NN, k-means, SVMs, PCA, penalised models like ridge and lasso, and neural networks all care about scale.",
-          "Decision trees and the ensembles built from them do not — a split like “income > 50,000” gives the same answers after any order-preserving rescaling.",
+          "Decision trees and the ensembles built from them do not — after stretching or shifting a column, a split like “income > 50,000” just moves its cut-off and gives the same answers.",
           "Fit the scaler on the training fold only, and carry its saved numbers into the test fold. Computing them over the whole dataset leaks test information into training.",
         ]}
       />

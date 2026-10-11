@@ -107,6 +107,37 @@ export function GradientDescentLesson() {
           climbing. At <Strong>1.02</Strong> one step is enough — the parameter jumps from 0.5 to
           119.64 and the error goes from 426.72 to 100,058.73 before a second step is ever taken.
         </P>
+        <P>
+          Here is the loop with two numbers instead of one: a slope and a starting height,
+          fitted to fifty generated points whose true values are 3 and 1.
+        </P>
+        <CodeBlock
+          label="descent.py"
+          code={`import numpy as np
+
+rng = np.random.default_rng(0)
+x = rng.uniform(-2, 2, 50)
+y = 3 * x + 1 + rng.normal(0, 0.5, 50)   # the true slope is 3, the true start is 1
+
+slope, start = 0.0, 0.0
+rate = 0.1   # try 0.01, 0.5 and 0.8
+
+for step in range(1, 41):
+    miss = (slope * x + start) - y
+    # The gradient of the mean squared error, one entry per number.
+    grad_slope = 2 * np.mean(miss * x)
+    grad_start = 2 * np.mean(miss)
+    slope -= rate * grad_slope              # new = old - rate x gradient
+    start -= rate * grad_start
+    if step in (1, 2, 5, 10, 20, 40):
+        print(f"step {step:2}: slope {slope:8.3f}  start {start:8.3f}"
+              f"  error {np.mean(miss ** 2):10.3f}")`}
+        />
+        <P>
+          At 0.1 it reaches a slope of 3.065 and a start of 1.010 within twenty steps. Try 0.01
+          and after forty steps it is still crawling. Try 0.8 and every step overshoots further
+          than the last until the numbers run away.
+        </P>
         <Callout tone="warning" title="This is not a rendering bug">
           The widget does not stop those numbers from growing, and it will not clamp a diverging
           run back onto the chart. A parameter of &minus;97.61 or a hundred thousand units of

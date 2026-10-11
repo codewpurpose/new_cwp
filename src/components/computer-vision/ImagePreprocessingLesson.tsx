@@ -2,6 +2,7 @@ import { Callout } from "@/components/learn/primitives/Callout";
 import { TakeawayCard } from "@/components/learn/primitives/Cards";
 import { Lead, LessonSection, P, Strong } from "@/components/learn/primitives/LessonSection";
 import { AugmentationPreview } from "@/components/computer-vision/AugmentationPreview";
+import { CodeBlock } from "@/components/learn/primitives/CodeBlock";
 
 export function ImagePreprocessingLesson() {
   return (
@@ -111,6 +112,36 @@ export function ImagePreprocessingLesson() {
         like the real inputs the model will meet, so they get resized and normalised, never
         randomly rotated or relit.
       </Callout>
+      <P>
+        Both halves of that in one run. Normalising uses numbers from the training photos only,
+        and then a 6 from the test set is rotated by 180 degrees.
+      </P>
+      <CodeBlock
+        label="rotate_a_six.py"
+        code={`import numpy as np
+from sklearn.datasets import load_digits
+from sklearn.model_selection import train_test_split
+from sklearn.neighbors import KNeighborsClassifier
+
+images, labels = load_digits(return_X_y=True)
+X_train, X_test, y_train, y_test = train_test_split(
+    images, labels, test_size=0.3, random_state=0)
+
+# Normalise with numbers computed from the training photos only.
+mean, std = X_train.mean(), X_train.std()
+model = KNeighborsClassifier(3).fit((X_train - mean) / std, y_train)
+print(f"test accuracy: {model.score((X_test - mean) / std, y_test):.0%}")
+
+# An augmentation that changes the right answer: rotate a 6 by 180 degrees.
+six = X_test[y_test == 6][0].reshape(8, 8)
+for name, image in [("as drawn", six), ("rotated 180", np.rot90(six, 2))]:
+    guess = model.predict(((image.reshape(1, -1)) - mean) / std)[0]
+    print(f"a 6, {name:12} -> the model says {guess}")`}
+      />
+      <P>
+        The model reads the 6 correctly, and calls the rotated one a 9. If that rotation were
+        used as augmentation, the training set would be full of 9s labelled 6.
+      </P>
 
       <TakeawayCard
         items={[

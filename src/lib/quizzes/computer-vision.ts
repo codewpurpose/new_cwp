@@ -478,7 +478,7 @@ export const QUIZZES: Record<string, readonly AuthoredQuestion[]> = {
       answer: 0,
     },
     {
-      q: "Box A has been kept. Box B overlaps it with IoU 0.8, and the threshold is 0.5. What happens to B?",
+      q: "Box A has been kept. Box B has the same class and overlaps it with IoU 0.8, and the threshold is 0.5. What happens to B?",
       options: [
         "It is kept as a second object",
         "It is discarded as a duplicate",
@@ -802,7 +802,7 @@ export const QUIZZES: Record<string, readonly AuthoredQuestion[]> = {
       answer: 2,
     },
     {
-      q: "A model takes 200 ms per frame on a 30 fps feed. What happens?",
+      q: "A model takes 200 ms per frame on a 30 fps feed, running on a single worker. What happens?",
       options: [
         "It runs a little slower but sees every frame",
         "It speeds up once the feed warms up",

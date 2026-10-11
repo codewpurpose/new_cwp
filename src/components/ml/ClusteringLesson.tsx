@@ -1,4 +1,4 @@
-import { InlineCode } from "@/components/learn/primitives/CodeBlock";
+import { CodeBlock, InlineCode } from "@/components/learn/primitives/CodeBlock";
 import { Callout } from "@/components/learn/primitives/Callout";
 import { ChecklistCard, CompareGrid, TakeawayCard } from "@/components/learn/primitives/Cards";
 import { Lead, LessonSection, P, Strong } from "@/components/learn/primitives/LessonSection";
@@ -100,6 +100,29 @@ export function ClusteringLesson() {
           somewhere useful — a real drop, and still not proof that a fourth group exists. The
           elbow is read by eye. Two people can read the same curve and pick different k.
         </Callout>
+        <P>
+          Run k-means for k = 1 to 8 on 300 generated points that really do come from three
+          groups.
+        </P>
+        <CodeBlock
+          label="elbow.py"
+          code={`from sklearn.cluster import KMeans
+from sklearn.datasets import make_blobs
+
+# 300 unlabelled points that really do come from 3 groups.
+X, _ = make_blobs(n_samples=300, centers=3, cluster_std=1.2, random_state=4)
+
+for k in range(1, 9):
+    km = KMeans(n_clusters=k, n_init=10, random_state=0).fit(X)
+    print(f"k={k}: inertia {km.inertia_:8.0f}")
+# Inertia always falls as k grows. Look for where the drops become small.`}
+        />
+        <P>
+          Inertia drops from 8,029 to 1,477 to 760, and after that each extra centre buys only
+          around a hundred: 648, 554, 467. The elbow is at 3. Change{" "}
+          <InlineCode>centers</InlineCode> or <InlineCode>cluster_std</InlineCode> and see how
+          quickly it stops being obvious.
+        </P>
         <P>
           There is a second assumption buried in the method itself, and it is easy to miss
           because nothing in the algorithm checks it. Distance to a single centre is only a

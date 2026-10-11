@@ -100,6 +100,35 @@ export function NeuralNetworksLesson() {
           training points that happened to land where they did.
         </P>
         <P>
+          The same two rings, generated fresh, with scikit-learn&rsquo;s small neural network
+          and one hidden layer of ReLU units.
+        </P>
+        <CodeBlock
+          label="rings.py"
+          code={`from sklearn.datasets import make_circles
+from sklearn.linear_model import LogisticRegression
+from sklearn.model_selection import train_test_split
+from sklearn.neural_network import MLPClassifier
+
+# An inner ring and an outer ring: no straight line separates them.
+X, y = make_circles(n_samples=400, noise=0.1, factor=0.4, random_state=0)
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.3, random_state=0)
+
+line = LogisticRegression().fit(X_train, y_train)
+print(f"one weighted sum (a straight line): {line.score(X_test, y_test):.0%}")
+
+for hidden in [1, 2, 3, 8]:   # number of ReLU units in one hidden layer
+    net = MLPClassifier(hidden_layer_sizes=(hidden,), activation="relu",
+                        solver="lbfgs", max_iter=2000, random_state=0)
+    net.fit(X_train, y_train)
+    print(f"{hidden} hidden unit(s): {net.score(X_test, y_test):.0%}")`}
+        />
+        <P>
+          A straight line scores 42%, no better than guessing, and so does one hidden unit. Two
+          units reach 64%, three reach 99%, and eight score 96% on the held-back points: more
+          width did not help here.
+        </P>
+        <P>
           That is <Strong>width</Strong> — more units in the same layer, each one a fresh fold
           available at once. <Strong>Depth</Strong> is the other axis: more layers, stacked, so a
           fold in a later layer can bend a fold the earlier layer already made.

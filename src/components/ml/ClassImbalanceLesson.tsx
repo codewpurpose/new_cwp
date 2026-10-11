@@ -1,5 +1,6 @@
 import { Callout } from "@/components/learn/primitives/Callout";
 import { TakeawayCard } from "@/components/learn/primitives/Cards";
+import { CodeBlock } from "@/components/learn/primitives/CodeBlock";
 import { Lead, LessonSection, P, Strong } from "@/components/learn/primitives/LessonSection";
 import { ImbalanceDial } from "@/components/ml/ImbalanceDial";
 
@@ -65,13 +66,14 @@ export function ClassImbalanceLesson() {
           flagged. Not similar — the same, to the row. Three different interventions, one outcome.
         </P>
         <Callout tone="note" title="Why they collapse into one another">
-          For a linear model, all three do the same arithmetic. Duplicating a row fifty times and
-          weighting it fifty times contribute identically to the gradient; discarding the majority
-          class changes the same ratio from the other end. What each one really changes is the
-          model&apos;s idea of how common fraud is — which shifts the intercept, which moves the
-          probability at which it starts saying yes. Nothing else about the model moves at all.
-          With a tree or a forest they can diverge, but rather less than the amount of
-          writing about them suggests.
+          In this experiment, all three come down to the same arithmetic. Duplicating a row fifty
+          times and weighting it fifty times contribute identically to the gradient; discarding
+          the majority class changes the same ratio from the other end. What each one mainly
+          changed here was the model&apos;s idea of how common fraud is — which shifts the
+          intercept, which moves the probability at which it starts saying yes. That is a result
+          about this data, not a law of linear models: undersampling can throw away rows that
+          shaped the boundary, and a penalty on the weights can make the slopes shift as well.
+          With a tree or a forest the three diverge more readily.
         </Callout>
       </LessonSection>
 
@@ -91,6 +93,48 @@ export function ClassImbalanceLesson() {
           56 transactions instead of 413. By F1 that is 0.19 against the 0.07 all three
           rebalancing strategies managed — nearly three times better, from changing one number
           after training.
+        </P>
+        <P>
+          Here is the same comparison on a fresh set of generated transactions, about one in
+          fifty fraudulent.
+        </P>
+        <CodeBlock
+          label="cutoff.py"
+          code={`import numpy as np
+from sklearn.linear_model import LogisticRegression
+from sklearn.metrics import precision_score, recall_score
+from sklearn.model_selection import train_test_split
+
+rng = np.random.default_rng(1)
+n = 6000
+fraud = rng.random(n) < 0.02                       # about 1 in 50
+amount = rng.normal(0, 1, n) + 1.2 * fraud         # fraud skews larger...
+night = rng.normal(0, 1, n) + 0.8 * fraud          # ...and later, with heavy overlap
+X = np.column_stack([amount, night])
+X_train, X_test, y_train, y_test = train_test_split(
+    X, fraud, test_size=0.5, stratify=fraud, random_state=0)
+
+print(f"flag nothing: accuracy {np.mean(~y_test):.1%}, recall 0%")
+
+def report(name, flagged):
+    print(f"{name:28} recall {recall_score(y_test, flagged):.0%}"
+          f"   precision {precision_score(y_test, flagged):.0%}   flagged {flagged.sum()}")
+
+plain = LogisticRegression().fit(X_train, y_train)
+report("plain model, cut-off 0.5", plain.predict(X_test))
+
+weighted = LogisticRegression(class_weight="balanced").fit(X_train, y_train)
+report("class weights, cut-off 0.5", weighted.predict(X_test))
+
+# No retraining: just lower the plain model's cut-off.
+for cutoff in [0.1, 0.04, 0.02]:   # try others
+    report(f"plain model, cut-off {cutoff}", plain.predict_proba(X_test)[:, 1] >= cutoff)`}
+        />
+        <P>
+          Flagging nothing scores 98.1% accuracy. The plain model at 0.5 catches 5% of frauds;
+          class weighting catches 80% by flagging 707 transactions. Lowering the plain
+          model&rsquo;s cut-off to 0.02, with no retraining, lands next to it: 77% recall, 6%
+          precision, 684 flagged.
         </P>
         <Callout tone="tip" title="0.5 was never a considered choice">
           A probability cut-off of 0.5 is the library default, not a recommendation. It is only
@@ -137,7 +181,7 @@ export function ClassImbalanceLesson() {
         items={[
           "With one fraud in fifty-three, a correctly trained model flagged nothing at all and scored 98.1% accuracy. It had learned the right answer to the wrong question.",
           "Undersampling discards data you paid for; oversampling duplicates rows without adding information; class weighting leaves the data alone and is usually the best of the three.",
-          "All three produced identical results here — 59% recall at 4% precision — because for a linear model they all do the same thing: shift where the model starts saying yes.",
+          "All three produced identical results here — 59% recall at 4% precision — because in this logistic regression they all did the same thing: shift where the model starts saying yes.",
           "Moving the decision threshold on the untouched model reproduced that exact result with no retraining.",
           "Choosing the threshold deliberately reached F1 0.19 against 0.07 for every rebalancing strategy.",
           "A cut-off of 0.5 is a library default, correct only when the classes are balanced and both mistakes cost the same.",

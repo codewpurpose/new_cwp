@@ -1,6 +1,7 @@
 import { TakeawayCard } from "@/components/learn/primitives/Cards";
 import { Lead, LessonSection, P, Strong } from "@/components/learn/primitives/LessonSection";
 import { IouDragger } from "@/components/computer-vision/IouDragger";
+import { CodeBlock } from "@/components/learn/primitives/CodeBlock";
 import { RevealCard } from "@/components/learn/primitives/RevealCard";
 
 export function BoundingBoxesAndIouLesson() {
@@ -69,6 +70,35 @@ export function BoundingBoxesAndIouLesson() {
           notice there is no visual moment where the box &ldquo;suddenly&rdquo; becomes wrong. The
           picture changes continuously. <Strong>The verdict does not</Strong> — it flips the
           instant the number crosses the line.
+        </P>
+        <P>
+          Here is IoU as a function, with a 100-by-100 prediction slid further and further right
+          of the true box.
+        </P>
+        <CodeBlock
+          label="iou.py"
+          code={`def area(box):
+    x1, y1, x2, y2 = box
+    return max(0, x2 - x1) * max(0, y2 - y1)
+
+def iou(a, b):
+    # The overlap is itself a box: the inner edges of the two.
+    overlap = (max(a[0], b[0]), max(a[1], b[1]), min(a[2], b[2]), min(a[3], b[3]))
+    inter = area(overlap)
+    union = area(a) + area(b) - inter      # subtract the overlap once
+    return inter / union
+
+truth = (0, 0, 100, 100)                   # (left, top, right, bottom) in pixels
+for shift in [0, 10, 25, 50, 100]:         # slide the prediction right
+    predicted = (shift, 0, 100 + shift, 100)
+    score = iou(truth, predicted)
+    verdict = "hit" if score >= 0.5 else "miss"
+    print(f"shifted {shift:3} px: IoU {score:.2f}  ({verdict} at 0.5)")`}
+        />
+        <P>
+          A 25-pixel slide still scores 0.60, a hit. At 50 pixels it is 0.33, the miss from the
+          exercise above. Change the threshold to 0.75 and the 25-pixel box becomes a miss
+          without moving.
         </P>
       </LessonSection>
 

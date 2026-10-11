@@ -66,6 +66,38 @@ export function PixelsToPredictionsLesson() {
 
       <LessonSection id="what-convolution-fixes-about-it" title="What convolution fixes about it">
         <P>
+          The same failure shows up on real handwriting. This model gives every pixel of an
+          8-by-8 digit its own weight, then is tested on digits nudged one or two pixels to the
+          right.
+        </P>
+        <CodeBlock
+          label="shifted_digits.py"
+          code={`import numpy as np
+from sklearn.datasets import load_digits
+from sklearn.linear_model import LogisticRegression
+from sklearn.model_selection import train_test_split
+
+digits = load_digits()
+X_train, X_test, y_train, y_test = train_test_split(
+    digits.images, digits.target, test_size=0.3, random_state=0)
+
+# One weight per pixel per digit: each 8x8 image becomes a flat list of 64 numbers.
+model = LogisticRegression(max_iter=2000)
+model.fit(X_train.reshape(len(X_train), -1), y_train)
+
+def accuracy(images):
+    return model.score(images.reshape(len(images), -1), y_test)
+
+print(f"test digits as drawn:     {accuracy(X_test):.0%}")
+for shift in [1, 2]:   # move every digit right; the empty column wraps round
+    moved = np.roll(X_test, shift, axis=2)
+    print(f"shifted {shift} pixel(s) right: {accuracy(moved):.0%}")`}
+        />
+        <P>
+          It reads 95% of the digits as drawn, 40% after a one-pixel shift, and 9% after two.
+          Nothing about the digits changed except where they sit.
+        </P>
+        <P>
           A convolution kernel, from the earlier chapter on filters, fixes exactly this failure.
           Instead of one independent weight per pixel position, a kernel is a small set of
           weights — say nine, for a 3-by-3 kernel — reused at every position in the image by

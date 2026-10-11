@@ -515,7 +515,7 @@ export const QUIZZES: Record<string, readonly AuthoredQuestion[]> = {
       answer: 0,
     },
     {
-      q: "For a linear model, what do undersampling, oversampling and class weighting all really change?",
+      q: "In the chapter's fraud experiment, what did undersampling, oversampling and class weighting all really change?",
       options: [
         "Which features the model treats as important",
         "Where the model starts saying yes, by shifting its intercept",

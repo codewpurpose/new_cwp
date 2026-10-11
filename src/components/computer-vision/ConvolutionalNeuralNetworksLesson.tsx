@@ -2,6 +2,7 @@ import { Callout } from "@/components/learn/primitives/Callout";
 import { TakeawayCard } from "@/components/learn/primitives/Cards";
 import { Lead, LessonSection, P, Strong } from "@/components/learn/primitives/LessonSection";
 import { LayerStepper } from "@/components/computer-vision/LayerStepper";
+import { CodeBlock } from "@/components/learn/primitives/CodeBlock";
 
 export function ConvolutionalNeuralNetworksLesson() {
   return (
@@ -97,6 +98,28 @@ export function ConvolutionalNeuralNetworksLesson() {
           layers with pooling or larger strides, which makes the patch grow much faster, so by
           thirty layers it can cover most of the photo. Depth is how a network built from small, local operations ends up seeing
           something global.
+        </P>
+        <P>
+          You can check the 2n + 1 rule by following a single pixel through a stack of 3-by-3
+          layers.
+        </P>
+        <CodeBlock
+          label="receptive_field.py"
+          code={`import numpy as np
+from scipy.signal import convolve2d
+
+# Follow one input pixel's influence through a stack of 3x3 layers.
+influence = np.zeros((1, 1))
+influence[0, 0] = 1
+kernel = np.ones((3, 3))
+
+for layer in range(1, 6):   # try more layers
+    influence = convolve2d(influence, kernel)        # "full" mode: let it spread
+    width = influence.shape[0]
+    print(f"after {layer} layer(s): one pixel reaches a {width}x{width} patch")`}
+        />
+        <P>
+          Each layer adds two pixels: 3, 5, 7, 9, then 11 after five layers.
         </P>
         <P>
           <Strong>Depth is not free.</Strong> More layers means more parameters to learn, more

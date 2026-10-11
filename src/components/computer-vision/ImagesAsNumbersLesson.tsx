@@ -2,6 +2,7 @@ import { Callout } from "@/components/learn/primitives/Callout";
 import { TakeawayCard } from "@/components/learn/primitives/Cards";
 import { Lead, LessonSection, P, Strong } from "@/components/learn/primitives/LessonSection";
 import { PixelZoom } from "@/components/computer-vision/PixelZoom";
+import { CodeBlock } from "@/components/learn/primitives/CodeBlock";
 
 export function ImagesAsNumbersLesson() {
   return (
@@ -68,6 +69,36 @@ export function ImagesAsNumbersLesson() {
           times the numbers to store and four times the numbers a model has to process, for
           roughly twice the visible detail.
         </Callout>
+        <P>
+          Build a small face from nothing but numbers, then halve its resolution by averaging
+          each 2-by-2 block into one pixel.
+        </P>
+        <CodeBlock
+          label="pixel_grid.py"
+          code={`import numpy as np
+
+# A 12-by-12 grayscale image: 0 is black, 255 is white.
+image = np.zeros((12, 12), dtype=np.uint8)
+image[2:10, 2:10] = 200          # a bright square
+image[4, 4] = image[4, 7] = 30   # two dark "eyes"
+image[7, 4:8] = 30               # a dark "mouth"
+
+print(image.shape, image.dtype, "->", image.size, "numbers")
+print(image)
+
+# Halve the resolution: average every 2-by-2 block into one pixel.
+small = image.reshape(6, 2, 6, 2).mean(axis=(1, 3)).astype(np.uint8)
+print(small.shape, "->", small.size, "numbers")
+print(small)
+
+# Doubling width and height quadruples the count.
+for width, height in [(500, 375), (1000, 750)]:
+    print(f"{width}x{height}: {width * height:,} pixels")`}
+        />
+        <P>
+          144 numbers become 36, and the eyes and mouth smear into two greys. Change the 200 or
+          the 30 and rerun to see that the picture is nothing but those values.
+        </P>
       </LessonSection>
 
       <LessonSection
