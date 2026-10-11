@@ -2,11 +2,9 @@
 export default function Masonry({
   photos,
   className = "",
-  fallbackRatio = "3 / 4",
 }: {
-  photos: readonly { src: string; alt: string }[];
+  photos: readonly { src: string; alt: string; width: number; height: number }[];
   className?: string;
-  fallbackRatio?: string;
 }) {
   return (
     <div className={`gap-2.5 ${className}`}>
@@ -19,10 +17,11 @@ export default function Masonry({
           <img
             src={photo.src}
             alt={photo.alt}
+            width={photo.width}
+            height={photo.height}
             loading="lazy"
             decoding="async"
-            className="block w-full object-cover"
-            style={{ aspectRatio: fallbackRatio }}
+            className="block h-auto w-full"
           />
         </div>
       ))}

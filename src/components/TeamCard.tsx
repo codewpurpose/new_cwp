@@ -90,7 +90,7 @@ function initials(name: string): string {
     .toUpperCase();
 }
 
-function TeamMemberAvatar({ member, avatar }: { member: TeamMember; avatar: string }) {
+function TeamMemberAvatar({ member, avatar, sizes }: { member: TeamMember; avatar: string; sizes: string }) {
   return (
     <span className={`relative mx-auto block ${avatar}`}>
       {member.photo ? (
@@ -101,7 +101,7 @@ function TeamMemberAvatar({ member, avatar }: { member: TeamMember; avatar: stri
             src={member.photo}
             width={320}
             height={320}
-            sizes="(max-width: 640px) 128px, 192px"
+            sizes={sizes}
             alt={member.name}
             loading="lazy"
             decoding="async"
@@ -134,10 +134,12 @@ function TeamMemberAvatar({ member, avatar }: { member: TeamMember; avatar: stri
 export function TeamCard({
   member,
   avatar,
+  avatarSizes,
   width,
 }: {
   member: TeamMember;
   avatar: string;
+  avatarSizes: string;
   width: string;
 }) {
   const [open, setOpen] = useState(false);
@@ -176,7 +178,7 @@ export function TeamCard({
         aria-label={`About ${member.name}, from ${member.country.name}`}
         className="w-full cursor-pointer rounded-lg text-center focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--home-fern)] focus-visible:ring-offset-2"
       >
-        <TeamMemberAvatar member={member} avatar={avatar} />
+        <TeamMemberAvatar member={member} avatar={avatar} sizes={avatarSizes} />
         <span className="mt-3 block font-medium">{member.name}</span>
         <span className="block text-sm text-[var(--home-ink-quiet)]">{member.role}</span>
       </button>
@@ -248,11 +250,11 @@ function TeamMemberDialog({
 
         {member.photo ? (
           <div className="mx-auto aspect-square w-24 overflow-hidden rounded-full">
-              <Image
+            <Image
               src={member.photo}
-            width={320}
-            height={320}
-            sizes="(max-width: 640px) 128px, 192px"
+              width={320}
+              height={320}
+              sizes="96px"
               alt={member.name}
               decoding="async"
               className={`h-full w-full object-cover ${member.photoClass ?? ""}`}

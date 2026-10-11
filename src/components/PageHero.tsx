@@ -95,11 +95,9 @@ export function PageSection({
 export function PhotoGrid({
   photos,
   columns = 4,
-  aspectRatio = "4/3",
 }: {
-  photos: readonly { src: string; alt: string }[];
+  photos: readonly { src: string; alt: string; width: number; height: number }[];
   columns?: 2 | 3 | 4;
-  aspectRatio?: "4/3" | "3/4";
 }) {
   const colClass =
     columns === 2
@@ -108,12 +106,11 @@ export function PhotoGrid({
         ? "columns-2 md:columns-3"
         : "columns-2 md:columns-3 lg:columns-4";
 
-  // Reserve the final tile shape before lazy photos load to prevent reflow.
+  // Intrinsic dimensions reserve each photo’s natural shape before it loads.
   return (
     <Masonry
       photos={photos}
       className={colClass}
-      fallbackRatio={aspectRatio === "3/4" ? "3 / 4" : "4 / 3"}
     />
   );
 }

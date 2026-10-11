@@ -315,6 +315,7 @@ export default function AboutPage() {
               key={member.name}
               member={member}
               avatar="w-16 text-base sm:w-20 sm:text-lg md:w-28 md:text-2xl"
+              avatarSizes="(min-width: 768px) 112px, (min-width: 640px) 80px, 64px"
               width="w-[calc(50%-0.5rem)] sm:w-[calc(33.333%-0.667rem)]"
             />
           ))}
@@ -326,6 +327,7 @@ export default function AboutPage() {
               key={member.name}
               member={member}
               avatar="w-20 text-lg md:w-24 md:text-xl"
+              avatarSizes="(min-width: 768px) 96px, 80px"
               width="w-[calc(50%-0.5rem)] md:w-[calc(25%-0.75rem)]"
             />
           ))}

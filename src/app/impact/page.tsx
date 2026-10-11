@@ -104,7 +104,6 @@ export default function ImpactPage() {
             <PhotoGrid
               photos={images.dublinHackathon}
               columns={3}
-              aspectRatio="4/3"
             />
           </div>
         </div>
