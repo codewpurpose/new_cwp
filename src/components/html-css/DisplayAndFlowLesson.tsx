@@ -98,7 +98,7 @@ ul  ol  li  form  figure  blockquote  table  hr`}
         </P>
         <LabelRows
           rows={[
-            { label: "width / height", text: "Ignored. This is the answer to \"why is my width not working\", and it is nearly always a span or an a. The exception is a replaced element such as img: inline, but it does take a width and height." },
+            { label: "width / height", text: "Ignored. This is the answer to \"why is my width not working\", and it is nearly always a span or an a. The exception is a replaced inline element such as img: it still takes a width and height." },
             { label: "Vertical margin", text: "Ignored. Top and bottom margins do nothing at all." },
             { label: "Vertical padding", text: "Renders — the background extends — but does not push the surrounding lines apart. It overlaps them instead." },
             { label: "Horizontal margin and padding", text: "Both respected normally." },

@@ -1,6 +1,6 @@
 import { Callout } from "@/components/learn/primitives/Callout";
 import { TakeawayCard } from "@/components/learn/primitives/Cards";
-import { CodeBlock, InlineCode } from "@/components/learn/primitives/CodeBlock";
+import { InlineCode } from "@/components/learn/primitives/CodeBlock";
 import { Lead, LessonSection, P, Strong } from "@/components/learn/primitives/LessonSection";
 import { KernelSlider } from "@/components/computer-vision/KernelSlider";
 import { RevealCard } from "@/components/learn/primitives/RevealCard";
@@ -77,48 +77,11 @@ export function ConvolutionLesson() {
             summaryTag="Try it yourself"
             summary="A 3-by-3 patch is all 10s except a bright 100 in the centre. What does the blur kernel (nine values of 1/9) write into the output? What does a sharpen kernel with 5 in the centre and −1 on the four direct neighbours write?"
             detailTag="Answer"
-            detail="Blur: (8 × 10 + 100) / 9 = 180 / 9 = 20, so the bright spot is pulled most of the way down towards its neighbours. Sharpen: 5 × 100 − 4 × 10 = 460, so the spot is pushed further away from them. The sum itself does no clipping: kept as a float, the output really is 460. Only when the result is stored as an ordinary 8-bit image, whose pixels run 0 to 255, does it get clipped to 255."
+            detail="Blur: (8 × 10 + 100) / 9 = 180 / 9 = 20, so the bright spot is pulled most of the way down towards its neighbours. Sharpen: 5 × 100 − 4 × 10 = 460, so the spot is pushed further away from them. If stored as an 8-bit pixel, that output would be clipped to 255, the brightest value it can hold."
             openLabel="Show the answer"
             closeLabel="Hide the answer"
           />
         </div>
-        <P>
-          Here is the whole operation written by hand, run on a 5-by-5 patch of 10s with one
-          bright 100 in the middle.
-        </P>
-        <CodeBlock
-          label="convolve.py"
-          code={`import numpy as np
-
-def convolve(image, kernel):
-    """Slide a 3x3 kernel over every position where it fits; multiply and sum."""
-    rows, cols = image.shape[0] - 2, image.shape[1] - 2
-    out = np.zeros((rows, cols))
-    for r in range(rows):
-        for c in range(cols):
-            out[r, c] = np.sum(image[r:r + 3, c:c + 3] * kernel)
-    return out
-
-image = np.full((5, 5), 10.0)
-image[2, 2] = 100                      # one bright pixel in a flat patch
-
-blur = np.full((3, 3), 1 / 9)
-sharpen = np.array([[0, -1, 0],
-                    [-1, 5, -1],
-                    [0, -1, 0]])
-
-print("blur:\\n", convolve(image, blur).round(1))
-print("sharpen:\\n", convolve(image, sharpen))
-
-# The sum itself never clips. Storing it as an 8-bit image does.
-as_8bit = np.clip(convolve(image, sharpen), 0, 255).astype(np.uint8)
-print("sharpen, stored as 8-bit:\\n", as_8bit)`}
-        />
-        <P>
-          Blur writes 20 everywhere, because every 3-by-3 window here contains the bright pixel.
-          Sharpen writes 460 in the centre and −80 beside it. Only the 8-bit copy clips those to
-          255 and 0. Swap in your own kernel and run it again.
-        </P>
         <Callout tone="note" title="A detail you will meet in libraries">
           Strictly, the textbook definition of convolution flips the kernel before sliding it.
           Image libraries and neural networks almost always skip the flip — the operation they
