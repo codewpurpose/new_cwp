@@ -68,8 +68,9 @@ export function MergingAPullRequestLesson() {
           commits are not merged; they stay on the branch, which is usually then deleted.
         </P>
         <P>
-          Many teams default to this option, and the reason is worth stating plainly: with required
-          checks, <Strong>every commit on main builds and passes.</Strong> Bisect becomes reliable,
+          Many teams default to this option, and the reason is worth stating plainly: when the build
+          and the tests are required checks that gate every change to main,{" "}
+          <Strong>every commit on main has passed them.</Strong> Bisect becomes reliable,
           reverting is one commit with no flags, and the log reads as a list of features rather than a
           list of afternoons.
         </P>

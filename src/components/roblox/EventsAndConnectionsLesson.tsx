@@ -2,6 +2,7 @@ import { Lead, LessonSection, P, Strong } from "@/components/learn/primitives/Le
 import { Callout } from "@/components/learn/primitives/Callout";
 import { CodeBlock } from "@/components/learn/primitives/CodeBlock";
 import { LabelRows, TakeawayCard } from "@/components/learn/primitives/Cards";
+import { RevealCard } from "@/components/learn/primitives/RevealCard";
 import { TouchedTimeline } from "@/components/roblox/TouchedTimeline";
 
 export function EventsAndConnectionsLesson() {
@@ -160,6 +161,29 @@ end)`}
           once per round and never tidying up.
         </Callout>
       </LessonSection>
+
+      <RevealCard
+        summaryTag="Try it yourself"
+        summary={
+          <>
+            A part has this script:{" "}
+            <Strong>{"part.Touched:Connect(function(hit) print(hit.Name) end)"}</Strong>. You
+            walk your character across it once. Predict what the Output window shows.
+          </>
+        }
+        detailTag="Answer"
+        detail={
+          <>
+            Not your username. You get the names of body parts — on a standard R15 character,
+            things like <Strong>LeftFoot</Strong>, <Strong>RightFoot</Strong> and{" "}
+            <Strong>LeftLowerLeg</Strong> — and you get several lines, not one, because each
+            part that touches fires the event separately. That is why scripts climb from{" "}
+            <Strong>hit</Strong> to the character model, and why a debounce follows.
+          </>
+        }
+        openLabel="Show the answer"
+        closeLabel="Hide the answer"
+      />
 
       <TakeawayCard
         items={[

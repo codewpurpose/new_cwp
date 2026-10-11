@@ -1,6 +1,7 @@
 import { Lead, LessonSection, P, Strong } from "@/components/learn/primitives/LessonSection";
 import { Callout } from "@/components/learn/primitives/Callout";
 import { ChecklistCard, CompareGrid, TakeawayCard } from "@/components/learn/primitives/Cards";
+import { RevealCard } from "@/components/learn/primitives/RevealCard";
 import { StepList } from "@/components/learn/primitives/StepList";
 
 export function TheLimitsOfConsumerHealthDataLesson() {
@@ -192,6 +193,23 @@ export function TheLimitsOfConsumerHealthDataLesson() {
           trust than the confident number on the screen implies.
         </P>
       </LessonSection>
+
+      <RevealCard
+        summaryTag="Try it yourself"
+        summary="Your watch shows your resting heart rate has crept up by several beats a minute over the past week. Before opening the answer, write down one thing that number can tell you and one thing it cannot."
+        detailTag="One way to read it"
+        detail={
+          <>
+            It can tell you something changed, and when it started — a real, useful trend.
+            It cannot tell you why: a cold, poor sleep, stress, alcohol or harder training can
+            all move it, and so can the sensor sitting differently on your wrist. The honest
+            next step is to watch whether it settles, and to book an appointment if it persists
+            or comes with symptoms.
+          </>
+        }
+        openLabel="Show the answer"
+        closeLabel="Hide the answer"
+      />
 
       <TakeawayCard
         items={[

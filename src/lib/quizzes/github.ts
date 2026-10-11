@@ -127,7 +127,7 @@ export const QUIZZES: Record<string, readonly AuthoredQuestion[]> = {
     {
       q: "You fixed a bug and added a debug console.log in the same hunk of one file. How do you commit only the fix?",
       options: [
-        "git add -p, press s to split the hunk, stage the fix and skip the log",
+        "git add -p, then split (s) or edit (e) the hunk so only the fix is staged",
         "git add . and then delete the log line in the next commit",
         "git commit -am with a message saying to ignore the log line",
         "git restore the whole file, then rewrite the fix from memory",

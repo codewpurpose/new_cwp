@@ -5,6 +5,7 @@ import { AnimatePresence, motion } from "motion/react";
 import { Callout } from "@/components/learn/primitives/Callout";
 import { CodeBlock, InlineCode } from "@/components/learn/primitives/CodeBlock";
 import { ChecklistCard, LabelRows, TakeawayCard } from "@/components/learn/primitives/Cards";
+import { RevealCard } from "@/components/learn/primitives/RevealCard";
 import { Lead, LessonSection, P } from "@/components/learn/primitives/LessonSection";
 import { StepList } from "@/components/learn/primitives/StepList";
 
@@ -251,6 +252,35 @@ export function ReviewLesson() {
           minutes here are what make the speed upstream of it safe to use.
         </Callout>
       </LessonSection>
+
+      <RevealCard
+        summaryTag="Try it yourself"
+        summary={
+          <>
+            You asked the AI to show a message after saving a profile. It wrote this. Which of
+            the four shapes is hiding in it?
+            <span className="mt-3 block whitespace-pre rounded-learn-lg bg-learn-sunken p-4 font-[family-name:var(--learn-font-mono)] text-[13px] leading-[1.6] text-learn-strong overflow-x-auto">
+              {`try {
+  await api.put("/profile", data);
+} catch (err) {
+  console.log(err);
+}
+showToast("Profile saved");`}
+            </span>
+          </>
+        }
+        detailTag="Answer"
+        detail={
+          <>
+            A <strong>swallowed error</strong>. If the request fails, the catch logs it to a
+            console nobody reads, and the code carries on to say &ldquo;Profile saved&rdquo;
+            anyway. Move the success message inside the try, after the await, and show the user
+            an error in the catch.
+          </>
+        }
+        openLabel="Show the answer"
+        closeLabel="Hide the answer"
+      />
 
       <TakeawayCard
         items={[

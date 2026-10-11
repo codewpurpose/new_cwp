@@ -206,7 +206,7 @@ gh pr ready              # mark it ready when it is`}
             },
             {
               label: "The commit tested never existed",
-              text: "The tested commit is a temporary merge that is not on any branch. This is why re-running the checks can turn a pull request red without you pushing anything — main moved underneath it.",
+              text: "The tested commit is a temporary merge that is not on any branch. Re-running an old run tests that same merge again. But when main moves, GitHub builds a fresh merge, and the new check run on it can go red without you pushing anything.",
             },
             {
               label: "Required vs optional",
@@ -249,7 +249,7 @@ gh pr view --web            # open the failing run's logs`}
           "The description is read by more people than the diff. Say why, and say what you are unsure about.",
           "A draft pull request cannot be merged and does not request reviewers — good from day one of the work.",
           "The merge button is gated by required checks, no outstanding changes requested, and enough approvals.",
-          "Checks run against a temporary merge with the base, not your branch, so a re-run can go red with no push from you.",
+          "Checks run against a temporary merge with the base, not your branch, so when main moves, a fresh check run can go red with no push from you.",
           "Small pull requests get reviewed. Large ones get approved.",
         ]}
       />

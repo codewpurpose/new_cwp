@@ -104,6 +104,12 @@ export function TheDigitalDivideInHealthcareLesson() {
             "Onboarding that assumes zero prior comfort with video calls, not a help page a struggling patient has to go find on their own.",
           ]}
         />
+        <Callout tone="tip" title="Try it yourself">
+          Pick one health app or patient portal you have used. List everything it quietly
+          assumes about the person using it — a smartphone, a data plan, a reading level, a
+          language, steady hands, an email address. Then choose one item on your list and
+          describe what that person would need instead.
+        </Callout>
       </LessonSection>
 
       <TakeawayCard

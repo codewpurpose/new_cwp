@@ -91,9 +91,12 @@ export function CapstoneMappingAHealthTechIdeaLesson() {
             <Strong>Data:</Strong> a short daily symptom check — breathlessness, swelling,
             weight — plus whatever a home blood-pressure cuff already reports.{" "}
             <Strong>Where it lives:</Strong> the blood pressure and weight come from a cuff and a
-            scale the patient already owns at home — consumer devices, so under Part 3&apos;s
-            distinction their numbers are trends to watch, not measurements to diagnose from; the
-            symptom answers are typed in by hand. <Strong>Who sees it:</Strong> the patient sees their
+            scale the patient already owns at home. Owning the device is not what decides how far
+            to trust it — the specific model&apos;s validation, clearance and intended use do. A
+            validated home cuff used as directed can give readings a clinician acts on; an
+            unvalidated one only gives a trend to watch. So the app records which device each
+            reading came from, and the care team decides which ones count. The symptom answers
+            are typed in by hand. <Strong>Who sees it:</Strong> the patient sees their
             own trend; a nurse on the discharging team sees flagged entries only, not the full
             daily log; nobody else does without the patient&apos;s consent.{" "}
             <Strong>AI and the human:</Strong> a model flags an entry as worth a nurse&apos;s

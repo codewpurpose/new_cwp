@@ -37,16 +37,18 @@ export function TaxesTheBasicsLesson() {
       <LessonSection id="your-effective-rate-is-lower-than-your-top-bracket" title="Your effective rate is lower than your top bracket">
         <P>
           Your <Strong>marginal rate</Strong> is the rate on your next dollar earned. Your{" "}
-          <Strong>effective rate</Strong> is total tax divided by total income — a blend of every
+          <Strong>effective rate</Strong> is total tax divided by income — a blend of every
           bracket you passed through on the way up. The effective rate is always lower than the
           marginal rate, often by a wide margin, because the earlier, lower-taxed slices are still
           part of the average.
         </P>
         <P>
-          For the $60,000 example above, that&apos;s $8,253 in tax divided by $60,000 in income —
-          an effective rate of about 13.8%, even though the marginal rate sitting on the last
-          dollar earned is 22%. Nobody actually pays 22% of their income in this scenario; they pay
-          13.8% of it, and the 22% only describes what the next dollar would face.
+          For the $60,000 example above, that&apos;s $8,253 in tax divided by $60,000 of taxable
+          income — an effective rate of about 13.8% on taxable income, even though the marginal
+          rate sitting on the last dollar earned is 22%. Measured against total income it is lower
+          still: if this person took the 2024 standard deduction of $14,600, they earned $74,600,
+          and $8,253 is about 11.1% of that. Either way, nobody pays 22% of their income here; the
+          22% only describes what the next dollar would face.
         </P>
       </LessonSection>
 
@@ -152,7 +154,7 @@ export function TaxesTheBasicsLesson() {
       <TakeawayCard
         items={[
           "A marginal tax system taxes each slice of income only at that slice's own rate, never the whole income at the top rate.",
-          "Marginal rate is the rate on your next dollar; effective rate is total tax divided by total income, and it's always lower.",
+          "Marginal rate is the rate on your next dollar; effective rate is total tax divided by income (say whether you mean taxable or total income), and it's lower.",
           "A deduction's value depends on your marginal rate, but a credit removes its full amount from the tax bill regardless of bracket.",
           "Crossing into a higher bracket only raises the rate on the income above that line, not on anything earned below it.",
           "A large tax refund isn't a bonus — it means you overpaid through withholding all year and got an interest-free loan back from the government.",

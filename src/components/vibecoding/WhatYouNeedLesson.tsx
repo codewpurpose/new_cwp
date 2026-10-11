@@ -126,8 +126,10 @@ git commit -m "Describe what changed"`}
         <Callout tone="success" title="Why this matters more with AI">
           When you write code by hand, you remember what you changed. When an AI edits eleven
           files in four seconds, you do not. A commit before you start means{" "}
-          <InlineCode>git restore .</InlineCode> throws away every change to your tracked files
-          since — no matter how confidently wrong the AI was.
+          <InlineCode>git restore .</InlineCode> throws away every unstaged change to your tracked
+          files since — no matter how confidently wrong the AI was. Anything you already staged
+          with <InlineCode>git add</InlineCode> is left alone; to throw that away too, run{" "}
+          <InlineCode>git restore --staged --worktree .</InlineCode>
         </Callout>
         <Callout tone="note" title="One thing restore does not touch">
           Brand-new files the AI created are not tracked yet, so <InlineCode>git restore .</InlineCode>{" "}

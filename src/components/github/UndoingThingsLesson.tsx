@@ -2,6 +2,7 @@ import { Lead, LessonSection, P, Strong } from "@/components/learn/primitives/Le
 import { Callout } from "@/components/learn/primitives/Callout";
 import { CodeBlock } from "@/components/learn/primitives/CodeBlock";
 import { CompareGrid, LabelRows, TakeawayCard } from "@/components/learn/primitives/Cards";
+import { RevealCard } from "@/components/learn/primitives/RevealCard";
 import { StepList } from "@/components/learn/primitives/StepList";
 import { UndoChooser } from "@/components/github/UndoChooser";
 
@@ -222,6 +223,28 @@ git revert HEAD               # undo the very last commit, safely`}
           pointers around.
         </Callout>
       </LessonSection>
+
+      <RevealCard
+        summaryTag="Try it yourself"
+        summary={
+          <>
+            You pushed a commit to main yesterday, two teammates have pulled it since, and today
+            you find it broke the login page. Which of restore, reset and revert do you reach
+            for, and why not the other two?
+          </>
+        }
+        detailTag="Answer"
+        detail={
+          <>
+            <Strong>git revert</Strong> on that commit, then push. It adds a new commit that
+            undoes the change, so nobody&apos;s history is rewritten. Reset would move main
+            backwards under your teammates and force them to untangle it. Restore only touches
+            files in your working tree; it cannot undo a commit that is already shared.
+          </>
+        }
+        openLabel="Show the answer"
+        closeLabel="Hide the answer"
+      />
 
       <TakeawayCard
         items={[

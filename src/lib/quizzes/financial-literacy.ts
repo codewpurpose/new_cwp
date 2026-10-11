@@ -747,7 +747,7 @@ export const QUIZZES: Record<string, readonly AuthoredQuestion[]> = {
 
   "taxes-the-basics": [
     {
-      q: "Someone with $60,000 of taxable income owes $8,253 in federal tax. What is their effective rate?",
+      q: "Someone with $60,000 of taxable income owes $8,253 in federal tax. What is their effective rate on taxable income?",
       options: ["22%", "12%", "About 13.8%", "About 10%"],
       answer: 2,
     },

@@ -2,6 +2,7 @@ import { Lead, LessonSection, P, Strong } from "@/components/learn/primitives/Le
 import { Callout } from "@/components/learn/primitives/Callout";
 import { CodeBlock } from "@/components/learn/primitives/CodeBlock";
 import { ChecklistCard, LabelRows, TakeawayCard } from "@/components/learn/primitives/Cards";
+import { RevealCard } from "@/components/learn/primitives/RevealCard";
 import { CommitGraph } from "@/components/github/CommitGraph";
 
 export function WhatABranchIsLesson() {
@@ -24,8 +25,8 @@ export function WhatABranchIsLesson() {
 # 9f3c1a2e8b4d7f0192c5e6a8b3d4f5c6e7a8b9c0
 
 ls .git/refs/heads/
-# feature/    fix/    main
-# (a slash in a branch name becomes a folder here)`}
+# feature    fix    main
+# (feature and fix are folders: a slash in a branch name becomes a folder here)`}
         />
         <P>
           One file per branch, each containing one commit hash and a newline. Forty-one bytes. That
@@ -195,6 +196,29 @@ chore/bump-eslint
           object.
         </Callout>
       </LessonSection>
+
+      <RevealCard
+        summaryTag="Try it yourself"
+        summary={
+          <>
+            In a repository on main, run <Strong>git switch -c feature</Strong>, make one commit,
+            then <Strong>cat</Strong> the files <Strong>.git/HEAD</Strong>,{" "}
+            <Strong>.git/refs/heads/main</Strong> and <Strong>.git/refs/heads/feature</Strong>.
+            Predict all three before you look.
+          </>
+        }
+        detailTag="Answer"
+        detail={
+          <>
+            HEAD says <Strong>ref: refs/heads/feature</Strong>, because it points at the branch,
+            not at a commit. The feature file holds the hash of your new commit. The main file
+            still holds the hash it had before — committing moved only the branch HEAD points
+            at.
+          </>
+        }
+        openLabel="Show the answer"
+        closeLabel="Hide the answer"
+      />
 
       <TakeawayCard
         items={[
