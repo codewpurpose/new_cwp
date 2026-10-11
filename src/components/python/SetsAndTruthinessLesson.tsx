@@ -1,8 +1,9 @@
 import { Lead, LessonSection, P, Strong } from "@/components/learn/primitives/LessonSection";
 import { Callout } from "@/components/learn/primitives/Callout";
-import { CodeBlock } from "@/components/learn/primitives/CodeBlock";
+import { CodeBlock, InlineCode } from "@/components/learn/primitives/CodeBlock";
 import { ChecklistCard, LabelRows, TakeawayCard } from "@/components/learn/primitives/Cards";
 import { TruthinessChecker } from "@/components/python/TruthinessChecker";
+import { TryIt } from "@/components/python/TryIt";
 
 export function SetsAndTruthinessLesson() {
   return (
@@ -93,17 +94,17 @@ no votes yet
           <Strong>if votes:</Strong>. Ask the narrower question instead, and the two cases
           separate:
         </P>
-        <CodeBlock
-          label="Terminal"
-          variant="terminal"
-          code={`>>> def summarise(votes=None):
-...     if votes is not None:
-...         print(f"{len(votes)} votes counted")
-...     else:
-...         print("no votes yet")
-...
->>> summarise([])
-0 votes counted`}
+        <TryIt
+          label="votes.py"
+          code={`def summarise(votes=None):
+    if votes is not None:
+        print(f"{len(votes)} votes counted")
+    else:
+        print("no votes yet")
+
+summarise([])
+summarise()`}
+          prompt={<>Change <InlineCode>if votes is not None:</InlineCode> back to <InlineCode>if votes:</InlineCode> and run it again.</>}
         />
         <Callout tone="note" title="Reach for is not None whenever zero is a real answer">
           The bug is invisible in testing if you never happen to pass an empty list, a zero, or
@@ -186,19 +187,16 @@ True`}
           comparing two collections at once, straight out of how you would describe sets on a
           maths whiteboard.
         </P>
-        <CodeBlock
-          label="Terminal"
-          variant="terminal"
-          code={`>>> admins = {"ada", "grace"}
->>> editors = {"grace", "alan"}
->>> admins | editors
-{'ada', 'grace', 'alan'}
->>> admins & editors
-{'grace'}
->>> admins - editors
-{'ada'}
->>> admins ^ editors
-{'ada', 'alan'}`}
+        <TryIt
+          label="roles.py"
+          code={`admins = {"ada", "grace"}
+editors = {"grace", "alan"}
+
+print(admins | editors)
+print(admins & editors)
+print(admins - editors)
+print(admins ^ editors)`}
+          prompt={<>Add <InlineCode>{'"ada"'}</InlineCode> to <InlineCode>editors</InlineCode> and see which lines change.</>}
         />
         <LabelRows
           rows={[

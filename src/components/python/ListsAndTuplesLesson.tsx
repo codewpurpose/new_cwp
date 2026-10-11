@@ -1,8 +1,9 @@
 import { Lead, LessonSection, P, Strong } from "@/components/learn/primitives/LessonSection";
 import { Callout } from "@/components/learn/primitives/Callout";
-import { CodeBlock } from "@/components/learn/primitives/CodeBlock";
+import { CodeBlock, InlineCode } from "@/components/learn/primitives/CodeBlock";
 import { CompareGrid, LabelRows, TakeawayCard } from "@/components/learn/primitives/Cards";
 import { ListVsTuple } from "@/components/python/ListVsTuple";
+import { TryIt } from "@/components/python/TryIt";
 
 export function ListsAndTuplesLesson() {
   return (
@@ -90,16 +91,15 @@ export function ListsAndTuplesLesson() {
           the moment you hand a list to a function — the parameter inside the function is
           another name on your original list, not a private version of it.
         </P>
-        <CodeBlock
-          label="Terminal"
-          variant="terminal"
+        <TryIt
+          label="bonus.py"
           code={`def add_bonus(scores):
     scores.append(100)
 
 results = [88, 92, 79]
 add_bonus(results)
-print(results)
-# [88, 92, 79, 100]`}
+print(results)`}
+          prompt={<>Run it, then change the call to <InlineCode>add_bonus(results.copy())</InlineCode> and run it again.</>}
         />
         <P>
           Nothing about <Strong>add_bonus</Strong> looks dangerous, and the effect on{" "}
@@ -193,6 +193,19 @@ print(results)
               ),
             },
           ]}
+        />
+        <TryIt
+          label="sorting.py"
+          code={`numbers = [42, 7, 19, 3]
+
+ordered = sorted(numbers)
+print(ordered)
+print(numbers)
+
+result = numbers.sort()
+print(result)
+print(numbers)`}
+          prompt={<>Change line 7 to <InlineCode>numbers = numbers.sort()</InlineCode> and see what the last line prints.</>}
         />
       </LessonSection>
 

@@ -447,7 +447,7 @@ export const QUIZZES: Record<string, readonly AuthoredQuestion[]> = {
   ],
   "classes-and-objects": [
     {
-      q: "Why does every method in a class take self as its first parameter?",
+      q: "Why does every instance method in a class take self as its first parameter?",
       options: [
         "Python passes in the object the method was called on",
         "It is a keyword that makes the method public",

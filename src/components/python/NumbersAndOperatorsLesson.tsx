@@ -1,8 +1,9 @@
 import { Lead, LessonSection, P, Strong } from "@/components/learn/primitives/LessonSection";
 import { Callout } from "@/components/learn/primitives/Callout";
-import { CodeBlock } from "@/components/learn/primitives/CodeBlock";
+import { CodeBlock, InlineCode } from "@/components/learn/primitives/CodeBlock";
 import { LabelRows, TakeawayCard } from "@/components/learn/primitives/Cards";
 import { ExpressionEvaluator } from "@/components/python/ExpressionEvaluator";
+import { TryIt } from "@/components/python/TryIt";
 
 export function NumbersAndOperatorsLesson() {
   return (
@@ -48,6 +49,16 @@ export function NumbersAndOperatorsLesson() {
           over — <Strong>{"//"}</Strong> and <Strong>%</Strong> are the same division, read
           two different ways.
         </P>
+        <TryIt
+          label="groups.py"
+          code={`items = 7
+group_size = 2
+
+groups = items // group_size
+left_over = items % group_size
+print(groups, "full groups,", left_over, "left over")`}
+          prompt={<>Change <InlineCode>items</InlineCode> to 23 and <InlineCode>group_size</InlineCode> to 5, then run it again.</>}
+        />
       </LessonSection>
 
       <ExpressionEvaluator />
@@ -130,9 +141,21 @@ export function NumbersAndOperatorsLesson() {
           a sensible number of decimal places before comparing —{" "}
           <Strong>{"round(0.1 + 0.2, 2) == 0.3"}</Strong> is <Strong>True</Strong> — or check
           that the difference between them is smaller than a tiny tolerance — which is what{" "}
-          <Strong>math.isclose(0.1 + 0.2, 0.3)</Strong> does for you — instead of checking
-          for exact equality.
+          <Strong>math.isclose(0.1 + 0.2, 0.3)</Strong> does for you, once{" "}
+          <Strong>import math</Strong> is at the top of the file — instead of checking for
+          exact equality.
         </Callout>
+        <TryIt
+          label="floats.py"
+          code={`import math
+
+total = 0.1 + 0.2
+print(total)
+print(total == 0.3)
+print(round(total, 2) == 0.3)
+print(math.isclose(total, 0.3))`}
+          prompt={<>Try <InlineCode>0.1 + 0.7</InlineCode> against <InlineCode>0.8</InlineCode> and see which checks still hold.</>}
+        />
       </LessonSection>
 
       <LessonSection id="where-an-int-quietly-becomes-a-float" title="Where an int quietly becomes a float">

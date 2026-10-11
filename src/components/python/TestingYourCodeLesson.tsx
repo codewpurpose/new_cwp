@@ -1,9 +1,10 @@
 import { Lead, LessonSection, P, Strong } from "@/components/learn/primitives/LessonSection";
 import { Callout } from "@/components/learn/primitives/Callout";
-import { CodeBlock } from "@/components/learn/primitives/CodeBlock";
+import { CodeBlock, InlineCode } from "@/components/learn/primitives/CodeBlock";
 import { TakeawayCard } from "@/components/learn/primitives/Cards";
 import { RevealCard } from "@/components/learn/primitives/RevealCard";
 import { StepList } from "@/components/learn/primitives/StepList";
+import { TryIt } from "@/components/python/TryIt";
 
 export function TestingYourCodeLesson() {
   return (
@@ -22,18 +23,17 @@ export function TestingYourCodeLesson() {
           and after the second or third time, nobody does. A test is that eyeballing, written
           down once and run automatically forever after.
         </P>
-        <CodeBlock
-          label="Terminal"
-          variant="terminal"
-          lineTones={{ 7: "err" }}
-          code={`>>> def add(a, b):
-...     return a + b
-...
->>> assert add(2, 3) == 5
->>> assert add(2, 3) == 6
-Traceback (most recent call last):
-  ...
-AssertionError`}
+        <TryIt
+          label="check_add.py"
+          lineTones={{ 5: "err" }}
+          code={`def add(a, b):
+    return a + b
+
+assert add(2, 3) == 5
+print("first check passed")
+assert add(2, 3) == 6
+print("second check passed")`}
+          prompt="Run it, then fix the second assert so both checks pass."
         />
         <P>
           <Strong>assert condition</Strong> does nothing at all if{" "}
@@ -92,6 +92,7 @@ test_largest.py::test_empty_list_returns_none PASSED
 
     # Assert
     assert result == -5`}
+          runnable={false}
         />
         <P>
           The comments are not required — the value of the shape is that it usually gives each
@@ -159,6 +160,19 @@ test_largest.py::test_empty_list_returns_none PASSED
           the inputs a human tester tends to skip, and precisely the ones most likely to break
           a real function later.
         </P>
+        <TryIt
+          label="check_largest.py"
+          code={`def largest(numbers):
+    if not numbers:
+        return None
+    return max(numbers)
+
+assert largest([3, 1, 4]) == 4
+assert largest([]) is None
+assert largest([-5, -2]) == -2
+print("all checks passed")`}
+          prompt={<>Break it on purpose: change the last line of <InlineCode>largest</InlineCode> to <InlineCode>return numbers[0]</InlineCode>.</>}
+        />
       </LessonSection>
 
       <LessonSection id="naming-a-test-after-what-it-proves" title="Naming a test after what it proves, not what it calls">
@@ -172,6 +186,7 @@ def test_returns_the_maximum_value():
 
 def test_empty_list_returns_none():
     assert largest([]) is None`}
+          runnable={false}
         />
         <P>
           <Strong>test_largest</Strong> says only which function is involved.{" "}
@@ -203,6 +218,7 @@ def sample_scores():
 
 def test_average_of_sample_scores(sample_scores):
     assert average(sample_scores) == 88.5`}
+          runnable={false}
         />
         <P>
           <Strong>sample_scores</Strong> as a parameter name in{" "}

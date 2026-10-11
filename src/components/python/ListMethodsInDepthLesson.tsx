@@ -1,8 +1,9 @@
 import { Lead, LessonSection, P, Strong } from "@/components/learn/primitives/LessonSection";
 import { Callout } from "@/components/learn/primitives/Callout";
-import { CodeBlock } from "@/components/learn/primitives/CodeBlock";
+import { CodeBlock, InlineCode } from "@/components/learn/primitives/CodeBlock";
 import { CompareGrid, LabelRows, TakeawayCard } from "@/components/learn/primitives/Cards";
 import { SortKeyPlayground } from "@/components/python/SortKeyPlayground";
+import { TryIt } from "@/components/python/TryIt";
 
 export function ListMethodsInDepthLesson() {
   return (
@@ -123,18 +124,16 @@ export function ListMethodsInDepthLesson() {
           These two are confused constantly, and the confusion only shows up when what you
           are adding happens to be iterable.
         </P>
-        <CodeBlock
-          label="Python"
-          code={`>>> a = [1, 2]
->>> a.append([3, 4])
->>> a
-[1, 2, [3, 4]]
+        <TryIt
+          label="append_extend.py"
+          code={`a = [1, 2]
+a.append([3, 4])
+print(a)
 
->>> b = [1, 2]
->>> b.extend([3, 4])
->>> b
-[1, 2, 3, 4]`}
-          lineTones={{ 3: "warn", 8: "ok" }}
+b = [1, 2]
+b.extend([3, 4])
+print(b)`}
+          prompt={<>Change line 6 to <InlineCode>{'b.extend("hi")'}</InlineCode> and run it again.</>}
         />
         <CompareGrid
           items={[
@@ -168,16 +167,14 @@ export function ListMethodsInDepthLesson() {
           Multiplying a list repeats it, which is a convenient way to build a row of zeros.
           It becomes a trap the moment the thing being repeated is itself a list.
         </P>
-        <CodeBlock
-          label="Python"
-          code={`>>> grid = [[0] * 3] * 3
->>> grid
-[[0, 0, 0], [0, 0, 0], [0, 0, 0]]
+        <TryIt
+          label="grid.py"
+          code={`grid = [[0] * 3] * 3
+print(grid)
 
->>> grid[0][0] = 1
->>> grid
-[[1, 0, 0], [1, 0, 0], [1, 0, 0]]`}
-          lineTones={{ 6: "err" }}
+grid[0][0] = 1
+print(grid)`}
+          prompt={<>Change line 1 to <InlineCode>{"grid = [[0] * 3 for _ in range(3)]"}</InlineCode> and run it again.</>}
         />
         <P>
           One assignment changed three rows, because there are not three rows. There is one

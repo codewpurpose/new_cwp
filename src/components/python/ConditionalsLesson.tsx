@@ -1,9 +1,10 @@
 import { Lead, LessonSection, P, Strong } from "@/components/learn/primitives/LessonSection";
 import { Callout } from "@/components/learn/primitives/Callout";
-import { CodeBlock } from "@/components/learn/primitives/CodeBlock";
+import { CodeBlock, InlineCode } from "@/components/learn/primitives/CodeBlock";
 import { RevealCard } from "@/components/learn/primitives/RevealCard";
 import { CompareGrid, TakeawayCard } from "@/components/learn/primitives/Cards";
 import { BranchHighlighter } from "@/components/python/BranchHighlighter";
+import { TryIt } from "@/components/python/TryIt";
 
 export function ConditionalsLesson() {
   return (
@@ -14,12 +15,15 @@ export function ConditionalsLesson() {
       </Lead>
 
       <LessonSection id="a-program-that-chooses" title="A program that chooses">
-        <CodeBlock
+        <TryIt
           label="age_check.py"
-          code={`if age >= 18:
+          code={`age = 16
+
+if age >= 18:
     print("adult")
 else:
     print("not an adult")`}
+          prompt={<>Change <InlineCode>age</InlineCode> to 18 and run it again.</>}
         />
         <P>
           <Strong>if</Strong> tests a condition. If it is true, the indented block underneath
@@ -65,16 +69,21 @@ True`}
           only if everything above it was false — and the moment one branch matches, every
           branch after it is skipped without being evaluated at all.
         </P>
-        <CodeBlock
+        <TryIt
           label="grade.py"
-          code={`if score >= 90:
+          code={`score = 95
+
+if score >= 90:
     grade = "A"
 elif score >= 80:
     grade = "B"
 elif score >= 70:
     grade = "C"
 else:
-    grade = "F"`}
+    grade = "F"
+
+print(grade)`}
+          prompt={<>Try a few other scores, like 85, 72 and 40, and run it for each.</>}
         />
         <P>
           A score of 95 matches the first condition and stops there — the{" "}

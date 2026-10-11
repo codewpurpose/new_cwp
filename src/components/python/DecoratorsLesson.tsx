@@ -1,9 +1,10 @@
 import { Lead, LessonSection, P, Strong } from "@/components/learn/primitives/LessonSection";
 import { Callout } from "@/components/learn/primitives/Callout";
-import { CodeBlock } from "@/components/learn/primitives/CodeBlock";
+import { CodeBlock, InlineCode } from "@/components/learn/primitives/CodeBlock";
 import { TakeawayCard } from "@/components/learn/primitives/Cards";
 import { RevealCard } from "@/components/learn/primitives/RevealCard";
 import { StepList } from "@/components/learn/primitives/StepList";
+import { TryIt } from "@/components/python/TryIt";
 
 export function DecoratorsLesson() {
   return (
@@ -83,16 +84,21 @@ calling add
       </LessonSection>
 
       <LessonSection id="the-at-sign-is-not-special-syntax" title="@ is not special syntax, it is one line saved">
-        <CodeBlock
-          label="Terminal"
-          variant="terminal"
-          code={`>>> @log_calls
-... def add(a, b):
-...     return a + b
-...
->>> add(2, 3)
-calling add
-5`}
+        <TryIt
+          label="log_calls.py"
+          code={`def log_calls(func):
+    def wrapper(*args):
+        print(f"calling {func.__name__}")
+        return func(*args)
+    return wrapper
+
+@log_calls
+def add(a, b):
+    return a + b
+
+print(add(2, 3))`}
+          lineTones={{ 6: "accent" }}
+          prompt={<>Put <InlineCode>@log_calls</InlineCode> above a second function of your own, and call it.</>}
         />
         <P>
           <Strong>{"@log_calls"}</Strong> written above{" "}
@@ -148,27 +154,24 @@ calling add
           <Strong>{"@repeat(3)"}</Strong> to call a function three times, needs one more layer
           of nesting than <Strong>log_calls</Strong> had.
         </P>
-        <CodeBlock
-          label="Terminal"
-          variant="terminal"
-          code={`>>> def repeat(times):
-...     def decorator(func):
-...         def wrapper(*args):
-...             result = None
-...             for _ in range(times):
-...                 result = func(*args)
-...             return result
-...         return wrapper
-...     return decorator
-...
->>> @repeat(3)
-... def greet(name):
-...     print(f"Hello, {name}")
-...
->>> greet("Ada")
-Hello, Ada
-Hello, Ada
-Hello, Ada`}
+        <TryIt
+          label="repeat.py"
+          code={`def repeat(times):
+    def decorator(func):
+        def wrapper(*args):
+            result = None
+            for _ in range(times):
+                result = func(*args)
+            return result
+        return wrapper
+    return decorator
+
+@repeat(3)
+def greet(name):
+    print(f"Hello, {name}")
+
+greet("Ada")`}
+          prompt={<>Change <InlineCode>@repeat(3)</InlineCode> to <InlineCode>@repeat(5)</InlineCode> and run it again.</>}
         />
         <StepList
           variant="timeline"

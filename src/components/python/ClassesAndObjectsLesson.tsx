@@ -1,8 +1,9 @@
 import { Lead, LessonSection, P, Strong } from "@/components/learn/primitives/LessonSection";
 import { Callout } from "@/components/learn/primitives/Callout";
-import { CodeBlock } from "@/components/learn/primitives/CodeBlock";
+import { CodeBlock, InlineCode } from "@/components/learn/primitives/CodeBlock";
 import { ChecklistCard, CompareGrid, TakeawayCard } from "@/components/learn/primitives/Cards";
 import { ClassStamper } from "@/components/python/ClassStamper";
+import { TryIt } from "@/components/python/TryIt";
 
 export function ClassesAndObjectsLesson() {
   return (
@@ -59,7 +60,7 @@ export function ClassesAndObjectsLesson() {
         <P>
           Python passes the object in as <Strong>self</Strong> automatically every time you
           call a method on it — you never pass it yourself. That is the entire reason every
-          method you define takes <Strong>self</Strong> as its first parameter.
+          instance method you define takes <Strong>self</Strong> as its first parameter.
         </P>
       </LessonSection>
 
@@ -68,26 +69,28 @@ export function ClassesAndObjectsLesson() {
           A class can hold functions as well as data, and those functions automatically get
           access to that object&apos;s own values through <Strong>self</Strong>.
         </P>
-        <CodeBlock
-          label="Terminal"
-          variant="terminal"
-          code={`>>> class Student:
-...     def __init__(self, name, grade):
-...         self.name = name
-...         self.grade = grade
-...     def passed(self):
-...         return self.grade >= 60
-...
->>> ada = Student("Ada", 92)
->>> ada.passed()
-True`}
+        <TryIt
+          label="student.py"
+          code={`class Student:
+    def __init__(self, name, grade):
+        self.name = name
+        self.grade = grade
+
+    def passed(self):
+        return self.grade >= 60
+
+ada = Student("Ada", 92)
+grace = Student("Grace", 55)
+print(ada.name, ada.passed())
+print(grace.name, grace.passed())`}
+          prompt={<>Change the pass mark in <InlineCode>passed()</InlineCode> to 50 and run it again.</>}
         />
         <Callout tone="success" title="Why this beats a dictionary here">
           <Strong>{'{"name": "Ada", "grade": 92}'}</Strong> holds the same data, but nothing
           guarantees the next dictionary has the same keys, and a typo when writing —{" "}
           <Strong>{'student["gade"] = 95'}</Strong> — quietly adds a second key instead of
-          updating the grade. A class&apos;s <Strong>__init__</Strong> requires every field
-          for every instance, an editor can flag <Strong>ada.gade</Strong> as an attribute
+          updating the grade. This <Strong>Student</Strong> class&apos;s{" "}
+          <Strong>__init__</Strong> requires a name and a grade for every instance, an editor can flag <Strong>ada.gade</Strong> as an attribute
           that was never defined, and you can attach behaviour, like{" "}
           <Strong>passed()</Strong>, directly to the data it acts on.
         </Callout>
@@ -154,20 +157,20 @@ True`}
           changing it through one instance changes it for every instance at once, since there
           was only ever one list to begin with.
         </P>
-        <CodeBlock
-          label="Terminal"
-          variant="terminal"
-          code={`>>> class Student:
-...     clubs = []
-...     def __init__(self, name):
-...         self.name = name
-...
->>> ada = Student("Ada")
->>> grace = Student("Grace")
->>> ada.clubs.append("Chess")
->>> grace.clubs
-['Chess']`}
-          lineTones={{ 9: "err" }}
+        <TryIt
+          label="clubs.py"
+          code={`class Student:
+    clubs = []
+
+    def __init__(self, name):
+        self.name = name
+
+ada = Student("Ada")
+grace = Student("Grace")
+ada.clubs.append("Chess")
+print(grace.clubs)`}
+          lineTones={{ 1: "warn" }}
+          prompt={<>Delete <InlineCode>clubs = []</InlineCode>, add <InlineCode>self.clubs = []</InlineCode> inside <InlineCode>__init__</InlineCode>, and run it again.</>}
         />
         <P>
           <Strong>grace.clubs</Strong> shows a club she never joined, because{" "}
@@ -201,22 +204,19 @@ True`}
           Define <Strong>__repr__</Strong> and that changes: whatever string it returns is
           what print, and the console, show instead.
         </P>
-        <CodeBlock
-          label="Terminal"
-          variant="terminal"
-          code={`>>> class Student:
-...     def __init__(self, name, grade):
-...         self.name = name
-...         self.grade = grade
-...     def __repr__(self):
-...         return f"Student({self.name!r}, {self.grade})"
-...
->>> ada = Student("Ada", 92)
->>> print(ada)
-Student('Ada', 92)
->>> ada
-Student('Ada', 92)`}
-          lineTones={{ 9: "ok", 11: "ok" }}
+        <TryIt
+          label="repr.py"
+          code={`class Student:
+    def __init__(self, name, grade):
+        self.name = name
+        self.grade = grade
+
+    def __repr__(self):
+        return f"Student({self.name!r}, {self.grade})"
+
+ada = Student("Ada", 92)
+print(ada)`}
+          prompt={<>Delete the <InlineCode>__repr__</InlineCode> method and run it again.</>}
         />
         <P>
           Define it on almost every class you write, not just the ones you plan to print on

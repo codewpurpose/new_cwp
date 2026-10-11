@@ -1,8 +1,9 @@
 import { Lead, LessonSection, P, Strong } from "@/components/learn/primitives/LessonSection";
 import { Callout } from "@/components/learn/primitives/Callout";
-import { CodeBlock } from "@/components/learn/primitives/CodeBlock";
+import { CodeBlock, InlineCode } from "@/components/learn/primitives/CodeBlock";
 import { CompareGrid, TakeawayCard } from "@/components/learn/primitives/Cards";
 import { AliasTracer } from "@/components/python/AliasTracer";
+import { TryIt } from "@/components/python/TryIt";
 
 export function CopyingAndAliasingLesson() {
   return (
@@ -20,14 +21,14 @@ export function CopyingAndAliasingLesson() {
           <Strong>.copy()</Strong> when you want a separate list. Here is where that stops
           being enough.
         </P>
-        <CodeBlock
-          label="Python"
-          code={`>>> a = [[1, 2], [3, 4]]
->>> b = a.copy()
->>> b[0].append(9)
->>> a
-[[1, 2, 9], [3, 4]]`}
-          lineTones={{ 4: "err" }}
+        <TryIt
+          label="shallow.py"
+          code={`a = [[1, 2], [3, 4]]
+b = a.copy()
+b[0].append(9)
+print(a)`}
+          lineTones={{ 2: "warn" }}
+          prompt={<>Change line 3 to <InlineCode>b.append([5, 6])</InlineCode> and run it again.</>}
         />
         <P>
           <Strong>b</Strong> is a separate outer list. It is also holding the exact
@@ -52,6 +53,7 @@ export function CopyingAndAliasingLesson() {
 safe = original.copy()
 safe = list(original)
 safe = original[:]`}
+          runnable={false}
         />
         <P>
           A number cannot be mutated in place, so sharing one is harmless — there is no
@@ -83,8 +85,8 @@ safe = original[:]`}
           When you need a copy that shares nothing at all, the standard library has one. It is
           not a built-in, and it does not need to be.
         </P>
-        <CodeBlock
-          label="Python"
+        <TryIt
+          label="deep.py"
           code={`from copy import deepcopy
 
 a = [[1, 2], [3, 4]]
@@ -94,6 +96,7 @@ b[0].append(9)
 print(a)  # [[1, 2], [3, 4]]
 print(b)  # [[1, 2, 9], [3, 4]]`}
           lineTones={{ 6: "ok" }}
+          prompt={<>Swap <InlineCode>deepcopy(a)</InlineCode> for <InlineCode>a.copy()</InlineCode> and compare what prints.</>}
         />
         <P>
           <Strong>deepcopy</Strong> walks the whole structure and rebuilds every mutable thing
@@ -174,7 +177,10 @@ print(add_badge("cad"))     # ['solder', 'cad']`}
     if badges is None:
         badges = []
     badges.append(badge)
-    return badges`}
+    return badges
+
+print(add_badge("solder"))  # ['solder']
+print(add_badge("cad"))     # ['cad']`}
         />
       </LessonSection>
 

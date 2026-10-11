@@ -1,7 +1,8 @@
 import { Lead, LessonSection, P, Strong } from "@/components/learn/primitives/LessonSection";
 import { Callout } from "@/components/learn/primitives/Callout";
-import { CodeBlock } from "@/components/learn/primitives/CodeBlock";
+import { CodeBlock, InlineCode } from "@/components/learn/primitives/CodeBlock";
 import { CompareGrid, TakeawayCard } from "@/components/learn/primitives/Cards";
+import { TryIt } from "@/components/python/TryIt";
 
 export function FilesAndPathsLesson() {
   return (
@@ -213,6 +214,17 @@ True`}
           <Strong>{'Path(__file__).parent / "notes.txt"'}</Strong> finds the same file no
           matter where the program is started.
         </P>
+        <TryIt
+          label="paths.py"
+          code={`from pathlib import Path
+
+notes_path = Path("data") / "reports" / "notes.txt"
+print(notes_path)
+print(notes_path.name)
+print(notes_path.suffix)
+print(notes_path.parent)`}
+          prompt={<>Change <InlineCode>{'"notes.txt"'}</InlineCode> to <InlineCode>{'"summary.csv"'}</InlineCode> and run it again.</>}
+        />
         <Callout tone="tip" title="Why Path is worth reaching for">
           <Strong>pathlib.Path</Strong> builds and checks paths without string-gluing slashes
           by hand — <Strong>resolve()</Strong> shows exactly which file a relative path points
@@ -246,6 +258,18 @@ True`}
           being checked. Whether the file is nine lines long or nine million makes no
           difference to how much memory the loop uses, only to how long it takes to finish.
         </P>
+        <TryIt
+          label="errors_only.py"
+          code={`import io
+
+# StringIO behaves like an open text file, so this runs without a real one.
+log = io.StringIO("INFO start\nERROR disk full\nINFO retry\nERROR timeout\n")
+
+for line in log:
+    if "ERROR" in line:
+        print(line.strip())`}
+          prompt={<>Add another <InlineCode>ERROR</InlineCode> line to the text and run it again.</>}
+        />
         <Callout tone="warning" title="readlines() defeats the point">
           <Strong>f.readlines()</Strong> looks similar and is not: it still reads the entire
           file first, then hands back a list of every line at once. Iterate over{" "}

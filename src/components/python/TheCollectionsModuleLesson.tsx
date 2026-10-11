@@ -1,8 +1,9 @@
 import { Lead, LessonSection, P, Strong } from "@/components/learn/primitives/LessonSection";
 import { Callout } from "@/components/learn/primitives/Callout";
-import { CodeBlock } from "@/components/learn/primitives/CodeBlock";
+import { CodeBlock, InlineCode } from "@/components/learn/primitives/CodeBlock";
 import { CompareGrid, TakeawayCard } from "@/components/learn/primitives/Cards";
 import { CounterBars } from "@/components/python/CounterBars";
+import { TryIt } from "@/components/python/TryIt";
 
 export function TheCollectionsModuleLesson() {
   return (
@@ -26,20 +27,24 @@ for colour in colours:
         counts[colour] += 1
     else:
         counts[colour] = 1`}
+          runnable={false}
         />
         <P>
           Six lines that do one thing, and the conditional exists solely because a missing key
           raises rather than starting at zero. <Strong>Counter</Strong> is a dictionary that
           has already decided a missing key means zero.
         </P>
-        <CodeBlock
-          label="Python"
+        <TryIt
+          label="tally.py"
           code={`from collections import Counter
 
+colours = ["red", "blue", "red", "green", "blue", "red", "blue", "red"]
+
 counts = Counter(colours)
-counts.most_common(2)   # [('red', 4), ('blue', 3)]
-counts["magenta"]       # 0, not a KeyError`}
-          lineTones={{ 4: "ok" }}
+print(counts.most_common(2))   # [('red', 4), ('blue', 3)]
+print(counts["magenta"])       # 0, not a KeyError`}
+          lineTones={{ 5: "ok" }}
+          prompt={<>Add a few more <InlineCode>{'"green"'}</InlineCode> entries to the list and run it again.</>}
         />
       </LessonSection>
 
@@ -54,15 +59,22 @@ counts["magenta"]       # 0, not a KeyError`}
           the idea: you hand it a function, and any key you read that does not exist is created
           by calling it.
         </P>
-        <CodeBlock
-          label="Python"
+        <TryIt
+          label="by_track.py"
           code={`from collections import defaultdict
+
+students = [
+    {"name": "Amara", "track": "python"},
+    {"name": "Ben", "track": "ml"},
+    {"name": "Chidi", "track": "python"},
+]
 
 by_track = defaultdict(list)
 for student in students:
     by_track[student["track"]].append(student["name"])
 
-# defaultdict(<class 'list'>, {'python': ['Amara', 'Chidi'], 'ml': ['Ben']})`}
+print(by_track)`}
+          prompt={<>Add <InlineCode>{'by_track["chemistry"]'}</InlineCode> on its own line just before the print, and run it again.</>}
         />
         <P>
           You pass <Strong>list</Strong>, not <Strong>list()</Strong> — the type itself, so the
@@ -95,6 +107,7 @@ p = Point(3, 4)
 p.x        # 3
 p[0]       # 3 — still an ordinary tuple underneath
 x, y = p   # still unpacks`}
+          runnable={false}
         />
         <CompareGrid
           items={[
@@ -136,6 +149,7 @@ x, y = p   # still unpacks`}
 queue = deque(["a", "b", "c"])
 queue.appendleft("start")   # cheap on a deque, costly on a list
 queue.popleft()             # cheap on a deque, costly on a list`}
+          runnable={false}
         />
         <P>
           On a hundred items nobody notices. On a queue of a hundred thousand, processed front

@@ -1,9 +1,10 @@
 import { Lead, LessonSection, P, Strong } from "@/components/learn/primitives/LessonSection";
 import { Callout } from "@/components/learn/primitives/Callout";
-import { CodeBlock } from "@/components/learn/primitives/CodeBlock";
+import { CodeBlock, InlineCode } from "@/components/learn/primitives/CodeBlock";
 import { StepList } from "@/components/learn/primitives/StepList";
 import { TakeawayCard } from "@/components/learn/primitives/Cards";
 import { ErrorPicker } from "@/components/python/ErrorPicker";
+import { TryIt } from "@/components/python/TryIt";
 
 export function ErrorsLesson() {
   return (
@@ -55,7 +56,7 @@ SyntaxError: expected ':'`}
           Here is one with more than one frame in it, which is where the bottom-up habit
           actually earns its keep.
         </P>
-        <CodeBlock
+        <TryIt
           label="shop.py"
           code={`CATALOGUE = {"bread": 3.2, "eggs": 4.5}
 
@@ -69,6 +70,7 @@ def total(cart):
     return running
 
 total(["bread", "eggs", "kombucha"])`}
+          prompt={<>Run it for the traceback, then add a price for <InlineCode>{'"kombucha"'}</InlineCode> and print the total.</>}
         />
         <CodeBlock
           label="Terminal"
@@ -135,18 +137,20 @@ KeyError: 'kombucha'`}
           optional. They are not decoration — each one runs at a different, precise moment,
           and reaching for the wrong one is a real source of bugs.
         </P>
-        <CodeBlock
-          label="Terminal"
-          variant="terminal"
-          code={`>>> try:
-...     price = catalogue[item]
-... except KeyError:
-...     print(f"No such item: {item}")
-... else:
-...     print(f"{item} costs {price}")
-... finally:
-...     print("Checked catalogue.")
-...`}
+        <TryIt
+          label="lookup.py"
+          code={`catalogue = {"bread": 3.2, "eggs": 4.5}
+item = "milk"
+
+try:
+    price = catalogue[item]
+except KeyError:
+    print(f"No such item: {item}")
+else:
+    print(f"{item} costs {price}")
+finally:
+    print("Checked catalogue.")`}
+          prompt={<>Change <InlineCode>item</InlineCode> to <InlineCode>{'"eggs"'}</InlineCode> and see which clauses run now.</>}
         />
         <StepList
           variant="timeline"
@@ -218,7 +222,7 @@ ValueError: age cannot be negative`}
           with the one you meant. A custom exception class costs one line and buys you
           something to catch precisely.
         </P>
-        <CodeBlock
+        <TryIt
           label="account.py"
           code={`class InsufficientFundsError(Exception):
     pass
@@ -228,17 +232,13 @@ def withdraw(balance, amount):
         raise InsufficientFundsError(
             f"cannot withdraw {amount}, balance is {balance}"
         )
-    return balance - amount`}
-        />
-        <CodeBlock
-          label="Terminal"
-          variant="terminal"
-          code={`>>> try:
-...     withdraw(50, 75)
-... except InsufficientFundsError as error:
-...     print(f"Blocked: {error}")
-...
-Blocked: cannot withdraw 75, balance is 50`}
+    return balance - amount
+
+try:
+    print(withdraw(50, 75))
+except InsufficientFundsError as error:
+    print(f"Blocked: {error}")`}
+          prompt="Change 75 to 20 and run it again."
         />
         <P>
           Inheriting from <Strong>Exception</Strong> is enough — <Strong>pass</Strong>, with

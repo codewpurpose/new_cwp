@@ -1,7 +1,8 @@
 import { Callout } from "@/components/learn/primitives/Callout";
-import { CodeBlock } from "@/components/learn/primitives/CodeBlock";
+import { CodeBlock, InlineCode } from "@/components/learn/primitives/CodeBlock";
 import { CompareGrid, TakeawayCard } from "@/components/learn/primitives/Cards";
 import { Lead, LessonSection, P, Strong } from "@/components/learn/primitives/LessonSection";
+import { TryIt } from "@/components/python/TryIt";
 
 export function WhatIsPythonLesson() {
   return (
@@ -16,7 +17,7 @@ export function WhatIsPythonLesson() {
         id="a-language-you-can-read-before-you-can-write-it"
         title="A language you can read before you can write it"
       >
-        <CodeBlock
+        <TryIt
           label="grades.py"
           code={`scores = [78, 92, 65, 88]
 total = sum(scores)
@@ -28,6 +29,7 @@ elif average >= 80:
     print("Grade: B")
 else:
     print("Grade: C")`}
+          prompt="Run it, then lower a couple of the scores until the grade changes."
         />
         <P>
           A list of four numbers, a total, an average, and a decision based on it. Nothing in
@@ -118,12 +120,13 @@ ls __pycache__
           line actually executes — which might be seconds into a long-running program, or
           might be after it has already emailed a customer.
         </P>
-        <CodeBlock
+        <TryIt
           label="pricing.py"
           code={`def total_price(items):
     return sum(item["price"] for item in items)
 
 print(total_price([{"price": 10}, {"price": "20"}]))`}
+          prompt={<>Run it to see the error, then change <InlineCode>{'"20"'}</InlineCode> to <InlineCode>20</InlineCode> and run it again.</>}
         />
         <CodeBlock
           label="Terminal"

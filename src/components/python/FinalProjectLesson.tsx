@@ -1,9 +1,10 @@
 import { Lead, LessonSection, P, Strong } from "@/components/learn/primitives/LessonSection";
 import { Callout } from "@/components/learn/primitives/Callout";
-import { CodeBlock } from "@/components/learn/primitives/CodeBlock";
+import { CodeBlock, InlineCode } from "@/components/learn/primitives/CodeBlock";
 import { ChecklistCard, CompareGrid, LabelRows, TakeawayCard } from "@/components/learn/primitives/Cards";
 import { StepList } from "@/components/learn/primitives/StepList";
 import { RevealCard } from "@/components/learn/primitives/RevealCard";
+import { TryIt } from "@/components/python/TryIt";
 
 export function FinalProjectLesson() {
   return (
@@ -98,6 +99,7 @@ export function FinalProjectLesson() {
     for word in text.split():
         counts[word] = counts.get(word, 0) + 1
     return counts`}
+          runnable={false}
         />
         <P>
           <Strong>counts.get(word, 0)</Strong> returns the running total if{" "}
@@ -132,6 +134,7 @@ export function FinalProjectLesson() {
 
 def test_empty_string_returns_empty_dict():
     assert word_counts("") == {}`}
+          runnable={false}
         />
       </LessonSection>
 
@@ -159,7 +162,7 @@ def test_empty_string_returns_empty_dict():
           <Strong>str.strip(string.punctuation)</Strong> to remove punctuation from the edges
           of each word before it becomes a key.
         </P>
-        <CodeBlock
+        <TryIt
           label="word_count.py"
           lineTones={{ 4: "accent", 5: "accent" }}
           code={`import string
@@ -169,7 +172,10 @@ def word_counts(text):
     for word in text.lower().split():
         word = word.strip(string.punctuation)
         counts[word] = counts.get(word, 0) + 1
-    return counts`}
+    return counts
+
+print(word_counts("The cat, calm, sat. The cat ran fast."))`}
+          prompt={<>Add a lone <InlineCode>-</InlineCode> between two words of the sentence and see which key appears.</>}
         />
         <P>
           With that change,{" "}
@@ -194,6 +200,14 @@ def word_counts(text):
           exactly as the records chapter warned, so pass <Strong>default=None</Strong> if
           empty input is allowed.
         </P>
+        <TryIt
+          label="most_common.py"
+          code={`counts = {"the": 3, "cat": 2, "sat": 1, "ran": 1}
+
+print(max(counts, key=counts.get))
+print(max({}, key=counts.get, default=None))`}
+          prompt={<>Give <InlineCode>{'"cat"'}</InlineCode> a count of 5 and run it again.</>}
+        />
         <Callout tone="tip" title="Reach for this before writing your own loop">
           Whenever the plan is &quot;find the biggest thing by some rule,&quot; check first
           whether <Strong>max(..., key=...)</Strong> or <Strong>sorted(..., key=...)</Strong>{" "}

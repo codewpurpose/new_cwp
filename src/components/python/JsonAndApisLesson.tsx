@@ -1,8 +1,9 @@
 import { Lead, LessonSection, P, Strong } from "@/components/learn/primitives/LessonSection";
 import { Callout } from "@/components/learn/primitives/Callout";
-import { CodeBlock } from "@/components/learn/primitives/CodeBlock";
+import { CodeBlock, InlineCode } from "@/components/learn/primitives/CodeBlock";
 import { LabelRows, TakeawayCard } from "@/components/learn/primitives/Cards";
 import { JsonDictToggle } from "@/components/python/JsonDictToggle";
+import { TryIt } from "@/components/python/TryIt";
 
 export function JsonAndApisLesson() {
   return (
@@ -54,19 +55,31 @@ export function JsonAndApisLesson() {
           comes back through <Strong>json.loads</Strong> it is a plain list, not a tuple — the
           round trip does not always return the exact type you started with.
         </P>
+        <CodeBlock
+          label="round_trip.py"
+          code={`import json
+
+point = (3, 4)
+text = json.dumps(point)
+back = json.loads(text)
+
+print(text)
+print(back, type(back))`}
+        />
       </LessonSection>
 
       <LessonSection id="loading-json-turns-it-into-ordinary-python-values" title="Loading JSON turns it into ordinary Python values">
-        <CodeBlock
-          label="Terminal"
-          variant="terminal"
-          code={`>>> import json
->>> text = '{"name": "Ada", "age": 36}'
->>> record = json.loads(text)
->>> record
-{'name': 'Ada', 'age': 36}
->>> record["age"]
-36`}
+        <TryIt
+          label="load_json.py"
+          code={`import json
+
+text = '{"name": "Ada", "age": 36, "admin": true, "manager": null}'
+record = json.loads(text)
+print(record)
+print(record["age"] + 1)
+
+print(json.dumps(record))`}
+          prompt={<>Change <InlineCode>true</InlineCode> to <InlineCode>True</InlineCode> inside <InlineCode>text</InlineCode> and run it again.</>}
         />
         <P>
           <Strong>json.loads(text)</Strong> parses a JSON string into an ordinary Python{" "}
@@ -134,6 +147,7 @@ if response.status_code == 200:
     data = response.json()
 else:
     print(f"Request failed: {response.status_code}")`}
+          runnable={false}
         />
         <P>
           Checking <Strong>response.status_code</Strong> before touching{" "}

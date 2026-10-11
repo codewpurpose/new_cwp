@@ -1,8 +1,9 @@
 import { Lead, LessonSection, P, Strong } from "@/components/learn/primitives/LessonSection";
 import { Callout } from "@/components/learn/primitives/Callout";
-import { CodeBlock } from "@/components/learn/primitives/CodeBlock";
+import { CodeBlock, InlineCode } from "@/components/learn/primitives/CodeBlock";
 import { LabelRows, TakeawayCard } from "@/components/learn/primitives/Cards";
 import { StringSlicer } from "@/components/python/StringSlicer";
+import { TryIt } from "@/components/python/TryIt";
 
 export function StringsLesson() {
   return (
@@ -127,6 +128,16 @@ export function StringsLesson() {
           expression is evaluated, which is why it can turn a plain <Strong>39.0</Strong> into
           the two-decimal <Strong>39.00</Strong> a price actually needs to display.
         </P>
+        <TryIt
+          label="receipt.py"
+          code={`name = "Ada"
+price = 19.5
+quantity = 2
+
+print(f"{name} bought {quantity} tickets")
+print(f"Total: {price * quantity:.2f}")`}
+          prompt={<>Change <InlineCode>:.2f</InlineCode> to <InlineCode>:.0f</InlineCode>, then to <InlineCode>:.3f</InlineCode>, and run it each time.</>}
+        />
         <Callout tone="tip" title="The two older ways still exist">
           You will see <Strong>{'"%s is %s" % (name, age)'}</Strong> and{" "}
           <Strong>{'"{} is {}".format(name, age)'}</Strong> in code written before 2016. Both
@@ -180,6 +191,16 @@ export function StringsLesson() {
           value instead of announcing what it did. Nothing prints unless you print it, and
           nothing changes unless you keep the result — which is exactly the next section.
         </P>
+        <TryIt
+          label="clean_name.py"
+          code={`raw = "  Ada Lovelace  "
+
+clean = raw.strip()
+parts = clean.split()
+print(parts)
+print("-".join(parts).lower())`}
+          prompt={<>Put your own name in <InlineCode>raw</InlineCode>, extra spaces and all, and run it again.</>}
+        />
       </LessonSection>
 
       <LessonSection id="nothing-about-a-string-changes-in-place" title="Nothing about a string ever changes in place">
@@ -260,7 +281,7 @@ UnicodeDecodeError: 'ascii' codec can't decode byte 0xc3 in position 3: ordinal 
       <TakeawayCard
         items={[
           "A string is indexed like any sequence, counting starts at 0, and negative indices count backwards from the end.",
-          "A slice text[start:end] never includes the character at end — for positions inside the string, its length is end minus start.",
+          "A slice text[start:end] never includes the character at end. When 0 <= start <= end <= len(text), its length is end minus start.",
           "An f-string fills {expression} holes directly in the text, and a format spec like :.2f controls how the value is displayed.",
           "Strings are immutable. Every method that looks like it edits one, such as .strip() or .replace(), returns a new string instead.",
           "A file is bytes, not text. Pass encoding=\"utf-8\" explicitly when opening one, or the default can differ by operating system.",
