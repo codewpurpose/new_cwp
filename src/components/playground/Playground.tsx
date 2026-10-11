@@ -1,19 +1,37 @@
 "use client";
 
-import { useEffect, useId, useRef, useState } from "react";
+import { useEffect, useId, useRef, useState, type KeyboardEvent } from "react";
 import Image from "next/image";
-import { Check, Copy, Link2, Play, RotateCcw, Square, Undo2 } from "lucide-react";
-import { TypeLine } from "@/components/koda/TypeLine";
+import {
+  Blocks,
+  Check,
+  CircleAlert,
+  CircleCheck,
+  CircleStop,
+  Code2,
+  Copy,
+  Link2,
+  LoaderCircle,
+  Play,
+  RotateCcw,
+  Square,
+  Undo2,
+} from "lucide-react";
+import { cn } from "@/lib/utils";
 import { CodeEditor } from "./CodeEditor";
 import { DEFAULT_EXAMPLE, EXAMPLES, exampleById, type Example } from "./examples";
+import { MLBuilder } from "./MLBuilder";
 import { FigureGallery, OutputConsole, StatusPill, isBusy } from "./OutputConsole";
 import { codeFromHash, encodeCode, STORAGE_KEY } from "./share";
-import { usePythonRunner, type RunState } from "./usePythonRunner";
+import { usePythonRunner, type RunState, type RunStatus } from "./usePythonRunner";
 
 interface Saved {
   code: string;
   exampleId: string | null;
 }
+
+type Mode = "code" | "ml";
+const MODE_KEY = "cwp-playground-mode";
 
 /** Where the editor starts: a shared link wins, then the student's own last
  *  session, then the Hello starter. Client-only (this component is loaded
@@ -35,6 +53,19 @@ function initialCode(): Saved {
   return { code: DEFAULT_EXAMPLE.code, exampleId: DEFAULT_EXAMPLE.id };
 }
 
+/** A shared #code= link always opens the editor; #ml opens the builder;
+ *  otherwise the tab the student last used. */
+function initialMode(): Mode {
+  const hash = window.location.hash;
+  if (codeFromHash(hash) !== null) return "code";
+  if (hash === "#ml") return "ml";
+  try {
+    return window.localStorage.getItem(MODE_KEY) === "ml" ? "ml" : "code";
+  } catch {
+    return "code";
+  }
+}
+
 function save(value: Saved) {
   try {
     window.localStorage.setItem(STORAGE_KEY, JSON.stringify(value));
@@ -46,7 +77,7 @@ function save(value: Saved) {
 /** Drop a consumed `#code=` once the student edits, so a reload brings back
  *  their edits (from storage) rather than the original shared snippet. */
 function clearShareHash() {
-  if (window.location.hash.startsWith("#code=")) {
+  if (window.location.hash.startsWith("#code=") || window.location.hash === "#ml") {
     window.history.replaceState(null, "", window.location.pathname + window.location.search);
   }
 }
@@ -78,10 +109,57 @@ function kodaLine(run: RunState, example: Example | null): string {
   }
 }
 
+/** A short, fixed-width label for the toolbar. The full sentence lives in
+ *  the output header and the live region. */
+const BADGE: Record<RunStatus, string> = {
+  idle: "Ready",
+  booting: "Loading Python",
+  packages: "Loading libraries",
+  running: "Running",
+  done: "Done",
+  error: "Error",
+  stopped: "Stopped",
+  unavailable: "Offline",
+};
+
+function StatusBadge({ status }: { status: RunStatus }) {
+  const busy = isBusy(status);
+  const Icon = busy
+    ? LoaderCircle
+    : status === "done"
+      ? CircleCheck
+      : status === "error" || status === "unavailable"
+        ? CircleAlert
+        : status === "stopped"
+          ? CircleStop
+          : CircleCheck;
+  return (
+    <span
+      aria-hidden="true"
+      className={cn(
+        "inline-flex min-h-8 min-w-[9.5rem] items-center gap-1.5 rounded-full border px-3 text-[0.8125rem] font-medium",
+        status === "error" || status === "unavailable"
+          ? "border-[#f0c9a4] bg-[#fdf0e1] text-[#7a4a14]"
+          : status === "stopped"
+            ? "border-[var(--home-hairline-strong)] bg-[var(--home-grey-400)] text-[var(--home-ink-soft)]"
+            : status === "idle"
+              ? "border-[var(--home-hairline-strong)] bg-[var(--home-white)] text-[var(--home-ink-quiet)]"
+              : "border-[#bfdcc3] bg-[#dbefdb] text-[var(--home-moss)]",
+      )}
+    >
+      <Icon className={cn("size-3.5 shrink-0", busy && "animate-spin motion-reduce:animate-none")} />
+      {BADGE[status]}
+    </span>
+  );
+}
+
 const TOOL_BTN =
-  "home-btn home-btn-outline !min-h-10 !px-3 !text-[0.875rem] disabled:cursor-not-allowed disabled:opacity-50";
+  "inline-flex min-h-10 items-center justify-center gap-1.5 rounded-lg border border-[var(--home-hairline-strong)] bg-[var(--home-white)] px-3 text-[0.875rem] font-medium text-[var(--home-ink)] transition-colors hover:border-[#3e7f5c] hover:bg-[#f3faf3] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--home-fern)] disabled:cursor-not-allowed disabled:opacity-50";
+
+const PANE_SHADOW = "shadow-[0_1px_0_rgba(21,18,12,0.04),0_18px_40px_-24px_rgba(21,18,12,0.55)]";
 
 export function Playground() {
+  const [mode, setModeState] = useState<Mode>(initialMode);
   const [saved, setSaved] = useState<Saved>(initialCode);
   const { code, exampleId } = saved;
   const [stdin, setStdin] = useState("");
@@ -90,8 +168,11 @@ export function Playground() {
   const [undo, setUndo] = useState<Saved | null>(null);
   const [flash, setFlash] = useState<"copied" | "shared" | null>(null);
   const flashTimer = useRef<number | undefined>(undefined);
+  const rootRef = useRef<HTMLDivElement>(null);
+  const tabRefs = useRef<Record<Mode, HTMLButtonElement | null>>({ code: null, ml: null });
   const runner = usePythonRunner();
   const ids = useId();
+  const editorId = `${ids}-editor`;
   const editorHintId = `${ids}-editor-hint`;
   const statusId = `${ids}-status`;
 
@@ -108,11 +189,21 @@ export function Playground() {
       const shared = codeFromHash(window.location.hash);
       if (shared === null) return;
       setSaved({ code: shared, exampleId: null });
+      setModeState("code");
       setNotice("Loaded the code from this link. It came in the link itself; nothing was downloaded.");
     };
     window.addEventListener("hashchange", onHash);
     return () => window.removeEventListener("hashchange", onHash);
   }, []);
+
+  const setMode = (next: Mode) => {
+    setModeState(next);
+    try {
+      window.localStorage.setItem(MODE_KEY, next);
+    } catch {
+      // Remembering the tab is a convenience only.
+    }
+  };
 
   const update = (next: Saved) => {
     setSaved(next);
@@ -135,14 +226,28 @@ export function Playground() {
     runner.run(code, answers);
   };
 
-  const loadExample = (next: Example, message: string) => {
+  const replaceCode = (next: Saved, message: string) => {
     if (code !== next.code) setUndo({ code, exampleId });
     clearShareHash();
-    update({ code: next.code, exampleId: next.id });
+    update(next);
     if (runner.isRunning) runner.stop();
     runner.clear();
     setRanCode(null);
     setNotice(message);
+  };
+
+  const loadExample = (next: Example, message: string) => {
+    replaceCode({ code: next.code, exampleId: next.id }, message);
+  };
+
+  const openFromBuilder = (generated: string) => {
+    replaceCode(
+      { code: generated, exampleId: null },
+      "Here's your pipeline as plain Python. Change anything you like, then press Run.",
+    );
+    setMode("code");
+    rootRef.current?.scrollIntoView({ block: "start", behavior: "smooth" });
+    tabRefs.current.code?.focus({ preventScroll: true });
   };
 
   const restoreUndo = () => {
@@ -180,8 +285,18 @@ export function Playground() {
     }
   };
 
+  const onTabKey = (event: KeyboardEvent<HTMLButtonElement>) => {
+    if (event.key !== "ArrowLeft" && event.key !== "ArrowRight" && event.key !== "Home" && event.key !== "End") return;
+    event.preventDefault();
+    const next: Mode =
+      event.key === "Home" ? "code" : event.key === "End" ? "ml" : mode === "code" ? "ml" : "code";
+    setMode(next);
+    tabRefs.current[next]?.focus();
+  };
+
   const errorLine = runner.error && ranCode === code ? runner.error.line : null;
   const line = notice ?? kodaLine(runner, example);
+  const hasOutput = runner.output.length > 0 || runner.error !== null || runner.figures.length > 0;
   const liveText =
     runner.status === "done"
       ? `${runner.statusText} ${runner.figures.length > 0 ? `${runner.figures.length} figure${runner.figures.length === 1 ? "" : "s"} drawn.` : ""}`
@@ -191,38 +306,96 @@ export function Playground() {
           ? ""
           : runner.statusText;
 
-  return (
-    <div className="pg-root">
-      {/* Toolbar */}
-      <div className="flex flex-wrap items-end gap-x-3 gap-y-3">
-        <div className="flex min-w-0 flex-col gap-1.5">
-          <label htmlFor={`${ids}-example`} className="text-[0.75rem] font-semibold uppercase tracking-[0.08em] text-[var(--home-ink-quiet)]">
-            Starter
-          </label>
-          <select
-            id={`${ids}-example`}
-            value={exampleId ?? ""}
-            onChange={(event) => {
-              const next = exampleById(event.target.value);
-              if (next) loadExample(next, next.koda);
-            }}
-            className="min-h-10 min-w-[13.5rem] max-w-full cursor-pointer rounded-lg border border-[var(--home-hairline-strong)] bg-[var(--home-white)] px-3 pr-8 text-[0.9375rem] text-[var(--home-ink)] shadow-[var(--home-shadow-sm)] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--home-fern)]"
-          >
-            {exampleId === null && <option value="">Your own code</option>}
-            {EXAMPLES.map((item) => (
-              <option key={item.id} value={item.id}>
-                {item.title}
-              </option>
-            ))}
-          </select>
-        </div>
+  const tabs: { mode: Mode; label: string; hint: string; Icon: typeof Code2 }[] = [
+    { mode: "code", label: "Code editor", hint: "Write and run Python", Icon: Code2 },
+    { mode: "ml", label: "ML builder", hint: "Drag blocks to train a model", Icon: Blocks },
+  ];
 
-        <div className="flex flex-wrap items-center gap-2">
+  return (
+    <div ref={rootRef} className="scroll-mt-24">
+      {/* Mode switch */}
+      <div
+        role="tablist"
+        aria-label="Playground mode"
+        className="inline-flex w-full gap-1 rounded-2xl border-[0.5px] border-[var(--home-hairline-strong)] bg-[var(--home-white)] p-1 shadow-[var(--home-shadow-sm)] sm:w-auto"
+      >
+        {tabs.map((tab) => {
+          const selected = mode === tab.mode;
+          return (
+            <button
+              key={tab.mode}
+              ref={(el) => {
+                tabRefs.current[tab.mode] = el;
+              }}
+              type="button"
+              role="tab"
+              id={`${ids}-tab-${tab.mode}`}
+              aria-selected={selected}
+              aria-controls={`${ids}-panel-${tab.mode}`}
+              tabIndex={selected ? 0 : -1}
+              onClick={() => setMode(tab.mode)}
+              onKeyDown={onTabKey}
+              className={cn(
+                "flex min-h-12 flex-1 items-center gap-2.5 rounded-xl px-3.5 text-left transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--home-fern)] sm:flex-none sm:px-4",
+                selected ? "bg-[#dbefdb] text-[var(--home-moss)]" : "text-[var(--home-ink-soft)] hover:bg-[var(--home-grey-400)]",
+              )}
+            >
+              <tab.Icon className={cn("size-[1.125rem] shrink-0", selected ? "text-[#3e7f5c]" : "")} aria-hidden="true" />
+              <span className="flex flex-col leading-tight">
+                <span className="text-[0.9375rem] font-semibold">{tab.label}</span>
+                <span className="hidden text-[0.75rem] font-normal text-[var(--home-ink-quiet)] sm:block">{tab.hint}</span>
+              </span>
+            </button>
+          );
+        })}
+      </div>
+
+      {/* Code editor */}
+      <div
+        role="tabpanel"
+        id={`${ids}-panel-code`}
+        aria-labelledby={`${ids}-tab-code`}
+        hidden={mode !== "code"}
+        className="mt-6"
+      >
+        <fieldset>
+          <legend className="text-[0.8125rem] font-semibold text-[var(--home-ink-soft)]">
+            Start from an example
+            {exampleId === null && (
+              <span className="ml-2 font-normal text-[var(--home-ink-quiet)]">(you&apos;re editing your own code)</span>
+            )}
+          </legend>
+          <div className="mt-2.5 grid grid-cols-2 gap-2 md:grid-cols-4">
+            {EXAMPLES.map((item) => {
+              const current = item.id === exampleId;
+              return (
+                <button
+                  key={item.id}
+                  type="button"
+                  aria-pressed={current}
+                  onClick={() => loadExample(item, item.koda)}
+                  className={cn(
+                    "group flex min-h-11 sm:min-h-[3.75rem] flex-col items-start justify-center rounded-xl border px-3.5 py-2.5 text-left transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--home-fern)]",
+                    current
+                      ? "border-[#3e7f5c] bg-[#dbefdb]"
+                      : "border-[var(--home-hairline-strong)] bg-[var(--home-white)] hover:border-[#3e7f5c] hover:bg-[#f3faf3]",
+                  )}
+                >
+                  <span className="text-[0.9375rem] font-semibold leading-tight text-[var(--home-ink)]">{item.title}</span>
+                  <span className="mt-1 hidden text-[0.8125rem] leading-snug text-[var(--home-ink-quiet)] sm:block">{item.blurb}</span>
+                </button>
+              );
+            })}
+          </div>
+        </fieldset>
+
+        {/* Toolbar */}
+        <div className="mt-5 flex flex-wrap items-center gap-2 rounded-2xl border-[0.5px] border-[var(--home-hairline-strong)] bg-[var(--home-white)] p-2 shadow-[var(--home-shadow-sm)]">
           <button
             type="button"
             onClick={run}
             disabled={busy || runner.isBlocked}
-            className="home-btn home-btn-moss !min-h-10 !px-4 disabled:cursor-progress disabled:opacity-70"
+            className="home-btn home-btn-moss !min-h-10 !px-4 disabled:cursor-progress disabled:opacity-60"
           >
             <Play className="size-4 fill-current" aria-hidden="true" />
             Run
@@ -234,112 +407,118 @@ export function Playground() {
             <Square className="size-3.5 fill-current" aria-hidden="true" />
             Stop
           </button>
-        </div>
+          <StatusBadge status={runner.status} />
 
-        <div className="flex flex-wrap items-center gap-2 sm:ml-auto">
-          <button
-            type="button"
-            onClick={() => loadExample(example ?? DEFAULT_EXAMPLE, `Back to the original ${(example ?? DEFAULT_EXAMPLE).title} starter.`)}
-            className={TOOL_BTN}
-          >
-            <RotateCcw className="size-4" aria-hidden="true" />
-            Reset
-          </button>
-          <button type="button" onClick={copy} className={TOOL_BTN}>
-            {flash === "copied" ? (
-              <Check className="size-4 text-[var(--home-fern)]" aria-hidden="true" />
-            ) : (
-              <Copy className="size-4" aria-hidden="true" />
-            )}
-            {flash === "copied" ? "Copied" : "Copy"}
-          </button>
-          <button type="button" onClick={share} className={TOOL_BTN}>
-            {flash === "shared" ? (
-              <Check className="size-4 text-[var(--home-fern)]" aria-hidden="true" />
-            ) : (
-              <Link2 className="size-4" aria-hidden="true" />
-            )}
-            {flash === "shared" ? "Link copied" : "Share"}
-          </button>
-        </div>
-      </div>
-
-      {/* Koda */}
-      <div className="mt-5 flex min-h-12 items-center gap-3">
-        <Image
-          src="/koala/koala-read.png"
-          alt=""
-          width={464}
-          height={560}
-          className="h-12 w-auto shrink-0 drop-shadow-[0_4px_8px_rgba(46,38,24,0.12)]"
-        />
-        <p className="min-w-0 flex-1 rounded-2xl rounded-bl-sm border-[0.5px] border-[var(--home-hairline-strong)] bg-[var(--home-white)] px-4 py-2.5 text-[0.9375rem] leading-[1.45] text-[var(--home-ink-soft)] shadow-[var(--home-shadow-sm)]">
-          <span className="font-semibold text-[var(--home-moss)]">Koda: </span>
-          <TypeLine text={line} live={false} />
-          {undo && notice && (
+          <div className="ml-auto flex flex-wrap items-center gap-2">
             <button
               type="button"
-              onClick={restoreUndo}
-              className="ml-2 inline-flex min-h-8 items-center gap-1 rounded-md px-1.5 align-middle text-[0.875rem] font-medium text-[var(--home-link-green)] underline decoration-[var(--home-fern)] underline-offset-2 hover:text-[var(--home-moss)] focus-visible:outline-2 focus-visible:outline-[var(--home-fern)]"
+              onClick={() => loadExample(example ?? DEFAULT_EXAMPLE, `Back to the original ${(example ?? DEFAULT_EXAMPLE).title} starter.`)}
+              className={TOOL_BTN}
+              aria-label="Reset to the starter code"
             >
-              <Undo2 className="size-3.5" aria-hidden="true" />
-              Undo
+              <RotateCcw className="size-4" aria-hidden="true" />
+              <span className="hidden sm:inline" aria-hidden="true">Reset</span>
             </button>
-          )}
-        </p>
-      </div>
-
-      {/* Workspace */}
-      <div className="mt-5 grid gap-4 lg:grid-cols-[minmax(0,1.15fr)_minmax(0,1fr)]">
-        <div className="flex min-w-0 flex-col gap-3">
-          <div className="overflow-hidden rounded-learn-lg bg-learn-code-bg shadow-[0_1px_0_rgba(21,18,12,0.04),0_18px_40px_-24px_rgba(21,18,12,0.55)]">
-            <div className="flex min-h-11 items-center justify-between gap-3 border-b border-learn-code-line px-4 text-[11.5px] text-learn-code-dim">
-              <span className="flex items-center gap-2">
-                <span className="font-[family-name:var(--learn-font-mono)]">main.py</span>
-                <span className="lr-code-lang">Python</span>
-              </span>
-              <span id={editorHintId} className="hidden truncate md:inline">
-                Tab indents · Esc then Tab leaves · Ctrl/⌘ + Enter runs
-              </span>
-            </div>
-            <CodeEditor
-              id={`${ids}-editor`}
-              value={code}
-              onChange={onEdit}
-              onRun={run}
-              label="Python code editor"
-              describedBy={editorHintId}
-              errorLine={errorLine}
-              minLines={14}
-              maxHeight="34rem"
-            />
+            <button type="button" onClick={copy} className={TOOL_BTN} aria-label={flash === "copied" ? "Copied" : "Copy the code"}>
+              {flash === "copied" ? (
+                <Check className="size-4 text-[var(--home-fern)]" aria-hidden="true" />
+              ) : (
+                <Copy className="size-4" aria-hidden="true" />
+              )}
+              <span className="hidden sm:inline" aria-hidden="true">{flash === "copied" ? "Copied" : "Copy"}</span>
+            </button>
+            <button type="button" onClick={share} className={TOOL_BTN} aria-label={flash === "shared" ? "Link copied" : "Share a link to this code"}>
+              {flash === "shared" ? (
+                <Check className="size-4 text-[var(--home-fern)]" aria-hidden="true" />
+              ) : (
+                <Link2 className="size-4" aria-hidden="true" />
+              )}
+              <span className="hidden sm:inline" aria-hidden="true">{flash === "shared" ? "Link copied" : "Share"}</span>
+            </button>
           </div>
-
-          {wantsInput && (
-            <div className="rounded-learn-md border-[0.5px] border-[var(--home-hairline-strong)] bg-[var(--home-white)] p-3.5">
-              <label htmlFor={`${ids}-stdin`} className="text-[0.875rem] font-semibold text-[var(--home-ink)]">
-                Answers for input()
-              </label>
-              <p id={`${ids}-stdin-hint`} className="mt-0.5 text-[0.8125rem] leading-[1.45] text-[var(--home-ink-quiet)]">
-                Your code asks for input. Type each answer on its own line before you press Run; each input() call takes the next line.
-              </p>
-              <textarea
-                id={`${ids}-stdin`}
-                value={stdin}
-                onChange={(event) => setStdin(event.target.value)}
-                aria-describedby={`${ids}-stdin-hint`}
-                rows={3}
-                spellCheck={false}
-                className="mt-2 block w-full resize-y rounded-md border border-[var(--home-hairline-strong)] bg-[var(--home-page)] px-3 py-2 font-[family-name:var(--learn-font-mono)] text-[13px] leading-[1.6] text-[var(--home-ink)] focus-visible:outline-2 focus-visible:outline-offset-1 focus-visible:outline-[var(--home-fern)]"
-              />
-            </div>
-          )}
         </div>
 
-        <div className="flex min-w-0 flex-col gap-4">
+        {/* Koda */}
+        <div className="mt-4 flex items-start gap-3">
+          <Image
+            src="/koala/koala-read.png"
+            alt=""
+            width={464}
+            height={560}
+            className="mt-0.5 h-11 w-auto shrink-0"
+          />
+          <p className="min-h-11 min-w-0 flex-1 rounded-2xl rounded-tl-sm bg-[#dbefdb]/60 px-4 py-2.5 text-[0.9375rem] leading-[1.45] text-[var(--home-ink-soft)]">
+            <span className="font-semibold text-[var(--home-moss)]">Koda: </span>
+            {line}
+            {undo && notice && (
+              <button
+                type="button"
+                onClick={restoreUndo}
+                className="ml-2 inline-flex min-h-8 items-center gap-1 rounded-md px-1.5 align-middle text-[0.875rem] font-medium text-[var(--home-link-green)] underline decoration-[var(--home-fern)] underline-offset-2 hover:text-[var(--home-moss)] focus-visible:outline-2 focus-visible:outline-[var(--home-fern)]"
+              >
+                <Undo2 className="size-3.5" aria-hidden="true" />
+                Undo
+              </button>
+            )}
+          </p>
+        </div>
+
+        {runner.isBlocked && (
+          <p className="mt-3 text-[0.875rem] text-[var(--home-ink-quiet)]">
+            Python is busy with the ML builder. You can run this as soon as it finishes.
+          </p>
+        )}
+
+        {/* Workspace */}
+        <div className="mt-4 grid gap-4 lg:grid-cols-[minmax(0,1.1fr)_minmax(0,1fr)]">
+          <div className="flex min-w-0 flex-col gap-3">
+            <div className={cn("overflow-hidden rounded-2xl bg-learn-code-bg", PANE_SHADOW)}>
+              <div className="flex min-h-11 items-center justify-between gap-3 border-b border-learn-code-line px-4 text-[11.5px] text-learn-code-dim">
+                <label htmlFor={editorId} className="flex items-center gap-2">
+                  <span className="font-[family-name:var(--learn-font-mono)]">main.py</span>
+                  <span className="lr-code-lang">Python</span>
+                </label>
+                <span id={editorHintId} className="hidden truncate md:inline">
+                  Tab indents · Esc then Tab leaves · Ctrl/⌘ + Enter runs
+                </span>
+              </div>
+              <CodeEditor
+                id={editorId}
+                value={code}
+                onChange={onEdit}
+                onRun={run}
+                label="Python code editor"
+                describedBy={editorHintId}
+                errorLine={errorLine}
+                minLines={16}
+                maxHeight="34rem"
+              />
+            </div>
+
+            {wantsInput && (
+              <div className="rounded-2xl border-[0.5px] border-[var(--home-hairline-strong)] bg-[var(--home-white)] p-3.5">
+                <label htmlFor={`${ids}-stdin`} className="text-[0.875rem] font-semibold text-[var(--home-ink)]">
+                  Answers for input()
+                </label>
+                <p id={`${ids}-stdin-hint`} className="mt-0.5 text-[0.8125rem] leading-[1.45] text-[var(--home-ink-quiet)]">
+                  Your code asks for input. Type each answer on its own line before you press Run; each input() call takes the next line.
+                </p>
+                <textarea
+                  id={`${ids}-stdin`}
+                  value={stdin}
+                  onChange={(event) => setStdin(event.target.value)}
+                  aria-describedby={`${ids}-stdin-hint`}
+                  rows={3}
+                  spellCheck={false}
+                  className="mt-2 block w-full resize-y rounded-md border border-[var(--home-hairline-strong)] bg-[var(--home-page)] px-3 py-2 font-[family-name:var(--learn-font-mono)] text-[13px] leading-[1.6] text-[var(--home-ink)] focus-visible:outline-2 focus-visible:outline-offset-1 focus-visible:outline-[var(--home-fern)]"
+                />
+              </div>
+            )}
+          </div>
+
           <section
             aria-labelledby={`${ids}-output-title`}
-            className="overflow-hidden rounded-learn-lg bg-learn-code-bg shadow-[0_1px_0_rgba(21,18,12,0.04),0_18px_40px_-24px_rgba(21,18,12,0.55)]"
+            className={cn("flex min-w-0 flex-col overflow-hidden rounded-2xl bg-learn-code-bg lg:self-start", PANE_SHADOW)}
           >
             <div className="flex min-h-11 items-center justify-between gap-3 border-b border-learn-code-line pl-4 pr-1.5 text-[11.5px] text-learn-code-dim">
               <span className="flex min-w-0 items-center gap-3">
@@ -351,7 +530,7 @@ export function Playground() {
               <button
                 type="button"
                 onClick={runner.clear}
-                disabled={busy || (runner.output.length === 0 && !runner.error && runner.figures.length === 0)}
+                disabled={busy || !hasOutput}
                 className="lr-copy learn-focusable disabled:opacity-40"
               >
                 Clear
@@ -361,36 +540,35 @@ export function Playground() {
               output={runner.output}
               error={runner.error}
               status={runner.status}
-              placeholder="Press Run to see what your program prints."
-              minHeight="14rem"
-              maxHeight="26rem"
+              placeholder="Press Run to see what your program prints. Charts from matplotlib show up here too."
+              minHeight="18rem"
+              maxHeight="30rem"
             />
-          </section>
-
-          <section
-            aria-labelledby={`${ids}-figures-title`}
-            className="rounded-learn-lg border-[0.5px] border-[var(--home-hairline-strong)] bg-[var(--home-white)] p-4 shadow-[var(--home-shadow-sm)]"
-          >
-            <h2
-              id={`${ids}-figures-title`}
-              className="text-[11.5px] font-semibold uppercase tracking-[0.08em] text-[var(--home-ink-quiet)]"
-            >
-              Figures
-            </h2>
-            {runner.figures.length > 0 ? (
-              <FigureGallery figures={runner.figures} className="mt-3" />
-            ) : (
-              <p className="mt-2 text-[0.875rem] leading-[1.5] text-[var(--home-ink-quiet)]">
-                Charts from matplotlib appear here. Try the “Plot a line” starter.
-              </p>
+            {runner.figures.length > 0 && (
+              <div className="border-t border-learn-code-line bg-[var(--home-white)] p-3">
+                <h3 className="sr-only">Figures</h3>
+                <FigureGallery figures={runner.figures} />
+              </div>
             )}
           </section>
         </div>
       </div>
 
-      {/* The one place run progress is announced, so it is heard once. */}
+      {/* ML builder. Kept mounted while hidden so its pipeline and results
+          survive a trip to the editor and back. */}
+      <div
+        role="tabpanel"
+        id={`${ids}-panel-ml`}
+        aria-labelledby={`${ids}-tab-ml`}
+        hidden={mode !== "ml"}
+        className="mt-6"
+      >
+        <MLBuilder onOpenInEditor={openFromBuilder} />
+      </div>
+
+      {/* The one place the editor's run progress is announced, so it is heard once. */}
       <p id={statusId} role="status" aria-live="polite" className="sr-only">
-        {liveText}
+        {mode === "code" ? liveText : ""}
       </p>
     </div>
   );

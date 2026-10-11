@@ -6,6 +6,8 @@
 export interface Example {
   id: string;
   title: string;
+  /** A few words for the starter picker card. */
+  blurb: string;
   /** What Koda says when this starter is loaded. */
   koda: string;
   code: string;
@@ -15,6 +17,7 @@ export const EXAMPLES: readonly Example[] = [
   {
     id: "hello",
     title: "Hello",
+    blurb: "Print your first lines",
     koda: "Change the name, then press Run. Every line of this program is yours to edit.",
     code: `# Your first program. Press Run, or Ctrl/Cmd + Enter.
 name = "Koda"
@@ -25,6 +28,7 @@ print("This Python is running inside your browser.")
   {
     id: "loops",
     title: "Loops",
+    blurb: "Repeat with for and while",
     koda: "Try changing range(1, 6) to range(1, 11) and predict the output before you run it.",
     code: `for n in range(1, 6):
     print(n, "squared is", n * n)
@@ -39,6 +43,7 @@ print("Lift off!")
   {
     id: "functions",
     title: "Functions",
+    blurb: "Reusable recipes",
     koda: "A function is a recipe you can reuse. Add your own scores to the list and run it again.",
     code: `def greet(name, excited=False):
     ending = "!" if excited else "."
@@ -57,6 +62,7 @@ print("Average score:", average([82, 91, 77, 88]))
   {
     id: "collections",
     title: "Lists and dictionaries",
+    blurb: "Keep things in order, look them up",
     koda: "Lists keep things in order; dictionaries look things up by name. Add a fruit to both.",
     code: `fruits = ["apple", "banana", "cherry"]
 fruits.append("mango")
@@ -74,6 +80,7 @@ print("Cheapest:", cheapest)
   {
     id: "numpy",
     title: "NumPy arrays",
+    blurb: "Maths on whole arrays",
     koda: "NumPy does maths on a whole array at once. The first run downloads it, so give it a moment.",
     code: `import numpy as np
 
@@ -92,6 +99,7 @@ print("Shape:", grid.shape)
   {
     id: "pandas",
     title: "Pandas table",
+    blurb: "A table you drive with code",
     koda: "A DataFrame is a spreadsheet you drive with code. Try sorting by hours instead of score.",
     code: `import pandas as pd
 
@@ -113,6 +121,7 @@ print("Does studying more help? Correlation:", round(df["hours"].corr(df["score"
   {
     id: "sklearn",
     title: "Train a tiny classifier",
+    blurb: "Train and test on iris flowers",
     koda: "This uses the 150-flower iris dataset and holds 45 flowers back for testing. scikit-learn is big, so the first run takes a little while.",
     code: `from sklearn.datasets import load_iris
 from sklearn.metrics import accuracy_score
@@ -139,6 +148,7 @@ print("This flower is probably a", iris.target_names[model.predict(flower)[0]])
   {
     id: "matplotlib",
     title: "Plot a line",
+    blurb: "Draw a line chart",
     koda: "Your chart appears under the output. Change the numbers and run it again to redraw it.",
     code: `import matplotlib.pyplot as plt
 
