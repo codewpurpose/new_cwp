@@ -15,6 +15,7 @@ import {
   JOIN_HREF,
   MEDIA_HREF,
   PLAYGROUND_HREF,
+  PROJECTS_HREF,
   X_HREF,
 } from "@/lib/links";
 
@@ -74,6 +75,11 @@ export function SiteFooter() {
                     <li>
                       <a href={COURSES_HREF} className="home-footer-link">
                         Courses
+                      </a>
+                    </li>
+                    <li>
+                      <a href={PROJECTS_HREF} className="home-footer-link">
+                        Projects
                       </a>
                     </li>
                   </ul>
