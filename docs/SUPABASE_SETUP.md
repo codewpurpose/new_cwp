@@ -1,14 +1,13 @@
-# Turning on accounts + the leaderboard (Clerk + Supabase)
+# Turning on accounts + course progress sync (Clerk + Supabase)
 
-The site works **without** any of this — every student's progress, XP, streak,
-badges, and Kodas save locally on their own device. Accounts add two things on
-top: **syncing that progress across devices** and a **leaderboard** so students
-can compete. Both free tiers are plenty for this.
+The site works **without** any of this — course completions save locally on the
+learner's device. Accounts add **course progress sync across devices**. Both
+free tiers are plenty for this.
 
 Two services, one job each:
 
 - **Clerk** = sign-in (Google + email/password, sessions, the user menu).
-- **Supabase** = the database behind the leaderboard (`profiles`, `progress`).
+- **Supabase** = the database for synced course completions (`progress`).
 
 They connect through Clerk's **Supabase integration**: Clerk issues each signed-in
 student a token, the app sends it to Supabase, and Supabase's row-level security
@@ -16,17 +15,18 @@ reads the Clerk user id from that token so a student can only ever write their
 own rows.
 
 The code is already wired. Until the keys below exist, the app quietly falls back
-to local-first: `/login` shows "Accounts are coming soon", `/leaderboard` shows
-"almost here", the header shows a plain **Log in** button, and nothing breaks.
+to local-first: `/login` shows "Sign-in is coming soon", the header shows a
+plain **Sign in** button, and nothing breaks.
 
 ---
 
 ## ⚠️ Before you collect a single real account
 
 Most of our students are minors. **Settle COPPA / parental-consent and publish a
-privacy policy before enabling accounts in production.** The leaderboard is public
-by design — every visitor can read every display name — so the sign-up asks for a
-*display name*, not a real full name. Keep it that way.
+privacy policy before enabling accounts in production.** Account-linked course
+completions are stored in Supabase. Row-level security limits browser access to
+the signed-in learner's own rows; project operators and service-role clients can
+also access the data under the project's administrative controls.
 
 ---
 
@@ -68,8 +68,8 @@ by design — every visitor can read every display name — so the sign-up asks 
    existed, re-running is how you get the `subscribers` table.
 
    **Re-run `chapters.sql` every time you publish or retire a chapter.** A
-   completion for a chapter missing from that table is silently discarded and
-   earns no XP. `npm run learn:check` fails the build when the file has drifted
+   completion for a chapter missing from that table is silently discarded.
+   `npm run learn:check` fails the build when the file has drifted
    from the curriculum, but it cannot tell whether you have applied it to the
    database — that part is on you.
 
@@ -178,63 +178,10 @@ by design — every visitor can read every display name — so the sign-up asks 
    Clerk under **Configure → Domains** as well.
 
 3. **Verify.** Run `npm run dev`, open `/login`, create an account (try both
-   Google and email), and confirm you land on the site signed in. Then check the
-   Supabase **Table editor → profiles** — a row with your Clerk id should appear.
-   Finally, `/leaderboard` should list you with "(you)" highlighted.
-
----
-
-## Part D — The commits leaderboard (GitHub), ~5 min
-
-A second, optional leaderboard: signed-in students link a GitHub username, and
-`/leaderboard/commits` ranks them by real lifetime total commits (public commits
-plus private contributions) instead of
-lesson XP. Independent of the newsletter and welcome-email pieces above —
-needs only Clerk (already set up) plus two small server-side tables and one
-more key.
-
-1. **Create the tables.** SQL Editor → run
-   [`supabase/github-stats.sql`](../supabase/github-stats.sql), then
-   [`supabase/github-rate-limit.sql`](../supabase/github-rate-limit.sql),
-   **after** `schema.sql` — the first references `profiles`, and the second
-   gives public GitHub lookups separate atomic budgets for interactive searches
-   and README embeds across all app instances. The request path prunes expired
-   keys, so pg_cron is optional; when available, the migration also schedules
-   hourly cleanup to keep idle deployments tidy.
-
-2. **Get a GitHub token.** github.com → **Settings → Developer settings →
-   Personal access tokens → Tokens (classic) → Generate new token**. Scope:
-   `read:user`. This is **one token for the whole app**, not per-student OAuth
-   — every lookup goes through the server, and it only ever reads a username's
-   public profile (plus their private-contribution count, if their GitHub
-   profile settings expose it). The same server-side token powers the README
-   activity card at `/api/github-stats/embed.svg?username=<github-username>`.
-
-   ```
-   GITHUB_TOKEN=ghp_...
-   ```
-
-   Add it locally (`.env.local`) and on Vercel, same as the keys in Part C.
-   Leave it blank and the public leaderboard shell can still load, but GitHub
-   lookups and linking will remain unavailable with a server-configuration
-   message — nothing else is affected.
-
-   `NEXT_PUBLIC_*` values are bundled into the browser at build time, so add
-   or change those values before redeploying. `GITHUB_TOKEN` and
-   `SUPABASE_SERVICE_ROLE_KEY` are server values; restart or redeploy the app
-   after changing them so new server instances receive the configuration.
-
-3. **Verify.** Sign in, open `/leaderboard/commits`, enter a real GitHub
-   username, and click **Link**. Check **Table editor → github_stats** — a row
-   keyed on your Clerk id should appear with a real `public_commits` count.
-   After deployment, open the embed URL in a browser and confirm it returns an
-   SVG before pasting the generated Markdown into a profile README.
-
-Same trust model as `profiles`/`xp`: nothing in the request body becomes a
-number in the table. `/api/github-stats` reads a username off the request,
-but every stat is fetched fresh from GitHub's API server-side and written with
-the `service_role` key — there is no insert/update policy for `authenticated`
-on `github_stats` at all (see the comment atop `github-stats.sql`).
+   Google and email), and confirm you land on the courses page signed in. Complete
+   a chapter, then check Supabase **Table editor → progress** for a row with your
+   Clerk id and chapter slug. Sign in on another device to confirm the chapter
+   completion follows the account.
 
 ---
 
@@ -244,18 +191,14 @@ on `github_stats` at all (see the comment atop `github-stats.sql`).
 | --- | --- |
 | Sign in / sign up (Google + email) | Clerk — `<SignIn>` / `<SignUp>` on `/login` and `/sign-up` |
 | The account menu in the header | Clerk — `<UserButton>` |
-| Who you are on the board | Supabase `profiles` — `display_name` + `avatar` only |
 | Lesson completions | Supabase `progress` (one row per passed lesson) |
-| XP and streak | Derived by trigger from `progress`; the browser cannot write them |
 | Which chapters can be claimed | Supabase `chapters`, generated by `npm run learn:sql` |
-| Leaderboard ranking | `select … from profiles order by xp desc` |
 | Newsletter sign-ups | Supabase `subscribers`, written server-side; Resend sends the welcome |
 | Access control | Row-level security on the Clerk `sub` claim (`schema.sql`) |
-| Commits leaderboard | Supabase `github_stats` (`github-stats.sql`) + GitHub's GraphQL API, fetched server-side by `/api/github-stats` |
 
 Key files, if you need them: `src/lib/clerk.ts` (config flag),
 `src/lib/supabase/client.ts` (public/anon reads),
-`src/lib/supabase/with-clerk.tsx` (token-bearing client + profile sync),
+`src/lib/supabase/with-clerk.tsx` (token-bearing client + course progress sync),
 `src/lib/supabase/server.ts` (service-role client, server-only),
 `src/lib/supabase/subscribers.ts` + `src/app/api/subscribe/route.ts` (the
 newsletter write), `src/components/auth/` (provider + login form), `src/proxy.ts`
@@ -267,20 +210,12 @@ The on-device store stays the thing the UI reads: every screen works signed out,
 and nothing is collected without an account. Supabase sits behind it as the
 durable copy.
 
-`ClerkDataSync` (in `src/lib/supabase/with-clerk.tsx`) reconciles the two once per
-sign-in — it pulls the learner's `progress` rows, merges them into the local store
-(union of completions), pushes back whatever the server was missing, and then
-reads the resulting XP back. After that, each passed quick check writes straight
-through. So progress follows a student across devices, and the chapter gate
-trusts a durable record rather than one browser's localStorage.
-
-Note the direction of that last step. **XP is read from the server, never sent to
-it.** The browser writes a claim about a *chapter*; the total follows from how
-many such claims name a chapter that exists. It used to work the other way — the
-browser posted the number and the database stored it, which meant a signed-in
-student could type their own leaderboard position into the console. Signing in on
-a device carrying an inflated local total will now correct it downward, which is
-the system working.
+`ClerkDataSync` (in `src/lib/supabase/with-clerk.tsx`) reconciles course
+completions once per sign-in — it pulls the learner's `progress` rows, merges
+them into the local store, and pushes back anything the server was missing.
+After that, each passed quick check writes its completion through. The course
+reader can therefore resume from a different device, while still working
+locally when the services are unavailable.
 
 Without keys, none of this mounts and the site behaves exactly as it did before.
 All of it is isolated to `src/lib/supabase/`, so it never touches lesson code.

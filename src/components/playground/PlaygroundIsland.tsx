@@ -22,7 +22,7 @@ export function PlaygroundIsland() {
 
 function PlaygroundSkeleton() {
   return (
-    <div aria-busy="true" aria-label="Loading the code playground">
+    <div role="status" aria-busy="true" aria-label="Loading the code playground">
       <div className="flex flex-wrap items-end gap-3">
         <div className="h-[3.6rem] w-56 rounded-lg bg-[var(--home-grey-400)]" />
         <div className="h-10 w-28 rounded-lg bg-[var(--home-grey-400)]" />

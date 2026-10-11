@@ -98,7 +98,7 @@ export function CodeEditor({
       const lineStart = text.lastIndexOf("\n", start - 1) + 1;
       const multiLine = text.slice(start, end).includes("\n");
 
-      if (!event.shiftKey && !multiLine) {
+      if (!event.shiftKey && start === end) {
         replace(start, end, INDENT);
         return;
       }

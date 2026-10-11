@@ -1,15 +1,14 @@
 "use client";
 
-import { useId, useRef, type ReactNode, type SVGProps } from "react";
-import { useArtMotion } from "@/components/art/useArtMotion";
+import { useId, type ReactNode, type SVGProps } from "react";
 
 /**
  * The shared shell for the site's drawn illustrations.
  *
  * - `backdrop` paints first and is never animated or shadowed (paper colour,
  *   dot grids, washes).
- * - `children` go into `.art-scene`, which useArtMotion draws on when it
- *   scrolls into view and the hover rules in globals.css can lift.
+ * - `children` go into `.art-scene`, which stays fully drawn while scrolling;
+ *   hover rules in globals.css can lift the scene.
  * - The scene sits on a flat offset shadow, an SVG filter rather than a CSS
  *   one so Safari renders it, which gives every drawing the same layered-paper
  *   depth without redrawing each shape twice.
@@ -24,7 +23,6 @@ export function ArtSvg({
   children,
   backdrop,
   shadow = {},
-  draw = true,
   className = "",
   sceneClassName = "",
   ...rest
@@ -32,18 +30,18 @@ export function ArtSvg({
   children: ReactNode;
   backdrop?: ReactNode;
   shadow?: ArtShadow;
-  /** Set false for drawings that should only get the loops and the pause. */
+  /** Legacy compatibility prop; drawings now remain static while scrolling. */
   draw?: boolean;
   sceneClassName?: string;
 }) {
-  const ref = useRef<SVGSVGElement>(null);
+  // Retain the legacy prop without passing it to the SVG DOM.
+  delete rest.draw;
   const filterId = `art-shadow-${useId().replace(/[^a-zA-Z0-9_-]/g, "")}`;
-  useArtMotion(ref, { draw });
 
   const s = shadow ? { dx: 3, dy: 3.5, color: "#15120c", opacity: 0.1, ...shadow } : null;
 
   return (
-    <svg ref={ref} className={`art-svg ${className}`} {...rest}>
+    <svg className={`art-svg ${className}`} {...rest}>
       {s && (
         <defs>
           <filter

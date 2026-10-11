@@ -247,12 +247,8 @@
    All rest at identity, so Koda is fully visible before any script runs. */
 .cartoon-home .koda-layer { position: absolute; inset: 0; display: block; transform-origin: 50% 100%; }
 .cartoon-home .koda-idle {
-  /* Three loops at unrelated rates — float, breath, and a rare head tilt —
-     on separate transform properties, so the idle never looks like a loop. */
-  animation:
-    koda-float 4.2s ease-in-out infinite,
-    koda-breathe 3.3s ease-in-out infinite,
-    koda-head-tilt 9.5s ease-in-out 2s infinite;
+  /* Rest between deliberate greetings and taps instead of moving constantly. */
+  animation: none;
 }
 /* Set by useIdlePause when Koda is off screen or the tab is hidden. Repeated
    here because the shorthand above would otherwise reset the play state. */

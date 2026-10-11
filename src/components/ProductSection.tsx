@@ -47,7 +47,7 @@ export function ProductSection() {
                     rel="noreferrer"
                     className="home-arrow-link mt-5"
                   >
-                    Enroll free <span className="home-arrow">→</span>
+                    Enrol free <span className="home-arrow">→</span>
                   </a>
                 </div>
                 <PythonSproutArt />
@@ -65,7 +65,7 @@ export function ProductSection() {
                     rel="noreferrer"
                     className="home-arrow-link mt-5"
                   >
-                    Enroll free <span className="home-arrow">→</span>
+                    Enrol free <span className="home-arrow">→</span>
                   </a>
                 </div>
                 <VibecodingArt />

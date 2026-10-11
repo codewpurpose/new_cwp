@@ -17,17 +17,12 @@ export const LEARN_ROBLOX_HREF = "/learn/roblox/";
 export const LEARN_GITHUB_HREF = "/learn/github/";
 export const LEARN_HTML_CSS_HREF = "/learn/html-css/";
 export const LEARN_COMPUTER_VISION_HREF = "/learn/computer-vision/";
-export const TOOLKIT_HREF = "/toolkit/";
 /** Hub for learning to code with AI assistants responsibly. */
 export const AI_RESOURCES_HREF = "/resources/ai-coding/";
 /** In-browser code playground. */
 export const PLAYGROUND_HREF = "/playground/";
-export const DASHBOARD_HREF = "/dashboard/";
 export const LOGIN_HREF = "/login/";
 export const SIGN_UP_HREF = "/sign-up/";
-export const LEADERBOARD_HREF = "/leaderboard/";
-/** The commit-history leaderboard — a second board, ranked by real GitHub activity instead of XP. */
-export const COMMITS_LEADERBOARD_HREF = "/leaderboard/commits/";
 export const MEDIA_HREF = "/media/";
 export const ABOUT_HREF = "/about/";
 export const JOIN_HREF = "/join/";
@@ -76,11 +71,6 @@ export const NEWSLETTER_SUBSCRIBE_PATH = "/api/subscribe/";
 /** Account welcome email, pinged once on first sign-in. Same slash rule. */
 export const ACCOUNT_WELCOME_PATH = "/api/account-welcome/";
 
-/** Links or resyncs a student's GitHub username on the commits leaderboard. Same slash rule. */
-export const GITHUB_STATS_SYNC_PATH = "/api/github-stats/";
-/** Public SVG contribution card for GitHub profile README embeds. */
-export const GITHUB_STATS_EMBED_PATH = "/api/github-stats/embed.svg";
-
 export const CONTACT_EMAIL = "team@codewithpurpose.org";
 export const CONTACT_EMAIL_HREF = `mailto:${CONTACT_EMAIL}`;
 export const DISCORD_HREF = "https://discord.gg/8xqYFPD5fk";
@@ -128,7 +118,6 @@ export const SUBSTACK_EMBED_SRC = "https://codewithpurpose.substack.com/embed";
 
 export const NAV_LINKS = [
   { label: "Courses", href: COURSES_HREF },
-  { label: "Commits", href: COMMITS_LEADERBOARD_HREF },
   { label: "Media", href: MEDIA_HREF },
   { label: "About Us", href: ABOUT_HREF },
   { label: "Join Us", href: JOIN_HREF },

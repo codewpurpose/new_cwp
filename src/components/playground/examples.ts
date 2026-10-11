@@ -113,7 +113,7 @@ print("Does studying more help? Correlation:", round(df["hours"].corr(df["score"
   {
     id: "sklearn",
     title: "Train a tiny classifier",
-    koda: "This trains a real model on 150 iris flowers. scikit-learn is big, so the first run takes a little while.",
+    koda: "This uses the 150-flower iris dataset and holds 45 flowers back for testing. scikit-learn is big, so the first run takes a little while.",
     code: `from sklearn.datasets import load_iris
 from sklearn.metrics import accuracy_score
 from sklearn.model_selection import train_test_split
@@ -128,7 +128,7 @@ model = DecisionTreeClassifier(max_depth=3, random_state=42)
 model.fit(X_train, y_train)
 
 accuracy = accuracy_score(y_test, model.predict(X_test))
-print(f"Trained on {len(X_train)} flowers, tested on {len(X_test)} it never saw.")
+print(f"Trained on {len(X_train)} flowers, tested on {len(X_test)} flowers it never saw.")
 print(f"Accuracy on the unseen flowers: {accuracy:.0%}")
 
 # sepal length, sepal width, petal length, petal width (cm)

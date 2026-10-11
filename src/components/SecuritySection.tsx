@@ -15,7 +15,7 @@ export function SecuritySection() {
               </h2>
               <p className="mt-4 max-w-[36rem] text-[15px] text-[var(--home-ink-soft)] md:text-base">
                 Representative Mark DeSaulnier of the U.S. House of
-                Representatives recognized CodeWithPurpose for our work bringing
+                Representatives recognised CodeWithPurpose for our work bringing
                 free coding education to students in more than 150 countries.
               </p>
               <p className="mt-3 text-sm text-[var(--home-ink-quiet)]">

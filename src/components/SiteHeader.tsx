@@ -6,13 +6,13 @@ import { UserButton, useUser } from "@clerk/nextjs";
 import { ChevronDown } from "lucide-react";
 import { CwpLogo } from "@/components/icons";
 import { isClerkConfigured } from "@/lib/clerk";
-import { DASHBOARD_HREF, DONATE_HREF, HOME_HREF, LOGIN_HREF, NAV_LINKS } from "@/lib/links";
+import { DONATE_HREF, HOME_HREF, LOGIN_HREF, NAV_LINKS } from "@/lib/links";
 
 const PRIMARY_NAV_LINKS = NAV_LINKS.filter(({ label }) =>
   ["Courses", "About Us", "Stories", "Join Us"].includes(label),
 );
 const MORE_NAV_LINKS = NAV_LINKS.filter(({ label }) =>
-  ["AI Resources", "Code Playground", "Commits", "Media", "Contact"].includes(label),
+  ["AI Resources", "Code Playground", "Media", "Contact"].includes(label),
 );
 
 function LogInButton({ onNavigate }: { onNavigate?: () => void }) {
@@ -25,8 +25,8 @@ function LogInButton({ onNavigate }: { onNavigate?: () => void }) {
 
 /**
  * The header account control. Signed out (or before Clerk is configured) it's a
- * plain "Sign in" button; signed in it becomes a "My Progress" link plus Clerk's
- * avatar menu. `isClerkConfigured` is a build-time constant, so the hook branch
+ * plain "Sign in" button; signed in it becomes Clerk's avatar menu.
+ * `isClerkConfigured` is a build-time constant, so the hook branch
  * is stable across renders.
  */
 function AuthAction({ onNavigate }: { onNavigate?: () => void }) {
@@ -38,14 +38,7 @@ function ClerkAuthAction({ onNavigate }: { onNavigate?: () => void }) {
   const { isSignedIn } = useUser();
   // Before load isSignedIn is undefined -> show "Sign in", matching SSR (no flash).
   if (!isSignedIn) return <LogInButton onNavigate={onNavigate} />;
-  return (
-    <span className="flex items-center gap-2">
-      <a href={DASHBOARD_HREF} onClick={onNavigate} className="home-btn home-btn-fill whitespace-nowrap">
-        My Progress
-      </a>
-      <UserButton />
-    </span>
-  );
+  return <UserButton />;
 }
 
 const GLASS_STYLE = {

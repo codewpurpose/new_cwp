@@ -6,7 +6,6 @@ import { KodaGreeting } from "@/components/KodaGreeting";
 import BlurText from "@/components/reactbits/BlurText";
 import CountUp from "@/components/reactbits/CountUp";
 import Magnet from "@/components/reactbits/Magnet";
-import DotGrid from "@/components/reactbits/DotGrid";
 import { IMPACT_STATS } from "@/lib/stats";
 
 
@@ -22,10 +21,7 @@ export function HeroSection() {
     /* overflow-x-clip: the stats marquee track is wider than the viewport by
        design; clip here so a transform never widens the page on phones. */
     <section className="overflow-x-clip pt-8 md:pt-[3.69rem]">
-      {/* The dot field reacts to the pointer anywhere over the hero copy; it
-          listens on this wrapper, and the copy sits above it. */}
       <div className="relative">
-        <DotGrid />
       <div className="hero-message-grid relative mx-auto w-full max-w-[85rem] px-5 md:px-10">
         <div className="hero-message-copy">
           <BlurText

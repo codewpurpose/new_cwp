@@ -85,7 +85,7 @@ const items: ImpactItem[] = [
       title: "Students in 150+ countries",
       body: "Students use CodeWithPurpose from San Francisco, Lagos, Bangalore, São Paulo, and many other places.",
       scenario:
-        "6,000+ students across 150 countries can learn with us for free.",
+        "6,000+ students across 150+ countries can learn with us for free.",
     },
   },
   {
@@ -98,8 +98,8 @@ const items: ImpactItem[] = [
       </Icon>
     ),
     detail: {
-      title: "Recognized by Congress",
-      body: "Representative Mark DeSaulnier of the U.S. House of Representatives recognized CodeWithPurpose for tremendous leadership and service to our community in 2026.",
+      title: "Recognised by Congress",
+      body: "Representative Mark DeSaulnier of the U.S. House of Representatives recognised CodeWithPurpose for tremendous leadership and service to our community in 2026.",
       scenario:
         "A formal letter from the U.S. House of Representatives celebrating our work reaching students who otherwise couldn't access coding education.",
     },
@@ -208,6 +208,7 @@ export function GlobalReachSection() {
                 className="global-reach-panel"
                 data-open={open === index}
                 aria-hidden={open !== index}
+                inert={open !== index}
               >
                 <div className="global-reach-panel-inner">
                   <DetailContent detail={item.detail} />

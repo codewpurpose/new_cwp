@@ -6,7 +6,7 @@ import { motion, useAnimate } from "motion/react";
 import { ArrowRight } from "lucide-react";
 import { chapterHref } from "@/lib/learn-routes";
 import type { LearnTrackId } from "@/lib/learn-types";
-import { XP_PER_CHAPTER, isLessonComplete, markLessonComplete } from "@/lib/student";
+import { isLessonComplete, markLessonComplete } from "@/lib/student";
 import type { Quiz } from "@/lib/quiz";
 import { prefersReducedMotion } from "@/components/koda/motion";
 import { emitQuizResult } from "@/components/learn/reader/events";
@@ -392,7 +392,7 @@ export function LessonQuiz({ track, slug, quiz, prev, next, endHref }: LessonQui
                 </p>
                 {freshPass && (
                   <p className="mt-1 text-[13.5px] text-learn-muted">
-                    {score} of {quiz.questions.length} correct · +{XP_PER_CHAPTER} XP
+                    {score} of {quiz.questions.length} correct
                   </p>
                 )}
                 <div className="mt-4">
