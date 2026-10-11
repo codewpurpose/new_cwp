@@ -36,8 +36,10 @@ export function TheDigitalDivideInHealthcareLesson() {
 
       <LessonSection id="who-gets-left-out-by-that-assumption" title="Who gets left out by that assumption">
         <P>
-          The gap is not evenly spread. Compare access across a few different groups below — the
-          difference between the best-connected and least-connected group is not a rounding error,
+          The gap is not evenly spread. Compare access across a few different groups in the
+          illustrative chart below — the figures are simulated to show the shape of the gap, not
+          taken from a specific survey — and notice that the difference between the
+          best-connected and least-connected group is not a rounding error,
           it is the difference between a product that works for someone and one that quietly does
           not.
         </P>
@@ -102,6 +104,12 @@ export function TheDigitalDivideInHealthcareLesson() {
             "Onboarding that assumes zero prior comfort with video calls, not a help page a struggling patient has to go find on their own.",
           ]}
         />
+        <Callout tone="tip" title="Try it yourself">
+          Pick one health app or patient portal you have used. List everything it quietly
+          assumes about the person using it — a smartphone, a data plan, a reading level, a
+          language, steady hands, an email address. Then choose one item on your list and
+          describe what that person would need instead.
+        </Callout>
       </LessonSection>
 
       <TakeawayCard

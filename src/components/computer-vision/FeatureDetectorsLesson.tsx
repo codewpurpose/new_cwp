@@ -1,5 +1,6 @@
 import { Callout } from "@/components/learn/primitives/Callout";
 import { CompareGrid, TakeawayCard } from "@/components/learn/primitives/Cards";
+import { CodeBlock } from "@/components/learn/primitives/CodeBlock";
 import { Lead, LessonSection, P, Strong } from "@/components/learn/primitives/LessonSection";
 
 export function FeatureDetectorsLesson() {
@@ -43,7 +44,14 @@ export function FeatureDetectorsLesson() {
           not the sharpness of the angle, is what a corner detector is actually testing for, and
           it is exactly what makes a corner locatable again in a second photo.
         </P>
+        <P>
+          An edge sits in between. Slide the window across an edge and the view changes sharply;
+          slide it along the edge and it barely changes at all. That makes an edge locatable in one
+          direction and ambiguous in the other, which is why detectors prefer corners, where no
+          direction is ambiguous.
+        </P>
         <CompareGrid
+          columns={3}
           items={[
             {
               title: "Flat patch",
@@ -52,6 +60,16 @@ export function FeatureDetectorsLesson() {
                 <P>
                   Shift the window a few pixels in any direction and the pixels underneath barely
                   change. Nothing to distinguish this position from its neighbours.
+                </P>
+              ),
+            },
+            {
+              title: "Edge",
+              tone: "neutral",
+              children: (
+                <P>
+                  Shift across the edge and the pixels change; shift along it and they do not. You
+                  can pin down one direction, never both.
                 </P>
               ),
             },
@@ -67,6 +85,35 @@ export function FeatureDetectorsLesson() {
             },
           ]}
         />
+        <P>
+          Here is that test as arithmetic, on a bright square. The score adds up how brightness
+          changes across and down a small window, and is only large when it changes in both
+          directions at once.
+        </P>
+        <CodeBlock
+          label="corners.py"
+          code={`import numpy as np
+
+# A bright square on a dark background.
+image = np.zeros((20, 20))
+image[5:15, 5:15] = 1.0
+
+gy, gx = np.gradient(image)   # brightness change down and across
+
+def corner_score(r, c, k=0.05):
+    # Sum gradient products over a 5x5 window (the "structure tensor").
+    win = (slice(r - 2, r + 3), slice(c - 2, c + 3))
+    a, b, d = (gx[win] ** 2).sum(), (gx[win] * gy[win]).sum(), (gy[win] ** 2).sum()
+    # Big only when brightness changes in two directions at once.
+    return (a * d - b * b) - k * (a + d) ** 2
+
+for name, (r, c) in {"flat patch": (10, 10), "edge": (5, 10), "corner": (5, 5)}.items():
+    print(f"{name:10} score {corner_score(r, c):6.2f}")`}
+        />
+        <P>
+          The flat patch scores 0, the edge scores below 0, and the corner scores 1.74. This is
+          the idea behind the Harris corner detector.
+        </P>
       </LessonSection>
 
       <LessonSection

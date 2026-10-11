@@ -1,8 +1,10 @@
 import { Lead, LessonSection, P, Strong } from "@/components/learn/primitives/LessonSection";
 import { Callout } from "@/components/learn/primitives/Callout";
-import { CodeBlock } from "@/components/learn/primitives/CodeBlock";
+import { CodeBlock, InlineCode } from "@/components/learn/primitives/CodeBlock";
 import { CompareGrid, LabelRows, TakeawayCard } from "@/components/learn/primitives/Cards";
+import { RevealCard } from "@/components/learn/primitives/RevealCard";
 import { DictBuilder } from "@/components/python/DictBuilder";
+import { TryIt } from "@/components/python/TryIt";
 
 export function DictionariesLesson() {
   return (
@@ -60,7 +62,9 @@ export function DictionariesLesson() {
         </P>
         <P>
           Strings, numbers, and tuples qualify, because none of them can be edited in place.
-          A tuple of coordinates makes a perfectly good key for exactly that reason.
+          A tuple of coordinates makes a perfectly good key for exactly that reason — as long
+          as every element inside the tuple is <Strong>hashable</Strong> too. A tuple holding
+          a list is still unhashable.
         </P>
         <CodeBlock
           label="Terminal"
@@ -84,7 +88,7 @@ TypeError: unhashable type: 'list'`}
           rows={[
             {
               label: "Works",
-              text: "Strings, numbers, tuples, frozensets — anything Python considers immutable.",
+              text: "Strings, numbers, frozensets, and tuples whose elements are all hashable.",
             },
             {
               label: "Fails",
@@ -127,6 +131,29 @@ KeyError: 'fig'`}
           <Strong>.get()</Strong> in that situation does not fix the bug — it just moves the
           failure somewhere harder to find.
         </P>
+        <CodeBlock
+          label="predict.py"
+          code={`stock = {"apple": 3}
+stock["apple"] += 2
+stock["pear"] = stock.get("pear", 0) + 1
+print(stock)`}
+        />
+        <RevealCard
+          summaryTag="Try it yourself"
+          summary="Predict the final dictionary before you reveal it."
+          detailTag="Answer"
+          detail={
+            <>
+              <Strong>{"{'apple': 5, 'pear': 1}"}</Strong>. The existing key is overwritten with
+              its new total, and <Strong>{'stock.get("pear", 0)'}</Strong> supplies a starting 0
+              for the key that did not exist yet. Writing{" "}
+              <Strong>{'stock["pear"] += 1'}</Strong> instead would have raised{" "}
+              <Strong>{"KeyError: 'pear'"}</Strong>.
+            </>
+          }
+          openLabel="Reveal the answer"
+          closeLabel="Hide the answer"
+        />
       </LessonSection>
 
       <LessonSection id="walking-a-dictionarys-keys-values-and-items" title="Walking a dictionary's keys, values, and items">
@@ -161,6 +188,16 @@ mango: 0.9`}
           matters — <Strong>{"list(prices.values())"}</Strong> gets you just the numbers, with
           no fruit names attached to slow you down.
         </P>
+        <TryIt
+          label="prices.py"
+          code={`prices = {"apple": 0.60, "banana": 0.35, "mango": 0.90}
+
+for fruit, price in prices.items():
+    print(f"{fruit}: {price:.2f}")
+
+print("fig:", prices.get("fig", 0))`}
+          prompt={<>Add a <InlineCode>{'"fig"'}</InlineCode> price to the dictionary and run it again.</>}
+        />
       </LessonSection>
 
       <LessonSection id="nesting-dictionaries-inside-dictionaries" title="Nesting dictionaries inside dictionaries">
@@ -237,7 +274,7 @@ AttributeError: 'NoneType' object has no attribute 'get'`}
       <TakeawayCard
         items={[
           "A dictionary stores key/value pairs and looks up by key, not by position — and it keeps insertion order while doing it.",
-          "Keys must be hashable: strings, numbers, and tuples work as keys; a list or another dictionary never can, on purpose.",
+          "Keys must be hashable: strings, numbers, and tuples of hashable values work as keys; a list or another dictionary never can, on purpose.",
           "A missing key raises KeyError by default, and that is often the behaviour you want — .get() is for when a missing key is a normal outcome, not a bug you want to hide.",
           ".items() hands you both the key and the value in one loop, which is almost always what you actually want.",
           "Choose a dictionary when you look things up by name; choose a list when order and position are what matter.",

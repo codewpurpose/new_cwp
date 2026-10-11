@@ -1,6 +1,7 @@
 import { Callout } from "@/components/learn/primitives/Callout";
 import { CodeBlock, InlineCode } from "@/components/learn/primitives/CodeBlock";
 import { CompareGrid, TakeawayCard } from "@/components/learn/primitives/Cards";
+import { RevealCard } from "@/components/learn/primitives/RevealCard";
 import { Lead, LessonSection, P, Strong } from "@/components/learn/primitives/LessonSection";
 import { StepList } from "@/components/learn/primitives/StepList";
 
@@ -188,6 +189,30 @@ git commit -m "Add search filtering (1/3): state and input"`}
           Forty files of a rename you can verify beats one file of logic you cannot.
         </P>
       </LessonSection>
+
+      <RevealCard
+        summaryTag="Try it yourself"
+        summary={
+          <>
+            Split this into small diffs before you send anything:{" "}
+            <Strong>
+              &ldquo;Add a dark mode toggle, fix the bug where login fails with a trailing space in
+              the email, and rename utils.js to helpers.js.&rdquo;
+            </Strong>
+          </>
+        }
+        detailTag="One good split"
+        detail={
+          <>
+            Three prompts, three commits. Fix the login bug first: it is small, easy to test, and
+            you want it revertable on its own. Then the rename, which is mechanical — the import
+            errors tell you if anything was missed. Dark mode goes last, and may itself split
+            into &ldquo;add the toggle and its state&rdquo; and &ldquo;apply the colours&rdquo;.
+          </>
+        }
+        openLabel="Show one answer"
+        closeLabel="Hide the answer"
+      />
 
       <TakeawayCard
         items={[

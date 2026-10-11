@@ -10,11 +10,14 @@
  * Everything is deterministic (seeded from the slug), so the server and client
  * render the exact same options in the exact same order — no hydration drift.
  * These are DRAFTS meant for a human review pass, per the team's choice.
+ * A chapter with hand-written questions in src/lib/quizzes/<track>.ts uses
+ * those instead; the drafts only fill chapters nobody has written yet.
  */
 
 import { getChapters } from "@/lib/learn-nav";
 import type { LearnTrackId } from "@/lib/learn-types";
 import { mulberry32, shuffled } from "@/lib/ml/random";
+import { AUTHORED_QUIZZES } from "@/lib/quizzes";
 
 const TRACKS: LearnTrackId[] = [
   "python",
@@ -60,6 +63,22 @@ const OPTIONS_PER_Q = 4;
 export function getQuiz(track: LearnTrackId, slug: string): Quiz | null {
   const chapter = getChapters(track).find((c) => c.slug === slug);
   if (!chapter) return null;
+
+  const authored = AUTHORED_QUIZZES[track]?.[slug];
+  if (authored && authored.length > 0) {
+    // Shuffle option order per chapter (seeded, so server and client agree)
+    // so the right answer isn't always in the position it was written in.
+    const rand = mulberry32(seedFrom(`${track}/${slug}/authored`));
+    const questions: QuizQuestion[] = authored.map((item) => {
+      const written: readonly string[] = item.options;
+      // AuthoredQuestion's tuple types already keep `answer` in range.
+      const correct = written[item.answer] ?? written[0];
+      const options = shuffled([...written], rand);
+      return { q: item.q, options, answer: options.indexOf(correct) };
+    });
+    return { questions, passMark: Math.max(1, Math.ceil(questions.length * 0.67)) };
+  }
+
   const claims = chapter.headings.map((h) => h.text);
   if (claims.length === 0) return null;
 

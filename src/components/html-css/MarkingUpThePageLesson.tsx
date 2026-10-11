@@ -155,8 +155,8 @@ export function MarkingUpThePageLesson() {
         />
         <Callout tone="warning" title="No div has appeared yet">
           Not because divs are banned, but because nothing so far has needed one — every region had
-          an element that described it. Divs will turn up in the next chapter, if a layout
-          needs a wrapper with no meaning. Notice how far you get before that happens.
+          an element that described it. A div turns up in the next section, where a group needs
+          a wrapper with no meaning. Notice how far you get before that happens.
         </Callout>
       </LessonSection>
 

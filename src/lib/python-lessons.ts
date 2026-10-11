@@ -360,7 +360,7 @@ export const PYTHON_CHAPTERS: readonly LearnChapter[] = [
     order: 15,
     title: "Bundling Data With Behaviour",
     description:
-      "A dictionary can hold a name and an age, but nothing stops you misspelling the key next time you use it. Define a class once, stamp out three objects from it, and give each its own values without repeating the shape.",
+      "A dictionary can hold a name and a grade, but nothing stops you misspelling the key next time you use it. Define a class once, stamp out three objects from it, and give each its own values without repeating the shape.",
     level: "intermediate",
     minutes: 11,
     prerequisites: ["dictionaries"],

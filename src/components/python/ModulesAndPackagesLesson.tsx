@@ -1,7 +1,8 @@
 import { Lead, LessonSection, P, Strong } from "@/components/learn/primitives/LessonSection";
 import { Callout } from "@/components/learn/primitives/Callout";
-import { CodeBlock } from "@/components/learn/primitives/CodeBlock";
+import { CodeBlock, InlineCode } from "@/components/learn/primitives/CodeBlock";
 import { CompareGrid, TakeawayCard } from "@/components/learn/primitives/Cards";
+import { TryIt } from "@/components/python/TryIt";
 
 export function ModulesAndPackagesLesson() {
   return (
@@ -34,7 +35,7 @@ export function ModulesAndPackagesLesson() {
               title: "Package",
               tone: "neutral",
               children: (
-                <>A folder of modules with an __init__.py, importable as one unit.</>
+                <>A folder of modules, usually with an __init__.py, importable as one unit.</>
               ),
             },
             {
@@ -67,12 +68,14 @@ export function ModulesAndPackagesLesson() {
           label="shapes.py"
           code={`def area_of_circle(radius):
     return 3.14159 * radius * radius`}
+          runnable={false}
         />
         <CodeBlock
           label="main.py"
           code={`import shapes
 
 print(shapes.area_of_circle(4))`}
+          runnable={false}
         />
         <P>
           Nothing about <Strong>shapes.py</Strong> changed to make it importable — every{" "}
@@ -118,7 +121,7 @@ print(fetch_forecast("London"))`}
           every time — reporting London&apos;s forecast into output that has nothing to do
           with weather, the moment the import line executes.
         </P>
-        <CodeBlock
+        <TryIt
           label="weather.py"
           code={`def fetch_forecast(city):
     return f"Sunny in {city}"
@@ -126,6 +129,7 @@ print(fetch_forecast("London"))`}
 if __name__ == "__main__":
     print(fetch_forecast("London"))`}
           lineTones={{ 3: "accent" }}
+          prompt={<>Add <InlineCode>print(__name__)</InlineCode> as the last line and run it: here, the file is run directly.</>}
         />
         <P>
           <Strong>__name__</Strong> is a variable Python sets automatically in every module.
@@ -147,9 +151,12 @@ if __name__ == "__main__":
 
       <LessonSection id="a-package-is-a-folder-with-one-extra-file-in-it" title="A package is a folder with one extra file in it">
         <P>
-          A <Strong>package</Strong> is just a folder of modules, with one marker file,{" "}
+          A regular <Strong>package</Strong> is a folder of modules with one marker file,{" "}
           <Strong>__init__.py</Strong>, that tells Python to treat the folder as a single
-          importable unit rather than an ordinary directory.
+          importable unit rather than an ordinary directory. The file can be completely
+          empty; its presence is the signal. Python 3 can also import a folder without one,
+          as a <Strong>namespace package</Strong>, but that exists for splitting one package
+          across several locations. For your own packages, include the file.
         </P>
         <CodeBlock
           label="Terminal"
@@ -170,11 +177,27 @@ if __name__ == "__main__":
         <P>
           <Strong>import shapes</Strong> works because Python searches a specific list of
           locations, in order, called <Strong>sys.path</Strong>: the folder the running script
-          lives in first, then any installed packages, then the standard library. That is also
+          lives in first, then the standard library, then installed third-party packages. That is also
           why a typo like <Strong>import shpaes</Strong> fails immediately with{" "}
           <Strong>ModuleNotFoundError</Strong> instead of finding something similar — the
           search is exact, not fuzzy.
         </P>
+        <TryIt
+          label="dice.py"
+          code={`import math
+import random
+
+print(math.sqrt(16))
+print(random.randint(1, 6))`}
+          prompt="Run it a few times, then misspell one of the imports and run it again."
+        />
+        <Callout tone="warning" title="Do not name your file after a module you import">
+          Because the script&apos;s own folder is searched first, a file you saved as{" "}
+          <Strong>random.py</Strong> or <Strong>json.py</Strong> hides the standard-library
+          module of the same name. <Strong>import random</Strong> then imports your file,
+          and <Strong>random.randint</Strong> fails with an <Strong>AttributeError</Strong>{" "}
+          that seems to make no sense. Renaming your file fixes it.
+        </Callout>
         <P>
           Inside a package, an import can be written two ways. An{" "}
           <Strong>absolute import</Strong> spells out the full path from the top of the
@@ -188,6 +211,7 @@ from geometry.shapes import area_of_circle
 
 # relative — "from the module next to me in this same package"
 from .shapes import area_of_circle`}
+          runnable={false}
         />
         <P>
           Relative imports save typing inside a large package and keep working if the whole
@@ -198,7 +222,7 @@ from .shapes import area_of_circle`}
         </P>
         <Callout tone="warning" title="A relative import outside a package">
           Run a file containing <Strong>{"from .shapes import area_of_circle"}</Strong>{" "}
-          directly with <Strong>python angles.py</Strong> and it fails with{" "}
+          directly with <Strong>python3 angles.py</Strong> and it fails with{" "}
           <Strong>ImportError: attempted relative import with no known parent package</Strong>.
           Relative imports only resolve inside a package that was itself imported, not a file
           executed on its own.
@@ -207,10 +231,10 @@ from .shapes import area_of_circle`}
 
       <TakeawayCard
         items={[
-          "A module is one file; a package is a folder of modules with an __init__.py; a library is the general word for published code that might be shipped as either.",
+          "A module is one file; a regular package is a folder of modules with an __init__.py; a library is the general word for published code that might be shipped as either.",
           "A module's file runs top to bottom exactly once per program, the first time it is imported, then the result is cached.",
           'if __name__ == "__main__": guards code so it only runs when the file is executed directly, not when something else imports it — __name__ is just an ordinary variable Python sets differently depending on how the file started.',
-          "Python searches sys.path, in order, to resolve an import — the running script's own folder first, then installed packages, then the standard library.",
+          "Python searches sys.path, in order, to resolve an import — the running script's own folder first, then the standard library, then installed packages — so a file named random.py can hide the real random module.",
           "A relative import (from .shapes import ...) only works inside a package; a plain script run directly needs an absolute one.",
         ]}
       />

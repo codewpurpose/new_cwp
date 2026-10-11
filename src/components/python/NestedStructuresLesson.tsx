@@ -1,9 +1,10 @@
 import { Lead, LessonSection, P, Strong } from "@/components/learn/primitives/LessonSection";
 import { Callout } from "@/components/learn/primitives/Callout";
-import { CodeBlock } from "@/components/learn/primitives/CodeBlock";
+import { CodeBlock, InlineCode } from "@/components/learn/primitives/CodeBlock";
 import { StepList } from "@/components/learn/primitives/StepList";
 import { TakeawayCard } from "@/components/learn/primitives/Cards";
 import { NestedPathExplorer } from "@/components/python/NestedPathExplorer";
+import { TryIt } from "@/components/python/TryIt";
 
 export function NestedStructuresLesson() {
   return (
@@ -23,8 +24,8 @@ export function NestedStructuresLesson() {
           can be lists. Those lists can hold dictionaries. Those dictionaries can hold more
           lists, and at no point does Python object or even notice.
         </P>
-        <CodeBlock
-          label="Python"
+        <TryIt
+          label="club.py"
           code={`club = {
     "name": "Robotics",
     "room": {"building": "C", "number": 214},
@@ -32,7 +33,11 @@ export function NestedStructuresLesson() {
         {"name": "Amara", "badges": ["solder", "cad"]},
         {"name": "Ben", "badges": ["python"]},
     ],
-}`}
+}
+
+print(club["room"]["number"])
+print(club["members"][0]["badges"][1])`}
+          prompt="Change the last line so it prints Ben's only badge instead."
         />
         <P>
           Three keys, and the three values are a string, a dictionary, and a list of
@@ -81,6 +86,7 @@ export function NestedStructuresLesson() {
 # Amara → solder
 # Amara → cad
 # Ben → python`}
+          runnable={false}
         />
         <P>
           The outer loop names one member; the inner one names one badge belonging to that
@@ -100,6 +106,7 @@ export function NestedStructuresLesson() {
     for badge in member["badges"]
 ]
 # ['solder', 'cad', 'python']`}
+          runnable={false}
         />
       </LessonSection>
 
@@ -135,13 +142,16 @@ TypeError: string indices must be integers`}
           a level that does not exist yet, so building nested data means creating each level
           before you fill it.
         </P>
-        <CodeBlock
-          label="Python"
+        <TryIt
+          label="build_club.py"
           code={`club = {"name": "Robotics"}
 
 club["members"] = []
 club["members"].append({"name": "Amara", "badges": []})
-club["members"][0]["badges"].append("solder")`}
+club["members"][0]["badges"].append("solder")
+
+print(club)`}
+          prompt={<>Delete the line <InlineCode>{'club["members"] = []'}</InlineCode> and run it again.</>}
         />
         <Callout tone="warning" title="The line that looks like it should work">
           <Strong>{'club["members"][0]["badges"].append("solder")'}</Strong> only works because
@@ -173,6 +183,7 @@ print(club["members"][0]["badges"][1].upper())
 # The same thing, with the level that matters given a name:
 first_member = club["members"][0]
 print(first_member["badges"][1].upper())`}
+          runnable={false}
         />
       </LessonSection>
 
@@ -182,7 +193,7 @@ print(first_member["badges"][1].upper())`}
           "Read an access path left to right: each bracket takes what you are holding and asks it for exactly one thing.",
           "The bracket you write follows from what you are holding — a quoted name for a dictionary, an integer for a list.",
           "Nested loops mirror the shape of nested data. Name the loop variables after what they hold, not after the collection.",
-          "KeyError, IndexError, and TypeError each name a different way a path can run out, and each quotes the thing that was missing.",
+          "KeyError, IndexError, and TypeError each name a different way a path can run out — and a KeyError quotes the exact key that was missing.",
           "Python creates a key you assign to, never one you read through. Build each level before filling the one below it.",
           "You have nested too deep when you cannot say what a level holds without checking. Name an intermediate variable, or promote the shape to a class.",
         ]}

@@ -1,5 +1,6 @@
 import { Callout } from "@/components/learn/primitives/Callout";
 import { TakeawayCard } from "@/components/learn/primitives/Cards";
+import { CodeBlock } from "@/components/learn/primitives/CodeBlock";
 import { Lead, LessonSection, P, Strong } from "@/components/learn/primitives/LessonSection";
 import { SlopeFinder } from "@/components/ml/SlopeFinder";
 
@@ -69,6 +70,37 @@ export function HowModelsLearnLesson() {
           anything about cars. It does not need to know what fuel is. It only needs to be able
           to ask &ldquo;is the error smaller if I nudge this number up, or down?&rdquo; and then
           step that way. Thousands of times, very quickly.
+        </P>
+        <P>
+          You can do the whole search in a few lines. Score a handful of settings, then try
+          every setting from 4 to 11 in steps of 0.01 and keep whichever leaves the least total
+          squared error.
+        </P>
+        <CodeBlock
+          label="fuel_error.py"
+          code={`import numpy as np
+
+rng = np.random.default_rng(1)
+km = rng.uniform(20, 300, 36)                     # 36 past trips
+litres = km * 7.5 / 100 + rng.normal(0, 1.5, 36)  # really about 7.5 L/100km
+
+def total_error(rate):
+    predicted = km * rate / 100
+    misses = predicted - litres
+    return np.sum(misses ** 2)                     # squared, then added up
+
+for rate in [5, 6, 7, 8, 9, 10]:
+    print(f"{rate} L/100km -> total squared error {total_error(rate):8.1f}")
+
+# Try every setting from 4 to 11 in small steps and keep the lowest.
+rates = np.arange(4, 11, 0.01)
+best = rates[np.argmin([total_error(r) for r in rates])]
+print(f"best setting: {best:.2f} L/100km")`}
+        />
+        <P>
+          The errors fall and then rise again — the bowl, as numbers — and the lowest lands at
+          7.40 L/100km. The trips were generated at 7.5, so even the best setting is not the
+          true one: the noise in thirty-six trips pulls it slightly off.
         </P>
         <P>
           Real models have millions of numbers instead of one, and the bowl becomes a landscape

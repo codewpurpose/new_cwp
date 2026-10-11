@@ -24,7 +24,7 @@ export default function LearnRobloxPage() {
         <CourseHome
           track="roblox"
           title="Roblox Studio, from a blank baseplate to a published obby"
-          description="CodeWithPurpose lessons that build one real obstacle course in Luau, and explain the engine underneath it as you go. Fourteen chapters, and Studio is free."
+          description="CodeWithPurpose lessons that build one real obstacle course in Luau, and explain the engine underneath it as you go. Studio is free."
           udemy={{ href: ROBLOX_COURSE_HREF, label: "Udemy Roblox Course" }}
           chapterMedia={(chapter) => <RobloxLessonCover slug={chapter.slug} />}
         />

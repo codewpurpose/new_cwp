@@ -30,7 +30,7 @@ git add -A                      # everything in the repository, wherever you are
           forgot about: the scratch file, the screenshot, the .env you created while debugging.
         </P>
         <Callout tone="warning" title="git add . is how secrets get committed">
-          Almost every leaked credential on GitHub arrived by way of{" "}
+          A very common way credentials leak onto GitHub is{" "}
           <span className="font-[family-name:var(--learn-font-mono)]">git add .</span> catching a
           file the author had forgotten existed. Running{" "}
           <span className="font-[family-name:var(--learn-font-mono)]">git status</span> first takes
@@ -61,7 +61,7 @@ git restore --staged .           # unstage everything, keeping every edit`}
         <CodeBlock
           label="git add -p"
           copyable={false}
-          code={`@@ -12,6 +12,9 @@ export async function loadUser(id) {
+          code={`@@ -12,3 +12,6 @@ export async function loadUser(id) {
    const res = await fetch(\`/api/users/\${id}\`);
 +  if (!res.ok) throw new Error("loadUser failed");
    return res.json();
@@ -146,8 +146,8 @@ Fixes #482`}
         </P>
         <P>
           This looks like arbitrary pedantry and it is not. Git itself writes messages in the
-          imperative when it generates them — &quot;Merge branch feature into main&quot;, &quot;Revert
-          Add the caching layer&quot;. Your messages sit in the same list, and matching the mood makes
+          imperative when it generates them — <Strong>Merge branch &apos;feature&apos;</Strong>,{" "}
+          <Strong>Revert &quot;Add the caching layer&quot;</Strong>. Your messages sit in the same list, and matching the mood makes
           the log read as one document rather than a pile of styles.
         </P>
         <P>

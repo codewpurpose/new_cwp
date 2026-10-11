@@ -8,7 +8,6 @@ import { CoursesHero } from "@/components/courses/CoursesHero";
 import {
   CATALOG,
   TOPICS,
-  formatDuration,
   getTrackOutline,
   getTrackStats,
 } from "@/components/courses/catalog";
@@ -39,7 +38,6 @@ export default function CoursesPage() {
   // Lessons lead on every card — they are ours and one click away, where
   // enrolling leaves the site. Every figure below is counted, not typed.
   const items: CatalogItem[] = CATALOG.map((course) => {
-    const stats = getTrackStats(course.track);
     return {
       track: course.track,
       title: course.title,
@@ -49,14 +47,12 @@ export default function CoursesPage() {
       topicLabel: TOPICS.find((topic) => topic.id === course.topic)?.label ?? "",
       enrol: course.enrol,
       href: TRACK_ROUTES[course.track].href,
-      stats,
-      duration: formatDuration(stats.minutes),
       outline: getTrackOutline(course.track),
       cover: <TopicCover variant={course.cover} />,
     };
   });
 
-  const totalChapters = items.reduce((sum, item) => sum + item.stats.chapters, 0);
+  const totalChapters = CATALOG.reduce((sum, course) => sum + getTrackStats(course.track).chapters, 0);
   const totalEnrolments = CATALOG.reduce((sum, course) => sum + course.enrol.length, 0);
   // Suggested to newcomers by the courses' own tags, not by a hand-picked list.
   const startHere = CATALOG.filter((course) =>

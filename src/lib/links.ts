@@ -21,6 +21,8 @@ export const LEARN_COMPUTER_VISION_HREF = "/learn/computer-vision/";
 export const AI_RESOURCES_HREF = "/resources/ai-coding/";
 /** In-browser code playground. */
 export const PLAYGROUND_HREF = "/playground/";
+/** Guided build projects; each lives at /projects/<slug>/. */
+export const PROJECTS_HREF = "/projects/";
 export const LOGIN_HREF = "/login/";
 export const SIGN_UP_HREF = "/sign-up/";
 export const MEDIA_HREF = "/media/";
@@ -118,6 +120,7 @@ export const SUBSTACK_EMBED_SRC = "https://codewithpurpose.substack.com/embed";
 
 export const NAV_LINKS = [
   { label: "Courses", href: COURSES_HREF },
+  { label: "Projects", href: PROJECTS_HREF },
   { label: "Media", href: MEDIA_HREF },
   { label: "About Us", href: ABOUT_HREF },
   { label: "Join Us", href: JOIN_HREF },

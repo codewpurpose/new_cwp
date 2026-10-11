@@ -57,7 +57,7 @@ export function InsuranceBasicsLesson() {
             },
             {
               label: "Out-of-pocket max",
-              text: "The absolute ceiling on what you'll pay in a policy period — deductible, co-pays, and coinsurance combined. Once you hit it, the insurer covers 100% of covered costs for the rest of the period.",
+              text: "The absolute ceiling on what you'll pay in a policy period — deductible, co-pays, and coinsurance (your percentage share of a bill once the deductible is met) combined. Once you hit it, the insurer covers 100% of covered costs for the rest of the period.",
             },
             {
               label: "Coverage limit",
@@ -72,10 +72,10 @@ export function InsuranceBasicsLesson() {
           detail={
             <>
               You pay the first {formatCurrency(500)} yourself. The insurer covers the remaining{" "}
-              {formatCurrency(100)}. Filing a claim this small is rarely worth it — the{" "}
-              {formatCurrency(600)} monthly premiums saved over the same period, plus the risk of
-              a rate increase after a claim, usually costs more than the {formatCurrency(100)} the
-              insurer would have paid.
+              {formatCurrency(100)}. Filing a claim this small is rarely worth it — a claim on
+              your record can raise your premium at renewal, and even a modest increase on a
+              policy costing {formatCurrency(600)} a year can outweigh the{" "}
+              {formatCurrency(100)} the insurer paid out.
             </>
           }
           footnote="A higher deductible generally means a lower premium — you're accepting more of the small, likely losses yourself in exchange for a cheaper policy against the large, unlikely one."

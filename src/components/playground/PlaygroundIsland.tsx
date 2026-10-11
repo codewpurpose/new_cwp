@@ -23,15 +23,18 @@ export function PlaygroundIsland() {
 function PlaygroundSkeleton() {
   return (
     <div role="status" aria-busy="true" aria-label="Loading the code playground">
-      <div className="flex flex-wrap items-end gap-3">
-        <div className="h-[3.6rem] w-56 rounded-lg bg-[var(--home-grey-400)]" />
-        <div className="h-10 w-28 rounded-lg bg-[var(--home-grey-400)]" />
-        <div className="h-10 w-20 rounded-lg bg-[var(--home-grey-400)]" />
+      <div className="h-[3.6rem] w-full rounded-2xl bg-[var(--home-grey-400)] sm:w-[27rem]" />
+      <div className="mt-6 h-4 w-44 rounded bg-[var(--home-grey-400)]" />
+      <div className="mt-2.5 grid grid-cols-2 gap-2 md:grid-cols-4">
+        {Array.from({ length: 8 }, (_, index) => (
+          <div key={index} className="h-11 rounded-xl sm:h-[3.75rem] bg-[var(--home-grey-400)]" />
+        ))}
       </div>
-      <div className="mt-5 h-12 rounded-2xl bg-[var(--home-grey-400)]" />
-      <div className="mt-5 grid gap-4 lg:grid-cols-[minmax(0,1.15fr)_minmax(0,1fr)]">
-        <div className="h-[24.75rem] rounded-learn-lg bg-learn-code-bg" />
-        <div className="h-[17.5rem] rounded-learn-lg bg-learn-code-bg" />
+      <div className="mt-5 h-[3.6rem] rounded-2xl bg-[var(--home-grey-400)]" />
+      <div className="mt-4 h-11 rounded-2xl bg-[var(--home-grey-400)]" />
+      <div className="mt-4 grid gap-4 lg:grid-cols-[minmax(0,1.1fr)_minmax(0,1fr)]">
+        <div className="h-[27.25rem] rounded-2xl bg-learn-code-bg" />
+        <div className="h-[20.75rem] rounded-2xl bg-learn-code-bg" />
       </div>
     </div>
   );

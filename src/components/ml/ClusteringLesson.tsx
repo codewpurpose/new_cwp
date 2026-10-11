@@ -1,4 +1,4 @@
-import { InlineCode } from "@/components/learn/primitives/CodeBlock";
+import { CodeBlock, InlineCode } from "@/components/learn/primitives/CodeBlock";
 import { Callout } from "@/components/learn/primitives/Callout";
 import { ChecklistCard, CompareGrid, TakeawayCard } from "@/components/learn/primitives/Cards";
 import { Lead, LessonSection, P, Strong } from "@/components/learn/primitives/LessonSection";
@@ -18,8 +18,8 @@ export function ClusteringLesson() {
 
       <LessonSection id="when-nobody-labelled-anything" title="When nobody labelled anything">
         <P>
-          Look back at Part 4. Train/test splitting, cross-validation, precision and recall — all
-          of it assumed somebody had already written down the right answer for every example, so
+          Look back at Parts 2 and 4. Train/test splitting, cross-validation, precision and
+          recall — all of it assumed somebody had already written down the right answer for every example, so
           the model&rsquo;s answer could be compared against it. That comparison is the entire honesty
           toolbox. Take away the right answers and every tool in it stops working, not because
           the problem got harder, but because the ingredient they all need is gone.
@@ -101,6 +101,29 @@ export function ClusteringLesson() {
           elbow is read by eye. Two people can read the same curve and pick different k.
         </Callout>
         <P>
+          Run k-means for k = 1 to 8 on 300 generated points that really do come from three
+          groups.
+        </P>
+        <CodeBlock
+          label="elbow.py"
+          code={`from sklearn.cluster import KMeans
+from sklearn.datasets import make_blobs
+
+# 300 unlabelled points that really do come from 3 groups.
+X, _ = make_blobs(n_samples=300, centers=3, cluster_std=1.2, random_state=4)
+
+for k in range(1, 9):
+    km = KMeans(n_clusters=k, n_init=10, random_state=0).fit(X)
+    print(f"k={k}: inertia {km.inertia_:8.0f}")
+# Inertia always falls as k grows. Look for where the drops become small.`}
+        />
+        <P>
+          Inertia drops from 8,029 to 1,477 to 760, and after that each extra centre buys only
+          around a hundred: 648, 554, 467. The elbow is at 3. Change{" "}
+          <InlineCode>centers</InlineCode> or <InlineCode>cluster_std</InlineCode> and see how
+          quickly it stops being obvious.
+        </P>
+        <P>
           There is a second assumption buried in the method itself, and it is easy to miss
           because nothing in the algorithm checks it. Distance to a single centre is only a
           sensible way to describe a group if the group is roughly round and roughly the same
@@ -172,7 +195,7 @@ export function ClusteringLesson() {
 
       <TakeawayCard
         items={[
-          "Clustering has no answer key. Every honesty tool from Part 4 needed one, and none of them apply here.",
+          "Clustering has no answer key. Every honesty tool from Parts 2 and 4 needed one, and none of them apply here.",
           "k-means repeats two moves — assign to the nearest centre, move the centre to the mean — until an assign round changes nobody. It has to stop; it does not have to stop somewhere good.",
           "It minimises inertia and nothing else. A grouping that looks wrong to you can still have the lowest inertia the run ever found.",
           "k is a choice you make, not a fact the data hands you. The elbow method is a heuristic for making that choice, not a proof you made it correctly.",

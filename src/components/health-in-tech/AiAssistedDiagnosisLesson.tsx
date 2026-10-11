@@ -27,8 +27,8 @@ export function AiAssistedDiagnosisLesson() {
           actual deployed shape almost everywhere one of these tools is in clinical use today. A
           model that is wrong in a way a busy clinician would catch is an acceptable cost of doing
           business; a model that is wrong with nobody checking is a different kind of product
-          entirely, and regulators have been explicit that the second one is not what gets
-          approved for anything but the narrowest, lowest-stakes uses.
+          entirely, and regulators have so far authorised that second kind only for a handful of
+          narrow, tightly scoped screening tasks.
         </P>
       </LessonSection>
 
@@ -46,10 +46,12 @@ export function AiAssistedDiagnosisLesson() {
         </P>
         <P>
           Two systems can share the exact same underlying number and behave completely differently
-          once a hospital deploys them, because the number itself commits to nothing. A model that
-          says 0.61 has not said &ldquo;probably positive&rdquo; or &ldquo;probably
+          once a hospital deploys them, because the number itself commits to nothing. A well-calibrated
+          model that says 0.61 has not said &ldquo;probably positive&rdquo; or &ldquo;probably
           negative&rdquo; — it has said &ldquo;more likely than not, by not very much,&rdquo; and
           it is entirely up to the people deploying it to decide how much weight that deserves.
+          (Many models&apos; raw scores aren&apos;t even calibrated probabilities, which is one
+          more reason the score alone commits to nothing.)
         </P>
       </LessonSection>
 
@@ -147,6 +149,12 @@ Positive predictive value: 90 / 1,080 ≈ 8%`}
           catch more true cases at a low prevalence still returns mostly false alarms — it just
           returns a different mix of them.
         </P>
+        <Callout tone="tip" title="Try it yourself">
+          Run the same 90%-sensitive, 90%-specific test on 10,000 people where prevalence is 10%.
+          That&apos;s 1,000 sick people, so 900 true positives; and 9,000 healthy people, so 900
+          false positives. Of 1,800 flags, 900 are real — a positive predictive value of 50%, a
+          coin flip, from a test whose spec sheet never changed.
+        </Callout>
       </LessonSection>
 
       <TakeawayCard

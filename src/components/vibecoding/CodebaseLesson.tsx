@@ -24,7 +24,7 @@ const EXAMPLES: Example[] = [
   {
     generic: "Make the dashboard faster",
     aware:
-      "The dashboard re-fetches all 3 API calls every time any filter changes. Memoize them with our existing useDebouncedFetch hook in src/hooks/useDebouncedFetch.ts, so only the changed filter re-fetches.",
+      "The dashboard re-fetches all 3 API calls every time any filter changes. Make each call depend only on the filters it actually uses, and reuse our existing useDebouncedFetch hook in src/hooks/useDebouncedFetch.ts, so changing one filter re-fetches only the call that needs it.",
     why: "Pointing at the actual bottleneck and an existing utility stops the AI from reaching for a new dependency to solve a problem you already have tools for.",
   },
   {

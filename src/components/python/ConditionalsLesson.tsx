@@ -1,9 +1,10 @@
 import { Lead, LessonSection, P, Strong } from "@/components/learn/primitives/LessonSection";
 import { Callout } from "@/components/learn/primitives/Callout";
-import { CodeBlock } from "@/components/learn/primitives/CodeBlock";
+import { CodeBlock, InlineCode } from "@/components/learn/primitives/CodeBlock";
 import { RevealCard } from "@/components/learn/primitives/RevealCard";
 import { CompareGrid, TakeawayCard } from "@/components/learn/primitives/Cards";
 import { BranchHighlighter } from "@/components/python/BranchHighlighter";
+import { TryIt } from "@/components/python/TryIt";
 
 export function ConditionalsLesson() {
   return (
@@ -14,12 +15,15 @@ export function ConditionalsLesson() {
       </Lead>
 
       <LessonSection id="a-program-that-chooses" title="A program that chooses">
-        <CodeBlock
+        <TryIt
           label="age_check.py"
-          code={`if age >= 18:
+          code={`age = 16
+
+if age >= 18:
     print("adult")
 else:
     print("not an adult")`}
+          prompt={<>Change <InlineCode>age</InlineCode> to 18 and run it again.</>}
         />
         <P>
           <Strong>if</Strong> tests a condition. If it is true, the indented block underneath
@@ -65,25 +69,49 @@ True`}
           only if everything above it was false — and the moment one branch matches, every
           branch after it is skipped without being evaluated at all.
         </P>
-        <CodeBlock
+        <TryIt
           label="grade.py"
-          code={`if score >= 90:
+          code={`score = 95
+
+if score >= 90:
     grade = "A"
 elif score >= 80:
     grade = "B"
 elif score >= 70:
     grade = "C"
 else:
-    grade = "F"`}
+    grade = "F"
+
+print(grade)`}
+          prompt={<>Try a few other scores, like 85, 72 and 40, and run it for each.</>}
         />
         <P>
           A score of 95 matches the first condition and stops there — the{" "}
           <Strong>{"score >= 80"}</Strong> check never runs, because it does not need to.
-          Write this as four separate <Strong>if</Strong> statements instead and a score of 95
-          would still pass the second and third tests too, which does no harm here only
-          because each branch happens to overwrite <Strong>grade</Strong> rather than act on
-          it.
+          Write it with plain <Strong>if</Strong> statements instead of <Strong>elif</Strong>{" "}
+          and a score of 95 passes the second and third tests too. Each one overwrites{" "}
+          <Strong>grade</Strong> in turn, so it ends as <Strong>&quot;C&quot;</Strong> — a
+          wrong answer with no error to warn you.
         </P>
+        <CodeBlock
+          label="grade_bug.py"
+          code={`score = 95
+if score >= 90:
+    grade = "A"
+if score >= 80:
+    grade = "B"
+if score >= 70:
+    grade = "C"
+
+print(grade)
+# C`}
+          lineTones={{ 9: "err" }}
+        />
+        <Callout tone="tip" title="Order the conditions from strictest to loosest">
+          Even with <Strong>elif</Strong>, order matters. Put <Strong>{"score >= 70"}</Strong>{" "}
+          first and a 95 matches it, stops there, and gets a C. Check the narrowest condition
+          first, so the broader ones only see what is left over.
+        </Callout>
       </LessonSection>
 
       <BranchHighlighter />
@@ -228,8 +256,8 @@ empty`}
           Both read the same way you would say the condition out loud.
         </Callout>
         <P>
-          Another piece of syntax is the walrus operator{" "}
-          <Strong>:=</Strong> lets you assign a value and test it in the same expression,
+          One more piece of syntax you will meet: the walrus operator,{" "}
+          <Strong>:=</Strong>, lets you assign a value and test it in the same expression,
           instead of on the line before.
         </P>
         <CodeBlock

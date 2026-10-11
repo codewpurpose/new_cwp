@@ -20,7 +20,7 @@ export function RebaseAndHistoryLesson() {
         <P>
           A rebase takes each of your commits in turn, computes the change it made, and applies that
           change on top of a different commit. The result is a new commit with the same message, the
-          same author, the same content — and a different hash, because the parent is different and
+          same author, the same change — and a different hash, because the parent is different and
           the hash covers the parent.
         </P>
         <MergeVsRebase />
@@ -112,7 +112,8 @@ git rebase main
           lineTones={{ 0: "ok", 1: "ok", 2: "err", 3: "err" }}
         />
         <P>
-          Every commit is now duplicated. If they merge, both copies land and the diff applies twice.
+          Every commit is now duplicated. If they merge, both copies end up in the history side by
+          side, and anything they built on the originals is tangled up with your rewritten ones.
           Untangling this is unpleasant and it is always somebody else&apos;s afternoon,
           not yours.
         </P>

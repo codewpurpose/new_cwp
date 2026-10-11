@@ -2,6 +2,7 @@ import { Lead, LessonSection, P, Strong } from "@/components/learn/primitives/Le
 import { Callout } from "@/components/learn/primitives/Callout";
 import { CodeBlock } from "@/components/learn/primitives/CodeBlock";
 import { CompareGrid, LabelRows, TakeawayCard } from "@/components/learn/primitives/Cards";
+import { RevealCard } from "@/components/learn/primitives/RevealCard";
 import { StepList } from "@/components/learn/primitives/StepList";
 import { UndoChooser } from "@/components/github/UndoChooser";
 
@@ -19,9 +20,8 @@ export function UndoingThingsLesson() {
         title="Name what you regret before picking a command"
       >
         <P>
-          This chapter exists because the top search result for &quot;git undo&quot; is a Stack
-          Overflow answer with eleven commands and forty thousand upvotes, and running the wrong one
-          of them destroys work.
+          This chapter exists because searching for &quot;git undo&quot; turns up long answers
+          listing many commands side by side, and running the wrong one of them destroys work.
         </P>
         <P>
           The reliable method is to stop and say out loud what you want to lose. There are only six
@@ -32,13 +32,13 @@ export function UndoingThingsLesson() {
 
       <LessonSection id="restore-throws-away-work-and-does-not-ask" title="restore throws away work, and does not ask">
         <P>
-          <Strong>git restore</Strong> overwrites a file in your working tree with the version from
-          the last commit. Whatever you had typed is gone — not in the index, not in a commit, not in
+          <Strong>git restore</Strong> overwrites a file in your working tree with the version in
+          the index — which is the last commit, unless you had staged a newer version. Whatever you had typed is gone — not in the index, not in a commit, not in
           the reflog. Gone.
         </P>
         <CodeBlock
           variant="terminal"
-          code={`git restore src/app.js       # this file, back to the last commit
+          code={`git restore src/app.js       # this file, back to its staged/committed version
 git restore .                 # every modified file. There is no confirmation prompt.`}
         />
         <P>
@@ -191,7 +191,7 @@ git revert HEAD               # undo the very last commit, safely`}
         <CodeBlock
           label="git reflog"
           copyable={false}
-          code={`9f3c1a2 HEAD@{0}: reset: moving to HEAD~3
+          code={`1a5e8c3 HEAD@{0}: reset: moving to HEAD~3
 4b8e0d7 HEAD@{1}: commit: Handle the empty next param
 2c7a91f HEAD@{2}: commit: Fix the redirect when next is empty
 7d1f6b4 HEAD@{3}: commit: Add the settings page
@@ -224,10 +224,32 @@ git revert HEAD               # undo the very last commit, safely`}
         </Callout>
       </LessonSection>
 
+      <RevealCard
+        summaryTag="Try it yourself"
+        summary={
+          <>
+            You pushed a commit to main yesterday, two teammates have pulled it since, and today
+            you find it broke the login page. Which of restore, reset and revert do you reach
+            for, and why not the other two?
+          </>
+        }
+        detailTag="Answer"
+        detail={
+          <>
+            <Strong>git revert</Strong> on that commit, then push. It adds a new commit that
+            undoes the change, so nobody&apos;s history is rewritten. Reset would move main
+            backwards under your teammates and force them to untangle it. Restore only touches
+            files in your working tree; it cannot undo a commit that is already shared.
+          </>
+        }
+        openLabel="Show the answer"
+        closeLabel="Hide the answer"
+      />
+
       <TakeawayCard
         items={[
           "Say what you want to lose before you pick a command. Six situations, six answers.",
-          "git restore overwrites a file from the last commit and the edit is unrecoverable — it was never in Git.",
+          "git restore overwrites a file with its staged or committed version, and the unstaged edit is unrecoverable — it was never in Git.",
           "git stash sets work aside safely when you are not sure you want to lose it.",
           "git reset moves the branch pointer; --soft keeps changes staged, --mixed keeps them unstaged, --hard destroys them.",
           "git reset --soft HEAD~1 is how you redo the last commit differently.",

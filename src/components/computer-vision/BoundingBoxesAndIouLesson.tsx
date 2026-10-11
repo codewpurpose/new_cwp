@@ -1,6 +1,8 @@
 import { TakeawayCard } from "@/components/learn/primitives/Cards";
 import { Lead, LessonSection, P, Strong } from "@/components/learn/primitives/LessonSection";
 import { IouDragger } from "@/components/computer-vision/IouDragger";
+import { CodeBlock } from "@/components/learn/primitives/CodeBlock";
+import { RevealCard } from "@/components/learn/primitives/RevealCard";
 
 export function BoundingBoxesAndIouLesson() {
   return (
@@ -40,6 +42,16 @@ export function BoundingBoxesAndIouLesson() {
           all score 0. Everything a detector actually produces lands somewhere in between, and the
           interactive below lets you watch that number move.
         </P>
+        <div className="mt-6">
+          <RevealCard
+            summaryTag="Try it yourself"
+            summary="The true box is 100 by 100 pixels. The predicted box is exactly the same size but sits 50 pixels to the right. Is it a hit at an IoU threshold of 0.5?"
+            detailTag="Answer"
+            detail="The overlap is 50 × 100 = 5,000. The union is 10,000 + 10,000 − 5,000 = 15,000. IoU = 5,000 / 15,000 ≈ 0.33, so it is a miss — even though half of the true box is covered. Sliding a box by half its width costs far more than half the IoU."
+            openLabel="Show the answer"
+            closeLabel="Hide the answer"
+          />
+        </div>
       </LessonSection>
 
       <IouDragger />
@@ -59,13 +71,42 @@ export function BoundingBoxesAndIouLesson() {
           picture changes continuously. <Strong>The verdict does not</Strong> — it flips the
           instant the number crosses the line.
         </P>
+        <P>
+          Here is IoU as a function, with a 100-by-100 prediction slid further and further right
+          of the true box.
+        </P>
+        <CodeBlock
+          label="iou.py"
+          code={`def area(box):
+    x1, y1, x2, y2 = box
+    return max(0, x2 - x1) * max(0, y2 - y1)
+
+def iou(a, b):
+    # The overlap is itself a box: the inner edges of the two.
+    overlap = (max(a[0], b[0]), max(a[1], b[1]), min(a[2], b[2]), min(a[3], b[3]))
+    inter = area(overlap)
+    union = area(a) + area(b) - inter      # subtract the overlap once
+    return inter / union
+
+truth = (0, 0, 100, 100)                   # (left, top, right, bottom) in pixels
+for shift in [0, 10, 25, 50, 100]:         # slide the prediction right
+    predicted = (shift, 0, 100 + shift, 100)
+    score = iou(truth, predicted)
+    verdict = "hit" if score >= 0.5 else "miss"
+    print(f"shifted {shift:3} px: IoU {score:.2f}  ({verdict} at 0.5)")`}
+        />
+        <P>
+          A 25-pixel slide still scores 0.60, a hit. At 50 pixels it is 0.33, the miss from the
+          exercise above. Change the threshold to 0.75 and the 25-pixel box becomes a miss
+          without moving.
+        </P>
       </LessonSection>
 
       <LessonSection id="why-one-half-is-a-choice-not-a-law" title="Why 0.5 is a choice, not a law">
         <P>
           0.5 is the threshold you will see quoted most often, but it is a convention, not a
           property of geometry. A benchmark can and does choose differently — some standard
-          evaluations report accuracy at 0.75, a noticeably stricter bar, and some report a whole
+          evaluations report results at 0.75, a noticeably stricter bar, and some report a whole
           curve of scores across every threshold from 0.5 to 0.95 rather than commit to one.
         </P>
         <P>

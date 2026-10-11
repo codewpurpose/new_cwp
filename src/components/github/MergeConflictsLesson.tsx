@@ -205,8 +205,8 @@ git cherry-pick --abort   # a conflicted cherry-pick`}
           </span>{" "}
           switches on &quot;reuse recorded resolution&quot;. Git records how you resolved each
           conflict and replays that resolution automatically when it sees the same one again — which
-          happens constantly if you rebase a long-lived branch repeatedly. It is off by default and
-          almost everybody who turns it on keeps it on.
+          happens constantly if you rebase a long-lived branch repeatedly. It is off by default, so
+          you have to switch it on yourself.
         </Callout>
       </LessonSection>
 

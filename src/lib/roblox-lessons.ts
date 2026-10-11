@@ -161,7 +161,7 @@ export const ROBLOX_CHAPTERS: readonly LearnChapter[] = [
     order: 6,
     title: "Reaching Into the Tree From Code",
     description:
-      "script.Parent works beautifully until somebody renames a part, and then it fails with a message about indexing nil. Compare the four ways to find an object and see which survive a part that has not loaded yet.",
+      "workspace.Obby.Laser works beautifully until somebody renames a part, and then the script stops dead on that line. Compare the four ways to find an object and see which survive a part that is missing, renamed, or has not loaded yet.",
     level: "intermediate",
     minutes: 10,
     prerequisites: ["the-data-model"],

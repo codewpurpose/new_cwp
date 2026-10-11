@@ -1,7 +1,8 @@
 import { Lead, LessonSection, P, Strong } from "@/components/learn/primitives/LessonSection";
 import { Callout } from "@/components/learn/primitives/Callout";
-import { CodeBlock } from "@/components/learn/primitives/CodeBlock";
+import { CodeBlock, InlineCode } from "@/components/learn/primitives/CodeBlock";
 import { ChecklistCard, TakeawayCard } from "@/components/learn/primitives/Cards";
+import { TryIt } from "@/components/python/TryIt";
 
 export function WorkingWithLibrariesLesson() {
   return (
@@ -53,12 +54,12 @@ Successfully installed requests-2.31.0`}
         <CodeBlock
           label="Terminal"
           variant="terminal"
-          code={`$ python -m venv .venv
+          code={`$ python3 -m venv .venv
 $ source .venv/bin/activate
 (.venv) $ pip install requests`}
         />
         <P>
-          <Strong>python -m venv .venv</Strong> creates an isolated folder with its own copy of
+          <Strong>python3 -m venv .venv</Strong> creates an isolated folder with its own copy of
           Python and its own package list.{" "}
           <Strong>source .venv/bin/activate</Strong> switches the current terminal to use that
           copy, so anything installed afterward stays scoped to this one project. The{" "}
@@ -142,6 +143,21 @@ get(url, params=None, **kwargs)
           arguments are required, what a successful call returns, and which exceptions it can
           raise that a docstring alone would not mention.
         </P>
+        <P>
+          The standard library is documented the same way, and it is already installed. The
+          program below uses <Strong>datetime</Strong>, which ships with Python.
+        </P>
+        <TryIt
+          label="dates.py"
+          code={`from datetime import date
+
+start = date(2026, 3, 14)
+end = date(2026, 10, 10)
+
+print((end - start).days, "days apart")
+print(start.strftime("%A %d %B %Y"))`}
+          prompt={<>Find another format code in the <InlineCode>datetime</InlineCode> docs and print the date a different way.</>}
+        />
         <P>
           A well-maintained package documents its arguments and return types precisely enough
           that you should never need to read its source code to use it correctly — needing to

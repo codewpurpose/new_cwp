@@ -57,8 +57,8 @@ site-final-USE-THIS-ONE (copy)/`}
         />
         <P>
           Git answers all four, and the price is learning a handful of ideas that are
-          strange the first time. It is worth it — this is the tool every professional developer on
-          earth uses, every day, and it has been the standard for twenty years.
+          strange the first time. It is worth it — this is the tool nearly every software team uses,
+          every day, and it has been around since 2005.
         </P>
       </LessonSection>
 

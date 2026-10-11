@@ -1,6 +1,7 @@
 import type { MetadataRoute } from "next";
 import { SITE_URL } from "@/lib/links";
 import { posts } from "@/lib/posts";
+import { PROJECTS } from "@/lib/projects";
 
 /** Absolute URL with a trailing slash, matching how the site serves pages
  *  (`trailingSlash: true`) so canonicals and the sitemap agree. */
@@ -25,6 +26,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     "/media",
     "/resources/ai-coding",
     "/playground",
+    "/projects",
     "/learn/ml",
     "/learn/vibecoding",
     "/learn/python",
@@ -48,5 +50,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.6,
   }));
 
-  return [...staticRoutes, ...postRoutes];
+  const projectRoutes = PROJECTS.map((project) => ({
+    url: abs(`/projects/${project.slug}`),
+    lastModified: new Date(),
+    changeFrequency: "monthly" as const,
+    priority: 0.6,
+  }));
+
+  return [...staticRoutes, ...projectRoutes, ...postRoutes];
 }

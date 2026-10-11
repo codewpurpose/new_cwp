@@ -30,7 +30,7 @@ interface Step {
 const FLOWS: Record<Scenario, { steps: Step[]; verdict: string; fatal: boolean; note: string }> = {
   leg: {
     steps: [
-      { code: "otherPart", result: 'Part "LeftLowerLeg"', ok: true },
+      { code: "otherPart", result: 'MeshPart "LeftLowerLeg"', ok: true },
       { code: "otherPart.Parent", result: 'Model "Amara"', ok: true },
       { code: ':FindFirstChildWhichIsA("Humanoid")', result: "Humanoid", ok: true },
       { code: "humanoid:TakeDamage(100)", result: "Health 100 → 0", ok: true },
@@ -48,7 +48,7 @@ const FLOWS: Record<Scenario, { steps: Step[]; verdict: string; fatal: boolean; 
     ],
     verdict: "Nothing happens, correctly. A brick has no Humanoid to damage.",
     fatal: false,
-    note: "This is why the `if humanoid then` guard is not optional. Without it the next line calls a method on nil, the script throws, and the connection stops firing for everybody.",
+    note: "This is why the `if humanoid then` guard is not optional. Without it the next line calls a method on nil and that run of the handler throws — once for every piece of debris that lands on the laser, burying any real error in red.",
   },
   hat: {
     steps: [
@@ -59,7 +59,7 @@ const FLOWS: Record<Scenario, { steps: Step[]; verdict: string; fatal: boolean; 
     ],
     verdict: "The player survives, and nobody can tell you why.",
     fatal: false,
-    note: "A hat's Handle is one level deeper than a limb: its parent is the Accessory, and the Humanoid is the Accessory's sibling, not its child. The fix is Players:GetPlayerFromCharacter walking up, or FindFirstAncestorOfClass(\"Model\") — never a second .Parent, which breaks the leg case.",
+    note: "A hat's Handle is one level deeper than a limb: its parent is the Accessory, and the Humanoid is the Accessory's sibling, not its child. The fix is to search upward with FindFirstAncestorOfClass(\"Model\"), which lands on the character from a limb and from a hat alike — never a second .Parent, which breaks the leg case.",
   },
 };
 

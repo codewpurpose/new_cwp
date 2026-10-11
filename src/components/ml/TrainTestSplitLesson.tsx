@@ -1,5 +1,6 @@
 import { Callout } from "@/components/learn/primitives/Callout";
 import { TakeawayCard } from "@/components/learn/primitives/Cards";
+import { CodeBlock, InlineCode } from "@/components/learn/primitives/CodeBlock";
 import { Lead, LessonSection, P, Strong } from "@/components/learn/primitives/LessonSection";
 import { SplitLottery } from "@/components/ml/SplitLottery";
 
@@ -79,6 +80,40 @@ export function TrainTestSplitLesson() {
           <Strong>below</Strong> the test line at every single setting. That gap never closes,
           and it is the model flattering itself. Never quote a training score as though it were
           a measure of how good your model is.
+        </P>
+        <P>
+          Both effects show up on a real dataset that ships with scikit-learn: 569 breast
+          tumours, each described by 30 measurements. An unrestricted decision tree is graded on
+          what it studied, then on the drawer, and then the drawer is redrawn ten times.
+        </P>
+        <CodeBlock
+          label="drawer.py"
+          code={`from sklearn.datasets import load_breast_cancer
+from sklearn.model_selection import train_test_split
+from sklearn.tree import DecisionTreeClassifier
+
+X, y = load_breast_cancer(return_X_y=True)   # 569 tumours, 30 measurements each
+
+# Put a quarter in the drawer, train on the rest.
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.25, random_state=0)
+model = DecisionTreeClassifier(random_state=0).fit(X_train, y_train)
+print(f"graded on what it studied: {model.score(X_train, y_train):.1%}")
+print(f"graded on the drawer:      {model.score(X_test, y_test):.1%}")
+
+# Same model, same data, ten different drawers.
+test_size = 0.05   # try 0.3
+scores = []
+for seed in range(10):
+    X_train, X_test, y_train, y_test = train_test_split(
+        X, y, test_size=test_size, random_state=seed)
+    model = DecisionTreeClassifier(random_state=0).fit(X_train, y_train)
+    scores.append(model.score(X_test, y_test))
+print(f"test size {test_size}: scores from {min(scores):.0%} to {max(scores):.0%}")`}
+        />
+        <P>
+          The tree scores 100% on its own training rows and 88% on the drawer. With a 5% drawer
+          the ten scores run from 79% to 100%; change <InlineCode>test_size</InlineCode> to 0.3
+          and they tighten to between 89% and 95%.
         </P>
       </LessonSection>
 

@@ -2,6 +2,7 @@ import { Callout } from "@/components/learn/primitives/Callout";
 import { TakeawayCard } from "@/components/learn/primitives/Cards";
 import { Lead, LessonSection, P, Strong } from "@/components/learn/primitives/LessonSection";
 import { LayerStepper } from "@/components/computer-vision/LayerStepper";
+import { CodeBlock } from "@/components/learn/primitives/CodeBlock";
 
 export function ConvolutionalNeuralNetworksLesson() {
   return (
@@ -51,7 +52,7 @@ export function ConvolutionalNeuralNetworksLesson() {
           simply what a network with a 3×3 window and one layer of depth is capable of noticing,
           and so edges are what it converges on.
         </P>
-        <Callout tone="success" title="What changes">
+        <Callout tone="success" title="You can check this yourself">
           This is not a claim you have to take on faith. Feature visualisation techniques let you
           render exactly what pattern makes each first-layer kernel fire most strongly, and across
           published networks the result looks the same: a bank of oriented edges and colour
@@ -92,9 +93,33 @@ export function ConvolutionalNeuralNetworksLesson() {
           The second is reach. A single 3×3 kernel in the first layer only ever looks at nine
           pixels. Stack five layers of 3×3 kernels and the fifth layer&rsquo;s output at any
           position is influenced by roughly an 11×11 patch of the original image — its{" "}
-          <Strong>receptive field</Strong>. Stack thirty and that patch can cover most of the
-          photo. Depth is how a network built from small, local operations ends up seeing
+          <Strong>receptive field</Strong>. Each 3×3 layer adds two pixels to the width, so n
+          layers see a patch 2n + 1 pixels across. Real networks also shrink the grid between
+          layers with pooling or larger strides, which makes the patch grow much faster, so by
+          thirty layers it can cover most of the photo. Depth is how a network built from small, local operations ends up seeing
           something global.
+        </P>
+        <P>
+          You can check the 2n + 1 rule by following a single pixel through a stack of 3-by-3
+          layers.
+        </P>
+        <CodeBlock
+          label="receptive_field.py"
+          code={`import numpy as np
+from scipy.signal import convolve2d
+
+# Follow one input pixel's influence through a stack of 3x3 layers.
+influence = np.zeros((1, 1))
+influence[0, 0] = 1
+kernel = np.ones((3, 3))
+
+for layer in range(1, 6):   # try more layers
+    influence = convolve2d(influence, kernel)        # "full" mode: let it spread
+    width = influence.shape[0]
+    print(f"after {layer} layer(s): one pixel reaches a {width}x{width} patch")`}
+        />
+        <P>
+          Each layer adds two pixels: 3, 5, 7, 9, then 11 after five layers.
         </P>
         <P>
           <Strong>Depth is not free.</Strong> More layers means more parameters to learn, more

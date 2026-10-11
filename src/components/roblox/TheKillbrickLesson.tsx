@@ -57,11 +57,12 @@ end)`}
         />
         <P>
           This is the version in most tutorials and it is one falling brick away from breaking
-          the laser for everybody. A brick&apos;s parent is the Workspace, the Workspace has no
-          child called <Strong>Humanoid</Strong>, so the lookup returns nil and the next line
-          throws. An unhandled error inside a <Strong>Touched</Strong> handler kills that
-          invocation — and the laser now has a stack trace in the Output window and a bug
-          nobody can reproduce on purpose.
+          the laser. A brick&apos;s parent is the Workspace, the Workspace has no child called{" "}
+          <Strong>Humanoid</Strong>, and a dot lookup for a child that is not there throws
+          immediately: <Strong>Humanoid is not a valid member of Workspace</Strong>. An
+          unhandled error inside a <Strong>Touched</Strong> handler kills that invocation — so
+          the Output window fills with red every time debris lands on the laser, and the real
+          problem, a lookup with no guard, is easy to mistake for something mysterious.
         </P>
       </LessonSection>
 
@@ -214,7 +215,7 @@ end)`}
         items={[
           "Touched hands you a part. The player's name is one level up, and the damageable object is a sibling of that part.",
           "A character model is flat — every limb, the Humanoid, and the HumanoidRootPart are direct children of it.",
-          "otherPart.Parent.Humanoid throws the moment a falling brick touches the laser, and an unhandled error kills that invocation.",
+          "otherPart.Parent.Humanoid throws 'Humanoid is not a valid member of Workspace' the moment a falling brick touches the laser.",
           "FindFirstChildWhichIsA(\"Humanoid\") searches by class, so it survives a rig whose Humanoid was renamed.",
           "if not humanoid then return end is the whole safety of the script. Without it, one brick produces a stack trace.",
           "A hat's Handle is one level deeper than a limb. FindFirstAncestorOfClass(\"Model\") handles both; a second .Parent breaks the common case.",

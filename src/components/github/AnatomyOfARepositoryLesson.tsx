@@ -65,8 +65,8 @@ MIT — see [LICENSE](LICENSE).`}
         />
         <P>
           A handful of other files get special treatment on GitHub, all of them optional and all of
-          them ordinary files in the repository — most can live at the root or in a{" "}
-          <Strong>.github/</Strong> directory to keep the root tidy.
+          them ordinary files in the repository. LICENSE belongs at the root; most of the others can
+          live there or in a <Strong>.github/</Strong> directory to keep the root tidy.
         </P>
         <LabelRows
           rows={[
@@ -83,8 +83,8 @@ MIT — see [LICENSE](LICENSE).`}
         <P>
           This surprises people and it is worth being blunt about. Code on GitHub with no licence file
           is <Strong>not open source</Strong>. Copyright applies by default, and the default is that
-          nobody may copy, modify, or use it. Making a repository public grants permission to view
-          it, and only because you agreed to GitHub&apos;s terms.
+          nobody may copy, modify, or use it. Making a repository public lets people view and fork it
+          on GitHub, because you agreed to GitHub&apos;s terms — and nothing more.
         </P>
         <P>
           A licence is how you grant the rest. There is no need to write one — pick a standard one,
@@ -141,8 +141,8 @@ git switch --detach v1.2.0          # look at the code as it was at that release
         </P>
         <P>
           A <Strong>release</Strong> is a GitHub feature built on top of a tag. It adds release
-          notes, downloadable binaries, and a pre-release flag. Every release has a tag; most tags are
-          not releases.
+          notes, downloadable binaries, and a pre-release flag. Every release has a tag; not every tag is
+          a release.
         </P>
         <LabelRows
           rows={[
@@ -224,7 +224,8 @@ git switch --detach v1.2.0          # look at the code as it was at that release
           <Strong>Network</Strong> — a visualisation of every fork and branch that is the
           fastest way to see whether a fork went somewhere the original did not.{" "}
           <Strong>Security</Strong> holds Dependabot alerts for known-vulnerable dependencies, secret
-          scanning, and code scanning. On a public repository most of it is free and off by default.
+          scanning, and code scanning. On a public repository these are free; secret scanning is on by default, and Dependabot
+          alerts are worth switching on.
         </P>
         <ChecklistCard
           title="A repository somebody else can actually use"
@@ -243,7 +244,7 @@ git switch --detach v1.2.0          # look at the code as it was at that release
       <TakeawayCard
         items={[
           "README.md is an ordinary Markdown file that GitHub happens to render. It is one of the most useful files in a repository.",
-          "LICENSE, CONTRIBUTING, CODE_OF_CONDUCT, SECURITY and CODEOWNERS all get special treatment and can live in .github/.",
+          "LICENSE, CONTRIBUTING, CODE_OF_CONDUCT, SECURITY and CODEOWNERS all get special treatment. LICENSE goes at the root; most others can live in .github/.",
           "Public code with no licence is not open source — copyright says nobody may use it.",
           "MIT for permissive and short, Apache 2.0 for the patent grant, GPL to require derivatives stay open.",
           "A tag is a permanent Git name for a commit; a release is a GitHub object built on a tag.",

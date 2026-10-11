@@ -63,7 +63,7 @@ export function BiasAndErrorInMedicalAiLesson() {
           Nobody involved chose to build a biased algorithm. Cost looked like a defensible,
           measurable proxy for need, right up until someone checked whether it actually measured
           the same thing for every group it was used on. That mechanism matters more
-          more than the specific example: a model does not need to be told anyone&apos;s race, sex,
+          than the specific example: a model does not need to be told anyone&apos;s race, sex,
           or income to reproduce exactly the inequality already baked into whichever number it was
           told to predict.
         </P>
@@ -87,9 +87,8 @@ export function BiasAndErrorInMedicalAiLesson() {
         title="What a sensor or a dataset can quietly leave out"
       >
         <P>
-          A proxy variable standing in for illness is one mechanism. Two more, both well
-          documented and both simpler than anything involving a learned model, so learn them
-          by name.
+          A proxy variable standing in for illness is one mechanism. Two more are both well
+          documented, and both are simpler than anything involving a learned model.
         </P>
         <LabelRows
           rows={[

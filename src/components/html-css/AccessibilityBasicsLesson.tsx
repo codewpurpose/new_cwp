@@ -43,7 +43,7 @@ export function AccessibilityBasicsLesson() {
           </span>{" "}
           with two keyboard handlers is a worse{" "}
           <span className="font-[family-name:var(--learn-font-mono)]">&lt;button&gt;</span>. Bad
-          ARIA is measurably worse than no ARIA.
+          ARIA is worse than no ARIA, because it announces things that are not true.
         </Callout>
         <P>
           These are the ARIA attributes most likely to appear on a static site:
@@ -172,7 +172,7 @@ export function AccessibilityBasicsLesson() {
         <Callout tone="danger" title="outline: none is the most damaging one line in CSS">
           Removing focus outlines because they look untidy makes a site unusable for anybody
           navigating by keyboard — there is no longer any way to tell where you are. Style the
-          outline instead. Chapter 21 does it once, for everything, in four lines with{" "}
+          outline instead. Chapter 21 does it once, for everything, in a single rule with{" "}
           <span className="font-[family-name:var(--learn-font-mono)]">:focus-visible</span>.
         </Callout>
         <P>
@@ -213,7 +213,7 @@ export function AccessibilityBasicsLesson() {
             "Read the page with CSS off. That is roughly the screen reader experience",
           ]}
         />
-        <Callout tone="note" title="Automated tools catch about a third of it">
+        <Callout tone="note" title="Automated tools catch only part of it">
           Lighthouse and axe are useful and will find missing alt attributes, contrast
           failures, and unlabelled inputs in seconds. They cannot tell whether your alt text is{" "}
           <em>good</em>, whether your heading order makes sense, or whether the tab order is logical.
@@ -240,7 +240,7 @@ export function AccessibilityBasicsLesson() {
           "outline: none makes a site unusable by keyboard. Style the outline; never delete it.",
           "opacity: 0 keeps things focusable, and positive tabindex scrambles the whole page order.",
           "Alt text describes what the image communicates; functional images describe the action; decorative ones get alt=\"\".",
-          "Lighthouse catches roughly a third of the problems automatically. Use the keyboard yourself for the rest.",
+          "Lighthouse catches only some of the problems automatically. Use the keyboard yourself for the rest.",
           "Almost all of it helps people who are not disabled too — it is one site that works in more conditions.",
         ]}
       />

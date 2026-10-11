@@ -46,7 +46,8 @@ export function RemotePatientMonitoringLesson() {
           Below is a simplified version of what a remote-monitoring dashboard shows: one
           patient&apos;s heart rate, updating hour by hour over a single day. Click through the
           readings and watch what happens when one crosses the threshold a care team set in
-          advance.
+          advance — then notice what the chart can&apos;t tell you on its own: whether that spike
+          is a real problem or a patient who just climbed the stairs.
         </P>
       </LessonSection>
 
@@ -161,8 +162,11 @@ export function RemotePatientMonitoringLesson() {
         <P>
           That 16-day threshold on <Strong>99454</Strong> is the number that quietly runs the
           whole programme. A patient who wears the device for nine days out of thirty generates
-          real data and real staff attention, and the practice still cannot bill for that
-          patient&apos;s monitoring that month at all. Reimbursement is not a footnote here — it
+          real data and real staff attention, and still falls short of the code that pays for a
+          full month of device monitoring. Billing rules like these are revised regularly —
+          newer codes have been added for shorter stretches of transmission — so the exact
+          thresholds are worth checking against current Medicare guidance, but the pressure they
+          create stays the same. Reimbursement is not a footnote here — it
           is the reason a monitoring programme that cannot keep patients transmitting reliably
           eventually gets shut down regardless of how well the alerts themselves work.
         </P>
@@ -197,7 +201,7 @@ export function RemotePatientMonitoringLesson() {
           "Remote patient monitoring turns one data point per scheduled visit into a continuous stream generated during an ordinary day at home.",
           "A warning sign that appears between visits is invisible to a system that only checks in on a schedule, which is the entire case for monitoring continuously.",
           "The device is the easy part — the harder problem is staffing an alert queue that someone is actually watching at 3am, not just during business hours.",
-          "Reimbursement isn't a footnote: Medicare's own billing code only pays for a month where the patient transmitted readings on at least 16 of 30 days.",
+          "Reimbursement isn't a footnote: Medicare's main device code for remote monitoring pays for a month only when the patient transmitted readings on at least 16 of 30 days.",
           "A device that goes silent is not the same as a stable patient, and a workflow that treats silence as good news has built the wrong assumption into its core.",
         ]}
       />

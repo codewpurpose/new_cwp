@@ -1,9 +1,8 @@
 import Link from "next/link";
 import type { ReactNode } from "react";
 import BlurText from "@/components/reactbits/BlurText";
-import TiltedCard from "@/components/reactbits/TiltedCard";
 import { TopicCover } from "@/components/TopicCover";
-import { formatDuration, getCatalogCourse, getTrackStats } from "@/components/courses/catalog";
+import { getCatalogCourse } from "@/components/courses/catalog";
 import {
   ChapterStatus,
   ContinueButton,
@@ -15,15 +14,13 @@ import { chapterHref, getPartsWithChapters } from "@/lib/learn-nav";
 import type { LearnChapter, LearnTrackId } from "@/lib/learn-types";
 import { COURSES_HREF } from "@/lib/links";
 
-const LEVEL_LABEL = { beginner: "Beginner", intermediate: "Intermediate", advanced: "Advanced" } as const;
-
 /**
  * A course's home inside the learning space: a hero that answers "where am I
  * and what do I do next", then the whole syllabus, part by part.
  *
  * The title and description are each track page's own copy, passed in rather
- * than rewritten here. The figures (chapters, parts, reading time, level mix)
- * are counted from the published lesson graph.
+ * than rewritten here. No walls of figures: progress shows up once a reader
+ * has started, and the syllabus reads as a path rather than a workload.
  */
 export function CourseHome({
   track,
@@ -40,9 +37,7 @@ export function CourseHome({
   chapterMedia: (chapter: LearnChapter) => ReactNode;
 }) {
   const course = getCatalogCourse(track);
-  const stats = getTrackStats(track);
   const parts = getPartsWithChapters(track);
-  const duration = formatDuration(stats.minutes);
   // Numbered across the whole course, the order LessonGate unlocks them in.
   const numberOf = new Map(
     parts.flatMap((group) => group.chapters).map((chapter, index) => [chapter.slug, index + 1]),
@@ -50,11 +45,10 @@ export function CourseHome({
 
   return (
     <>
-      <section className="relative overflow-hidden border-b-[0.5px] border-[var(--home-hairline)]">
-        <div aria-hidden="true" className="cwp-hero-bg absolute inset-0" />
+      <section className="relative overflow-hidden border-b-[0.5px] border-[var(--grass-5)] bg-[linear-gradient(180deg,#e9f6e9_0%,#f3f9f0_55%,var(--home-page)_100%)]">
         <div className="relative mx-auto grid w-full max-w-[85rem] gap-10 px-5 pt-8 pb-12 md:px-10 md:pt-12 md:pb-16 lg:grid-cols-[minmax(0,1.3fr)_minmax(0,1fr)] lg:items-center lg:gap-14">
           <div className="min-w-0">
-            <nav aria-label="Breadcrumb" className="text-[13px] text-[var(--home-ink-quiet)]">
+            <nav aria-label="Breadcrumb" className="text-[13px] text-[#2f6b4c]">
               <ol className="flex flex-wrap items-center gap-1.5">
                 <li>
                   <Link href={COURSES_HREF} className="learn-focusable underline-offset-2 hover:underline">
@@ -72,7 +66,7 @@ export function CourseHome({
               {course.tags.map((tag) => (
                 <span
                   key={tag}
-                  className="rounded-full bg-[#dbefdb] px-2.5 py-1 text-[11px] font-medium uppercase tracking-[0.08em] text-[#1e3c2c]"
+                  className="rounded-full bg-[var(--home-pistachio)] px-2.5 py-1 text-[11px] font-medium uppercase tracking-[0.08em] text-[#1e3c2c]"
                 >
                   {tag}
                 </span>
@@ -87,23 +81,6 @@ export function CourseHome({
             <p className="mt-5 max-w-xl text-[17px] leading-[1.55] text-[var(--home-ink-soft)]">
               {description}
             </p>
-
-            <dl className="mt-7 grid max-w-xl grid-cols-3 gap-px overflow-hidden rounded-2xl border-[0.5px] border-[var(--home-grey-500)] bg-[var(--home-grey-500)]">
-              {[
-                { label: "Chapters", value: String(stats.chapters) },
-                { label: stats.parts === 1 ? "Part" : "Parts", value: String(stats.parts) },
-                { label: "Reading", value: duration },
-              ].map((item) => (
-                <div key={item.label} className="bg-[#fffbf5] px-4 py-3">
-                  <dt className="home-mono text-[10.5px] uppercase tracking-[0.12em] text-[var(--home-ink-quiet)]">
-                    {item.label}
-                  </dt>
-                  <dd className="home-serif mt-1 text-[1.35rem] leading-none text-[#1e3c2c]">
-                    {item.value}
-                  </dd>
-                </div>
-              ))}
-            </dl>
 
             <div className="mt-7 flex flex-wrap items-center gap-2">
               <ContinueButton />
@@ -124,15 +101,12 @@ export function CourseHome({
           </div>
 
           <div className="min-w-0">
-            <div className="home-card overflow-hidden rounded-[22px] bg-[#fffbf5]">
-              <TiltedCard rotateAmplitude={4}>
-                <TopicCover variant={course.cover} className="block aspect-[16/9] w-full" />
-              </TiltedCard>
-              <div className="border-t-[0.5px] border-[var(--home-grey-500)] px-5">
-                <ProgressPanel durationLabel={duration} />
+            <div className="overflow-hidden rounded-[22px] border-[0.5px] border-[var(--grass-6)] bg-[#fffbf5] shadow-[0_1px_2px_rgba(30,60,44,0.06),0_12px_32px_-18px_rgba(30,60,44,0.25)]">
+              <TopicCover variant={course.cover} className="block aspect-[16/9] w-full" />
+              <div className="border-t-[0.5px] border-[var(--grass-5)] bg-[#f3f9f0] px-5">
+                <ProgressPanel />
               </div>
             </div>
-            <LevelMix levels={stats.levels} total={stats.chapters} />
           </div>
         </div>
       </section>
@@ -142,10 +116,10 @@ export function CourseHome({
           <div className="lg:sticky lg:top-[5.5rem] lg:self-start">
             <p className="home-mono text-[11px] uppercase tracking-[0.14em] text-[#3e7f5c]">Syllabus</p>
             <h2 id="syllabus-heading" className="home-serif mt-2 text-[1.6rem] leading-tight text-[#15120c]">
-              {parts.length > 1 ? `${parts.length} parts, ${stats.chapters} chapters` : `${stats.chapters} chapters`}
+              What you&apos;ll learn
             </h2>
             <p className="mt-2 text-[14px] leading-relaxed text-[var(--home-ink-quiet)]">
-              Chapters open in order: pass a chapter&apos;s quick check to unlock the next.
+              Take it one chapter at a time. A short quick check at the end of each one opens the next.
             </p>
             {parts.length > 1 && (
               <nav aria-label="Parts" className="mt-5 hidden lg:block">
@@ -246,44 +220,12 @@ function ChapterRow({
         <span className="mt-1 line-clamp-2 block text-[14px] leading-[1.5] text-[var(--home-ink-quiet)]">
           {chapter.description}
         </span>
-        <span className="home-mono mt-1.5 block text-[11.5px] text-[var(--home-ink-quiet)] md:hidden">
-          {chapter.minutes} min · {LEVEL_LABEL[chapter.level]}
-        </span>
       </span>
-      <span className="relative hidden shrink-0 items-center gap-3 md:flex">
-        <span className="home-mono text-right text-[11.5px] leading-tight text-[var(--home-ink-quiet)]">
-          {chapter.minutes} min
-          <br />
-          {LEVEL_LABEL[chapter.level]}
-        </span>
+      <span className="relative hidden shrink-0 items-center md:flex">
         <span aria-hidden="true" className="text-[#3e7f5c] transition-transform group-hover:translate-x-0.5">
           →
         </span>
       </span>
     </Link>
-  );
-}
-
-/** Beginner / intermediate / advanced split of the track's chapters, as one bar. */
-function LevelMix({ levels, total }: { levels: Record<keyof typeof LEVEL_LABEL, number>; total: number }) {
-  if (!total) return null;
-  const colours = { beginner: "#9fd3a8", intermediate: "#3e7f5c", advanced: "#1e3c2c" } as const;
-  const keys = (Object.keys(LEVEL_LABEL) as (keyof typeof LEVEL_LABEL)[]).filter((k) => levels[k] > 0);
-  return (
-    <div className="mt-4 px-1">
-      <div className="flex h-1.5 overflow-hidden rounded-full" aria-hidden="true">
-        {keys.map((key) => (
-          <span key={key} style={{ width: `${(levels[key] / total) * 100}%`, background: colours[key] }} />
-        ))}
-      </div>
-      <ul className="mt-2.5 flex flex-wrap gap-x-4 gap-y-1 text-[12.5px] text-[var(--home-ink-quiet)]">
-        {keys.map((key) => (
-          <li key={key} className="flex items-center gap-1.5">
-            <span aria-hidden="true" className="h-2 w-2 rounded-full" style={{ background: colours[key] }} />
-            {levels[key]} {LEVEL_LABEL[key].toLowerCase()}
-          </li>
-        ))}
-      </ul>
-    </div>
   );
 }

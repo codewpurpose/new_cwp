@@ -1,8 +1,10 @@
 import { Lead, LessonSection, P, Strong } from "@/components/learn/primitives/LessonSection";
 import { Callout } from "@/components/learn/primitives/Callout";
-import { CodeBlock } from "@/components/learn/primitives/CodeBlock";
+import { CodeBlock, InlineCode } from "@/components/learn/primitives/CodeBlock";
 import { CompareGrid, TakeawayCard } from "@/components/learn/primitives/Cards";
+import { RevealCard } from "@/components/learn/primitives/RevealCard";
 import { FunctionMachine } from "@/components/python/FunctionMachine";
+import { TryIt } from "@/components/python/TryIt";
 
 export function FunctionsLesson() {
   return (
@@ -14,13 +16,14 @@ export function FunctionsLesson() {
       </Lead>
 
       <LessonSection id="naming-a-piece-of-work-you-will-repeat" title="Naming a piece of work you will repeat">
-        <CodeBlock
+        <TryIt
           label="greet.py"
           code={`def greet(name):
     print(f"Hello, {name}!")
 
 greet("Ada")
 greet("Grace")`}
+          prompt={<>Change the greeting inside <InlineCode>greet</InlineCode> once, then run it: both calls pick it up.</>}
         />
         <P>
           <Strong>def</Strong> defines the function once. Every line after it that calls{" "}
@@ -46,6 +49,7 @@ greet("Grace")`}
           code={`def greet(name):
     """Print a friendly greeting to the given name."""
     print(f"Hello, {name}!")`}
+          runnable={false}
         />
         <CodeBlock
           label="Terminal"
@@ -119,18 +123,15 @@ Hi, Grace!`}
           function is defined. Every call that relies on the default shares that exact same
           list — not a fresh empty one each time.
         </Callout>
-        <CodeBlock
-          label="Terminal"
-          variant="terminal"
-          code={`>>> def add_item(item, basket=[]):
-...     basket.append(item)
-...     return basket
-...
->>> add_item("apple")
-['apple']
->>> add_item("banana")
-['apple', 'banana']`}
-          lineTones={{ 7: "warn" }}
+        <TryIt
+          label="basket.py"
+          code={`def add_item(item, basket=[]):
+    basket.append(item)
+    return basket
+
+print(add_item("apple"))
+print(add_item("banana"))`}
+          prompt={<>Change the second call to <InlineCode>{'add_item("banana", [])'}</InlineCode> and run it again.</>}
         />
         <P>
           The second call did not start from an empty basket, and nothing about the call site
@@ -236,6 +237,30 @@ None`}
           <Strong>return</Strong>. Reaching the end of a function body falls off the end and
           returns <Strong>None</Strong> exactly as if that had been the last line.
         </P>
+        <CodeBlock
+          label="predict.py"
+          code={`def double(x):
+    print(x * 2)
+
+total = double(5)
+print(total + 1)`}
+        />
+        <RevealCard
+          summaryTag="Try it yourself"
+          summary="What happens when this runs, and which one-word change fixes it?"
+          detailTag="Answer"
+          detail={
+            <>
+              It prints <Strong>10</Strong>, then crashes with{" "}
+              <Strong>{"TypeError: unsupported operand type(s) for +: 'NoneType' and 'int'"}</Strong>
+              , because <Strong>double</Strong> only printed its result and handed back{" "}
+              <Strong>None</Strong>. Change <Strong>print</Strong> to <Strong>return</Strong>{" "}
+              inside the function and the last line prints <Strong>11</Strong>.
+            </>
+          }
+          openLabel="Reveal the answer"
+          closeLabel="Hide the answer"
+        />
       </LessonSection>
 
       <CompareGrid

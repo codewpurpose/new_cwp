@@ -23,7 +23,7 @@ export function NeedsVsWantsLesson() {
         </P>
         <P>
           That test is stricter than it feels. A {formatCurrency(6)}-a-day coffee habit adds up
-          to about {formatCurrency(165)} a month — real money, and a real routine — but it fails
+          to about {formatCurrency(180)} a month — real money, and a real routine — but it fails
           the test cleanly. Skip it for a week and nothing breaks except your morning habit. The
           question was never how much you want something. It was always what happens if you
           don&apos;t get it.

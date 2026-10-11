@@ -73,7 +73,7 @@ export function InteroperabilityRecords() {
       </figcaption>
 
       <p className="mt-2 text-[15px] leading-[1.6] text-learn-strong">
-        Both records below describe one real patient&apos;s one real diagnosis. Nothing about
+        Both mock records below describe one patient&apos;s single diagnosis. Nothing about
         the medicine is different — only how each system happened to write it down.
       </p>
 

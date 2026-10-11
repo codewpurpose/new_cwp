@@ -64,8 +64,8 @@ platform.CanCollide = true`}
         <P>
           You will see <Strong>wait()</Strong> everywhere in older material. It is throttled to
           roughly 30 updates a second and drifts further as the server gets busier, so a{" "}
-          <Strong>wait(3)</Strong> on a loaded server can be four seconds or more — enough that
-          a platform timed against an animation stops matching it.
+          <Strong>wait(3)</Strong> on a loaded server can run noticeably long — enough that a
+          platform timed against an animation stops matching it.
         </P>
         <CodeBlock
           label="Luau"
@@ -185,8 +185,18 @@ end`}
         <P>
           Remember to restore anything you changed. If the warning sets{" "}
           <Strong>BrickColor</Strong>, the restore has to set it back, or your obby slowly turns
-          red one platform at a time as people play it.
+          red one platform at a time as people play it. The reliable way is to read the original
+          values once, at the top of the script, before anything has touched them.
         </P>
+        <CodeBlock
+          label="Luau"
+          code={`local ORIGINAL_COLOR = platform.BrickColor
+local ORIGINAL_MATERIAL = platform.Material
+
+-- ...later, in the restore step:
+platform.BrickColor = ORIGINAL_COLOR
+platform.Material = ORIGINAL_MATERIAL`}
+        />
       </LessonSection>
 
       <TakeawayCard

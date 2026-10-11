@@ -2,6 +2,7 @@ import { Lead, LessonSection, P, Strong } from "@/components/learn/primitives/Le
 import { Callout } from "@/components/learn/primitives/Callout";
 import { CodeBlock } from "@/components/learn/primitives/CodeBlock";
 import { LabelRows, TakeawayCard } from "@/components/learn/primitives/Cards";
+import { RevealCard } from "@/components/learn/primitives/RevealCard";
 import { TouchedTimeline } from "@/components/roblox/TouchedTimeline";
 
 export function EventsAndConnectionsLesson() {
@@ -65,8 +66,12 @@ part.Touched:Connect(onTouch())   -- wrong: calls it now, connects the result`}
         />
         <P>
           The second version runs <Strong>onTouch</Strong> immediately, with no argument, and
-          connects whatever it returned — which is nil. Nothing is connected, the touch never
-          fires anything, and the error you got happened once at startup and scrolled away.
+          would try to connect whatever it returned. Here it never gets that far:{" "}
+          <Strong>otherPart</Strong> is nil, so <Strong>otherPart.Name</Strong> throws before
+          Connect even runs. (A function that returned nil cleanly would fail one step later,
+          with <Strong>Attempt to connect failed: Passed value is not a function</Strong>.)
+          Either way nothing is connected, touching the part does nothing, and the only evidence
+          is one red line at startup that has long since scrolled away.
         </P>
         <P>
           The anonymous form is the same thing written inline, and it is what you will see in
@@ -157,10 +162,33 @@ end)`}
         </Callout>
       </LessonSection>
 
+      <RevealCard
+        summaryTag="Try it yourself"
+        summary={
+          <>
+            A part has this script:{" "}
+            <Strong>{"part.Touched:Connect(function(hit) print(hit.Name) end)"}</Strong>. You
+            walk your character across it once. Predict what the Output window shows.
+          </>
+        }
+        detailTag="Answer"
+        detail={
+          <>
+            Not your username. You get the names of body parts — on a standard R15 character,
+            things like <Strong>LeftFoot</Strong>, <Strong>RightFoot</Strong> and{" "}
+            <Strong>LeftLowerLeg</Strong> — and you get several lines, not one, because each
+            part that touches fires the event separately. That is why scripts climb from{" "}
+            <Strong>hit</Strong> to the character model, and why a debounce follows.
+          </>
+        }
+        openLabel="Show the answer"
+        closeLabel="Hide the answer"
+      />
+
       <TakeawayCard
         items={[
           "Events invert the question: the engine already knows something touched the part, so it tells you rather than you checking every frame.",
-          "Connect takes a function, not a call. Connect(onTouch()) runs it immediately and connects nil — nothing fires and nothing warns you.",
+          "Connect takes a function, not a call. Connect(onTouch()) runs it once at startup, connects nothing, and leaves one easy-to-miss error in Output.",
           "Touched hands you the other part, not a player. A player's limb has a Name and no Health.",
           "TouchEnded is less reliable than Touched — a part destroyed mid-touch may never fire it.",
           "One step onto a plate fires Touched ten to forty times, because a character is many parts and contacts jitter.",

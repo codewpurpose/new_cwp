@@ -2,6 +2,7 @@ import { Lead, LessonSection, P, Strong } from "@/components/learn/primitives/Le
 import { Callout } from "@/components/learn/primitives/Callout";
 import { CodeBlock } from "@/components/learn/primitives/CodeBlock";
 import { CompareGrid, TakeawayCard } from "@/components/learn/primitives/Cards";
+import { RevealCard } from "@/components/learn/primitives/RevealCard";
 
 export function DebounceLesson() {
   return (
@@ -71,10 +72,11 @@ platform.Touched:Connect(function()
 
     busy = false
 end)`}
-          lineTones={{ 4: "ok", 5: "ok", 13: "ok" }}
+          lineTones={{ 1: "ok", 4: "ok", 5: "ok", 13: "ok" }}
         />
         <P>
-          Three added lines. The guard, the claim, and the release. The first copy through finds{" "}
+          One variable and three added lines inside the handler: the guard, the claim, and the
+          release. The first copy through finds{" "}
           <Strong>busy</Strong> false, sets it true, and does the work. The other thirty-nine
           find it true and return on their first line.
         </P>
@@ -168,6 +170,21 @@ end)`}
           for every player who has ever visited — which on a popular experience is a leak that
           only shows up after hours of uptime.
         </P>
+        <RevealCard
+          summaryTag="Try it yourself"
+          summary="A coin uses the single shared busy flag from earlier, with a two-second task.wait inside. Amara touches it, and Ben touches it half a second later. What does each of them get?"
+          detailTag="Answer"
+          detail={
+            <>
+              Amara gets the coin. Ben gets nothing: when his touch arrives,{" "}
+              <Strong>busy</Strong> is still true from Amara&apos;s run, so his handler returns
+              on its first line. Switch to the per-player table above and both get a coin,
+              because Ben&apos;s entry in <Strong>cooldown</Strong> was never set.
+            </>
+          }
+          openLabel="Show the answer"
+          closeLabel="Hide the answer"
+        />
       </LessonSection>
 
       <LessonSection id="a-debounce-is-not-a-cooldown" title="A debounce is not a cooldown">

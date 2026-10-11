@@ -18,12 +18,15 @@ export function TaxesTheBasicsLesson() {
       <LessonSection id="a-tax-bracket-only-taxes-the-income-inside-it" title="A tax bracket only taxes the income inside it">
         <P>
           The US uses a <Strong>marginal</Strong> tax system: income is sliced into bands, and each
-          band is taxed only at its own rate. Someone earning $60,000 doesn&apos;t pay one rate on
-          the full amount — the first slice is taxed at 10%, the next slice at 12%, and so on, only
+          band is taxed only at its own rate. Someone with $60,000 of taxable income — what&apos;s
+          left after deductions like the standard deduction — doesn&apos;t pay one rate on the
+          full amount — the first slice is taxed at 10%, the next slice at 12%, and so on, only
           up to wherever their income actually stops.
         </P>
         <P>
-          Run the actual numbers for that $60,000. The first $11,600 is taxed at 10%, which is
+          Run the actual numbers for that $60,000, using the 2024 single-filer brackets (the
+          thresholds are adjusted for inflation every year, so check the current ones). The first
+          $11,600 is taxed at 10%, which is
           $1,160. The next $35,550, up to $47,150, is taxed at 12%, which is $4,266. The remaining
           $12,850, up to the full $60,000, is taxed at 22%, which is $2,827. Add the three slices
           together — $1,160 plus $4,266 plus $2,827 — and the total tax bill is $8,253, not the
@@ -34,16 +37,18 @@ export function TaxesTheBasicsLesson() {
       <LessonSection id="your-effective-rate-is-lower-than-your-top-bracket" title="Your effective rate is lower than your top bracket">
         <P>
           Your <Strong>marginal rate</Strong> is the rate on your next dollar earned. Your{" "}
-          <Strong>effective rate</Strong> is total tax divided by total income — a blend of every
+          <Strong>effective rate</Strong> is total tax divided by income — a blend of every
           bracket you passed through on the way up. The effective rate is always lower than the
           marginal rate, often by a wide margin, because the earlier, lower-taxed slices are still
           part of the average.
         </P>
         <P>
-          For the $60,000 example above, that&apos;s $8,253 in tax divided by $60,000 in income —
-          an effective rate of about 13.8%, even though the marginal rate sitting on the last
-          dollar earned is 22%. Nobody actually pays 22% of their income in this scenario; they pay
-          13.8% of it, and the 22% only describes what the next dollar would face.
+          For the $60,000 example above, that&apos;s $8,253 in tax divided by $60,000 of taxable
+          income — an effective rate of about 13.8% on taxable income, even though the marginal
+          rate sitting on the last dollar earned is 22%. Measured against total income it is lower
+          still: if this person took the 2024 standard deduction of $14,600, they earned $74,600,
+          and $8,253 is about 11.1% of that. Either way, nobody pays 22% of their income here; the
+          22% only describes what the next dollar would face.
         </P>
       </LessonSection>
 
@@ -99,6 +104,11 @@ export function TaxesTheBasicsLesson() {
           some benefit with its own separate income cutoff out of reach, which is a real
           consideration, but a completely different mechanism from the tax bracket itself.
         </P>
+        <Callout tone="tip" title="Try it yourself">
+          Set the slider above to $45,000, then to $50,000. Only the $2,850 that crossed $47,150
+          moves into the 22% bracket; the tax on that slice rises from 12% to 22%, an extra $285.
+          The other $47,150 is taxed exactly as before, which is why take-home pay still goes up.
+        </Callout>
         <Callout tone="note" title="Where this actually gets confusing">
           Some tax credits and government benefits do phase out above certain income thresholds,
           and that can offset a raise&apos;s value. That&apos;s a separate, real
@@ -144,7 +154,7 @@ export function TaxesTheBasicsLesson() {
       <TakeawayCard
         items={[
           "A marginal tax system taxes each slice of income only at that slice's own rate, never the whole income at the top rate.",
-          "Marginal rate is the rate on your next dollar; effective rate is total tax divided by total income, and it's always lower.",
+          "Marginal rate is the rate on your next dollar; effective rate is total tax divided by income (say whether you mean taxable or total income), and it's lower.",
           "A deduction's value depends on your marginal rate, but a credit removes its full amount from the tax bill regardless of bracket.",
           "Crossing into a higher bracket only raises the rate on the income above that line, not on anything earned below it.",
           "A large tax refund isn't a bonus — it means you overpaid through withholding all year and got an interest-free loan back from the government.",

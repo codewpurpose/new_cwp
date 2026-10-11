@@ -116,7 +116,8 @@ export function WhatACreditScoreActuallyMeasuresLesson() {
         <P>
           Two beliefs about credit scores are common, confidently repeated, and wrong. Both lead
           people to either waste money or avoid a useful habit out of caution that
-          isn&apos;t earned.
+          isn&apos;t earned — and the second one clears up once you know what actually does
+          count as a hard pull.
         </P>
         <ChecklistCard
           title="Myths to retire"

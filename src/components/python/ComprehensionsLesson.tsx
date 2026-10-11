@@ -1,8 +1,9 @@
 import { Lead, LessonSection, P, Strong } from "@/components/learn/primitives/LessonSection";
 import { Callout } from "@/components/learn/primitives/Callout";
 import { LabelRows, TakeawayCard } from "@/components/learn/primitives/Cards";
-import { CodeBlock } from "@/components/learn/primitives/CodeBlock";
+import { CodeBlock, InlineCode } from "@/components/learn/primitives/CodeBlock";
 import { ComprehensionSideBySide } from "@/components/python/ComprehensionSideBySide";
+import { TryIt } from "@/components/python/TryIt";
 
 export function ComprehensionsLesson() {
   return (
@@ -37,17 +38,15 @@ for n in numbers:
           <Strong>if n % 2 == 0</Strong> at the end filters which values make it in, doing the
           work of the loop&apos;s <Strong>if</Strong> check without a separate line.
         </P>
-        <CodeBlock
-          label="Terminal"
-          variant="terminal"
-          code={`>>> numbers = [1, 2, 3, 4, 5, 6]
->>> squares = [n * n for n in numbers]
->>> squares
-[1, 4, 9, 16, 25, 36]
->>> evens_squared = [n * n for n in numbers if n % 2 == 0]
->>> evens_squared
-[4, 16, 36]`}
-          lineTones={{ 3: "ok", 6: "ok" }}
+        <TryIt
+          label="squares.py"
+          code={`numbers = [1, 2, 3, 4, 5, 6]
+
+squares = [n * n for n in numbers]
+evens_squared = [n * n for n in numbers if n % 2 == 0]
+print(squares)
+print(evens_squared)`}
+          prompt={<>Change the filter to <InlineCode>{"if n > 3"}</InlineCode> and run it again.</>}
         />
         <LabelRows
           rows={[
@@ -89,24 +88,22 @@ for n in numbers:
           <Strong>dict comprehension</Strong>; leave the colon out and you get a{" "}
           <Strong>set comprehension</Strong> instead.
         </P>
-        <CodeBlock
-          label="Terminal"
-          variant="terminal"
-          code={`>>> names = ["Ada", "Grace", "Alan"]
->>> lengths = {name: len(name) for name in names}
->>> lengths
-{'Ada': 3, 'Grace': 5, 'Alan': 4}
->>> unique_lengths = {len(name) for name in names}
->>> unique_lengths
-{3, 4, 5}`}
-          lineTones={{ 3: "ok", 6: "ok" }}
+        <TryIt
+          label="lengths.py"
+          code={`names = ["Ada", "Grace", "Alan", "Bob"]
+
+lengths = {name: len(name) for name in names}
+unique_lengths = {len(name) for name in names}
+print(lengths)
+print(unique_lengths)`}
+          prompt="Add a name of your own and see which of the two results grows."
         />
         <P>
           <Strong>{"{name: len(name) for name in names}"}</Strong> builds a dictionary the
           same way the loop version would — one key, one value, per iteration. Drop the key
           entirely and keep only a value, and a set comprehension collapses duplicates the
-          same way <Strong>set()</Strong> always does: three names with two distinct lengths
-          in <Strong>unique_lengths</Strong> produce two entries, not three.
+          same way <Strong>set()</Strong> always does: four names with only three distinct
+          lengths produce three entries in <Strong>unique_lengths</Strong>, not four.
         </P>
         <Callout tone="note" title="Same brackets, different meaning">
           Curly braces already mean two different things in Python — a dictionary literal and
@@ -144,7 +141,9 @@ for row in rows:
           outer loop — <Strong>for row in rows</Strong> — comes first, then the inner one —{" "}
           <Strong>for value in row</Strong>. Reverse them and Python raises a{" "}
           <Strong>NameError</Strong>, because row has to exist before{" "}
-          <Strong>for value in row</Strong> makes sense.
+          <Strong>for value in row</Strong> makes sense — or, worse, if a{" "}
+          <Strong>row</Strong> is still lying around from an earlier loop, it quietly loops
+          over that stale row and hands back the wrong list.
         </P>
         <Callout tone="warning" title="Two levels is usually the ceiling">
           A single nested comprehension for flattening is common and reads fine. Three levels,

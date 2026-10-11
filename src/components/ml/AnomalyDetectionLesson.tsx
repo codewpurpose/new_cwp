@@ -1,5 +1,6 @@
 import { Callout } from "@/components/learn/primitives/Callout";
 import { CompareGrid, TakeawayCard } from "@/components/learn/primitives/Cards";
+import { CodeBlock } from "@/components/learn/primitives/CodeBlock";
 import { Lead, LessonSection, P, Strong } from "@/components/learn/primitives/LessonSection";
 import { StepList } from "@/components/learn/primitives/StepList";
 import { OutlierDial } from "@/components/ml/OutlierDial";
@@ -116,6 +117,35 @@ export function AnomalyDetectionLesson() {
           known fraud is caught, at the cost of 165 legitimate transactions swept up alongside
           them. Loosen it to 3.20 and the false alarms disappear entirely, and with them six of
           the nine frauds — the ones that were never that far from ordinary to begin with.
+        </P>
+        <P>
+          The same idea in a few lines, on freshly generated data. Normal is described by the
+          ordinary rows only, and nothing here ever trains on a fraud.
+        </P>
+        <CodeBlock
+          label="describe_normal.py"
+          code={`import numpy as np
+
+rng = np.random.default_rng(3)
+ordinary = rng.normal([50, 14], [20, 4], size=(400, 2))   # amount, hour of day
+frauds = rng.normal([95, 6], [30, 3], size=(9, 2))
+
+# Describe normal using ordinary rows only: its centre and its spread.
+centre = ordinary.mean(axis=0)
+spread = ordinary.std(axis=0)
+
+def distance(rows):
+    # How many "spreads" from the centre, combining both columns.
+    return np.sqrt((((rows - centre) / spread) ** 2).sum(axis=1))
+
+for cutoff in [2.0, 2.5, 3.0, 3.5]:   # try others
+    caught = (distance(frauds) > cutoff).sum()
+    false_alarms = (distance(ordinary) > cutoff).sum()
+    print(f"cut-off {cutoff}: caught {caught} of 9 frauds, {false_alarms} false alarms")`}
+        />
+        <P>
+          At a cut-off of 2.0 it catches 7 of the 9 frauds with 57 false alarms. At 3.0 the
+          false alarms fall to 5 and only 3 frauds are caught.
         </P>
         <P>
           Notice that no setting is <Strong>correct</Strong>. The precision-recall lesson made

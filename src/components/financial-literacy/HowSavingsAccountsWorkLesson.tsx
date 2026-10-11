@@ -101,7 +101,7 @@ export function HowSavingsAccountsWorkLesson() {
         <P>
           A typical checking account pays close to nothing — often 0.01% APY. A high-yield savings
           account, usually offered by an online-only bank with lower overhead than a branch
-          network, can pay forty or more times that rate. On a {formatCurrency(10000)} balance,
+          network, can pay hundreds of times that rate. On a {formatCurrency(10000)} balance,
           the difference between 0.01% and 4.5% APY is roughly {formatCurrency(449)} a year — for
           holding the exact same cash, doing nothing differently except which account it sits in.
         </P>

@@ -24,7 +24,7 @@ export default function LearnHtmlCssPage() {
         <CourseHome
           track="html-css"
           title="HTML and CSS, from one file to a page you can send someone"
-          description="CodeWithPurpose lessons that build one real page by hand and explain the browser underneath it. Twenty-four chapters: elements, semantic markup, the cascade, the box model, flexbox, grid, accessibility, and publishing. No framework, no build step."
+          description="CodeWithPurpose lessons that build one real page by hand and explain the browser underneath it. Elements, semantic markup, the cascade, the box model, flexbox, grid, accessibility, and publishing. No framework, no build step."
           udemy={{ href: HTML_CSS_COURSE_HREF, label: "Udemy HTML & CSS Course" }}
           chapterMedia={(chapter) => <HtmlCssLessonCover slug={chapter.slug} />}
         />

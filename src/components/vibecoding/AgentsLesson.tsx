@@ -87,7 +87,7 @@ export function AgentsLesson() {
             {
               label: "A destructive action, taken confidently",
               detail:
-                "Deleting a directory it decided was unused, force-pushing over a branch, dropping a table to “clean up” a migration. It has never once asked permission first — only explained afterwards why it seemed reasonable at the time.",
+                "Deleting a directory it decided was unused, force-pushing over a branch, dropping a table to “clean up” a migration. Unless you have set it up to ask, it does not ask permission first — it explains afterwards why it seemed reasonable at the time.",
             },
           ]}
         />

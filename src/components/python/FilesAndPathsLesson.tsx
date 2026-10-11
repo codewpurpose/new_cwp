@@ -1,7 +1,8 @@
 import { Lead, LessonSection, P, Strong } from "@/components/learn/primitives/LessonSection";
 import { Callout } from "@/components/learn/primitives/Callout";
-import { CodeBlock } from "@/components/learn/primitives/CodeBlock";
+import { CodeBlock, InlineCode } from "@/components/learn/primitives/CodeBlock";
 import { CompareGrid, TakeawayCard } from "@/components/learn/primitives/Cards";
+import { TryIt } from "@/components/python/TryIt";
 
 export function FilesAndPathsLesson() {
   return (
@@ -25,7 +26,8 @@ export function FilesAndPathsLesson() {
           <Strong>{'open("notes.txt", "w")'}</Strong> creates the file if it does not exist yet, or
           empties it if it does — the <Strong>&quot;w&quot;</Strong> means write mode.{" "}
           <Strong>write()</Strong> returns the number of characters written, which is easy to
-          ignore and easy to forget you are ignoring.
+          ignore and easy to forget you are ignoring. To add to the end of an existing file
+          instead of wiping it, open it with <Strong>&quot;a&quot;</Strong>, append mode.
         </P>
         <Callout tone="warning" title="The step that is easy to skip">
           Nothing is guaranteed to actually reach the disk until <Strong>close()</Strong> runs.
@@ -169,8 +171,9 @@ b'\\x89PNG\\r\\n\\x1a\\n'`}
               tone: "caution",
               children: (
                 <>
-                  <Strong>{'"data" + "/" + "notes.txt"'}</Strong> hardcodes a forward slash,
-                  which is wrong on Windows, and breaks the moment a folder name changes.
+                  <Strong>{'"data" + "/" + "notes.txt"'}</Strong> glues the separator in by
+                  hand. Doubled or missing slashes creep in as soon as the pieces come from
+                  variables, and the result is a plain string with no path methods at all.
                 </>
               ),
             },
@@ -203,6 +206,24 @@ PosixPath('data/notes.txt')`}
 PosixPath('/Users/you/project/notes.txt')
 >>> Path("notes.txt").exists()
 True`}
+        />
+        <P>
+          When a data file lives next to your script, build its path from the script&apos;s
+          own location instead of the folder you happened to run it from.{" "}
+          <Strong>__file__</Strong> is the path of the current <Strong>.py</Strong> file, so{" "}
+          <Strong>{'Path(__file__).parent / "notes.txt"'}</Strong> finds the same file no
+          matter where the program is started.
+        </P>
+        <TryIt
+          label="paths.py"
+          code={`from pathlib import Path
+
+notes_path = Path("data") / "reports" / "notes.txt"
+print(notes_path)
+print(notes_path.name)
+print(notes_path.suffix)
+print(notes_path.parent)`}
+          prompt={<>Change <InlineCode>{'"notes.txt"'}</InlineCode> to <InlineCode>{'"summary.csv"'}</InlineCode> and run it again.</>}
         />
         <Callout tone="tip" title="Why Path is worth reaching for">
           <Strong>pathlib.Path</Strong> builds and checks paths without string-gluing slashes
@@ -237,6 +258,18 @@ True`}
           being checked. Whether the file is nine lines long or nine million makes no
           difference to how much memory the loop uses, only to how long it takes to finish.
         </P>
+        <TryIt
+          label="errors_only.py"
+          code={`import io
+
+# StringIO behaves like an open text file, so this runs without a real one.
+log = io.StringIO("INFO start\nERROR disk full\nINFO retry\nERROR timeout\n")
+
+for line in log:
+    if "ERROR" in line:
+        print(line.strip())`}
+          prompt={<>Add another <InlineCode>ERROR</InlineCode> line to the text and run it again.</>}
+        />
         <Callout tone="warning" title="readlines() defeats the point">
           <Strong>f.readlines()</Strong> looks similar and is not: it still reads the entire
           file first, then hands back a list of every line at once. Iterate over{" "}

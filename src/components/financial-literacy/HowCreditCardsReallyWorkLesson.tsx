@@ -25,8 +25,9 @@ export function HowCreditCardsReallyWorkLesson() {
           Everything charged inside that window — the {formatCurrency(180)} of groceries on day 2,
           the {formatCurrency(425)} laptop accessory on day 24 — lands on the same statement and
           shares the same due date, regardless of when in the cycle it happened. A purchase made
-          the day the cycle opens can get almost 60 days of interest-free credit before it&apos;s
-          due; the same purchase made the day before the cycle closes gets barely 30.
+          the day the cycle opens can get around 50 days of interest-free credit — the whole
+          cycle plus the grace period — before it&apos;s due; the same purchase made the day
+          before the cycle closes gets only the grace period, roughly three weeks.
         </P>
       </LessonSection>
 
@@ -131,16 +132,17 @@ export function HowCreditCardsReallyWorkLesson() {
         <P>
           A {formatCurrency(1200)} purchase financed at 0% for 18 months, with{" "}
           {formatCurrency(1150)} paid off and {formatCurrency(50)} still outstanding on day 540,
-          doesn&apos;t owe interest on the leftover {formatCurrency(50)}. It owes interest on the
-          entire {formatCurrency(1200)}, backdated to the day of purchase, at whatever the
-          card&apos;s regular APR is — often {formatPercent(29.99, 2)} or higher. Worked out at
-          that rate over 18 months, that backdated interest comes to about {formatCurrency(671)},
-          on a plan that was marketed as free.
+          doesn&apos;t just owe interest on the leftover {formatCurrency(50)}. It owes every
+          dollar of interest that quietly accrued on the purchase from the day it was made — on
+          the full {formatCurrency(1200)} in month one, on whatever was still owed each month
+          after — at the card&apos;s regular APR, often {formatPercent(29.99, 2)} or higher. Paid
+          down in equal monthly instalments, that backdated interest comes to about{" "}
+          {formatCurrency(296)}, landing in a single month on a plan that was marketed as free.
         </P>
         <LabelRows
           rows={[
             { label: "Grace period", text: "Forgives interest on whatever is paid off by the due date. Only the unpaid remainder ever accrues interest." },
-            { label: "Deferred interest", text: "Forgives nothing — it postpones interest on the full original amount, charged in full if any balance remains at the deadline." },
+            { label: "Deferred interest", text: "Forgives nothing — it tracks interest on the purchase from day one, then charges all of it if any balance remains at the deadline." },
           ]}
         />
       </LessonSection>
@@ -151,7 +153,7 @@ export function HowCreditCardsReallyWorkLesson() {
           "The grace period — roughly three weeks between statement close and due date — is what makes paying in full interest-free, regardless of the card's APR.",
           "Missing the grace period charges interest retroactively from each purchase's date, and can strip the grace period from next cycle's purchases too, until a full balance is paid off again.",
           `A typical minimum payment is built to cover roughly one month's interest first, leaving only a sliver — on a ${formatCurrency(2000)} balance at ${formatPercent(24.99, 2)} APR, about ${formatCurrency(20)} of a ${formatCurrency(61.65, 2)} minimum actually reduces what's owed.`,
-          `Cash advances lose the grace period entirely and add a fee on top, and a "0% for 18 months" deferred interest promotion charges interest on the full original amount, backdated, if anything is left owing at the deadline.`,
+          `Cash advances lose the grace period entirely and add a fee on top, and a "0% for 18 months" deferred interest promotion charges all the interest accrued since the day of purchase if anything is left owing at the deadline.`,
         ]}
       />
     </div>

@@ -144,7 +144,9 @@ then fix it.`}
         </P>
         <P>
           A privacy-respecting analytics tool — Plausible, Fathom, or your host&rsquo;s built-in
-          option — is a few lines to add and does not require a cookie banner. Start with page
+          option — is a few lines to add, and because these tools avoid tracking cookies they
+          often let you skip the cookie banner (check the rules where you and your users are).
+          Start with page
           views. Do not build a dashboard nobody reads.
         </P>
       </LessonSection>

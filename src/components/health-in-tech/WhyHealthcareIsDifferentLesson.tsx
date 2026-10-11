@@ -223,7 +223,7 @@ export function WhyHealthcareIsDifferentLesson() {
         items={[
           "A shopping-app bug costs a transaction and is fully recoverable — refund it, patch it, move on.",
           "A health-app bug can drop an allergy or miscalculate a dose, and neither failure has an undo button.",
-          "The patient, the provider who buys the software, and the payer who settles the bill want three different things, and none of them is guaranteed to be the same as what's best for the patient.",
+          "The patient, the provider who buys the software, and the payer who settles the bill want three different things, and the one choosing the software is rarely the one living with the outcome.",
           "Procurement here runs eighteen months to three years, not a sprint, because integration, security review, and clinical validation all have to clear before a patient is exposed to it.",
           "\"Move fast and break things\" assumes bugs are cheap and reversible, and cheap to notice — healthcare breaks all three assumptions at once.",
         ]}

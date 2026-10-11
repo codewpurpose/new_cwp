@@ -1,5 +1,6 @@
 import { Callout } from "@/components/learn/primitives/Callout";
 import { CompareGrid, TakeawayCard } from "@/components/learn/primitives/Cards";
+import { CodeBlock } from "@/components/learn/primitives/CodeBlock";
 import { Lead, LessonSection, P, Strong } from "@/components/learn/primitives/LessonSection";
 import { StepList } from "@/components/learn/primitives/StepList";
 
@@ -32,6 +33,30 @@ export function WhatIsComputerVisionLesson() {
           and every ounce of meaning — where the edges are, which pixels belong to the same object,
           what that object is called — has to be built back up from those numbers by something
           else. That something else is the entire subject of this track.
+        </P>
+        <P>
+          You can look at that wall of numbers yourself. scikit-learn ships with a set of small
+          handwritten digits; here is the first one.
+        </P>
+        <CodeBlock
+          label="first_image.py"
+          code={`import matplotlib.pyplot as plt
+from sklearn.datasets import load_digits
+
+digits = load_digits()
+image = digits.images[0]     # one handwritten digit, 8 pixels by 8
+
+print(type(image).__name__, image.shape)
+print(image.astype(int))     # this grid is everything the computer receives
+
+plt.figure(figsize=(2.5, 2.5))
+plt.imshow(image, cmap="gray_r")
+plt.axis("off")
+plt.show()                   # the same 64 numbers, drawn as squares`}
+        />
+        <P>
+          The array is the image. The picture underneath is drawn from those same 64 numbers,
+          and nothing in them says &ldquo;zero&rdquo;.
         </P>
       </LessonSection>
 

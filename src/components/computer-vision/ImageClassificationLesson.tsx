@@ -1,5 +1,6 @@
 import { Callout } from "@/components/learn/primitives/Callout";
 import { CompareGrid, TakeawayCard } from "@/components/learn/primitives/Cards";
+import { CodeBlock } from "@/components/learn/primitives/CodeBlock";
 import { Lead, LessonSection, P, Strong } from "@/components/learn/primitives/LessonSection";
 
 export function ImageClassificationLesson() {
@@ -22,7 +23,7 @@ export function ImageClassificationLesson() {
         </P>
         <P>
           <Strong>That narrowness is the whole design, not a limitation someone forgot to
-          fix.</Strong> Detection and segmentation, two chapters ahead, exist specifically to
+          fix.</Strong> Detection and segmentation, later in this track, exist specifically to
           answer the questions classification refuses to.
         </P>
       </LessonSection>
@@ -52,13 +53,13 @@ export function ImageClassificationLesson() {
         title="What a confident wrong answer looks like"
       >
         <P>
-          A well-known example: a model trained to tell huskies from wolves reported 97%
-          confidence on a photo of a wolf standing in a grassy field — correctly, this time,
-          identifying it as a wolf, but for the wrong reason entirely. In earlier tests the same
-          model had called wolves &ldquo;husky&rdquo; whenever the photo had snow in the
-          background, because most of its husky training photos happened to have snow in them
-          and most of its wolf photos did not. The model had learned to detect snow, not dogs,
-          and reported startling confidence while doing it.
+          A well-known demonstration from research on explaining classifiers: a model was
+          trained to tell huskies from wolves on photos where the wolves were nearly always
+          pictured against snow. It then labelled a husky standing in snow as a wolf. When the
+          researchers asked which parts of the image drove the decision, the answer was mostly
+          the snow, not the animal. The model had learned to detect snow, not wolves, and on
+          most of its test photos that shortcut happened to give the right answer — which is
+          exactly why nobody would have noticed from the accuracy alone.
         </P>
         <P>
           <Strong>A confidence score describes how sure the model is, not how right it
@@ -86,6 +87,39 @@ export function ImageClassificationLesson() {
           fine-grained categories — breeds of dog, species of bird — where the correct answer and
           the model&rsquo;s honest second guess are easy to confuse.
         </P>
+        <P>
+          Four photos, six classes, and a model&rsquo;s probabilities for each. Rank the guesses
+          and score them both ways.
+        </P>
+        <CodeBlock
+          label="top_k.py"
+          code={`import numpy as np
+
+classes = ["husky", "wolf", "malamute", "fox", "coyote", "cat"]
+# The model's probabilities for four photos (one row each).
+probs = np.array([
+    [0.50, 0.30, 0.10, 0.05, 0.04, 0.01],
+    [0.35, 0.40, 0.15, 0.04, 0.05, 0.01],
+    [0.20, 0.10, 0.60, 0.04, 0.05, 0.01],
+    [0.05, 0.40, 0.03, 0.02, 0.30, 0.20],
+])
+truth = ["husky", "husky", "husky", "cat"]
+
+k = 3   # benchmarks usually report k=5; this model only knows 6 classes
+for row, answer in zip(probs, truth):
+    ranked = [classes[i] for i in np.argsort(row)[::-1]]
+    print(f"truth {answer:6} top-1 {ranked[0]:9} top-{k} {ranked[:k]}")
+
+top1 = np.mean([classes[np.argmax(row)] == t for row, t in zip(probs, truth)])
+topk = np.mean([t in [classes[i] for i in np.argsort(row)[::-1][:k]]
+                for row, t in zip(probs, truth)])
+print(f"top-1 accuracy {top1:.0%}, top-{k} accuracy {topk:.0%}")`}
+        />
+        <P>
+          Only the first photo&rsquo;s best guess is right, so top-1 accuracy is 25%. Every
+          correct answer is somewhere in the top three, so top-3 accuracy is 100%. Same model,
+          same probabilities.
+        </P>
         <CompareGrid
           items={[
             {
@@ -100,8 +134,8 @@ export function ImageClassificationLesson() {
               tone: "neutral",
               children: (
                 <P>
-                  Right if the true label is anywhere in the model&rsquo;s five best guesses. Always
-                  the higher number, and quietly a lower bar.
+                  Right if the true label is anywhere in the model&rsquo;s five best guesses. Never
+                  lower than top-1, and quietly a lower bar.
                 </P>
               ),
             },

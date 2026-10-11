@@ -1,8 +1,9 @@
 import { Lead, LessonSection, P, Strong } from "@/components/learn/primitives/LessonSection";
 import { Callout } from "@/components/learn/primitives/Callout";
-import { CodeBlock } from "@/components/learn/primitives/CodeBlock";
+import { CodeBlock, InlineCode } from "@/components/learn/primitives/CodeBlock";
 import { LabelRows, TakeawayCard } from "@/components/learn/primitives/Cards";
 import { JsonDictToggle } from "@/components/python/JsonDictToggle";
+import { TryIt } from "@/components/python/TryIt";
 
 export function JsonAndApisLesson() {
   return (
@@ -54,19 +55,31 @@ export function JsonAndApisLesson() {
           comes back through <Strong>json.loads</Strong> it is a plain list, not a tuple — the
           round trip does not always return the exact type you started with.
         </P>
+        <CodeBlock
+          label="round_trip.py"
+          code={`import json
+
+point = (3, 4)
+text = json.dumps(point)
+back = json.loads(text)
+
+print(text)
+print(back, type(back))`}
+        />
       </LessonSection>
 
       <LessonSection id="loading-json-turns-it-into-ordinary-python-values" title="Loading JSON turns it into ordinary Python values">
-        <CodeBlock
-          label="Terminal"
-          variant="terminal"
-          code={`>>> import json
->>> text = '{"name": "Ada", "age": 36}'
->>> record = json.loads(text)
->>> record
-{'name': 'Ada', 'age': 36}
->>> record["age"]
-36`}
+        <TryIt
+          label="load_json.py"
+          code={`import json
+
+text = '{"name": "Ada", "age": 36, "admin": true, "manager": null}'
+record = json.loads(text)
+print(record)
+print(record["age"] + 1)
+
+print(json.dumps(record))`}
+          prompt={<>Change <InlineCode>true</InlineCode> to <InlineCode>True</InlineCode> inside <InlineCode>text</InlineCode> and run it again.</>}
         />
         <P>
           <Strong>json.loads(text)</Strong> parses a JSON string into an ordinary Python{" "}
@@ -81,7 +94,9 @@ export function JsonAndApisLesson() {
           reads directly from it, which matters because it is the difference between{" "}
           <Strong>{'json.load(f)'}</Strong> and the far more common mistake,{" "}
           <Strong>{'json.loads(f)'}</Strong>, which fails: <Strong>loads</Strong> expects text,
-          and a file object is not text, it is something you read text from.
+          and a file object is not text, it is something you read text from. The error says
+          so in its own words: <Strong>the JSON object must be str, bytes or bytearray, not
+          TextIOWrapper</Strong>.
         </P>
         <CodeBlock
           label="Terminal"
@@ -132,6 +147,7 @@ if response.status_code == 200:
     data = response.json()
 else:
     print(f"Request failed: {response.status_code}")`}
+          runnable={false}
         />
         <P>
           Checking <Strong>response.status_code</Strong> before touching{" "}
@@ -175,7 +191,7 @@ else:
         items={[
           "JSON is a text format, not Python or JavaScript specifically — it's the shared shape most web APIs speak.",
           "JSON's object, array, string, number, true/false, and null map onto Python's dict, list, str, int or float, True/False, and None, in that order.",
-          "json.loads parses a string you already have; json.load reads directly from an open file — mixing them up is a common, silent bug.",
+          "json.loads parses a string you already have; json.load reads directly from an open file — passing a file to json.loads fails with a TypeError that is easy to misread.",
           "Checking response.status_code before calling .json() catches a failed request where it actually failed, instead of as a confusing JSONDecodeError later.",
           "A timeout keeps one dead connection from hanging your whole program forever, and an API key belongs in an environment variable, never typed into a file you commit.",
         ]}

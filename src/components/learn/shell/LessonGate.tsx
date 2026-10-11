@@ -82,12 +82,12 @@ export function LessonGate({ track, slug, prev, children }: LessonGateProps) {
           <path d="M8 10V7a4 4 0 0 1 8 0v3" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" />
         </svg>
         <h2 className="mt-3 text-lg text-learn-strong md:text-xl">
-          Finish the previous chapter first
+          One chapter at a time
         </h2>
         <p className="mx-auto mt-2 max-w-md text-[14px] leading-relaxed text-learn-muted">
-          Chapters unlock in order. Pass the quick check on{" "}
-          <span className="font-medium text-learn-strong">{prev.title}</span>, and this one opens
-          up.
+          Finish the quick check at the end of{" "}
+          <span className="font-medium text-learn-strong">{prev.title}</span>, and this chapter
+          opens up.
         </p>
         <Link
           href={chapterHref(track, prev.slug)}

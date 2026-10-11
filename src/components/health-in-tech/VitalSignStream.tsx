@@ -10,9 +10,17 @@ import { mulberry32, normalish } from "@/lib/ml/random";
  */
 const READING_COUNT = 18;
 const random = mulberry32(20260317);
-const READINGS: readonly number[] = Array.from({ length: READING_COUNT }, () =>
+const BASELINE: readonly number[] = Array.from({ length: READING_COUNT }, () =>
   Math.round(normalish(random, 76, 6, { min: 58, max: 104 })),
 );
+
+/**
+ * A short afternoon episode layered on top of the random baseline, so the
+ * stream actually crosses the alert threshold (the baseline alone never does)
+ * and then settles back down. Keyed by reading index.
+ */
+const EPISODE: Readonly<Record<number, number>> = { 11: 10, 12: 24, 13: 21, 14: 8 };
+const READINGS: readonly number[] = BASELINE.map((bpm, i) => bpm + (EPISODE[i] ?? 0));
 
 const VIEW_WIDTH = 600;
 const VIEW_HEIGHT = 220;

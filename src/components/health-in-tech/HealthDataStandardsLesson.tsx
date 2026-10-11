@@ -27,8 +27,8 @@ export function HealthDataStandardsLesson() {
           exactly the agreement the last chapter&apos;s two hospitals were missing.
         </P>
         <P>
-          FHIR is not the first attempt at this. It is the fourth major generation of a
-          standard published by the same organisation, HL7, and it only makes sense once you
+          FHIR is not the first attempt at this. It is the newest in a line of standards from
+          the same organisation, HL7, and it only makes sense once you
           have seen what it replaced — a format that is, remarkably, still running underneath
           most of American healthcare today.
         </P>
@@ -40,7 +40,7 @@ export function HealthDataStandardsLesson() {
       >
         <P>
           Before FHIR, the standard almost every hospital system spoke was{" "}
-          <Strong>HL7 version 2</Strong>, first published in 1987. Its job was narrower than
+          <Strong>HL7 version 2</Strong>, dating back to the late 1980s. Its job was narrower than
           FHIR&apos;s: get a lab result, an admission notice, or an order from one hospital
           system to another in real time, without a courier walking a printout down a hallway.
           For that job it worked, and it is the reason a message typed at a nurse&apos;s station
@@ -58,12 +58,14 @@ PV1|1|I|MED^204^1||||1234^SMITH^ROBERT|||MED`}
           code and each field inside it separated by a pipe: <InlineCode>MSH</InlineCode> is the
           message header, <InlineCode>PID</InlineCode> is patient identity, <InlineCode>PV1</InlineCode>{" "}
           is the visit. There is no field name anywhere in the message — position is the only
-          thing telling a receiving system that the fourth pipe-separated value in{" "}
-          <InlineCode>PID</InlineCode> is a birth date. Miscount a pipe and you have silently
+          thing telling a receiving system that the seventh field in{" "}
+          <InlineCode>PID</InlineCode>, <InlineCode>19910604</InlineCode>, is a birth date. Count
+          it yourself: after <InlineCode>PID</InlineCode>, each pipe starts the next field, empty
+          ones included. Miscount a pipe and you have silently
           shifted every field after it.
         </P>
         <P>
-          That positional format was fast to parse and cheap to implement in 1987, which is
+          That positional format was fast to parse and cheap to implement in the late 1980s, which is
           exactly why it spread. What it did not solve is the problem from the last chapter:
           v2 lets a message get <Strong>from</Strong> one system <Strong>to</Strong> another, but
           it never forced two hospitals to fill those positions with the same codes. Each
@@ -103,7 +105,12 @@ PV1|1|I|MED^204^1||||1234^SMITH^ROBERT|||MED`}
   },
   "subject": { "reference": "Patient/482" },
   "recordedDate": "2026-03-14",
-  "clinicalStatus": "active"
+  "clinicalStatus": {
+    "coding": [{
+      "system": "http://terminology.hl7.org/CodeSystem/condition-clinical",
+      "code": "active"
+    }]
+  }
 }`}
         />
         <P>Reading each field in plain English:</P>
@@ -113,7 +120,7 @@ PV1|1|I|MED^204^1||||1234^SMITH^ROBERT|||MED`}
             { label: "code", text: "The diagnosis itself, tagged to a specific, universally recognised code — no ambiguity about which condition this is." },
             { label: "subject", text: "Which patient this belongs to, referenced by a stable internal ID." },
             { label: "recordedDate", text: "One fixed date format, always year-month-day, no matter which country or vendor wrote it." },
-            { label: "clinicalStatus", text: "Whether the condition is still active, resolved, or in remission — a field neither of the last chapter's two systems even named the same way." },
+            { label: "clinicalStatus", text: "Whether the condition is still active, resolved, or in remission — itself a code from a shared list, and a field neither of the last chapter's two systems even named the same way." },
           ]}
         />
         <P>
@@ -206,13 +213,14 @@ PV1|1|I|MED^204^1||||1234^SMITH^ROBERT|||MED`}
       "display": "Hemoglobin A1c/Hemoglobin.total in Blood"
     }]
   },
+  "status": "final",
   "subject": { "reference": "Patient/482" },
   "valueQuantity": { "value": 7.2, "unit": "%" }
 }`}
         />
         <P>
-          <InlineCode>4548-4</InlineCode> means the exact same test at every hospital on earth
-          that uses LOINC, which is nearly all of them. A receiving system does not need to know
+          <InlineCode>4548-4</InlineCode> means the exact same test at every hospital and lab that
+          uses LOINC, which is widely adopted. A receiving system does not need to know
           which lab drew the blood to know what was measured — it just needs to recognise one
           code, once. That is the practical benefit of a shared terminology: the envelope carries the
           data, the terminology makes the data legible to a stranger.
@@ -248,7 +256,7 @@ PV1|1|I|MED^204^1||||1234^SMITH^ROBERT|||MED`}
       <TakeawayCard
         items={[
           "FHIR breaks a patient's record into small, named resources — Patient, Condition, MedicationRequest — that every supporting vendor agrees to structure identically.",
-          "HL7 v2 solved real-time messaging in 1987 with pipe-delimited, position-based segments, and it still carries most hospital lab and admission traffic today.",
+          "HL7 v2 solved real-time messaging in the late 1980s with pipe-delimited, position-based segments, and it still carries most hospital lab and admission traffic today.",
           "REST is what actually changed the economics: a FHIR endpoint is callable like any other web API, so connecting to ten partners no longer means ten custom integrations.",
           "SNOMED CT, LOINC, ICD-10, and RxNorm each name a different kind of fact — a finding, a test, a billing diagnosis, a medication — and the envelope format is useless without them.",
           "Regulation, not persuasion, is what finally made adoption spread, by giving every vendor the same deadline at the same time.",
