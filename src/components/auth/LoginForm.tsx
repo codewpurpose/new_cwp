@@ -20,8 +20,7 @@ export function LoginForm({ mode = "signin" }: { mode?: "signin" | "signup" }) {
         <p className="mt-3 text-[15px] text-[var(--home-ink-soft)]">
           {mode === "signup" ? "Account creation" : "Sign-in"} isn&apos;t switched on yet.
           Good news: you don&apos;t need it to start.
-          Everything you learn — XP, streak, badges, unlocked Kodas — saves right on
-          this device, completely free.
+          Your course completions save on this device, completely free.
         </p>
         <Link href={COURSES_HREF} className="home-btn home-btn-fill mt-6 inline-flex">
           Browse free courses

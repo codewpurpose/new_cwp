@@ -24,8 +24,9 @@ plain **Sign in** button, and nothing breaks.
 
 Most of our students are minors. **Settle COPPA / parental-consent and publish a
 privacy policy before enabling accounts in production.** Account-linked course
-completions are stored in Supabase and are only available to that learner's
-authenticated account.
+completions are stored in Supabase. Row-level security limits browser access to
+the signed-in learner's own rows; project operators and service-role clients can
+also access the data under the project's administrative controls.
 
 ---
 
