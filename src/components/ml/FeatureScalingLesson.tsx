@@ -165,6 +165,9 @@ export function FeatureScalingLesson() {
         <P>The correct order fits the scaler on the training fold only, and reuses those two saved numbers — nothing else — on the test fold:</P>
         <CodeBlock
           label="scaling.py"
+          // An excerpt (fit_scaler, train and test are defined elsewhere), so
+          // it would only ever raise NameError in the browser runner.
+          runnable={false}
           code={`scaler = fit_scaler(train)
 train_scaled = scaler.transform(train)
 test_scaled  = scaler.transform(test)
