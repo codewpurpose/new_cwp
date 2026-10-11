@@ -9,8 +9,8 @@ import { flushSync } from "react-dom";
 /**
  * The step from the catalogue into a course.
  *
- * Clicking a course grows a moss panel out of the card until it fills the
- * screen, then navigates. The learning space's bar is the same moss, so the
+ * Clicking a course grows a mint panel out of the card until it fills the
+ * screen, then navigates. The learning space's bar is the same mint, so the
  * panel hands straight over to it. About half a second, start to finish.
  *
  * It is an enhancement on an ordinary link: modified clicks (new tab, new
@@ -137,7 +137,7 @@ export function CourseEntryProvider({ children }: { children: React.ReactNode })
       {active && (
         <motion.div
           ref={overlayRef}
-          className="fixed inset-0 z-[100] grid place-items-center bg-[#1e3c2c] px-6 text-center text-[#fcf4e8]"
+          className="fixed inset-0 z-[100] grid place-items-center bg-[#e9f6e9] px-6 text-center text-[#1e3c2c]"
           initial={{ clipPath: active.clip }}
           animate={{ clipPath: "inset(0px 0px 0px 0px round 0px)" }}
           transition={{ duration: 0.48, ease: [0.65, 0, 0.35, 1] }}
@@ -155,12 +155,12 @@ export function CourseEntryProvider({ children }: { children: React.ReactNode })
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.3, delay: 0.16, ease: [0.22, 1, 0.36, 1] }}
           >
-            <p className="home-mono text-[11px] uppercase tracking-[0.16em] text-[#9fd3a8]">Entering course</p>
+            <p className="home-mono text-[11px] uppercase tracking-[0.16em] text-[#2f6b4c]">Entering course</p>
             <p id="course-entry-title" className="home-display mt-3 text-[2rem] leading-tight md:text-[2.75rem]">{active.title}</p>
           </motion.div>
           {/* Only shows if the next page is slow to arrive. */}
           <motion.p
-            className="home-mono absolute bottom-10 left-0 right-0 text-[12px] text-[#fcf4e8]/60"
+            className="home-mono absolute bottom-10 left-0 right-0 text-[12px] text-[#2f6b4c]"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 1.2, duration: 0.4 }}

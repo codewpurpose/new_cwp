@@ -1,9 +1,8 @@
 "use client";
 
 import { useMemo, useState, type ReactNode } from "react";
-import CountUp from "@/components/reactbits/CountUp";
 import { CourseEntryProvider, CourseLink } from "@/components/courses/CourseEntry";
-import type { Enrolment, OutlineChapter, TopicId, TrackStats } from "@/components/courses/catalog";
+import type { Enrolment, OutlineChapter, TopicId } from "@/components/courses/catalog";
 import { summarise, useProgressMap, type TrackProgress } from "@/components/learn/space/progress";
 import type { LearnTrackId } from "@/lib/learn-types";
 
@@ -16,8 +15,6 @@ export interface CatalogItem {
   topicLabel: string;
   enrol: Enrolment[];
   href: string;
-  stats: TrackStats;
-  duration: string;
   outline: OutlineChapter[];
   cover: ReactNode;
 }
@@ -78,12 +75,12 @@ export function CourseCatalog({
   return (
     <CourseEntryProvider>
       {/* ---- Continue / start row ---------------------------------------- */}
-      <div className="mb-14">
+      <div className="mb-14 rounded-[28px] border-[0.5px] border-[var(--grass-5)] bg-[#e9f6e9] p-5 md:p-8">
         <div className="flex items-baseline justify-between gap-4">
           <h2 className="home-serif truncate text-[1.5rem] leading-tight text-[#15120c] md:text-[1.9rem]">
             {hasProgress ? "Continue learning" : "Good places to start"}
           </h2>
-          <p className="hidden text-[13.5px] text-[var(--home-ink-quiet)] sm:block">
+          <p className="hidden text-[13.5px] text-[#2f6b4c] sm:block">
             {hasProgress ? "Saved on this device" : "Free, interactive, and saved as you go"}
           </p>
         </div>
@@ -164,7 +161,7 @@ export function CourseCatalog({
 
 function ProgressBar({ value, className = "" }: { value: number; className?: string }) {
   return (
-    <span aria-hidden="true" className={`block h-1.5 overflow-hidden rounded-full bg-[var(--home-grey-500)] ${className}`}>
+    <span aria-hidden="true" className={`block h-1.5 overflow-hidden rounded-full bg-[var(--grass-5)] ${className}`}>
       <span
         className="learnspace-bar-fill block h-full rounded-full bg-[#3e7f5c]"
         style={{ transform: `scaleX(${Math.max(0, Math.min(1, value))})` }}
@@ -187,7 +184,7 @@ function ContinueCard({
     ? "Complete. Review any chapter"
     : progress.next
       ? `${progress.started ? "Next" : "Chapter 1"}: ${progress.next.title}`
-      : `${item.stats.chapters} chapters`;
+      : "Start the course";
   const eyebrow = suggestion
     ? item.tags.join(" · ")
     : progress.finished
@@ -199,14 +196,14 @@ function ContinueCard({
       href={item.href}
       title={item.title}
       data-course-card=""
-      className="learn-focusable home-card home-lift group flex h-[7.75rem] items-stretch gap-4 overflow-hidden rounded-[18px] bg-[#fffbf5] p-3"
+      className="learn-focusable home-lift group flex h-[7.75rem] items-stretch gap-4 overflow-hidden rounded-[18px] border-[0.5px] border-[var(--grass-6)] bg-[#fffbf5] p-3"
     >
       <span aria-hidden="true" className="relative w-[6.5rem] shrink-0 overflow-hidden rounded-[12px] [&_svg]:h-full [&_svg]:w-full">
         {item.cover}
       </span>
       <span className="flex min-w-0 flex-1 flex-col justify-between py-0.5">
         <span className="min-w-0">
-          <span className="home-mono block truncate text-[10.5px] uppercase tracking-[0.12em] text-[#3e7f5c]">
+          <span className="home-mono block truncate text-[10.5px] uppercase tracking-[0.12em] text-[#2f6b4c]">
             {eyebrow}
           </span>
           <span className="mt-1 block truncate text-[15.5px] font-medium text-[#15120c]">{item.title}</span>
@@ -223,17 +220,11 @@ function ContinueCard({
   );
 }
 
-const LEVEL_COLOURS = { beginner: "#9fd3a8", intermediate: "#3e7f5c", advanced: "#1e3c2c" } as const;
-
 function CourseCard({ item, progress }: { item: CatalogItem; progress: TrackProgress }) {
-  const { stats } = item;
   const pct = progress.total ? progress.count / progress.total : 0;
-  const levelKeys = (Object.keys(LEVEL_COLOURS) as (keyof typeof LEVEL_COLOURS)[]).filter((k) => stats.levels[k] > 0);
-  const levelSummary = levelKeys.map((k) => `${stats.levels[k]} ${k}`).join(", ");
 
   return (
     <div
-
       data-course-card=""
       className="home-card group flex h-full flex-col rounded-[22px] bg-[#fffbf5] transition-shadow hover:shadow-[var(--home-shadow-lg)]"
     >
@@ -241,7 +232,7 @@ function CourseCard({ item, progress }: { item: CatalogItem; progress: TrackProg
         <span className="block transition-transform duration-500 ease-out [&_svg]:block [&_svg]:aspect-[16/9] [&_svg]:w-full group-hover:scale-[1.02]">
           {item.cover}
         </span>
-        <span className="absolute left-3 top-3 rounded-full bg-[#fffbf5]/90 px-2.5 py-1 text-[11px] font-medium text-[#1e3c2c] backdrop-blur">
+        <span className="absolute left-3 top-3 rounded-full bg-[#e9f6e9]/95 px-2.5 py-1 text-[11px] font-medium text-[#1e3c2c]">
           {item.topicLabel}
         </span>
       </CourseLink>
@@ -251,7 +242,7 @@ function CourseCard({ item, progress }: { item: CatalogItem; progress: TrackProg
           {item.tags.map((tag) => (
             <span
               key={tag}
-              className="rounded-full bg-[#dbefdb] px-2.5 py-1 text-[11px] font-medium uppercase tracking-[0.08em] text-[#1e3c2c]"
+              className="rounded-full bg-[var(--home-pistachio)] px-2.5 py-1 text-[11px] font-medium uppercase tracking-[0.08em] text-[#1e3c2c]"
             >
               {tag}
             </span>
@@ -264,46 +255,15 @@ function CourseCard({ item, progress }: { item: CatalogItem; progress: TrackProg
         </h3>
         <p className="mt-3 text-[15px] leading-[1.55] text-[var(--home-ink-soft)]">{item.description}</p>
 
-        <dl className="mt-5 flex flex-wrap items-baseline gap-x-5 gap-y-2 text-[13px] text-[var(--home-ink-quiet)]">
-          <div className="flex items-baseline gap-1.5">
-            <dt className="sr-only">Chapters</dt>
-            <dd className="home-serif text-[1.35rem] leading-none text-[#1e3c2c]">
-              <CountUp to={stats.chapters} duration={1.2} />
-            </dd>
-            <span aria-hidden="true">chapters</span>
-          </div>
-          <div className="flex items-baseline gap-1.5">
-            <dt className="sr-only">Parts</dt>
-            <dd className="home-serif text-[1.35rem] leading-none text-[#1e3c2c]">{stats.parts}</dd>
-            <span aria-hidden="true">{stats.parts === 1 ? "part" : "parts"}</span>
-          </div>
-          <div className="flex items-baseline gap-1.5">
-            <dt className="sr-only">Reading time</dt>
-            <dd>about {item.duration}</dd>
-          </div>
-        </dl>
-
-        <div className="mt-3" title={levelSummary}>
-          <span className="flex h-1 overflow-hidden rounded-full" aria-hidden="true">
-            {levelKeys.map((k) => (
-              <span key={k} style={{ width: `${(stats.levels[k] / stats.chapters) * 100}%`, background: LEVEL_COLOURS[k] }} />
-            ))}
-          </span>
-          <p className="mt-1.5 text-[12px] text-[var(--home-ink-quiet)]">
-            <span className="sr-only">Chapter levels: </span>
-            {levelSummary}
-          </p>
-        </div>
-
-        {/* Fixed height: "Not started" and "7 of 31 · Next: …" share one line. */}
-        <div className="mt-5 flex h-9 items-center gap-3 rounded-xl bg-[var(--home-grey-400)] px-3">
+        {/* Fixed height: "Ready when you are" and "7 of 31 · Next: …" share one line. */}
+        <div className="mt-5 flex h-9 items-center gap-3 rounded-xl bg-[#eef7ec] px-3">
           <ProgressBar value={pct} className="w-16 shrink-0" />
           <span className="min-w-0 truncate text-[12.5px] text-[var(--home-ink-soft)]">
             {progress.finished
               ? "Course complete"
               : progress.started
                 ? `${progress.count}/${progress.total} · Next: ${progress.next?.title ?? ""}`
-                : "Not started"}
+                : "Ready when you are"}
           </span>
         </div>
 
@@ -327,9 +287,6 @@ function CourseCard({ item, progress }: { item: CatalogItem; progress: TrackProg
               </a>
             ))}
           </div>
-          <p className="mt-2.5 text-[12px] text-[var(--home-ink-quiet)]">
-            Enrol buttons open the full course on Udemy in a new tab.
-          </p>
         </div>
       </div>
     </div>

@@ -24,7 +24,7 @@ export default function LearnPythonPage() {
         <CourseHome
           track="python"
           title="Python, from your first line to your first library"
-          description="CodeWithPurpose lessons that turn Python into a language you actually think in, not one you look up. Thirty-one chapters, no setup required."
+          description="CodeWithPurpose lessons that turn Python into a language you actually think in, not one you look up. No setup required."
           udemy={{ href: PYTHON_COURSE_HREF, label: "Udemy Python Course" }}
           chapterMedia={(chapter) => <PythonLessonCover slug={chapter.slug} />}
         />

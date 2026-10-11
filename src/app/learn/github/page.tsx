@@ -24,7 +24,7 @@ export default function LearnGithubPage() {
         <CourseHome
           track="github"
           title="Git and GitHub, from your first commit to your first open-source pull request"
-          description="CodeWithPurpose lessons that teach the tool and the platform as one subject. Twenty-one chapters: commits, branches, conflicts, rebasing, pull requests, code review, Actions, and contributing to somebody else's project."
+          description="CodeWithPurpose lessons that teach the tool and the platform as one subject. Commits, branches, conflicts, rebasing, pull requests, code review, Actions, and contributing to somebody else's project."
           udemy={{ href: GITHUB_COURSE_HREF, label: "Udemy GitHub Course" }}
           chapterMedia={(chapter) => <GithubLessonCover slug={chapter.slug} />}
         />
