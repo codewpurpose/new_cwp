@@ -154,13 +154,12 @@ const teamMembers: TeamMember[] = [
     instagram: "https://www.instagram.com/svanikt13/",
   },
   {
-    name: "Rachit Panchal",
-    role: "Sponsorship Lead",
+    name: "Vibhav P",
+    role: "Lead Developer",
     country: UNITED_STATES,
-    photo: images.team.rachit,
-    linkedin: "https://www.linkedin.com/in/rachit-panchal-1800b4409/?isSelfProfile=true",
-    instagram: "https://www.instagram.com/rachit_panchal10/?hl=en",
-    bio: "Hey! I'm Rachit Panchal, Lead of Sponsorships at Code With Purpose. I'm into AI and computer science, entrepreneurship, and finance, and I'm VP of my school's Hacking & Coding Club, President of the Finance Club, and a founder of Dublin HacX. I joined CWP to help get sponsors on board so we can keep making coding education free for everyone.",
+    photo: images.team.vibhav,
+    linkedin: "https://www.linkedin.com/in/vibhav-p-387338262/",
+    bio: "Hi! I'm Vibhav, a freelance app developer working with Microsoft Azure, natural language processing, and machine learning. At CodeWithPurpose, I lead development of our website and the tools that bring free coding education to students everywhere.",
   },
   {
     name: "Trey Lim",
@@ -204,14 +203,6 @@ const teamMembers: TeamMember[] = [
     bio: "Hi, I'm Vetrivel Jagath, a rising freshman with a strong interest in math and medicine, and I'm really interested in helping kids learn.",
   },
   {
-    name: "Vihaana Malhotra",
-    role: "Instructor",
-    country: UNITED_STATES,
-    photo: images.team.vihaana,
-    photoClass: "object-[45%_35%] scale-[1.5] translate-x-[4%]",
-    bio: "Hi! I'm Vihaana, I am interested in child psychology and neuroscience. I'm a Life Scout and former Senior Patrol Leader in Scouting America, where I focus on leadership and helping newer scouts get involved. I've served as a summer camp counselor and volunteered with Scouts, Kids Against Hunger, and elementary schools. When I'm not volunteering or in scouts, I enjoy volleyball, violin, art, and spending time with family and friends.",
-  },
-  {
     name: "Mithra Diyaa Gobinath",
     role: "Instructor",
     country: UNITED_STATES,
@@ -238,12 +229,13 @@ const teamMembers: TeamMember[] = [
     bio: "Hi! I'm Manit Mishra, Director of Code With Purpose India. I focus on leading our initiatives across India, building technical programs, and creating opportunities for students to learn by building real things. I'm passionate about systems, software, and the idea that students shouldn't have to wait for permission to start creating. My goal is to help grow Code With Purpose into a community where curiosity turns into real work, collaboration, and impact.",
   },
   {
-    name: "Vibhav P",
-    role: "Lead Developer",
+    name: "Rachit Panchal",
+    role: "Sponsorship Lead",
     country: UNITED_STATES,
-    photo: images.team.vibhav,
-    linkedin: "https://www.linkedin.com/in/vibhav-p-387338262/",
-    bio: "Hi! I'm Vibhav, a freelance app developer working with Microsoft Azure, natural language processing, and machine learning. At CodeWithPurpose, I lead development of our website and the tools that bring free coding education to students everywhere.",
+    photo: images.team.rachit,
+    linkedin: "https://www.linkedin.com/in/rachit-panchal-1800b4409/?isSelfProfile=true",
+    instagram: "https://www.instagram.com/rachit_panchal10/?hl=en",
+    bio: "Hey! I'm Rachit Panchal, Lead of Sponsorships at Code With Purpose. I'm into AI and computer science, entrepreneurship, and finance, and I'm VP of my school's Hacking & Coding Club, President of the Finance Club, and a founder of Dublin HacX. I joined CWP to help get sponsors on board so we can keep making coding education free for everyone.",
   },
 ];
 
