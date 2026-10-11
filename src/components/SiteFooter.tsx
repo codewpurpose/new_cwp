@@ -6,7 +6,6 @@ import {
   AI_RESOURCES_HREF,
   CONTACT_HREF,
   COURSES_HREF,
-  DASHBOARD_HREF,
   DISCORD_HREF,
   DONATE_HREF,
   GITHUB_HREF,
@@ -14,13 +13,8 @@ import {
   IMPACT_HREF,
   INSTAGRAM_HREF,
   JOIN_HREF,
-  LEADERBOARD_HREF,
-  LEARN_ML_HREF,
-  LEARN_PYTHON_HREF,
-  LEARN_VIBECODING_HREF,
   MEDIA_HREF,
   PLAYGROUND_HREF,
-  TOOLKIT_HREF,
   X_HREF,
 } from "@/lib/links";
 
@@ -52,7 +46,7 @@ export function SiteFooter() {
     <footer id="contact" className="scroll-mt-24 pb-6">
       <div className="mx-auto w-full max-w-[85rem] px-5 md:px-10">
         <div className="rounded-xl bg-white p-5 shadow-[0_0_7.5rem_rgba(0,0,0,0.07)] md:p-6">
-          <div className="grid items-end gap-y-10 lg:[grid-template-columns:repeat(20,minmax(0,1fr))]">
+          <div className="grid items-start gap-y-10 lg:[grid-template-columns:repeat(20,minmax(0,1fr))]">
             <div className="self-start lg:col-span-8">
               <a
                 href={HOME_HREF}
@@ -68,6 +62,9 @@ export function SiteFooter() {
                   Recognized by the U.S. House of Representatives
                 </p>
               </a>
+              <div className="mt-8 max-w-sm">
+                <FooterNewsletter />
+              </div>
             </div>
             <div className="lg:col-span-12">
               <div className="grid grid-cols-2 gap-x-4 gap-y-8 sm:gap-x-6 md:grid-cols-4 lg:gap-x-8">
@@ -75,58 +72,8 @@ export function SiteFooter() {
                   <h3 className="mb-3 text-xs opacity-60">Learn</h3>
                   <ul className="space-y-2.5 text-xs xl:text-base">
                     <li>
-                      <a href={LEARN_ML_HREF} className="home-footer-link">
-                        ML Lessons
-                      </a>
-                    </li>
-                    <li>
-                      <a href={LEARN_VIBECODING_HREF} className="home-footer-link">
-                        Vibe Coding Lessons
-                      </a>
-                    </li>
-                    <li>
-                      <a href={LEARN_PYTHON_HREF} className="home-footer-link">
-                        Python Lessons
-                      </a>
-                    </li>
-                    <li>
                       <a href={COURSES_HREF} className="home-footer-link">
-                        All Courses
-                      </a>
-                    </li>
-                    <li>
-                      <a href={DASHBOARD_HREF} className="home-footer-link">
-                        My Progress
-                      </a>
-                    </li>
-                    <li>
-                      <a href={LEADERBOARD_HREF} className="home-footer-link">
-                        Leaderboard
-                      </a>
-                    </li>
-                    <li>
-                      <a href={TOOLKIT_HREF} className="home-footer-link">
-                        Learning Toolkit
-                      </a>
-                    </li>
-                    <li>
-                      <a href={AI_RESOURCES_HREF} className="home-footer-link">
-                        AI Resources
-                      </a>
-                    </li>
-                    <li>
-                      <a href={PLAYGROUND_HREF} className="home-footer-link">
-                        Code Playground
-                      </a>
-                    </li>
-                    <li>
-                      <a href={MEDIA_HREF} className="home-footer-link">
-                        Media
-                      </a>
-                    </li>
-                    <li>
-                      <a href={ABOUT_HREF} className="home-footer-link">
-                        Our Story
+                        Courses
                       </a>
                     </li>
                   </ul>
@@ -155,6 +102,31 @@ export function SiteFooter() {
                   <h3 className="mb-3 text-xs opacity-60">Resources</h3>
                   <ul className="space-y-2.5 text-xs xl:text-base">
                     <li>
+                      <a href={AI_RESOURCES_HREF} className="home-footer-link">
+                        AI Resources
+                      </a>
+                    </li>
+                    <li>
+                      <a href={PLAYGROUND_HREF} className="home-footer-link">
+                        Code Playground
+                      </a>
+                    </li>
+                    <li>
+                      <a href={MEDIA_HREF} className="home-footer-link">
+                        Media
+                      </a>
+                    </li>
+                  </ul>
+                </div>
+                <div>
+                  <h3 className="mb-3 text-xs opacity-60">About</h3>
+                  <ul className="space-y-2.5 text-xs xl:text-base">
+                    <li>
+                      <a href={ABOUT_HREF} className="home-footer-link">
+                        Our Story
+                      </a>
+                    </li>
+                    <li>
                       <a href={IMPACT_HREF} className="home-footer-link">
                         Stories
                       </a>
@@ -166,7 +138,6 @@ export function SiteFooter() {
                     </li>
                   </ul>
                 </div>
-                <FooterNewsletter />
               </div>
             </div>
           </div>
