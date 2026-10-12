@@ -25,6 +25,9 @@ const RETIRED_ML_SLUGS = [
 
 const nextConfig: NextConfig = {
   trailingSlash: true,
+  images: {
+    qualities: [75, 95],
+  },
   // Canonical slashes are handled in src/proxy.ts; redirects below handle the
   // legacy aliases before Proxy runs.
   skipTrailingSlashRedirect: true,

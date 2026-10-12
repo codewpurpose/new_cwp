@@ -137,6 +137,22 @@ const teamMembers: TeamMember[] = [
     bio: "Hi, my name is Aakash Sanil. I'm a Co-Social Media Lead at Code With Purpose. I joined Code With Purpose to help reach kids all throughout the world and help them. I mainly focus on making social media videos, spreading our message.",
   },
   {
+    name: "Trey Lim",
+    role: "Co-Social Media Lead & Member of Finance",
+    country: UNITED_STATES,
+    photo: images.team.trey,
+    bio: "Hey, I'm Trey! I'm a finance bro that enjoys creating bonds with others, researching AI, and learning with friends.",
+  },
+  {
+    name: "Aadi Naik",
+    role: "Director of Workshops",
+    country: UNITED_STATES,
+    photo: images.team.aadi,
+    photoClass: "object-[45%_48%] scale-[1.15]",
+    instagram: "https://www.instagram.com/naik_aadi4/",
+    bio: "Hey everyone! My name is Aadi Naik. I'm an instructor for Code With Purpose that focuses on med courses. I've been with Code With Purpose for around 6 months and it's definitely taught me many things, such as responsibility and time management. I'm deeply interested in the human body, and I wanted to become an instructor so that I could educate people on it.",
+  },
+  {
     name: "Hannah Mauro",
     role: "Social Media & Design",
     country: UNITED_STATES,
@@ -160,22 +176,6 @@ const teamMembers: TeamMember[] = [
     photo: images.team.vibhav,
     linkedin: "https://www.linkedin.com/in/vibhav-p-387338262/",
     bio: "Hi! I'm Vibhav, a freelance app developer working with Microsoft Azure, natural language processing, and machine learning. At CodeWithPurpose, I lead development of our website and the tools that bring free coding education to students everywhere.",
-  },
-  {
-    name: "Trey Lim",
-    role: "Co-Social Media Lead & Member of Finance",
-    country: UNITED_STATES,
-    photo: images.team.trey,
-    bio: "Hey, I'm Trey! I'm a finance bro that enjoys creating bonds with others, researching AI, and learning with friends.",
-  },
-  {
-    name: "Aadi Naik",
-    role: "Lead Instructor",
-    country: UNITED_STATES,
-    photo: images.team.aadi,
-    photoClass: "object-[45%_48%] scale-[1.15]",
-    instagram: "https://www.instagram.com/naik_aadi4/",
-    bio: "Hey everyone! My name is Aadi Naik. I'm an instructor for Code With Purpose that focuses on med courses. I've been with Code With Purpose for around 6 months and it's definitely taught me many things, such as responsibility and time management. I'm deeply interested in the human body, and I wanted to become an instructor so that I could educate people on it.",
   },
   {
     name: "Karthik Tummala",
@@ -315,7 +315,7 @@ export default function AboutPage() {
               key={member.name}
               member={member}
               avatar="w-16 text-base sm:w-20 sm:text-lg md:w-28 md:text-2xl"
-              avatarSizes="(min-width: 768px) 112px, (min-width: 640px) 80px, 64px"
+              avatarSizes="(min-width: 768px) 192px, (min-width: 640px) 160px, 128px"
               width="w-[calc(50%-0.5rem)] sm:w-[calc(33.333%-0.667rem)]"
             />
           ))}
@@ -327,7 +327,7 @@ export default function AboutPage() {
               key={member.name}
               member={member}
               avatar="w-20 text-lg md:w-24 md:text-xl"
-              avatarSizes="(min-width: 768px) 96px, 80px"
+              avatarSizes="(min-width: 768px) 192px, 160px"
               width="w-[calc(50%-0.5rem)] md:w-[calc(25%-0.75rem)]"
             />
           ))}
