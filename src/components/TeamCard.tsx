@@ -90,6 +90,8 @@ function initials(name: string): string {
     .toUpperCase();
 }
 
+// Request a larger source than the visible ring: several portraits are zoomed
+// and cropped, so matching the source to the ring width made the faces soft.
 function TeamMemberAvatar({ member, avatar, sizes }: { member: TeamMember; avatar: string; sizes: string }) {
   return (
     <span className={`relative mx-auto block ${avatar}`}>
@@ -102,6 +104,7 @@ function TeamMemberAvatar({ member, avatar, sizes }: { member: TeamMember; avata
             width={320}
             height={320}
             sizes={sizes}
+            quality={95}
             alt={member.name}
             loading="lazy"
             decoding="async"
@@ -254,7 +257,8 @@ function TeamMemberDialog({
               src={member.photo}
               width={320}
               height={320}
-              sizes="96px"
+              sizes="192px"
+              quality={95}
               alt={member.name}
               decoding="async"
               className={`h-full w-full object-cover ${member.photoClass ?? ""}`}
