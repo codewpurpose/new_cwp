@@ -244,7 +244,7 @@ export default function AboutPage() {
     <PageShell>
       <PageHero
         title="Free coding education for everyone"
-        description="We are students who teach coding for free. We built CodeWithPurpose after seeing how much $15,000 bootcamps charge for access to the same skills."
+        description="We are students who teach coding for free. We write lessons and run workshops for people learning to program for the first time."
         image={images.volunteerHelp}
         imageAlt="Volunteer helping a student at their laptop"
       >

@@ -26,12 +26,12 @@ export function HeroSection() {
         <div className="hero-message-copy">
           <BlurText
             as="h1"
-            text={"Talent Is Everywhere.\nOpportunity Isn't."}
+            text="Learn to code for free"
             className="home-display text-center text-[2rem] leading-[1.05] tracking-[-0.02em] md:text-[2.75rem] lg:text-[3.5rem] xl:text-[4rem]"
           />
           <p className="mx-auto mt-5 max-w-[44rem] text-center text-base text-[var(--home-ink-soft)] sm:text-lg">
-            We&apos;re students teaching students real coding skills in 150+
-            countries. Completely free, forever. No catch, no fine print.
+            We&apos;re a student-run nonprofit. Start with Python, try a web
+            project, or learn to build with AI at your own pace.
           </p>
           <div className="hero-message-actions mt-8 flex flex-wrap items-center justify-center gap-2">
             <Magnet>
@@ -40,9 +40,9 @@ export function HeroSection() {
             <a href={ABOUT_HREF} className="home-btn home-btn-outline">Our Story</a>
           </div>
           <p className="mt-4 text-center text-sm text-[var(--home-ink-quiet)]">
-            Or{" "}
+            New to coding?{" "}
             <a href={FIRST_LESSON_HREF} className="home-arrow-link !inline-flex">
-              jump straight into your first free lesson <span className="home-arrow">→</span>
+              Start with Python lesson one <span className="home-arrow">→</span>
             </a>
           </p>
         </div>

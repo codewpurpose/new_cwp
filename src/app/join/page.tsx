@@ -10,8 +10,14 @@ import {
   CONTACT_EMAIL,
   CONTACT_EMAIL_HREF,
   COURSES_HREF,
+  DISCORD_HREF,
+  INDIA_CHAPTERS_HREF,
   VOLUNTEER_FORM_HREF,
 } from "@/lib/links";
+
+const workshopInquiryHref = `${CONTACT_EMAIL_HREF}?subject=${encodeURIComponent("Host a CodeWithPurpose workshop")}&body=${encodeURIComponent(
+  "School or organisation:\nCity and country:\nAge group and estimated group size:\nSuggested dates or timeframe:\nWhat would you like students to learn?\n",
+)}`;
 
 export const metadata: Metadata = {
   title: "Join Us",
@@ -40,7 +46,7 @@ const roles = [
   },
   {
     title: "Run a workshop",
-    body: "Organize hands-on coding sessions in your school, library, or community. We provide curriculum, materials, and support to help you get started.",
+    body: "Help organise hands-on coding sessions in schools, libraries, and community spaces.",
   },
   {
     title: "Spread the word",
@@ -48,7 +54,7 @@ const roles = [
   },
   {
     title: "Build with us",
-    body: "Contribute to our website, curriculum, outreach, or operations. Coding, design, writing, organizing: whatever your skill, there's room for you here.",
+    body: "Contribute to our website, curriculum, outreach, or operations. Coding, design, writing, organising: whatever your skill, there's room for you here.",
   },
 ];
 
@@ -56,8 +62,8 @@ export default function JoinPage() {
   return (
     <PageShell>
       <PageHero
-        title="Help us bring free coding education to every student"
-        description="CodeWithPurpose runs on volunteers. Teach a workshop, mentor a student, or help with the work behind each course."
+        title="Help more students learn to code"
+        description="Teach, mentor, or start a CodeWithPurpose chapter in your community, wherever you live."
         image={images.danvilleSanRamon}
         imageAlt="CodeWithPurpose volunteers at a community event"
       >
@@ -65,22 +71,19 @@ export default function JoinPage() {
             opening a tab. An in-page jump keeps the back button meaningful. */}
         <Magnet>
           <a href="#apply" className="home-btn home-btn-fill">
-            Sign Up
+            Register volunteer interest
           </a>
         </Magnet>
-        <Link href={COURSES_HREF} className="home-btn home-btn-outline">
-          See Our Courses
-        </Link>
+        <a href={INDIA_CHAPTERS_HREF} className="home-btn home-btn-outline">
+          Join or start a chapter in India
+        </a>
       </PageHero>
 
       <PageSection>
         <div className="grid gap-4 md:grid-cols-2">
           {roles.map((role, index) => (
             <Reveal key={role.title} delay={index * 0.06} className="h-full">
-              <div
-
-                className="home-card home-lift h-full rounded-xl p-6 md:p-8"
-              >
+              <div className="home-card home-lift h-full rounded-xl p-6 md:p-8">
                 <h2 className="text-xl">{role.title}</h2>
                 <p className="mt-3 text-[15px] leading-[1.55] text-[var(--home-ink-soft)]">
                   {role.body}
@@ -88,6 +91,33 @@ export default function JoinPage() {
               </div>
             </Reveal>
           ))}
+        </div>
+        <div id="chapters" className="home-card mt-6 scroll-mt-28 rounded-xl p-6 md:p-8">
+          <h2 className="text-xl">Start a chapter in your community</h2>
+          <p className="mt-2 max-w-2xl text-[var(--home-ink-soft)]">
+            Bring students together to learn and host coding workshops at your school, college, or community organisation. Tell us where you are and what you would like to organise.
+          </p>
+          <div className="mt-5 flex flex-wrap gap-3">
+            <a href={DISCORD_HREF} target="_blank" rel="noreferrer" className="home-btn home-btn-fill">Join our Discord</a>
+            <a href={`${CONTACT_EMAIL_HREF}?subject=Start%20a%20CodeWithPurpose%20chapter`} className="home-btn home-btn-outline">Email the team</a>
+            <a href={INDIA_CHAPTERS_HREF} className="home-btn home-btn-outline">Explore CWP India</a>
+          </div>
+        </div>
+        <div id="host-workshop" className="home-card mt-6 flex scroll-mt-28 flex-wrap items-center justify-between gap-4 rounded-xl p-6 md:p-8">
+          <div className="max-w-2xl">
+            <h2 className="text-xl">Bring a workshop to your school or community</h2>
+            <p className="mt-2 text-[var(--home-ink-soft)]">
+              Tell us who you want to reach, where the group meets, and what students
+              would like to learn. You can also{" "}
+              <Link href={COURSES_HREF} className="underline underline-offset-2">
+                explore our free courses
+              </Link>
+              .
+            </p>
+          </div>
+          <a href={workshopInquiryHref} className="home-btn home-btn-outline">
+            Email about hosting a workshop
+          </a>
         </div>
       </PageSection>
 
@@ -109,7 +139,7 @@ export default function JoinPage() {
         <div className="mx-auto max-w-3xl text-center">
           <BlurText
             as="h2"
-            text="Ready to get involved?"
+            text="Register your interest in volunteering"
             className="home-serif text-[1.75rem] text-[#f9f9f9] md:text-[2.25rem]"
           />
           <p className="mt-4 text-[#dbefdb]/90">
@@ -121,6 +151,14 @@ export default function JoinPage() {
             </a>
             .
           </p>
+          <a
+            href={VOLUNTEER_FORM_HREF}
+            target="_blank"
+            rel="noreferrer"
+            className="mt-4 inline-block underline underline-offset-2"
+          >
+            Open the sign-up form in a new tab
+          </a>
         </div>
 
         {/* A white card around the frame, matching the donate page. The form
@@ -153,23 +191,6 @@ export default function JoinPage() {
             Loading the form…
           </iframe>
         </div>
-
-        {/* Third-party frames are blocked by more browser settings and
-            extensions than people expect, and a blocked iframe fails silently
-            — an empty box with nothing to click. This link is the way out of
-            that, and it costs one line. */}
-        <p className="mt-4 text-center text-[14px] text-[#dbefdb]/80">
-          Form not loading?{" "}
-          <a
-            href={VOLUNTEER_FORM_HREF}
-            target="_blank"
-            rel="noreferrer"
-            className="underline"
-          >
-            Open it in a new tab
-          </a>
-          .
-        </p>
       </PageSection>
     </PageShell>
   );

@@ -1,3 +1,6 @@
+export const INDIA_CHAPTER_HREF = "https://india.codewithpurpose.org";
+export const INDIA_CHAPTERS_HREF = `${INDIA_CHAPTER_HREF}/#chapters`;
+
 export const SITE_URL = "https://www.codewithpurpose.org";
 
 /**
@@ -124,6 +127,7 @@ export const NAV_LINKS = [
   { label: "Media", href: MEDIA_HREF },
   { label: "About Us", href: ABOUT_HREF },
   { label: "Join Us", href: JOIN_HREF },
+  { label: "India Chapter", href: INDIA_CHAPTER_HREF },
   { label: "Stories", href: IMPACT_HREF },
   { label: "Contact", href: CONTACT_HREF },
   { label: "AI Resources", href: AI_RESOURCES_HREF },

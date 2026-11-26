@@ -9,7 +9,7 @@ import { isClerkConfigured } from "@/lib/clerk";
 import { DONATE_HREF, HOME_HREF, LOGIN_HREF, NAV_LINKS } from "@/lib/links";
 
 const PRIMARY_NAV_LINKS = NAV_LINKS.filter(({ label }) =>
-  ["Courses", "About Us", "Stories", "Join Us"].includes(label),
+  ["Courses", "About Us", "Stories", "Join Us", "India Chapter"].includes(label),
 );
 const MORE_NAV_LINKS = NAV_LINKS.filter(({ label }) =>
   ["Projects", "Code Playground", "AI Resources", "Media", "Contact"].includes(label),
@@ -60,7 +60,7 @@ function MobileMenu({ onClose }: { onClose: () => void }) {
       animate={{ opacity: 1, y: 0, scale: 1 }}
       exit={{ opacity: 0, y: -6, scale: 0.99, pointerEvents: "none" }}
       transition={{ duration: 0.18, ease: "easeOut" }}
-      className="absolute inset-x-0 top-full mx-4 flex origin-top flex-col rounded-xl p-2 backdrop-blur-[10px] sm:mx-5 md:mx-10 min-[1200px]:hidden"
+      className="absolute inset-x-0 top-full mx-4 flex max-h-[calc(100dvh-5rem)] origin-top flex-col overflow-y-auto rounded-xl p-2 backdrop-blur-[10px] sm:mx-5 md:mx-10 min-[1200px]:hidden"
       style={GLASS_STYLE}
     >
       {NAV_LINKS.map((link) => (

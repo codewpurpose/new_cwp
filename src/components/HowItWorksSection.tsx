@@ -1,15 +1,15 @@
 import BounceCards from "@/components/reactbits/BounceCards";
 import { images } from "@/lib/images";
-import { COURSES_HREF } from "@/lib/links";
+import { JOIN_HREF } from "@/lib/links";
 
 const GALLERY_IMAGES = images.gallery.slice(0, 4);
 
 export function HowItWorksSection() {
   return (
-    <section id="how" className="scroll-mt-24">
+    <section id="about" className="scroll-mt-24">
       <div className="mx-auto w-full max-w-[85rem] px-5 md:px-10">
         <div className="overflow-hidden rounded-xl bg-[var(--home-grey-450)]">
-          <figure className="grid md:grid-cols-[2fr_3fr]">
+          <figure id="how" className="grid scroll-mt-24 md:grid-cols-[2fr_3fr]">
             <div className="flex items-center p-5 sm:p-6 md:p-8">
               {/* React Bits BounceCards: the four photos as a fanned stack that
                   spreads apart on hover (tap on a phone). The fan is
@@ -25,19 +25,15 @@ export function HowItWorksSection() {
               />
             </div>
             <figcaption className="flex flex-col justify-center p-5 sm:p-6 md:p-8">
-              <p className="text-[11px] uppercase tracking-[0.12em] text-[var(--home-ink-quiet)]">
-                Watch our story
-              </p>
               <h2 className="mt-3 text-lg leading-[1.15] md:text-[1.375rem]">
-                See what CodeWithPurpose looks like in action
+                Photos from our workshops
               </h2>
               <p className="mt-3 max-w-[40rem] text-sm leading-[1.5] text-[var(--home-ink-soft)]">
-                These photos show students coding and volunteers teaching at
-                classrooms, workshops, and community events. Every session is
-                free.
+                Our volunteers teach in classrooms and at community events.
+                Tell us what your group would like to learn.
               </p>
-              <a href={COURSES_HREF} className="home-arrow-link mt-5 self-start">
-                Explore courses <span className="home-arrow">→</span>
+              <a href={`${JOIN_HREF}#host-workshop`} className="home-arrow-link mt-5 self-start">
+                Host a workshop
               </a>
             </figcaption>
           </figure>

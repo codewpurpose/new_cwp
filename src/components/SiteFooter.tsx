@@ -11,6 +11,7 @@ import {
   GITHUB_HREF,
   HOME_HREF,
   IMPACT_HREF,
+  INDIA_CHAPTER_HREF,
   INSTAGRAM_HREF,
   JOIN_HREF,
   MEDIA_HREF,
@@ -135,6 +136,11 @@ export function SiteFooter() {
                     <li>
                       <a href={IMPACT_HREF} className="home-footer-link">
                         Stories
+                      </a>
+                    </li>
+                    <li>
+                      <a href={INDIA_CHAPTER_HREF} className="home-footer-link">
+                        India Chapter
                       </a>
                     </li>
                     <li>

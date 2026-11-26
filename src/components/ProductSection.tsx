@@ -5,9 +5,7 @@ import {
 } from "@/lib/links";
 import GlareHover from "@/components/reactbits/GlareHover";
 import {
-  FreeForeverArt,
   PythonSproutArt,
-  StudentsArt,
   VibecodingArt,
 } from "@/components/art/ProductArt";
 
@@ -25,11 +23,10 @@ export function ProductSection() {
                 paragraph and put a non-heading inside a heading. */}
             <div className="px-5 pt-7 sm:px-6 sm:pt-8 md:px-10 md:pt-12">
               <h2 className="home-serif text-[1.75rem] leading-[1.08] md:text-[2.375rem]">
-                Courses built for the curious.
+                Two courses to start with
               </h2>
               <p className="mt-4 max-w-2xl text-[15px] leading-[1.6] text-[var(--home-ink-soft)] md:text-base">
-                Coding skills taught by students and used by learners in 150+ countries.
-                Free for everyone.
+                Both courses are free.
               </p>
             </div>
             <div className="mt-8 grid border-t border-[var(--home-hairline)] md:mt-10 md:grid-cols-2">
@@ -37,9 +34,8 @@ export function ProductSection() {
                 <div className="min-w-0 flex-1">
                   <h3 className="text-lg md:text-xl">Python for Complete Beginners</h3>
                   <p className="mt-3 text-[15px] leading-[1.5] text-[var(--home-ink-soft)] md:text-base">
-                    Zero experience? Perfect. You&apos;ll go from nothing to
-                    building real projects, just like 800+ students across 50+
-                    countries already have.
+                    Write your first Python programs and practise with variables,
+                    loops, and functions.
                   </p>
                   <a
                     href={PYTHON_COURSE_HREF}
@@ -70,35 +66,9 @@ export function ProductSection() {
                 </div>
                 <VibecodingArt />
               </GlareHover>
-              <GlareHover className="art-host flex flex-col gap-8 px-5 py-8 sm:px-6 sm:py-10 md:flex-row md:items-center md:justify-between md:gap-8 md:px-10 md:py-14 md:border-r-[0.5px] md:border-r-[var(--home-hairline)] border-b-[0.5px] border-b-[var(--home-hairline)] md:border-b-0">
-                <div className="min-w-0 flex-1">
-                  <h3 className="text-lg md:text-xl">Completely free, forever</h3>
-                  <p className="mt-3 text-[15px] leading-[1.5] text-[var(--home-ink-soft)] md:text-base">
-                    Quality coding education should cost nothing. Every course,
-                    every resource, every minute of teaching is free, with no
-                    strings attached, for every student everywhere.
-                  </p>
-                  <a href={COURSES_HREF} className="home-arrow-link mt-5">
-                    Browse all courses <span className="home-arrow">→</span>
-                  </a>
-                </div>
-                <FreeForeverArt />
-              </GlareHover>
-              <GlareHover className="art-host flex flex-col gap-8 px-5 py-8 sm:px-6 sm:py-10 md:flex-row md:items-center md:justify-between md:gap-8 md:px-10 md:py-14   md:border-b-0">
-                <div className="min-w-0 flex-1">
-                  <h3 className="text-lg md:text-xl">Made by students, for students</h3>
-                  <p className="mt-3 text-[15px] leading-[1.5] text-[var(--home-ink-soft)] md:text-base">
-                    We&apos;re a student-run nonprofit built on one belief:
-                    every young person deserves the same chance to learn code,
-                    no matter where they live or what they can afford.
-                  </p>
-                  <a href={COURSES_HREF} className="home-arrow-link mt-5">
-                    Start today, it costs nothing{" "}
-                    <span className="home-arrow">→</span>
-                  </a>
-                </div>
-                <StudentsArt />
-              </GlareHover>
+            </div>
+            <div className="px-5 py-5 sm:px-6 md:px-10">
+              <a href={COURSES_HREF} className="home-arrow-link">Browse all courses</a>
             </div>
           </div>
         </div>
