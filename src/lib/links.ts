@@ -30,6 +30,8 @@ export const LOGIN_HREF = "/login/";
 export const SIGN_UP_HREF = "/sign-up/";
 export const MEDIA_HREF = "/media/";
 export const ABOUT_HREF = "/about/";
+export const CHAPTERS_HREF = "/chapters/";
+export const CHAPTER_APPLICATION_HREF = "https://docs.google.com/forms/d/e/1FAIpQLScHZcqktQUDkJ5f0q2YfoUHR21TfY9YYpndYIZYvdwiRRTdrg/viewform";
 export const JOIN_HREF = "/join/";
 /**
  * Impact and the blog are one page. `/blog` 308s here (next.config.ts); only
@@ -127,7 +129,7 @@ export const NAV_LINKS = [
   { label: "Media", href: MEDIA_HREF },
   { label: "About Us", href: ABOUT_HREF },
   { label: "Join Us", href: JOIN_HREF },
-  { label: "India Chapter", href: INDIA_CHAPTER_HREF },
+  { label: "Chapters", href: CHAPTERS_HREF },
   { label: "Stories", href: IMPACT_HREF },
   { label: "Contact", href: CONTACT_HREF },
   { label: "AI Resources", href: AI_RESOURCES_HREF },
