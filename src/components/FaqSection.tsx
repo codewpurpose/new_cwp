@@ -14,12 +14,12 @@ const faqs: Faq[] = [
   {
     question: "Is CodeWithPurpose really free?",
     answer:
-      "Yes. Every course, workshop, and resource costs nothing. A family's budget should not decide who gets to learn how to code.",
+      "Yes. Our courses, workshops, and learning resources are free.",
   },
   {
     question: "Who runs CodeWithPurpose?",
     answer:
-      "Students, start to finish. CodeWithPurpose is a student-run nonprofit, fiscally sponsored by Hack Club. We teach, organize, and build because we believe every young person deserves the chance to learn how to code.",
+      "Students run CodeWithPurpose. Hack Club is our fiscal sponsor.",
   },
   {
     question: "How do I start learning?",
@@ -29,12 +29,12 @@ const faqs: Faq[] = [
   {
     question: "How can I volunteer or join the team?",
     answer:
-      "Go to our Join Us page and fill out the volunteer form. You can teach, mentor, or help organise workshops and outreach.",
+      "Register your interest on our Join Us page. Volunteers can teach, mentor, or help organise workshops.",
   },
   {
     question: "Where do donations go?",
     answer:
-      "Straight to students. Donations fund workshops, new lessons, and outreach to underserved communities, and they keep every single course free for learners everywhere.",
+      "Donations support workshops, new lessons, and outreach.",
   },
   {
     question: "How is CodeWithPurpose recognised?",
@@ -94,7 +94,7 @@ export function FaqSection() {
             >
               Contact us
             </a>
-            {" and ask us anything."}
+            .
           </p>
           <Accordion.Root multiple className="mx-auto mt-8 flex max-w-[51rem] flex-col gap-2">
             {faqs.map((faq) => <FaqItem key={faq.question} faq={faq} />)}

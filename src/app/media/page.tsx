@@ -30,8 +30,8 @@ export default async function MediaPage() {
   return (
     <PageShell>
       <PageHero
-        title="What we&apos;re making, in motion"
-        description="Short lessons, student stories, and the work happening behind free coding education. Watch on the site or follow the original post to join the conversation."
+        title="Videos from CodeWithPurpose"
+        description="Watch short coding lessons and videos about our students and workshops."
       >
         <div className="inline-flex items-center gap-2 rounded-full border border-[var(--home-hairline-strong)] bg-[var(--home-white)]/80 px-3.5 py-2 text-sm text-[var(--home-ink-soft)] shadow-[var(--home-shadow-sm)]">
           {/* A soft "on air" ripple around the dot (CSS, off with Reduce Motion). */}

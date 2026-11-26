@@ -10,7 +10,7 @@ import "./globals.css";
 const SITE_NAME = "CodeWithPurpose";
 const SITE_TITLE = "CodeWithPurpose — Free Coding Education for Students Worldwide";
 const SITE_DESCRIPTION =
-  "We're a student-run nonprofit teaching real coding skills to students in 150+ countries. Completely free, forever.";
+  "CodeWithPurpose is a student-run nonprofit offering free coding courses, projects, and workshops.";
 
 /* Archivo over Inter: a grotesque with actual character in its terminals and a
  * tall x-height that holds up at the 13–15px the interface leans on. Inter is
