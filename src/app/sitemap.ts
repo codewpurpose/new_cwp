@@ -16,6 +16,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
   const staticRoutes = [
     "",
     "/about",
+    "/chapters",
     "/courses",
     "/join",
     // No "/blog": it 308s to /impact now. Listing a redirect wastes crawl

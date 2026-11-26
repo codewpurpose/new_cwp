@@ -153,23 +153,6 @@ const teamMembers: TeamMember[] = [
     bio: "Hey everyone! My name is Aadi Naik. I'm an instructor for Code With Purpose that focuses on med courses. I've been with Code With Purpose for around 6 months and it's definitely taught me many things, such as responsibility and time management. I'm deeply interested in the human body, and I wanted to become an instructor so that I could educate people on it.",
   },
   {
-    name: "Hannah Mauro",
-    role: "Social Media & Design",
-    country: UNITED_STATES,
-    photo: images.team.hannah,
-    photoClass: "object-[50%_8%]",
-    instagram: "https://www.instagram.com/hannah_gm.9045/",
-    bio: "Hi! I assist with media at Code With Purpose. I'm a student researcher interested in neuroscience and abnormal/forensic psychiatry, and have worked with professors from BU and Harvard on research into Parkinson's Disease as well as behavioral economics and neuroscience more broadly. In the future I hope to pursue a career in forensic psychiatry. In my free time I enjoy hanging out with my friends, family, and dogs, playing the violin and guitar, playing volleyball, and dancing.",
-  },
-  {
-    name: "Svanik Thakur",
-    role: "Sponsorship Lead",
-    country: UNITED_STATES,
-    photo: images.team.svanik,
-    linkedin: "https://www.linkedin.com/in/svanik-thakur-0029a5372/",
-    instagram: "https://www.instagram.com/svanikt13/",
-  },
-  {
     name: "Vibhav P",
     role: "Lead Developer",
     country: UNITED_STATES,
@@ -201,14 +184,6 @@ const teamMembers: TeamMember[] = [
     photo: images.team.vetri,
     photoClass: "object-[48%_30%] scale-[1.75] -translate-y-[5%]",
     bio: "Hi, I'm Vetrivel Jagath, a rising freshman with a strong interest in math and medicine, and I'm really interested in helping kids learn.",
-  },
-  {
-    name: "Mithra Diyaa Gobinath",
-    role: "Instructor",
-    country: UNITED_STATES,
-    photo: images.team.mithra,
-    photoClass: "object-[48%_42%] scale-[1.05] translate-y-[14%]",
-    bio: "Hi! I'm Mithra, and I'm interested in robotics, AI, technology, and entrepreneurship. I love building things, trying new ideas, and learning new skills. At Code With Purpose, I'm excited to meet new people, share ideas, and learn from everyone. Outside of that, I enjoy baking, playing volleyball, and spending time with my friends and family.",
   },
   {
     name: "Nehha Ramesh",

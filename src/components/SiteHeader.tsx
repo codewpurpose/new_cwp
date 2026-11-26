@@ -9,7 +9,7 @@ import { isClerkConfigured } from "@/lib/clerk";
 import { DONATE_HREF, HOME_HREF, LOGIN_HREF, NAV_LINKS } from "@/lib/links";
 
 const PRIMARY_NAV_LINKS = NAV_LINKS.filter(({ label }) =>
-  ["Courses", "About Us", "Stories", "Join Us", "India Chapter"].includes(label),
+  ["Courses", "About Us", "Stories", "Join Us", "Chapters"].includes(label),
 );
 const MORE_NAV_LINKS = NAV_LINKS.filter(({ label }) =>
   ["Projects", "Code Playground", "AI Resources", "Media", "Contact"].includes(label),
